@@ -26,7 +26,7 @@ THEME = 'theme/Flex'
 STATIC_PATHS = [('fig'),]
 
 # Flex setting
-SITETITLE = 'Ordinary Days'
+# SITETITLE = 'Ordinary Days'
 SITEDESCRIPTION = u'Not Bad Not Bed'
 SITELOGO = u'https://alrightchiu.github.io/SecondRound/content/fig/antiwar.jpg'
 MAIN_MENU = True
