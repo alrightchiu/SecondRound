@@ -37,8 +37,8 @@ SITELOGO = u'http://alrightchiu.github.io/SecondRound/fig/antiwar.jpg'	# 也弄�
 
 
 MENUITEMS = [
-    ('Archives', '/archives.html'),
-    ('Categories', '/categories.html'),
+    ('Archives', '/SecondRound/archives.html'),
+    ('Categories', '/SecondRound/categories.html'),
     ('Tags', '/tags.html'),
 ]
 
