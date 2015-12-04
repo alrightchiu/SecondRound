@@ -23,7 +23,7 @@ AUTHOR_FEED_RSS = None
 THEME = 'theme/Flex'
 
 # Static path
-STATIC_PATHS = [('fig')]
+STATIC_PATHS = [('fig'),]
 
 # Flex setting
 SITETITLE = 'Ordinary Days'
@@ -43,8 +43,8 @@ MENUITEMS = [
 
 
 # Social widget
-SOCIAL = (('You can add links in your config file', '#'))
-#          ('Another social link', '#'),)
+SOCIAL = (('You can add links in your config file', '#')
+          ('Another social link', '#'),)
 
 DEFAULT_PAGINATION = 10
 
