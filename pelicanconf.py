@@ -10,8 +10,8 @@ PATH = 'content'
 
 TIMEZONE = 'Asia/Taipei'
 
-DEFAULT_LANG = u'en'
-
+#DEFAULT_LANG = u'en'
+DEFAULT_LANG = u'zh-Hant'
 # Feed generation is usually not desired when developing
 FEED_ALL_ATOM = None
 CATEGORY_FEED_ATOM = None
