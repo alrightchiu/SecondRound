@@ -13,8 +13,11 @@ TIMEZONE = 'Asia/Taipei'
 #DEFAULT_LANG = u'en'
 DEFAULT_LANG = u'zh-Hant'
 DEFAULT_DATE = 'fs'
-DEFAULT_DATE_FORMAT = '%b %d, %Y'
-OG_LOCALE = 'zh_TW'
+DEFAULT_DATE_FORMAT = u'%b %d, %Y'
+DATE_FORMATS = {
+    'en': '%a, %d %b %Y',
+}
+OG_LOCALE = u'zh_TW'
 
 # Feed generation is usually not desired when developing
 FEED_ALL_ATOM = None
