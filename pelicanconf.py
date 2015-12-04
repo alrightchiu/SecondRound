@@ -32,7 +32,7 @@ STATIC_PATHS = [('fig'),]
 SITETITLE = SITENAME
 SITESUBTITLE = u'Hey'
 SITEDESCRIPTION = u'Not Bad Not Bed'
-SITELOGO = u'https://alrightchiu.github.io/SecondRound/content/fig/antiwar.jpg'
+SITELOGO = u'/fig/antiwar.jpg'
 
 MENUITEMS = [
     ('Archives', '/archives.html'),
@@ -50,7 +50,7 @@ LINKS = (
 
 # Social widget
 SOCIAL = (
-	('You can add links in your config file', '#'),
+	('facebook', '#'),
     ('Another social link', '#'),
 )
 
