@@ -43,10 +43,10 @@ MENUITEMS = [
 ]
 
 # Blogroll
-LINKS = (
- 	('About', '#'),
-    ('Project', '#'),
-)
+# LINKS = (
+#  	('About', '#'),
+#     ('Project', '#'),
+# )
 
 
 # Social widget
