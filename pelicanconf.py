@@ -22,6 +22,9 @@ AUTHOR_FEED_RSS = None
 # Theme
 THEME = 'theme/Flex'
 
+# Static path
+STATIC_PATHS = ['fig']
+
 # Flex setting
 SITETITLE = 'Ordinary Days'
 SITEDESCRIPTION = 'Not Bad Not Bed'
