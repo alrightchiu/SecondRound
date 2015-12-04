@@ -23,7 +23,7 @@ AUTHOR_FEED_RSS = None
 THEME = 'theme/Flex'
 
 # Static path
-STATIC_PATHS = ['fig']
+STATIC_PATHS = [('fig')]
 
 # Flex setting
 SITETITLE = 'Ordinary Days'
