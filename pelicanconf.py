@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 
 AUTHOR = u'Chiu CC'
 SITENAME = u'Ordinary Days'
-SITEURL = 'http://localhost:8000'
+SITEURL = ''
 
 PATH = 'content'
 
@@ -20,30 +20,27 @@ AUTHOR_FEED_ATOM = None
 AUTHOR_FEED_RSS = None
 
 MAIN_MENU = True
-USE_FOLDER_AS_CATEGORY = True
+#USE_FOLDER_AS_CATEGORY = True
 
 # Theme
 THEME = 'theme/Flex'
 
 # Static path
-STATIC_PATHS = ['fig']
+#STATIC_PATHS = ['fig']
 
 # Flex setting
 SITETITLE = SITENAME
 SITESUBTITLE = u'Hey'
-SITEDESCRIPTION = u'Not Bad Not Bed'
-SITELOGO = u'http://alrightchiu.github.io/SecondRound/fig/antiwar.jpg'
-
-#https://github.com/alrightchiu/SecondRound/blob/master/content/fig/antiwar.jpg
-#https://github.com/Xion/xion.github.io/blob/master/logo.jpeg
-#http://xion.io/logo.jpeg
+#SITEDESCRIPTION = u'Not Bad Not Bed'
+SITELOGO = u'http://alrightchiu.github.io/SecondRound/fig/antiwar.jpg'	# 也弄太久了！！！
 
 
-MENUITEMS = [
-    ('Archives', '/archives.html'),
-    ('Categories', '/categories.html'),
-    ('Tags', '/tags.html'),
-]
+
+# MENUITEMS = [
+#     ('Archives', '/archives.html'),
+#     ('Categories', '/categories.html'),
+#     ('Tags', '/tags.html'),
+# ]
 
 # Blogroll
 LINKS = (
