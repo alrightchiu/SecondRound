@@ -27,8 +27,8 @@ STATIC_PATHS = [('fig'),]
 
 # Flex setting
 SITETITLE = 'Ordinary Days'
-SITEDESCRIPTION = 'Not Bad Not Bed'
-SITELOGO = '/fig/antiwar.jpg'
+SITEDESCRIPTION = u'Not Bad Not Bed'
+SITELOGO = u'/fig/antiwar.jpg'
 MAIN_MENU = True
 MENUITEMS = [
     ('Archives', '/archives.html'),
