@@ -19,6 +19,9 @@ TRANSLATION_FEED_ATOM = None
 AUTHOR_FEED_ATOM = None
 AUTHOR_FEED_RSS = None
 
+MAIN_MENU = True
+USE_FOLDER_AS_CATEGORY = True
+
 # Theme
 THEME = 'theme/Flex'
 
@@ -30,7 +33,7 @@ SITETITLE = SITENAME
 SITESUBTITLE = u'Hey'
 SITEDESCRIPTION = u'Not Bad Not Bed'
 SITELOGO = u'http://alrightchiu.github.io/SecondRound/content/fig/antiwar.jpg'
-MAIN_MENU = True
+
 MENUITEMS = [
     ('Archives', '/archives.html'),
     ('Categories', '/categories.html'),
