@@ -26,7 +26,7 @@ MAIN_MENU = True
 THEME = 'theme/Flex'
 
 # Static path
-#STATIC_PATHS = ['fig']
+STATIC_PATHS = ['fig']
 
 # Flex setting
 SITETITLE = SITENAME
