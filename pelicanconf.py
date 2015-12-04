@@ -24,7 +24,7 @@ THEME = 'theme/Flex'
 
 # Flex setting
 SITETITLE = 'Ordinary Days'
-SITELOGO = "https://github.com/alrightchiu/SecondRound/blob/master/content/fig/antiwar.jpg"
+SITELOGO = 'https://github.com/alrightchiu/SecondRound/blob/master/content/fig/antiwar.jpg'
 MAIN_MENU = True
 MENUITEMS = [
     ('Archives', '/archives.html'),
