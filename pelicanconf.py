@@ -26,7 +26,7 @@ USE_FOLDER_AS_CATEGORY = True
 THEME = 'theme/Flex'
 
 # Static path
-STATIC_PATHS = ['fig',]
+STATIC_PATHS = ['fig']
 
 # Flex setting
 SITETITLE = SITENAME
