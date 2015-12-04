@@ -36,11 +36,11 @@ SITELOGO = u'http://alrightchiu.github.io/SecondRound/fig/antiwar.jpg'	# 也弄�
 
 
 
-MENUITEMS = [
-    ('Archives', '/archives.html'),
-    ('Categories', '/categories.html'),
-    ('Tags', '/tags.html'),
-]
+# MENUITEMS = [
+#     ('Archives', '/archives.html'),
+#     ('Categories', '/categories.html'),
+#     ('Tags', '/tags.html'),
+# ]
 
 # Blogroll
 # LINKS = (
