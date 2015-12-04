@@ -26,7 +26,7 @@ MAIN_MENU = True
 THEME = 'theme/Flex'
 
 # Static path
-STATIC_PATHS = ['fig']
+STATIC_PATHS = ['fig']	# must set this variable to show the logo
 
 # Flex setting
 SITETITLE = SITENAME
@@ -36,17 +36,16 @@ SITELOGO = u'http://alrightchiu.github.io/SecondRound/fig/antiwar.jpg'	# 也弄�
 
 
 
-# MENUITEMS = [
-#     ('Archives', '/archives.html'),
-#     ('Categories', '/categories.html'),
-#     ('Tags', '/tags.html'),
-# ]
+MENUITEMS = [
+    ('Archives', '/archives.html'),
+    ('Categories', '/categories.html'),
+    ('Tags', '/tags.html'),
+]
 
 # Blogroll
 LINKS = (
- 	('Pelican', 'http://getpelican.com/'),
-    ('Python.org', 'http://python.org/'),
-    ('Jinja2', 'http://jinja.pocoo.org/'),
+ 	('About', '#'),
+    ('Project', '#'),
 )
 
 
