@@ -4,3 +4,5 @@ Category: Test1
 Tags: Test
 
 Hello World from Pelican!
+
+try to change the theme
