@@ -31,7 +31,7 @@ STATIC_PATHS = ['fig']	# must set this variable to show the logo
 # Flex setting
 SITETITLE = SITENAME
 SITESUBTITLE = u'Hey'
-#SITEDESCRIPTION = u'Not Bad Not Bed'
+SITEDESCRIPTION = u'Not Bad Not Bed'
 SITELOGO = u'http://alrightchiu.github.io/SecondRound/fig/antiwar.jpg'	# 也弄太久了！！！
 
 
