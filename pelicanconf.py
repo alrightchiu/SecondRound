@@ -32,7 +32,7 @@ STATIC_PATHS = [('fig'),]
 SITETITLE = SITENAME
 SITESUBTITLE = u'Hey'
 SITEDESCRIPTION = u'Not Bad Not Bed'
-SITELOGO = u'http://alrightchiu.github.io/SecondRound/content/fig/antiwar.jpg'
+SITELOGO = u'https://alrightchiu.github.io/SecondRound/content/fig/antiwar.jpg'
 
 MENUITEMS = [
     ('Archives', '/archives.html'),
