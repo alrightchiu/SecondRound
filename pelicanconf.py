@@ -26,7 +26,7 @@ USE_FOLDER_AS_CATEGORY = True
 THEME = 'theme/Flex'
 
 # Static path
-STATIC_PATHS = [('fig'),]
+STATIC_PATHS = ['fig',]
 
 # Flex setting
 SITETITLE = SITENAME
@@ -51,7 +51,7 @@ LINKS = (
 # Social widget
 SOCIAL = (
 	('facebook', '#'),
-    ('Another social link', '#'),
+    ('github', '#'),
 )
 
 DEFAULT_PAGINATION = 10
