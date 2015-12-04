@@ -43,8 +43,10 @@ MENUITEMS = [
 
 
 # Social widget
-SOCIAL = (('You can add links in your config file', '#')
-          ('Another social link', '#'),)
+SOCIAL = (
+	('You can add links in your config file', '#'),
+    ('Another social link', '#'),
+)
 
 DEFAULT_PAGINATION = 10
 
