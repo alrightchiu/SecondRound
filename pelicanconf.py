@@ -15,7 +15,7 @@ DEFAULT_LANG = u'zh-Hant'
 DEFAULT_DATE = 'fs'
 # DEFAULT_DATE_FORMAT = u'%b %d, %Y'
 DATE_FORMATS = {
-    'en': '%a, %d %b %Y',
+    'en': '%b %d, %Y',
 }
 OG_LOCALE = u'zh_TW'
 
