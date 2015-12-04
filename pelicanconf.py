@@ -27,8 +27,9 @@ STATIC_PATHS = [('fig'),]
 
 # Flex setting
 SITETITLE = SITENAME
+SITESUBTITLE = u'Hey'
 SITEDESCRIPTION = u'Not Bad Not Bed'
-SITELOGO = u'https://alrightchiu.github.io/SecondRound/content/fig/antiwar.jpg'
+SITELOGO = u'http://alrightchiu.github.io/SecondRound/content/fig/antiwar.jpg'
 MAIN_MENU = True
 MENUITEMS = [
     ('Archives', '/archives.html'),
