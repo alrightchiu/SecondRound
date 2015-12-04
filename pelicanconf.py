@@ -37,7 +37,7 @@ MENUITEMS = [
 ]
 
 # Blogroll
- LINKS = (
+LINKS = (
  	('Pelican', 'http://getpelican.com/'),
     ('Python.org', 'http://python.org/'),
     ('Jinja2', 'http://jinja.pocoo.org/'),
