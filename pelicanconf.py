@@ -13,7 +13,7 @@ TIMEZONE = 'Asia/Taipei'
 #DEFAULT_LANG = u'en'
 DEFAULT_LANG = u'zh-Hant'
 DEFAULT_DATE = 'fs'
-DEFAULT_DATE_FORMAT = u'%b %d, %Y'
+# DEFAULT_DATE_FORMAT = u'%b %d, %Y'
 DATE_FORMATS = {
     'en': '%a, %d %b %Y',
 }
