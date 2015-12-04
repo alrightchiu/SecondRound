@@ -36,8 +36,8 @@ SITELOGO = u'http://alrightchiu.github.io/SecondRound/fig/antiwar.jpg'	# 也弄�
 
 
 
-MENUITEMS = [
-    ('Archives', 'http://alrightchiu.github.io/SecondRound/archives.html'),
+MENUITEMS = [	# 別人直接用 /archives.html應該是因為 user pages, 總之我要用URL才行, 至少是搞定了
+    ('Archives', 'http://alrightchiu.github.io/SecondRound/archives.html'),	# 也弄太久了！
     ('Categories', 'http://alrightchiu.github.io/SecondRound/categories.html'),
     ('Tags', 'http://alrightchiu.github.io/SecondRound/tags.html'),
 ]
