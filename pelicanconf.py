@@ -20,7 +20,7 @@ AUTHOR_FEED_ATOM = None
 AUTHOR_FEED_RSS = None
 
 MAIN_MENU = True
-#USE_FOLDER_AS_CATEGORY = True
+USE_FOLDER_AS_CATEGORY = True
 
 # Theme
 THEME = 'theme/Flex'
@@ -37,8 +37,8 @@ SITELOGO = u'http://alrightchiu.github.io/SecondRound/fig/antiwar.jpg'	# 也弄�
 
 
 MENUITEMS = [
-    ('Archives', '/SecondRound/archives.html'),
-    ('Categories', '/SecondRound/categories.html'),
+    ('Archives', '/archives.html'),
+    ('Categories', '/categories.html'),
     ('Tags', '/tags.html'),
 ]
 
