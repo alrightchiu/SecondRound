@@ -14,6 +14,7 @@ TIMEZONE = 'Asia/Taipei'
 DEFAULT_LANG = u'zh-Hant'
 DEFAULT_DATE = 'fs'
 DEFAULT_DATE_FORMAT = '%b %d, %Y'
+OG_LOCALE = 'zh_TW'
 
 # Feed generation is usually not desired when developing
 FEED_ALL_ATOM = None
