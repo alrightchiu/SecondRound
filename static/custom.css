@@ -215,7 +215,7 @@ main footer p {
 a.btn {
   background-color: #242121;
   padding: .4em .6em;
-  font-size: .9em;
+  font-size: 7.9em;
   line-height: 1;
   color: #ffffff;
   text-align: center;
@@ -224,7 +224,7 @@ a.btn {
   border-radius: .25em;
 }
 a.btn:hover {
-  background-color: #eeeeee;
+  background-color: #1f451f;
 }
 .center {
   text-align: center;
