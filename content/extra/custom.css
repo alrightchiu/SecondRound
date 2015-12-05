@@ -58,7 +58,7 @@ img {
   max-width: 100%;
 }
 aside {
-  background-color: #2a3a2a;
+  background-color: #333333;
   color: #ffffff;
   text-align: center;
 }
@@ -213,7 +213,7 @@ main footer p {
   background-color: #1f451f;
 }
 a.btn {
-  background-color: #2a3a2a;
+  background-color: #242121;
   padding: .4em .6em;
   font-size: .9em;
   line-height: 1;
@@ -224,7 +224,7 @@ a.btn {
   border-radius: .25em;
 }
 a.btn:hover {
-  background-color: #1f451f;
+  background-color: #eeeeee;
 }
 .center {
   text-align: center;
