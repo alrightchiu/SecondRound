@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 
 AUTHOR = u'Chiu CC'
 SITENAME = u'Ordinary Days'
-SITEURL = ''
+SITEURL = 'http://alrightchiu.github.io/SecondRound/'
 
 PATH = 'content'
 
@@ -14,9 +14,6 @@ TIMEZONE = 'Asia/Taipei'
 DEFAULT_LANG = u'zh-Hant'
 DEFAULT_DATE = 'fs'
 
-DATE_FORMATS = {
-    'en': '%b %d, %Y',
-}
 DEFAULT_DATE_FORMAT = u'%b %d, %Y'
 OG_LOCALE = u'zh_TW'
 
