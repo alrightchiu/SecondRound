@@ -32,10 +32,10 @@ THEME = 'theme/Flex'
 
 # Static path
 STATIC_PATHS = ['fig','extra/custom.css']	# 在 content/ 下建立 extra/custom.css
-EXTRA_PATH_METADATA = {
+EXTRA_PATH_METADATA = {						# 這行我也看不懂, 但是有用
     'extra/custom.css': {'path': 'static/custom.css'},
 }
-CUSTOM_CSS = 'static/custom.css'
+# CUSTOM_CSS = 'static/custom.css'
 
 # Flex setting
 SITETITLE = SITENAME
