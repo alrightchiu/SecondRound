@@ -37,6 +37,8 @@ STATIC_PATHS = ['fig']
 #     'extra/custom.css': {'path': 'static/custom.css'},
 # }
 # CUSTOM_CSS = 'static/custom.css'			# 這行也很重要, 我也不知道為什麼
+# 但是上面幾行可以忽略了，因為可以直接改 theme/Flex/ 內部的所有file，再回到Flex/ 執行 $ git add. & git commit
+# 接著回到 SecondRound/ 執行add. , commit, push, make github
 
 # Flex setting
 SITETITLE = SITENAME
