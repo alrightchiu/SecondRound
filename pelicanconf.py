@@ -31,7 +31,11 @@ USE_FOLDER_AS_CATEGORY = False
 THEME = 'theme/Flex'
 
 # Static path
-STATIC_PATHS = ['fig']	# must set this variable to show the logo
+STATIC_PATHS = ['fig','extra/custom.css']
+EXTRA_PATH_METADATA = {
+    'extra/custom.css': {'path': 'static/custom.css'},
+}
+CUSTOM_CSS = 'static/custom.css'
 
 # Flex setting
 SITETITLE = SITENAME
