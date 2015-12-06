@@ -108,7 +108,7 @@ main nav :first-child {
   border-left: #eeeeee 1px solid;
 }
 main .pagination {
-  margin: 4% 8% 2% 28%;
+  margin: 4% 8% 24% 8%;
 }
 main .social-share p {
   font-size: .8em;
