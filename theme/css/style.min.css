@@ -114,11 +114,11 @@ main article {
 }
 main article header h1,
 main article header h2 {
-  margin-top: 12em;
-  margin-bottom: 0;
+  margin-top: 2em;
+  margin-bottom: 0em;
 }
 main article header p {
-  color: #999999;
+  color: #d9411e;
   font-size: 0.82em;
 }
 main article h2,
