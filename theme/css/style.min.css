@@ -28,7 +28,7 @@ h5 {
   font-size: 1.2em;
 }
 h6 {
-  font-size: 1.2em;
+  font-size: 5.2em;
 }
 body {
   margin: 0;
@@ -40,11 +40,11 @@ body {
   line-height: 1.6em;
 }
 a {
-  color: #d9411e;
+  color: #003b1e;
   text-decoration: none;
 }
 a:hover {
-  color: #1f451f;
+  color: #999999;
 }
 hr {
   color: #eeeeee;
