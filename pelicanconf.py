@@ -60,6 +60,11 @@ LINKS = (
     ('Project', '#'),
 )
 
+CC_LICENSE = {
+    'name': 'Creative Commons Attribution-ShareAlike',
+    'version': '4.0',
+    'slug': 'by-sa'
+}
 
 # Social widget
 SOCIAL = (
