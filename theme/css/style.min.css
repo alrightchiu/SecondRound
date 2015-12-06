@@ -114,11 +114,11 @@ main .social-share p {
   font-size: .8em;
 }
 main article {
-  margin: 0 8% 2% 8%;
+  margin: 0 8% 1% 8%;
 }
 main article header h1,
 main article header h2 {
-  margin-top: 1.5em;
+  margin-top: 1.25em;
   margin-bottom: 0em;
 }
 main article header p {
@@ -128,13 +128,13 @@ main article header p {
 main article h2,
 main article h3 {
   margin-top: 1.5em;
-  margin-bottom: 0.5em;
+  margin-bottom: 0.25em;
 }
 main article h4,
 main article h5,
 main article h6 {
   margin-top: 1.5em;
-  margin-bottom: 0.5em;
+  margin-bottom: 0.25em;
 }
 main article code,
 main article kbd,
@@ -245,8 +245,12 @@ a.btn:hover {
 .center {
   text-align: center;
 }
+.right {
+  text-align: right;
+}
 .float-right {
-  float: right;
+  position: absolute;
+  right: 0em;
 }
 ul.list,
 ul.social {
