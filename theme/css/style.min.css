@@ -47,6 +47,9 @@ a {
 a:hover {
   color: #999999;
 }
+p {
+  margin: 1em auto;
+}
 hr {
   color: #eeeeee;
   background-color: #eeeeee;
@@ -243,8 +246,7 @@ a.btn:hover {
   text-align: center;
 }
 .float-right {
-  position: absolute;
-  right: 0em;
+  float: right;
 }
 ul.list,
 ul.social {
