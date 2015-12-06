@@ -40,7 +40,7 @@ body {
   line-height: 1.6em;
 }
 a {
-  color: #263e26;
+  color: #d9411e;
   text-decoration: none;
 }
 a:hover {
@@ -118,8 +118,8 @@ main article header h2 {
   margin-bottom: 0em;
 }
 main article header p {
-  color: #d9411e;
-  font-size: 0.82em;
+  color: #333333;
+  font-size: 1em;
 }
 main article h2,
 main article h3 {
