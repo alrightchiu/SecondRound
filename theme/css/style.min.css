@@ -108,7 +108,7 @@ main nav :first-child {
   border-left: #eeeeee 1px solid;
 }
 main .pagination {
-  margin: 4% 8% 4% 8%;
+  margin: 4% 8% 2% 8%;
 }
 main .social-share p {
   font-size: .8em;
@@ -204,7 +204,7 @@ main article table td {
   border-top: 1px solid #ddd;
 }
 main footer {
-  padding-top: 1px;
+  padding-top: 1em;
   border-top: #eeeeee 1px solid;
 }
 main footer p {
