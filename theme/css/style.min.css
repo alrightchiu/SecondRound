@@ -118,7 +118,7 @@ main article {
 }
 main article header h1,
 main article header h2 {
-  margin-top: 2em;
+  margin-top: 1.5em;
   margin-bottom: 0em;
 }
 main article header p {
@@ -204,11 +204,11 @@ main article table td {
   border-top: 1px solid #ddd;
 }
 main footer {
-  padding-top: 0.1em;
+  padding-top: 4px;
   border-top: #eeeeee 1px solid;
 }
 main footer p {
-  margin: 2px;
+  margin: 1px;
   text-align: center;
   padding: 0 40px 0 40px;
   color: #999999;
