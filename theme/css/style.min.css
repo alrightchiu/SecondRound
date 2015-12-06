@@ -204,8 +204,8 @@ main article table td {
   border-top: 1px solid #ddd;
 }
 main footer {
-  padding-top: 4px;
-  border-top: #eeeeee 1px solid;
+  padding-top: 2em;
+  border-top: #eeeeee 20px solid;
 }
 main footer p {
   margin: 2px;
