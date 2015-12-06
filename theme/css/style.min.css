@@ -86,7 +86,7 @@ aside div p {
 aside nav ul li {
   display: inline;
   line-height: 1.6em;
-  font-size: 11.32em;
+  font-size: 1.32em;
   text-transform: lowercase;
 }
 main nav {
@@ -114,7 +114,7 @@ main article {
 }
 main article header h1,
 main article header h2 {
-  margin-top: 2em;
+  margin-top: 12em;
   margin-bottom: 0;
 }
 main article header p {
