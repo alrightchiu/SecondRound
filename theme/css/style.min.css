@@ -249,8 +249,7 @@ a.btn:hover {
   text-align: right;
 }
 .float-right {
-  position: absolute;
-  right: 0em;
+  float: right;
 }
 ul.list,
 ul.social {
