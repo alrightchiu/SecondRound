@@ -28,7 +28,7 @@ h5 {
   font-size: 1.2em;
 }
 h6 {
-  font-size: 5.2em;
+  font-size: 1.2em;
 }
 body {
   margin: 0;
@@ -36,8 +36,8 @@ body {
   background-color: #ffffff;
   color: #242121;
   font-family: 'Source Sans Pro', 'Verdana', sans-serif;
-  font-size: 16px;
-  line-height: 1.6em;
+  font-size: 18px;
+  line-height: 1.5em;
 }
 a {
   color: #003b1e;
