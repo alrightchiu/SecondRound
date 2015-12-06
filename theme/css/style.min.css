@@ -204,7 +204,7 @@ main article table td {
   border-top: 1px solid #ddd;
 }
 main footer {
-  padding-top: 1em;
+  padding-top: 0.1em;
   border-top: #eeeeee 1px solid;
 }
 main footer p {
