@@ -122,7 +122,7 @@ main article header h2 {
   margin-bottom: 0em;
 }
 main article header p {
-  color: #2a3a2a;
+  color: #333333;
   font-size: 1em;
 }
 main article h2,
@@ -215,6 +215,7 @@ main footer p {
   font-size: 14px;
 }
 .tag-cloud a {
+  padding-top: 2px;
   background-color: #2a3a2a;
   padding: .2em .6em .2em;
   font-size: .74em;
