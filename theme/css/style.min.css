@@ -35,7 +35,7 @@ body {
   padding: 0;
   background-color: #ffffff;
   color: #242121;
-  font-family: 'Lato', 'Source Sans Pro', 'Verdana', sans-serif;
+  font-family: 'Verdana', 'Lato', 'Source Sans Pro', sans-serif;
   font-size: 18px;
   line-height: 1.5em;
   font-weight: 300;
@@ -144,10 +144,10 @@ main article pre {
 }
 main article blockquote,
 main article pre {
-  background-color: rgba(128,128,128,0.05);
+  background-color: rgba(128, 128, 128, 0.05);
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
-  border-left: 8px solid rgba(128,128,128,0.075);
+  border-left: 8px solid rgba(128, 128, 128, 0.075);
   border-left-width: 10px;
 }
 main article blockquote {
@@ -167,8 +167,8 @@ main article samp {
 }
 main article kbd {
   padding: .1em .6em;
-  border: 1px solid rgba(63,63,63,0.25);
-  box-shadow: 0 1px 0 rgba(63,63,63,0.25);
+  border: 1px solid rgba(63, 63, 63, 0.25);
+  box-shadow: 0 1px 0 rgba(63, 63, 63, 0.25);
   background-color: #fff;
   color: #333;
   border-radius: 3px;
@@ -269,8 +269,8 @@ ul.social li {
 }
 ul.social a:hover {
   z-index: 2;
-  -webkit-transform: translateY(-5px);
-  transform: translateY(-5px);
+  -webkit-transform: translatey(-5px);
+  transform: translatey(-5px);
 }
 ul.social a {
   display: inline-block;
