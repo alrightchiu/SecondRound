@@ -9,7 +9,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-weight: 400;
+  font-weight: 300;
   line-height: 1.1;
 }
 h1 {
@@ -35,10 +35,10 @@ body {
   padding: 0;
   background-color: #ffffff;
   color: #242121;
-  font-family: 'PMingLiU', 'Verdana', 'Lato', 'Source Sans Pro', sans-serif;
+  font-family: 'Verdana', 'Lato', 'Source Sans Pro', sans-serif;
   font-size: 18px;
   line-height: 1.5em;
-  font-weight: 400;
+  font-weight: 300;
 }
 a {
   color: #003b1e;
