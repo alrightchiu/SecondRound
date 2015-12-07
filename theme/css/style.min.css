@@ -35,7 +35,7 @@ body {
   padding: 0;
   background-color: #ffffff;
   color: #242121;
-  font-family: 'Source Sans Pro', 'Verdana', sans-serif;
+  font-family: 'Lato', 'Source Sans Pro', 'Verdana', sans-serif;
   font-size: 18px;
   line-height: 1.5em;
   font-weight: 300;
@@ -96,7 +96,7 @@ aside nav ul li {
 main nav {
   text-align: center;
   text-transform: uppercase;
-  font-size: 1em;
+  font-size: 0.9em;
   padding: 14px 0 14px 0;
   border-bottom: #eeeeee 1px solid;
 }
