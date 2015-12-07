@@ -19,7 +19,7 @@ h2 {
   font-size: 1.6em;
 }
 h3 {
-  font-size: 1.6em;
+  font-size: 0.2em;
 }
 h4 {
   font-size: 1.36em;
@@ -123,7 +123,7 @@ main article header h2 {
 }
 main article header p {
   color: #333333;
-  font-size: 1em;
+  font-size: 0.9em;
 }
 main article h2,
 main article h3 {
