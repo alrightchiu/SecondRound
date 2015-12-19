@@ -56,7 +56,7 @@ MENUITEMS = [	# 別人直接用 /archives.html應該是因為 user pages, 總之
 
 # Blogroll
 LINKS = (
- 	('About', '#'),
+ 	#('About', '#'),
     # ('Project', '#'),
 )
 
