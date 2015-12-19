@@ -4,7 +4,7 @@ Category: Algorithms and Data Structures
 Tags: 今天不寫明天就忘了  
 Summary: haha
 
-####**先備知識與注意事項**
+#####**先備知識與注意事項**
 用array處理樹(Tree)的手法對一個初學者如筆者來說，還暫時僅存在於理論上可行的層次。以下將以指標(pointer)為主做說明。
 
 若熟悉連結串列(Linked List)將會更容易理解樹：Linked list是一維的結構(不是往前、就是往後)，而樹(與圖)則推廣成多維的結構。  
@@ -122,8 +122,10 @@ OK Go.
 
 1. **樹**是由一個或多個節點所組成的有限集合，並且滿足：  
 
+
   1. 存在且只有一個稱為樹根(root)的節點；
   2. 其餘的節點可以分割成任意正整數個(包含零個)互斥(disjoint)的集合：T<sub>1</sub>、...、T<sub>n</sub>，其中每一個集合也都滿足樹的定義，這些集合又稱為這棵樹的**子樹**(subtree)。
+
 
 2. **樹**是由一個或多個nodes/vertices以及edge所組成，而且沒有循環(cycle)的集合(set)。  
 </br>
@@ -149,7 +151,7 @@ class Tree{
 ```
 
 </br>
-###**集合關係**
+##**集合關係**
 
 本篇介紹的樹(Tree)位居承先啟後的重要戰略位置，圖五展示了與樹有關的資料結構的集合關係圖：
 
@@ -170,7 +172,7 @@ class Tree{
 
 
 </br>
-#####**參考資料**：
+######**參考資料**：
 * [Wikipedia：Tree(data structure)](https://en.wikipedia.org/wiki/Tree_%28data_structure%29)
 * [Fundamentals of Data Structures in C++](http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376)
 * [Infinite Loop：【演算】樹 - Tree](http://program-lover.blogspot.tw/2008/12/tree.html)
