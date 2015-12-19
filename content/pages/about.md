@@ -1,9 +1,5 @@
-Title: about
-Date: 2015-12-4 11:23
-Category: Test1
-Tags: Yo
+Title: About
 
 
-haha
+Yo!
 
-why can't I set the SITELOGO?
