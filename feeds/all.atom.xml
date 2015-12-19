@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Ordinary Days</title><link href="http://alrightchiu.github.io/SecondRound/" rel="alternate"></link><link href="http://alrightchiu.github.io/SecondRound/feeds/all.atom.xml" rel="self"></link><id>http://alrightchiu.github.io/SecondRound/</id><updated>2015-12-14T09:27:00+08:00</updated><entry><title>樹(Tree)</title><link href="http://alrightchiu.github.io/SecondRound/shu-tree.html" rel="alternate"></link><updated>2015-12-14T09:27:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2015-12-14:SecondRound/shu-tree.html</id><summary type="html">&lt;h4&gt;&lt;strong&gt;先備知識與注意事項&lt;/strong&gt;&lt;/h4&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Ordinary Days</title><link href="http://alrightchiu.github.io/SecondRound/" rel="alternate"></link><link href="http://alrightchiu.github.io/SecondRound/feeds/all.atom.xml" rel="self"></link><id>http://alrightchiu.github.io/SecondRound/</id><updated>2015-12-14T09:27:00+08:00</updated><entry><title>樹(Tree)</title><link href="http://alrightchiu.github.io/SecondRound/shu-tree.html" rel="alternate"></link><updated>2015-12-14T09:27:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2015-12-14:SecondRound/shu-tree.html</id><summary type="html">&lt;h5&gt;&lt;strong&gt;先備知識與注意事項&lt;/strong&gt;&lt;/h5&gt;
 &lt;p&gt;用array處理樹(Tree)的手法對一個初學者如筆者來說，還暫時僅存在於理論上可行的層次。以下將以指標(pointer)為主做說明。&lt;/p&gt;
 &lt;p&gt;若熟悉連結串列(Linked List)將會更容易理解樹：Linked list是一維的結構(不是往前、就是往後)，而樹(與圖)則推廣成多維的結構。&lt;br /&gt;
 &lt;/br&gt;
@@ -115,7 +115,7 @@ class Tree{
 
 
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
-&lt;h3&gt;&lt;strong&gt;集合關係&lt;/strong&gt;&lt;/h3&gt;
+&lt;h2&gt;&lt;strong&gt;集合關係&lt;/strong&gt;&lt;/h2&gt;
 &lt;p&gt;本篇介紹的樹(Tree)位居承先啟後的重要戰略位置，圖五展示了與樹有關的資料結構的集合關係圖：&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="fig4" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/tree/Set_Graph_Tree_size.png?raw=true" /&gt;&lt;br /&gt;
@@ -129,7 +129,7 @@ class Tree{
 另一個方向，若打破「不能存在cycle」的限制，則從樹推廣至&lt;strong&gt;圖(graph)&lt;/strong&gt;。  &lt;/p&gt;
 &lt;p&gt;在接下來的文章將先以縮小集合的方向依序介紹：Binary Tree、BST、RB Tree，再進入圖(graph)這個更複雜的主題。&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
-&lt;h5&gt;&lt;strong&gt;參考資料&lt;/strong&gt;：&lt;/h5&gt;
+&lt;h6&gt;&lt;strong&gt;參考資料&lt;/strong&gt;：&lt;/h6&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="https://en.wikipedia.org/wiki/Tree_%28data_structure%29"&gt;Wikipedia：Tree(data structure)&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376"&gt;Fundamentals of Data Structures in C++&lt;/a&gt;&lt;/li&gt;
