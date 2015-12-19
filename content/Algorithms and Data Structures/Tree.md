@@ -16,7 +16,9 @@ Summary: haha
 |![圖一][fig1]      |
 | ---               |
 | 圖一：ABC字母排列組合| 
+
 </center>
+
 [fig1]: https://github.com/alrightchiu/SecondRound/tree/master/content/fig/tree/abc_permu1.png
 
 
