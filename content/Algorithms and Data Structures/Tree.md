@@ -19,7 +19,7 @@ Summary: haha
 
 </center>
 
-[fig1]: https://github.com/alrightchiu/SecondRound/tree/master/content/fig/tree/abc_permu1.png
+[fig1]: https://github.com/alrightchiu/SecondRound/master/content/fig/tree/abc_permu1.png
 
 
 圖一的邏輯為：從起點(R)開始，先決定第一個字母，再依序決定第二、第三個字母，並且，在每一次選擇字母時，可能有不止一個可供選擇的字母。最後一共走出六條路徑，得到六種排列組合。若將起點(R)視為樹根(root)，每一個字母選擇的狀態(例如：A、C、BC、CAB)都視為一個節點(node)，這樣的結構便能夠視為一棵樹。
