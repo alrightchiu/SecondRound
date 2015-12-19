@@ -39,7 +39,7 @@ OK Go.&lt;br /&gt;
 &lt;p&gt;下列四種結構中，a、b可以視為樹，而c、d則否：
 &lt;/br&gt;
 &lt;center&gt;&lt;img alt="fig2.a" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/tree/is_Tree_a_size.png?raw=true" /&gt;&lt;br /&gt;
-&lt;strong&gt;圖三.a：若樹的node只有指向左子樹(left subtree)與右子樹(right subtree)時，又稱為二元樹(Binary Tree)。&lt;/strong&gt;&lt;br /&gt;
+&lt;strong&gt;圖三.a：若樹的node只有指向左子樹(left subtree)與右子樹(right subtree)時，又稱為Binary Tree(二元樹)。&lt;/strong&gt;&lt;br /&gt;
 &lt;/br&gt; 
 &lt;img alt="fig2.b" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/tree/is_Tree_b_size.png?raw=true" /&gt;&lt;br /&gt;
 &lt;strong&gt;圖三.b：若樹退化成連結串列(linked list)，仍滿足樹的定義。&lt;/strong&gt;  &lt;br /&gt;
@@ -105,7 +105,6 @@ class Tree{
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h2&gt;&lt;strong&gt;集合關係&lt;/strong&gt;&lt;/h2&gt;
 &lt;p&gt;本篇介紹的樹(Tree)位居承先啟後的重要戰略位置，圖五展示了與樹有關的資料結構的集合關係圖：&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
