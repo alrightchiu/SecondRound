@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Ordinary Days</title><link href="http://alrightchiu.github.io/SecondRound/" rel="alternate"></link><link href="http://alrightchiu.github.io/SecondRound/feeds/all.atom.xml" rel="self"></link><id>http://alrightchiu.github.io/SecondRound/</id><updated>2015-12-14T09:27:00+08:00</updated><entry><title>樹(Tree)</title><link href="http://alrightchiu.github.io/SecondRound/shu-tree.html" rel="alternate"></link><updated>2015-12-14T09:27:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2015-12-14:SecondRound/shu-tree.html</id><summary type="html">&lt;h3&gt;先備知識與注意事項&lt;/h3&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Ordinary Days</title><link href="http://alrightchiu.github.io/SecondRound/" rel="alternate"></link><link href="http://alrightchiu.github.io/SecondRound/feeds/all.atom.xml" rel="self"></link><id>http://alrightchiu.github.io/SecondRound/</id><updated>2015-12-14T09:27:00+08:00</updated><entry><title>樹(Tree)</title><link href="http://alrightchiu.github.io/SecondRound/shu-tree.html" rel="alternate"></link><updated>2015-12-14T09:27:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2015-12-14:SecondRound/shu-tree.html</id><summary type="html">&lt;h4&gt;&lt;strong&gt;先備知識與注意事項&lt;/strong&gt;&lt;/h4&gt;
 &lt;p&gt;用array處理樹(Tree)的手法對一個初學者如筆者來說，還暫時僅存在於理論上可行的層次。以下將以指標(pointer)為主做說明。&lt;/p&gt;
 &lt;p&gt;若熟悉連結串列(Linked List)將會更容易理解樹：Linked list是一維的結構(不是往前、就是往後)，而樹(與圖)則推廣成多維的結構。&lt;br /&gt;
 &lt;/br&gt;
@@ -9,9 +9,10 @@
 &lt;/center&gt; 
 &lt;/br&gt;&lt;/p&gt;
 &lt;p&gt;另外則是用詞翻譯的選擇，為響應兩性平權(feminism)以及使用的頻繁程度，名詞如node/vertex(節點)、edge(邊緣？)、parent(父還是母？)、child(孩子？)、ancestor(祖先？)...皆不做翻譯。  &lt;/p&gt;
-&lt;p&gt;OK Go.&lt;br /&gt;
+&lt;p&gt;&lt;/br&gt;&lt;br /&gt;
+OK Go.&lt;br /&gt;
 &lt;/br&gt;&lt;/p&gt;
-&lt;h3&gt;隨處可見的樹&lt;/h3&gt;
+&lt;h3&gt;&lt;strong&gt;隨處可見的樹&lt;/strong&gt;&lt;/h3&gt;
 &lt;p&gt;&lt;strong&gt;樹&lt;/strong&gt;(Tree)是用以描述具有&lt;strong&gt;階層結構&lt;/strong&gt;(hierarchical structure)的問題的首選，階層結構意味著明確的先後次序，例如，若要印出ABC三個字母的所有排列組合(permutation)，直覺反射的圖像會是：  &lt;/p&gt;
 &lt;p&gt;&lt;center&gt;&lt;br /&gt;
 &lt;img alt="fig1.a" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/tree/abc_permu_size.png?raw=true" /&gt;
@@ -24,7 +25,7 @@
 &lt;p&gt;圖二的邏輯為：從起點(R)開始，先決定第一個字母，再依序決定第二、第三個字母，並且，在每一次選擇字母時，可能有不止一個可供選擇的字母。最後一共走出六條路徑，得到六種排列組合，而且這六種排列方式只能經由一種唯一的選擇方式(唯一的路徑)產生。若將起點(R)視為樹根(root)，每一個字母選擇的狀態(例如：A、C、BC、CAB)都視為一個node，這樣的結構便能夠視為一棵樹。  &lt;/p&gt;
 &lt;p&gt;另外如族譜、官僚企業的職位關係，甚至是更廣義的「從家門口為起點尋找方圓一公里以內的便利商店」都能夠建立出樹的模型。&lt;br /&gt;
 &lt;/br&gt;&lt;/p&gt;
-&lt;h3&gt;那麼，樹最根本的特徵是什麼？&lt;/h3&gt;
+&lt;h3&gt;&lt;strong&gt;那麼，樹最根本的特徵是什麼？&lt;/strong&gt;&lt;/h3&gt;
 &lt;p&gt;以族譜為例，若包龍星是宋世傑的爸爸，那麼包龍星就絕對不能同時又是宋世傑的兒子。圖三以node與edge描述此關係，並定義箭頭是從父指向子，則包龍星指向宋世傑的箭頭表示包為父、宋為子，而宋世傑指向包龍星的箭頭表示宋為父、包為子，這一個箭頭即違反了最初「包龍星是宋世傑的爸爸」的命題，此即稱為cycle，也就是著名的「雞生蛋」與「蛋生雞」。  &lt;/p&gt;
 &lt;p&gt;而樹的最根本特徵就是：&lt;strong&gt;在樹的結構裡，只有一個樹根(root)，並且不存在cycle&lt;/strong&gt;。以此衍生出另外一個特徵：&lt;strong&gt;在樹中若要從root尋找特定node，一定只存在一條路徑(path)。&lt;/strong&gt;  &lt;/p&gt;
 &lt;p&gt;&lt;/br&gt; 
@@ -33,7 +34,7 @@
 &lt;p&gt;&lt;strong&gt;圖三：包龍星若是宋世傑的parent(父)，又同時為其child(子)，即形成cycle。&lt;/strong&gt;
 &lt;/center&gt;
 &lt;/br&gt; &lt;/p&gt;
-&lt;h3&gt;還有哪些結構是樹？&lt;/h3&gt;
+&lt;h3&gt;&lt;strong&gt;還有哪些結構是樹？&lt;/strong&gt;&lt;/h3&gt;
 &lt;p&gt;(若不是樹，皆稱為圖(graph)。)&lt;/p&gt;
 &lt;p&gt;下列四種結構中，a、b可以視為樹，而c、d則否：
 &lt;/br&gt;
@@ -51,11 +52,11 @@
 &lt;strong&gt;圖三.d：一棵樹只能有一個樹根(root)。此圖像又稱為樹林(forest)。&lt;/strong&gt;
 &lt;/center&gt;
 &lt;/br&gt;&lt;/p&gt;
-&lt;h3&gt;用以描述一棵樹的元素&lt;/h3&gt;
+&lt;h3&gt;&lt;strong&gt;用以描述一棵樹的元素&lt;/strong&gt;&lt;/h3&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="fig3" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/tree/general_Tree_size.png?raw=true" /&gt;   &lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖四：這是一棵普通的樹。&lt;/strong&gt;&lt;br /&gt;
-&lt;/center&gt;
+&lt;/center&gt;&lt;br /&gt;
 &lt;/br&gt;&lt;/p&gt;
 &lt;p&gt;配合圖四，以下將介紹在樹中常見的元素，可以用來計算時間複雜度(time complexity)、與同好交流感情，好處不勝枚舉。   &lt;/p&gt;
 &lt;p&gt;針對&lt;strong&gt;node / vertex&lt;/strong&gt;：  &lt;/p&gt;
@@ -77,7 +78,7 @@
 &lt;li&gt;&lt;strong&gt;depth&lt;/strong&gt;：某一node與root之間的edge數。例如，G的depth為2，L的depth為3。&lt;br /&gt;
 &lt;/br&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3&gt;定義&lt;/h3&gt;
+&lt;h3&gt;&lt;strong&gt;定義&lt;/strong&gt;&lt;/h3&gt;
 &lt;p&gt;根據以上範例說明，再配合樹的定義，還不飛上天？  &lt;/p&gt;
 &lt;p&gt;以下列出兩種樹的定義：  &lt;/p&gt;
 &lt;ol&gt;
@@ -95,7 +96,7 @@
 &lt;/br&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;h3&gt;程式碼&lt;/h3&gt;
+&lt;h3&gt;&lt;strong&gt;程式碼&lt;/strong&gt;&lt;/h3&gt;
 &lt;p&gt;實務上，要以程式碼定義一棵樹，常用的手法為：先以class TreeNode(或是struct)定義出node，再以另一個class Tree表示整棵樹，並以root作為樹的存取點：&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;// 以C++為例
 class TreeNode{
@@ -114,7 +115,7 @@ class Tree{
 
 
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
-&lt;h3&gt;集合關係&lt;/h3&gt;
+&lt;h3&gt;&lt;strong&gt;集合關係&lt;/strong&gt;&lt;/h3&gt;
 &lt;p&gt;本篇介紹的樹(Tree)位居承先啟後的重要戰略位置，圖五展示了與樹有關的資料結構的集合關係圖：&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="fig4" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/tree/Set_Graph_Tree_size.png?raw=true" /&gt;&lt;br /&gt;
@@ -128,7 +129,7 @@ class Tree{
 另一個方向，若打破「不能存在cycle」的限制，則從樹推廣至&lt;strong&gt;圖(graph)&lt;/strong&gt;。  &lt;/p&gt;
 &lt;p&gt;在接下來的文章將先以縮小集合的方向依序介紹：Binary Tree、BST、RB Tree，再進入圖(graph)這個更複雜的主題。&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
-&lt;h5&gt;參考資料：&lt;/h5&gt;
+&lt;h5&gt;&lt;strong&gt;參考資料&lt;/strong&gt;：&lt;/h5&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="https://en.wikipedia.org/wiki/Tree_%28data_structure%29"&gt;Wikipedia：Tree(data structure)&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376"&gt;Fundamentals of Data Structures in C++&lt;/a&gt;&lt;/li&gt;
