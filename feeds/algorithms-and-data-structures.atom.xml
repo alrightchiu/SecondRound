@@ -119,7 +119,7 @@ OK Go.&lt;br /&gt;
 另一個方向，若打破「不能存在cycle」的限制，則從樹推廣至&lt;strong&gt;圖(graph)&lt;/strong&gt;。  &lt;/p&gt;
 &lt;p&gt;在接下來的文章將先以縮小集合的方向依序介紹：Binary Tree、BST、RB Tree，再進入圖(graph)這個更複雜的主題。&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
-&lt;h6&gt;#&lt;strong&gt;參考資料&lt;/strong&gt;：&lt;/h6&gt;
+&lt;h6&gt;&lt;strong&gt;參考資料&lt;/strong&gt;：&lt;/h6&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="https://en.wikipedia.org/wiki/Tree_%28data_structure%29"&gt;Wikipedia：Tree(data structure)&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376"&gt;Fundamentals of Data Structures in C++&lt;/a&gt;&lt;/li&gt;
