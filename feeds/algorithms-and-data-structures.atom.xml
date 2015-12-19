@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Ordinary Days</title><link href="http://alrightchiu.github.io/SecondRound/" rel="alternate"></link><link href="http://alrightchiu.github.io/SecondRound/feeds/algorithms-and-data-structures.atom.xml" rel="self"></link><id>http://alrightchiu.github.io/SecondRound/</id><updated>2015-12-14T09:27:00+08:00</updated><entry><title>樹(Tree)</title><link href="http://alrightchiu.github.io/SecondRound/shu-tree.html" rel="alternate"></link><updated>2015-12-14T09:27:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2015-12-14:SecondRound/shu-tree.html</id><summary type="html">&lt;h6&gt;&lt;strong&gt;先備知識與注意事項&lt;/strong&gt;&lt;/h6&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Ordinary Days</title><link href="http://alrightchiu.github.io/SecondRound/" rel="alternate"></link><link href="http://alrightchiu.github.io/SecondRound/feeds/algorithms-and-data-structures.atom.xml" rel="self"></link><id>http://alrightchiu.github.io/SecondRound/</id><updated>2015-12-14T09:27:00+08:00</updated><entry><title>樹(Tree)</title><link href="http://alrightchiu.github.io/SecondRound/shu-tree.html" rel="alternate"></link><updated>2015-12-14T09:27:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2015-12-14:SecondRound/shu-tree.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;h6&gt;&lt;strong&gt;先備知識與注意事項&lt;/strong&gt;&lt;/h6&gt;
 &lt;p&gt;用array處理樹(Tree)的手法對一個初學者如筆者來說，還暫時僅存在於理論上可行的層次。以下將以指標(pointer)為主做說明。&lt;/p&gt;
 &lt;p&gt;若熟悉連結串列(Linked List)將會更容易理解樹：Linked list是一維的結構(不是往前、就是往後)，而樹(與圖)則推廣成多維的結構。&lt;br /&gt;
 &lt;/br&gt;
 &lt;center&gt;&lt;img alt="linkedlist" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/tree/linked_list_size.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖一：A、B、C、D稱為node(節點)，用以代表資料(data)、狀態(state)。&lt;br /&gt;
-連結各個node之間的連結(link)稱為edge，可能是單方向，或者雙向。&lt;/strong&gt;
-&lt;/center&gt; 
-&lt;/br&gt;&lt;/p&gt;
-&lt;p&gt;另外則是用詞翻譯的選擇，為響應兩性平權(feminism)以及使用的頻繁程度，名詞如node/vertex(節點)、edge(邊緣？)、parent(父還是母？)、child(孩子？)、ancestor(祖先？)...皆不做翻譯。  &lt;/p&gt;
-&lt;p&gt;&lt;/br&gt;&lt;br /&gt;
+連結各個node之間的連結(link)稱為edge，可能是單方向，或者雙向。&lt;/strong&gt;&lt;br /&gt;
+&lt;/center&gt;   &lt;/p&gt;
+&lt;p&gt;另外則是用詞翻譯的選擇，為響應兩性平權(feminism)以及使用的頻繁程度，名詞如node/vertex(節點)、edge(邊緣？)、parent(父還是母？)、child(孩子？)、ancestor(祖先？)...皆不做翻譯。&lt;br /&gt;
+&lt;/br&gt;&lt;br /&gt;
 OK Go.&lt;br /&gt;
 &lt;/br&gt;&lt;/p&gt;
 &lt;h2&gt;&lt;strong&gt;隨處可見的樹&lt;/strong&gt;&lt;/h2&gt;
@@ -78,8 +78,8 @@ OK Go.&lt;br /&gt;
 &lt;/br&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2&gt;&lt;strong&gt;定義&lt;/strong&gt;&lt;/h2&gt;
-&lt;p&gt;根據以上範例說明，再配合樹的定義，還不飛上天？  &lt;/p&gt;
-&lt;p&gt;以下列出兩種樹的定義：  &lt;/p&gt;
+&lt;p&gt;根據以上範例說明，再配合樹的定義，還不飛上天？&lt;br /&gt;
+以下列出兩種樹的定義：  &lt;/p&gt;
 &lt;p&gt;A. &lt;strong&gt;樹&lt;/strong&gt;是由一個或多個節點所組成的有限集合，並且滿足：  &lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;存在且只有一個稱為樹根(root)的節點；&lt;/li&gt;
@@ -89,19 +89,19 @@ OK Go.&lt;br /&gt;
 &lt;/br&gt;&lt;/p&gt;
 &lt;h2&gt;&lt;strong&gt;程式碼&lt;/strong&gt;&lt;/h2&gt;
 &lt;p&gt;實務上，要以程式碼定義一棵樹，常用的手法為：先以class TreeNode(或是struct)定義出node，再以另一個class Tree表示整棵樹，並以root作為樹的存取點：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;// 以C++為例
-class TreeNode{
-    TreeNode *leftchild;        // 以下表示每一個node有四個pointer指向child
-    TreeNode *rightchild;
-    TreeNode *whatever;
-    TreeNode *works;
-    int data1;                  // node所攜帶的info
-    double data2;
-    ...
-};
-class Tree{
-    TreeNode *root;         // 以root作為存取整棵樹的起點
-};
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// 以C++為例&lt;/span&gt;
+&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;TreeNode&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;TreeNode&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;leftchild&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;        &lt;span class="c1"&gt;// 以下表示每一個node有四個pointer指向child&lt;/span&gt;
+    &lt;span class="n"&gt;TreeNode&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;rightchild&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;TreeNode&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;whatever&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;TreeNode&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;works&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;data1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;                  &lt;span class="c1"&gt;// node所攜帶的info&lt;/span&gt;
+    &lt;span class="kt"&gt;double&lt;/span&gt; &lt;span class="n"&gt;data2&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;...&lt;/span&gt;
+&lt;span class="p"&gt;};&lt;/span&gt;
+&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Tree&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;TreeNode&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;root&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;         &lt;span class="c1"&gt;// 以root作為存取整棵樹的起點&lt;/span&gt;
+&lt;span class="p"&gt;};&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 

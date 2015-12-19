@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Ordinary Days</title><link href="http://alrightchiu.github.io/SecondRound/" rel="alternate"></link><link href="http://alrightchiu.github.io/SecondRound/feeds/all.atom.xml" rel="self"></link><id>http://alrightchiu.github.io/SecondRound/</id><updated>2015-12-14T09:27:00+08:00</updated><entry><title>樹(Tree)</title><link href="http://alrightchiu.github.io/SecondRound/shu-tree.html" rel="alternate"></link><updated>2015-12-14T09:27:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2015-12-14:SecondRound/shu-tree.html</id><summary type="html">&lt;h6&gt;&lt;strong&gt;先備知識與注意事項&lt;/strong&gt;&lt;/h6&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Ordinary Days</title><link href="http://alrightchiu.github.io/SecondRound/" rel="alternate"></link><link href="http://alrightchiu.github.io/SecondRound/feeds/all.atom.xml" rel="self"></link><id>http://alrightchiu.github.io/SecondRound/</id><updated>2015-12-14T09:27:00+08:00</updated><entry><title>樹(Tree)</title><link href="http://alrightchiu.github.io/SecondRound/shu-tree.html" rel="alternate"></link><updated>2015-12-14T09:27:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2015-12-14:SecondRound/shu-tree.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;h6&gt;&lt;strong&gt;先備知識與注意事項&lt;/strong&gt;&lt;/h6&gt;
 &lt;p&gt;用array處理樹(Tree)的手法對一個初學者如筆者來說，還暫時僅存在於理論上可行的層次。以下將以指標(pointer)為主做說明。&lt;/p&gt;
 &lt;p&gt;若熟悉連結串列(Linked List)將會更容易理解樹：Linked list是一維的結構(不是往前、就是往後)，而樹(與圖)則推廣成多維的結構。&lt;br /&gt;
 &lt;/br&gt;
 &lt;center&gt;&lt;img alt="linkedlist" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/tree/linked_list_size.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖一：A、B、C、D稱為node(節點)，用以代表資料(data)、狀態(state)。&lt;br /&gt;
-連結各個node之間的連結(link)稱為edge，可能是單方向，或者雙向。&lt;/strong&gt;
-&lt;/center&gt; 
-&lt;/br&gt;&lt;/p&gt;
-&lt;p&gt;另外則是用詞翻譯的選擇，為響應兩性平權(feminism)以及使用的頻繁程度，名詞如node/vertex(節點)、edge(邊緣？)、parent(父還是母？)、child(孩子？)、ancestor(祖先？)...皆不做翻譯。  &lt;/p&gt;
-&lt;p&gt;&lt;/br&gt;&lt;br /&gt;
+連結各個node之間的連結(link)稱為edge，可能是單方向，或者雙向。&lt;/strong&gt;&lt;br /&gt;
+&lt;/center&gt;   &lt;/p&gt;
+&lt;p&gt;另外則是用詞翻譯的選擇，為響應兩性平權(feminism)以及使用的頻繁程度，名詞如node/vertex(節點)、edge(邊緣？)、parent(父還是母？)、child(孩子？)、ancestor(祖先？)...皆不做翻譯。&lt;br /&gt;
+&lt;/br&gt;&lt;br /&gt;
 OK Go.&lt;br /&gt;
 &lt;/br&gt;&lt;/p&gt;
 &lt;h2&gt;&lt;strong&gt;隨處可見的樹&lt;/strong&gt;&lt;/h2&gt;
@@ -78,8 +78,8 @@ OK Go.&lt;br /&gt;
 &lt;/br&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2&gt;&lt;strong&gt;定義&lt;/strong&gt;&lt;/h2&gt;
-&lt;p&gt;根據以上範例說明，再配合樹的定義，還不飛上天？  &lt;/p&gt;
-&lt;p&gt;以下列出兩種樹的定義：  &lt;/p&gt;
+&lt;p&gt;根據以上範例說明，再配合樹的定義，還不飛上天？&lt;br /&gt;
+以下列出兩種樹的定義：  &lt;/p&gt;
 &lt;p&gt;A. &lt;strong&gt;樹&lt;/strong&gt;是由一個或多個節點所組成的有限集合，並且滿足：  &lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;存在且只有一個稱為樹根(root)的節點；&lt;/li&gt;
@@ -89,19 +89,19 @@ OK Go.&lt;br /&gt;
 &lt;/br&gt;&lt;/p&gt;
 &lt;h2&gt;&lt;strong&gt;程式碼&lt;/strong&gt;&lt;/h2&gt;
 &lt;p&gt;實務上，要以程式碼定義一棵樹，常用的手法為：先以class TreeNode(或是struct)定義出node，再以另一個class Tree表示整棵樹，並以root作為樹的存取點：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;// 以C++為例
-class TreeNode{
-    TreeNode *leftchild;        // 以下表示每一個node有四個pointer指向child
-    TreeNode *rightchild;
-    TreeNode *whatever;
-    TreeNode *works;
-    int data1;                  // node所攜帶的info
-    double data2;
-    ...
-};
-class Tree{
-    TreeNode *root;         // 以root作為存取整棵樹的起點
-};
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// 以C++為例&lt;/span&gt;
+&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;TreeNode&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;TreeNode&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;leftchild&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;        &lt;span class="c1"&gt;// 以下表示每一個node有四個pointer指向child&lt;/span&gt;
+    &lt;span class="n"&gt;TreeNode&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;rightchild&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;TreeNode&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;whatever&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;TreeNode&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;works&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;data1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;                  &lt;span class="c1"&gt;// node所攜帶的info&lt;/span&gt;
+    &lt;span class="kt"&gt;double&lt;/span&gt; &lt;span class="n"&gt;data2&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;...&lt;/span&gt;
+&lt;span class="p"&gt;};&lt;/span&gt;
+&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Tree&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;TreeNode&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;root&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;         &lt;span class="c1"&gt;// 以root作為存取整棵樹的起點&lt;/span&gt;
+&lt;span class="p"&gt;};&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -127,34 +127,4 @@ class Tree{
 &lt;li&gt;&lt;a href="https://zh.wikipedia.org/wiki/%E4%B9%9D%E5%93%81%E8%8A%9D%E9%BA%BB%E5%AE%98"&gt;Wikipedia：九品芝麻官&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://zh.wikipedia.org/wiki/%E5%AF%A9%E6%AD%BB%E5%AE%98_%281992%E5%B9%B4%E9%9B%BB%E5%BD%B1%29"&gt;Wikipedia：威龍闖天關&lt;/a&gt;  &lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;/br&gt;&lt;/p&gt;</summary><category term="今天不寫明天就忘了"></category></entry><entry><title>font test</title><link href="http://alrightchiu.github.io/SecondRound/font-test.html" rel="alternate"></link><updated>2015-12-07T20:09:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2015-12-07:SecondRound/font-test.html</id><summary type="html">&lt;p&gt;如果&lt;br /&gt;
-“程式設計／腳本／標記語言都是英文的，常見的開源計畫如 Linux 也都是英文的。Branch master set up to track remote branch master from origin.全世界的開發者都在使用英文，為跨國客戶工作的開發者更是被逼得一定要會英文，才能為他們的需求找到解決辦法。
-發現了嗎？英文之於人類，就像二進位之於電腦。
-”&lt;br /&gt;
-why why why why why &lt;br /&gt;
-ㄏ&lt;/p&gt;
-&lt;p&gt;舒潔棉柔舒適&lt;/p&gt;</summary><category term="yoyo"></category></entry><entry><title>不會吧</title><link href="http://alrightchiu.github.io/SecondRound/bu-hui-ba.html" rel="alternate"></link><updated>2015-12-04T23:51:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2015-12-04:SecondRound/bu-hui-ba.html</id><summary type="html">&lt;p&gt;好的
-中文測試&lt;/p&gt;
-&lt;p&gt;字體          間距&lt;/p&gt;
-&lt;p&gt;之類的 如果  是   這樣     的&lt;/p&gt;
-&lt;p&gt;哈哈&lt;/p&gt;
-&lt;p&gt;噢噎&lt;/p&gt;
-&lt;p&gt;煩呦&lt;/p&gt;</summary><category term="這麼巧"></category></entry><entry><title>give me tags.html</title><link href="http://alrightchiu.github.io/SecondRound/give-me-tagshtml.html" rel="alternate"></link><updated>2015-12-04T22:51:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2015-12-04:SecondRound/give-me-tagshtml.html</id><summary type="html">&lt;div class="highlight"&gt;&lt;pre&gt;                    cd
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;c      &lt;br /&gt;
-why why why why why &lt;br /&gt;
-c&lt;/p&gt;</summary><category term="yoyo"></category></entry><entry><title>test2</title><link href="http://alrightchiu.github.io/SecondRound/test2.html" rel="alternate"></link><updated>2015-12-04T11:23:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2015-12-04:SecondRound/test2.html</id><summary type="html">&lt;p&gt;haha&lt;/p&gt;
-&lt;p&gt;why can't I set the SITELOGO?&lt;/p&gt;</summary><category term="Yo"></category></entry><entry><title>step to try</title><link href="http://alrightchiu.github.io/SecondRound/step-to-try.html" rel="alternate"></link><updated>2015-12-03T20:21:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2015-12-03:SecondRound/step-to-try.html</id><summary type="html">&lt;p&gt;Hello World from Pelican!&lt;/p&gt;
-&lt;p&gt;try to change the theme&lt;/p&gt;
-&lt;p&gt;oh &lt;/p&gt;
-&lt;p&gt;it's&lt;/p&gt;
-&lt;p&gt;snow&lt;/p&gt;
-&lt;p&gt;hey oh~&lt;/p&gt;
-&lt;p&gt;when to &lt;/p&gt;
-&lt;p&gt;ha&lt;/p&gt;
-&lt;p&gt;no&lt;/p&gt;
-&lt;p&gt;way
- hello&lt;/p&gt;
-&lt;p&gt;my boy&lt;/p&gt;</summary><category term="Test"></category></entry></feed>
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;</summary><category term="今天不寫明天就忘了"></category></entry></feed>

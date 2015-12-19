@@ -11,11 +11,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="" />
 <meta name="author" content="Chiu CC" />
-<meta name="description" content="介紹資料結構中樹(Tree)的概念" />
+<meta name="description" content="介紹資料結構中樹(Tree)的概念。" />
 <meta name="keywords" content="今天不寫明天就忘了">
 <meta property="og:site_name" content="Ordinary Days"/>
 <meta property="og:title" content="樹(Tree)"/>
-<meta property="og:description" content="介紹資料結構中樹(Tree)的概念"/>
+<meta property="og:description" content="介紹資料結構中樹(Tree)的概念。"/>
 <meta property="og:locale" content="zh_TW"/>
 <meta property="og:url" content="http://alrightchiu.github.io/SecondRound/shu-tree.html"/>
 <meta property="og:type" content="article"/>
@@ -60,17 +60,17 @@
     <p>Posted on 12 14, 2015 in <a href="http://alrightchiu.github.io/SecondRound/category/algorithms-and-data-structures.html">Algorithms and Data Structures</a></p>
   </header>
   <div>
-    <h6><strong>先備知識與注意事項</strong></h6>
+    <p></br></p>
+<h6><strong>先備知識與注意事項</strong></h6>
 <p>用array處理樹(Tree)的手法對一個初學者如筆者來說，還暫時僅存在於理論上可行的層次。以下將以指標(pointer)為主做說明。</p>
 <p>若熟悉連結串列(Linked List)將會更容易理解樹：Linked list是一維的結構(不是往前、就是往後)，而樹(與圖)則推廣成多維的結構。<br />
 </br>
 <center><img alt="linkedlist" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/tree/linked_list_size.png?raw=true" /></p>
 <p><strong>圖一：A、B、C、D稱為node(節點)，用以代表資料(data)、狀態(state)。<br />
-連結各個node之間的連結(link)稱為edge，可能是單方向，或者雙向。</strong>
-</center> 
-</br></p>
-<p>另外則是用詞翻譯的選擇，為響應兩性平權(feminism)以及使用的頻繁程度，名詞如node/vertex(節點)、edge(邊緣？)、parent(父還是母？)、child(孩子？)、ancestor(祖先？)...皆不做翻譯。  </p>
-<p></br><br />
+連結各個node之間的連結(link)稱為edge，可能是單方向，或者雙向。</strong><br />
+</center>   </p>
+<p>另外則是用詞翻譯的選擇，為響應兩性平權(feminism)以及使用的頻繁程度，名詞如node/vertex(節點)、edge(邊緣？)、parent(父還是母？)、child(孩子？)、ancestor(祖先？)...皆不做翻譯。<br />
+</br><br />
 OK Go.<br />
 </br></p>
 <h2><strong>隨處可見的樹</strong></h2>
@@ -139,8 +139,8 @@ OK Go.<br />
 </br></li>
 </ul>
 <h2><strong>定義</strong></h2>
-<p>根據以上範例說明，再配合樹的定義，還不飛上天？  </p>
-<p>以下列出兩種樹的定義：  </p>
+<p>根據以上範例說明，再配合樹的定義，還不飛上天？<br />
+以下列出兩種樹的定義：  </p>
 <p>A. <strong>樹</strong>是由一個或多個節點所組成的有限集合，並且滿足：  </p>
 <ol>
 <li>存在且只有一個稱為樹根(root)的節點；</li>
@@ -150,19 +150,19 @@ OK Go.<br />
 </br></p>
 <h2><strong>程式碼</strong></h2>
 <p>實務上，要以程式碼定義一棵樹，常用的手法為：先以class TreeNode(或是struct)定義出node，再以另一個class Tree表示整棵樹，並以root作為樹的存取點：</p>
-<div class="highlight"><pre>// 以C++為例
-class TreeNode{
-    TreeNode *leftchild;        // 以下表示每一個node有四個pointer指向child
-    TreeNode *rightchild;
-    TreeNode *whatever;
-    TreeNode *works;
-    int data1;                  // node所攜帶的info
-    double data2;
-    ...
-};
-class Tree{
-    TreeNode *root;         // 以root作為存取整棵樹的起點
-};
+<div class="highlight"><pre><span class="c1">// 以C++為例</span>
+<span class="k">class</span> <span class="nc">TreeNode</span><span class="p">{</span>
+    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">leftchild</span><span class="p">;</span>        <span class="c1">// 以下表示每一個node有四個pointer指向child</span>
+    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">rightchild</span><span class="p">;</span>
+    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">whatever</span><span class="p">;</span>
+    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">works</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">data1</span><span class="p">;</span>                  <span class="c1">// node所攜帶的info</span>
+    <span class="kt">double</span> <span class="n">data2</span><span class="p">;</span>
+    <span class="p">...</span>
+<span class="p">};</span>
+<span class="k">class</span> <span class="nc">Tree</span><span class="p">{</span>
+    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">root</span><span class="p">;</span>         <span class="c1">// 以root作為存取整棵樹的起點</span>
+<span class="p">};</span>
 </pre></div>
 
 
@@ -234,7 +234,7 @@ class Tree{
   },
   "image": "http://alrightchiu.github.io/SecondRound/fig/antiwar.jpg",
   "url": "http://alrightchiu.github.io/SecondRound/shu-tree.html",
-  "description": "介紹資料結構中樹(Tree)的概念"
+  "description": "介紹資料結構中樹(Tree)的概念。"
 }
 </script></body>
 </html>
