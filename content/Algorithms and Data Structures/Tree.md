@@ -2,7 +2,7 @@ Title: 樹(Tree)
 Date: 2015-12-14 9:27  
 Category: Algorithms and Data Structures  
 Tags: 今天不寫明天就忘了  
-Summary: haha
+Summary: 介紹資料結構中樹(Tree)的概念
 
 ######**先備知識與注意事項**
 用array處理樹(Tree)的手法對一個初學者如筆者來說，還暫時僅存在於理論上可行的層次。以下將以指標(pointer)為主做說明。
@@ -63,7 +63,7 @@ OK Go.
 下列四種結構中，a、b可以視為樹，而c、d則否：
 </br>
 <center>![fig2.a][example-a]  
-**圖三.a：若樹的node只有指向左子樹(left subtree)與右子樹(right subtree)時，又稱為二元樹(Binary Tree)。**  
+**圖三.a：若樹的node只有指向左子樹(left subtree)與右子樹(right subtree)時，又稱為Binary Tree(二元樹)。**  
 </br> 
 ![fig2.b][example-b]  
 **圖三.b：若樹退化成連結串列(linked list)，仍滿足樹的定義。**    
@@ -146,7 +146,7 @@ class Tree{
 };
 ```
 
-</br>
+
 ##**集合關係**
 
 本篇介紹的樹(Tree)位居承先啟後的重要戰略位置，圖五展示了與樹有關的資料結構的集合關係圖：
