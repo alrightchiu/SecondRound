@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-hant">
+<head>
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" type="text/css" href="http://alrightchiu.github.io/SecondRound/theme/css/style.min.css">
+  <link rel="stylesheet" type="text/css" href="http://alrightchiu.github.io/SecondRound/theme/css/pygments.min.css">
+  <link rel="stylesheet" type="text/css" href="http://alrightchiu.github.io/SecondRound/theme/css/font-awesome.min.css">
+  <link href="http://alrightchiu.github.io/SecondRound/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Ordinary Days Atom">
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+<meta name="author" content="Chiu CC" />
+<meta name="description" content="haha" />
+<meta name="keywords" content="今天不寫明天就忘了">
+<meta property="og:site_name" content="Ordinary Days"/>
+<meta property="og:title" content="樹(Tree)"/>
+<meta property="og:description" content="haha"/>
+<meta property="og:locale" content="zh_TW"/>
+<meta property="og:url" content="http://alrightchiu.github.io/SecondRound/shu-tree.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2015-12-14 09:27:00+08:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="http://alrightchiu.github.io/SecondRound/author/chiu-cc.html">
+<meta property="article:section" content="Algorithms and Data Structures"/>
+<meta property="article:tag" content="今天不寫明天就忘了"/>
+<meta property="og:image" content="http://alrightchiu.github.io/SecondRound/fig/antiwar.jpg">  <title>Ordinary Days &ndash; 樹(Tree)</title>
+</head>
+<body>
+  <aside>
+    <div>
+      <a href="http://alrightchiu.github.io/SecondRound">
+        <img src="http://alrightchiu.github.io/SecondRound/fig/antiwar.jpg" alt="Ordinary Days" title="Ordinary Days">
+      </a>
+      <h1><a href="http://alrightchiu.github.io/SecondRound">Ordinary Days</a></h1>
+      <p>Hey</p>
+      <nav>
+        <ul class="list">
+          <li><a href="http://alrightchiu.github.io/SecondRound/pages/about.html#about">about</a></li>
+        </ul>
+      </nav>
+      <ul class="social">
+        <li><a class="sc-facebook" href="#" target="_blank"><i class="fa fa-facebook"></i></a></li>
+        <li><a class="sc-github" href="#" target="_blank"><i class="fa fa-github"></i></a></li>
+      </ul>
+    </div>
+  </aside>
+  <main>
+    <nav>
+      <a href="http://alrightchiu.github.io/SecondRound">Home</a>
+      <a href="http://alrightchiu.github.io/SecondRound/archives.html">Archives</a>
+      <a href="http://alrightchiu.github.io/SecondRound/categories.html">Categories</a>
+      <a href="http://alrightchiu.github.io/SecondRound/tags.html">Tags</a>
+      <a href="http://alrightchiu.github.io/SecondRound/feeds/all.atom.xml">Atom</a>
+    </nav>
+
+<article>
+  <header>
+    <h1 id="shu-tree">樹(Tree)</h1>
+    <p>Posted on 12 14, 2015 in <a href="http://alrightchiu.github.io/SecondRound/category/algorithms-and-data-structures.html">Algorithms and Data Structures</a></p>
+  </header>
+  <div>
+    <p>先備知識：指標(pointer)與連結串列(Linked List)</p>
+<p>樹(Tree)是用以描述具有階層結構(hierarchical structure)的問題的首選，階層結構意味著明確的先後次序，例如，若要印出ABC三個字母的所有排列組合(permutation)，直覺反射的圖像會是：</p>
+<p><center> <img alt="圖一" src="abc_permu1.png" /> </center>
+<center>圖一：ABC字母排列組合 </p>
+<table>
+<thead>
+<tr>
+<th><img alt="圖一" src="abc_permu1.png" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>圖一：ABC字母排列組合</td>
+</tr>
+<tr>
+<td></center></td>
+</tr>
+</tbody>
+</table>
+<p>圖一的邏輯為：從起點(R)開始，先決定第一個字母，再依序決定第二、第三個字母，並且，在每一次選擇字母時，可能有不止一個可供選擇的字母。最後一共走出六條路徑，得到六種排列組合。若將起點(R)視為樹根(root)，每一個字母選擇的狀態(例如：A、C、BC、CAB)都視為一個節點(node)，這樣的結構便能夠視為一棵樹。</p>
+<p>更精確一點，以下列出兩種樹的定義：<br />
+A. <strong>樹</strong>是由一個或多個節點所組成的有限集合，並且滿足：  </p>
+<ol>
+<li>存在且只有一個稱為樹根(root)的節點；</li>
+<li>其餘的節點可以分割成任意正整數個(包含零個)互斥(disjoint)的集合：T<sub>1</sub>、...、T<sub>n</sub>，其中每一個集合也都滿足樹的定義，這些集合又稱為這棵樹的<strong>子樹</strong>(subtree)。</li>
+</ol>
+<p>B. <strong>樹</strong>是由一個或多個節點(nodes/vertices)以及邊緣(edge)所組成，而且沒有循環(cycle)的資料結構。</p>
+<p>根據以上定義，便能判斷下列四種結構中，a、b可以視為樹，而c、d則否：</p>
+<table>
+<thead>
+<tr>
+<th>圖二</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img alt="圖二.a" src="is_Tree_a.png" /></td>
+</tr>
+<tr>
+<td>a：樹的節點只有指向左子樹與右子樹時，又稱為二元樹(Binary Tree)。</td>
+</tr>
+<tr>
+<td><img alt="圖二.b" src="is_Tree_b.png" /></td>
+</tr>
+<tr>
+<td>b：當樹退化成連結串列(linked list)時，仍滿足樹的定義。</td>
+</tr>
+<tr>
+<td><img alt="圖二.c" src="is_Not_Tree_c.png" /></td>
+</tr>
+<tr>
+<td>c：在F出現循環(cycle)；C-&gt;B-&gt;D-&gt;E出現無向循環(undirected cycle)。後者等價於：D有兩個parent node。</td>
+</tr>
+<tr>
+<td><img alt="圖二.d" src="is_Not_Tree_d.png" /></td>
+</tr>
+<tr>
+<td>d：一棵樹只能有一個樹根(root)。此圖像又稱為樹林(forest)。</td>
+</tr>
+</tbody>
+</table>
+<p>// 接著： 眾多名詞定義，再一張圖</p>
+<p>// 樹的特徵：
+樹中找特定節點一定只有一條路徑</p>
+<p>// 集合關係</p>
+<p>// 圖要再做張比較小的, 不然就學怎麼調size(後者比較實際)</p>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="http://alrightchiu.github.io/SecondRound/tag/jin-tian-bu-xie-ming-tian-jiu-wang-liao.html">今天不寫明天就忘了</a>
+    </p>
+  </div>
+</article>
+
+    <footer>
+<p>
+  &copy; Chiu CC  - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>
+</p>
+<p>Built using <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a></p><p>
+  <a rel="license"
+     href="http://creativecommons.org/licenses/by-sa/4.0/"
+     target="_blank">
+    <img alt="Creative Commons License"
+         title="Creative Commons License"
+         style="border-width:0"
+         src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png"
+         width="80"
+         height="15"/>
+  </a>
+</p>    </footer>
+  </main>
+
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "name": "樹(Tree)",
+  "headline": "樹(Tree)",
+  "datePublished": "2015-12-14 09:27:00+08:00",
+  "dateModified": "",
+  "author": {
+    "@type": "Person",
+    "name": "Chiu CC",
+    "url": "http://alrightchiu.github.io/SecondRound/author/chiu-cc.html"
+  },
+  "image": "http://alrightchiu.github.io/SecondRound/fig/antiwar.jpg",
+  "url": "http://alrightchiu.github.io/SecondRound/shu-tree.html",
+  "description": "haha"
+}
+</script></body>
+</html>
