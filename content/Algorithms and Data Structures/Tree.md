@@ -168,7 +168,7 @@ class Tree{
 
 
 </br>
-#######**參考資料**：
+######**參考資料**：
 * [Wikipedia：Tree(data structure)](https://en.wikipedia.org/wiki/Tree_%28data_structure%29)
 * [Fundamentals of Data Structures in C++](http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376)
 * [Infinite Loop：【演算】樹 - Tree](http://program-lover.blogspot.tw/2008/12/tree.html)
