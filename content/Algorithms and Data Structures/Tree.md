@@ -4,7 +4,7 @@ Category: Algorithms and Data Structures
 Tags: 今天不寫明天就忘了  
 Summary: haha
 
-#####**先備知識與注意事項**
+######**先備知識與注意事項**
 用array處理樹(Tree)的手法對一個初學者如筆者來說，還暫時僅存在於理論上可行的層次。以下將以指標(pointer)為主做說明。
 
 若熟悉連結串列(Linked List)將會更容易理解樹：Linked list是一維的結構(不是往前、就是往後)，而樹(與圖)則推廣成多維的結構。  
@@ -23,7 +23,7 @@ Summary: haha
 OK Go.  
 </br>
 
-###**隨處可見的樹**
+##**隨處可見的樹**
 **樹**(Tree)是用以描述具有**階層結構**(hierarchical structure)的問題的首選，階層結構意味著明確的先後次序，例如，若要印出ABC三個字母的所有排列組合(permutation)，直覺反射的圖像會是：  
 
 <center>  
@@ -43,7 +43,7 @@ OK Go.
 另外如族譜、官僚企業的職位關係，甚至是更廣義的「從家門口為起點尋找方圓一公里以內的便利商店」都能夠建立出樹的模型。  
 </br>
 
-###**那麼，樹最根本的特徵是什麼？**
+##**那麼，樹最根本的特徵是什麼？**
 以族譜為例，若包龍星是宋世傑的爸爸，那麼包龍星就絕對不能同時又是宋世傑的兒子。圖三以node與edge描述此關係，並定義箭頭是從父指向子，則包龍星指向宋世傑的箭頭表示包為父、宋為子，而宋世傑指向包龍星的箭頭表示宋為父、包為子，這一個箭頭即違反了最初「包龍星是宋世傑的爸爸」的命題，此即稱為cycle，也就是著名的「雞生蛋」與「蛋生雞」。  
 
 而樹的最根本特徵就是：**在樹的結構裡，只有一個樹根(root)，並且不存在cycle**。以此衍生出另外一個特徵：**在樹中若要從root尋找特定node，一定只存在一條路徑(path)。**  
@@ -57,7 +57,7 @@ OK Go.
 [cycle]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/tree/cycle_size.png?raw=true
 </br> 
 
-###**還有哪些結構是樹？**
+##**還有哪些結構是樹？**
 (若不是樹，皆稱為圖(graph)。)
 
 下列四種結構中，a、b可以視為樹，而c、d則否：
@@ -82,16 +82,14 @@ OK Go.
 [example-d]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/tree/is_Not_Tree_d_size.png?raw=true
 
 
-###**用以描述一棵樹的元素**
+##**用以描述一棵樹的元素**
  
 <center>
 ![fig3][generalTree]   
 
 **圖四：這是一棵普通的樹。**  
 </center>  
-</br>
 [generalTree]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/tree/general_Tree_size.png?raw=true  
-
 
 配合圖四，以下將介紹在樹中常見的元素，可以用來計算時間複雜度(time complexity)、與同好交流感情，好處不勝枚舉。   
 
@@ -114,23 +112,21 @@ OK Go.
 * **depth**：某一node與root之間的edge數。例如，G的depth為2，L的depth為3。  
 </br>
 
-###**定義**
+##**定義**
 
 根據以上範例說明，再配合樹的定義，還不飛上天？  
 
 以下列出兩種樹的定義：  
 
-1. **樹**是由一個或多個節點所組成的有限集合，並且滿足：  
+A. **樹**是由一個或多個節點所組成的有限集合，並且滿足：  
 
+1. 存在且只有一個稱為樹根(root)的節點；
+2. 其餘的節點可以分割成任意正整數個(包含零個)互斥(disjoint)的集合：T<sub>1</sub>、...、T<sub>n</sub>，其中每一個集合也都滿足樹的定義，這些集合又稱為這棵樹的**子樹**(subtree)。
 
-  1. 存在且只有一個稱為樹根(root)的節點；
-  2. 其餘的節點可以分割成任意正整數個(包含零個)互斥(disjoint)的集合：T<sub>1</sub>、...、T<sub>n</sub>，其中每一個集合也都滿足樹的定義，這些集合又稱為這棵樹的**子樹**(subtree)。
-
-
-2. **樹**是由一個或多個nodes/vertices以及edge所組成，而且沒有循環(cycle)的集合(set)。  
+B. **樹**是由一個或多個nodes/vertices以及edge所組成，而且沒有循環(cycle)的集合(set)。  
 </br>
 
-###**程式碼**
+##**程式碼**
 
 實務上，要以程式碼定義一棵樹，常用的手法為：先以class TreeNode(或是struct)定義出node，再以另一個class Tree表示整棵樹，並以root作為樹的存取點：
 
@@ -172,7 +168,7 @@ class Tree{
 
 
 </br>
-######**參考資料**：
+#######**參考資料**：
 * [Wikipedia：Tree(data structure)](https://en.wikipedia.org/wiki/Tree_%28data_structure%29)
 * [Fundamentals of Data Structures in C++](http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376)
 * [Infinite Loop：【演算】樹 - Tree](http://program-lover.blogspot.tw/2008/12/tree.html)
