@@ -161,7 +161,7 @@ class Tree{
 本篇介紹的樹並沒有限制child/ subtree的個數，理論上可以有多到超過記憶體空間的child node。  
 然而在實務上，較常使用每個node至多只有兩個child的樹，稱為**Binary Tree**(二元樹)。  
 從Binary Tree再增加「鍵值大小規則」，即得到**Binary Search Tree**(BST，二元搜尋樹)。  
-以BST為基礎，在每個node上添加顏色(紅與黑)用以平衡樹的height，以減短搜尋時間，此種樹稱為**Red Black Tree**(RB Tree，紅黑樹)。
+以BST為基礎，在每個node上添加顏色(紅與黑)用以平衡樹的height，以減短搜尋時間，此種樹稱為**Red Black Tree**(RB Tree，紅黑樹)。  
 另一個方向，若打破「不能存在cycle」的限制，則從樹推廣至**圖(graph)**。  
 
 在接下來的文章將先以縮小集合的方向依序介紹：Binary Tree、BST、RB Tree，再進入圖(graph)這個更複雜的主題。
