@@ -4,6 +4,7 @@ Category: Algorithms and Data Structures
 Tags: 今天不寫明天就忘了  
 Summary: 介紹資料結構中樹(Tree)的概念。
 
+
 </br>
 ######**先備知識與注意事項**
 
@@ -23,6 +24,20 @@ Summary: 介紹資料結構中樹(Tree)的概念。
 OK Go.  
 </br>
 
+##目錄
+
+* [隨處可見的樹](#example)  
+* [那麼，樹最根本的特徵是什麼？](#essence)   
+* [還有哪些結構是樹？](#tree_not_tree)  
+* [用以描述一棵樹的元素](#element)  
+* [樹的定義](#definition)  
+* [程式碼](#code)  
+* [集合關係](#set)  
+* [參考資料](#ref)
+
+
+ <a name="example"></a>
+ 
 ##**隨處可見的樹**
 **樹**(Tree)是用以描述具有**階層結構**(hierarchical structure)的問題的首選，階層結構意味著明確的先後次序，例如，若要印出ABC三個字母的所有排列組合(permutation)，直覺反射的圖像會是：  
 
@@ -43,6 +58,7 @@ OK Go.
 另外如族譜、官僚企業的職位關係，甚至是更廣義的「從家門口為起點尋找方圓一公里以內的便利商店」都能夠建立出樹的模型。  
 </br>
 
+ <a name="essence"></a> 
 ##**那麼，樹最根本的特徵是什麼？**
 以族譜為例，若包龍星是宋世傑的爸爸，那麼包龍星就絕對不能同時又是宋世傑的兒子。圖三以node與edge描述此關係，並定義箭頭是從父指向子，則包龍星指向宋世傑的箭頭表示包為父、宋為子，而宋世傑指向包龍星的箭頭表示宋為父、包為子，這一個箭頭即違反了最初「包龍星是宋世傑的爸爸」的命題，此即稱為cycle，也就是著名的「雞生蛋」與「蛋生雞」。  
 
@@ -61,6 +77,7 @@ OK Go.
 [cycle]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/tree/cycle_size.png?raw=true
 </br> 
 
+<a name="tree_not_tree"></a> 
 ##**還有哪些結構是樹？**
 (若不是樹，皆稱為圖(graph)。)
 
@@ -85,7 +102,7 @@ OK Go.
 [example-c]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/tree/is_Not_Tree_c_size.png?raw=true
 [example-d]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/tree/is_Not_Tree_d_size.png?raw=true
 
-
+ <a name="element"></a>
 ##**用以描述一棵樹的元素**
  
 <center>
@@ -116,6 +133,7 @@ OK Go.
 * **depth**：某一node與root之間的edge數。例如，G的depth為2，L的depth為3。  
 </br>
 
+<a name="definition"></a>
 ##**定義**
 
 根據以上範例說明，再配合樹的定義，還不飛上天？  
@@ -129,6 +147,7 @@ A. **樹**是由一個或多個節點所組成的有限集合，並且滿足：
 B. **樹**是由一個或多個nodes/vertices以及edge所組成，而且沒有cycle的集合(set)。  
 </br>
 
+ <a name="code"></a>
 ##**程式碼**
 
 實務上，要以程式碼定義一棵樹，常用的手法為：先以class TreeNode(或是struct)定義出每顆node能夠指向多少subtree、攜帶哪些資料形態，再以另一個class Tree表示整棵樹，並以root作為樹的存取點：
@@ -151,7 +170,7 @@ class Tree{
 };
 ```
 
-
+ <a name="set"></a>
 ##**集合關係**
 
 本篇介紹的樹(Tree)位居承先啟後的戰略位置，圖五展示了與樹有關的資料結構的集合關係圖：
@@ -171,7 +190,7 @@ class Tree{
 
 在接下來的文章將先以縮小集合的方向依序介紹：Binary Tree、BST、RB Tree，再進入圖(graph)這個更複雜的主題。
 
-
+ <a name="ref"></a>
 </br>
 ######**參考資料**：
 * [Wikipedia：Tree(data structure)](https://en.wikipedia.org/wiki/Tree_%28data_structure%29)
