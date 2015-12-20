@@ -19,7 +19,7 @@ h2 {
   font-size: 1.6em;
 }
 h3 {
-  font-size: 1.36em;
+  font-size: 1.5em;
 }
 h4 {
   font-size: 1.36em;
@@ -28,7 +28,7 @@ h5 {
   font-size: 1.2em;
 }
 h6 {
-  font-size: 1.2em;
+  font-size: 1.1em;
 }
 body {
   margin: 0;
@@ -218,7 +218,7 @@ main footer p {
   padding-top: 2px;
   background-color: #2a3a2a;
   padding: .2em .6em .2em;
-  font-size: .74em;
+  font-size: .9em;
   line-height: 1;
   color: #ffffff;
   text-align: center;

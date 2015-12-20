@@ -63,7 +63,7 @@
     <p></br></p>
 <h6><strong>先備知識與注意事項</strong></h6>
 <p>用array處理樹(Tree)的手法對一個初學者如筆者來說，還暫時僅存在於理論上可行的層次。以下將以指標(pointer)為主做說明。</p>
-<p>若熟悉連結串列(Linked List)將會更容易理解樹：Linked list是一維的結構(不是往前、就是往後)，而樹(與圖)則推廣成多維的結構。<br />
+<p>若熟悉連結串列(Linked List)將會更容易理解樹：Linked list是一維的線性結構(不是往前、就是往後)，而樹(與圖)則推廣成多維的結構。<br />
 </br>
 <center><img alt="linkedlist" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/tree/linked_list_size.png?raw=true" /></p>
 <p><strong>圖一：A、B、C、D稱為node(節點)，用以代表資料(data)、狀態(state)。<br />
@@ -88,7 +88,12 @@ OK Go.<br />
 </br></p>
 <h2><strong>那麼，樹最根本的特徵是什麼？</strong></h2>
 <p>以族譜為例，若包龍星是宋世傑的爸爸，那麼包龍星就絕對不能同時又是宋世傑的兒子。圖三以node與edge描述此關係，並定義箭頭是從父指向子，則包龍星指向宋世傑的箭頭表示包為父、宋為子，而宋世傑指向包龍星的箭頭表示宋為父、包為子，這一個箭頭即違反了最初「包龍星是宋世傑的爸爸」的命題，此即稱為cycle，也就是著名的「雞生蛋」與「蛋生雞」。  </p>
-<p>而樹的最根本特徵就是：<strong>在樹的結構裡，只有一個樹根(root)，並且不存在cycle</strong>。以此衍生出另外一個特徵：<strong>在樹中若要從root尋找特定node，一定只存在一條路徑(path)。</strong>  </p>
+<p>而樹的最根本特徵就是：<strong>在樹的結構裡，只有一個樹根(root)，並且不存在cycle</strong>。
+此特徵將衍生出另外兩項等價的性質：</p>
+<ol>
+<li><strong>在樹中若要從root尋找特定node，一定只存在一條路徑(path)。</strong>  </li>
+<li><strong>每個node只會有一個parent。</strong></li>
+</ol>
 <p></br> 
 <center>
 <img alt="cycle" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/tree/cycle_size.png?raw=true" />  </p>
@@ -149,7 +154,7 @@ OK Go.<br />
 <p>B. <strong>樹</strong>是由一個或多個nodes/vertices以及edge所組成，而且沒有循環(cycle)的集合(set)。<br />
 </br></p>
 <h2><strong>程式碼</strong></h2>
-<p>實務上，要以程式碼定義一棵樹，常用的手法為：先以class TreeNode(或是struct)定義出node，再以另一個class Tree表示整棵樹，並以root作為樹的存取點：</p>
+<p>實務上，要以程式碼定義一棵樹，常用的手法為：先以class TreeNode(或是struct)定義出每顆node能夠指向多少subtree、攜帶哪些資料形態，再以另一個class Tree表示整棵樹，並以root作為樹的存取點：</p>
 <div class="highlight"><pre><span class="c1">// 以C++為例</span>
 <span class="k">class</span> <span class="nc">TreeNode</span><span class="p">{</span>
     <span class="n">TreeNode</span> <span class="o">*</span><span class="n">leftchild</span><span class="p">;</span>        <span class="c1">// 以下表示每一個node有四個pointer指向child</span>
@@ -161,13 +166,13 @@ OK Go.<br />
     <span class="p">...</span>
 <span class="p">};</span>
 <span class="k">class</span> <span class="nc">Tree</span><span class="p">{</span>
-    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">root</span><span class="p">;</span>         <span class="c1">// 以root作為存取整棵樹的起點</span>
+    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">root</span><span class="p">;</span>             <span class="c1">// 以root作為存取整棵樹的起點</span>
 <span class="p">};</span>
 </pre></div>
 
 
 <h2><strong>集合關係</strong></h2>
-<p>本篇介紹的樹(Tree)位居承先啟後的重要戰略位置，圖五展示了與樹有關的資料結構的集合關係圖：</p>
+<p>本篇介紹的樹(Tree)位居承先啟後的戰略位置，圖五展示了與樹有關的資料結構的集合關係圖：</p>
 <p><center>
 <img alt="fig4" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/tree/Set_Graph_Tree_size.png?raw=true" /><br />
 <strong>圖五：與樹相關的資料結構之集合關係。</strong>

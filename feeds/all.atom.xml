@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom"><title>Ordinary Days</title><link href="http://alrightchiu.github.io/SecondRound/" rel="alternate"></link><link href="http://alrightchiu.github.io/SecondRound/feeds/all.atom.xml" rel="self"></link><id>http://alrightchiu.github.io/SecondRound/</id><updated>2015-12-14T09:27:00+08:00</updated><entry><title>樹(Tree)</title><link href="http://alrightchiu.github.io/SecondRound/shu-tree.html" rel="alternate"></link><updated>2015-12-14T09:27:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2015-12-14:SecondRound/shu-tree.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h6&gt;&lt;strong&gt;先備知識與注意事項&lt;/strong&gt;&lt;/h6&gt;
 &lt;p&gt;用array處理樹(Tree)的手法對一個初學者如筆者來說，還暫時僅存在於理論上可行的層次。以下將以指標(pointer)為主做說明。&lt;/p&gt;
-&lt;p&gt;若熟悉連結串列(Linked List)將會更容易理解樹：Linked list是一維的結構(不是往前、就是往後)，而樹(與圖)則推廣成多維的結構。&lt;br /&gt;
+&lt;p&gt;若熟悉連結串列(Linked List)將會更容易理解樹：Linked list是一維的線性結構(不是往前、就是往後)，而樹(與圖)則推廣成多維的結構。&lt;br /&gt;
 &lt;/br&gt;
 &lt;center&gt;&lt;img alt="linkedlist" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/tree/linked_list_size.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖一：A、B、C、D稱為node(節點)，用以代表資料(data)、狀態(state)。&lt;br /&gt;
@@ -27,7 +27,12 @@ OK Go.&lt;br /&gt;
 &lt;/br&gt;&lt;/p&gt;
 &lt;h2&gt;&lt;strong&gt;那麼，樹最根本的特徵是什麼？&lt;/strong&gt;&lt;/h2&gt;
 &lt;p&gt;以族譜為例，若包龍星是宋世傑的爸爸，那麼包龍星就絕對不能同時又是宋世傑的兒子。圖三以node與edge描述此關係，並定義箭頭是從父指向子，則包龍星指向宋世傑的箭頭表示包為父、宋為子，而宋世傑指向包龍星的箭頭表示宋為父、包為子，這一個箭頭即違反了最初「包龍星是宋世傑的爸爸」的命題，此即稱為cycle，也就是著名的「雞生蛋」與「蛋生雞」。  &lt;/p&gt;
-&lt;p&gt;而樹的最根本特徵就是：&lt;strong&gt;在樹的結構裡，只有一個樹根(root)，並且不存在cycle&lt;/strong&gt;。以此衍生出另外一個特徵：&lt;strong&gt;在樹中若要從root尋找特定node，一定只存在一條路徑(path)。&lt;/strong&gt;  &lt;/p&gt;
+&lt;p&gt;而樹的最根本特徵就是：&lt;strong&gt;在樹的結構裡，只有一個樹根(root)，並且不存在cycle&lt;/strong&gt;。
+此特徵將衍生出另外兩項等價的性質：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;在樹中若要從root尋找特定node，一定只存在一條路徑(path)。&lt;/strong&gt;  &lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;每個node只會有一個parent。&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
 &lt;p&gt;&lt;/br&gt; 
 &lt;center&gt;
 &lt;img alt="cycle" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/tree/cycle_size.png?raw=true" /&gt;  &lt;/p&gt;
@@ -88,7 +93,7 @@ OK Go.&lt;br /&gt;
 &lt;p&gt;B. &lt;strong&gt;樹&lt;/strong&gt;是由一個或多個nodes/vertices以及edge所組成，而且沒有循環(cycle)的集合(set)。&lt;br /&gt;
 &lt;/br&gt;&lt;/p&gt;
 &lt;h2&gt;&lt;strong&gt;程式碼&lt;/strong&gt;&lt;/h2&gt;
-&lt;p&gt;實務上，要以程式碼定義一棵樹，常用的手法為：先以class TreeNode(或是struct)定義出node，再以另一個class Tree表示整棵樹，並以root作為樹的存取點：&lt;/p&gt;
+&lt;p&gt;實務上，要以程式碼定義一棵樹，常用的手法為：先以class TreeNode(或是struct)定義出每顆node能夠指向多少subtree、攜帶哪些資料形態，再以另一個class Tree表示整棵樹，並以root作為樹的存取點：&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// 以C++為例&lt;/span&gt;
 &lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;TreeNode&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="n"&gt;TreeNode&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;leftchild&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;        &lt;span class="c1"&gt;// 以下表示每一個node有四個pointer指向child&lt;/span&gt;
@@ -100,13 +105,13 @@ OK Go.&lt;br /&gt;
     &lt;span class="p"&gt;...&lt;/span&gt;
 &lt;span class="p"&gt;};&lt;/span&gt;
 &lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Tree&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="n"&gt;TreeNode&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;root&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;         &lt;span class="c1"&gt;// 以root作為存取整棵樹的起點&lt;/span&gt;
+    &lt;span class="n"&gt;TreeNode&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;root&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;             &lt;span class="c1"&gt;// 以root作為存取整棵樹的起點&lt;/span&gt;
 &lt;span class="p"&gt;};&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;h2&gt;&lt;strong&gt;集合關係&lt;/strong&gt;&lt;/h2&gt;
-&lt;p&gt;本篇介紹的樹(Tree)位居承先啟後的重要戰略位置，圖五展示了與樹有關的資料結構的集合關係圖：&lt;/p&gt;
+&lt;p&gt;本篇介紹的樹(Tree)位居承先啟後的戰略位置，圖五展示了與樹有關的資料結構的集合關係圖：&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="fig4" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/tree/Set_Graph_Tree_size.png?raw=true" /&gt;&lt;br /&gt;
 &lt;strong&gt;圖五：與樹相關的資料結構之集合關係。&lt;/strong&gt;
