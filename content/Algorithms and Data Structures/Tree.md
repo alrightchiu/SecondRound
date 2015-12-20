@@ -136,6 +136,9 @@ B. **樹**是由一個或多個nodes/vertices以及edge所組成，而且沒有c
 
 ```cpp
 // 以C++為例
+
+class Tree;
+
 class TreeNode{
 	TreeNode *leftchild;		// 以下表示每一個node有四個pointer指向child
 	TreeNode *rightchild;
@@ -144,6 +147,7 @@ class TreeNode{
 	int data1;					// node所攜帶的info
 	double data2;
 	...
+	friend class Tree;
 };
 class Tree{
 	TreeNode *root;				// 以root作為存取整棵樹的起點
