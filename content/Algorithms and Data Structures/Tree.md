@@ -4,6 +4,7 @@ Category: Algorithms and Data Structures
 Tags: 今天不寫明天就忘了  
 Summary: 介紹資料結構中樹(Tree)的概念。
 
+[TOC]
 </br>
 ######**先備知識與注意事項**
 
