@@ -62,7 +62,7 @@
   <div>
     <p></br></p>
 <h6><strong>先備知識與注意事項</strong></h6>
-<p>用array處理樹(Tree)的手法對一個初學者如筆者來說，還暫時僅存在於理論上可行的層次。以下將以指標(pointer)為主做說明。</p>
+<p>用array處理樹(Tree)的手法對一個初學者如筆者來說，目前似乎只有在處理Heap(堆積)時用上。除此之外，以下將主要以指標(pointer)做說明。</p>
 <p>若熟悉連結串列(Linked List)將會更容易理解樹：Linked list是一維的線性結構(不是往前、就是往後)，而樹(與圖)則推廣成多維的結構。<br />
 </br>
 <center><img alt="linkedlist" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/tree/linked_list_size.png?raw=true" /></p>
@@ -151,7 +151,7 @@ OK Go.<br />
 <li>存在且只有一個稱為樹根(root)的節點；</li>
 <li>其餘的節點可以分割成任意正整數個(包含零個)互斥(disjoint)的集合：T<sub>1</sub>、...、T<sub>n</sub>，其中每一個集合也都滿足樹的定義，這些集合又稱為這棵樹的<strong>子樹</strong>(subtree)。</li>
 </ol>
-<p>B. <strong>樹</strong>是由一個或多個nodes/vertices以及edge所組成，而且沒有循環(cycle)的集合(set)。<br />
+<p>B. <strong>樹</strong>是由一個或多個nodes/vertices以及edge所組成，而且沒有cycle的集合(set)。<br />
 </br></p>
 <h2><strong>程式碼</strong></h2>
 <p>實務上，要以程式碼定義一棵樹，常用的手法為：先以class TreeNode(或是struct)定義出每顆node能夠指向多少subtree、攜帶哪些資料形態，再以另一個class Tree表示整棵樹，並以root作為樹的存取點：</p>
