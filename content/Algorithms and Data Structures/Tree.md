@@ -1,5 +1,5 @@
 Title: 樹(Tree)  
-Date: 2015-12-14 9:27  
+Date: 2015-12-19 20:27  
 Category: Algorithms and Data Structures  
 Tags: 今天不寫明天就忘了  
 Summary: 介紹資料結構中樹(Tree)的概念。
@@ -136,7 +136,6 @@ B. **樹**是由一個或多個nodes/vertices以及edge所組成，而且沒有c
 
 ```cpp
 // 以C++為例
-
 class Tree;
 class TreeNode{
 	TreeNode *leftchild;		// 以下表示每一個node有四個pointer指向child
