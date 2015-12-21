@@ -8,7 +8,7 @@ Summary: 介紹資料結構中樹(Tree)的概念。
 </br>
 ######**先備知識與注意事項**
 
-若熟悉連結串列(Linked List)將會更容易理解樹：Linked list是一維的線性結構(不是往前、就是往後)，而樹(與圖)則推廣成多維的結構。  
+若熟悉Linked List(連結串列)將會更容易理解樹：Linked list是一維的線性結構(不是往前、就是往後)，而樹(與圖)則推廣成多維的結構。  
 </br>
 <center>![linkedlist][linked_list]
 
@@ -87,7 +87,7 @@ Summary: 介紹資料結構中樹(Tree)的概念。
 **圖三.a：若樹的node只有指向左子樹(left subtree)與右子樹(right subtree)時，又稱為Binary Tree(二元樹)。**  
 </br> 
 ![fig2.b][example-b]  
-**圖三.b：若樹退化成連結串列(linked list)，仍滿足樹的定義。**    
+**圖三.b：若樹退化成Linked list(連結串列)，仍滿足樹的定義。**    
 </br>
 ![fig2.c][example-c]  
 **圖三.c：在F出現cycle；C->B->D->E出現undirected cycle，詳見圖論(graph theory)。  
