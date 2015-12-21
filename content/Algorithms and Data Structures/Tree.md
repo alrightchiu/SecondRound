@@ -154,7 +154,7 @@ B. **樹**是由一個或多個nodes/vertices以及edge所組成，而且沒有c
 
 實務上，要以程式碼實作一棵樹，常用的手法為：先以class TreeNode(或是struct)定義出每顆node能夠指向多少subtree、攜帶哪些資料形態，再以另一個class Tree表示整棵樹，並以root作為樹的存取點：
 
-```cpp
+```!cpp
 // 以C++為例
 class Tree;
 class TreeNode{
