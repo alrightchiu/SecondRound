@@ -112,22 +112,24 @@
 &lt;p&gt;&lt;a name="code"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;&lt;strong&gt;程式碼&lt;/strong&gt;&lt;/h2&gt;
 &lt;p&gt;實務上，要以程式碼實作一棵樹，常用的手法為：先以class TreeNode(或是struct)定義出每顆node能夠指向多少subtree、攜帶哪些資料形態，再以另一個class Tree表示整棵樹，並以root作為樹的存取點：&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;!cpp
-// 以C++為例
-class Tree;
-class TreeNode{
-    TreeNode *leftchild;        // 以下表示每一個node有四個pointer指向child
-    TreeNode *rightchild;
-    TreeNode *whatever;
-    TreeNode *works;
-    int data1;                  // node所攜帶的info
-    double data2;
-    ...
-    friend class Tree;
-};
-class Tree{
-    TreeNode *root;             // 以root作為存取整棵樹的起點
-};&lt;/code&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// 以C++為例&lt;/span&gt;
+&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Tree&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;TreeNode&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;TreeNode&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;leftchild&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;        &lt;span class="c1"&gt;// 以下表示每一個node有四個pointer指向child&lt;/span&gt;
+    &lt;span class="n"&gt;TreeNode&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;rightchild&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;TreeNode&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;whatever&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;TreeNode&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;works&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;data1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;                  &lt;span class="c1"&gt;// node所攜帶的info&lt;/span&gt;
+    &lt;span class="kt"&gt;double&lt;/span&gt; &lt;span class="n"&gt;data2&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;...&lt;/span&gt;
+    &lt;span class="k"&gt;friend&lt;/span&gt; &lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Tree&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;};&lt;/span&gt;
+&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Tree&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;TreeNode&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;root&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;             &lt;span class="c1"&gt;// 以root作為存取整棵樹的起點&lt;/span&gt;
+&lt;span class="p"&gt;};&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
 &lt;p&gt;&lt;a name="set"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;&lt;strong&gt;集合關係&lt;/strong&gt;&lt;/h2&gt;
 &lt;p&gt;本篇介紹的樹(Tree)位居承先啟後的戰略位置，圖五展示了與樹有關的資料結構的集合關係圖：&lt;/p&gt;
