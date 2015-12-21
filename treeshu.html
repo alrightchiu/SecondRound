@@ -133,27 +133,29 @@
 <p><a name="element"></a></p>
 <h2><strong>用以描述一棵樹的元素</strong></h2>
 <p><center>
-<img alt="fig3" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/tree/general_Tree_size.png?raw=true" />   </p>
+<img alt="fig3" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree/general_Tree.png?raw=true" />   </p>
 <p><strong>圖四：這是一棵普通的樹。</strong><br />
 </center>  </p>
 <p>配合圖四，以下將介紹在樹中常見的元素，可以用來計算時間複雜度(time complexity)、與同好交流感情，好處不勝枚舉。   </p>
 <p>針對<strong>node / vertex</strong>：  </p>
 <ul>
-<li><strong>degree(分歧度)</strong>：一個node擁有的subtree(子樹)的個數。例如：A的degree為3，G的degree為2，N的degree為0。  </li>
+<li><strong>degree(分歧度)</strong>：一個node擁有的subtree(子樹)的個數。例如：A的degree為3，F的degree為2，N的degree為0。  </li>
 <li><strong>root(樹根)</strong>：樹中最上層的node，也是唯一一個其parent為<strong>NULL</strong>的node。圖四中，A即為root。</li>
-<li><strong>leaf</strong>：沒有child/subtree的node稱為leaf node。圖四中，L、N、H、I皆為leaf node。</li>
+<li><strong>leaf</strong>：沒有child/subtree的node稱為leaf node。圖四中，G、H、J、K、L、M、N皆為leaf node。</li>
+<li><strong>external node</strong>：沒有child的node。因此，leaf node與external node同義。</li>
+<li><strong>internal node</strong>：至少有一個child的node，稱為internal node。圖四中，A、B、C、D、E、F、I皆為internal node。</li>
 </ul>
 <p>針對<strong>樹</strong>：</p>
 <ul>
-<li><strong>parent</strong> &lt;--&gt; <strong>child</strong>：圖四中，A為C的parent，C為A的child；E為L的parent，L為E的child。若以pointer說明，被指向者(pointed)為child，指向者(point to)為parent。</li>
+<li><strong>parent</strong> &lt;--&gt; <strong>child</strong>：圖四中，A為C的parent，C為A的child；E為K的parent，K為E的child。若以pointer說明，被指向者(pointed)為child，指向者(point to)為parent。</li>
 <li><strong>siblings</strong>：擁有相同parent的node們，互相稱兄道弟。例如：B、C、D共同的parent為A。</li>
-<li><strong>descendant(子嗣)</strong>：圖四中，站在A，所有能夠以「尋找child」的方式找到的node，皆稱為A的descendant，因此整棵樹除了A以外皆為A的descendant。站在G，能夠以「parent指向child」找到的node有M、N，則稱M、N為G的descendant。</li>
-<li><strong>ancestor(祖先)</strong>：圖四中，站在L，所有能夠以「尋找parent」的方式找到的node，皆稱為L的ancestor，因此，E、B、A皆為L的ancestor。</li>
-<li><strong>path(路徑)</strong>：由descendant與ancestor關係連結成的edge，例如A-B-E-L、A-C-G-N。</li>
+<li><strong>descendant(子嗣)</strong>：圖四中，站在A，所有能夠以「尋找child」的方式找到的node，皆稱為A的descendant，因此整棵樹除了A以外皆為A的descendant。站在F，能夠以「parent指向child」找到的node有L、M，則稱L、M為F的descendant。</li>
+<li><strong>ancestor(祖先)</strong>：圖四中，站在K，所有能夠以「尋找parent」的方式找到的node，皆稱為K的ancestor，因此，E、B、A皆為K的ancestor。</li>
+<li><strong>path(路徑)</strong>：由descendant與ancestor關係連結成的edge，例如A-B-E-K、A-C-F-N。</li>
 <li><strong>level</strong>：定義root的level為1，其餘node的level為其parent的level加一。</li>
-<li><strong>height of node</strong>：某一node與其descendant leaf node之間的edge數。例如G的height為1，D的height為2，leaf node的height為0。</li>
+<li><strong>height of node</strong>：某一node與其最長path上之descendant leaf node之間的edge數。例如F的height為1，D的height為2，leaf node的height為0。</li>
 <li><strong>height of tree</strong>：樹的height即為root的height，圖四中，樹的height為A的height，等於3。</li>
-<li><strong>depth</strong>：某一node與root之間的edge數。例如，G的depth為2，L的depth為3。<br />
+<li><strong>depth</strong>：某一node與root之間的edge數。例如，F的depth為2，L的depth為3。<br />
 </br></li>
 </ul>
 <p><a name="definition"></a></p>
