@@ -70,7 +70,7 @@
 &lt;ul&gt;
 &lt;li&gt;第&lt;span class="math"&gt;\(i\)&lt;/span&gt;個node的left child之index為 &lt;span class="math"&gt;\(2i\)&lt;/span&gt;；&lt;/li&gt;
 &lt;li&gt;第&lt;span class="math"&gt;\(i\)&lt;/span&gt;個node的right child之index為 &lt;span class="math"&gt;\(2i+1\)&lt;/span&gt;；&lt;/li&gt;
-&lt;li&gt;除了root之parent為NULL之外，第&lt;span class="math"&gt;\(i\)&lt;/span&gt;個node的parent之index為 &lt;span class="math"&gt;\(\lfloor i\over2 \rfloor\)&lt;/span&gt; 。&lt;/li&gt;
+&lt;li&gt;除了root之parent為NULL之外，第&lt;span class="math"&gt;\(i\)&lt;/span&gt;個node的parent之index為 &lt;span class="math"&gt;\(\lfloor {i\over2} \rfloor\)&lt;/span&gt; 。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="Full Binary Tree" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BinaryTree/fullBT.png?raw=true" /&gt;  &lt;/p&gt;
