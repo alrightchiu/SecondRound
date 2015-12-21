@@ -105,7 +105,7 @@
 &lt;p&gt;A. &lt;strong&gt;樹&lt;/strong&gt;是由一個或多個節點所組成的有限集合，並且滿足：  &lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;存在且只有一個稱為樹根(root)的節點；&lt;/li&gt;
-&lt;li&gt;其餘的節點可以分割成任意正整數個(包含零個)互斥(disjoint)的集合：T&lt;sub&gt;1&lt;/sub&gt;、...、T_n，其中每一個集合也都滿足樹的定義，這些集合又稱為這棵樹的&lt;strong&gt;子樹&lt;/strong&gt;(subtree)。&lt;/li&gt;
+&lt;li&gt;其餘的節點可以分割成任意正整數個(包含零個)互斥(disjoint)的集合：T&lt;sub&gt;1&lt;/sub&gt;、...、T_n^，其中每一個集合也都滿足樹的定義，這些集合又稱為這棵樹的&lt;strong&gt;子樹&lt;/strong&gt;(subtree)。&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;B. &lt;strong&gt;樹&lt;/strong&gt;是由一個或多個nodes/vertices以及edge所組成，而且沒有cycle的集合(set)。&lt;br /&gt;
 &lt;/br&gt;&lt;/p&gt;
