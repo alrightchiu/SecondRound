@@ -83,7 +83,7 @@ class Tree{
 
 * 第$i$個node的left child之index為 $2i$；
 * 第$i$個node的right child之index為 $2i+1$；
-* 除了root之parent為NULL之外，第$i$個node的parent之index為 $\lfloor i \over 2 \rfloor$ 。
+* 除了root之parent為NULL之外，第$i$個node的parent之index為 $\lfloor i\over2 \rfloor$ 。
 
 <center>
 ![Full Binary Tree][fullBT]  
