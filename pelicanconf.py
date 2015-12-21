@@ -46,8 +46,16 @@ SITESUBTITLE = u'Hey'
 SITEDESCRIPTION = u'Not Bad Not Bed'
 SITELOGO = u'http://alrightchiu.github.io/SecondRound/fig/antiwar.jpg'	# 也弄太久了！！！
 
-# for code blocks 
+# for code blocks, 增加 line number 
 MD_EXTENSIONS = ['fenced_code', 'codehilite(css_class=highlight, linenums=True)', 'extra']
+
+
+# 使用pelican-plugins
+PLUGIN_PATH = u"pelican-plugins"
+
+#顯示數學式
+PLUGINS = [ "render_math"]
+
 
 MENUITEMS = [	# 別人直接用 /archives.html應該是因為 user pages, 總之我要用URL才行, 至少是搞定了
     ('Archives', 'http://alrightchiu.github.io/SecondRound/archives.html'),	# 也弄太久了！
