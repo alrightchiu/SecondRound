@@ -51,10 +51,10 @@ MD_EXTENSIONS = ['fenced_code', 'codehilite(css_class=highlight, linenums=True)'
 
 
 # 使用pelican-plugins
-PLUGIN_PATH = u"pelican-plugins"
+PLUGIN_PATHS = u'pelican-plugins'
 
 #顯示數學式
-PLUGINS = [ "render_math"]
+PLUGINS = [ 'render_math']
 
 
 MENUITEMS = [	# 別人直接用 /archives.html應該是因為 user pages, 總之我要用URL才行, 至少是搞定了
