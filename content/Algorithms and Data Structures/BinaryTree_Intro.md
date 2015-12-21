@@ -2,7 +2,7 @@ Title: Binary Tree: Intro
 Date: 2015-12-21 22:24  
 Category: Algorithms and Data Structures  
 Tags: 今天不寫明天就忘了  
-Summary: 介紹資料結構中Binary Tree的概念。
+Summary: 介紹Binary Tree的基本概念。
 
 
 
