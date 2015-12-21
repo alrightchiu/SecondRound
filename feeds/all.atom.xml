@@ -105,7 +105,7 @@
 &lt;p&gt;A. &lt;strong&gt;樹&lt;/strong&gt;是由一個或多個節點所組成的有限集合，並且滿足：  &lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;存在且只有一個稱為樹根(root)的節點；&lt;/li&gt;
-&lt;li&gt;其餘的節點可以分割成任意正整數個(包含零個)互斥(disjoint)的集合：T&lt;sub&gt;1&lt;/sub&gt;、...、T_n^，其中每一個集合也都滿足樹的定義，這些集合又稱為這棵樹的&lt;strong&gt;子樹&lt;/strong&gt;(subtree)。&lt;/li&gt;
+&lt;li&gt;其餘的節點可以分割成任意正整數個(包含零個)互斥(disjoint)的集合：T&lt;sub&gt;1&lt;/sub&gt;、...、&lt;span class="math"&gt;\(T_n^\)&lt;/span&gt;，其中每一個集合也都滿足樹的定義，這些集合又稱為這棵樹的&lt;strong&gt;子樹&lt;/strong&gt;(subtree)。&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;B. &lt;strong&gt;樹&lt;/strong&gt;是由一個或多個nodes/vertices以及edge所組成，而且沒有cycle的集合(set)。&lt;br /&gt;
 &lt;/br&gt;&lt;/p&gt;
@@ -168,4 +168,61 @@
 &lt;li&gt;&lt;a href="https://zh.wikipedia.org/wiki/%E4%B9%9D%E5%93%81%E8%8A%9D%E9%BA%BB%E5%AE%98"&gt;Wikipedia：九品芝麻官&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://zh.wikipedia.org/wiki/%E5%AF%A9%E6%AD%BB%E5%AE%98_%281992%E5%B9%B4%E9%9B%BB%E5%BD%B1%29"&gt;Wikipedia：威龍闖天關&lt;/a&gt;  &lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;/br&gt;&lt;/p&gt;</summary><category term="今天不寫明天就忘了"></category></entry></feed>
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;script type="text/javascript"&gt;if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width &lt; 768) ? "left" : align;
+        indent = (screen.width &lt; 768) ? "0em" : indent;
+        linebreak = (screen.width &lt; 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' &amp;&amp; location_protocol !== 'https') location_protocol = 'https:';
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+&lt;/script&gt;</summary><category term="今天不寫明天就忘了"></category></entry></feed>
