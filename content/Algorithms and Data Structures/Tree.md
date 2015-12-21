@@ -5,12 +5,6 @@ Tags: 今天不寫明天就忘了
 Summary: 介紹資料結構中樹(Tree)的概念。
 
 
-Here is an in-line equation $\sqrt{3x-1}+(1+x)^2$ in the body of the text.
- 
-\begin{equation*}
-n = 2^{k+1}-1
-\end{equation*}
-
 </br>
 ######**先備知識與注意事項**
 
