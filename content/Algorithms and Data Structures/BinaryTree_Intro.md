@@ -105,7 +105,7 @@ class Tree{
 
 **圖四：這是一棵Complete Binary Tree。**
 </center>  
-[complBT]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BinaryTree/non_complBT.png?raw=true
+[complBT]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BinaryTree/complBT.png?raw=true
 
 圖五中共有11個node，但是第11個node(K)應該要是第5個node(E)的child，因此，此樹並非Complete Binary Tree。
 
@@ -116,7 +116,6 @@ class Tree{
 </center>
 </br> 
 [non_complBT]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BinaryTree/non_complBT.png?raw=true
-
  <a name="application"></a>
 
 ##**學習Binary Tree的未來出路**
