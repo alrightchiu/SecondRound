@@ -19,9 +19,9 @@ Summary: 介紹資料結構中樹(Tree)的概念。
 [linked_list]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/tree/linked_list_size.png?raw=true
 
 
-另外則是用詞翻譯的選擇，為響應兩性平權(feminism)以及使用的頻繁程度，名詞如node/vertex(節點)、edge(邊緣？)、parent(父還是母？)、child(孩子？)、ancestor(祖先？)...皆不做翻譯。  
+另外則是用詞翻譯的選擇，為響應兩性平權(feminism)以及使用的頻繁程度，名詞如node/vertex(節點)、edge(邊緣？)、parent(父還是母？)、child(孩子？)、ancestor(祖先？)...皆視為專有名詞，不做翻譯。因此文句中會出現中英夾雜的情況，敬請見諒。  
 </br>  
-OK Go.  
+[OK Go](https://www.youtube.com/watch?v=u1ZB_rGFyeU).  
 </br>
 
 ##目錄
@@ -150,7 +150,7 @@ B. **樹**是由一個或多個nodes/vertices以及edge所組成，而且沒有c
  <a name="code"></a>
 ##**程式碼**
 
-實務上，要以程式碼定義一棵樹，常用的手法為：先以class TreeNode(或是struct)定義出每顆node能夠指向多少subtree、攜帶哪些資料形態，再以另一個class Tree表示整棵樹，並以root作為樹的存取點：
+實務上，要以程式碼實作一棵樹，常用的手法為：先以class TreeNode(或是struct)定義出每顆node能夠指向多少subtree、攜帶哪些資料形態，再以另一個class Tree表示整棵樹，並以root作為樹的存取點：
 
 ```cpp
 // 以C++為例
@@ -200,9 +200,3 @@ class Tree{
 * [Wikipedia：威龍闖天關](https://zh.wikipedia.org/wiki/%E5%AF%A9%E6%AD%BB%E5%AE%98_%281992%E5%B9%B4%E9%9B%BB%E5%BD%B1%29)  
 
 </br>
-
-
-
-
-
-
