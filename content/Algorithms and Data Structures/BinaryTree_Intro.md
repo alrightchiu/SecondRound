@@ -88,7 +88,7 @@ class Tree{
 <center>
 ![Full Binary Tree][fullBT]  
 
-**圖三：若一棵Full Binary Tree的leaf node之level為n，整棵樹共有2<sup>n</sup>-1個node。**  
+**圖三：若一棵Full Binary Tree的leaf node之level為$n$，整棵樹共有$2^n-1$個node。**  
 </center>   
 [fullBT]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BinaryTree/fullBT.png?raw=true  
 
