@@ -1,7 +1,175 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Ordinary Days</title><link href="http://alrightchiu.github.io/SecondRound/" rel="alternate"></link><link href="http://alrightchiu.github.io/SecondRound/feeds/algorithms-and-data-structures.atom.xml" rel="self"></link><id>http://alrightchiu.github.io/SecondRound/</id><updated>2015-12-19T20:27:00+08:00</updated><entry><title>Tree(樹)</title><link href="http://alrightchiu.github.io/SecondRound/treeshu.html" rel="alternate"></link><updated>2015-12-19T20:27:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2015-12-19:SecondRound/treeshu.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Ordinary Days</title><link href="http://alrightchiu.github.io/SecondRound/" rel="alternate"></link><link href="http://alrightchiu.github.io/SecondRound/feeds/algorithms-and-data-structures.atom.xml" rel="self"></link><id>http://alrightchiu.github.io/SecondRound/</id><updated>2015-12-21T22:24:00+08:00</updated><entry><title>Binary Tree: Intro</title><link href="http://alrightchiu.github.io/SecondRound/binary-tree-intro.html" rel="alternate"></link><updated>2015-12-21T22:24:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2015-12-21:SecondRound/binary-tree-intro.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h6&gt;&lt;strong&gt;先備知識與注意事項&lt;/strong&gt;&lt;/h6&gt;
-&lt;p&gt;若熟悉連結串列(Linked List)將會更容易理解樹：Linked list是一維的線性結構(不是往前、就是往後)，而樹(與圖)則推廣成多維的結構。&lt;br /&gt;
+&lt;p&gt;接續上一篇談到的&lt;a href="http://alrightchiu.github.io/SecondRound/treeshu.html"&gt;Tree(樹)&lt;/a&gt;，這篇文章將介紹樹這個大集合裡的其中一支大宗：&lt;strong&gt;Binary Tree&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;學海無涯，快點跳海。
+&lt;/br&gt;&lt;/p&gt;
+&lt;h2&gt;目錄&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="#bt"&gt;Binary Tree&lt;/a&gt; &lt;/li&gt;
+&lt;li&gt;&lt;a href="#code"&gt;程式碼&lt;/a&gt;   &lt;/li&gt;
+&lt;li&gt;&lt;a href="#fullcomplete"&gt;Full &amp;amp; Complete Binary Tree&lt;/a&gt; &lt;/li&gt;
+&lt;li&gt;&lt;a href="#application"&gt;學習Binary Tree的未來出路&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#ref"&gt;參考資料&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a name="bt"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;&lt;strong&gt;Binary Tree&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;最廣義的樹(Tree)對於樹上的node之child數目沒有限制，因此，每個node可以有多個child。&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;&lt;br /&gt;
+&lt;img alt="general_tree" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BinaryTree/general_tree.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖一：這是一棵樹(Tree)&lt;/strong&gt;
+&lt;/center&gt;  &lt;/p&gt;
+&lt;p&gt;若限制node只能有兩個child，等價於「樹上的每一個node之degree皆為2」，此即稱為&lt;strong&gt;Binary Tree&lt;/strong&gt;(二元樹)，並稱兩個child pointer為left child和right-child。&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;&lt;br /&gt;
+&lt;img alt="binary_tree" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BinaryTree/binary_tree.png?raw=true" /&gt; &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖二：這是一棵Binary Tree。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a name="code"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;&lt;strong&gt;程式碼&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;修改在&lt;a href="http://alrightchiu.github.io/SecondRound/treeshu.html#code"&gt;Tree(樹)&lt;/a&gt;提供的程式實作方式，將node的child pointer設為left child與right child，以滿足Binary Tree的形式。&lt;br /&gt;
+另外，在class TreeNode有個&lt;code&gt;TreeNode *parent&lt;/code&gt;，顧名思義，即是指向該node之parent的pointer，以圖二為例，B的parent pointer即指向A。&lt;br /&gt;
+加入parent(又稱為field)的威力要在對樹的操作(operaion)如inorder traversal(中序尋訪)、node deletion(刪除node)、以及任何需要back tracing(回溯路徑)的操作時，會更顯眼。&lt;/p&gt;
+&lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt; 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// 以C++為例&lt;/span&gt;
+&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Tree&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;TreeNode&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;TreeNode&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;leftchild&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;         
+    &lt;span class="n"&gt;TreeNode&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;rightchild&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;       
+    &lt;span class="n"&gt;TreeNode&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;           
+    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;data1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;                  
+    &lt;span class="kt"&gt;double&lt;/span&gt; &lt;span class="n"&gt;data2&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;...&lt;/span&gt;
+    &lt;span class="k"&gt;friend&lt;/span&gt; &lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Tree&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;};&lt;/span&gt;
+&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Tree&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;TreeNode&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;root&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;             &lt;span class="c1"&gt;// 以root作為存取整棵樹的起點&lt;/span&gt;
+&lt;span class="p"&gt;};&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+
+&lt;p&gt;&lt;a name="fullcomplete"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;&lt;strong&gt;Full &amp;amp; Complete Binary Tree&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;有兩類Binary Tree十分常見，分別為&lt;strong&gt;Full Binary Tree&lt;/strong&gt;以及&lt;strong&gt;Complete Binary Tree&lt;/strong&gt;。&lt;br /&gt;
+(完滿二元樹？完整二元樹？我的建議是當作專有名詞不要翻譯。) &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;A. Full Binary Tree&lt;/strong&gt;:  &lt;/p&gt;
+&lt;p&gt;如圖三所示，若所有internal node都有兩個subtree，leaf node具有相同的level(或height)，則稱此為&lt;strong&gt;Full Binary Tree&lt;/strong&gt;(或稱作Perfect Binary Tree)。&lt;br /&gt;
+因此，若一棵Full Binary Tree的leaf node之level為&lt;span class="math"&gt;\(n\)&lt;/span&gt;，整棵樹共有&lt;span class="math"&gt;\(2^n-1\)&lt;/span&gt;個node。leaf node的level為4， 整棵樹共有15個node。&lt;br /&gt;
+並且，每個node與其child有以下關係：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;第&lt;span class="math"&gt;\(i\)&lt;/span&gt;個node的left child之index為 &lt;span class="math"&gt;\(2i\)&lt;/span&gt;；&lt;/li&gt;
+&lt;li&gt;第&lt;span class="math"&gt;\(i\)&lt;/span&gt;個node的right child之index為 &lt;span class="math"&gt;\(2i+1\)&lt;/span&gt;；&lt;/li&gt;
+&lt;li&gt;除了root之parent為NULL之外，第&lt;span class="math"&gt;\(i\)&lt;/span&gt;個node的parent之index為 &lt;span class="math"&gt;\(\lfloor i \over 2 \rfloor\)&lt;/span&gt; 。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="Full Binary Tree" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BinaryTree/fullBT.png?raw=true" /&gt;  &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖三：若一棵Full Binary Tree的leaf node之level為n，整棵樹共有2&lt;sup&gt;n&lt;/sup&gt;-1個node。&lt;/strong&gt;&lt;br /&gt;
+&lt;/center&gt;   &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;B. Complete Binary Tree&lt;/strong&gt;:&lt;/p&gt;
+&lt;p&gt;若一棵樹的node按照Full Binary Tree的次序排列(由上至下，由左至右)，則稱此樹為&lt;strong&gt;Complete Binary Tree&lt;/strong&gt;。  &lt;/p&gt;
+&lt;p&gt;以圖四及圖五作說明。&lt;br /&gt;
+圖四中共有10個node，且這十個node正好填滿Full Binary Tree的前十個位置，則此樹為Complete Binary Tree。  &lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="Complete Binary Tree" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BinaryTree/non_complBT.png?raw=true" /&gt;  &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖四：這是一棵Complete Binary Tree。&lt;/strong&gt;
+&lt;/center&gt;  &lt;/p&gt;
+&lt;p&gt;圖五中共有11個node，但是第11個node(K)應該要是第5個node(E)的child，因此，此樹並非Complete Binary Tree。&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="Not Complete Binary Tree" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BinaryTree/non_complBT.png?raw=true" /&gt;  &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖五：這不是一棵Complete Binary Tree。&lt;/strong&gt;
+&lt;/center&gt;
+&lt;/br&gt; &lt;/p&gt;
+&lt;p&gt;&lt;a name="application"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;&lt;strong&gt;學習Binary Tree的未來出路&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;如果有家長擔心小孩子學了Binary Tree之後對未來的出路沒有幫助，這裡有&lt;a href="http://stackoverflow.com/questions/2130416/what-are-the-applications-of-binary-trees"&gt;網路神人在StackOverFlow&lt;/a&gt;開示，以下簡單翻譯幾項Binary Tree的應用：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Binary Search Tree(BST)：在某些資料經常要增加、刪除的應用中，BST常用來做搜尋，例如許多程式語言的Library中的&lt;code&gt;map&lt;/code&gt;和&lt;code&gt;set&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;Binary Space Partition：應用於幾乎所有的3D電玩遊戲以決定哪些物件需要呈現(rendered)。&lt;/li&gt;
+&lt;li&gt;Binary Tries：應用於大多數高頻寬路由器(high-bandwidth router)以儲存router-tables。&lt;/li&gt;
+&lt;li&gt;Heaps：用以實現高效率的priority queues(優先權佇列)，許多作業系統用來安排工作程序。&lt;/li&gt;
+&lt;li&gt;Huffman Coding Tree：例如.jpeg、.mp3等壓縮技術皆使用Huffman編碼。(在一顆20MB的硬碟要價新台幣一萬元的時代，壓縮技術就是救世主。)  &lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;還有一些其他應用翻出來更慘，所以先不翻。不過大致可以體會到Binary Tree是許多進階應用的基礎，學會了幾乎是治病強身。&lt;br /&gt;
+接下來將會介紹Binary Tree(以及往後主題)中最基本的操作：traversal(尋訪)，顧名思義，就是如何在樹中移動，有了traversal之後再進一步探討搜尋(search)、新增node(insertion)、刪除node(deletion)、排序(sorting)會更加容易。&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;
+&lt;a name="ref"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h6&gt;&lt;strong&gt;參考資料&lt;/strong&gt;：&lt;/h6&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://en.wikipedia.org/wiki/Binary_tree"&gt;Wikipedia：Binary tree&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376"&gt;Fundamentals of Data Structures in C++&lt;/a&gt;  &lt;/li&gt;
+&lt;li&gt;&lt;a href="http://stackoverflow.com/questions/2130416/what-are-the-applications-of-binary-trees"&gt;What are the applications of binary trees?&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;script type="text/javascript"&gt;if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width &lt; 768) ? "left" : align;
+        indent = (screen.width &lt; 768) ? "0em" : indent;
+        linebreak = (screen.width &lt; 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' &amp;&amp; location_protocol !== 'https') location_protocol = 'https:';
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+&lt;/script&gt;</summary><category term="今天不寫明天就忘了"></category></entry><entry><title>Tree(樹)</title><link href="http://alrightchiu.github.io/SecondRound/treeshu.html" rel="alternate"></link><updated>2015-12-19T20:27:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2015-12-19:SecondRound/treeshu.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;h6&gt;&lt;strong&gt;先備知識與注意事項&lt;/strong&gt;&lt;/h6&gt;
+&lt;p&gt;若熟悉Linked List(連結串列)將會更容易理解樹：Linked list是一維的線性結構(不是往前、就是往後)，而樹(與圖)則推廣成多維的結構。&lt;br /&gt;
 &lt;/br&gt;
 &lt;center&gt;&lt;img alt="linkedlist" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree/linked_list_size.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖一：A、B、C、D稱為node(節點)，用以代表資料(data)、狀態(state)。&lt;br /&gt;
@@ -60,7 +228,7 @@
 &lt;strong&gt;圖三.a：若樹的node只有指向左子樹(left subtree)與右子樹(right subtree)時，又稱為Binary Tree(二元樹)。&lt;/strong&gt;&lt;br /&gt;
 &lt;/br&gt; 
 &lt;img alt="fig2.b" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree/is_Tree_b_size.png?raw=true" /&gt;&lt;br /&gt;
-&lt;strong&gt;圖三.b：若樹退化成連結串列(linked list)，仍滿足樹的定義。&lt;/strong&gt;  &lt;br /&gt;
+&lt;strong&gt;圖三.b：若樹退化成Linked list(連結串列)，仍滿足樹的定義。&lt;/strong&gt;  &lt;br /&gt;
 &lt;/br&gt;
 &lt;img alt="fig2.c" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree/is_Not_Tree_c_size.png?raw=true" /&gt;&lt;br /&gt;
 &lt;strong&gt;圖三.c：在F出現cycle；C-&amp;gt;B-&amp;gt;D-&amp;gt;E出現undirected cycle，詳見圖論(graph theory)。&lt;br /&gt;
