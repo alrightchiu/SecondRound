@@ -119,6 +119,8 @@ Summary: 介紹資料結構中樹(Tree)的概念。
 * **degree(分歧度)**：一個node擁有的subtree(子樹)的個數。例如：A的degree為3，G的degree為2，N的degree為0。  
 * **root(樹根)**：樹中最上層的node，也是唯一一個其parent為**NULL**的node。圖四中，A即為root。
 * **leaf**：沒有child/subtree的node稱為leaf node。圖四中，L、N、H、I皆為leaf node。
+* **external node**：沒有child的node。因此，leaf node與external node等價。
+* **internal node**：至少有一個child的node，稱為internal node。
 
 針對**樹**：
 
