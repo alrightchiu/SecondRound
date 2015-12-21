@@ -16,7 +16,7 @@ Summary: 介紹資料結構中樹(Tree)的概念。
 連結各個node之間的連結(link)稱為edge，可能是單方向，或者雙向。**  
 </center>   
 
-[linked_list]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/tree/linked_list_size.png?raw=true
+[linked_list]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree/linked_list_size.png?raw=true
 
 
 另外則是用詞翻譯的選擇，為響應兩性平權(feminism)以及使用的頻繁程度，名詞如node/vertex(節點)、edge(邊緣？)、parent(父還是母？)、child(孩子？)、ancestor(祖先？)...皆視為專有名詞，不做翻譯。因此文句中會出現中英夾雜的情況，敬請見諒。  
@@ -50,8 +50,8 @@ Summary: 介紹資料結構中樹(Tree)的概念。
 視R為樹根(root)，每一個選擇狀態視為node，此即為樹的結構。**
 </center>
 </br>
-[abc_permu-a]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/tree/abc_permu_size.png?raw=true
-[abc_permu-b]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/tree/abc_permu_vertical_size.png?raw=true
+[abc_permu-a]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree/abc_permu_size.png?raw=true
+[abc_permu-b]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree/abc_permu_vertical_size.png?raw=true
 
 圖二的邏輯為：從起點(R)開始，先決定第一個字母，再依序決定第二、第三個字母，並且，在每一次選擇字母時，可能有不止一個可供選擇的字母。最後一共走出六條路徑，得到六種排列組合，而且這六種排列方式只能經由一種唯一的選擇方式(唯一的路徑)產生。若將起點(R)視為樹根(root)，每一個字母選擇的狀態(例如：A、C、BC、CAB)都視為一個node，這樣的結構便能夠視為一棵樹。  
 
@@ -74,7 +74,7 @@ Summary: 介紹資料結構中樹(Tree)的概念。
 
 **圖三：包龍星若是宋世傑的parent(父)，又同時為其child(子)，即形成cycle。**
 </center>
-[cycle]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/tree/cycle_size.png?raw=true
+[cycle]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree/cycle_size.png?raw=true
 </br> 
 
 <a name="tree_not_tree"></a> 
@@ -97,10 +97,10 @@ Summary: 介紹資料結構中樹(Tree)的概念。
 **圖三.d：一棵樹只能有一個樹根(root)。此圖像又稱為樹林(forest)。**
 </center>
 </br>
-[example-a]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/tree/is_Tree_a_size.png?raw=true
-[example-b]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/tree/is_Tree_b_size.png?raw=true
-[example-c]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/tree/is_Not_Tree_c_size.png?raw=true
-[example-d]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/tree/is_Not_Tree_d_size.png?raw=true
+[example-a]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree/is_Tree_a_size.png?raw=true
+[example-b]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree/is_Tree_b_size.png?raw=true
+[example-c]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree/is_Not_Tree_c_size.png?raw=true
+[example-d]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree/is_Not_Tree_d_size.png?raw=true
 
  <a name="element"></a>
 ##**用以描述一棵樹的元素**
@@ -182,7 +182,7 @@ class Tree{
 **圖五：與樹相關的資料結構之集合關係。**
 </center>
 </br>
-[set]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/tree/Set_Graph_Tree_size.png?raw=true
+[set]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree/Set_Graph_Tree_size.png?raw=true
 
 本篇介紹的樹並沒有限制child/ subtree的個數，理論上可以有多到超過記憶體空間的child node。  
 然而在實務上，較常使用每個node至多只有兩個child的樹，稱為**Binary Tree**(二元樹)。  
