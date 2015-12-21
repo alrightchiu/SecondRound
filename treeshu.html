@@ -172,24 +172,22 @@
 <p><a name="code"></a></p>
 <h2><strong>程式碼</strong></h2>
 <p>實務上，要以程式碼實作一棵樹，常用的手法為：先以class TreeNode(或是struct)定義出每顆node能夠指向多少subtree、攜帶哪些資料形態，再以另一個class Tree表示整棵樹，並以root作為樹的存取點：</p>
-<div class="highlight"><pre><span class="c1">// 以C++為例</span>
-<span class="k">class</span> <span class="nc">Tree</span><span class="p">;</span>
-<span class="k">class</span> <span class="nc">TreeNode</span><span class="p">{</span>
-    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">leftchild</span><span class="p">;</span>        <span class="c1">// 以下表示每一個node有四個pointer指向child</span>
-    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">rightchild</span><span class="p">;</span>
-    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">whatever</span><span class="p">;</span>
-    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">works</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">data1</span><span class="p">;</span>                  <span class="c1">// node所攜帶的info</span>
-    <span class="kt">double</span> <span class="n">data2</span><span class="p">;</span>
-    <span class="p">...</span>
-    <span class="k">friend</span> <span class="k">class</span> <span class="nc">Tree</span><span class="p">;</span>
-<span class="p">};</span>
-<span class="k">class</span> <span class="nc">Tree</span><span class="p">{</span>
-    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">root</span><span class="p">;</span>             <span class="c1">// 以root作為存取整棵樹的起點</span>
-<span class="p">};</span>
-</pre></div>
-
-
+<p><code>!cpp
+// 以C++為例
+class Tree;
+class TreeNode{
+    TreeNode *leftchild;        // 以下表示每一個node有四個pointer指向child
+    TreeNode *rightchild;
+    TreeNode *whatever;
+    TreeNode *works;
+    int data1;                  // node所攜帶的info
+    double data2;
+    ...
+    friend class Tree;
+};
+class Tree{
+    TreeNode *root;             // 以root作為存取整棵樹的起點
+};</code></p>
 <p><a name="set"></a></p>
 <h2><strong>集合關係</strong></h2>
 <p>本篇介紹的樹(Tree)位居承先啟後的戰略位置，圖五展示了與樹有關的資料結構的集合關係圖：</p>
