@@ -2,7 +2,8 @@
 <feed xmlns="http://www.w3.org/2005/Atom"><title>Ordinary Days</title><link href="http://alrightchiu.github.io/SecondRound/" rel="alternate"></link><link href="http://alrightchiu.github.io/SecondRound/feeds/algorithms-and-data-structures.atom.xml" rel="self"></link><id>http://alrightchiu.github.io/SecondRound/</id><updated>2015-12-21T22:24:00+08:00</updated><entry><title>Binary Tree: Intro</title><link href="http://alrightchiu.github.io/SecondRound/binary-tree-intro.html" rel="alternate"></link><updated>2015-12-21T22:24:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2015-12-21:SecondRound/binary-tree-intro.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h6&gt;&lt;strong&gt;先備知識與注意事項&lt;/strong&gt;&lt;/h6&gt;
 &lt;p&gt;接續上一篇談到的&lt;a href="http://alrightchiu.github.io/SecondRound/treeshu.html"&gt;Tree(樹)&lt;/a&gt;，這篇文章將介紹樹這個大集合裡的其中一支大宗：&lt;strong&gt;Binary Tree&lt;/strong&gt;。&lt;/p&gt;
-&lt;p&gt;學海無涯，快點跳海。
+&lt;p&gt;&lt;/br&gt;
+學海無涯，快點跳海。
 &lt;/br&gt;&lt;/p&gt;
 &lt;h2&gt;目錄&lt;/h2&gt;
 &lt;ul&gt;
@@ -63,7 +64,7 @@
 &lt;h2&gt;&lt;strong&gt;Full &amp;amp; Complete Binary Tree&lt;/strong&gt;&lt;/h2&gt;
 &lt;p&gt;有兩類Binary Tree十分常見，分別為&lt;strong&gt;Full Binary Tree&lt;/strong&gt;以及&lt;strong&gt;Complete Binary Tree&lt;/strong&gt;。&lt;br /&gt;
 (完滿二元樹？完整二元樹？我的建議是當作專有名詞不要翻譯。) &lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;A. Full Binary Tree&lt;/strong&gt;:  &lt;/p&gt;
+&lt;h4&gt;&lt;strong&gt;A. Full Binary Tree&lt;/strong&gt;:&lt;/h4&gt;
 &lt;p&gt;如圖三所示，若所有internal node都有兩個subtree，leaf node具有相同的level(或height)，則稱此為&lt;strong&gt;Full Binary Tree&lt;/strong&gt;(或稱作Perfect Binary Tree)。&lt;br /&gt;
 因此，若一棵Full Binary Tree的leaf node之level為&lt;span class="math"&gt;\(n\)&lt;/span&gt;，整棵樹共有&lt;span class="math"&gt;\(2^n-1\)&lt;/span&gt;個node。leaf node的level為4， 整棵樹共有15個node。&lt;br /&gt;
 並且，每個node與其child有以下關係：&lt;/p&gt;
@@ -76,7 +77,7 @@
 &lt;img alt="Full Binary Tree" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BinaryTree/fullBT.png?raw=true" /&gt;  &lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖三：若一棵Full Binary Tree的leaf node之level為&lt;span class="math"&gt;\(n\)&lt;/span&gt;，整棵樹共有&lt;span class="math"&gt;\(2^n-1\)&lt;/span&gt;個node。&lt;/strong&gt;&lt;br /&gt;
 &lt;/center&gt;   &lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;B. Complete Binary Tree&lt;/strong&gt;:&lt;/p&gt;
+&lt;h4&gt;&lt;strong&gt;B. Complete Binary Tree&lt;/strong&gt;:&lt;/h4&gt;
 &lt;p&gt;若一棵樹的node按照Full Binary Tree的次序排列(由上至下，由左至右)，則稱此樹為&lt;strong&gt;Complete Binary Tree&lt;/strong&gt;。  &lt;/p&gt;
 &lt;p&gt;以圖四及圖五作說明。&lt;br /&gt;
 圖四的樹共有10個node，且這十個node正好填滿Full Binary Tree的前十個位置，則此樹為Complete Binary Tree。  &lt;/p&gt;
