@@ -51,7 +51,7 @@
 &lt;h2&gt;&lt;strong&gt;Full &amp;amp; Complete Binary Tree&lt;/strong&gt;&lt;/h2&gt;
 &lt;p&gt;有兩類Binary Tree十分常見，分別為&lt;strong&gt;Full Binary Tree&lt;/strong&gt;以及&lt;strong&gt;Complete Binary Tree&lt;/strong&gt;。&lt;br /&gt;
 (完滿二元樹？完整二元樹？我的建議是當作專有名詞不要翻譯。) &lt;/p&gt;
-&lt;h4&gt;&lt;strong&gt;A. Full Binary Tree&lt;/strong&gt;:&lt;/h4&gt;
+&lt;h5&gt;&lt;strong&gt;A. Full Binary Tree&lt;/strong&gt;:&lt;/h5&gt;
 &lt;p&gt;如圖三所示，若所有internal node都有兩個subtree，leaf node具有相同的level(或height)，則稱此為&lt;strong&gt;Full Binary Tree&lt;/strong&gt;(或稱作Perfect Binary Tree)。&lt;br /&gt;
 因此，若一棵Full Binary Tree的leaf node之level為&lt;span class="math"&gt;\(n\)&lt;/span&gt;，整棵樹共有&lt;span class="math"&gt;\(2^n-1\)&lt;/span&gt;個node。leaf node的level為4， 整棵樹共有15個node。&lt;br /&gt;
 並且，每個node與其child有以下關係：&lt;/p&gt;
