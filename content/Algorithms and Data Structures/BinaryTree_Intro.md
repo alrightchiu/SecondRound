@@ -94,7 +94,7 @@ class Tree{
 [fullBT]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BinaryTree/fullBT.png?raw=true  
 
 
-####**B. Complete Binary Tree**:
+#####**B. Complete Binary Tree**:
 
 若一棵樹的node按照Full Binary Tree的次序排列(由上至下，由左至右)，則稱此樹為**Complete Binary Tree**。  
 
