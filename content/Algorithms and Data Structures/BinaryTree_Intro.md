@@ -98,7 +98,7 @@ class Tree{
 若一棵樹的node按照Full Binary Tree的次序排列(由上至下，由左至右)，則稱此樹為**Complete Binary Tree**。  
 
 以圖四及圖五作說明。  
-圖四中共有10個node，且這十個node正好填滿Full Binary Tree的前十個位置，則此樹為Complete Binary Tree。  
+圖四的樹共有10個node，且這十個node正好填滿Full Binary Tree的前十個位置，則此樹為Complete Binary Tree。  
 
 <center>
 ![Complete Binary Tree][complBT]  
@@ -107,7 +107,7 @@ class Tree{
 </center>  
 [complBT]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BinaryTree/complBT.png?raw=true
 
-圖五中共有11個node，但是第11個node(K)應該要是第5個node(E)的child，因此，此樹並非Complete Binary Tree。
+圖五的樹共有11個node，但是第11個node(K)應該要是第5個node(E)的child，因此，此樹並非Complete Binary Tree。
 
 <center>
 ![Not Complete Binary Tree][non_complBT]  
@@ -124,11 +124,12 @@ class Tree{
 
 * Binary Search Tree(BST)：在某些資料經常要增加、刪除的應用中，BST常用來做搜尋，例如許多程式語言的Library中的`map`和`set`。
 * Binary Space Partition：應用於幾乎所有的3D電玩遊戲以決定哪些物件需要呈現(rendered)。
-* Binary Tries：應用於大多數高頻寬路由器(high-bandwidth router)以儲存router-tables。
+* Binary Tries：應用於大多數high-bandwidth router(高頻寬路由器)以儲存router-tables。
 * Heaps：用以實現高效率的priority queues(優先權佇列)，許多作業系統用來安排工作程序。
 * Huffman Coding Tree：例如.jpeg、.mp3等壓縮技術皆使用Huffman編碼。(在一顆20MB的硬碟要價新台幣一萬元的時代，壓縮技術就是救世主。)  
 
-還有一些其他應用翻出來更慘，所以先不翻。不過大致可以體會到Binary Tree是許多進階應用的基礎，學會了幾乎是治病強身。  
+以及其他應用(記得點進連結瞻仰大神網友風範)。  
+大致可以體會到Binary Tree是許多進階應用的基礎，學會了幾乎是治病強身。  
 接下來將會介紹Binary Tree(以及往後主題)中最基本的操作：traversal(尋訪)，顧名思義，就是如何在樹中移動，有了traversal之後再進一步探討搜尋(search)、新增node(insertion)、刪除node(deletion)、排序(sorting)會更加容易。
 
 </br>
@@ -137,7 +138,7 @@ class Tree{
 ######**參考資料**：
 * [Wikipedia：Binary tree](https://en.wikipedia.org/wiki/Binary_tree)
 * [Fundamentals of Data Structures in C++](http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376)  
-* [What are the applications of binary trees?](http://stackoverflow.com/questions/2130416/what-are-the-applications-of-binary-trees)
+* [StackOverFlow：What are the applications of binary trees?](http://stackoverflow.com/questions/2130416/what-are-the-applications-of-binary-trees)
 
 </br>
 
