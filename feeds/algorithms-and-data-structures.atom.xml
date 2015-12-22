@@ -64,7 +64,7 @@
 &lt;img alt="Full Binary Tree" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BinaryTree/fullBT.png?raw=true" /&gt;  &lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖三：若一棵Full Binary Tree的leaf node之level為&lt;span class="math"&gt;\(n\)&lt;/span&gt;，整棵樹共有&lt;span class="math"&gt;\(2^n-1\)&lt;/span&gt;個node。&lt;/strong&gt;&lt;br /&gt;
 &lt;/center&gt;   &lt;/p&gt;
-&lt;h4&gt;&lt;strong&gt;B. Complete Binary Tree&lt;/strong&gt;:&lt;/h4&gt;
+&lt;h5&gt;&lt;strong&gt;B. Complete Binary Tree&lt;/strong&gt;:&lt;/h5&gt;
 &lt;p&gt;若一棵樹的node按照Full Binary Tree的次序排列(由上至下，由左至右)，則稱此樹為&lt;strong&gt;Complete Binary Tree&lt;/strong&gt;。  &lt;/p&gt;
 &lt;p&gt;以圖四及圖五作說明。&lt;br /&gt;
 圖四的樹共有10個node，且這十個node正好填滿Full Binary Tree的前十個位置，則此樹為Complete Binary Tree。  &lt;/p&gt;
