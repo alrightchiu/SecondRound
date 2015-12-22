@@ -172,7 +172,21 @@
 <p><a name="code"></a></p>
 <h2><strong>程式碼</strong></h2>
 <p>實務上，要以程式碼實作一棵樹，常用的手法為：先以class TreeNode(或是struct)定義出每顆node能夠指向多少subtree、攜帶哪些資料形態，再以另一個class Tree表示整棵樹，並以root作為樹的存取點：</p>
-<div class="highlight"><pre><span class="c1">// 以C++為例</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15</pre></div></td><td class="code"><div class="codehilite"><pre><span class="c1">// 以C++為例</span>
 <span class="k">class</span> <span class="nc">Tree</span><span class="p">;</span>
 <span class="k">class</span> <span class="nc">TreeNode</span><span class="p">{</span>
     <span class="n">TreeNode</span> <span class="o">*</span><span class="n">leftchild</span><span class="p">;</span>        <span class="c1">// 以下表示每一個node有四個pointer指向child</span>
@@ -188,7 +202,7 @@
     <span class="n">TreeNode</span> <span class="o">*</span><span class="n">root</span><span class="p">;</span>             <span class="c1">// 以root作為存取整棵樹的起點</span>
 <span class="p">};</span>
 </pre></div>
-
+</td></tr></table>
 
 <p><a name="set"></a></p>
 <h2><strong>集合關係</strong></h2>
