@@ -11,6 +11,7 @@ Summary: 介紹Binary Tree的基本概念。
 
 接續上一篇談到的[Tree(樹)](http://alrightchiu.github.io/SecondRound/treeshu.html)，這篇文章將介紹樹這個大集合裡的其中一支大宗：**Binary Tree**。
 
+</br>
 學海無涯，快點跳海。
 </br>
 
@@ -75,7 +76,7 @@ class Tree{
 有兩類Binary Tree十分常見，分別為**Full Binary Tree**以及**Complete Binary Tree**。  
 (完滿二元樹？完整二元樹？我的建議是當作專有名詞不要翻譯。) 
  
-**A. Full Binary Tree**:  
+####**A. Full Binary Tree**:  
 
 如圖三所示，若所有internal node都有兩個subtree，leaf node具有相同的level(或height)，則稱此為**Full Binary Tree**(或稱作Perfect Binary Tree)。  
 因此，若一棵Full Binary Tree的leaf node之level為$n$，整棵樹共有$2^n-1$個node。leaf node的level為4， 整棵樹共有15個node。  
@@ -93,7 +94,7 @@ class Tree{
 [fullBT]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BinaryTree/fullBT.png?raw=true  
 
 
-**B. Complete Binary Tree**:
+####**B. Complete Binary Tree**:
 
 若一棵樹的node按照Full Binary Tree的次序排列(由上至下，由左至右)，則稱此樹為**Complete Binary Tree**。  
 
