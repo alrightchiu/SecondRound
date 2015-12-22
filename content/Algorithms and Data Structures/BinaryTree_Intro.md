@@ -53,7 +53,7 @@ Summary: 介紹Binary Tree的基本概念。
 加入parent(又稱為field)的威力要在對樹的操作(operaion)如inorder traversal(中序尋訪)、node deletion(刪除node)、以及任何需要back tracing(回溯路徑)的操作時，會更顯眼。
 
 ```cpp
-#!// 以C++為例
+#! 以C++為例
 class Tree;
 class TreeNode{
 	TreeNode *leftchild;		 
