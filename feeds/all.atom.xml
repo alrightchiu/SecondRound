@@ -30,7 +30,7 @@
 &lt;p&gt;修改在&lt;a href="http://alrightchiu.github.io/SecondRound/treeshu.html#code"&gt;Tree(樹)&lt;/a&gt;提供的程式實作方式，將node的child pointer設為left child與right child，以滿足Binary Tree的形式。&lt;br /&gt;
 另外，在class TreeNode有個&lt;code&gt;TreeNode *parent&lt;/code&gt;，顧名思義，即是指向該node之parent的pointer，以圖二為例，B的parent pointer即指向A。&lt;br /&gt;
 加入parent(又稱為field)的威力要在對樹的操作(operaion)如inorder traversal(中序尋訪)、node deletion(刪除node)、以及任何需要back tracing(回溯路徑)的操作時，會更顯眼。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;#!&lt;/span&gt;&lt;span class="c1"&gt;// 以C++為例&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;#! 以C++為例&lt;/span&gt;
 &lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Tree&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;TreeNode&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="n"&gt;TreeNode&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;leftchild&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;         
