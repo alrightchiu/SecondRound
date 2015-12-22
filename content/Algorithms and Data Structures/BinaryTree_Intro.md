@@ -67,7 +67,6 @@ class TreeNode{
 class Tree{
 	TreeNode *root;				// 以root作為存取整棵樹的起點
 };
-jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
 ```
 
  <a name="fullcomplete"></a>
