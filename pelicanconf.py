@@ -50,6 +50,8 @@ SITELOGO = u'http://alrightchiu.github.io/SecondRound/fig/antiwar.jpg'	# 也弄�
 # MD_EXTENSIONS = ['fenced_code', 'codehilite(css_class=highlight, linenums=True)', 'extra']
 MD_EXTENSIONS = ['codehilite(linenums=True)', 'extra']
 
+TYPOGRIFY = True
+
 # 使用pelican-plugins
 PLUGIN_PATHS = ['pelican-plugins']
 
