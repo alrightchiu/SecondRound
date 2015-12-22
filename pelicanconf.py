@@ -55,7 +55,7 @@ SITELOGO = u'http://alrightchiu.github.io/SecondRound/fig/antiwar.jpg'	# 也弄�
 # for code blocks, 增加 line number 
 # MD_EXTENSIONS = ['fenced_code', 'codehilite(css_class=highlight, linenums=True)', 'extra']
 
-MD_EXTENSIONS = ['fenced_code', 'codehilite(css_class=highlight, linenums=False)', ]
+MD_EXTENSIONS = ['fenced_code', 'codehilite(css_class=highlight, linenums=False)', 'extra' ]
 
 PLUGINS = ['better_codeblock_line_numbering', 'render_math']
 
