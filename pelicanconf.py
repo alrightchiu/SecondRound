@@ -30,6 +30,12 @@ USE_FOLDER_AS_CATEGORY = False
 # Theme
 THEME = 'theme/Flex'
 
+# 使用pelican-plugins
+PLUGIN_PATHS = ['pelican-plugins']
+
+#顯示數學式
+# PLUGINS = [ 'render_math']
+
 # Static path
 STATIC_PATHS = ['fig']
 # STATIC_PATHS = ['fig','extra/custom.css']	# 在 content/ 下建立 extra/custom.css
@@ -47,16 +53,15 @@ SITEDESCRIPTION = u'Not Bad Not Bed'
 SITELOGO = u'http://alrightchiu.github.io/SecondRound/fig/antiwar.jpg'	# 也弄太久了！！！
 
 # for code blocks, 增加 line number 
-MD_EXTENSIONS = ['fenced_code', 'codehilite(css_class=highlight, linenums=True)', 'extra']
-# MD_EXTENSIONS = ['linenums=True', 'extra']
+# MD_EXTENSIONS = ['fenced_code', 'codehilite(css_class=highlight, linenums=True)', 'extra']
+
+MD_EXTENSIONS = ['fenced_code', 'codehilite(css_class=highlight, linenums=False)', ]
+
+PLUGINS = ['better_codeblock_line_numbering', 'render_math']
 
 # TYPOGRIFY = True
 
-# 使用pelican-plugins
-PLUGIN_PATHS = ['pelican-plugins']
 
-#顯示數學式
-PLUGINS = [ 'render_math']
 
 
 MENUITEMS = [	# 別人直接用 /archives.html應該是因為 user pages, 總之我要用URL才行, 至少是搞定了
