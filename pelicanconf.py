@@ -48,9 +48,9 @@ SITELOGO = u'http://alrightchiu.github.io/SecondRound/fig/antiwar.jpg'	# 也弄�
 
 # for code blocks, 增加 line number 
 # MD_EXTENSIONS = ['fenced_code', 'codehilite(css_class=highlight, linenums=True)', 'extra']
-# MD_EXTENSIONS = ['codehilite(linenums=True)', 'extra']
+MD_EXTENSIONS = ['linenums=True', 'extra']
 
-TYPOGRIFY = True
+# TYPOGRIFY = True
 
 # 使用pelican-plugins
 PLUGIN_PATHS = ['pelican-plugins']
