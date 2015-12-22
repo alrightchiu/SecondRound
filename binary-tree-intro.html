@@ -90,37 +90,23 @@
 <p>修改在<a href="http://alrightchiu.github.io/SecondRound/treeshu.html#code">Tree(樹)</a>提供的程式實作方式，將node的child pointer設為left child與right child，以滿足Binary Tree的形式。<br />
 另外，在class TreeNode有個<code>TreeNode *parent</code>，顧名思義，即是指向該node之parent的pointer，以圖二為例，B的parent pointer即指向A。<br />
 加入parent(又稱為field)的威力要在對樹的操作(operaion)如inorder traversal(中序尋訪)、node deletion(刪除node)、以及任何需要back tracing(回溯路徑)的操作時，會更顯眼。</p>
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13
-14
-15</pre></div></td><td class="code"><div class="highlight"><pre><span class="c1">// 以C++為例</span>
-<span class="k">class</span> <span class="nc">Tree</span><span class="p">;</span>
-<span class="k">class</span> <span class="nc">TreeNode</span><span class="p">{</span>
-    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">leftchild</span><span class="p">;</span>         
-    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">rightchild</span><span class="p">;</span>       
-    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">parent</span><span class="p">;</span>           
-    <span class="kt">int</span> <span class="n">data1</span><span class="p">;</span>                  
-    <span class="kt">double</span> <span class="n">data2</span><span class="p">;</span>
-    <span class="p">...</span>
-    <span class="k">friend</span> <span class="k">class</span> <span class="nc">Tree</span><span class="p">;</span>
-<span class="p">};</span>
-<span class="k">class</span> <span class="nc">Tree</span><span class="p">{</span>
-    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">root</span><span class="p">;</span>             <span class="c1">// 以root作為存取整棵樹的起點</span>
-<span class="p">};</span>
-<span class="n">jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj</span>
+<div class="highlight"><pre><span class="code-line"><span class="c1">// 以C++為例</span></span>
+<span class="code-line"><span class="k">class</span> <span class="nc">Tree</span><span class="p">;</span></span>
+<span class="code-line"><span class="k">class</span> <span class="nc">TreeNode</span><span class="p">{</span></span>
+<span class="code-line">    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">leftchild</span><span class="p">;</span>         </span>
+<span class="code-line">    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">rightchild</span><span class="p">;</span>       </span>
+<span class="code-line">    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">parent</span><span class="p">;</span>           </span>
+<span class="code-line">    <span class="kt">int</span> <span class="n">data1</span><span class="p">;</span>                  </span>
+<span class="code-line">    <span class="kt">double</span> <span class="n">data2</span><span class="p">;</span></span>
+<span class="code-line">    <span class="p">...</span></span>
+<span class="code-line">    <span class="k">friend</span> <span class="k">class</span> <span class="nc">Tree</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">};</span></span>
+<span class="code-line"><span class="k">class</span> <span class="nc">Tree</span><span class="p">{</span></span>
+<span class="code-line">    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">root</span><span class="p">;</span>             <span class="c1">// 以root作為存取整棵樹的起點</span></span>
+<span class="code-line"><span class="p">};</span></span>
+<span class="code-line"><span class="n">jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj</span></span>
 </pre></div>
-</td></tr></table>
+
 
 <p><a name="fullcomplete"></a></p>
 <h2><strong>Full &amp; Complete Binary Tree</strong></h2>
