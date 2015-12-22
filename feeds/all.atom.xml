@@ -79,12 +79,12 @@
 &lt;p&gt;&lt;strong&gt;B. Complete Binary Tree&lt;/strong&gt;:&lt;/p&gt;
 &lt;p&gt;若一棵樹的node按照Full Binary Tree的次序排列(由上至下，由左至右)，則稱此樹為&lt;strong&gt;Complete Binary Tree&lt;/strong&gt;。  &lt;/p&gt;
 &lt;p&gt;以圖四及圖五作說明。&lt;br /&gt;
-圖四中共有10個node，且這十個node正好填滿Full Binary Tree的前十個位置，則此樹為Complete Binary Tree。  &lt;/p&gt;
+圖四的樹共有10個node，且這十個node正好填滿Full Binary Tree的前十個位置，則此樹為Complete Binary Tree。  &lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="Complete Binary Tree" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BinaryTree/complBT.png?raw=true" /&gt;  &lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖四：這是一棵Complete Binary Tree。&lt;/strong&gt;
 &lt;/center&gt;  &lt;/p&gt;
-&lt;p&gt;圖五中共有11個node，但是第11個node(K)應該要是第5個node(E)的child，因此，此樹並非Complete Binary Tree。&lt;/p&gt;
+&lt;p&gt;圖五的樹共有11個node，但是第11個node(K)應該要是第5個node(E)的child，因此，此樹並非Complete Binary Tree。&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="Not Complete Binary Tree" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BinaryTree/non_complBT.png?raw=true" /&gt;  &lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖五：這不是一棵Complete Binary Tree。&lt;/strong&gt;
@@ -96,11 +96,12 @@
 &lt;ul&gt;
 &lt;li&gt;Binary Search Tree(BST)：在某些資料經常要增加、刪除的應用中，BST常用來做搜尋，例如許多程式語言的Library中的&lt;code&gt;map&lt;/code&gt;和&lt;code&gt;set&lt;/code&gt;。&lt;/li&gt;
 &lt;li&gt;Binary Space Partition：應用於幾乎所有的3D電玩遊戲以決定哪些物件需要呈現(rendered)。&lt;/li&gt;
-&lt;li&gt;Binary Tries：應用於大多數高頻寬路由器(high-bandwidth router)以儲存router-tables。&lt;/li&gt;
+&lt;li&gt;Binary Tries：應用於大多數high-bandwidth router(高頻寬路由器)以儲存router-tables。&lt;/li&gt;
 &lt;li&gt;Heaps：用以實現高效率的priority queues(優先權佇列)，許多作業系統用來安排工作程序。&lt;/li&gt;
 &lt;li&gt;Huffman Coding Tree：例如.jpeg、.mp3等壓縮技術皆使用Huffman編碼。(在一顆20MB的硬碟要價新台幣一萬元的時代，壓縮技術就是救世主。)  &lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;還有一些其他應用翻出來更慘，所以先不翻。不過大致可以體會到Binary Tree是許多進階應用的基礎，學會了幾乎是治病強身。&lt;br /&gt;
+&lt;p&gt;以及其他應用(記得點進連結瞻仰大神網友風範)。&lt;br /&gt;
+大致可以體會到Binary Tree是許多進階應用的基礎，學會了幾乎是治病強身。&lt;br /&gt;
 接下來將會介紹Binary Tree(以及往後主題)中最基本的操作：traversal(尋訪)，顧名思義，就是如何在樹中移動，有了traversal之後再進一步探討搜尋(search)、新增node(insertion)、刪除node(deletion)、排序(sorting)會更加容易。&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;
 &lt;a name="ref"&gt;&lt;/a&gt;&lt;/p&gt;
@@ -108,7 +109,7 @@
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="https://en.wikipedia.org/wiki/Binary_tree"&gt;Wikipedia：Binary tree&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376"&gt;Fundamentals of Data Structures in C++&lt;/a&gt;  &lt;/li&gt;
-&lt;li&gt;&lt;a href="http://stackoverflow.com/questions/2130416/what-are-the-applications-of-binary-trees"&gt;What are the applications of binary trees?&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://stackoverflow.com/questions/2130416/what-are-the-applications-of-binary-trees"&gt;StackOverFlow：What are the applications of binary trees?&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;script type="text/javascript"&gt;if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {

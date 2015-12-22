@@ -139,12 +139,12 @@
 <p><strong>B. Complete Binary Tree</strong>:</p>
 <p>若一棵樹的node按照Full Binary Tree的次序排列(由上至下，由左至右)，則稱此樹為<strong>Complete Binary Tree</strong>。  </p>
 <p>以圖四及圖五作說明。<br />
-圖四中共有10個node，且這十個node正好填滿Full Binary Tree的前十個位置，則此樹為Complete Binary Tree。  </p>
+圖四的樹共有10個node，且這十個node正好填滿Full Binary Tree的前十個位置，則此樹為Complete Binary Tree。  </p>
 <p><center>
 <img alt="Complete Binary Tree" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BinaryTree/complBT.png?raw=true" />  </p>
 <p><strong>圖四：這是一棵Complete Binary Tree。</strong>
 </center>  </p>
-<p>圖五中共有11個node，但是第11個node(K)應該要是第5個node(E)的child，因此，此樹並非Complete Binary Tree。</p>
+<p>圖五的樹共有11個node，但是第11個node(K)應該要是第5個node(E)的child，因此，此樹並非Complete Binary Tree。</p>
 <p><center>
 <img alt="Not Complete Binary Tree" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BinaryTree/non_complBT.png?raw=true" />  </p>
 <p><strong>圖五：這不是一棵Complete Binary Tree。</strong>
@@ -156,11 +156,12 @@
 <ul>
 <li>Binary Search Tree(BST)：在某些資料經常要增加、刪除的應用中，BST常用來做搜尋，例如許多程式語言的Library中的<code>map</code>和<code>set</code>。</li>
 <li>Binary Space Partition：應用於幾乎所有的3D電玩遊戲以決定哪些物件需要呈現(rendered)。</li>
-<li>Binary Tries：應用於大多數高頻寬路由器(high-bandwidth router)以儲存router-tables。</li>
+<li>Binary Tries：應用於大多數high-bandwidth router(高頻寬路由器)以儲存router-tables。</li>
 <li>Heaps：用以實現高效率的priority queues(優先權佇列)，許多作業系統用來安排工作程序。</li>
 <li>Huffman Coding Tree：例如.jpeg、.mp3等壓縮技術皆使用Huffman編碼。(在一顆20MB的硬碟要價新台幣一萬元的時代，壓縮技術就是救世主。)  </li>
 </ul>
-<p>還有一些其他應用翻出來更慘，所以先不翻。不過大致可以體會到Binary Tree是許多進階應用的基礎，學會了幾乎是治病強身。<br />
+<p>以及其他應用(記得點進連結瞻仰大神網友風範)。<br />
+大致可以體會到Binary Tree是許多進階應用的基礎，學會了幾乎是治病強身。<br />
 接下來將會介紹Binary Tree(以及往後主題)中最基本的操作：traversal(尋訪)，顧名思義，就是如何在樹中移動，有了traversal之後再進一步探討搜尋(search)、新增node(insertion)、刪除node(deletion)、排序(sorting)會更加容易。</p>
 <p></br>
 <a name="ref"></a></p>
@@ -168,7 +169,7 @@
 <ul>
 <li><a href="https://en.wikipedia.org/wiki/Binary_tree">Wikipedia：Binary tree</a></li>
 <li><a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376">Fundamentals of Data Structures in C++</a>  </li>
-<li><a href="http://stackoverflow.com/questions/2130416/what-are-the-applications-of-binary-trees">What are the applications of binary trees?</a></li>
+<li><a href="http://stackoverflow.com/questions/2130416/what-are-the-applications-of-binary-trees">StackOverFlow：What are the applications of binary trees?</a></li>
 </ul>
 <p></br></p>
 <script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
