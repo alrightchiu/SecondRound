@@ -47,8 +47,8 @@ SITEDESCRIPTION = u'Not Bad Not Bed'
 SITELOGO = u'http://alrightchiu.github.io/SecondRound/fig/antiwar.jpg'	# 也弄太久了！！！
 
 # for code blocks, 增加 line number 
-# MD_EXTENSIONS = ['fenced_code', 'codehilite(css_class=highlight, linenums=True)', 'extra']
-MD_EXTENSIONS = ['codehilite(linenums=True)', 'extra']
+MD_EXTENSIONS = ['fenced_code', 'codehilite(css_class=highlight, linenums=True)', 'extra']
+# MD_EXTENSIONS = ['codehilite(linenums=True)', 'extra']
 
 TYPOGRIFY = True
 
