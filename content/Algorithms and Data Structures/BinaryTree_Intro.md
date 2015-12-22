@@ -123,14 +123,14 @@ class Tree{
 如果有家長擔心小孩子學了Binary Tree之後對未來的出路沒有幫助，這裡有[網路神人在StackOverFlow](http://stackoverflow.com/questions/2130416/what-are-the-applications-of-binary-trees)開示，以下簡單翻譯幾項Binary Tree的應用：
 
 * Binary Search Tree(BST)：在某些資料經常要增加、刪除的應用中，BST常用來做搜尋，例如許多程式語言的Library中的`map`和`set`。
-* Binary Space Partition：應用於幾乎所有的3D電玩遊戲以決定哪些物件需要呈現(rendered)。
+* Binary Space Partition：應用於幾乎所有的3D電玩遊戲以決定哪些物件需要rendered(呈現)。
 * Binary Tries：應用於大多數high-bandwidth router(高頻寬路由器)以儲存router-tables。
 * Heaps：用以實現高效率的priority queues(優先權佇列)，許多作業系統用來安排工作程序。
 * Huffman Coding Tree：例如.jpeg、.mp3等壓縮技術皆使用Huffman編碼。(在一顆20MB的硬碟要價新台幣一萬元的時代，壓縮技術就是救世主。)  
 
 以及其他應用(記得點進連結瞻仰大神網友風範)。  
 大致可以體會到Binary Tree是許多進階應用的基礎，學會了幾乎是治病強身。  
-接下來將會介紹Binary Tree(以及往後主題)中最基本的操作：traversal(尋訪)，顧名思義，就是如何在樹中移動，有了traversal之後再進一步探討搜尋(search)、新增node(insertion)、刪除node(deletion)、排序(sorting)會更加容易。
+接下來將會介紹Binary Tree(以及往後主題)中最基本的操作：traversal(尋訪)，顧名思義，就是如何在樹中移動，有了traversal之後再進一步探討search(搜尋)、insertion(新增node)、deletion(刪除node)、sorting(排序)會更加容易。
 
 </br>
 <a name="ref"></a>
