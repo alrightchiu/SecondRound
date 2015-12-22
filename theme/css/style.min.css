@@ -179,9 +179,7 @@ main article kbd {
 }
 main article code {
   font-size: .8em;
-  overflow: auto;
-  white-space: pre-wrap;
-  overflow: scroll;
+  white-space: nowrap;
   color: #c25;
   padding: 1px 3px;
   background-color: #f7f7f9;
