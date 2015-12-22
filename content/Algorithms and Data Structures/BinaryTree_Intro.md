@@ -76,7 +76,7 @@ class Tree{
 有兩類Binary Tree十分常見，分別為**Full Binary Tree**以及**Complete Binary Tree**。  
 (完滿二元樹？完整二元樹？我的建議是當作專有名詞不要翻譯。) 
  
-####**A. Full Binary Tree**:  
+#####**A. Full Binary Tree**:  
 
 如圖三所示，若所有internal node都有兩個subtree，leaf node具有相同的level(或height)，則稱此為**Full Binary Tree**(或稱作Perfect Binary Tree)。  
 因此，若一棵Full Binary Tree的leaf node之level為$n$，整棵樹共有$2^n-1$個node。leaf node的level為4， 整棵樹共有15個node。  
