@@ -344,7 +344,7 @@ ul.social a.sc-envelope-o {
     padding: 2px;
   }
 }
-
+/* setting for plig-in: better_codeblock_line_numbering */
 /* For use with the code_line-number_word-wrap_switcher_jquery.js Pelican plugin */
 code {
     overflow: auto;
