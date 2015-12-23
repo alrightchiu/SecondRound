@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="zh-hant">
+<head>
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" type="text/css" href="http://alrightchiu.github.io/SecondRound/theme/css/style.min.css">
+  <link rel="stylesheet" type="text/css" href="http://alrightchiu.github.io/SecondRound/theme/css/pygments.min.css">
+  <link rel="stylesheet" type="text/css" href="http://alrightchiu.github.io/SecondRound/theme/css/font-awesome.min.css">
+  <link href="http://alrightchiu.github.io/SecondRound/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Ordinary Days Atom">
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+<meta name="author" content="Chiu CC" />
+<meta name="description" content="介紹Linked List中的Traversal(尋訪)。" />
+<meta name="keywords" content="今天不寫明天就忘了">
+<meta property="og:site_name" content="Ordinary Days"/>
+<meta property="og:title" content="Linked List: Traversal"/>
+<meta property="og:description" content="介紹Linked List中的Traversal(尋訪)。"/>
+<meta property="og:locale" content="zh_TW"/>
+<meta property="og:url" content="http://alrightchiu.github.io/SecondRound/linked-list-traversal.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2015-12-19 20:27:00+08:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="http://alrightchiu.github.io/SecondRound/author/chiu-cc.html">
+<meta property="article:section" content="Algorithms and Data Structures"/>
+<meta property="article:tag" content="今天不寫明天就忘了"/>
+<meta property="og:image" content="http://alrightchiu.github.io/SecondRound/fig/antiwar.jpg">  <title>Ordinary Days &ndash; Linked List: Traversal</title>
+</head>
+<body>
+  <aside>
+    <div>
+      <a href="http://alrightchiu.github.io/SecondRound">
+        <img src="http://alrightchiu.github.io/SecondRound/fig/antiwar.jpg" alt="Ordinary Days" title="Ordinary Days">
+      </a>
+      <h1><a href="http://alrightchiu.github.io/SecondRound">Ordinary Days</a></h1>
+      <p>Hey</p>
+      <nav>
+        <ul class="list">
+          <li><a href="http://alrightchiu.github.io/SecondRound/pages/about.html#about">About</a></li>
+        </ul>
+      </nav>
+      <ul class="social">
+        <li><a class="sc-github" href="https://github.com/alrightchiu" target="_blank"><i class="fa fa-github"></i></a></li>
+      </ul>
+    </div>
+  </aside>
+  <main>
+    <nav>
+      <a href="http://alrightchiu.github.io/SecondRound">Home</a>
+      <a href="http://alrightchiu.github.io/SecondRound/archives.html">Archives</a>
+      <a href="http://alrightchiu.github.io/SecondRound/categories.html">Categories</a>
+      <a href="http://alrightchiu.github.io/SecondRound/tags.html">Tags</a>
+      <a href="http://alrightchiu.github.io/SecondRound/feeds/all.atom.xml">Atom</a>
+    </nav>
+
+<article>
+  <header>
+    <h1 id="linked-list-traversal">Linked List: Traversal</h1>
+    <p>Posted on 12 19, 2015 in <a href="http://alrightchiu.github.io/SecondRound/category/algorithms-and-data-structures.html">Algorithms and Data Structures</a></p>
+  </header>
+  <div>
+    <p></br></p>
+<h6><strong>先備知識與注意事項</strong></h6>
+<p>traversal(尋訪)有「站在A地，往所有與A地相連的地方移動」的意思：  </p>
+<ul>
+<li>以Graph(圖)的語言來說，站在vertex A上，有一條edge連結A與B，若能夠由A往B移動，此即可視為traversal；</li>
+<li>在以pointer實現之Linked list和Tree中，站在node A上，A具有指向B之pointer，因此能夠由A往B移動，此即可視為traversal。</li>
+</ul>
+<p>移動到特定的node之後，通常伴隨著其他行為，例如print out(顯示資料)、assign(賦值)等等，這些行為又稱作Visiting，</p>
+<p>這篇文章將介紹在Linked list中的traversal。<br />
+</br>  </p>
+<h2><strong>Traversal in Linked List</strong></h2>
+<p>若有一個Linked list如圖一：</p>
+<p></br> 
+<center>
+<img alt="linked list" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Linked%20List/LLtraversal.png?raw=true" /></p>
+<p><strong>圖一：Linked list: A-&gt;B-&gt;C-&gt;D-&gt;NULL。</strong><br />
+</center>   </p>
+<p>現要求Visiting為print(顯示資料)，欲列印出Linked list中的所有字母，也就是從A開始，依序印出B、C、D，程式範例如下：</p>
+<div class="highlight"><pre><span class="code-line"><span class="c1">// C++ code</span></span>
+<span class="code-line"><span class="cp">#include &lt;iostream&gt;</span></span>
+<span class="code-line"><span class="cp">#include &lt;string&gt;</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="k">class</span> <span class="nc">Node</span><span class="p">{</span></span>
+<span class="code-line"><span class="k">public</span><span class="o">:</span></span>
+<span class="code-line">    <span class="n">Node</span> <span class="o">*</span><span class="n">next</span><span class="p">;</span>         <span class="c1">// pointer to next node</span></span>
+<span class="code-line">    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">str</span><span class="p">;</span>    <span class="c1">// data</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="n">Node</span><span class="p">(){};</span>                       <span class="c1">// default constructor</span></span>
+<span class="code-line">    <span class="n">Node</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">s</span><span class="p">)</span><span class="o">:</span><span class="n">str</span><span class="p">(</span><span class="n">s</span><span class="p">){};</span>   <span class="c1">// constructor</span></span>
+<span class="code-line"><span class="p">};</span></span>
+<span class="code-line"><span class="kt">void</span> <span class="nf">traversal</span><span class="p">(</span><span class="n">Node</span> <span class="o">*</span><span class="n">CurrentNode</span><span class="p">){</span></span>
+<span class="code-line">    <span class="k">if</span> <span class="p">(</span><span class="n">CurrentNode</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">){</span></span>
+<span class="code-line">        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">CurrentNode</span><span class="o">-&gt;</span><span class="n">str</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span><span class="p">;</span></span>
+<span class="code-line">        <span class="n">traversal</span><span class="p">(</span><span class="n">CurrentNode</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">);</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line"><span class="p">}</span></span>
+<span class="code-line"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="c1">// initialize nodes</span></span>
+<span class="code-line">    <span class="n">Node</span> <span class="o">*</span><span class="n">A</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Node</span><span class="p">(</span><span class="s">&quot;A&quot;</span><span class="p">);</span></span>
+<span class="code-line">    <span class="n">Node</span> <span class="o">*</span><span class="n">B</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Node</span><span class="p">(</span><span class="s">&quot;B&quot;</span><span class="p">);</span></span>
+<span class="code-line">    <span class="n">Node</span> <span class="o">*</span><span class="n">C</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Node</span><span class="p">(</span><span class="s">&quot;C&quot;</span><span class="p">);</span></span>
+<span class="code-line">    <span class="n">Node</span> <span class="o">*</span><span class="n">D</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Node</span><span class="p">(</span><span class="s">&quot;D&quot;</span><span class="p">);</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="c1">// construct linked list</span></span>
+<span class="code-line">    <span class="n">A</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">B</span><span class="p">;</span></span>
+<span class="code-line">    <span class="n">B</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">C</span><span class="p">;</span></span>
+<span class="code-line">    <span class="n">C</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">D</span><span class="p">;</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="c1">// representing the front of linked list by CurrentNode</span></span>
+<span class="code-line">    <span class="n">Node</span> <span class="o">*</span><span class="n">CurrentNode</span> <span class="o">=</span> <span class="n">A</span><span class="p">;</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="c1">// traversal by iteration </span></span>
+<span class="code-line">    <span class="k">while</span> <span class="p">(</span><span class="n">CurrentNode</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">){</span></span>
+<span class="code-line">        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">CurrentNode</span><span class="o">-&gt;</span><span class="n">str</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span><span class="p">;</span></span>
+<span class="code-line">        <span class="n">CurrentNode</span> <span class="o">=</span> <span class="n">CurrentNode</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="c1">// traversal by recursion</span></span>
+<span class="code-line">    <span class="n">traversal</span><span class="p">(</span><span class="n">A</span><span class="p">);</span></span>
+<span class="code-line">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+
+
+<p>output：</p>
+<div class="highlight"><pre><span class="code-line">A B C D     // from while loop</span>
+<span class="code-line">A B C D     // from traversal()</span>
+</pre></div>
+
+
+<p><strong>line5 - line12：</strong>定義<code>class Node</code>，其中包含了指向下一個node的pointer，以<code>string</code>攜帶字母，以及Node的constructor。(為了在main()中能夠取用，全部寫成public member。)</p>
+<p><strong>line13 - line18：</strong>此為recursion(遞迴)形式的traversal，與<strong>line42</strong>一併討論。</p>
+<p><strong>line21 - line24：</strong>定義帶有字母A、B、C、D的node。</p>
+<p><strong>line27 - line29：</strong>示範如何使用最暴力的方式建立出如圖一的Linked list。(管理Linked list之過程時常是動態的(今天新增一筆資料，明天刪除兩筆資料)，因此建議將「新增node」寫成函式形式，例如：insert())。</p>
+<p><strong>line32：</strong> 定義CurrentNode表示「當前所位於的node」。在Linked list(及其衍生資料結構)的操作中，時常使用CurrentNode，目的是為了讓函式能夠有效地重複利用。<br />
+舉例來說，若要用最暴力的方式依序印出A、B、C、D：</p>
+<div class="highlight"><pre><span class="code-line"><span class="c1">// C++ code</span></span>
+<span class="code-line"><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">A</span><span class="o">-&gt;</span><span class="n">str</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">A</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">str</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">A</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">str</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">A</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">str</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span></span>
+</pre></div>
+
+
+<p>output：  </p>
+<div class="highlight"><pre><span class="code-line"><span class="n">A</span> <span class="n">B</span> <span class="n">C</span> <span class="n">D</span></span>
+</pre></div>
+
+
+<p>然而，這樣的寫法除了<a href="https://www.youtube.com/watch?v=Qdcfxk-e_iw">太hardcore</a>之外，還有幾點缺陷：</p>
+<ul>
+<li>只有當資料量小，並且站在全知視角(已經知道Linked list中A、B、C、D之相對位置)時，才能土法煉鋼。假設Linked list中有一百個node，欲依序列出資料，又或者Node裡不只有定義pointer next，而是有pointer next1、next2、next3，就只好關閉視窗。</li>
+<li>資料隱蔽問題：一般情況，在定義class Node時，不會把<code>Node *next</code>與<code>string str</code>裸露在外，而是寫成private member讓使用者無法任意修改。</li>
+</ul>
+<p>隱蔽性問題這裡不多談，大致上的方向是使用member function存取private member。<br />
+接著要處理的是程式的重複使用性。  </p>
+<p><strong>line35 - line38：</strong> traversal主體。  </p>
+<p>分解步驟如下：</p>
+<ul>
+<li>
+<p><strong>line35</strong>：在<strong>line32</strong>定義之CurrentNode目前為node A，不是NULL，因此進入<code>While</code>迴圈。<br />
+如圖二所示，在第一次迴圈中，可觸及的Node只有<code>CurrentNode</code>與<code>CurrentNode-&gt;next</code>，即為A與B。<br />
+</br> 
+<center>
+<img alt="linked list_1" src="LLtraversal1.png" /><br />
+<strong>圖二：第一次迴圈，可觸及的node只有A與B。</strong>
+</center> <br />
+</br></p>
+</li>
+<li>
+<p><strong>line36</strong>：列印出<code>CurrentNode</code>所帶的字母。  </p>
+</li>
+<li><strong>line37</strong>：將<code>CurrentNode</code>移動至<code>CurrentNode</code>所指向的下一個node，亦即，從A移動到B。</li>
+<li><strong>line38</strong>：跳出迴圈後，若更新過後的<code>CurrentNode</code>仍不為NULL(在A之後的是B)，將進入第二次<code>while</code>迴圈，重複<strong>line35 - line38</strong>。  </li>
+</ul>
+<p>依此類推，第二至第四次迴圈之示意圖如下：<br />
+</br> 
+<center>
+<img alt="linked list_2" src="LLtraversal2.png" /><br />
+<strong>圖三：第二次迴圈，可觸及的node為B與C。</strong>  </p>
+<p><img alt="linked list_3" src="LLtraversal3.png" /><br />
+<strong>圖四：第三次迴圈，可觸及的node為C與D。</strong>  </p>
+<p><img alt="linked list_4" src="LLtraversal4.png" /><br />
+<strong>圖五：第四次迴圈，可觸及的node只有D。</strong>
+</center> <br />
+</br></p>
+<p>直到第四次迴圈之<strong>line37</strong>，CurrentNode更新為NULL，不滿足<code>while</code>之條件式，便結束迴圈。</p>
+<p><strong>line42：</strong> 函式traversal()之主體(<strong>line13 - line18</strong>)與<strong>line35 - line38</strong>之<code>while</code>迴圈具有相同的作用。兩者皆能列印出Linked list中的所有資料。</p>
+<p></br>  </p>
+<p>以上是在Linked list中，單向(single direction)的traversal之介紹，只要把握pointer對記憶體位置(memory address)的操作原則，應該能輕鬆掌握。</p>
+<p></br></p>
+<h6><strong>參考資料</strong>：</h6>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Linked_list">Wikipedia：Linked List</a></li>
+<li><a href="https://www.youtube.com/watch?v=Qdcfxk-e_iw">太hardcore了</a>
+</br></li>
+</ul>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="http://alrightchiu.github.io/SecondRound/tag/jin-tian-bu-xie-ming-tian-jiu-wang-liao.html">今天不寫明天就忘了</a>
+    </p>
+  </div>
+</article>
+
+    <footer>
+<p>
+  &copy; Chiu CC  - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>
+</p>
+<p>Built using <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a></p><p>
+  <a rel="license"
+     href="http://creativecommons.org/licenses/by-sa/4.0/"
+     target="_blank">
+    <img alt="Creative Commons License"
+         title="Creative Commons License"
+         style="border-width:0"
+         src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png"
+         width="80"
+         height="15"/>
+  </a>
+</p>    </footer>
+  </main>
+
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "name": "Linked List: Traversal",
+  "headline": "Linked List: Traversal",
+  "datePublished": "2015-12-19 20:27:00+08:00",
+  "dateModified": "",
+  "author": {
+    "@type": "Person",
+    "name": "Chiu CC",
+    "url": "http://alrightchiu.github.io/SecondRound/author/chiu-cc.html"
+  },
+  "image": "http://alrightchiu.github.io/SecondRound/fig/antiwar.jpg",
+  "url": "http://alrightchiu.github.io/SecondRound/linked-list-traversal.html",
+  "description": "介紹Linked List中的Traversal(尋訪)。"
+}
+</script></body>
+</html>
