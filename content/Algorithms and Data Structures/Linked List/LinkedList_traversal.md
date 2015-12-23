@@ -127,7 +127,7 @@ A B C D
 ![linked list_1][traversal_1]  
 **圖二：第一次迴圈，可觸及的node只有A與B。**
 </center>   
-[traversal_1]: LLtraversal1.png
+[traversal_1]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Linked%20List/LLtraversal1.png?raw=true
 </br>
 
 * **line36**：列印出`CurrentNode`所帶的字母。  
