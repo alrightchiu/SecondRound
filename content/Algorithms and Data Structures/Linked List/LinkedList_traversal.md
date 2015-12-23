@@ -146,9 +146,9 @@ A B C D
 ![linked list_4][traversal_4]  
 **圖五：第四次迴圈，可觸及的node只有D。**
 </center>   
-[traversal_2]: LLtraversal2.png
-[traversal_3]: LLtraversal3.png
-[traversal_4]: LLtraversal4.png
+[traversal_2]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Linked%20List/LLtraversal2.png?raw=true 
+[traversal_3]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Linked%20List/LLtraversal3.png?raw=true 
+[traversal_4]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Linked%20List/LLtraversal4.png?raw=true
 </br>
 
 直到第四次迴圈之**line37**，CurrentNode更新為NULL，不滿足`while`之條件式，便結束迴圈。
