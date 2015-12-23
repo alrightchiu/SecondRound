@@ -158,20 +158,17 @@
 <p><strong>line35 - line38：</strong> traversal主體。  </p>
 <p>分解步驟如下：</p>
 <ul>
-<li>
-<p><strong>line35</strong>：在<strong>line32</strong>定義之CurrentNode目前為node A，不是NULL，因此進入<code>While</code>迴圈。<br />
-如圖二所示，在第一次迴圈中，可觸及的Node只有<code>CurrentNode</code>與<code>CurrentNode-&gt;next</code>，即為A與B。<br />
-</br> 
-<center>
+<li><strong>line35</strong>：在<strong>line32</strong>定義之CurrentNode目前為node A，不是NULL，因此進入<code>While</code>迴圈。<br />
+如圖二所示，在第一次迴圈中，可觸及的Node只有<code>CurrentNode</code>與<code>CurrentNode-&gt;next</code>，即為A與B。 </li>
+</ul>
+<p><center>
 <img alt="linked list_1" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Linked%20List/LLtraversal1.png?raw=true" /><br />
 <strong>圖二：第一次迴圈，可觸及的node只有A與B。</strong>
 </center> <br />
 </br></p>
-</li>
-<li>
-<p><strong>line36</strong>：列印出<code>CurrentNode</code>所帶的字母。  </p>
-</li>
-<li><strong>line37</strong>：將<code>CurrentNode</code>移動至<code>CurrentNode</code>所指向的下一個node，亦即，從A移動到B。</li>
+<ul>
+<li><strong>line36</strong>：列印出<code>CurrentNode</code>所帶的字母。  </li>
+<li><strong>line37</strong>：將<code>CurrentNode</code>移動至<code>CurrentNode</code>所指向的下一個node，亦即，從A移動到B。  </li>
 <li><strong>line38</strong>：跳出迴圈後，若更新過後的<code>CurrentNode</code>仍不為NULL(在A之後的是B)，將進入第二次<code>while</code>迴圈，重複<strong>line35 - line38</strong>。  </li>
 </ul>
 <p>依此類推，第二至第四次迴圈之示意圖如下：<br />
@@ -193,9 +190,9 @@
 <h6><strong>參考資料</strong>：</h6>
 <ul>
 <li><a href="https://en.wikipedia.org/wiki/Linked_list">Wikipedia：Linked List</a></li>
-<li><a href="https://www.youtube.com/watch?v=Qdcfxk-e_iw">太hardcore了</a>
-</br></li>
+<li><a href="https://www.youtube.com/watch?v=Qdcfxk-e_iw">太hardcore了</a></li>
 </ul>
+<p></br>  </p>
   </div>
   <div class="tag-cloud">
     <p>
