@@ -1,5 +1,5 @@
 Title: Linked List: Traversal 
-Date: 2015-12-19 20:27  
+Date: 2015-12-23 20:00 
 Category: Algorithms and Data Structures  
 Tags: 今天不寫明天就忘了  
 Summary: 介紹Linked List中的Traversal(尋訪)。
