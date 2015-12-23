@@ -123,7 +123,7 @@ A B C D
 * **line35**：在**line32**定義之CurrentNode目前為node A，不是NULL，因此進入`While`迴圈。  
 如圖二所示，在第一次迴圈中，可觸及的Node只有`CurrentNode`與`CurrentNode->next`，即為A與B。 
  
- 
+
 <center>
 ![linked list_1][traversal_1]  
 **圖二：第一次迴圈，可觸及的node只有A與B。**
@@ -136,11 +136,11 @@ A B C D
 * **line38**：跳出迴圈後，若更新過後的`CurrentNode`仍不為NULL(在A之後的是B)，將進入第二次`while`迴圈，重複**line35 - line38**。  
 
 依此類推，第二至第四次迴圈之示意圖如下：  
-</br> 
+</br>
 <center>
 ![linked list_2][traversal_2]  
 **圖三：第二次迴圈，可觸及的node為B與C。**  
-  
+
 ![linked list_3][traversal_3]  
 **圖四：第三次迴圈，可觸及的node為C與D。**  
 
