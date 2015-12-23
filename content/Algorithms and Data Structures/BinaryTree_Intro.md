@@ -50,7 +50,7 @@ Summary: 介紹Binary Tree的基本概念。
 
 修改在[Tree(樹)](http://alrightchiu.github.io/SecondRound/treeshu.html#code)提供的程式實作方式，將node的child pointer設為left child與right child，以滿足Binary Tree的形式。  
 另外，在class TreeNode有個`TreeNode *parent`，顧名思義，即是指向該node之parent的pointer，以圖二為例，B的parent pointer即指向A。  
-加入parent(又稱為field)的威力要在對樹的操作(operaion)如inorder traversal(中序尋訪)、node deletion(刪除node)、以及任何需要back tracing(回溯路徑)的操作時，會更顯眼。
+Binary Tree的node未必需要parent pointer(或稱為parent field)，然而加入parent後，在對樹的操作(operaion)如inorder traversal(中序尋訪)、node deletion(刪除node)、以及任何需要back-tracing(回溯路徑)的操作時，會更加有效率。
 
 ```cpp
 // 以C++為例
