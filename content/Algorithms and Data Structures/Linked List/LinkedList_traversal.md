@@ -152,7 +152,7 @@ A B C D
 [traversal_4]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Linked%20List/LLtraversal4.png?raw=true
 </br>
 
-直到第四次迴圈之**line37**，CurrentNode更新為NULL，不滿足`while`之條件式，便結束迴圈。
+直到第四次迴圈之**line37**，CurrentNode更新為NULL，表示已經抵達Linked list的尾端，同時，不滿足`while`之條件式，便結束迴圈。
 
 **line42：** 函式traversal()之主體(**line13 - line18**)與**line35 - line38**之`while`迴圈具有相同的作用。兩者皆能列印出Linked list中的所有資料。
 
