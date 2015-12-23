@@ -122,7 +122,7 @@
 &lt;strong&gt;圖五：第四次迴圈，可觸及的node只有D。&lt;/strong&gt;
 &lt;/center&gt; &lt;br /&gt;
 &lt;/br&gt;&lt;/p&gt;
-&lt;p&gt;直到第四次迴圈之&lt;strong&gt;line37&lt;/strong&gt;，CurrentNode更新為NULL，不滿足&lt;code&gt;while&lt;/code&gt;之條件式，便結束迴圈。&lt;/p&gt;
+&lt;p&gt;直到第四次迴圈之&lt;strong&gt;line37&lt;/strong&gt;，CurrentNode更新為NULL，表示已經抵達Linked list的尾端，同時，不滿足&lt;code&gt;while&lt;/code&gt;之條件式，便結束迴圈。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;line42：&lt;/strong&gt; 函式traversal()之主體(&lt;strong&gt;line13 - line18&lt;/strong&gt;)與&lt;strong&gt;line35 - line38&lt;/strong&gt;之&lt;code&gt;while&lt;/code&gt;迴圈具有相同的作用。兩者皆能列印出Linked list中的所有資料。&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;  &lt;/p&gt;
 &lt;p&gt;以上是在Linked list中，單向(single direction)的traversal之介紹，只要把握pointer對記憶體位置(memory address)的操作原則，應該能輕鬆掌握。&lt;/p&gt;
