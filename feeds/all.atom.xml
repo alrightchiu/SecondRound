@@ -72,11 +72,11 @@
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;&lt;strong&gt;line5 - line12：&lt;/strong&gt;定義&lt;code&gt;class Node&lt;/code&gt;，其中包含了指向下一個node的pointer，以&lt;code&gt;string&lt;/code&gt;攜帶字母，以及Node的constructor。(為了在main()中能夠取用，全部寫成public member。)&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;line5 - line12：&lt;/strong&gt;定義&lt;code&gt;class Node&lt;/code&gt;，其中包含了指向下一個node的pointer，以&lt;code&gt;string&lt;/code&gt;攜帶字母，以及&lt;code&gt;Node&lt;/code&gt;的constructor。(為了在main()中能夠取用，全部寫成public member。)&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;line13 - line18：&lt;/strong&gt;此為recursion(遞迴)形式的traversal，與&lt;strong&gt;line42&lt;/strong&gt;一併討論。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;line21 - line24：&lt;/strong&gt;定義帶有字母A、B、C、D的node。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;line27 - line29：&lt;/strong&gt;示範如何使用最暴力的方式建立出如圖一的Linked list。(管理Linked list之過程時常是動態的(今天新增一筆資料，明天刪除兩筆資料)，因此建議將「新增node」寫成函式形式，例如：insert())。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;line32：&lt;/strong&gt; 定義CurrentNode表示「當前所位於的node」。在Linked list(及其衍生資料結構)的操作中，時常使用CurrentNode，目的是為了讓函式能夠有效地重複利用。&lt;br /&gt;
+&lt;p&gt;&lt;strong&gt;line32：&lt;/strong&gt; 定義&lt;code&gt;CurrentNode&lt;/code&gt;表示「當前所位於的node」。在Linked list(及其衍生資料結構)的操作中，時常使用CurrentNode，目的是為了讓函式能夠有效地重複利用。&lt;br /&gt;
 舉例來說，若要用最暴力的方式依序印出A、B、C、D：&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="c1"&gt;// C++ code&lt;/span&gt;&lt;/span&gt;
 &lt;span class="code-line"&gt;&lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;str&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="s"&gt;&amp;quot; &amp;quot;&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;next&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;str&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="s"&gt;&amp;quot; &amp;quot;&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;next&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;next&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;str&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="s"&gt;&amp;quot; &amp;quot;&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;next&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;next&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;next&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;str&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;endl&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;/span&gt;
@@ -91,14 +91,14 @@
 &lt;p&gt;然而，這樣的寫法除了&lt;a href="https://www.youtube.com/watch?v=Qdcfxk-e_iw"&gt;太hardcore&lt;/a&gt;之外，還有幾點缺陷：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;只有當資料量小，並且站在全知視角(已經知道Linked list中A、B、C、D之相對位置)時，才能土法煉鋼。假設Linked list中有一百個node，欲依序列出資料，又或者Node裡不只有定義pointer next，而是有pointer next1、next2、next3，就只好關閉視窗。&lt;/li&gt;
-&lt;li&gt;資料隱蔽問題：一般情況，在定義class Node時，不會把&lt;code&gt;Node *next&lt;/code&gt;與&lt;code&gt;string str&lt;/code&gt;裸露在外，而是寫成private member讓使用者無法任意修改。&lt;/li&gt;
+&lt;li&gt;資料隱蔽問題：一般情況，在定義&lt;code&gt;class Node&lt;/code&gt;時，不會把&lt;code&gt;Node *next&lt;/code&gt;與&lt;code&gt;string str&lt;/code&gt;裸露在外，而是寫成private member讓使用者無法任意修改。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;隱蔽性問題這裡不多談，大致上的方向是使用member function存取private member。&lt;br /&gt;
 接著要處理的是程式的重複使用性。  &lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;line35 - line38：&lt;/strong&gt; traversal主體。  &lt;/p&gt;
 &lt;p&gt;分解步驟如下：&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;line35&lt;/strong&gt;：在&lt;strong&gt;line32&lt;/strong&gt;定義之CurrentNode目前為node A，不是NULL，因此進入&lt;code&gt;While&lt;/code&gt;迴圈。&lt;br /&gt;
+&lt;li&gt;&lt;strong&gt;line35&lt;/strong&gt;：在&lt;strong&gt;line32&lt;/strong&gt;定義之&lt;code&gt;CurrentNode&lt;/code&gt;目前為node A，不是NULL，因此進入&lt;code&gt;While&lt;/code&gt;迴圈。&lt;br /&gt;
 如圖二所示，在第一次迴圈中，可觸及的Node只有&lt;code&gt;CurrentNode&lt;/code&gt;與&lt;code&gt;CurrentNode-&amp;gt;next&lt;/code&gt;，即為A與B。 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;center&gt;
@@ -122,7 +122,7 @@
 &lt;strong&gt;圖五：第四次迴圈，可觸及的node只有D。&lt;/strong&gt;
 &lt;/center&gt; &lt;br /&gt;
 &lt;/br&gt;&lt;/p&gt;
-&lt;p&gt;直到第四次迴圈之&lt;strong&gt;line37&lt;/strong&gt;，CurrentNode更新為NULL，表示已經抵達Linked list的尾端，同時，不滿足&lt;code&gt;while&lt;/code&gt;之條件式，便結束迴圈。&lt;/p&gt;
+&lt;p&gt;直到第四次迴圈之&lt;strong&gt;line37&lt;/strong&gt;，&lt;code&gt;CurrentNode&lt;/code&gt;更新為NULL，表示已經抵達Linked list的尾端，同時，不滿足&lt;code&gt;while&lt;/code&gt;之條件式，便結束迴圈。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;line42：&lt;/strong&gt; 函式traversal()之主體(&lt;strong&gt;line13 - line18&lt;/strong&gt;)與&lt;strong&gt;line35 - line38&lt;/strong&gt;之&lt;code&gt;while&lt;/code&gt;迴圈具有相同的作用。兩者皆能列印出Linked list中的所有資料。&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;  &lt;/p&gt;
 &lt;p&gt;以上是在Linked list中，單向(single direction)的traversal之介紹，只要把握pointer對記憶體位置(memory address)的操作原則，應該能輕鬆掌握。&lt;/p&gt;

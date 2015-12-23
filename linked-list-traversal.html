@@ -132,11 +132,11 @@
 </pre></div>
 
 
-<p><strong>line5 - line12：</strong>定義<code>class Node</code>，其中包含了指向下一個node的pointer，以<code>string</code>攜帶字母，以及Node的constructor。(為了在main()中能夠取用，全部寫成public member。)</p>
+<p><strong>line5 - line12：</strong>定義<code>class Node</code>，其中包含了指向下一個node的pointer，以<code>string</code>攜帶字母，以及<code>Node</code>的constructor。(為了在main()中能夠取用，全部寫成public member。)</p>
 <p><strong>line13 - line18：</strong>此為recursion(遞迴)形式的traversal，與<strong>line42</strong>一併討論。</p>
 <p><strong>line21 - line24：</strong>定義帶有字母A、B、C、D的node。</p>
 <p><strong>line27 - line29：</strong>示範如何使用最暴力的方式建立出如圖一的Linked list。(管理Linked list之過程時常是動態的(今天新增一筆資料，明天刪除兩筆資料)，因此建議將「新增node」寫成函式形式，例如：insert())。</p>
-<p><strong>line32：</strong> 定義CurrentNode表示「當前所位於的node」。在Linked list(及其衍生資料結構)的操作中，時常使用CurrentNode，目的是為了讓函式能夠有效地重複利用。<br />
+<p><strong>line32：</strong> 定義<code>CurrentNode</code>表示「當前所位於的node」。在Linked list(及其衍生資料結構)的操作中，時常使用CurrentNode，目的是為了讓函式能夠有效地重複利用。<br />
 舉例來說，若要用最暴力的方式依序印出A、B、C、D：</p>
 <div class="highlight"><pre><span class="code-line"><span class="c1">// C++ code</span></span>
 <span class="code-line"><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">A</span><span class="o">-&gt;</span><span class="n">str</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">A</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">str</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">A</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">str</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">A</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">str</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span></span>
@@ -151,14 +151,14 @@
 <p>然而，這樣的寫法除了<a href="https://www.youtube.com/watch?v=Qdcfxk-e_iw">太hardcore</a>之外，還有幾點缺陷：</p>
 <ul>
 <li>只有當資料量小，並且站在全知視角(已經知道Linked list中A、B、C、D之相對位置)時，才能土法煉鋼。假設Linked list中有一百個node，欲依序列出資料，又或者Node裡不只有定義pointer next，而是有pointer next1、next2、next3，就只好關閉視窗。</li>
-<li>資料隱蔽問題：一般情況，在定義class Node時，不會把<code>Node *next</code>與<code>string str</code>裸露在外，而是寫成private member讓使用者無法任意修改。</li>
+<li>資料隱蔽問題：一般情況，在定義<code>class Node</code>時，不會把<code>Node *next</code>與<code>string str</code>裸露在外，而是寫成private member讓使用者無法任意修改。</li>
 </ul>
 <p>隱蔽性問題這裡不多談，大致上的方向是使用member function存取private member。<br />
 接著要處理的是程式的重複使用性。  </p>
 <p><strong>line35 - line38：</strong> traversal主體。  </p>
 <p>分解步驟如下：</p>
 <ul>
-<li><strong>line35</strong>：在<strong>line32</strong>定義之CurrentNode目前為node A，不是NULL，因此進入<code>While</code>迴圈。<br />
+<li><strong>line35</strong>：在<strong>line32</strong>定義之<code>CurrentNode</code>目前為node A，不是NULL，因此進入<code>While</code>迴圈。<br />
 如圖二所示，在第一次迴圈中，可觸及的Node只有<code>CurrentNode</code>與<code>CurrentNode-&gt;next</code>，即為A與B。 </li>
 </ul>
 <p><center>
@@ -182,7 +182,7 @@
 <strong>圖五：第四次迴圈，可觸及的node只有D。</strong>
 </center> <br />
 </br></p>
-<p>直到第四次迴圈之<strong>line37</strong>，CurrentNode更新為NULL，表示已經抵達Linked list的尾端，同時，不滿足<code>while</code>之條件式，便結束迴圈。</p>
+<p>直到第四次迴圈之<strong>line37</strong>，<code>CurrentNode</code>更新為NULL，表示已經抵達Linked list的尾端，同時，不滿足<code>while</code>之條件式，便結束迴圈。</p>
 <p><strong>line42：</strong> 函式traversal()之主體(<strong>line13 - line18</strong>)與<strong>line35 - line38</strong>之<code>while</code>迴圈具有相同的作用。兩者皆能列印出Linked list中的所有資料。</p>
 <p></br>  </p>
 <p>以上是在Linked list中，單向(single direction)的traversal之介紹，只要把握pointer對記憶體位置(memory address)的操作原則，應該能輕鬆掌握。</p>
