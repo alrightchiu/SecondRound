@@ -29,7 +29,7 @@ traversal(尋訪)有「站在A地，往所有與A地相連的地方移動」的�
 
 **圖一：Linked list: A->B->C->D->NULL。**  
 </center>   
-[ll]: LLtraversal.png
+[ll]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Linked%20List/LLtraversal.png?raw=true
 
 
 現要求Visiting為print(顯示資料)，欲列印出Linked list中的所有字母，也就是從A開始，依序印出B、C、D，程式範例如下：
