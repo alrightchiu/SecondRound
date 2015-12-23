@@ -112,7 +112,7 @@
 &lt;li&gt;&lt;strong&gt;line38&lt;/strong&gt;：跳出迴圈後，若更新過後的&lt;code&gt;CurrentNode&lt;/code&gt;仍不為NULL(在A之後的是B)，將進入第二次&lt;code&gt;while&lt;/code&gt;迴圈，重複&lt;strong&gt;line35 - line38&lt;/strong&gt;。  &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;依此類推，第二至第四次迴圈之示意圖如下：&lt;br /&gt;
-&lt;/br&gt; 
+&lt;/br&gt;
 &lt;center&gt;
 &lt;img alt="linked list_2" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Linked%20List/LLtraversal2.png?raw=true" /&gt;&lt;br /&gt;
 &lt;strong&gt;圖三：第二次迴圈，可觸及的node為B與C。&lt;/strong&gt;  &lt;/p&gt;
