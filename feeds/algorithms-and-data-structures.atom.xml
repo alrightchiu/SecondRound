@@ -117,11 +117,11 @@
 &lt;p&gt;依此類推，第二至第四次迴圈之示意圖如下：&lt;br /&gt;
 &lt;/br&gt; 
 &lt;center&gt;
-&lt;img alt="linked list_2" src="LLtraversal2.png" /&gt;&lt;br /&gt;
+&lt;img alt="linked list_2" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Linked%20List/LLtraversal2.png?raw=true" /&gt;&lt;br /&gt;
 &lt;strong&gt;圖三：第二次迴圈，可觸及的node為B與C。&lt;/strong&gt;  &lt;/p&gt;
-&lt;p&gt;&lt;img alt="linked list_3" src="LLtraversal3.png" /&gt;&lt;br /&gt;
+&lt;p&gt;&lt;img alt="linked list_3" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Linked%20List/LLtraversal3.png?raw=true" /&gt;&lt;br /&gt;
 &lt;strong&gt;圖四：第三次迴圈，可觸及的node為C與D。&lt;/strong&gt;  &lt;/p&gt;
-&lt;p&gt;&lt;img alt="linked list_4" src="LLtraversal4.png" /&gt;&lt;br /&gt;
+&lt;p&gt;&lt;img alt="linked list_4" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Linked%20List/LLtraversal4.png?raw=true" /&gt;&lt;br /&gt;
 &lt;strong&gt;圖五：第四次迴圈，可觸及的node只有D。&lt;/strong&gt;
 &lt;/center&gt; &lt;br /&gt;
 &lt;/br&gt;&lt;/p&gt;
