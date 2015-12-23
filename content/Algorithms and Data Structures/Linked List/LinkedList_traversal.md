@@ -121,17 +121,18 @@ A B C D
 分解步驟如下：
 
 * **line35**：在**line32**定義之CurrentNode目前為node A，不是NULL，因此進入`While`迴圈。  
-如圖二所示，在第一次迴圈中，可觸及的Node只有`CurrentNode`與`CurrentNode->next`，即為A與B。  
-</br> 
+如圖二所示，在第一次迴圈中，可觸及的Node只有`CurrentNode`與`CurrentNode->next`，即為A與B。 
+ 
+ 
 <center>
 ![linked list_1][traversal_1]  
 **圖二：第一次迴圈，可觸及的node只有A與B。**
 </center>   
 [traversal_1]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Linked%20List/LLtraversal1.png?raw=true
 </br>
-
+  
 * **line36**：列印出`CurrentNode`所帶的字母。  
-* **line37**：將`CurrentNode`移動至`CurrentNode`所指向的下一個node，亦即，從A移動到B。
+* **line37**：將`CurrentNode`移動至`CurrentNode`所指向的下一個node，亦即，從A移動到B。  
 * **line38**：跳出迴圈後，若更新過後的`CurrentNode`仍不為NULL(在A之後的是B)，將進入第二次`while`迴圈，重複**line35 - line38**。  
 
 依此類推，第二至第四次迴圈之示意圖如下：  
@@ -165,7 +166,8 @@ A B C D
 
 * [Wikipedia：Linked List](https://en.wikipedia.org/wiki/Linked_list)
 * [太hardcore了](https://www.youtube.com/watch?v=Qdcfxk-e_iw)
-</br>
+  
+</br>  
 
 
 
