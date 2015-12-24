@@ -1,5 +1,5 @@
 Title: Binary Tree: Traversal 
-Date: 2015-12-19 20:27  
+Date: 2015-12-24 22:41  
 Category: Algorithms and Data Structures  
 Tags: 今天不寫明天就忘了  
 Summary: 介紹Binary Tree中的Traversal(尋訪)。
@@ -52,7 +52,7 @@ Binary Tree的Node具有兩個指向child的pointer，Traversal以「當前所�
 
 **圖一：CurrentNode位在A，leftchild與rightchild分別為B與C。**  
 </center>   
-[VLR]:VLR.png
+[VLR]:https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/VLR.png?raw=true
 
 
 以圖一為例，假設現在CurrentNode位在A，leftchild與rightchild分別為B與C，並加上一項限制：「L一定在R之前」，便能產生三種相對關係：
@@ -64,9 +64,9 @@ Binary Tree的Node具有兩個指向child的pointer，Traversal以「當前所�
 |<center> **圖二(a) pre-order：VLR** </center>|<center> **圖二(b) in-order：LVR** </center>|<center> **圖二(c) post-order：LRV** </center>|
 </center> 
 
-[VLR_pre]:VLR_pre.png
-[LVR_in]:VLR_in.png
-[LRV_post]:VLR_post.png
+[VLR_pre]:https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/VLR_pre.png?raw=true
+[LVR_in]:https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/VLR_in.png?raw=true
+[LRV_post]:https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/VLR_post.png?raw=true
 
 
 * **pre-order(VLR)**：當CurrentNode移動到A時，會先對A進行Visiting，接著前往left child進行Visiting，再前往right child進行Visiting。(若child指向NULL則忽略。)
@@ -81,7 +81,7 @@ Binary Tree的Node具有兩個指向child的pointer，Traversal以「當前所�
 
 **圖三(a)：。**  
 </center>   
-[bt_0]:bt_0.png  
+[bt_0]:https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/bt_0.png?raw=true  
 
 
 (V表示CurrentNode所在的node，標上數字後表示已經Visiting，以print(顯示資料)為例，標上"1"表示該node第一個被印出。)
@@ -164,17 +164,17 @@ D已經進行過Visiting，便標上數字"1"，表示D為traversal的第一站�
 
 以上說明了post-order traversal之過程，另外兩種pre-order與in-order在概念上皆相同，只要把握順序規則即可。
 
-[bt_1]:bt_1.png
-[bt_2]:bt_2.png
-[bt_3]:bt_3.png
-[bt_4]:bt_4.png
-[bt_5]:bt_5.png
-[bt_6]:bt_6.png
-[bt_7]:bt_7.png
-[bt_8]:bt_8.png
-[bt_9]:bt_9.png
-[bt_10]:bt_10.png
-[bt_11]:bt_11.png
+[bt_1]:https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/bt_1.png?raw=true
+[bt_2]:https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/bt_2.png?raw=true
+[bt_3]:https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/bt_3.png?raw=true
+[bt_4]:https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/bt_4.png?raw=true
+[bt_5]:https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/bt_5.png?raw=true
+[bt_6]:https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/bt_6.png?raw=true
+[bt_7]:https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/bt_7.png?raw=true
+[bt_8]:https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/bt_8.png?raw=true
+[bt_9]:https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/bt_9.png?raw=true
+[bt_10]:https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/bt_10.png?raw=true
+[bt_11]:https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/bt_11.png?raw=true
 
 </br>
 
@@ -382,11 +382,11 @@ A B C D E F G H I
 **圖四(e)：。**  
 </center>
 
-[ex]:ex.png
-[ex_pre]:ex_pre.png
-[ex_in]:ex_in.png
-[ex_post]:ex_post.png
-[ex_level]:ex_level.png
+[ex]:https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/ex.png?raw=true
+[ex_pre]:https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/ex_pre.png?raw=true
+[ex_in]:https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/ex_in.png?raw=true
+[ex_post]:https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/ex_post.png?raw=true
+[ex_level]:https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/ex_level.png?raw=true
 
 <a name="in_parent"></a>
 
@@ -472,7 +472,7 @@ TreeNode* BinaryTree::leftmost(TreeNode *current){
 
 **圖五(a)：。**  
 </center>
-[successor]: successor.png
+[successor]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/successor.png?raw=true
 
 ```cpp
 // C++ code
@@ -533,7 +533,7 @@ D B G E H A F I C
 
 **圖五(b)：。**  
 </center>
-[predecessor]: predecessor.png
+[predecessor]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/predecessor.png?raw=true
 
 ```cpp
 // C++ code
