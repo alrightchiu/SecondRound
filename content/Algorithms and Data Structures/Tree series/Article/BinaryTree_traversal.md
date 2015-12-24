@@ -26,13 +26,17 @@ traversal(尋訪)有「站在A地，往所有與A地相連的地方移動」的�
 ##目錄
 * [Traversal in Binary Tree](#bttraversal)
 * [Example with Code](#ex_code)  
+
   * [Pre-Order Traversal](#pre) 
   * [In-Order Traversal](#in)
   * [Post-Order Traversal](#post)
   * [Level-Order Traversal](#level)
+
 * [In-Order Traversal by Parent Field](#in_parent)
+
   * [Successor、leftmost](#successor)
   * [Predecessor、rightmost](#predecessor)
+
 * [參考資料](#ref)
 
 
@@ -57,12 +61,12 @@ Binary Tree的Node具有兩個指向child的pointer，Traversal以「當前所�
 
 以圖一為例，假設現在CurrentNode位在A，leftchild與rightchild分別為B與C，並加上一項限制：「L一定在R之前」，便能產生三種相對關係：
 
-<center> 
+
 
 |![VLR_pre][VLR_pre]|![LVR_in][LVR_in]|![LRV_post][LRV_post]|
 |---|---|---|
-|<center> **圖二(a) pre-order：VLR** </center>|<center> **圖二(b) in-order：LVR** </center>|<center> **圖二(c) post-order：LRV** </center>|
-</center> 
+|<center> **圖二(a) pre-order：VLR** </center>|<center> **圖二(b) in-order：LVR** </center>|<center> **圖二(c) post-order：LRV** </center>|  
+   
 
 [VLR_pre]:https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/VLR_pre.png?raw=true
 [LVR_in]:https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/VLR_in.png?raw=true
