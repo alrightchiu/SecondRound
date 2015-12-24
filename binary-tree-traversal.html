@@ -109,7 +109,7 @@
 <p>以圖一為例，假設現在CurrentNode位在A，leftchild與rightchild分別為B與C，並加上一項限制：「L一定在R之前」，便能產生三種相對關係：</p>
 <p><center>
 <img alt="VLR_pre" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/VLR_pre.png?raw=true" /> <img alt="LVR_in" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/VLR_in.png?raw=true" /> <img alt="LRV_post" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/VLR_post.png?raw=true" />  </p>
-<p><strong>圖二(a)-(c) 依序為： pre-order：VLR、in-order：LVR、post-order：LRV</strong>
+<p><strong>圖二(a)-(c) 依序為： (a)pre-order：VLR、(b)in-order：LVR、(c)post-order：LRV</strong>
 </center></p>
 <ul>
 <li><strong>pre-order(VLR)</strong>：當CurrentNode移動到A時，會先對A進行Visiting，接著前往left child進行Visiting，再前往right child進行Visiting。(若child指向NULL則忽略。)</li>
@@ -245,7 +245,7 @@
 <ul>
 <li>class TreeNode的定義；</li>
 <li>class BinaryTree的定義，其中有四個member function分別為四種traversal；</li>
-<li>main()中建立如圖四(a)的樹，並在<strong>line43 - line323</strong>執行四種traversal。</li>
+<li>main()中建立如圖四(a)的樹，並在<strong>line46 - line53</strong>執行四種traversal。</li>
 </ul>
 <p>尚缺的四個函式的定義(definition)請接著看下去。<br />
 其中，pre-order、in-order、post-order traversal的邏輯就只是「V」、「L」、「R」誰先誰後的差別，以下程式碼是以較直覺的遞迴(recursion)形式完成，不過，換成迭代(iteration)配合<a href="https://en.wikipedia.org/wiki/Stack_%28abstract_data_type%29">stack(堆疊)</a>在概念上完全相同，實作上即是考慮「V」、「L」、「R」誰先push(推)進stack。  </p>
