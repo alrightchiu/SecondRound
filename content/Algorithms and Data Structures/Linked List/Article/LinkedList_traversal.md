@@ -29,8 +29,7 @@ traversal(尋訪)有「站在A地，往所有與A地相連的地方移動」的�
 
 **圖一：Linked list: A->B->C->D->NULL。**  
 </center>   
-[ll]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Linked%20List/LLtraversal.png?raw=true
-
+[ll]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Linked%20List/Traversal_fig/LLtraversal.png?raw=true
 
 現要求Visiting為print(顯示資料)，欲列印出Linked list中的所有字母，也就是從A開始，依序印出B、C、D，程式範例如下：
 
@@ -128,7 +127,7 @@ A B C D
 ![linked list_1][traversal_1]  
 **圖二：第一次迴圈，可觸及的node只有A與B。**
 </center>   
-[traversal_1]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Linked%20List/LLtraversal1.png?raw=true
+[traversal_1]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Linked%20List/Traversal_fig/LLtraversal1.png?raw=true
 </br>
   
 * **line36**：列印出`CurrentNode`所帶的字母。  
@@ -147,9 +146,9 @@ A B C D
 ![linked list_4][traversal_4]  
 **圖五：第四次迴圈，可觸及的node只有D。**
 </center>   
-[traversal_2]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Linked%20List/LLtraversal2.png?raw=true 
-[traversal_3]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Linked%20List/LLtraversal3.png?raw=true 
-[traversal_4]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Linked%20List/LLtraversal4.png?raw=true
+[traversal_2]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Linked%20List/Traversal_fig/LLtraversal2.png?raw=true 
+[traversal_3]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Linked%20List/Traversal_fig/LLtraversal3.png?raw=true 
+[traversal_4]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Linked%20List/Traversal_fig/LLtraversal4.png?raw=true
 </br>
 
 直到第四次迴圈之**line37**，`CurrentNode`更新為NULL，表示已經抵達Linked list的尾端，同時，不滿足`while`之條件式，便結束迴圈。
