@@ -32,7 +32,7 @@ Summary: 介紹Binary Tree的基本概念。
 
 **圖一：這是一棵樹(Tree)**
 </center>  
-[general_tree]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BinaryTree/general_tree.png?raw=true
+[general_tree]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Intro/general_tree.png?raw=true
 
 
 若限制node只能有兩個child，等價於「樹上的每一個node之degree皆為2」，此即稱為**Binary Tree**(二元樹)，並稱兩個child pointer為left child和right-child。
@@ -42,7 +42,7 @@ Summary: 介紹Binary Tree的基本概念。
 
 **圖二：這是一棵Binary Tree。**
 </center>
-[binary_tree]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BinaryTree/binary_tree.png?raw=true
+[binary_tree]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Intro/binary_tree.png?raw=true
 
 
  <a name="code"></a>
@@ -91,7 +91,7 @@ class Tree{
 
 **圖三：若一棵Full Binary Tree的leaf node之level為$n$，整棵樹共有$2^n-1$個node。**  
 </center>   
-[fullBT]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BinaryTree/fullBT.png?raw=true  
+[fullBT]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Intro/fullBT.png?raw=true  
 
 
 #####**B. Complete Binary Tree**:
@@ -106,7 +106,7 @@ class Tree{
 
 **圖四：這是一棵Complete Binary Tree。**
 </center>  
-[complBT]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BinaryTree/complBT.png?raw=true
+[complBT]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Intro/complBT.png?raw=true
 
 圖五的樹共有11個node，但是第11個node(K)應該要是第5個node(E)的child，因此，此樹並非Complete Binary Tree。
 
@@ -116,7 +116,8 @@ class Tree{
 **圖五：這不是一棵Complete Binary Tree。**
 </center>
 </br> 
-[non_complBT]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BinaryTree/non_complBT.png?raw=true
+[non_complBT]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Intro/non_complBT.png?raw=true
+ 
  <a name="application"></a>
 
 ##**學習Binary Tree的未來出路**
