@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="zh-hant">
+<head>
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" type="text/css" href="http://alrightchiu.github.io/SecondRound/theme/css/style.min.css">
+  <link rel="stylesheet" type="text/css" href="http://alrightchiu.github.io/SecondRound/theme/css/pygments.min.css">
+  <link rel="stylesheet" type="text/css" href="http://alrightchiu.github.io/SecondRound/theme/css/font-awesome.min.css">
+  <link href="http://alrightchiu.github.io/SecondRound/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Ordinary Days Atom">
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+<meta name="author" content="Chiu CC" />
+<meta name="description" content="介紹Binary Tree中的Traversal(尋訪)。" />
+<meta name="keywords" content="今天不寫明天就忘了">
+<meta property="og:site_name" content="Ordinary Days"/>
+<meta property="og:title" content="Binary Tree: Traversal"/>
+<meta property="og:description" content="介紹Binary Tree中的Traversal(尋訪)。"/>
+<meta property="og:locale" content="zh_TW"/>
+<meta property="og:url" content="http://alrightchiu.github.io/SecondRound/binary-tree-traversal.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2015-12-24 22:41:00+08:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="http://alrightchiu.github.io/SecondRound/author/chiu-cc.html">
+<meta property="article:section" content="Algorithms and Data Structures"/>
+<meta property="article:tag" content="今天不寫明天就忘了"/>
+<meta property="og:image" content="http://alrightchiu.github.io/SecondRound/fig/antiwar.jpg">  <title>Ordinary Days &ndash; Binary Tree: Traversal</title>
+</head>
+<body>
+  <aside>
+    <div>
+      <a href="http://alrightchiu.github.io/SecondRound">
+        <img src="http://alrightchiu.github.io/SecondRound/fig/antiwar.jpg" alt="Ordinary Days" title="Ordinary Days">
+      </a>
+      <h1><a href="http://alrightchiu.github.io/SecondRound">Ordinary Days</a></h1>
+      <p>Hey</p>
+      <nav>
+        <ul class="list">
+          <li><a href="http://alrightchiu.github.io/SecondRound/pages/about.html#about">About</a></li>
+        </ul>
+      </nav>
+      <ul class="social">
+        <li><a class="sc-github" href="https://github.com/alrightchiu" target="_blank"><i class="fa fa-github"></i></a></li>
+      </ul>
+    </div>
+  </aside>
+  <main>
+    <nav>
+      <a href="http://alrightchiu.github.io/SecondRound">Home</a>
+      <a href="http://alrightchiu.github.io/SecondRound/archives.html">Archives</a>
+      <a href="http://alrightchiu.github.io/SecondRound/categories.html">Categories</a>
+      <a href="http://alrightchiu.github.io/SecondRound/tags.html">Tags</a>
+      <a href="http://alrightchiu.github.io/SecondRound/feeds/all.atom.xml">Atom</a>
+    </nav>
+
+<article>
+  <header>
+    <h1 id="binary-tree-traversal">Binary Tree: Traversal</h1>
+    <p>Posted on 12 24, 2015 in <a href="http://alrightchiu.github.io/SecondRound/category/algorithms-and-data-structures.html">Algorithms and Data Structures</a></p>
+  </header>
+  <div>
+    <p></br></p>
+<h6><strong>先備知識與注意事項</strong></h6>
+<p>traversal(尋訪)有「站在A地，往所有與A地相連的地方移動」的意思：  </p>
+<ul>
+<li>以Graph(圖)的語言來說，站在vertex A上，有一條edge連結A與B，若能夠由A往B移動，此即可視為traversal；</li>
+<li>在以pointer實現之Linked list和Tree中，站在node A上，A具有指向B之pointer，因此能夠由A往B移動，此即可視為traversal。</li>
+</ul>
+<p>移動到特定的node之後，通常伴隨著其他行為，例如print out(顯示資料)、assign(賦值)等等，這些行為又稱作Visiting，</p>
+<p>在閱讀本篇之前，建議先閱讀<a href="http://alrightchiu.github.io/SecondRound/linked-list-traversal.html">Linked List: Traversal</a>作簡單複習。在Linked list與Tree中的traversal於pointer的操作概念上完全相同，不過由於Node的pointer增加了，於是從一維的移動拓展到二維的移動。<br />
+本篇文章將介紹在Binary Tree中的四種traversal方法。  </p>
+<p>另外，根據不同的程式實作方法，可能會使用上<a href="https://en.wikipedia.org/wiki/Stack_%28abstract_data_type%29">stack(堆疊)</a>與<a href="https://en.wikipedia.org/wiki/Queue_%28abstract_data_type%29">queue(佇列)</a>，如果熟悉的話，那就會很酷。
+</br></p>
+<h2>目錄</h2>
+<ul>
+<li><a href="#bttraversal">Traversal in Binary Tree</a></li>
+<li><a href="#ex_code">Example with Code</a>  </li>
+<li><a href="#pre">Pre-Order Traversal</a> </li>
+<li><a href="#in">In-Order Traversal</a></li>
+<li><a href="#post">Post-Order Traversal</a></li>
+<li><a href="#level">Level-Order Traversal</a></li>
+<li><a href="#in_parent">In-Order Traversal by Parent Field</a></li>
+<li><a href="#successor">Successor、leftmost</a></li>
+<li><a href="#predecessor">Predecessor、rightmost</a></li>
+<li><a href="#ref">參考資料</a></li>
+</ul>
+<p><a name="bttraversal"></a></p>
+<h2><strong>Traversal in Binary Tree</strong></h2>
+<p>Binary Tree的Node具有兩個指向child的pointer，Traversal以「當前所在的node」為參考點，所能夠進行的移動有三種：</p>
+<ul>
+<li><strong>V</strong>：Visiting，對當前所在的node進行print、assign或其他操作。</li>
+<li><strong>L</strong>：移動到left child。</li>
+<li><strong>R</strong>：移動到right child。</li>
+</ul>
+<p><center>
+<img alt="VLR" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/VLR.png?raw=true" /></p>
+<p><strong>圖一：CurrentNode位在A，leftchild與rightchild分別為B與C。</strong><br />
+</center>   </p>
+<p>以圖一為例，假設現在CurrentNode位在A，leftchild與rightchild分別為B與C，並加上一項限制：「L一定在R之前」，便能產生三種相對關係：</p>
+<p><center> </p>
+<table>
+<thead>
+<tr>
+<th><img alt="VLR_pre" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/VLR_pre.png?raw=true" /></th>
+<th><img alt="LVR_in" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/VLR_in.png?raw=true" /></th>
+<th><img alt="LRV_post" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/VLR_post.png?raw=true" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><center> <strong>圖二(a) pre-order：VLR</strong> </center></td>
+<td><center> <strong>圖二(b) in-order：LVR</strong> </center></td>
+<td><center> <strong>圖二(c) post-order：LRV</strong> </center></td>
+</tr>
+<tr>
+<td></center></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>pre-order(VLR)</strong>：當CurrentNode移動到A時，會先對A進行Visiting，接著前往left child進行Visiting，再前往right child進行Visiting。(若child指向NULL則忽略。)</li>
+<li><strong>in-order(LVR)</strong>：當CurrentNode移動到A時，會先對A的left child(B)進行Visiting，接著回到A進行Visiting，再前往right child(C)進行Visiting。(若child指向NULL則忽略。)</li>
+<li><strong>post-order(LRV)</strong>：當CurrentNode移動到A時，會先對A的left child(B)進行Visiting，再前往right child(C)進行Visiting，接著回到A進行Visiting。(若child指向NULL則忽略。)</li>
+</ul>
+<p></br>
+現有一棵樹如圖三(a)，欲進行post-order traversal，將Visiting用作print(顯示資料)，流程如下：</p>
+<p><center>
+<img alt="bt_a" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/bt_0.png?raw=true" /></p>
+<p><strong>圖三(a)：。</strong><br />
+</center>   </p>
+<p>(V表示CurrentNode所在的node，標上數字後表示已經Visiting，以print(顯示資料)為例，標上"1"表示該node第一個被印出。)</p>
+<p>一開始，CurrentNode進到A(root)，按照post-order的順序規則，先檢查B(left child)是否為NULL，若不是，則先移動到B：</p>
+<p><center>
+<img alt="bt_b" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/bt_1.png?raw=true" /></p>
+<p><strong>圖三(b)：。</strong><br />
+</center></p>
+<p>當CurrentNode移動到B，再一次執行post-order的順序規則，檢查D(left child)是否為NULL，若不是，則移動到D：</p>
+<p><center>
+<img alt="bt_c" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/bt_2.png?raw=true" /></p>
+<p><strong>圖三(c)：。</strong><br />
+</center></p>
+<p>當CurrentNode移動到B，再一次執行post-order的順序規則，檢查其left child與right child皆為NULL，則回到D做Visiting，在這裡即為print，並回到B。<br />
+(回到B的動作發生，即表示「以D為CurrentNode之迴圈或函式已經結束」，於是回到「尚未結束的以B為CurrentNode」之程序(procedure)。)</p>
+<p><center>
+<img alt="bt_d" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/bt_3.png?raw=true" /></p>
+<p><strong>圖三(d)：。</strong><br />
+</center></p>
+<p>D已經進行過Visiting，便標上數字"1"，表示D為traversal的第一站。<br />
+接著，在「以B為CurrentNode」的post-order規則下，繼續往E(right child)移動。</p>
+<p><center>
+<img alt="bt_e" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/bt_4.png?raw=true" /></p>
+<p><strong>圖三(e)：。</strong><br />
+</center></p>
+<p>進入E後，因為E為leaf node，因此過程如圖三(d)。在D(L)與E(R)都Visiting過後，便回到B進行Visiting，並標上數字。<br />
+接著回到「以A為CurrentNode」的程序(procedure)。</p>
+<p><center>
+<img alt="bt_f" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/bt_5.png?raw=true" /></p>
+<p><strong>圖三(f)：。</strong><br />
+</center></p>
+<p>回到「以A為CurrentNode」後，按照post-order的規則，先往C(right child)移動。</p>
+<p><center>
+<img alt="bt_g" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/bt_6.png?raw=true" /></p>
+<p><strong>圖三(g)：。</strong><br />
+</center></p>
+<p>同樣地步驟，再從C移動至F，並發現F為leaf node，於是對F進行Visiting，並標上數字。</p>
+<p><center>
+<img alt="bt_h" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/bt_7.png?raw=true" /></p>
+<p><strong>圖三(h)：。</strong><br />
+</center></p>
+<p>印完F後，發現C的right child指向NULL，於是略過R，回到C，並對C進行Visiting，標上數字。</p>
+<p><center>
+<img alt="bt_i" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/bt_8.png?raw=true" /><img alt="bt_j" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/bt_9.png?raw=true" /></p>
+<p><strong>圖三(i)-(j)：。</strong><br />
+</center></p>
+<p>最後回到「以A為CurrentNode」的程序，對A進行Visiting，便完成了此次post-order traversal，並依序印出<code>D E B F C A</code>。</p>
+<p><center>
+<img alt="bt_k" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/bt_10.png?raw=true" /><img alt="bt_l" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/bt_11.png?raw=true" /></p>
+<p><strong>圖三(k)-(l)：。</strong><br />
+</center></p>
+<p>以上說明了post-order traversal之過程，另外兩種pre-order與in-order在概念上皆相同，只要把握順序規則即可。</p>
+<p></br></p>
+<p><a name="ex_code"></a></p>
+<h2><strong>Example with Code</strong></h2>
+<p>接下來，再以一棵稍微複雜的Binary Tree作為範例，展示pre-order、in-order、post-order及level-order之traversal。</p>
+<p>現有一棵樹如圖四(a)：</p>
+<p><center>
+<img alt="ex" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/ex.png?raw=true" /></p>
+<p><strong>圖四(a)：。</strong><br />
+</center></p>
+<p>並以最暴力的方式定義<code>TreeNode</code>與<code>BinaryTree</code>之物件(object)：</p>
+<div class="highlight"><pre><span class="code-line"><span class="c1">// C++ code</span></span>
+<span class="code-line"><span class="cp">#include &lt;iostream&gt;</span></span>
+<span class="code-line"><span class="cp">#include &lt;string&gt;</span></span>
+<span class="code-line"><span class="cp">#include &lt;queue&gt;</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="k">class</span> <span class="nc">BinaryTree</span><span class="p">;</span></span>
+<span class="code-line"><span class="k">class</span> <span class="nc">TreeNode</span><span class="p">{</span></span>
+<span class="code-line"><span class="k">public</span><span class="o">:</span></span>
+<span class="code-line">    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">leftchild</span><span class="p">;</span></span>
+<span class="code-line">    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">rightchild</span><span class="p">;</span></span>
+<span class="code-line">    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">parent</span><span class="p">;</span></span>
+<span class="code-line">    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">str</span><span class="p">;</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="n">TreeNode</span><span class="p">(){};</span></span>
+<span class="code-line">    <span class="n">TreeNode</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">s</span><span class="p">)</span><span class="o">:</span><span class="n">str</span><span class="p">(</span><span class="n">s</span><span class="p">){};</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="k">friend</span> <span class="k">class</span> <span class="nc">BinaryTree</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">};</span></span>
+<span class="code-line"><span class="k">class</span> <span class="nc">BinaryTree</span><span class="p">{</span></span>
+<span class="code-line"><span class="k">public</span><span class="o">:</span></span>
+<span class="code-line">    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">root</span><span class="p">;</span>         <span class="c1">// 以root作為存取整棵樹的起點</span></span>
+<span class="code-line">    <span class="n">BinaryTree</span><span class="p">(){};</span></span>
+<span class="code-line">    <span class="n">BinaryTree</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">node</span><span class="p">)</span><span class="o">:</span><span class="n">root</span><span class="p">(</span><span class="n">node</span><span class="p">){};</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="kt">void</span> <span class="nf">Preorder</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">);</span></span>
+<span class="code-line">    <span class="kt">void</span> <span class="nf">Inorder</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">);</span></span>
+<span class="code-line">    <span class="kt">void</span> <span class="nf">Postorder</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">);</span></span>
+<span class="code-line">    <span class="kt">void</span> <span class="nf">Levelorder</span><span class="p">();</span></span>
+<span class="code-line"><span class="p">};</span></span>
+<span class="code-line"><span class="c1">// definition of BinaryTree::Preorder()</span></span>
+<span class="code-line"><span class="c1">// definition of BinaryTree::Inorder()</span></span>
+<span class="code-line"><span class="c1">// definition of BinaryTree::Postorder()</span></span>
+<span class="code-line"><span class="c1">// definition of BinaryTree::Levelorder()</span></span>
+<span class="code-line"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="c1">// TreeNode instantiation</span></span>
+<span class="code-line">    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">A</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">(</span><span class="s">&quot;A&quot;</span><span class="p">);</span> <span class="n">TreeNode</span> <span class="o">*</span><span class="n">B</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">(</span><span class="s">&quot;B&quot;</span><span class="p">);</span> <span class="n">TreeNode</span> <span class="o">*</span><span class="n">C</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">(</span><span class="s">&quot;C&quot;</span><span class="p">);</span> <span class="n">TreeNode</span> <span class="o">*</span><span class="n">D</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">(</span><span class="s">&quot;D&quot;</span><span class="p">);</span> <span class="n">TreeNode</span> <span class="o">*</span><span class="n">E</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">(</span><span class="s">&quot;E&quot;</span><span class="p">);</span> <span class="n">TreeNode</span> <span class="o">*</span><span class="n">F</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">(</span><span class="s">&quot;F&quot;</span><span class="p">);</span> <span class="n">TreeNode</span> <span class="o">*</span><span class="n">G</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">(</span><span class="s">&quot;G&quot;</span><span class="p">);</span> <span class="n">TreeNode</span> <span class="o">*</span><span class="n">H</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">(</span><span class="s">&quot;H&quot;</span><span class="p">);</span> <span class="n">TreeNode</span> <span class="o">*</span><span class="n">I</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">(</span><span class="s">&quot;I&quot;</span><span class="p">);</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="c1">// construct the Binary Tree</span></span>
+<span class="code-line">    <span class="n">A</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">=</span> <span class="n">B</span><span class="p">;</span> <span class="n">A</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">=</span> <span class="n">C</span><span class="p">;</span> </span>
+<span class="code-line">    <span class="n">B</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">=</span> <span class="n">D</span><span class="p">;</span> <span class="n">B</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">=</span> <span class="n">E</span><span class="p">;</span> </span>
+<span class="code-line">    <span class="n">E</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">=</span> <span class="n">G</span><span class="p">;</span> <span class="n">E</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">=</span> <span class="n">H</span><span class="p">;</span> </span>
+<span class="code-line">    <span class="n">C</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">=</span> <span class="n">F</span><span class="p">;</span> <span class="n">F</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">=</span> <span class="n">I</span><span class="p">;</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="n">BinaryTree</span> <span class="n">T</span><span class="p">(</span><span class="n">A</span><span class="p">);</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="n">T</span><span class="p">.</span><span class="n">Preorder</span><span class="p">(</span><span class="n">T</span><span class="p">.</span><span class="n">root</span><span class="p">);</span></span>
+<span class="code-line">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span></span>
+<span class="code-line">    <span class="n">T</span><span class="p">.</span><span class="n">Inorder</span><span class="p">(</span><span class="n">T</span><span class="p">.</span><span class="n">root</span><span class="p">);</span></span>
+<span class="code-line">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span></span>
+<span class="code-line">    <span class="n">T</span><span class="p">.</span><span class="n">Postorder</span><span class="p">(</span><span class="n">T</span><span class="p">.</span><span class="n">root</span><span class="p">);</span></span>
+<span class="code-line">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span></span>
+<span class="code-line">    <span class="n">T</span><span class="p">.</span><span class="n">Levelorder</span><span class="p">();</span></span>
+<span class="code-line">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>    </span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+
+
+<p>上面的程式碼包含了幾個部分：</p>
+<ul>
+<li>class TreeNode的定義；</li>
+<li>class BinaryTree的定義，其中有四個member function分別為四種traversal；</li>
+<li>main()中建立如圖四(a)的樹，並在<strong>line43 - line323</strong>執行四種traversal。</li>
+</ul>
+<p>尚缺的四個函式的定義(definition)請接著看下去。<br />
+其中，pre-order、in-order、post-order traversal的邏輯就只是「V」、「L」、「R」誰先誰後的差別，以下程式碼是以較直覺的遞迴(recursion)形式完成，不過，換成迭代(iteration)配合<a href="https://en.wikipedia.org/wiki/Stack_%28abstract_data_type%29">stack(堆疊)</a>在概念上完全相同，實作上即是考慮「V」、「L」、「R」誰先push(推)進stack。  </p>
+<p><a name="pre"></a></p>
+<h4><strong>Pre-Order Traversal</strong></h4>
+<div class="highlight"><pre><span class="code-line"><span class="c1">// C++ code</span></span>
+<span class="code-line"><span class="kt">void</span> <span class="n">BinaryTree</span><span class="o">::</span><span class="n">Preorder</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">){</span></span>
+<span class="code-line">    <span class="k">if</span> <span class="p">(</span><span class="n">current</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">str</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span><span class="p">;</span>   <span class="c1">// V</span></span>
+<span class="code-line">        <span class="n">Preorder</span><span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">);</span>       <span class="c1">// L</span></span>
+<span class="code-line">        <span class="n">Preorder</span><span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="p">);</span>      <span class="c1">// R</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+
+
+<p>output:</p>
+<div class="highlight"><pre><span class="code-line"><span class="n">A</span> <span class="n">B</span> <span class="n">D</span> <span class="n">E</span> <span class="n">G</span> <span class="n">H</span> <span class="n">C</span> <span class="n">F</span> <span class="n">I</span> </span>
+</pre></div>
+
+
+<p><center>
+<img alt="ex_pre" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/ex_pre.png?raw=true" /></p>
+<p><strong>圖四(b)：。</strong><br />
+</center></p>
+<p><a name="in"></a></p>
+<h4><strong>In-Order Traversal</strong></h4>
+<div class="highlight"><pre><span class="code-line"><span class="c1">// C++ code</span></span>
+<span class="code-line"><span class="kt">void</span> <span class="n">BinaryTree</span><span class="o">::</span><span class="n">Inorder</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">){</span></span>
+<span class="code-line">    <span class="k">if</span> <span class="p">(</span><span class="n">current</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">        <span class="n">Inorder</span><span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">);</span>        <span class="c1">// L</span></span>
+<span class="code-line">        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">str</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span><span class="p">;</span>   <span class="c1">// V</span></span>
+<span class="code-line">        <span class="n">Inorder</span><span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="p">);</span>       <span class="c1">// R</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+
+
+<p>output:</p>
+<div class="highlight"><pre><span class="code-line"><span class="n">D</span> <span class="n">B</span> <span class="n">G</span> <span class="n">E</span> <span class="n">H</span> <span class="n">A</span> <span class="n">F</span> <span class="n">I</span> <span class="n">C</span> </span>
+</pre></div>
+
+
+<p><center>
+<img alt="ex_in" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/ex_in.png?raw=true" /></p>
+<p><strong>圖四(c)：。</strong><br />
+</center></p>
+<p><a name="post"></a></p>
+<h4><strong>Post-Order Traversal</strong></h4>
+<div class="highlight"><pre><span class="code-line"><span class="c1">// C++ code</span></span>
+<span class="code-line"><span class="kt">void</span> <span class="n">BinaryTree</span><span class="o">::</span><span class="n">Postorder</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">){</span></span>
+<span class="code-line">    <span class="k">if</span> <span class="p">(</span><span class="n">current</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">        <span class="n">Postorder</span><span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">);</span>     <span class="c1">// L</span></span>
+<span class="code-line">        <span class="n">Postorder</span><span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="p">);</span>    <span class="c1">// R</span></span>
+<span class="code-line">        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">str</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span><span class="p">;</span>  <span class="c1">// V</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+
+
+<p>output:</p>
+<div class="highlight"><pre><span class="code-line"><span class="n">D</span> <span class="n">G</span> <span class="n">H</span> <span class="n">E</span> <span class="n">B</span> <span class="n">I</span> <span class="n">F</span> <span class="n">C</span> <span class="n">A</span> </span>
+</pre></div>
+
+
+<p><center>
+<img alt="ex_post" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/ex_post.png?raw=true" /></p>
+<p><strong>圖四(d)：。</strong><br />
+</center></p>
+<p><a name="level"></a></p>
+<h4><strong>Level-Order Traversal</strong></h4>
+<p>先前介紹了pre-order、in-order、post-order的traversal，而level-order則是照著level的由小到大的順序，由上而下，並在同一個level由左至右地依序Visiting每個node。
+以下提供迭代(iteration)配合<a href="https://en.wikipedia.org/wiki/Queue_%28abstract_data_type%29">queue(佇列)</a>實現level-order traversal之程式碼，其邏輯也非常直觀：</p>
+<ul>
+<li>以圖四(e)為例，當CurrentNode站在A時，先對A作Visiting，接著檢查是否有left child與right child，若不為NULL，則依序push(推)進queue中，又根據queue「先進先出」(first-in-first-out)的特性，先將B(left child)推入queue，再推入C(right child)，便能確保在下一層level時，是由左至右，先Visiting到B，才Visiting到C。</li>
+</ul>
+<div class="highlight"><pre><span class="code-line"><span class="c1">// C++ code</span></span>
+<span class="code-line"><span class="kt">void</span> <span class="n">BinaryTree</span><span class="o">::</span><span class="n">Levelorder</span><span class="p">(){</span></span>
+<span class="code-line">    <span class="n">std</span><span class="o">::</span><span class="n">queue</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">*&gt;</span> <span class="n">q</span><span class="p">;</span></span>
+<span class="code-line">    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span> <span class="o">=</span> <span class="n">root</span><span class="p">;</span></span>
+<span class="code-line">    <span class="k">while</span> <span class="p">(</span><span class="n">current</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">str</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span><span class="p">;</span></span>
+<span class="code-line">        <span class="k">if</span> <span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">)</span></span>
+<span class="code-line">            <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">);</span></span>
+<span class="code-line">        <span class="k">if</span> <span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="p">)</span></span>
+<span class="code-line">            <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="p">);</span></span>
+<span class="code-line"></span>
+<span class="code-line">        <span class="k">if</span> <span class="p">(</span><span class="n">q</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span></span>
+<span class="code-line">            <span class="k">break</span><span class="p">;</span></span>
+<span class="code-line"></span>
+<span class="code-line">        <span class="n">current</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">front</span><span class="p">();</span></span>
+<span class="code-line">        <span class="n">q</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span></span>
+<span class="code-line">    <span class="p">}</span>  </span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+
+
+<p>output:</p>
+<div class="highlight"><pre><span class="code-line"><span class="n">A</span> <span class="n">B</span> <span class="n">C</span> <span class="n">D</span> <span class="n">E</span> <span class="n">F</span> <span class="n">G</span> <span class="n">H</span> <span class="n">I</span></span>
+</pre></div>
+
+
+<p><center>
+<img alt="ex_level" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/ex_level.png?raw=true" /></p>
+<p><strong>圖四(e)：。</strong><br />
+</center></p>
+<p><a name="in_parent"></a></p>
+<h2><strong>In-Order Traversal by Parent Field</strong></h2>
+<p>在<a href="http://alrightchiu.github.io/SecondRound/binary-tree-intro.html#code">Binary Tree：Intro</a>提到，若在<code>class TreeNode</code>加入pointer指向其parent node會非常有幫助，其中一項理由正是接下來要介紹的兩個函式：InorderSuccessor()與InorderPredecessor()。<br />
+說文解字時間：  </p>
+<ul>
+<li>字首Inorder-，即是按照inorder之順序規則並應用於inorder traversal；</li>
+<li>字尾Successor/ Predecessor，即是「下一個」與「前一個」。</li>
+</ul>
+<p>因此，InorderSuccessor()與InorderPredecessor()便是用來尋找「以inorder順序」進行traversal之下一個與前一個node。<br />
+以圖四(c)為例，若CurrentNode站在H(<code>CurrentNode = H</code>)，則</p>
+<ul>
+<li><code>CurrentNode = InorderSuccessor(CurrentNode)</code>會將CurrentNode移動至A；</li>
+<li><code>CurrentNode = InorderPredecessor(CurrentNode)</code>則會將CurrentNode移動至E。</li>
+</ul>
+<p><center>
+<img alt="ex_in" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/ex_in.png?raw=true" /></p>
+<p><strong>圖四(c)：。</strong><br />
+</center></p>
+<p>特別介紹inorder，一大原因是為了Binary Search Tree(BST)鋪路，在BST中，照著inorder順序印出node，就會得到排序過的資訊(詳見：<a href="">sorry還沒寫</a>)。<br />
+另外，若觀察前面提過的遞迴(recursion)形式之inorder traversal，Visiting被包含在遞迴函式內，這表示若要進行多種不同的Visiting，例如print(顯示資料)、assign(賦值、更新資料)，甚至是deletion(刪除節點)，都需要重新寫一個專門功能的遞迴函式。事情可以更有效率。</p>
+<p>在看兩個實用的函式之前，有幾件前置作業：  </p>
+<ul>
+<li>在main()裡建立圖四之Binary Tree的部分，連結node與其parent node之pointer：</li>
+</ul>
+<div class="highlight"><pre><span class="code-line"><span class="c1">// C++ code</span></span>
+<span class="code-line"><span class="c1">// inside main()</span></span>
+<span class="code-line">    <span class="n">A</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">=</span> <span class="n">B</span><span class="p">;</span> <span class="n">A</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">=</span> <span class="n">C</span><span class="p">;</span> <span class="n">B</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">=</span> <span class="n">A</span><span class="p">;</span> <span class="n">C</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">=</span> <span class="n">A</span><span class="p">;</span></span>
+<span class="code-line">    <span class="n">B</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">=</span> <span class="n">D</span><span class="p">;</span> <span class="n">B</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">=</span> <span class="n">E</span><span class="p">;</span> <span class="n">D</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">=</span> <span class="n">B</span><span class="p">;</span> <span class="n">E</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">=</span> <span class="n">B</span><span class="p">;</span></span>
+<span class="code-line">    <span class="n">E</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">=</span> <span class="n">G</span><span class="p">;</span> <span class="n">E</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">=</span> <span class="n">H</span><span class="p">;</span> <span class="n">G</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">=</span> <span class="n">E</span><span class="p">;</span> <span class="n">H</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">=</span> <span class="n">E</span><span class="p">;</span></span>
+<span class="code-line">    <span class="n">C</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">=</span> <span class="n">F</span><span class="p">;</span> <span class="n">F</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">=</span> <span class="n">C</span><span class="p">;</span></span>
+<span class="code-line">    <span class="n">F</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">=</span> <span class="n">I</span><span class="p">;</span> <span class="n">I</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">=</span> <span class="n">F</span><span class="p">;</span></span>
+</pre></div>
+
+
+<ul>
+<li>並在<code>class BinaryTree</code>的定義中加入六個member function(成員函式)：</li>
+</ul>
+<div class="highlight"><pre><span class="code-line"><span class="c1">// C++ code</span></span>
+<span class="code-line"><span class="c1">// inside definition of class BinaryTree</span></span>
+<span class="code-line">    <span class="n">TreeNode</span><span class="o">*</span> <span class="nf">leftmost</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">);</span></span>
+<span class="code-line">    <span class="n">TreeNode</span><span class="o">*</span> <span class="nf">rightmost</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">);</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="n">TreeNode</span><span class="o">*</span> <span class="nf">InorderSuccessor</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">);</span></span>
+<span class="code-line">    <span class="n">TreeNode</span><span class="o">*</span> <span class="nf">InorderPredecessor</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">);</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="kt">void</span> <span class="nf">Inorder_by_parent</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">root</span><span class="p">);</span></span>
+<span class="code-line">    <span class="kt">void</span> <span class="nf">Inorder_Reverse</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">root</span><span class="p">);</span></span>
+</pre></div>
+
+
+<p>其中，除了<code>InorderSuccessor()</code>與<code>InorderPredecessor()</code>之函式主體外，還有<code>leftmost()</code>和<code>rightmost()</code>即是找到Binary Tree中最左與最右的node，可有可無，不過學會了很酷；以及<code>Inorder_by_parent()</code>與<code>Inorder_Reverse()</code>為用以呼叫<code>InorderSuccessor()</code>與<code>InorderPredecessor()</code>的迴圈主體。</p>
+<p>看下去。</p>
+<p><a name="successor"></a></p>
+<h4><strong>Successor、leftmost</strong></h4>
+<p>函式<code>TreeNode* leftmost(TreeNode *current)</code>的功能為：尋找以<code>current</code>為root之subtree中，最左邊的node，最左邊的意思是從<code>current</code>開始一路往left child做類似<a href="http://alrightchiu.github.io/SecondRound/linked-list-traversal.html">Linked list之單向traversal</a>的「一路向左」，而以inorder的順序來說，會找到該subtree中第一個進行Visiting的node。以圖四(c)為例，進入以A為root的Binary Tree，<code>leftmost()</code>將回傳D。</p>
+<div class="highlight"><pre><span class="code-line"><span class="c1">// C++ code</span></span>
+<span class="code-line"><span class="n">TreeNode</span><span class="o">*</span> <span class="n">BinaryTree</span><span class="o">::</span><span class="n">leftmost</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">){</span></span>
+<span class="code-line">    <span class="k">while</span> <span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span></span>
+<span class="code-line">        <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">;</span></span>
+<span class="code-line">    <span class="k">return</span> <span class="n">current</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+
+
+<p>接著觀察在inorder規則下，某一node的下一個node的所在位置有兩種可能：</p>
+<ol>
+<li>若CurrentNode的right child不是NULL，則CurrentNode之下一個順序的node即為「以Current-&gt;rightchild為root」之subtree中，最左的node。<br />
+如圖五(a)所示，若CurrentNode站在B上，B的下一個node即為「以B的right child(也就是E)」為root之subtree中的最左node，即為G。</li>
+<li>若CurrentNode沒有right child，則CurrentNode之下一個順序的node是「以left child的身份尋找到的ancestor」。<br />
+以圖五(a)中的H為例，H沒有right child，因此往上(往root方向)找ancestor，首先找到E，但是H是E的right child，因此再繼續往上找，此時CurrentNode移動到E。而E也是B的right child，再更新CurrentNode為B，往parent找到A，此時，<strong>B為A的left child</strong>，則A即為H的下一個順序的node。</li>
+<li>若整棵樹偏一邊(稱為skewed Binary Tree)，root只有left subtree，沒有right subtree，則回傳NULL，表示root的successor。</li>
+</ol>
+<p><center>
+<img alt="successor" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/successor.png?raw=true" /></p>
+<p><strong>圖五(a)：。</strong><br />
+</center></p>
+<div class="highlight"><pre><span class="code-line"><span class="c1">// C++ code</span></span>
+<span class="code-line"><span class="n">TreeNode</span><span class="o">*</span> <span class="n">BinaryTree</span><span class="o">::</span><span class="n">InorderSuccessor</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">){</span></span>
+<span class="code-line">    <span class="k">if</span> <span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">leftmost</span><span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="p">);</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">new_node</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">;</span></span>
+<span class="code-line">    <span class="n">new_node</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">;</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="k">while</span> <span class="p">(</span><span class="n">new_node</span> <span class="o">!=</span> <span class="nb">NULL</span> <span class="o">&amp;&amp;</span> <span class="n">current</span> <span class="o">==</span> <span class="n">new_node</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">        <span class="n">current</span> <span class="o">=</span> <span class="n">new_node</span><span class="p">;</span></span>
+<span class="code-line">        <span class="n">new_node</span> <span class="o">=</span> <span class="n">new_node</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">;</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="k">return</span> <span class="n">new_node</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+
+
+<p>最後，有了<code>leftmost()</code>與<code>InorderSuccessor()</code>，即能夠以迴圈的方式進行inorder traversal，相較於遞迴形式的函式，具有更大彈性：</p>
+<div class="highlight"><pre><span class="code-line"><span class="c1">// C++ code</span></span>
+<span class="code-line"><span class="kt">void</span> <span class="n">BinaryTree</span><span class="o">::</span><span class="n">Inorder_by_parent</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">root</span><span class="p">){</span></span>
+<span class="code-line">    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">;</span></span>
+<span class="code-line">    <span class="n">current</span> <span class="o">=</span> <span class="n">leftmost</span><span class="p">(</span><span class="n">root</span><span class="p">);</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="k">while</span><span class="p">(</span><span class="n">current</span><span class="p">){</span></span>
+<span class="code-line">        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">str</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span><span class="p">;</span></span>
+<span class="code-line">        <span class="n">current</span> <span class="o">=</span> <span class="n">InorderSuccessor</span><span class="p">(</span><span class="n">current</span><span class="p">);</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+
+
+<p>output：</p>
+<div class="highlight"><pre><span class="code-line"><span class="n">D</span> <span class="n">B</span> <span class="n">G</span> <span class="n">E</span> <span class="n">H</span> <span class="n">A</span> <span class="n">F</span> <span class="n">I</span> <span class="n">C</span></span>
+</pre></div>
+
+
+<p></br>
+<a name="predecessor"></a></p>
+<h4><strong>Predecessor、rightmost</strong></h4>
+<p>只要把<code>InorderSuccessor()</code>與<code>leftmost()</code>中，所有的left與right互換，就得到<code>InorderPredecessor()</code>與<code>rightmost()</code>，而概念上也確實是如此：</p>
+<ul>
+<li><strong>rightmost</strong>：從「以CurrentNode為subtree」的root一路向右做Linked list的單向tracersal。</li>
+<li>
+<p><strong>Predecessor</strong>：某一CurrentNode的「前一個順序的node」之位置有兩種可能：</p>
+</li>
+<li>
+<p>若CurrentNode的left child不是NULL，則CurrentNode之前一個順序的node即為「以Current-&gt;lefttchild為root」之subtree中，最右的node。<br />
+如圖五(b)所示，若CurrentNode站在C上，C的前一個node即為「以C的right child(也就是F)」為root之subtree中的最右node，即為I。</p>
+</li>
+<li>若CurrentNode沒有left child，則CurrentNode之前一個順序的node是「以right child的身份尋找到的ancestor」。<br />
+以圖五(b)中的F為例，F沒有left child，因此往上(往root方向)找ancestor，首先找到C，但是F是C的left child，因此再繼續往上找，此時CurrentNode為C，往parent找到A，此時，<strong>C為A的right child</strong>，則A即為F的前一個順序的node。</li>
+<li>同樣地，若整棵樹為skewed Binary Tree，root只有right subtree，沒有left subtree，則回傳NULL，表示root的predecessor。</li>
+</ul>
+<p><center>
+<img alt="predecessor" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/predecessor.png?raw=true" /></p>
+<p><strong>圖五(b)：。</strong><br />
+</center></p>
+<div class="highlight"><pre><span class="code-line"><span class="c1">// C++ code</span></span>
+<span class="code-line"><span class="n">TreeNode</span><span class="o">*</span> <span class="n">BinaryTree</span><span class="o">::</span><span class="n">rightmost</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">){</span></span>
+<span class="code-line">    <span class="k">while</span> <span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span></span>
+<span class="code-line">        <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="p">;</span></span>
+<span class="code-line">    <span class="k">return</span> <span class="n">current</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">}</span></span>
+<span class="code-line"><span class="n">TreeNode</span><span class="o">*</span> <span class="n">BinaryTree</span><span class="o">::</span><span class="n">InorderPredecessor</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">){</span></span>
+<span class="code-line">    <span class="k">if</span> <span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">rightmost</span><span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">);</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">new_node</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">;</span></span>
+<span class="code-line">    <span class="n">new_node</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">;</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="k">while</span> <span class="p">(</span><span class="n">new_node</span> <span class="o">!=</span> <span class="nb">NULL</span> <span class="o">&amp;&amp;</span> <span class="n">current</span> <span class="o">==</span> <span class="n">new_node</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">        <span class="n">current</span> <span class="o">=</span> <span class="n">new_node</span><span class="p">;</span></span>
+<span class="code-line">        <span class="n">new_node</span> <span class="o">=</span> <span class="n">new_node</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">;</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="k">return</span> <span class="n">new_node</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+
+
+<p>有了<code>rightmost()</code>與<code>InorderPredecessor()</code>，便能夠照inorder traversal的相反順序對樹的node做Visiting：</p>
+<div class="highlight"><pre><span class="code-line"><span class="c1">// C++ code</span></span>
+<span class="code-line"><span class="kt">void</span> <span class="n">BinaryTree</span><span class="o">::</span><span class="n">Inorder_Reverse</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">root</span><span class="p">){</span></span>
+<span class="code-line">    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">;</span></span>
+<span class="code-line">    <span class="n">current</span> <span class="o">=</span> <span class="n">rightmost</span><span class="p">(</span><span class="n">root</span><span class="p">);</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="k">while</span><span class="p">(</span><span class="n">current</span><span class="p">){</span></span>
+<span class="code-line">        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">str</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span><span class="p">;</span></span>
+<span class="code-line">        <span class="n">current</span> <span class="o">=</span> <span class="n">InorderPredecessor</span><span class="p">(</span><span class="n">current</span><span class="p">);</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+
+
+<p>output：</p>
+<div class="highlight"><pre><span class="code-line"><span class="n">C</span> <span class="n">I</span> <span class="n">F</span> <span class="n">A</span> <span class="n">H</span> <span class="n">E</span> <span class="n">G</span> <span class="n">B</span> <span class="n">D</span></span>
+</pre></div>
+
+
+<p></br><br />
+<code>InorderSuccessor()</code>和<code>InorderPredecessor</code>在Binary Search Tree的部分會再次出現，並且出現在基本操作：deletion(刪除node)中，因此學起來不止酷，還很實用的啊。</p>
+<p></br>
+<a name="ref"></a></p>
+<h6><strong>參考資料</strong>：</h6>
+<ul>
+<li><a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844">Introduction to Algorithms</a> </li>
+<li><a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376">Fundamentals of Data Structures in C++</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Stack_%28abstract_data_type%29">Wikipedia：Stack(abstract data type)</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Queue_%28abstract_data_type%29">Wikipedia：Queue(abstract data type)</a></li>
+</ul>
+<p></br></p>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="http://alrightchiu.github.io/SecondRound/tag/jin-tian-bu-xie-ming-tian-jiu-wang-liao.html">今天不寫明天就忘了</a>
+    </p>
+  </div>
+</article>
+
+    <footer>
+<p>
+  &copy; Chiu CC  - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>
+</p>
+<p>Built using <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a></p><p>
+  <a rel="license"
+     href="http://creativecommons.org/licenses/by-sa/4.0/"
+     target="_blank">
+    <img alt="Creative Commons License"
+         title="Creative Commons License"
+         style="border-width:0"
+         src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png"
+         width="80"
+         height="15"/>
+  </a>
+</p>    </footer>
+  </main>
+
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "name": "Binary Tree: Traversal",
+  "headline": "Binary Tree: Traversal",
+  "datePublished": "2015-12-24 22:41:00+08:00",
+  "dateModified": "",
+  "author": {
+    "@type": "Person",
+    "name": "Chiu CC",
+    "url": "http://alrightchiu.github.io/SecondRound/author/chiu-cc.html"
+  },
+  "image": "http://alrightchiu.github.io/SecondRound/fig/antiwar.jpg",
+  "url": "http://alrightchiu.github.io/SecondRound/binary-tree-traversal.html",
+  "description": "介紹Binary Tree中的Traversal(尋訪)。"
+}
+</script></body>
+</html>
