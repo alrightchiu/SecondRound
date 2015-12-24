@@ -27,15 +27,15 @@ traversal(尋訪)有「站在A地，往所有與A地相連的地方移動」的�
 * [Traversal in Binary Tree](#bttraversal)
 * [Example with Code](#ex_code)  
 
-  * [Pre-Order Traversal](#pre) 
-  * [In-Order Traversal](#in)
-  * [Post-Order Traversal](#post)
-  * [Level-Order Traversal](#level)
+    * [Pre-Order Traversal](#pre) 
+    * [In-Order Traversal](#in)
+    * [Post-Order Traversal](#post)
+    * [Level-Order Traversal](#level)
 
 * [In-Order Traversal by Parent Field](#in_parent)
 
-  * [Successor、leftmost](#successor)
-  * [Predecessor、rightmost](#predecessor)
+    * [Successor、leftmost](#successor)
+    * [Predecessor、rightmost](#predecessor)
 
 * [參考資料](#ref)
 
@@ -62,11 +62,11 @@ Binary Tree的Node具有兩個指向child的pointer，Traversal以「當前所�
 以圖一為例，假設現在CurrentNode位在A，leftchild與rightchild分別為B與C，並加上一項限制：「L一定在R之前」，便能產生三種相對關係：
 
 
+<center>
+![VLR_pre][VLR_pre] ![LVR_in][LVR_in] ![LRV_post][LRV_post]  
 
-|![VLR_pre][VLR_pre]|![LVR_in][LVR_in]|![LRV_post][LRV_post]|
-|---|---|---|
-|<center> **圖二(a) pre-order：VLR** </center>|<center> **圖二(b) in-order：LVR** </center>|<center> **圖二(c) post-order：LRV** </center>|  
-   
+ **圖二(a)-(c) 依序為： pre-order：VLR、in-order：LVR、post-order：LRV**
+</center>
 
 [VLR_pre]:https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/VLR_pre.png?raw=true
 [LVR_in]:https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/VLR_in.png?raw=true
@@ -526,11 +526,11 @@ D B G E H A F I C
 * **rightmost**：從「以CurrentNode為subtree」的root一路向右做Linked list的單向tracersal。
 * **Predecessor**：某一CurrentNode的「前一個順序的node」之位置有兩種可能：
 
-  1. 若CurrentNode的left child不是NULL，則CurrentNode之前一個順序的node即為「以Current->lefttchild為root」之subtree中，最右的node。  
+    1. 若CurrentNode的left child不是NULL，則CurrentNode之前一個順序的node即為「以Current->lefttchild為root」之subtree中，最右的node。  
 如圖五(b)所示，若CurrentNode站在C上，C的前一個node即為「以C的right child(也就是F)」為root之subtree中的最右node，即為I。
-  2. 若CurrentNode沒有left child，則CurrentNode之前一個順序的node是「以right child的身份尋找到的ancestor」。  
+    2. 若CurrentNode沒有left child，則CurrentNode之前一個順序的node是「以right child的身份尋找到的ancestor」。  
 以圖五(b)中的F為例，F沒有left child，因此往上(往root方向)找ancestor，首先找到C，但是F是C的left child，因此再繼續往上找，此時CurrentNode為C，往parent找到A，此時，**C為A的right child**，則A即為F的前一個順序的node。
-  3. 同樣地，若整棵樹為skewed Binary Tree，root只有right subtree，沒有left subtree，則回傳NULL，表示root的predecessor。
+    3. 同樣地，若整棵樹為skewed Binary Tree，root只有right subtree，沒有left subtree，則回傳NULL，表示root的predecessor。
 
 <center>
 ![predecessor][predecessor]
