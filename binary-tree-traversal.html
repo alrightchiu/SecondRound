@@ -76,23 +76,19 @@
 <li><a href="#bttraversal">Traversal in Binary Tree</a></li>
 <li>
 <p><a href="#ex_code">Example with Code</a>  </p>
-</li>
-<li>
-<p><a href="#pre">Pre-Order Traversal</a> </p>
-</li>
+<ul>
+<li><a href="#pre">Pre-Order Traversal</a> </li>
 <li><a href="#in">In-Order Traversal</a></li>
 <li><a href="#post">Post-Order Traversal</a></li>
-<li>
-<p><a href="#level">Level-Order Traversal</a></p>
+<li><a href="#level">Level-Order Traversal</a></li>
+</ul>
 </li>
 <li>
 <p><a href="#in_parent">In-Order Traversal by Parent Field</a></p>
-</li>
-<li>
-<p><a href="#successor">Successor、leftmost</a></p>
-</li>
-<li>
-<p><a href="#predecessor">Predecessor、rightmost</a></p>
+<ul>
+<li><a href="#successor">Successor、leftmost</a></li>
+<li><a href="#predecessor">Predecessor、rightmost</a></li>
+</ul>
 </li>
 <li>
 <p><a href="#ref">參考資料</a></p>
@@ -111,22 +107,10 @@
 <p><strong>圖一：CurrentNode位在A，leftchild與rightchild分別為B與C。</strong><br />
 </center>   </p>
 <p>以圖一為例，假設現在CurrentNode位在A，leftchild與rightchild分別為B與C，並加上一項限制：「L一定在R之前」，便能產生三種相對關係：</p>
-<table>
-<thead>
-<tr>
-<th><img alt="VLR_pre" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/VLR_pre.png?raw=true" /></th>
-<th><img alt="LVR_in" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/VLR_in.png?raw=true" /></th>
-<th><img alt="LRV_post" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/VLR_post.png?raw=true" /></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><center> <strong>圖二(a) pre-order：VLR</strong> </center></td>
-<td><center> <strong>圖二(b) in-order：LVR</strong> </center></td>
-<td><center> <strong>圖二(c) post-order：LRV</strong> </center></td>
-</tr>
-</tbody>
-</table>
+<p><center>
+<img alt="VLR_pre" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/VLR_pre.png?raw=true" /> <img alt="LVR_in" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/VLR_in.png?raw=true" /> <img alt="LRV_post" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/VLR_post.png?raw=true" />  </p>
+<p><strong>圖二(a)-(c) 依序為： pre-order：VLR、in-order：LVR、post-order：LRV</strong>
+</center></p>
 <ul>
 <li><strong>pre-order(VLR)</strong>：當CurrentNode移動到A時，會先對A進行Visiting，接著前往left child進行Visiting，再前往right child進行Visiting。(若child指向NULL則忽略。)</li>
 <li><strong>in-order(LVR)</strong>：當CurrentNode移動到A時，會先對A的left child(B)進行Visiting，接著回到A進行Visiting，再前往right child(C)進行Visiting。(若child指向NULL則忽略。)</li>
@@ -489,14 +473,14 @@
 <li><strong>rightmost</strong>：從「以CurrentNode為subtree」的root一路向右做Linked list的單向tracersal。</li>
 <li>
 <p><strong>Predecessor</strong>：某一CurrentNode的「前一個順序的node」之位置有兩種可能：</p>
-</li>
-<li>
-<p>若CurrentNode的left child不是NULL，則CurrentNode之前一個順序的node即為「以Current-&gt;lefttchild為root」之subtree中，最右的node。<br />
-如圖五(b)所示，若CurrentNode站在C上，C的前一個node即為「以C的right child(也就是F)」為root之subtree中的最右node，即為I。</p>
-</li>
+<ol>
+<li>若CurrentNode的left child不是NULL，則CurrentNode之前一個順序的node即為「以Current-&gt;lefttchild為root」之subtree中，最右的node。<br />
+如圖五(b)所示，若CurrentNode站在C上，C的前一個node即為「以C的right child(也就是F)」為root之subtree中的最右node，即為I。</li>
 <li>若CurrentNode沒有left child，則CurrentNode之前一個順序的node是「以right child的身份尋找到的ancestor」。<br />
 以圖五(b)中的F為例，F沒有left child，因此往上(往root方向)找ancestor，首先找到C，但是F是C的left child，因此再繼續往上找，此時CurrentNode為C，往parent找到A，此時，<strong>C為A的right child</strong>，則A即為F的前一個順序的node。</li>
 <li>同樣地，若整棵樹為skewed Binary Tree，root只有right subtree，沒有left subtree，則回傳NULL，表示root的predecessor。</li>
+</ol>
+</li>
 </ul>
 <p><center>
 <img alt="predecessor" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/predecessor.png?raw=true" /></p>
