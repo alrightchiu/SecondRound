@@ -355,6 +355,12 @@ D G H E B I F C A
 
 * 以圖四(e)為例，當CurrentNode站在A時，先對A作Visiting，接著檢查是否有left child與right child，若不為NULL，則依序push(推)進queue中，又根據queue「先進先出」(first-in-first-out)的特性，先將B(left child)推入queue，再推入C(right child)，便能確保在下一層level時，是由左至右，先Visiting到B，才Visiting到C。
 
+<center>
+![ex_level][ex_level]
+
+**圖四(e)：。**  
+</center>
+
 ```cpp
 // C++ code
 void BinaryTree::Levelorder(){
@@ -380,11 +386,7 @@ output:
 ```cpp
 A B C D E F G H I
 ```
-<center>
-![ex_level][ex_level]
 
-**圖四(e)：。**  
-</center>
 
 [ex]:https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/ex.png?raw=true
 [ex_pre]:https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/ex_pre.png?raw=true
@@ -392,6 +394,7 @@ A B C D E F G H I
 [ex_post]:https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/ex_post.png?raw=true
 [ex_level]:https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/ex_level.png?raw=true
 
+</br>
 <a name="in_parent"></a>
 
 ##**In-Order Traversal by Parent Field**
