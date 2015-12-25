@@ -212,8 +212,16 @@ public:
     TreeNode *parent;
     std::string str;
     
-    TreeNode(){};
-    TreeNode(std::string s):str(s){};
+    TreeNode(){
+        leftchild = 0;
+        rightchild = 0;
+        parent = 0;
+    };
+    TreeNode(std::string s):str(s){
+        leftchild = 0;
+        rightchild = 0;
+        parent = 0;
+    };
     
     friend class BinaryTree;
 };
