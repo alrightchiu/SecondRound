@@ -195,8 +195,16 @@
 <span class="code-line">    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">parent</span><span class="p">;</span></span>
 <span class="code-line">    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">str</span><span class="p">;</span></span>
 <span class="code-line"></span>
-<span class="code-line">    <span class="n">TreeNode</span><span class="p">(){};</span></span>
-<span class="code-line">    <span class="n">TreeNode</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">s</span><span class="p">)</span><span class="o">:</span><span class="n">str</span><span class="p">(</span><span class="n">s</span><span class="p">){};</span></span>
+<span class="code-line">    <span class="n">TreeNode</span><span class="p">(){</span></span>
+<span class="code-line">        <span class="n">leftchild</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></span>
+<span class="code-line">        <span class="n">rightchild</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></span>
+<span class="code-line">        <span class="n">parent</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></span>
+<span class="code-line">    <span class="p">};</span></span>
+<span class="code-line">    <span class="n">TreeNode</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">s</span><span class="p">)</span><span class="o">:</span><span class="n">str</span><span class="p">(</span><span class="n">s</span><span class="p">){</span></span>
+<span class="code-line">        <span class="n">leftchild</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></span>
+<span class="code-line">        <span class="n">rightchild</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></span>
+<span class="code-line">        <span class="n">parent</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></span>
+<span class="code-line">    <span class="p">};</span></span>
 <span class="code-line"></span>
 <span class="code-line">    <span class="k">friend</span> <span class="k">class</span> <span class="nc">BinaryTree</span><span class="p">;</span></span>
 <span class="code-line"><span class="p">};</span></span>
