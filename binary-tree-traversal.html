@@ -322,6 +322,10 @@
 <ul>
 <li>以圖四(e)為例，當CurrentNode站在A時，先對A作Visiting，接著檢查是否有left child與right child，若不為NULL，則依序push(推)進queue中，又根據queue「先進先出」(first-in-first-out)的特性，先將B(left child)推入queue，再推入C(right child)，便能確保在下一層level時，是由左至右，先Visiting到B，才Visiting到C。</li>
 </ul>
+<p><center>
+<img alt="ex_level" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/ex_level.png?raw=true" /></p>
+<p><strong>圖四(e)：。</strong><br />
+</center></p>
 <div class="highlight"><pre><span class="code-line"><span class="c1">// C++ code</span></span>
 <span class="code-line"><span class="kt">void</span> <span class="n">BinaryTree</span><span class="o">::</span><span class="n">Levelorder</span><span class="p">(){</span></span>
 <span class="code-line">    <span class="n">std</span><span class="o">::</span><span class="n">queue</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">*&gt;</span> <span class="n">q</span><span class="p">;</span></span>
@@ -348,11 +352,8 @@
 </pre></div>
 
 
-<p><center>
-<img alt="ex_level" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/ex_level.png?raw=true" /></p>
-<p><strong>圖四(e)：。</strong><br />
-</center></p>
-<p><a name="in_parent"></a></p>
+<p></br>
+<a name="in_parent"></a></p>
 <h2><strong>In-Order Traversal by Parent Field</strong></h2>
 <p>在<a href="http://alrightchiu.github.io/SecondRound/binary-tree-intro.html#code">Binary Tree：Intro</a>提到，若在<code>class TreeNode</code>加入pointer指向其parent node會非常有幫助，其中一項理由正是接下來要介紹的兩個函式：InorderSuccessor()與InorderPredecessor()。<br />
 說文解字時間：  </p>
