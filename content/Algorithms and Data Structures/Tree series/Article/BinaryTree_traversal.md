@@ -268,7 +268,7 @@ int main() {
 
 * class TreeNode的定義；
 * class BinaryTree的定義，其中有四個member function分別為四種traversal；
-* main()中建立如圖四(a)的樹，並在**line46 - line53**執行四種traversal。
+* main()中建立如圖四(a)的樹，並在**line54 - line61**執行四種traversal。
 
 尚缺的四個函式的定義(definition)請接著看下去。  
 其中，pre-order、in-order、post-order traversal的邏輯就只是「V」、「L」、「R」誰先誰後的差別，以下程式碼是以較直覺的遞迴(recursion)形式完成，不過，換成迭代(iteration)配合[stack(堆疊)](https://en.wikipedia.org/wiki/Stack_%28abstract_data_type%29)在概念上完全相同，實作上即是考慮「V」、「L」、「R」誰先push(推)進stack。  
