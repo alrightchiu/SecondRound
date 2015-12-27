@@ -10,11 +10,10 @@ Summary: 介紹Binary Tree中的Traversal(尋訪)。
 
 在[Binary Tree：Traversal](http://alrightchiu.github.io/SecondRound/binary-tree-traversal.html#ex_code)中，非常沒誠意地用暴力方式建了一棵Binary Tree，在這裡至上深深歉意，因此，在本篇文章將提供一種方法，由一個字串陣列(char array)輸入字母，並按照[Complete Binary Tree](http://alrightchiu.github.io/SecondRound/binary-tree-intro.html#fullcomplete)之順序重新建立**那顆樹**。(一種不健康的雪恥心態)
 
-其中，問題情境之原始資料是一個字串陣列(char array)，為了方便處理(偷懶)選擇使用C++語言中的神器：[stringstream](http://www3.ntu.edu.sg/home/ehchua/programming/cpp/cp10_io.html)，這裡礙於篇幅與主題(與筆者自己也還在摸索)，就不多談避免誤導，點進連結中有非常詳細的說明，關於`istringstream`、`ostringstream`、`stringstream`等等template class之繼承關係(inheritance)。  
+其中，問題情境之原始資料是一個字串陣列(char array)，為了方便處理(偷懶)選擇使用C++語言中的神器：[stringstream](http://www3.ntu.edu.sg/home/ehchua/programming/cpp/cp10_io.html)，這裡礙於篇幅與主題(與筆者自己也還在摸索)，就不多談避免誤導，[點進連結中]((http://www3.ntu.edu.sg/home/ehchua/programming/cpp/cp10_io.html))有非常詳細的說明，關於`istringstream`、`ostringstream`、`stringstream`等等template class之繼承關係(inheritance)。  
 重點是，`stringstream`就是神，就是行，學起來簡直光宗耀祖。
 
 以及，以下提供的Binary Tree之建立方法，基本上是在[Binary Tree：Traversal介紹過的level-order traversal](http://alrightchiu.github.io/SecondRound/binary-tree-traversal.html#ex_code)上加油添醋，因此[queue(佇列)](https://en.wikipedia.org/wiki/Queue_%28abstract_data_type%29)的概念會再次出現。
-
 </br>
   
   
@@ -28,7 +27,6 @@ Summary: 介紹Binary Tree中的Traversal(尋訪)。
     * [Function：insertLevelorder()](#func2)
 
 * [參考資料](#ref)
-* 
 
 <a name="description"></a>
 
@@ -107,9 +105,9 @@ L D M B G E H A N F I C K
 
 * 這裡對`class TreeNode`與`class BinaryTree`之定義，與[上一篇文章](http://alrightchiu.github.io/SecondRound/binary-tree-traversal.html#ex_code)之最大不同在於資料的隱蔽性，因為在此不需要於`main()`中存取任何pointer(`root`、`leftchild`、`rightchild`)，因此將之放進**private**區塊。
 
-* 在許多traversal中，時常以pointer不為NULL作為`while`的判斷式，因此在constructor中，多做一步，將pointer指向NULL(eg：`leftchild = 0`)避免埋地雷在日後炸自己。
+* 在許多traversal中，時常以pointer不為`NULL`作為`while`的判斷式，因此在constructor中，多做一步，將pointer指向`NULL`(eg：`leftchild = 0`)避免埋地雷在日後炸自己。
 
-* 在`class BinaryTree`除了上一篇介紹過的inorder traversal外，多了兩個新朋友`LevelorderConstruct()`與`insertLevelorder()`，前者即是本篇主角，吃進`stringstream`後，把樹建出來；後者純粹是好玩，其功能為「以Complete Binary Tree之位置規則，在理應出現node的位置，新增node」。
+* 在`class BinaryTree`除了上一篇介紹過的inorder traversal外，多了兩個新朋友`LevelorderConstruct()`與`insertLevelorder()`，前者即是本篇主角，吃進`stringstream`後，把樹建出來；後者純粹是好玩，其功能為「以Complete Binary Tree之位置規則，在理應出現node的位置，新增node」，能夠儘量減少在新增node時增加樹高(height)。
 
 
 看下去。
@@ -206,7 +204,7 @@ BinaryTree::BinaryTree(const char* str){
 * 條件式：`if( !(ss >> data) )`若為真，表示`ss`中的字母已經讀取完畢，即跳出迴圈(`break`)。若否，則繼續從`ss`中讀取字母。
 * 判斷字母是否為大寫字母(此為**'C'**)，便如同生成left child之方法，建立新的`new_node`、配置記憶體、將字母**'C'**放進`new_node`中，並將`CurrentNode`之right child指向`new_node`，如圖三(c)。
 * 已成功建立新的node(C)，便把C放進`queue`的隊伍中，表示之後將要把`CurrentNode`移到B，繼續往下建立新的node。
-此時，`queue`裡有兩個node，分別為B與C，要注意的是，排隊時，先進入隊伍的人會代表隊伍的前方，因此B為`queue`的**Front**，C為`queue`的**End**。
+此時，`queue`裡有兩個node，分別為B與C，要注意的是，排隊時，先進入隊伍的人會代表隊伍的前方，因此B為`queue`的**Front**，C為`queue`的**Back**。
   
 <center>
 ![construct_2][construct_2]  
