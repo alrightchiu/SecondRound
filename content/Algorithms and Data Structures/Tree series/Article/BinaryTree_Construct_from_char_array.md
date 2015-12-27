@@ -2,7 +2,7 @@ Title: Binary Tree: 建立一棵Binary Tree
 Date: 2015-12-27 16:53  
 Category: 演算法與資料結構  
 Tags: 今天不寫明天就忘了  
-Summary: 介紹如何以字元陣列獲得原始資料後，建立一棵Binary Tree。
+Summary: 介紹如何以字元陣列(char array)獲得資料(data)後，建立一棵Binary Tree。
  
  
 </br>
