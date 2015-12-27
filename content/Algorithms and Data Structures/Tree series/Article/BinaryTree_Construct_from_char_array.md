@@ -1,5 +1,5 @@
 Title: Binary Tree: Construct Binary Tree from char array 
-Date: 2015-12-19 20:27  
+Date: 2015-12-27 16:53  
 Category: 演算法與資料結構  
 Tags: 今天不寫明天就忘了  
 Summary: 介紹Binary Tree中的Traversal(尋訪)。
