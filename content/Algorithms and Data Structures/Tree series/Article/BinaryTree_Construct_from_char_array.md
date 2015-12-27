@@ -317,9 +317,9 @@ BinaryTree::BinaryTree(const char* str){
 **圖三(m)：。**  
 </center> 
 
-[construct_0]: construct0.png
-[construct_1]: construct1.png
-[construct_2]: construct2.png
+[construct_0]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/construct0.png?raw=true
+[construct_1]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/construct1.png?raw=true
+[construct_2]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/construct2.png?raw=true
 [construct_3]: construct3.png
 [construct_4]: construct4.png
 [construct_5]: construct5.png
