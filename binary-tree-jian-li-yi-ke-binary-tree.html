@@ -11,11 +11,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="" />
 <meta name="author" content="Chiu CC" />
-<meta name="description" content="介紹Binary Tree中的Traversal(尋訪)。" />
+<meta name="description" content="介紹如何以字元陣列獲得原始資料後，建立一棵Binary Tree。" />
 <meta name="keywords" content="今天不寫明天就忘了">
 <meta property="og:site_name" content="Ordinary Days"/>
 <meta property="og:title" content="Binary Tree: 建立一棵Binary Tree"/>
-<meta property="og:description" content="介紹Binary Tree中的Traversal(尋訪)。"/>
+<meta property="og:description" content="介紹如何以字元陣列獲得原始資料後，建立一棵Binary Tree。"/>
 <meta property="og:locale" content="zh_TW"/>
 <meta property="og:url" content="http://alrightchiu.github.io/SecondRound/binary-tree-jian-li-yi-ke-binary-tree.html"/>
 <meta property="og:type" content="article"/>
@@ -110,6 +110,9 @@
 </ul>
 <p>溫馨小提醒：純粹以inorder traversal之結果並無法驗證樹之結構正如圖一(舉例來說：以inorder traversal對某一Linked list也可能得出相同結果)，因此，建議還是使用IDE的debug功能把pointer全部攤開。</p>
 <div class="highlight"><pre><span class="code-line"><span class="c1">// C++ code</span></span>
+<span class="code-line"><span class="cp">#include &lt;iostream&gt;</span></span>
+<span class="code-line"><span class="cp">#include &lt;sstream&gt;</span></span>
+<span class="code-line"><span class="cp">#include &lt;queue&gt;</span></span>
 <span class="code-line"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span></span>
 <span class="code-line">    <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">a</span> <span class="o">=</span> <span class="s">&quot;A B C D E F x x x G H x I&quot;</span><span class="p">;</span></span>
 <span class="code-line">    <span class="n">BinaryTree</span> <span class="n">T</span><span class="p">(</span><span class="n">a</span><span class="p">);</span></span>
@@ -458,7 +461,7 @@ pointer連接完成後，結束迴圈。</li>
   },
   "image": "http://alrightchiu.github.io/SecondRound/fig/antiwar.jpg",
   "url": "http://alrightchiu.github.io/SecondRound/binary-tree-jian-li-yi-ke-binary-tree.html",
-  "description": "介紹Binary Tree中的Traversal(尋訪)。"
+  "description": "介紹如何以字元陣列獲得原始資料後，建立一棵Binary Tree。"
 }
 </script></body>
 </html>
