@@ -22,7 +22,7 @@
 <meta property="article:published_time" content="2015-12-24 22:41:00+08:00"/>
 <meta property="article:modified_time" content=""/>
 <meta property="article:author" content="http://alrightchiu.github.io/SecondRound/author/chiu-cc.html">
-<meta property="article:section" content="Algorithms and Data Structures"/>
+<meta property="article:section" content="演算法與資料結構"/>
 <meta property="article:tag" content="今天不寫明天就忘了"/>
 <meta property="og:image" content="http://alrightchiu.github.io/SecondRound/fig/antiwar.jpg">  <title>Ordinary Days &ndash; Binary Tree: Traversal</title>
 </head>
@@ -56,7 +56,7 @@
 <article>
   <header>
     <h1 id="binary-tree-traversal">Binary Tree: Traversal</h1>
-    <p>Posted on 12 24, 2015 in <a href="http://alrightchiu.github.io/SecondRound/category/algorithms-and-data-structures.html">Algorithms and Data Structures</a></p>
+    <p>Posted on 12 24, 2015 in <a href="http://alrightchiu.github.io/SecondRound/category/yan-suan-fa-yu-zi-liao-jie-gou.html">演算法與資料結構</a></p>
   </header>
   <div>
     <p></br></p>
@@ -211,7 +211,7 @@
 <span class="code-line"><span class="k">class</span> <span class="nc">BinaryTree</span><span class="p">{</span></span>
 <span class="code-line"><span class="k">public</span><span class="o">:</span></span>
 <span class="code-line">    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">root</span><span class="p">;</span>         <span class="c1">// 以root作為存取整棵樹的起點</span></span>
-<span class="code-line">    <span class="n">BinaryTree</span><span class="p">(){};</span></span>
+<span class="code-line">    <span class="n">BinaryTree</span><span class="p">(){</span> <span class="n">root</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;};</span></span>
 <span class="code-line">    <span class="n">BinaryTree</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">node</span><span class="p">)</span><span class="o">:</span><span class="n">root</span><span class="p">(</span><span class="n">node</span><span class="p">){};</span></span>
 <span class="code-line"></span>
 <span class="code-line">    <span class="kt">void</span> <span class="nf">Preorder</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">);</span></span>
@@ -325,7 +325,7 @@
 </center></p>
 <p><a name="level"></a></p>
 <h4><strong>Level-Order Traversal</strong></h4>
-<p>先前介紹了pre-order、in-order、post-order的traversal，而level-order則是照著level的由小到大的順序，由上而下，並在同一個level由左至右地依序Visiting每個node。
+<p>先前介紹了pre-order、in-order、post-order的traversal，而level-order則是照著level由小到大的順序，由上而下，並在同一個level由左至右地依序Visiting每個node。
 以下提供迭代(iteration)配合<a href="https://en.wikipedia.org/wiki/Queue_%28abstract_data_type%29">queue(佇列)</a>實現level-order traversal之程式碼，其邏輯也非常直觀：</p>
 <ul>
 <li>以圖四(e)為例，當CurrentNode站在A時，先對A作Visiting，接著檢查是否有left child與right child，若不為NULL，則依序push(推)進queue中，又根據queue「先進先出」(first-in-first-out)的特性，先將B(left child)推入queue，再推入C(right child)，便能確保在下一層level時，是由左至右，先Visiting到B，才Visiting到C。</li>
@@ -538,7 +538,7 @@
 
 
 <p></br><br />
-<code>InorderSuccessor()</code>和<code>InorderPredecessor</code>在Binary Search Tree的部分會再次出現，並且出現在基本操作：deletion(刪除node)中，因此學起來不止酷，還很實用的啊。</p>
+<code>InorderSuccessor()</code>和<code>InorderPredecessor()</code>在Binary Search Tree的部分會再次出現，並且出現在基本操作：deletion(刪除node)中，因此學起來不止酷，還很實用的啊。</p>
 <p></br>
 <a name="ref"></a></p>
 <h6><strong>參考資料</strong>：</h6>
