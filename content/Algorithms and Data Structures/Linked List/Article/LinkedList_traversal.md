@@ -1,4 +1,4 @@
-Title: Linked List: Traversal 
+Title: Linked List: Traversal(尋訪) 
 Date: 2015-12-23 20:00 
 Category: 演算法與資料結構  
 Tags: 今天不寫明天就忘了  

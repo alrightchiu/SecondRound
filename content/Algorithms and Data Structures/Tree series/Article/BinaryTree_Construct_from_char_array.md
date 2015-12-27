@@ -1,4 +1,4 @@
-Title: Binary Tree: Construct Binary Tree from char array 
+Title: Binary Tree: 建立一棵Binary Tree  
 Date: 2015-12-27 16:53  
 Category: 演算法與資料結構  
 Tags: 今天不寫明天就忘了  
@@ -8,9 +8,9 @@ Summary: 介紹Binary Tree中的Traversal(尋訪)。
 </br>
 ######**先備知識與注意事項**
 
-在[Binary Tree：Traversal](http://alrightchiu.github.io/SecondRound/binary-tree-traversal.html#ex_code)中，非常沒誠意地用暴力方式建了一棵Binary Tree，在這裡至上深深歉意，因此，在本篇文章將提供一種方法，由一個字串陣列(char array)輸入字母，並按照[Complete Binary Tree](http://alrightchiu.github.io/SecondRound/binary-tree-intro.html#fullcomplete)之順序重新建立**那顆樹**。(一種不健康的雪恥心態)
+在[Binary Tree：Traversal](http://alrightchiu.github.io/SecondRound/binary-tree-traversal.html#ex_code)中，非常沒誠意地用暴力方式建了一棵Binary Tree，在這裡至上深深歉意，因此，在本篇文章將提供一種方法，由一個字元陣列(char array)輸入字母，並按照[Complete Binary Tree](http://alrightchiu.github.io/SecondRound/binary-tree-intro.html#fullcomplete)之順序重新建立**那顆樹**。(一種不健康的雪恥心態)
 
-其中，問題情境之原始資料是一個字串陣列(char array)，為了方便處理(偷懶)選擇使用C++語言中的神器：[stringstream](http://www3.ntu.edu.sg/home/ehchua/programming/cpp/cp10_io.html)，這裡礙於篇幅與主題(與筆者自己也還在摸索)，就不多談避免誤導，[點進連結中]((http://www3.ntu.edu.sg/home/ehchua/programming/cpp/cp10_io.html))有非常詳細的說明，關於`istringstream`、`ostringstream`、`stringstream`等等template class之繼承關係(inheritance)。  
+其中，問題情境之原始資料是一個字元陣列(char array)，為了方便處理(偷懶)選擇使用C++語言中的神器：[stringstream](http://www3.ntu.edu.sg/home/ehchua/programming/cpp/cp10_io.html)，這裡礙於篇幅與主題(與筆者自己也還在摸索)，就不多談避免誤導，[點進連結中]((http://www3.ntu.edu.sg/home/ehchua/programming/cpp/cp10_io.html))有非常詳細的說明，關於`istringstream`、`ostringstream`、`stringstream`等等template class之繼承關係(inheritance)。  
 重點是，`stringstream`就是神，就是行，學起來簡直光宗耀祖。
 
 以及，以下提供的Binary Tree之建立方法，基本上是在[Binary Tree：Traversal介紹過的level-order traversal](http://alrightchiu.github.io/SecondRound/binary-tree-traversal.html#ex_code)上加油添醋，因此[queue(佇列)](https://en.wikipedia.org/wiki/Queue_%28abstract_data_type%29)的概念會再次出現。
@@ -34,7 +34,7 @@ Summary: 介紹Binary Tree中的Traversal(尋訪)。
 
 問題描述如下：
 
-* 給定一個字串陣列，欲按照Complete Binary Tree之位置規則建立一棵Binary Tree，若陣列元素之資料為大寫字母(ASCII：65~90)，則將其建立成Tree的node，若陣列元素為 ' x ' 則表示該位置沒有node。
+* 給定一個字元陣列，欲按照Complete Binary Tree之位置規則建立一棵Binary Tree，若陣列元素之資料為大寫字母(ASCII：65~90)，則將其建立成Tree的node，若陣列元素為 ' x ' 則表示該位置沒有node。
 
 以[Binary Tree：Traversal](http://alrightchiu.github.io/SecondRound/binary-tree-traversal.html#ex_code)中所提到的Binary Tree為例，如圖一：
 </br>  
@@ -45,7 +45,7 @@ Summary: 介紹Binary Tree中的Traversal(尋訪)。
 </center>   
 
 
-其所對應的字串陣列即為：`A B C D E F x x x G H x I`，如圖二所示：
+其所對應的字元陣列即為：`A B C D E F x x x G H x I`，如圖二所示：
   
 <center>
 ![binary tree of char array][bt_char]
@@ -65,8 +65,8 @@ Summary: 介紹Binary Tree中的Traversal(尋訪)。
 
 先看看`main()`中，上半部分別為
 
-* 原始資料：字串陣列
-* 以該字串陣列實體化(instantiate)一棵Binary Tree
+* 原始資料：字元陣列
+* 以該字元陣列實體化(instantiate)一棵Binary Tree
 * 以inorder traversal印出樹的資料
 
 溫馨小提醒：純粹以inorder traversal之結果並無法驗證樹之結構正如圖一(舉例來說：以inorder traversal對某一Linked list也可能得出相同結果)，因此，建議還是使用IDE的debug功能把pointer全部攤開。
@@ -149,7 +149,7 @@ public:
 
 ####**Constructor of BinaryTree**
 
-`class BinaryTree`的constructor很直觀，拿到一個字串陣列，先送進`stringstream`後，再由`stringstream`放進樹中，先對樹的`root`進行記憶體配置以及賦值，接著以level-order的方式建立Binary Tree。
+`class BinaryTree`的constructor很直觀，拿到一個字元陣列，先送進`stringstream`後，再由`stringstream`放進樹中，先對樹的`root`進行記憶體配置以及賦值，接著以level-order的方式建立Binary Tree。
 
 ```cpp
 // C++ code
@@ -172,7 +172,7 @@ BinaryTree::BinaryTree(const char* str){
 * 在看`LevelorderConstruct()`的函式主體之前，再看一眼[level-order traversal](http://alrightchiu.github.io/SecondRound/binary-tree-traversal.html#level)，概念上即是藉著`queue`的「先排隊就先購票」的特性，在同一個level中，只要確保由左至右將node放進`queue`中，便能確保在進入下一個level後，以先前放入node之順序進行visiting。  
 * 在`while`內，新增條件用來判斷從`stringstream`中輸出的字母是「大寫字母」(ASCII：65~90)還是「x」，前者要放入樹中建成node，後者則忽略不計。  
 * 整份程式碼的關鍵在於神器`stringstream &ss`，只要不斷地透過`ss >> data`，`ss`便會自動尋找下一筆資料餵進`data`。
-* 最後，當`stringstream`不再更新`data`時，也就是字串陣列已全數讀取完畢，即跳出`while`迴圈。
+* 最後，當`stringstream`不再更新`data`時，也就是字元陣列已全數讀取完畢，即跳出`while`迴圈。
 
 步驟如下：
 
