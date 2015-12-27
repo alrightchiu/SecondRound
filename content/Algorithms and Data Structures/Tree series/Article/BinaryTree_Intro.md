@@ -78,8 +78,12 @@ class Tree{
  
 #####**A. Full Binary Tree**:  
 
-如圖三所示，若所有internal node都有兩個subtree，leaf node具有相同的level(或height)，則稱此為**Full Binary Tree**(或稱作Perfect Binary Tree)。  
-因此，若一棵Full Binary Tree的leaf node之level為$n$，整棵樹共有$2^n-1$個node。leaf node的level為4， 整棵樹共有15個node。  
+如圖三所示，一棵**Full Binary Tree**(或稱作Perfect Binary Tree)具有以下性質：
+
+* 所有internal node都有兩個subtree(也就是兩個child pointer)；
+* 所有leaf node具有相同的level(或相同的height)。
+  
+由以上性質能夠推論出，若一棵Full Binary Tree的leaf node之level為$n$，整棵樹共有$2^n-1$個node。leaf node的level為4， 整棵樹共有15個node。  
 並且，每個node與其child有以下關係：
 
 * 第$i$個node的left child之index為 $2i$；
