@@ -1,6 +1,6 @@
 Title: Binary Tree: Traversal 
 Date: 2015-12-24 22:41  
-Category: Algorithms and Data Structures  
+Category: 演算法與資料結構  
 Tags: 今天不寫明天就忘了  
 Summary: 介紹Binary Tree中的Traversal(尋訪)。
  
@@ -228,7 +228,7 @@ public:
 class BinaryTree{
 public:
     TreeNode *root;			// 以root作為存取整棵樹的起點
-    BinaryTree(){};
+    BinaryTree(){ root = 0;};
     BinaryTree(TreeNode *node):root(node){};
     
     void Preorder(TreeNode *current);
@@ -358,7 +358,7 @@ D G H E B I F C A
 
 ####**Level-Order Traversal**
 
-先前介紹了pre-order、in-order、post-order的traversal，而level-order則是照著level的由小到大的順序，由上而下，並在同一個level由左至右地依序Visiting每個node。
+先前介紹了pre-order、in-order、post-order的traversal，而level-order則是照著level由小到大的順序，由上而下，並在同一個level由左至右地依序Visiting每個node。
 以下提供迭代(iteration)配合[queue(佇列)](https://en.wikipedia.org/wiki/Queue_%28abstract_data_type%29)實現level-order traversal之程式碼，其邏輯也非常直觀：
 
 * 以圖四(e)為例，當CurrentNode站在A時，先對A作Visiting，接著檢查是否有left child與right child，若不為NULL，則依序push(推)進queue中，又根據queue「先進先出」(first-in-first-out)的特性，先將B(left child)推入queue，再推入C(right child)，便能確保在下一層level時，是由左至右，先Visiting到B，才Visiting到C。
@@ -593,7 +593,7 @@ output：
 C I F A H E G B D
 ```
 </br>  
-`InorderSuccessor()`和`InorderPredecessor`在Binary Search Tree的部分會再次出現，並且出現在基本操作：deletion(刪除node)中，因此學起來不止酷，還很實用的啊。
+`InorderSuccessor()`和`InorderPredecessor()`在Binary Search Tree的部分會再次出現，並且出現在基本操作：deletion(刪除node)中，因此學起來不止酷，還很實用的啊。
 
 </br>
 <a name="ref"></a>

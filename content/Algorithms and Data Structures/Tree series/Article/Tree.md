@@ -1,6 +1,6 @@
 Title: Tree(樹)  
 Date: 2015-12-19 20:27  
-Category: Algorithms and Data Structures  
+Category: 演算法與資料結構  
 Tags: 今天不寫明天就忘了  
 Summary: 介紹資料結構中樹(Tree)的概念。
 
