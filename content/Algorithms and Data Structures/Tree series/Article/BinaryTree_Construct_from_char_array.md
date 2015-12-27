@@ -2,7 +2,7 @@ Title: Binary Tree: 建立一棵Binary Tree
 Date: 2015-12-27 16:53  
 Category: 演算法與資料結構  
 Tags: 今天不寫明天就忘了  
-Summary: 介紹Binary Tree中的Traversal(尋訪)。
+Summary: 介紹如何以字元陣列獲得原始資料後，建立一棵Binary Tree。
  
  
 </br>
@@ -73,6 +73,9 @@ Summary: 介紹Binary Tree中的Traversal(尋訪)。
 
 ```cpp
 // C++ code
+#include <iostream>
+#include <sstream>
+#include <queue>
 int main() {
     const char *a = "A B C D E F x x x G H x I";
     BinaryTree T(a);
