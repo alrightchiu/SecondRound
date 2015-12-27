@@ -1030,8 +1030,12 @@ Binary Tree的node未必需要parent pointer(或稱為parent field)，然而加�
 &lt;p&gt;有兩類Binary Tree十分常見，分別為&lt;strong&gt;Full Binary Tree&lt;/strong&gt;以及&lt;strong&gt;Complete Binary Tree&lt;/strong&gt;。&lt;br /&gt;
 (完滿二元樹？完整二元樹？我的建議是當作專有名詞不要翻譯。) &lt;/p&gt;
 &lt;h5&gt;&lt;strong&gt;A. Full Binary Tree&lt;/strong&gt;:&lt;/h5&gt;
-&lt;p&gt;如圖三所示，若所有internal node都有兩個subtree，leaf node具有相同的level(或height)，則稱此為&lt;strong&gt;Full Binary Tree&lt;/strong&gt;(或稱作Perfect Binary Tree)。&lt;br /&gt;
-因此，若一棵Full Binary Tree的leaf node之level為&lt;span class="math"&gt;\(n\)&lt;/span&gt;，整棵樹共有&lt;span class="math"&gt;\(2^n-1\)&lt;/span&gt;個node。leaf node的level為4， 整棵樹共有15個node。&lt;br /&gt;
+&lt;p&gt;如圖三所示，一棵&lt;strong&gt;Full Binary Tree&lt;/strong&gt;(或稱作Perfect Binary Tree)具有以下性質：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;所有internal node都有兩個subtree(也就是兩個child pointer)；&lt;/li&gt;
+&lt;li&gt;所有leaf node具有相同的level(或相同的height)。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;由以上性質能夠推論出，若一棵Full Binary Tree的leaf node之level為&lt;span class="math"&gt;\(n\)&lt;/span&gt;，整棵樹共有&lt;span class="math"&gt;\(2^n-1\)&lt;/span&gt;個node。leaf node的level為4， 整棵樹共有15個node。&lt;br /&gt;
 並且，每個node與其child有以下關係：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;第&lt;span class="math"&gt;\(i\)&lt;/span&gt;個node的left child之index為 &lt;span class="math"&gt;\(2i\)&lt;/span&gt;；&lt;/li&gt;
