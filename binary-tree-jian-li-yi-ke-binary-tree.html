@@ -14,17 +14,17 @@
 <meta name="description" content="介紹Binary Tree中的Traversal(尋訪)。" />
 <meta name="keywords" content="今天不寫明天就忘了">
 <meta property="og:site_name" content="Ordinary Days"/>
-<meta property="og:title" content="Binary Tree: Construct Binary Tree from char array"/>
+<meta property="og:title" content="Binary Tree: 建立一棵Binary Tree"/>
 <meta property="og:description" content="介紹Binary Tree中的Traversal(尋訪)。"/>
 <meta property="og:locale" content="zh_TW"/>
-<meta property="og:url" content="http://alrightchiu.github.io/SecondRound/binary-tree-construct-binary-tree-from-char-array.html"/>
+<meta property="og:url" content="http://alrightchiu.github.io/SecondRound/binary-tree-jian-li-yi-ke-binary-tree.html"/>
 <meta property="og:type" content="article"/>
 <meta property="article:published_time" content="2015-12-27 16:53:00+08:00"/>
 <meta property="article:modified_time" content=""/>
 <meta property="article:author" content="http://alrightchiu.github.io/SecondRound/author/chiu-cc.html">
 <meta property="article:section" content="演算法與資料結構"/>
 <meta property="article:tag" content="今天不寫明天就忘了"/>
-<meta property="og:image" content="http://alrightchiu.github.io/SecondRound/fig/antiwar.jpg">  <title>Ordinary Days &ndash; Binary Tree: Construct Binary Tree from char array</title>
+<meta property="og:image" content="http://alrightchiu.github.io/SecondRound/fig/antiwar.jpg">  <title>Ordinary Days &ndash; Binary Tree: 建立一棵Binary Tree</title>
 </head>
 <body>
   <aside>
@@ -55,14 +55,14 @@
 
 <article>
   <header>
-    <h1 id="binary-tree-construct-binary-tree-from-char-array">Binary Tree: Construct Binary Tree from char array</h1>
+    <h1 id="binary-tree-jian-li-yi-ke-binary-tree">Binary Tree: 建立一棵Binary Tree</h1>
     <p>Posted on 12 27, 2015 in <a href="http://alrightchiu.github.io/SecondRound/category/yan-suan-fa-yu-zi-liao-jie-gou.html">演算法與資料結構</a></p>
   </header>
   <div>
     <p></br></p>
 <h6><strong>先備知識與注意事項</strong></h6>
-<p>在<a href="http://alrightchiu.github.io/SecondRound/binary-tree-traversal.html#ex_code">Binary Tree：Traversal</a>中，非常沒誠意地用暴力方式建了一棵Binary Tree，在這裡至上深深歉意，因此，在本篇文章將提供一種方法，由一個字串陣列(char array)輸入字母，並按照<a href="http://alrightchiu.github.io/SecondRound/binary-tree-intro.html#fullcomplete">Complete Binary Tree</a>之順序重新建立<strong>那顆樹</strong>。(一種不健康的雪恥心態)</p>
-<p>其中，問題情境之原始資料是一個字串陣列(char array)，為了方便處理(偷懶)選擇使用C++語言中的神器：<a href="http://www3.ntu.edu.sg/home/ehchua/programming/cpp/cp10_io.html">stringstream</a>，這裡礙於篇幅與主題(與筆者自己也還在摸索)，就不多談避免誤導，<a href="(http://www3.ntu.edu.sg/home/ehchua/programming/cpp/cp10_io.html)">點進連結中</a>有非常詳細的說明，關於<code>istringstream</code>、<code>ostringstream</code>、<code>stringstream</code>等等template class之繼承關係(inheritance)。<br />
+<p>在<a href="http://alrightchiu.github.io/SecondRound/binary-tree-traversal.html#ex_code">Binary Tree：Traversal</a>中，非常沒誠意地用暴力方式建了一棵Binary Tree，在這裡至上深深歉意，因此，在本篇文章將提供一種方法，由一個字元陣列(char array)輸入字母，並按照<a href="http://alrightchiu.github.io/SecondRound/binary-tree-intro.html#fullcomplete">Complete Binary Tree</a>之順序重新建立<strong>那顆樹</strong>。(一種不健康的雪恥心態)</p>
+<p>其中，問題情境之原始資料是一個字元陣列(char array)，為了方便處理(偷懶)選擇使用C++語言中的神器：<a href="http://www3.ntu.edu.sg/home/ehchua/programming/cpp/cp10_io.html">stringstream</a>，這裡礙於篇幅與主題(與筆者自己也還在摸索)，就不多談避免誤導，<a href="(http://www3.ntu.edu.sg/home/ehchua/programming/cpp/cp10_io.html)">點進連結中</a>有非常詳細的說明，關於<code>istringstream</code>、<code>ostringstream</code>、<code>stringstream</code>等等template class之繼承關係(inheritance)。<br />
 重點是，<code>stringstream</code>就是神，就是行，學起來簡直光宗耀祖。</p>
 <p>以及，以下提供的Binary Tree之建立方法，基本上是在<a href="http://alrightchiu.github.io/SecondRound/binary-tree-traversal.html#ex_code">Binary Tree：Traversal介紹過的level-order traversal</a>上加油添醋，因此<a href="https://en.wikipedia.org/wiki/Queue_%28abstract_data_type%29">queue(佇列)</a>的概念會再次出現。
 </br></p>
@@ -86,7 +86,7 @@
 <h2><strong>問題描述</strong></h2>
 <p>問題描述如下：</p>
 <ul>
-<li>給定一個字串陣列，欲按照Complete Binary Tree之位置規則建立一棵Binary Tree，若陣列元素之資料為大寫字母(ASCII：65~90)，則將其建立成Tree的node，若陣列元素為 ' x ' 則表示該位置沒有node。</li>
+<li>給定一個字元陣列，欲按照Complete Binary Tree之位置規則建立一棵Binary Tree，若陣列元素之資料為大寫字母(ASCII：65~90)，則將其建立成Tree的node，若陣列元素為 ' x ' 則表示該位置沒有node。</li>
 </ul>
 <p>以<a href="http://alrightchiu.github.io/SecondRound/binary-tree-traversal.html#ex_code">Binary Tree：Traversal</a>中所提到的Binary Tree為例，如圖一：
 </br><br />
@@ -94,7 +94,7 @@
 <img alt="binary tree" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/ex.png?raw=true" /></p>
 <p><strong>圖一：。</strong><br />
 </center>   </p>
-<p>其所對應的字串陣列即為：<code>A B C D E F x x x G H x I</code>，如圖二所示：</p>
+<p>其所對應的字元陣列即為：<code>A B C D E F x x x G H x I</code>，如圖二所示：</p>
 <p><center>
 <img alt="binary tree of char array" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/ex_char.png?raw=true" /></p>
 <p><strong>圖二：。</strong><br />
@@ -104,8 +104,8 @@
 <h2><strong>程式碼</strong></h2>
 <p>先看看<code>main()</code>中，上半部分別為</p>
 <ul>
-<li>原始資料：字串陣列</li>
-<li>以該字串陣列實體化(instantiate)一棵Binary Tree</li>
+<li>原始資料：字元陣列</li>
+<li>以該字元陣列實體化(instantiate)一棵Binary Tree</li>
 <li>以inorder traversal印出樹的資料</li>
 </ul>
 <p>溫馨小提醒：純粹以inorder traversal之結果並無法驗證樹之結構正如圖一(舉例來說：以inorder traversal對某一Linked list也可能得出相同結果)，因此，建議還是使用IDE的debug功能把pointer全部攤開。</p>
@@ -185,7 +185,7 @@
 <p></br>  </p>
 <p><a name="constructor"></a></p>
 <h4><strong>Constructor of BinaryTree</strong></h4>
-<p><code>class BinaryTree</code>的constructor很直觀，拿到一個字串陣列，先送進<code>stringstream</code>後，再由<code>stringstream</code>放進樹中，先對樹的<code>root</code>進行記憶體配置以及賦值，接著以level-order的方式建立Binary Tree。</p>
+<p><code>class BinaryTree</code>的constructor很直觀，拿到一個字元陣列，先送進<code>stringstream</code>後，再由<code>stringstream</code>放進樹中，先對樹的<code>root</code>進行記憶體配置以及賦值，接著以level-order的方式建立Binary Tree。</p>
 <div class="highlight"><pre><span class="code-line"><span class="c1">// C++ code</span></span>
 <span class="code-line"><span class="n">BinaryTree</span><span class="o">::</span><span class="n">BinaryTree</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">str</span><span class="p">){</span></span>
 <span class="code-line">    <span class="n">std</span><span class="o">::</span><span class="n">stringstream</span>  <span class="n">ss</span><span class="p">;</span></span>
@@ -206,7 +206,7 @@
 <li>在看<code>LevelorderConstruct()</code>的函式主體之前，再看一眼<a href="http://alrightchiu.github.io/SecondRound/binary-tree-traversal.html#level">level-order traversal</a>，概念上即是藉著<code>queue</code>的「先排隊就先購票」的特性，在同一個level中，只要確保由左至右將node放進<code>queue</code>中，便能確保在進入下一個level後，以先前放入node之順序進行visiting。  </li>
 <li>在<code>while</code>內，新增條件用來判斷從<code>stringstream</code>中輸出的字母是「大寫字母」(ASCII：65~90)還是「x」，前者要放入樹中建成node，後者則忽略不計。  </li>
 <li>整份程式碼的關鍵在於神器<code>stringstream &amp;ss</code>，只要不斷地透過<code>ss &gt;&gt; data</code>，<code>ss</code>便會自動尋找下一筆資料餵進<code>data</code>。</li>
-<li>最後，當<code>stringstream</code>不再更新<code>data</code>時，也就是字串陣列已全數讀取完畢，即跳出<code>while</code>迴圈。</li>
+<li>最後，當<code>stringstream</code>不再更新<code>data</code>時，也就是字元陣列已全數讀取完畢，即跳出<code>while</code>迴圈。</li>
 </ul>
 <p>步驟如下：</p>
 <ul>
@@ -447,8 +447,8 @@ pointer連接完成後，結束迴圈。</li>
 {
   "@context": "http://schema.org",
   "@type": "BlogPosting",
-  "name": "Binary Tree: Construct Binary Tree from char array",
-  "headline": "Binary Tree: Construct Binary Tree from char array",
+  "name": "Binary Tree: 建立一棵Binary Tree",
+  "headline": "Binary Tree: 建立一棵Binary Tree",
   "datePublished": "2015-12-27 16:53:00+08:00",
   "dateModified": "",
   "author": {
@@ -457,7 +457,7 @@ pointer連接完成後，結束迴圈。</li>
     "url": "http://alrightchiu.github.io/SecondRound/author/chiu-cc.html"
   },
   "image": "http://alrightchiu.github.io/SecondRound/fig/antiwar.jpg",
-  "url": "http://alrightchiu.github.io/SecondRound/binary-tree-construct-binary-tree-from-char-array.html",
+  "url": "http://alrightchiu.github.io/SecondRound/binary-tree-jian-li-yi-ke-binary-tree.html",
   "description": "介紹Binary Tree中的Traversal(尋訪)。"
 }
 </script></body>
