@@ -42,12 +42,13 @@
 &lt;p&gt;以下程式範例的目的就是要以如此文明的方式建立出如圖一的Binary Tree。&lt;/p&gt;
 &lt;p&gt;&lt;a name="code"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;&lt;strong&gt;程式碼&lt;/strong&gt;&lt;/h2&gt;
-&lt;p&gt;先看看&lt;code&gt;main()&lt;/code&gt;中，上半部分別為&lt;/p&gt;
+&lt;p&gt;先看看&lt;code&gt;main()&lt;/code&gt;中，上半部分別為：&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;原始資料：字元陣列&lt;/li&gt;
-&lt;li&gt;以該字元陣列實體化(instantiate)一棵Binary Tree&lt;/li&gt;
-&lt;li&gt;以inorder traversal印出樹的資料&lt;/li&gt;
+&lt;li&gt;原始資料：字元陣列；&lt;/li&gt;
+&lt;li&gt;以該字元陣列實體化(instantiate)一棵Binary Tree，本篇重點在此；&lt;/li&gt;
+&lt;li&gt;以inorder traversal印出樹的資料。&lt;/li&gt;
 &lt;/ul&gt;
+&lt;p&gt;下半部則是示範以&lt;code&gt;queue&lt;/code&gt;實現level-order traversal之小應用：以Complete Binary Tree之位置規則在樹中新增node。  &lt;/p&gt;
 &lt;p&gt;溫馨小提醒：純粹以inorder traversal之結果並無法驗證樹之結構正如圖一(舉例來說：以inorder traversal對某一Linked list也可能得出相同結果)，因此，建議還是使用IDE的debug功能把pointer全部攤開。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="c1"&gt;// C++ code&lt;/span&gt;&lt;/span&gt;
 &lt;span class="code-line"&gt;&lt;span class="cp"&gt;#include &amp;lt;iostream&amp;gt;&lt;/span&gt;&lt;/span&gt;

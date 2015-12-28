@@ -102,12 +102,13 @@
 <p>以下程式範例的目的就是要以如此文明的方式建立出如圖一的Binary Tree。</p>
 <p><a name="code"></a></p>
 <h2><strong>程式碼</strong></h2>
-<p>先看看<code>main()</code>中，上半部分別為</p>
+<p>先看看<code>main()</code>中，上半部分別為：</p>
 <ul>
-<li>原始資料：字元陣列</li>
-<li>以該字元陣列實體化(instantiate)一棵Binary Tree</li>
-<li>以inorder traversal印出樹的資料</li>
+<li>原始資料：字元陣列；</li>
+<li>以該字元陣列實體化(instantiate)一棵Binary Tree，本篇重點在此；</li>
+<li>以inorder traversal印出樹的資料。</li>
 </ul>
+<p>下半部則是示範以<code>queue</code>實現level-order traversal之小應用：以Complete Binary Tree之位置規則在樹中新增node。  </p>
 <p>溫馨小提醒：純粹以inorder traversal之結果並無法驗證樹之結構正如圖一(舉例來說：以inorder traversal對某一Linked list也可能得出相同結果)，因此，建議還是使用IDE的debug功能把pointer全部攤開。</p>
 <div class="highlight"><pre><span class="code-line"><span class="c1">// C++ code</span></span>
 <span class="code-line"><span class="cp">#include &lt;iostream&gt;</span></span>
