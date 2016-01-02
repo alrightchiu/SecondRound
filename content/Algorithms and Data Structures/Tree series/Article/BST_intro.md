@@ -18,7 +18,7 @@ Summary: 謹以Binary Search Tree向拯救90後的童年的鉅作《七龍珠》
 ##目錄
 * [引入dictionary](#dictionary)
 * [Binary Search Tree的特徵](#bst)
-* [在Binary Search Tree中管理資料](#operation) 
+* [在Binary Search Tree中管理資料](#operation)
 
     * [insert(新增資料)](#insert) 
     * [search(搜尋資料)](#search)
@@ -193,7 +193,7 @@ private:
 [sort]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/Intro/f17.png?raw=true
 [delete]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/Intro/f15.png?raw=true
 
-以上便是BST與BST中的基本操作之介紹，所有操作都是以BST之特徵「$Key(L)<Key(Current)<Key(R)$」為出發點，尤其是新增node與刪除node，務必要滿足BST之規則。  
+以上便是BST與BST中的基本操作之介紹，所有操作都是以BST之特徵為出發點，尤其是新增node與刪除node，務必要滿足BST之規則。  
 接下來，將以兩篇文章的篇幅，說明上述四種資料處理操作的演算法。
 
 </br>
