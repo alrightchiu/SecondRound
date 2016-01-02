@@ -17,7 +17,7 @@ Summary: 謹以Binary Search Tree向拯救90後的童年的鉅作《七龍珠》
 
 ##目錄
 * [引入dictionary](#dictionary)
-* [Binary Search Tree的特徵](#bst)  
+* [Binary Search Tree的特徵](#bst)
 * [在Binary Search Tree中管理資料](#operation) 
 
     * [insert(新增資料)](#insert) 
@@ -76,7 +76,7 @@ private:
  
 備註： 
 
-1. Dictionary的概念也出現在**Hash Table**(有天才翻譯成"哈希表"也很酷)，C/C++標準函式庫(Standard Library)中的**container**:`map`等等，有非常多應用。
+1. Dictionary的概念也出現在**Hash Table**(有天才翻譯成"哈希表"也很酷)、C/C++標準函式庫(Standard Library)中的**container**:`map`等等，有非常多應用。
 2. 以下角色戰鬥力的絕對值是捏造的，不過相對值盡力維持正確(除了撒旦)，若有疑問，歡迎龍珠粉來信討論。 
 3. 由於故事的角色眾多，以下將挑選具代表性之角色用來說明BST。
 
@@ -151,12 +151,13 @@ private:
 **圖六：。**  
 </center>
 
+（界王神的聲音：為什麼`root`從龜仙人變成比克？不會違反BST規則嗎？詳見[Red Black Tree系列之Rotation(旋轉)](#)。）
 
 <a name="sort"></a>
 
 ####**sort(排序)**
 
-故事來到了魔人普烏篇，因為角色有點多，有點混亂，此時，若想要知道各角色戰鬥力的大小排序，只要按照**Inorder Traversal**即可按到戰鬥力(Key)高低列出所有資料：
+故事來到了魔人普烏篇，因為角色有點多，有點混亂，此時，若想要知道各角色戰鬥力的大小排序，只要按照**Inorder Traversal**即可按照戰鬥力(Key)高低列出所有資料：
 
 <center>
 ![sort][sort]
@@ -169,7 +170,7 @@ private:
 
 ####**delete(刪除資料)**
 
-最後，當角色死掉去領便當，就需要從BST刪除資料，而根據欲資料之「**child個數**」可以分成三種情況：
+最後，當角色死掉去領便當，就需要從BST刪除資料，而根據欲刪除資料之「**child個數**」可以分成三種情況：
 
 1. 刪除撒旦：撒旦**沒有child**，因此，直接把撒旦的parent(普烏)之left child指向`NULL`即可。
 2. 刪除弗力札：弗力札有**一個child**(left child)，因此刪除弗力札之前，需要先把弗力札的left child(基紐)接到弗力札的parent(龜仙人)上，又因為弗力札原本是龜仙人的right child，因此基紐將遞補弗力札，成為龜仙人的right child。
@@ -192,7 +193,7 @@ private:
 [sort]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/Intro/f17.png?raw=true
 [delete]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/Intro/f15.png?raw=true
 
-以上便是BST與BST中的基本操作之介紹。  
+以上便是BST與BST中的基本操作之介紹，所有操作都是以BST之特徵「$Key(L)<Key(Current)<Key(R)$」為出發點，尤其是新增node與刪除node，務必要滿足BST之規則。  
 接下來，將以兩篇文章的篇幅，說明上述四種資料處理操作的演算法。
 
 </br>
