@@ -11,7 +11,7 @@
 &lt;li&gt;&lt;a href="#dictionary"&gt;引入dictionary&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="#bst"&gt;Binary Search Tree的特徵&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;a href="#operation"&gt;在Binary Search Tree中管理資料&lt;/a&gt; &lt;/p&gt;
+&lt;p&gt;&lt;a href="#operation"&gt;在Binary Search Tree中管理資料&lt;/a&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="#insert"&gt;insert(新增資料)&lt;/a&gt; &lt;/li&gt;
 &lt;li&gt;&lt;a href="#search"&gt;search(搜尋資料)&lt;/a&gt;&lt;/li&gt;
@@ -125,7 +125,7 @@
 &lt;img alt="delete" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/Intro/f15.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖八：。&lt;/strong&gt;&lt;br /&gt;
 &lt;/center&gt;&lt;/p&gt;
-&lt;p&gt;以上便是BST與BST中的基本操作之介紹，所有操作都是以BST之特徵「&lt;span class="math"&gt;\(Key(L)&amp;lt;Key(Current)&amp;lt;Key(R)\)&lt;/span&gt;」為出發點，尤其是新增node與刪除node，務必要滿足BST之規則。&lt;br /&gt;
+&lt;p&gt;以上便是BST與BST中的基本操作之介紹，所有操作都是以BST之特徵為出發點，尤其是新增node與刪除node，務必要滿足BST之規則。&lt;br /&gt;
 接下來，將以兩篇文章的篇幅，說明上述四種資料處理操作的演算法。&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;
 &lt;a name="ref"&gt;&lt;/a&gt;&lt;/p&gt;
