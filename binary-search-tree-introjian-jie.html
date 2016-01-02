@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="zh-hant">
+<head>
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" type="text/css" href="http://alrightchiu.github.io/SecondRound/theme/css/style.min.css">
+  <link rel="stylesheet" type="text/css" href="http://alrightchiu.github.io/SecondRound/theme/css/pygments.min.css">
+  <link rel="stylesheet" type="text/css" href="http://alrightchiu.github.io/SecondRound/theme/css/font-awesome.min.css">
+  <link href="http://alrightchiu.github.io/SecondRound/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Ordinary Days Atom">
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+<meta name="author" content="Chiu CC" />
+<meta name="description" content="謹以Binary Search Tree向拯救90後的童年的鉅作《七龍珠》以及鳥山明老師致敬。" />
+<meta name="keywords" content="今天不寫明天就忘了">
+<meta property="og:site_name" content="Ordinary Days"/>
+<meta property="og:title" content="Binary Search Tree: Intro(簡介)"/>
+<meta property="og:description" content="謹以Binary Search Tree向拯救90後的童年的鉅作《七龍珠》以及鳥山明老師致敬。"/>
+<meta property="og:locale" content="zh_TW"/>
+<meta property="og:url" content="http://alrightchiu.github.io/SecondRound/binary-search-tree-introjian-jie.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2016-01-02 12:15:00+08:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="http://alrightchiu.github.io/SecondRound/author/chiu-cc.html">
+<meta property="article:section" content="演算法與資料結構"/>
+<meta property="article:tag" content="今天不寫明天就忘了"/>
+<meta property="og:image" content="http://alrightchiu.github.io/SecondRound/fig/antiwar.jpg">  <title>Ordinary Days &ndash; Binary Search Tree: Intro(簡介)</title>
+</head>
+<body>
+  <aside>
+    <div>
+      <a href="http://alrightchiu.github.io/SecondRound">
+        <img src="http://alrightchiu.github.io/SecondRound/fig/antiwar.jpg" alt="Ordinary Days" title="Ordinary Days">
+      </a>
+      <h1><a href="http://alrightchiu.github.io/SecondRound">Ordinary Days</a></h1>
+      <p>Hey</p>
+      <nav>
+        <ul class="list">
+          <li><a href="http://alrightchiu.github.io/SecondRound/pages/about.html#about">About</a></li>
+        </ul>
+      </nav>
+      <ul class="social">
+        <li><a class="sc-github" href="https://github.com/alrightchiu" target="_blank"><i class="fa fa-github"></i></a></li>
+      </ul>
+    </div>
+  </aside>
+  <main>
+    <nav>
+      <a href="http://alrightchiu.github.io/SecondRound">Home</a>
+      <a href="http://alrightchiu.github.io/SecondRound/archives.html">Archives</a>
+      <a href="http://alrightchiu.github.io/SecondRound/categories.html">Categories</a>
+      <a href="http://alrightchiu.github.io/SecondRound/tags.html">Tags</a>
+      <a href="http://alrightchiu.github.io/SecondRound/feeds/all.atom.xml">Atom</a>
+    </nav>
+
+<article>
+  <header>
+    <h1 id="binary-search-tree-introjian-jie">Binary Search Tree: Intro(簡介)</h1>
+    <p>Posted on  1 02, 2016 in <a href="http://alrightchiu.github.io/SecondRound/category/yan-suan-fa-yu-zi-liao-jie-gou.html">演算法與資料結構</a></p>
+  </header>
+  <div>
+    <p></br></p>
+<h6><strong>先備知識與注意事項</strong></h6>
+<p>先前的文章介紹過廣義的Tree(樹)、Binary Tree(二元樹)，這篇文章將繼續增加限制條件，使Binary Tree晉升成Binary Search Tree(BST，二元搜尋樹)。  </p>
+<p>這裡要處理的資料是日本漫畫的曠世鉅作《七龍珠》中各角色的戰鬥力。<br />
+七龍珠的劇情(正篇有七龍珠、七龍珠Z、七龍珠改、七龍珠GT、七龍珠超，劇場版還有<a href="https://zh.wikipedia.org/wiki/%E4%B8%83%E9%BE%99%E7%8F%A0#.E5.8A.87.E5.A0.B4.E7.89.88">七龍珠劇場版(太多了請參閱維基百科)</a>)時而前後連貫，時而交錯，為了維持每個系列之間的角色設定，就需要對角色的戰鬥力進行管理，避免劇情不合邏輯變成喜劇，在此，筆者推薦鳥山明老師可以使用先進如BST的資料結構來整理角色的資料(也是可以用excel或是國小生字簿)。  </p>
+<p>熱血沸騰了。<br />
+</br>  </p>
+<h2>目錄</h2>
+<ul>
+<li><a href="#dictionary">引入dictionary</a></li>
+<li><a href="#bst">Binary Search Tree的特徵</a>  </li>
+<li>
+<p><a href="#operation">在Binary Search Tree中管理資料</a> </p>
+<ul>
+<li><a href="#insert">insert(新增資料)</a> </li>
+<li><a href="#search">search(搜尋資料)</a></li>
+<li><a href="#sort">sort(排序)</a></li>
+<li><a href="#delete">delete(刪除資料)</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#ref">參考資料</a></p>
+</li>
+</ul>
+<p><a name="dictionary"></a></p>
+<h2><strong>引入dictionary</strong></h2>
+<p>搜尋與排序都需要「比大小」，欲執行「比大小」，就要使用「能夠比大小」的資料形態(亦即：兩個比較之物只能唯一滿足於「大於」、「小於」或「等於」之關係)，最直觀的便是使用整數(integer)。  </p>
+<p>在先前的文章中，<code>class TreeNode</code>包含了指向child的pointer、指向parent的pointer，以及一個<code>char data</code>來儲存字母。  </p>
+<p>而更多時候，node所攜帶的資料項目(在此為<code>char data</code>)可能更複雜，也許是一個姓名、一組帳戶資料、一本照片集、一組科學資料等等，然而，要使用這些資料進行「比大小」必須而外自行定義規則，例如：「姓氏照字母順序排序，字母越前面值越大；若第一個字相同，則依序往下比較；若姓名中所有字母之順序皆相同則...」，非常不實際，因此，不用再則了，變通的方法便是直接在資料上加上「編號」(也可以想成，把資料對應(mapping)到特定編號)，以編號做排序，並且能夠以特定編號搜尋其所對應之資料項目，即可避開上述麻煩。  </p>
+<p>如此概念便是Dictionary，稱上述的「編號」為「Key(鍵值)」，稱「資料項目」為「Element(元素)」，則稱一組「Key-Element pairs」的集合為「Dictionary」。  </p>
+<p>如圖一所示，若將先前的字母視為「Element」並加上「Key」，則(Key, Element)可以表示成(編號, A)，若處理學生資料，將編號視為學號，資料視為姓名，則能夠將(Key, Element)可以表示成(學號, 姓名)。</p>
+<p></br>
+<center>
+<img alt="dictionary1" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/Intro/f1.png?raw=true" /></p>
+<p><strong>圖一：。</strong><br />
+</center> </p>
+<p>在接下來的篇幅裡，將使用七龍珠的角色(悟空)作為Element，角色的戰鬥力視為Key：</p>
+<p></br>
+<center>
+<img alt="dictionary2" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/Intro/f2.png?raw=true" /></p>
+<p><strong>圖二：。</strong><br />
+</center></p>
+<p>修正後的<code>class TreeNode</code>可能長這樣： </p>
+<div class="highlight"><pre><span class="code-line"><span class="c1">// C++ code</span></span>
+<span class="code-line"><span class="k">class</span> <span class="nc">TreeNode</span><span class="p">{</span></span>
+<span class="code-line"><span class="k">private</span><span class="o">:</span></span>
+<span class="code-line">    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">leftchild</span><span class="p">;</span></span>
+<span class="code-line">    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">rightchild</span><span class="p">;</span></span>
+<span class="code-line">    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">parent</span><span class="p">;</span></span>
+<span class="code-line">    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">data</span><span class="p">;</span>       <span class="c1">// Element</span></span>
+<span class="code-line">    <span class="kt">int</span> <span class="n">Key</span><span class="p">;</span>                <span class="c1">// Key, used for comparison </span></span>
+<span class="code-line">     <span class="p">...</span></span>
+<span class="code-line"><span class="p">};</span></span>
+</pre></div>
+
+
+<p>備註： </p>
+<ol>
+<li>Dictionary的概念也出現在<strong>Hash Table</strong>(有天才翻譯成"哈希表"也很酷)，C/C++標準函式庫(Standard Library)中的<strong>container</strong>:<code>map</code>等等，有非常多應用。</li>
+<li>以下角色戰鬥力的絕對值是捏造的，不過相對值盡力維持正確(除了撒旦)，若有疑問，歡迎龍珠粉來信討論。 </li>
+<li>由於故事的角色眾多，以下將挑選具代表性之角色用來說明BST。</li>
+</ol>
+<p><a name="bst"></a></p>
+<h2><strong>Binary Search Tree的特徵</strong></h2>
+<p>有了加裝Dictionary後的<code>TreeNode</code>，便能夠說明BST的特徵：</p>
+<ul>
+<li>任何CurrnetNode之Key若與其left child、right child之Key有以下關係(若pointer指向<code>NULL</code>則忽略)：<span class="math">\(Key(L)&lt;Key(Current)&lt;Key(R)\)</span>，則可稱這棵樹為Binary Search Tree(BST)。</li>
+</ul>
+<p>以圖三為例，樹中有三個node，悟空的戰鬥力為1000，龜仙人的戰鬥力為8，克林的戰鬥力為2，若將龜仙人設為<code>root</code>，則克林的戰鬥力較小，因此成為龜仙人的left child，悟空的戰鬥力較大，便成為龜仙人的right child，如此便滿足<span class="math">\(Key(L)&lt;Key(Current)&lt;Key(R)\)</span>，即可稱圖三為一棵BST。</p>
+<p><center>
+<img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/Intro/f3.png?raw=true" /></p>
+<p><strong>圖三：。</strong><br />
+</center></p>
+<p>有了BST後，便能夠替鳥山明老師處理角色之間的戰鬥力關係了。</p>
+<p><a name="operation"></a></p>
+<h2><strong>在Binary Search Tree中管理資料</strong></h2>
+<p>故事一開始的主要角色有悟空(1000)、龜仙人(8)和克林(2)，以龜仙人為<code>root</code>能夠建立出一棵BST如圖四：</p>
+<p><center>
+<img alt="bst1" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/Intro/f14.png?raw=true" /></p>
+<p><strong>圖四：。</strong><br />
+</center>
+</br></p>
+<p><a name="insert"></a></p>
+<h4><strong>insert(新增資料)</strong></h4>
+<p>隨著故事劇情推進，角色也會跟著增加，因此，要在BST中<strong>新增node(新增資料)</strong>。<br />
+在此，比克大魔王現身地球危害人間，其戰鬥力為513，欲將其放進BST，根據BST的規則判斷出，比克的戰鬥力比龜仙人高，因此要將比克放在龜仙人的right subtree(右子樹)；接著，再和悟空比較，比克的戰鬥力比悟空低，因此將比克建立在悟空的left child上，如圖五(a)所示：</p>
+<p><center>
+<img alt="insert" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/Intro/f4.png?raw=true" /></p>
+<p><strong>圖五(a)：。</strong><br />
+</center></p>
+<p>接著，賽亞人王子達爾登場，其戰鬥力為524，根據BST的規則，判斷出其應在「龜仙人的right subtree」、「悟空的left subtree」與比克的「right child」，如圖五(b)所示。<br />
+在下一篇文章將會看到，實際上的演算法正是以這種方式實現：移動<code>CurrentNode</code>，並將<code>CurrentNode</code>之Key與「欲新增之node的Key」比較，找到符合BST規則的位置後，置入新的node。</p>
+<p><center>
+<img alt="insert" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/Intro/f5.png?raw=true" /></p>
+<p><strong>圖五(b)：。</strong><br />
+</center></p>
+<p><a name="search"></a></p>
+<h4><strong>search(搜尋資料)</strong></h4>
+<p>在處理資料時，時常需要尋找某特定資料，是否存在資料結構中。以BST處理資料，最簡單的方式便是用Key尋找。<br />
+以圖六為例，故事推進到納美克星弗力札大王篇，若想要確認基紐隊長的資料是否已經建立完成，只要記住隊長的戰鬥力為「627」，進入BST中，便能夠找到隊長，必且回傳(return)隊長的node。<br />
+有時會出現欲搜尋的資料尚未被建立進BST中、或者已經從BST中移除的情況，例如，若要在悟空變成超級賽亞人之前找克林，以克林的戰鬥力「2」來搜尋，但是發現找不到，便回傳(return)<code>NULL</code>。</p>
+<p>因為克林被弗力札大王給殺死了啊啊阿啊(變身超級賽亞人)。</p>
+<p><center>
+<img alt="search" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/Intro/f16.png?raw=true" /></p>
+<p><strong>圖六：。</strong><br />
+</center></p>
+<p><a name="sort"></a></p>
+<h4><strong>sort(排序)</strong></h4>
+<p>故事來到了魔人普烏篇，因為角色有點多，有點混亂，此時，若想要知道各角色戰鬥力的大小排序，只要按照<strong>Inorder Traversal</strong>即可按到戰鬥力(Key)高低列出所有資料：</p>
+<p><center>
+<img alt="sort" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/Intro/f17.png?raw=true" /></p>
+<p><strong>圖七：。</strong><br />
+</center></p>
+<p><a name="delete"></a></p>
+<h4><strong>delete(刪除資料)</strong></h4>
+<p>最後，當角色死掉去領便當，就需要從BST刪除資料，而根據欲資料之「<strong>child個數</strong>」可以分成三種情況：</p>
+<ol>
+<li>刪除撒旦：撒旦<strong>沒有child</strong>，因此，直接把撒旦的parent(普烏)之left child指向<code>NULL</code>即可。</li>
+<li>刪除弗力札：弗力札有<strong>一個child</strong>(left child)，因此刪除弗力札之前，需要先把弗力札的left child(基紐)接到弗力札的parent(龜仙人)上，又因為弗力札原本是龜仙人的right child，因此基紐將遞補弗力札，成為龜仙人的right child。</li>
+<li>刪除西魯：西魯有<strong>兩個child</strong>，稍微麻煩一點，需要「多一個步驟」，將留待之後的文章做詳細說明。</li>
+</ol>
+<p><center>
+<img alt="delete" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/Intro/f15.png?raw=true" /></p>
+<p><strong>圖八：。</strong><br />
+</center></p>
+<p>以上便是BST與BST中的基本操作之介紹。<br />
+接下來，將以兩篇文章的篇幅，說明上述四種資料處理操作的演算法。</p>
+<p></br>
+<a name="ref"></a></p>
+<h6><strong>參考資料</strong>：</h6>
+<ul>
+<li><a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844">Introduction to Algorithms</a> </li>
+<li><a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376">Fundamentals of Data Structures in C++</a></li>
+<li><a href="https://zh.wikipedia.org/wiki/%E4%B8%83%E9%BE%99%E7%8F%A0#.E5.8A.87.E5.A0.B4.E7.89.88">Wikipedia：七龍珠</a></li>
+</ul>
+<p></br>  </p>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' && location_protocol !== 'https') location_protocol = 'https:';
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="http://alrightchiu.github.io/SecondRound/tag/jin-tian-bu-xie-ming-tian-jiu-wang-liao.html">今天不寫明天就忘了</a>
+    </p>
+  </div>
+</article>
+
+    <footer>
+<p>
+  &copy; Chiu CC  - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>
+</p>
+<p>Built using <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a></p><p>
+  <a rel="license"
+     href="http://creativecommons.org/licenses/by-sa/4.0/"
+     target="_blank">
+    <img alt="Creative Commons License"
+         title="Creative Commons License"
+         style="border-width:0"
+         src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png"
+         width="80"
+         height="15"/>
+  </a>
+</p>    </footer>
+  </main>
+
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "name": "Binary Search Tree: Intro(簡介)",
+  "headline": "Binary Search Tree: Intro(簡介)",
+  "datePublished": "2016-01-02 12:15:00+08:00",
+  "dateModified": "",
+  "author": {
+    "@type": "Person",
+    "name": "Chiu CC",
+    "url": "http://alrightchiu.github.io/SecondRound/author/chiu-cc.html"
+  },
+  "image": "http://alrightchiu.github.io/SecondRound/fig/antiwar.jpg",
+  "url": "http://alrightchiu.github.io/SecondRound/binary-search-tree-introjian-jie.html",
+  "description": "謹以Binary Search Tree向拯救90後的童年的鉅作《七龍珠》以及鳥山明老師致敬。"
+}
+</script></body>
+</html>
