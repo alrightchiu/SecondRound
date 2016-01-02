@@ -182,15 +182,15 @@ private:
 **圖八：。**  
 </center>
 
-[dictionary1]: f1.png
-[dictionary2]: f2.png
-[bst]: f3.png
-[bst1]: f14.png  
-[insert1]: f4.png
-[insert2]: f5.png
-[search]: f16.png
-[sort]: f17.png
-[delete]: f15.png
+[dictionary1]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/Intro/f1.png?raw=true
+[dictionary2]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/Intro/f2.png?raw=true
+[bst]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/Intro/f3.png?raw=true
+[bst1]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/Intro/f14.png?raw=true 
+[insert1]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/Intro/f4.png?raw=true
+[insert2]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/Intro/f5.png?raw=true
+[search]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/Intro/f16.png?raw=true
+[sort]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/Intro/f17.png?raw=true
+[delete]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/Intro/f15.png?raw=true
 
 以上便是BST與BST中的基本操作之介紹。  
 接下來，將以兩篇文章的篇幅，說明上述四種資料處理操作的演算法。
