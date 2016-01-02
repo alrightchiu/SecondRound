@@ -194,6 +194,7 @@ private:
 [delete]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/Intro/f15.png?raw=true
 
 以上便是BST與BST中的基本操作之介紹，所有操作都是以BST之特徵為出發點，尤其是新增node與刪除node，務必要滿足BST之規則。  
+
 接下來，將以兩篇文章的篇幅，說明上述四種資料處理操作的演算法。
 
 </br>
