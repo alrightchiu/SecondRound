@@ -9,7 +9,7 @@
 &lt;h2&gt;目錄&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="#dictionary"&gt;引入dictionary&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="#bst"&gt;Binary Search Tree的特徵&lt;/a&gt;  &lt;/li&gt;
+&lt;li&gt;&lt;a href="#bst"&gt;Binary Search Tree的特徵&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;a href="#operation"&gt;在Binary Search Tree中管理資料&lt;/a&gt; &lt;/p&gt;
 &lt;ul&gt;
@@ -57,7 +57,7 @@
 
 &lt;p&gt;備註： &lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;Dictionary的概念也出現在&lt;strong&gt;Hash Table&lt;/strong&gt;(有天才翻譯成"哈希表"也很酷)，C/C++標準函式庫(Standard Library)中的&lt;strong&gt;container&lt;/strong&gt;:&lt;code&gt;map&lt;/code&gt;等等，有非常多應用。&lt;/li&gt;
+&lt;li&gt;Dictionary的概念也出現在&lt;strong&gt;Hash Table&lt;/strong&gt;(有天才翻譯成"哈希表"也很酷)、C/C++標準函式庫(Standard Library)中的&lt;strong&gt;container&lt;/strong&gt;:&lt;code&gt;map&lt;/code&gt;等等，有非常多應用。&lt;/li&gt;
 &lt;li&gt;以下角色戰鬥力的絕對值是捏造的，不過相對值盡力維持正確(除了撒旦)，若有疑問，歡迎龍珠粉來信討論。 &lt;/li&gt;
 &lt;li&gt;由於故事的角色眾多，以下將挑選具代表性之角色用來說明BST。&lt;/li&gt;
 &lt;/ol&gt;
@@ -105,16 +105,17 @@
 &lt;img alt="search" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/Intro/f16.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖六：。&lt;/strong&gt;&lt;br /&gt;
 &lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;（界王神的聲音：為什麼&lt;code&gt;root&lt;/code&gt;從龜仙人變成比克？不會違反BST規則嗎？詳見&lt;a href="#"&gt;Red Black Tree系列之Rotation(旋轉)&lt;/a&gt;。）&lt;/p&gt;
 &lt;p&gt;&lt;a name="sort"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h4&gt;&lt;strong&gt;sort(排序)&lt;/strong&gt;&lt;/h4&gt;
-&lt;p&gt;故事來到了魔人普烏篇，因為角色有點多，有點混亂，此時，若想要知道各角色戰鬥力的大小排序，只要按照&lt;strong&gt;Inorder Traversal&lt;/strong&gt;即可按到戰鬥力(Key)高低列出所有資料：&lt;/p&gt;
+&lt;p&gt;故事來到了魔人普烏篇，因為角色有點多，有點混亂，此時，若想要知道各角色戰鬥力的大小排序，只要按照&lt;strong&gt;Inorder Traversal&lt;/strong&gt;即可按照戰鬥力(Key)高低列出所有資料：&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="sort" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/Intro/f17.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖七：。&lt;/strong&gt;&lt;br /&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a name="delete"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h4&gt;&lt;strong&gt;delete(刪除資料)&lt;/strong&gt;&lt;/h4&gt;
-&lt;p&gt;最後，當角色死掉去領便當，就需要從BST刪除資料，而根據欲資料之「&lt;strong&gt;child個數&lt;/strong&gt;」可以分成三種情況：&lt;/p&gt;
+&lt;p&gt;最後，當角色死掉去領便當，就需要從BST刪除資料，而根據欲刪除資料之「&lt;strong&gt;child個數&lt;/strong&gt;」可以分成三種情況：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;刪除撒旦：撒旦&lt;strong&gt;沒有child&lt;/strong&gt;，因此，直接把撒旦的parent(普烏)之left child指向&lt;code&gt;NULL&lt;/code&gt;即可。&lt;/li&gt;
 &lt;li&gt;刪除弗力札：弗力札有&lt;strong&gt;一個child&lt;/strong&gt;(left child)，因此刪除弗力札之前，需要先把弗力札的left child(基紐)接到弗力札的parent(龜仙人)上，又因為弗力札原本是龜仙人的right child，因此基紐將遞補弗力札，成為龜仙人的right child。&lt;/li&gt;
@@ -124,7 +125,7 @@
 &lt;img alt="delete" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/Intro/f15.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖八：。&lt;/strong&gt;&lt;br /&gt;
 &lt;/center&gt;&lt;/p&gt;
-&lt;p&gt;以上便是BST與BST中的基本操作之介紹。&lt;br /&gt;
+&lt;p&gt;以上便是BST與BST中的基本操作之介紹，所有操作都是以BST之特徵「&lt;span class="math"&gt;\(Key(L)&amp;lt;Key(Current)&amp;lt;Key(R)\)&lt;/span&gt;」為出發點，尤其是新增node與刪除node，務必要滿足BST之規則。&lt;br /&gt;
 接下來，將以兩篇文章的篇幅，說明上述四種資料處理操作的演算法。&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;
 &lt;a name="ref"&gt;&lt;/a&gt;&lt;/p&gt;
