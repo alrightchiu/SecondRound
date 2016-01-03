@@ -122,6 +122,7 @@
 
 <p>文章內容將著重於BST這個資料結構，並提供此資料結構中可行的演算法，因此，有關C++的實作方法並不唯一，筆者相信有更優秀的寫法(有效利用記憶體、避免memory leak(記憶體洩漏)等議題)，建議讀者可以多多參考例如<a href="http://codereview.stackexchange.com/">Stack Exchange:Code Review</a>等等眾多優秀的網站，看網友的程式碼的寫法以及由該份程式碼所開啟的討論串，應該會對實際寫作技巧有些幫助。<br />
 (筆者也還在學啊啊啊啊)</p>
+<p>另外，用以測試的<code>main()</code>將在BST系列的演算法都介紹完後登場。</p>
 <hr />
 <h2>目錄</h2>
 <ul>
@@ -277,10 +278,7 @@
 </pre></div>
 
 
-<p>備註：</p>
-<ul>
-<li>在定義函式<code>insert()</code>時，函式的參數(argument)可能會視情境而有所改變，這裡是以一個<code>TreeNode</code>的物件(object)之<strong>reference</strong>作為參數，傳進函式<code>insert()</code>。</li>
-</ul>
+<p>備註：在定義函式<code>insert()</code>時，函式的參數(argument)可能會視情境而有所改變，這裡是以一個<code>TreeNode</code>的物件(object)之<strong>reference</strong>作為參數，傳進函式<code>insert()</code>。</p>
 <p></br></p>
 <p>以上便是BST中<code>search()</code>與<code>insert()</code>之介紹，只要掌握BST的性質<span class="math">\(Key(L)&lt;Key(Current)&lt;Key(R)\)</span>與樹中的Traversal(pointer的移動)即可輕鬆上手。  </p>
 <p></br>

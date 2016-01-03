@@ -62,6 +62,7 @@
 
 &lt;p&gt;文章內容將著重於BST這個資料結構，並提供此資料結構中可行的演算法，因此，有關C++的實作方法並不唯一，筆者相信有更優秀的寫法(有效利用記憶體、避免memory leak(記憶體洩漏)等議題)，建議讀者可以多多參考例如&lt;a href="http://codereview.stackexchange.com/"&gt;Stack Exchange:Code Review&lt;/a&gt;等等眾多優秀的網站，看網友的程式碼的寫法以及由該份程式碼所開啟的討論串，應該會對實際寫作技巧有些幫助。&lt;br /&gt;
 (筆者也還在學啊啊啊啊)&lt;/p&gt;
+&lt;p&gt;另外，用以測試的&lt;code&gt;main()&lt;/code&gt;將在BST系列的演算法都介紹完後登場。&lt;/p&gt;
 &lt;hr /&gt;
 &lt;h2&gt;目錄&lt;/h2&gt;
 &lt;ul&gt;
@@ -217,10 +218,7 @@
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;備註：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;在定義函式&lt;code&gt;insert()&lt;/code&gt;時，函式的參數(argument)可能會視情境而有所改變，這裡是以一個&lt;code&gt;TreeNode&lt;/code&gt;的物件(object)之&lt;strong&gt;reference&lt;/strong&gt;作為參數，傳進函式&lt;code&gt;insert()&lt;/code&gt;。&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;備註：在定義函式&lt;code&gt;insert()&lt;/code&gt;時，函式的參數(argument)可能會視情境而有所改變，這裡是以一個&lt;code&gt;TreeNode&lt;/code&gt;的物件(object)之&lt;strong&gt;reference&lt;/strong&gt;作為參數，傳進函式&lt;code&gt;insert()&lt;/code&gt;。&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;p&gt;以上便是BST中&lt;code&gt;search()&lt;/code&gt;與&lt;code&gt;insert()&lt;/code&gt;之介紹，只要掌握BST的性質&lt;span class="math"&gt;\(Key(L)&amp;lt;Key(Current)&amp;lt;Key(R)\)&lt;/span&gt;與樹中的Traversal(pointer的移動)即可輕鬆上手。  &lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;
