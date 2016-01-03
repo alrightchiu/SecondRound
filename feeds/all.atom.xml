@@ -45,8 +45,7 @@
 &lt;span class="code-line"&gt;    &lt;span class="n"&gt;BST&lt;/span&gt;&lt;span class="p"&gt;(){&lt;/span&gt; &lt;span class="n"&gt;root&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="p"&gt;};&lt;/span&gt;     &lt;span class="c1"&gt;// default constructor&lt;/span&gt;&lt;/span&gt;
 &lt;span class="code-line"&gt;    &lt;span class="n"&gt;BST&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="n"&gt;BST&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;p&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;      &lt;span class="c1"&gt;// copy constructor&lt;/span&gt;&lt;/span&gt;
 &lt;span class="code-line"&gt;    &lt;span class="n"&gt;BST&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="k"&gt;operator&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="n"&gt;BST&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;p&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;    &lt;span class="o"&gt;~&lt;/span&gt;&lt;span class="n"&gt;BST&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;  &lt;span class="c1"&gt;// destructor, 這裡面要一個treenode一個treenode做delete&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;             &lt;span class="c1"&gt;// 不然 treenode的destructor不會被call, 是整串tree一次丟掉, 但只有delete root這個treenode&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="o"&gt;~&lt;/span&gt;&lt;span class="n"&gt;BST&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;  &lt;span class="c1"&gt;// destructor&lt;/span&gt;&lt;/span&gt;
 &lt;span class="code-line"&gt;&lt;/span&gt;
 &lt;span class="code-line"&gt;    &lt;span class="n"&gt;TreeNode&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="nf"&gt;search&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;/span&gt;
 &lt;span class="code-line"&gt;    &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;insertBST&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;TreeNode&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;new_node&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;/span&gt;
@@ -62,8 +61,8 @@
 
 
 &lt;p&gt;文章內容將著重於BST這個資料結構，並提供此資料結構中可行的演算法，因此，有關C++的實作方法並不唯一，筆者相信有更優秀的寫法(有效利用記憶體、避免memory leak(記憶體洩漏)等議題)，建議讀者可以多多參考例如&lt;a href="http://codereview.stackexchange.com/"&gt;Stack Exchange:Code Review&lt;/a&gt;等等眾多優秀的網站，看網友的程式碼的寫法以及由該份程式碼所開啟的討論串，應該會對實際寫作技巧有些幫助。&lt;br /&gt;
-(筆者也還在學啊啊啊啊)
-&lt;/br&gt;&lt;/p&gt;
+(筆者也還在學啊啊啊啊)&lt;/p&gt;
+&lt;hr /&gt;
 &lt;h2&gt;目錄&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="#search"&gt;BST::Search(搜尋)&lt;/a&gt;&lt;/li&gt;
@@ -78,10 +77,10 @@
 &lt;img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f18.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖一(a)：。&lt;/strong&gt;&lt;br /&gt;
 &lt;/center&gt;   &lt;/p&gt;
-&lt;p&gt;搜尋結果可能成功，可能失敗，以下便分別以兩個Key值作說明。&lt;/p&gt;
+&lt;p&gt;搜尋結果可能成功，可能失敗，以下便分別以兩個KEY值作說明。&lt;/p&gt;
 &lt;h4&gt;搜尋成功&lt;/h4&gt;
 &lt;ul&gt;
-&lt;li&gt;若現在要從BST中搜尋基紐隊長，便以基紐隊長的Key(627)進入BST。&lt;br /&gt;
+&lt;li&gt;若現在要從BST中搜尋基紐隊長，便以基紐隊長的KEY(627)進入BST。&lt;br /&gt;
 進入BST後，便把用來移動的&lt;code&gt;Current&lt;/code&gt;node指向&lt;code&gt;root&lt;/code&gt;，如圖一(b)。  &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;center&gt;
@@ -115,7 +114,7 @@
 &lt;/ul&gt;
 &lt;h4&gt;搜尋失敗&lt;/h4&gt;
 &lt;ul&gt;
-&lt;li&gt;若現在要從BST中尋找克林，便已克林的戰鬥力(2)為KEY，進入&lt;code&gt;search()&lt;/code&gt;。&lt;br /&gt;
+&lt;li&gt;若現在要從BST中尋找克林，便以克林的戰鬥力(2)為KEY(2)，進入&lt;code&gt;search()&lt;/code&gt;。&lt;br /&gt;
 進入BST後，同樣把用來移動的&lt;code&gt;Current&lt;/code&gt;node指向&lt;code&gt;root&lt;/code&gt;，如圖一(b)。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;center&gt;
@@ -222,9 +221,8 @@
 &lt;ul&gt;
 &lt;li&gt;在定義函式&lt;code&gt;insert()&lt;/code&gt;時，函式的參數(argument)可能會視情境而有所改變，這裡是以一個&lt;code&gt;TreeNode&lt;/code&gt;的物件(object)之&lt;strong&gt;reference&lt;/strong&gt;作為參數，傳進函式&lt;code&gt;insert()&lt;/code&gt;。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;hr /&gt;
-&lt;p&gt;&lt;/br&gt;
-以上便是BST中&lt;code&gt;search()&lt;/code&gt;與&lt;code&gt;insert()&lt;/code&gt;之介紹，只要掌握BST的性質&lt;span class="math"&gt;\(Key(L)&amp;lt;Key(Current)&amp;lt;Key(R)\)&lt;/span&gt;與樹中的Traversal(pointer的移動)即可輕鬆上手。  &lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;以上便是BST中&lt;code&gt;search()&lt;/code&gt;與&lt;code&gt;insert()&lt;/code&gt;之介紹，只要掌握BST的性質&lt;span class="math"&gt;\(Key(L)&amp;lt;Key(Current)&amp;lt;Key(R)\)&lt;/span&gt;與樹中的Traversal(pointer的移動)即可輕鬆上手。  &lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;
 &lt;a name="ref"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h6&gt;&lt;strong&gt;參考資料&lt;/strong&gt;：&lt;/h6&gt;
@@ -294,8 +292,8 @@
 &lt;p&gt;先前的文章介紹過廣義的Tree(樹)、Binary Tree(二元樹)，這篇文章將繼續增加限制條件，使Binary Tree晉升成Binary Search Tree(BST，二元搜尋樹)。  &lt;/p&gt;
 &lt;p&gt;這裡要處理的資料是日本漫畫的曠世鉅作《七龍珠》中各角色的戰鬥力。&lt;br /&gt;
 七龍珠的劇情(正篇有七龍珠、七龍珠Z、七龍珠改、七龍珠GT、七龍珠超，劇場版還有&lt;a href="https://zh.wikipedia.org/wiki/%E4%B8%83%E9%BE%99%E7%8F%A0#.E5.8A.87.E5.A0.B4.E7.89.88"&gt;七龍珠劇場版(太多了請參閱維基百科)&lt;/a&gt;)時而前後連貫，時而交錯，為了維持每個系列之間的角色設定，就需要對角色的戰鬥力進行管理，避免劇情不合邏輯變成鬧劇，在此，筆者推薦鳥山明老師可以使用先進如BST的資料結構來整理角色的資料(也是可以用excel或是國小生字簿)。  &lt;/p&gt;
-&lt;p&gt;熱血沸騰了。&lt;br /&gt;
-&lt;/br&gt;  &lt;/p&gt;
+&lt;p&gt;熱血沸騰了。  &lt;/p&gt;
+&lt;hr /&gt;
 &lt;h2&gt;目錄&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="#dictionary"&gt;引入dictionary&lt;/a&gt;&lt;/li&gt;
@@ -415,7 +413,8 @@
 &lt;img alt="delete" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/Intro/f15.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖八：。&lt;/strong&gt;&lt;br /&gt;
 &lt;/center&gt;&lt;/p&gt;
-&lt;p&gt;以上便是BST與BST中的基本操作之介紹，所有操作都是以BST之特徵為出發點，尤其是新增node與刪除node，務必要滿足BST之規則。  &lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;
+以上便是BST與BST中的基本操作之介紹，所有操作都是以BST之特徵為出發點，尤其是新增node與刪除node，務必要滿足BST之規則。  &lt;/p&gt;
 &lt;p&gt;接下來，將以兩篇文章的篇幅，說明上述四種資料處理操作的演算法。&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;
 &lt;a name="ref"&gt;&lt;/a&gt;&lt;/p&gt;
@@ -487,8 +486,8 @@
 &lt;p&gt;在&lt;a href="http://alrightchiu.github.io/SecondRound/binary-tree-traversal.html#ex_code"&gt;Binary Tree：Traversal&lt;/a&gt;中，非常沒誠意地用暴力方式建了一棵Binary Tree，在這裡至上深深歉意，因此，在本篇文章將提供一種方法，由一個字元陣列(char array)輸入字母，並按照&lt;a href="http://alrightchiu.github.io/SecondRound/binary-tree-intro.html#fullcomplete"&gt;Complete Binary Tree&lt;/a&gt;之順序重新建立&lt;strong&gt;那顆樹&lt;/strong&gt;。(一種不健康的雪恥心態)&lt;/p&gt;
 &lt;p&gt;其中，問題情境之原始資料是一個字元陣列(char array)，為了方便處理(偷懶)選擇使用C++語言中的神器：&lt;a href="http://www3.ntu.edu.sg/home/ehchua/programming/cpp/cp10_io.html"&gt;stringstream&lt;/a&gt;，這裡礙於篇幅與主題(與筆者自己也還在摸索)，就不多談避免誤導，&lt;a href="(http://www3.ntu.edu.sg/home/ehchua/programming/cpp/cp10_io.html)"&gt;點進連結中&lt;/a&gt;有非常詳細的說明，關於&lt;code&gt;istringstream&lt;/code&gt;、&lt;code&gt;ostringstream&lt;/code&gt;、&lt;code&gt;stringstream&lt;/code&gt;等等template class之繼承關係(inheritance)。&lt;br /&gt;
 重點是，&lt;code&gt;stringstream&lt;/code&gt;就是神，就是行，學起來簡直光宗耀祖。&lt;/p&gt;
-&lt;p&gt;以及，以下提供的Binary Tree之建立方法，基本上是在&lt;a href="http://alrightchiu.github.io/SecondRound/binary-tree-traversal.html#ex_code"&gt;Binary Tree：Traversal介紹過的level-order traversal&lt;/a&gt;上加油添醋，因此&lt;a href="https://en.wikipedia.org/wiki/Queue_%28abstract_data_type%29"&gt;queue(佇列)&lt;/a&gt;的概念會再次出現。
-&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;以及，以下提供的Binary Tree之建立方法，基本上是在&lt;a href="http://alrightchiu.github.io/SecondRound/binary-tree-traversal.html#ex_code"&gt;Binary Tree：Traversal介紹過的level-order traversal&lt;/a&gt;上加油添醋，因此&lt;a href="https://en.wikipedia.org/wiki/Queue_%28abstract_data_type%29"&gt;queue(佇列)&lt;/a&gt;的概念會再次出現。&lt;/p&gt;
+&lt;hr /&gt;
 &lt;h2&gt;目錄&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="#description"&gt;問題描述&lt;/a&gt;&lt;/li&gt;
@@ -849,8 +848,8 @@ pointer連接完成後，結束迴圈。&lt;/li&gt;
 &lt;p&gt;移動到特定的node之後，通常伴隨著其他行為，例如print out(顯示資料)、assign(賦值)等等，這些行為又稱作Visiting，&lt;/p&gt;
 &lt;p&gt;在閱讀本篇之前，建議先閱讀&lt;a href="http://alrightchiu.github.io/SecondRound/linked-list-traversal.html"&gt;Linked List: Traversal&lt;/a&gt;作簡單複習。在Linked list與Tree中的traversal於pointer的操作概念上完全相同，不過由於Node的pointer增加了，於是從一維的移動拓展到二維的移動。&lt;br /&gt;
 本篇文章將介紹在Binary Tree中的四種traversal方法。  &lt;/p&gt;
-&lt;p&gt;另外，根據不同的程式實作方法，可能會使用上&lt;a href="https://en.wikipedia.org/wiki/Stack_%28abstract_data_type%29"&gt;stack(堆疊)&lt;/a&gt;與&lt;a href="https://en.wikipedia.org/wiki/Queue_%28abstract_data_type%29"&gt;queue(佇列)&lt;/a&gt;，如果熟悉的話，那就會很酷。
-&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;另外，根據不同的程式實作方法，可能會使用上&lt;a href="https://en.wikipedia.org/wiki/Stack_%28abstract_data_type%29"&gt;stack(堆疊)&lt;/a&gt;與&lt;a href="https://en.wikipedia.org/wiki/Queue_%28abstract_data_type%29"&gt;queue(佇列)&lt;/a&gt;，如果熟悉的話，那就會很酷。&lt;/p&gt;
+&lt;hr /&gt;
 &lt;h2&gt;目錄&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="#bttraversal"&gt;Traversal in Binary Tree&lt;/a&gt;&lt;/li&gt;
@@ -1465,8 +1464,8 @@ pointer連接完成後，結束迴圈。&lt;/li&gt;
 &lt;h6&gt;&lt;strong&gt;先備知識與注意事項&lt;/strong&gt;&lt;/h6&gt;
 &lt;p&gt;接續上一篇談到的&lt;a href="http://alrightchiu.github.io/SecondRound/treeshu.html"&gt;Tree(樹)&lt;/a&gt;，這篇文章將介紹樹這個大集合裡的其中一支大宗：&lt;strong&gt;Binary Tree&lt;/strong&gt;。&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;
-學海無涯，快點跳海。
-&lt;/br&gt;&lt;/p&gt;
+學海無涯，快點跳海。&lt;/p&gt;
+&lt;hr /&gt;
 &lt;h2&gt;目錄&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="#bt"&gt;Binary Tree&lt;/a&gt; &lt;/li&gt;
@@ -1632,8 +1631,8 @@ Binary Tree的node未必需要parent pointer(或稱為parent field)，然而加�
 &lt;/center&gt;   &lt;/p&gt;
 &lt;p&gt;另外則是用詞翻譯的選擇，為響應兩性平權(feminism)以及使用的頻繁程度，名詞如node/vertex(節點)、edge(邊緣？)、parent(父還是母？)、child(孩子？)、ancestor(祖先？)...皆視為專有名詞，不做翻譯。因此文句中會出現中英夾雜的情況，敬請見諒。&lt;br /&gt;
 &lt;/br&gt;&lt;br /&gt;
-&lt;a href="https://www.youtube.com/watch?v=u1ZB_rGFyeU"&gt;OK Go&lt;/a&gt;.&lt;br /&gt;
-&lt;/br&gt;&lt;/p&gt;
+&lt;a href="https://www.youtube.com/watch?v=u1ZB_rGFyeU"&gt;OK Go&lt;/a&gt;.  &lt;/p&gt;
+&lt;hr /&gt;
 &lt;h2&gt;目錄&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="#example"&gt;隨處可見的樹&lt;/a&gt;  &lt;/li&gt;

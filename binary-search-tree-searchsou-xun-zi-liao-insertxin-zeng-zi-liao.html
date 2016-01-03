@@ -105,8 +105,7 @@
 <span class="code-line">    <span class="n">BST</span><span class="p">(){</span> <span class="n">root</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="p">};</span>     <span class="c1">// default constructor</span></span>
 <span class="code-line">    <span class="n">BST</span><span class="p">(</span><span class="k">const</span> <span class="n">BST</span> <span class="o">&amp;</span><span class="n">p</span><span class="p">);</span>      <span class="c1">// copy constructor</span></span>
 <span class="code-line">    <span class="n">BST</span><span class="o">&amp;</span> <span class="k">operator</span> <span class="o">=</span> <span class="p">(</span><span class="k">const</span> <span class="n">BST</span> <span class="o">&amp;</span><span class="n">p</span><span class="p">);</span></span>
-<span class="code-line">    <span class="o">~</span><span class="n">BST</span><span class="p">();</span>  <span class="c1">// destructor, 這裡面要一個treenode一個treenode做delete</span></span>
-<span class="code-line">             <span class="c1">// 不然 treenode的destructor不會被call, 是整串tree一次丟掉, 但只有delete root這個treenode</span></span>
+<span class="code-line">    <span class="o">~</span><span class="n">BST</span><span class="p">();</span>  <span class="c1">// destructor</span></span>
 <span class="code-line"></span>
 <span class="code-line">    <span class="n">TreeNode</span><span class="o">*</span> <span class="nf">search</span><span class="p">(</span><span class="kt">int</span> <span class="n">key</span><span class="p">);</span></span>
 <span class="code-line">    <span class="kt">void</span> <span class="nf">insertBST</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">&amp;</span><span class="n">new_node</span><span class="p">);</span></span>
@@ -122,8 +121,8 @@
 
 
 <p>文章內容將著重於BST這個資料結構，並提供此資料結構中可行的演算法，因此，有關C++的實作方法並不唯一，筆者相信有更優秀的寫法(有效利用記憶體、避免memory leak(記憶體洩漏)等議題)，建議讀者可以多多參考例如<a href="http://codereview.stackexchange.com/">Stack Exchange:Code Review</a>等等眾多優秀的網站，看網友的程式碼的寫法以及由該份程式碼所開啟的討論串，應該會對實際寫作技巧有些幫助。<br />
-(筆者也還在學啊啊啊啊)
-</br></p>
+(筆者也還在學啊啊啊啊)</p>
+<hr />
 <h2>目錄</h2>
 <ul>
 <li><a href="#search">BST::Search(搜尋)</a></li>
@@ -138,10 +137,10 @@
 <img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f18.png?raw=true" /></p>
 <p><strong>圖一(a)：。</strong><br />
 </center>   </p>
-<p>搜尋結果可能成功，可能失敗，以下便分別以兩個Key值作說明。</p>
+<p>搜尋結果可能成功，可能失敗，以下便分別以兩個KEY值作說明。</p>
 <h4>搜尋成功</h4>
 <ul>
-<li>若現在要從BST中搜尋基紐隊長，便以基紐隊長的Key(627)進入BST。<br />
+<li>若現在要從BST中搜尋基紐隊長，便以基紐隊長的KEY(627)進入BST。<br />
 進入BST後，便把用來移動的<code>Current</code>node指向<code>root</code>，如圖一(b)。  </li>
 </ul>
 <p><center>
@@ -175,7 +174,7 @@
 </ul>
 <h4>搜尋失敗</h4>
 <ul>
-<li>若現在要從BST中尋找克林，便已克林的戰鬥力(2)為KEY，進入<code>search()</code>。<br />
+<li>若現在要從BST中尋找克林，便以克林的戰鬥力(2)為KEY(2)，進入<code>search()</code>。<br />
 進入BST後，同樣把用來移動的<code>Current</code>node指向<code>root</code>，如圖一(b)。</li>
 </ul>
 <p><center>
@@ -282,9 +281,8 @@
 <ul>
 <li>在定義函式<code>insert()</code>時，函式的參數(argument)可能會視情境而有所改變，這裡是以一個<code>TreeNode</code>的物件(object)之<strong>reference</strong>作為參數，傳進函式<code>insert()</code>。</li>
 </ul>
-<hr />
-<p></br>
-以上便是BST中<code>search()</code>與<code>insert()</code>之介紹，只要掌握BST的性質<span class="math">\(Key(L)&lt;Key(Current)&lt;Key(R)\)</span>與樹中的Traversal(pointer的移動)即可輕鬆上手。  </p>
+<p></br></p>
+<p>以上便是BST中<code>search()</code>與<code>insert()</code>之介紹，只要掌握BST的性質<span class="math">\(Key(L)&lt;Key(Current)&lt;Key(R)\)</span>與樹中的Traversal(pointer的移動)即可輕鬆上手。  </p>
 <p></br>
 <a name="ref"></a></p>
 <h6><strong>參考資料</strong>：</h6>
