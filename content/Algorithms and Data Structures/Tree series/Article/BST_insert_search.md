@@ -72,6 +72,8 @@ public:
 文章內容將著重於BST這個資料結構，並提供此資料結構中可行的演算法，因此，有關C++的實作方法並不唯一，筆者相信有更優秀的寫法(有效利用記憶體、避免memory leak(記憶體洩漏)等議題)，建議讀者可以多多參考例如[Stack Exchange:Code Review](http://codereview.stackexchange.com/)等等眾多優秀的網站，看網友的程式碼的寫法以及由該份程式碼所開啟的討論串，應該會對實際寫作技巧有些幫助。  
 (筆者也還在學啊啊啊啊)
 
+另外，用以測試的`main()`將在BST系列的演算法都介紹完後登場。
+
 ***
   
 ##目錄
@@ -253,9 +255,7 @@ void BST::insertBST(TreeNode &new_node){
         y->rightchild = insert_node;
 }
 ```
-備註：
-
-* 在定義函式`insert()`時，函式的參數(argument)可能會視情境而有所改變，這裡是以一個`TreeNode`的物件(object)之**reference**作為參數，傳進函式`insert()`。
+備註：在定義函式`insert()`時，函式的參數(argument)可能會視情境而有所改變，這裡是以一個`TreeNode`的物件(object)之**reference**作為參數，傳進函式`insert()`。
 
 [search0]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f18.png?raw=true
 [search1]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f19.png?raw=true
