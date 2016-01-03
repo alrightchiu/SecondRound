@@ -13,7 +13,8 @@ Summary: 謹以Binary Search Tree向拯救90後的童年的鉅作《七龍珠》
 七龍珠的劇情(正篇有七龍珠、七龍珠Z、七龍珠改、七龍珠GT、七龍珠超，劇場版還有[七龍珠劇場版(太多了請參閱維基百科)](https://zh.wikipedia.org/wiki/%E4%B8%83%E9%BE%99%E7%8F%A0#.E5.8A.87.E5.A0.B4.E7.89.88))時而前後連貫，時而交錯，為了維持每個系列之間的角色設定，就需要對角色的戰鬥力進行管理，避免劇情不合邏輯變成鬧劇，在此，筆者推薦鳥山明老師可以使用先進如BST的資料結構來整理角色的資料(也是可以用excel或是國小生字簿)。  
 
 熱血沸騰了。  
-</br>  
+
+*** 
 
 ##目錄
 * [引入dictionary](#dictionary)
@@ -193,6 +194,7 @@ private:
 [sort]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/Intro/f17.png?raw=true
 [delete]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/Intro/f15.png?raw=true
 
+</br>
 以上便是BST與BST中的基本操作之介紹，所有操作都是以BST之特徵為出發點，尤其是新增node與刪除node，務必要滿足BST之規則。  
 
 接下來，將以兩篇文章的篇幅，說明上述四種資料處理操作的演算法。

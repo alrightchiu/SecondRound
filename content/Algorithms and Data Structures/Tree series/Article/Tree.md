@@ -22,7 +22,8 @@ Summary: 介紹資料結構中樹(Tree)的概念。
 另外則是用詞翻譯的選擇，為響應兩性平權(feminism)以及使用的頻繁程度，名詞如node/vertex(節點)、edge(邊緣？)、parent(父還是母？)、child(孩子？)、ancestor(祖先？)...皆視為專有名詞，不做翻譯。因此文句中會出現中英夾雜的情況，敬請見諒。  
 </br>  
 [OK Go](https://www.youtube.com/watch?v=u1ZB_rGFyeU).  
-</br>
+
+***
 
 ##目錄
 

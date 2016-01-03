@@ -14,8 +14,8 @@ Summary: 介紹如何以字元陣列(char array)獲得資料(data)後，建立�
 重點是，`stringstream`就是神，就是行，學起來簡直光宗耀祖。
 
 以及，以下提供的Binary Tree之建立方法，基本上是在[Binary Tree：Traversal介紹過的level-order traversal](http://alrightchiu.github.io/SecondRound/binary-tree-traversal.html#ex_code)上加油添醋，因此[queue(佇列)](https://en.wikipedia.org/wiki/Queue_%28abstract_data_type%29)的概念會再次出現。
-</br>
-  
+
+***  
   
 ##目錄
 * [問題描述](#description)

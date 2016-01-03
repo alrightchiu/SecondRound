@@ -13,7 +13,8 @@ Summary: 介紹Binary Tree的基本概念。
 
 </br>
 學海無涯，快點跳海。
-</br>
+
+***
 
 ##目錄
 * [Binary Tree](#bt) 

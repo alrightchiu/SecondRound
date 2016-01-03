@@ -54,8 +54,7 @@ public:
     BST(){ root = 0; };		// default constructor
     BST(const BST &p);		// copy constructor
     BST& operator = (const BST &p);
-    ~BST();  // destructor, 這裡面要一個treenode一個treenode做delete
-             // 不然 treenode的destructor不會被call, 是整串tree一次丟掉, 但只有delete root這個treenode
+    ~BST();  // destructor
     
     TreeNode* search(int key);
     void insertBST(TreeNode &new_node);
@@ -72,7 +71,8 @@ public:
 
 文章內容將著重於BST這個資料結構，並提供此資料結構中可行的演算法，因此，有關C++的實作方法並不唯一，筆者相信有更優秀的寫法(有效利用記憶體、避免memory leak(記憶體洩漏)等議題)，建議讀者可以多多參考例如[Stack Exchange:Code Review](http://codereview.stackexchange.com/)等等眾多優秀的網站，看網友的程式碼的寫法以及由該份程式碼所開啟的討論串，應該會對實際寫作技巧有些幫助。  
 (筆者也還在學啊啊啊啊)
-</br>
+
+***
   
 ##目錄
 
@@ -96,11 +96,11 @@ BST的`search()`操作，便是根據BST的特徵：$Key(L)<Key(Current)<Key(R)$
 **圖一(a)：。**  
 </center>   
 
-搜尋結果可能成功，可能失敗，以下便分別以兩個Key值作說明。
+搜尋結果可能成功，可能失敗，以下便分別以兩個KEY值作說明。
 
 ####搜尋成功
 
-* 若現在要從BST中搜尋基紐隊長，便以基紐隊長的Key(627)進入BST。  
+* 若現在要從BST中搜尋基紐隊長，便以基紐隊長的KEY(627)進入BST。  
 進入BST後，便把用來移動的`Current`node指向`root`，如圖一(b)。  
 
 <center>
@@ -139,7 +139,7 @@ BST的`search()`操作，便是根據BST的特徵：$Key(L)<Key(Current)<Key(R)$
 
 ####搜尋失敗
 
-* 若現在要從BST中尋找克林，便已克林的戰鬥力(2)為KEY，進入`search()`。  
+* 若現在要從BST中尋找克林，便以克林的戰鬥力(2)為KEY(2)，進入`search()`。  
 進入BST後，同樣把用來移動的`Current`node指向`root`，如圖一(b)。
 
 <center>
@@ -268,9 +268,8 @@ void BST::insertBST(TreeNode &new_node){
 [insert3]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f26.png?raw=true
 [insert4]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f27.png?raw=true
 
-***
-
 </br>
+
 以上便是BST中`search()`與`insert()`之介紹，只要掌握BST的性質$Key(L)<Key(Current)<Key(R)$與樹中的Traversal(pointer的移動)即可輕鬆上手。  
 
 

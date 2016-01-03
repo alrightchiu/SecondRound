@@ -20,8 +20,8 @@ traversal(尋訪)有「站在A地，往所有與A地相連的地方移動」的�
 本篇文章將介紹在Binary Tree中的四種traversal方法。  
 
 另外，根據不同的程式實作方法，可能會使用上[stack(堆疊)](https://en.wikipedia.org/wiki/Stack_%28abstract_data_type%29)與[queue(佇列)](https://en.wikipedia.org/wiki/Queue_%28abstract_data_type%29)，如果熟悉的話，那就會很酷。
-</br>
-  
+
+***  
   
 ##目錄
 * [Traversal in Binary Tree](#bttraversal)
