@@ -186,7 +186,7 @@
 &lt;p&gt;&lt;strong&gt;圖二(c)：。&lt;/strong&gt;&lt;br /&gt;
 &lt;/center&gt; &lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;下一步，便是比較欲新增node之Key(比克(513))與「準新手爸媽&lt;strong&gt;y&lt;/strong&gt;」之Key(悟空(1000))，發現悟空戰鬥力較高，因此，比克(513)便成為「準新手爸媽&lt;strong&gt;y&lt;/strong&gt;」的left child，如圖二(d)，大功告成。&lt;/li&gt;
+&lt;li&gt;下一步，便是比較欲新增node之Key(比克(513))與「準新手爸媽&lt;strong&gt;y&lt;/strong&gt;」之Key(悟空(1000))，發現悟空戰鬥力較高，因此，比克(513)便成為「準新手爸媽&lt;strong&gt;y&lt;/strong&gt;」的left child，如圖二(d)，便成功把比克(513)接到BST上。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f27.png?raw=true" /&gt;&lt;/p&gt;
@@ -220,7 +220,7 @@
 
 &lt;p&gt;備註：在定義函式&lt;code&gt;insert()&lt;/code&gt;時，函式的參數(argument)可能會視情境而有所改變，這裡是以一個&lt;code&gt;TreeNode&lt;/code&gt;的物件(object)之&lt;strong&gt;reference&lt;/strong&gt;作為參數，傳進函式&lt;code&gt;insert()&lt;/code&gt;。&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
-&lt;p&gt;以上便是BST中&lt;code&gt;search()&lt;/code&gt;與&lt;code&gt;insert()&lt;/code&gt;之介紹，只要掌握BST的性質&lt;span class="math"&gt;\(Key(L)&amp;lt;Key(Current)&amp;lt;Key(R)\)&lt;/span&gt;與樹中的Traversal(pointer的移動)即可輕鬆上手。  &lt;/p&gt;
+&lt;p&gt;以上便是BST中&lt;code&gt;search()&lt;/code&gt;與&lt;code&gt;insert()&lt;/code&gt;之介紹，只要掌握BST的性質&lt;span class="math"&gt;\(Key(L)&amp;lt;Key(Current)&amp;lt;Key(R)\)&lt;/span&gt;與樹中的Traversal(pointer的移動)即可輕鬆上路。  &lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;
 &lt;a name="ref"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h6&gt;&lt;strong&gt;參考資料&lt;/strong&gt;：&lt;/h6&gt;
