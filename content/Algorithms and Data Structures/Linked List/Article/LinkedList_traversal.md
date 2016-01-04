@@ -14,10 +14,11 @@ traversal(尋訪)有「站在A地，往所有與A地相連的地方移動」的�
 * 以Graph(圖)的語言來說，站在vertex A上，有一條edge連結A與B，若能夠由A往B移動，此即可視為traversal；
 * 在以pointer實現之Linked list和Tree中，站在node A上，A具有指向B之pointer，因此能夠由A往B移動，此即可視為traversal。
 
-移動到特定的node之後，通常伴隨著其他行為，例如print out(顯示資料)、assign(賦值)等等，這些行為又稱作Visiting，
+移動到特定的node之後，通常伴隨著其他行為，例如print out(顯示資料)、assign(賦值)等等，這些行為又稱作Visiting。
 
 這篇文章將介紹在Linked list中的traversal。  
-</br>  
+
+*** 
 
 ##**Traversal in Linked List**
 
@@ -138,13 +139,13 @@ A B C D
 </br>
 <center>
 ![linked list_2][traversal_2]  
-**圖三：第二次迴圈，可觸及的node為B與C。**  
+**圖三：第二次迴圈，視野範圍內可觸及的node為B與C。**  
 
 ![linked list_3][traversal_3]  
-**圖四：第三次迴圈，可觸及的node為C與D。**  
+**圖四：第三次迴圈，視野範圍內可觸及的node為C與D。**  
 
 ![linked list_4][traversal_4]  
-**圖五：第四次迴圈，可觸及的node只有D。**
+**圖五：第四次迴圈，視野範圍內可觸及的node只有D。**
 </center>   
 [traversal_2]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Linked%20List/Traversal_fig/LLtraversal2.png?raw=true 
 [traversal_3]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Linked%20List/Traversal_fig/LLtraversal3.png?raw=true 
