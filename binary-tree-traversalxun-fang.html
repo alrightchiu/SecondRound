@@ -66,7 +66,7 @@
 <li>以Graph(圖)的語言來說，站在vertex A上，有一條edge連結A與B，若能夠由A往B移動，此即可視為traversal；</li>
 <li>在以pointer實現之Linked list和Tree中，站在node A上，A具有指向B之pointer，因此能夠由A往B移動，此即可視為traversal。</li>
 </ul>
-<p>移動到特定的node之後，通常伴隨著其他行為，例如print out(顯示資料)、assign(賦值)等等，這些行為又稱作Visiting，</p>
+<p>移動到特定的node之後，通常伴隨著其他行為，例如print out(顯示資料)、assign(賦值)等等，這些行為又稱作Visiting。</p>
 <p>在閱讀本篇之前，建議先閱讀<a href="http://alrightchiu.github.io/SecondRound/linked-list-traversal.html">Linked List: Traversal</a>作簡單複習。在Linked list與Tree中的traversal於pointer的操作概念上完全相同，不過由於Node的pointer增加了，於是從一維的移動拓展到二維的移動。<br />
 本篇文章將介紹在Binary Tree中的四種traversal方法。  </p>
 <p>另外，根據不同的程式實作方法，可能會使用上<a href="https://en.wikipedia.org/wiki/Stack_%28abstract_data_type%29">stack(堆疊)</a>與<a href="https://en.wikipedia.org/wiki/Queue_%28abstract_data_type%29">queue(佇列)</a>，如果熟悉的話，那就會很酷。</p>
@@ -117,59 +117,83 @@
 <li><strong>post-order(LRV)</strong>：當CurrentNode移動到A時，會先對A的left child(B)進行Visiting，再前往right child(C)進行Visiting，接著回到A進行Visiting。(若child指向NULL則忽略。)</li>
 </ul>
 <p></br>
-現有一棵樹如圖三(a)，欲進行post-order traversal，將Visiting用作print(顯示資料)，流程如下：</p>
+現有一棵樹如圖三(a)，欲進行post-order traversal，並將Visiting用作print(顯示資料)：</p>
 <p><center>
 <img alt="bt_a" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/bt_0.png?raw=true" /></p>
-<p><strong>圖三(a)：。</strong><br />
+<p><strong>圖三(a)</strong><br />
 </center>   </p>
-<p>(V表示CurrentNode所在的node，標上數字後表示已經Visiting，以print(顯示資料)為例，標上"1"表示該node第一個被印出。)</p>
-<p>一開始，CurrentNode進到A(root)，按照post-order的順序規則，先檢查B(left child)是否為NULL，若不是，則先移動到B：</p>
+<p>小小備註：</p>
+<ol>
+<li>以下圖例中，V表示CurrentNode所在的node，標上數字後表示已經Visiting，以print(顯示資料)為例，標上"1"表示該node第一個被印出。</li>
+<li>以下文字說明，將使用scope(視野範圍)的概念，用來表示以每個V(CurrentNode)為中心，與其所能夠指向之pointer所構成的範圍(等同於迴圈(或者函式呼叫)的scope)。因為每個迴圈都會改變V(CurrentNode)的位置，因此scope會以V(CurrentNode)為中心不停移動，直到迴圈結束。</li>
+</ol>
+<p>流程如下：</p>
+<ul>
+<li>一開始，CurrentNode進到A(root)，按照post-order的順序規則(LRV)，先檢查B(left child)是否為NULL，若不是，則先移動到B(L)：</li>
+</ul>
 <p><center>
 <img alt="bt_b" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/bt_1.png?raw=true" /></p>
-<p><strong>圖三(b)：。</strong><br />
+<p><strong>圖三(b)：scope內：A(V)、B(L)、C(R)。</strong><br />
 </center></p>
-<p>當CurrentNode移動到B，再一次執行post-order的順序規則，檢查D(left child)是否為NULL，若不是，則移動到D：</p>
+<ul>
+<li>當CurrentNode移動到B，再一次執行post-order的順序規則，檢查D(left child)是否為NULL，若不是，則移動到D(L)：</li>
+</ul>
 <p><center>
 <img alt="bt_c" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/bt_2.png?raw=true" /></p>
-<p><strong>圖三(c)：。</strong><br />
+<p><strong>圖三(c)：scope內：B(V)、D(L)、E(R)。</strong><br />
 </center></p>
-<p>當CurrentNode移動到B，再一次執行post-order的順序規則，檢查其left child與right child皆為NULL，則回到D做Visiting，在這裡即為print，並回到B。<br />
-(回到B的動作發生，即表示「以D為CurrentNode之迴圈或函式已經結束」，於是回到「尚未結束的以B為CurrentNode」之程序(procedure)。)</p>
+<ul>
+<li>當CurrentNode移動到D，再一次執行post-order的順序規則，檢查出D的left child與right child皆為NULL，則回到D做Visiting，在此即印出D(print)，並回到B。  </li>
+<li>回到B的動作發生，即表示「以D為CurrentNode之迴圈或函式已經結束」，於是回到尚未結束的「以B為CurrentNode」之scope。</li>
+</ul>
 <p><center>
 <img alt="bt_d" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/bt_3.png?raw=true" /></p>
-<p><strong>圖三(d)：。</strong><br />
+<p><strong>圖三(d)：scope內：D(V)。</strong><br />
 </center></p>
-<p>D已經進行過Visiting，便標上數字"1"，表示D為traversal的第一站。<br />
-接著，在「以B為CurrentNode」的post-order規則下，繼續往E(right child)移動。</p>
+<ul>
+<li>D已經進行過Visiting，便標上數字"1"，表示D為traversal的第一站。<br />
+接著，在「以B為CurrentNode」的scope中，根據post-order規則，繼續往E(R)移動。</li>
+</ul>
 <p><center>
 <img alt="bt_e" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/bt_4.png?raw=true" /></p>
-<p><strong>圖三(e)：。</strong><br />
+<p><strong>圖三(e)：scope內：B(V)、D(L)、E(R)。</strong><br />
 </center></p>
-<p>進入E後，因為E為leaf node，因此過程如圖三(d)。在D(L)與E(R)都Visiting過後，便回到B進行Visiting，並標上數字。<br />
-接著回到「以A為CurrentNode」的程序(procedure)。</p>
+<ul>
+<li>進入E後，因為E為leaf node，因此過程如圖三(d)，不會進入NULL。<br />
+在D(L)與E(R)都Visiting過後，便回到B(V)進行Visiting，並標上數字。  </li>
+<li>接著回到「以A為CurrentNode」的程序(procedure)。</li>
+</ul>
 <p><center>
 <img alt="bt_f" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/bt_5.png?raw=true" /></p>
-<p><strong>圖三(f)：。</strong><br />
+<p><strong>圖三(f)：scope內：B(V)、D(L)、E(R)。</strong><br />
 </center></p>
-<p>回到「以A為CurrentNode」後，按照post-order的規則，先往C(right child)移動。</p>
+<ul>
+<li>回到「以A為CurrentNode」的scope後，按照post-order的規則，接著往C(R)移動。</li>
+</ul>
 <p><center>
 <img alt="bt_g" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/bt_6.png?raw=true" /></p>
-<p><strong>圖三(g)：。</strong><br />
+<p><strong>圖三(g)：scope內：A(V)、B(L)、C(R)。</strong><br />
 </center></p>
-<p>同樣地步驟，再從C移動至F，並發現F為leaf node，於是對F進行Visiting，並標上數字。</p>
+<ul>
+<li>同樣地步驟，再從C移動至F(L)，並發現F為leaf node，於是對F進行Visiting，並標上數字。</li>
+</ul>
 <p><center>
 <img alt="bt_h" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/bt_7.png?raw=true" /></p>
-<p><strong>圖三(h)：。</strong><br />
+<p><strong>圖三(h)：scope內：C(V)、F(L)。</strong><br />
 </center></p>
-<p>印完F後，發現C的right child指向NULL，於是略過R，回到C，並對C進行Visiting，標上數字。</p>
+<ul>
+<li>列出F後，發現C的right child指向NULL，於是略過right child(R)，回到C(V)，並對C進行Visiting，標上數字。</li>
+</ul>
 <p><center>
 <img alt="bt_i" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/bt_8.png?raw=true" /><img alt="bt_j" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/bt_9.png?raw=true" /></p>
-<p><strong>圖三(i)-(j)：。</strong><br />
+<p><strong>圖三(i)-(j)：scope內：C(V)、F(L)。</strong><br />
 </center></p>
-<p>最後回到「以A為CurrentNode」的程序，對A進行Visiting，便完成了此次post-order traversal，並依序印出<code>D E B F C A</code>。</p>
+<ul>
+<li>最後回到「以A為CurrentNode」的scope，對A(V)進行Visiting，便完成了此次post-order traversal，並依序印出<code>D E B F C A</code>。</li>
+</ul>
 <p><center>
 <img alt="bt_k" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/bt_10.png?raw=true" /><img alt="bt_l" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/bt_11.png?raw=true" /></p>
-<p><strong>圖三(k)-(l)：。</strong><br />
+<p><strong>圖三(k)-(l)：scope內：A(V)、B(L)、C(R)。</strong><br />
 </center></p>
 <p>以上說明了post-order traversal之過程，另外兩種pre-order與in-order在概念上皆相同，只要把握順序規則即可。</p>
 <p></br></p>
