@@ -221,7 +221,7 @@ TreeNode* BST::search(int KEY){
 **圖二(c)：。**  
 </center> 
 
-* 下一步，便是比較欲新增node之Key(比克(513))與「準新手爸媽**y**」之Key(悟空(1000))，發現悟空戰鬥力較高，因此，比克(513)便成為「準新手爸媽**y**」的left child，如圖二(d)，大功告成。
+* 下一步，便是比較欲新增node之Key(比克(513))與「準新手爸媽**y**」之Key(悟空(1000))，發現悟空戰鬥力較高，因此，比克(513)便成為「準新手爸媽**y**」的left child，如圖二(d)，便成功把比克(513)接到BST上。
 
 <center>
 ![bst][insert4]
@@ -270,7 +270,7 @@ void BST::insertBST(TreeNode &new_node){
 
 </br>
 
-以上便是BST中`search()`與`insert()`之介紹，只要掌握BST的性質$Key(L)<Key(Current)<Key(R)$與樹中的Traversal(pointer的移動)即可輕鬆上手。  
+以上便是BST中`search()`與`insert()`之介紹，只要掌握BST的性質$Key(L)<Key(Current)<Key(R)$與樹中的Traversal(pointer的移動)即可輕鬆上路。  
 
 
 </br>
