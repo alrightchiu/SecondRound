@@ -1,7 +1,7 @@
 Title: Binary Search Tree: Intro(簡介)    
 Date: 2016-1-2 12:15  
 Category: 演算法與資料結構  
-Tags: 今天不寫明天就忘了  
+Tags: 今天不寫明天就忘了, C++  
 Summary: 謹以Binary Search Tree向拯救90後的童年的鉅作《七龍珠》以及鳥山明老師致敬。
 
 </br>

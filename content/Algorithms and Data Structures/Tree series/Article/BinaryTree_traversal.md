@@ -1,7 +1,7 @@
 Title: Binary Tree: Traversal(尋訪)    
 Date: 2015-12-24 22:41  
 Category: 演算法與資料結構  
-Tags: 今天不寫明天就忘了  
+Tags: 今天不寫明天就忘了, C++  
 Summary: 介紹Binary Tree中的Traversal(尋訪)。
  
 
