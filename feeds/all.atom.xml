@@ -285,7 +285,7 @@
         "}";
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
-&lt;/script&gt;</summary><category term="今天不寫明天就忘了"></category><category term="C++"></category></entry><entry><title>Binary Search Tree: Intro(簡介)</title><link href="http://alrightchiu.github.io/SecondRound/binary-search-tree-introjian-jie.html" rel="alternate"></link><updated>2016-01-02T12:15:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-01-02:SecondRound/binary-search-tree-introjian-jie.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;/script&gt;</summary><category term="C++"></category></entry><entry><title>Binary Search Tree: Intro(簡介)</title><link href="http://alrightchiu.github.io/SecondRound/binary-search-tree-introjian-jie.html" rel="alternate"></link><updated>2016-01-02T12:15:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-01-02:SecondRound/binary-search-tree-introjian-jie.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h6&gt;&lt;strong&gt;先備知識與注意事項&lt;/strong&gt;&lt;/h6&gt;
 &lt;p&gt;先前的文章介紹過廣義的Tree(樹)、Binary Tree(二元樹)，這篇文章將繼續增加限制條件，使Binary Tree晉升成Binary Search Tree(BST，二元搜尋樹)。  &lt;/p&gt;
 &lt;p&gt;這裡要處理的資料是日本漫畫的曠世鉅作《七龍珠》中各角色的戰鬥力。&lt;br /&gt;
@@ -479,7 +479,7 @@
         "}";
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
-&lt;/script&gt;</summary><category term="今天不寫明天就忘了"></category><category term="C++"></category></entry><entry><title>Binary Tree: 建立一棵Binary Tree</title><link href="http://alrightchiu.github.io/SecondRound/binary-tree-jian-li-yi-ke-binary-tree.html" rel="alternate"></link><updated>2015-12-27T16:53:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2015-12-27:SecondRound/binary-tree-jian-li-yi-ke-binary-tree.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;/script&gt;</summary><category term="C++"></category></entry><entry><title>Binary Tree: 建立一棵Binary Tree</title><link href="http://alrightchiu.github.io/SecondRound/binary-tree-jian-li-yi-ke-binary-tree.html" rel="alternate"></link><updated>2015-12-27T16:53:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2015-12-27:SecondRound/binary-tree-jian-li-yi-ke-binary-tree.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h6&gt;&lt;strong&gt;先備知識與注意事項&lt;/strong&gt;&lt;/h6&gt;
 &lt;p&gt;在&lt;a href="http://alrightchiu.github.io/SecondRound/binary-tree-traversal.html#ex_code"&gt;Binary Tree：Traversal&lt;/a&gt;中，非常沒誠意地用暴力方式建了一棵Binary Tree，在這裡至上深深歉意，因此，在本篇文章將提供一種方法，由一個字元陣列(char array)輸入字母，並按照&lt;a href="http://alrightchiu.github.io/SecondRound/binary-tree-intro.html#fullcomplete"&gt;Complete Binary Tree&lt;/a&gt;之順序重新建立&lt;strong&gt;那顆樹&lt;/strong&gt;。(一種不健康的雪恥心態)&lt;/p&gt;
 &lt;p&gt;其中，問題情境之原始資料是一個字元陣列(char array)，為了方便處理(偷懶)選擇使用C++語言中的神器：&lt;a href="http://www3.ntu.edu.sg/home/ehchua/programming/cpp/cp10_io.html"&gt;stringstream&lt;/a&gt;，這裡礙於篇幅與主題(與筆者自己也還在摸索)，就不多談避免誤導，&lt;a href="(http://www3.ntu.edu.sg/home/ehchua/programming/cpp/cp10_io.html)"&gt;點進連結中&lt;/a&gt;有非常詳細的說明，關於&lt;code&gt;istringstream&lt;/code&gt;、&lt;code&gt;ostringstream&lt;/code&gt;、&lt;code&gt;stringstream&lt;/code&gt;等等template class之繼承關係(inheritance)。&lt;br /&gt;
@@ -836,7 +836,7 @@ pointer連接完成後，結束迴圈。&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://www3.ntu.edu.sg/home/ehchua/programming/cpp/cp10_io.html"&gt;C++ Programming Language：Stream IO and File IO&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://www.geeksforgeeks.org/level-order-tree-traversal/"&gt;GeeksforGeeks：Level Order Tree Traversal&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;/br&gt;&lt;/p&gt;</summary><category term="今天不寫明天就忘了"></category><category term="C++"></category></entry><entry><title>Binary Tree: Traversal(尋訪)</title><link href="http://alrightchiu.github.io/SecondRound/binary-tree-traversalxun-fang.html" rel="alternate"></link><updated>2015-12-24T22:41:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2015-12-24:SecondRound/binary-tree-traversalxun-fang.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;</summary><category term="C++"></category></entry><entry><title>Binary Tree: Traversal(尋訪)</title><link href="http://alrightchiu.github.io/SecondRound/binary-tree-traversalxun-fang.html" rel="alternate"></link><updated>2015-12-24T22:41:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2015-12-24:SecondRound/binary-tree-traversalxun-fang.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h6&gt;&lt;strong&gt;先備知識與注意事項&lt;/strong&gt;&lt;/h6&gt;
 &lt;p&gt;traversal(尋訪)有「站在A地，往所有與A地相連的地方移動」的意思：  &lt;/p&gt;
 &lt;ul&gt;
@@ -1349,7 +1349,7 @@ pointer連接完成後，結束迴圈。&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://en.wikipedia.org/wiki/Stack_%28abstract_data_type%29"&gt;Wikipedia：Stack(abstract data type)&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://en.wikipedia.org/wiki/Queue_%28abstract_data_type%29"&gt;Wikipedia：Queue(abstract data type)&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;/br&gt;&lt;/p&gt;</summary><category term="今天不寫明天就忘了"></category><category term="C++"></category></entry><entry><title>Linked List: Traversal(尋訪)</title><link href="http://alrightchiu.github.io/SecondRound/linked-list-traversalxun-fang.html" rel="alternate"></link><updated>2015-12-23T20:00:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2015-12-23:SecondRound/linked-list-traversalxun-fang.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;</summary><category term="C++"></category></entry><entry><title>Linked List: Traversal(尋訪)</title><link href="http://alrightchiu.github.io/SecondRound/linked-list-traversalxun-fang.html" rel="alternate"></link><updated>2015-12-23T20:00:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2015-12-23:SecondRound/linked-list-traversalxun-fang.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h6&gt;&lt;strong&gt;先備知識與注意事項&lt;/strong&gt;&lt;/h6&gt;
 &lt;p&gt;traversal(尋訪)有「站在A地，往所有與A地相連的地方移動」的意思：  &lt;/p&gt;
 &lt;ul&gt;
@@ -1482,7 +1482,7 @@ pointer連接完成後，結束迴圈。&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://en.wikipedia.org/wiki/Linked_list"&gt;Wikipedia：Linked List&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://www.youtube.com/watch?v=Qdcfxk-e_iw"&gt;太hardcore了&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;/br&gt;  &lt;/p&gt;</summary><category term="今天不寫明天就忘了"></category><category term="C++"></category></entry><entry><title>Binary Tree: Intro(簡介)</title><link href="http://alrightchiu.github.io/SecondRound/binary-tree-introjian-jie.html" rel="alternate"></link><updated>2015-12-21T22:24:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2015-12-21:SecondRound/binary-tree-introjian-jie.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;  &lt;/p&gt;</summary><category term="C++"></category></entry><entry><title>Binary Tree: Intro(簡介)</title><link href="http://alrightchiu.github.io/SecondRound/binary-tree-introjian-jie.html" rel="alternate"></link><updated>2015-12-21T22:24:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2015-12-21:SecondRound/binary-tree-introjian-jie.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h6&gt;&lt;strong&gt;先備知識與注意事項&lt;/strong&gt;&lt;/h6&gt;
 &lt;p&gt;接續上一篇談到的&lt;a href="http://alrightchiu.github.io/SecondRound/treeshu.html"&gt;Tree(樹)&lt;/a&gt;，這篇文章將介紹樹這個大集合裡的其中一支大宗：&lt;strong&gt;Binary Tree&lt;/strong&gt;。&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;
@@ -1643,7 +1643,7 @@ Binary Tree的node未必需要parent pointer(或稱為parent field)，然而加�
         "}";
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
-&lt;/script&gt;</summary><category term="今天不寫明天就忘了"></category><category term="C++"></category></entry><entry><title>Tree(樹)</title><link href="http://alrightchiu.github.io/SecondRound/treeshu.html" rel="alternate"></link><updated>2015-12-19T20:27:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2015-12-19:SecondRound/treeshu.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;/script&gt;</summary><category term="C++"></category></entry><entry><title>Tree(樹)</title><link href="http://alrightchiu.github.io/SecondRound/treeshu.html" rel="alternate"></link><updated>2015-12-19T20:27:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2015-12-19:SecondRound/treeshu.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h6&gt;&lt;strong&gt;先備知識與注意事項&lt;/strong&gt;&lt;/h6&gt;
 &lt;p&gt;若熟悉Linked List(連結串列)將會更容易理解樹：Linked list是一維的線性結構(不是往前、就是往後)，而樹(與圖)則推廣成多維的結構。&lt;br /&gt;
 &lt;/br&gt;
@@ -1855,4 +1855,4 @@ Binary Tree的node未必需要parent pointer(或稱為parent field)，然而加�
         "}";
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
-&lt;/script&gt;</summary><category term="今天不寫明天就忘了"></category><category term="C++"></category></entry></feed>
+&lt;/script&gt;</summary><category term="C++"></category></entry></feed>
