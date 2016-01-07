@@ -1,7 +1,7 @@
 Title: Binary Search Tree: search(搜尋資料)、insert(新增資料)    
 Date: 2016-1-3 20:17  
 Category: 演算法與資料結構  
-Tags: 今天不寫明天就忘了, C++  
+Tags: C++  
 Summary: 介紹Binary Search Tree的基本操作：search(搜尋資料)與insert(新增資料)。
  
 
