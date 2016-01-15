@@ -482,7 +482,7 @@ TreeNode* BinaryTree::leftmost(TreeNode *current){
 
 接著觀察在inorder規則下，某一node的下一個node的所在位置有兩種可能：
 
-1. 若CurrentNode的right child不是NULL，則CurrentNode之下一個順序的node即為「以Current->rightchild為root」之subtree中，最左的node。  
+1. 若CurrentNode的right child不是NULL，則CurrentNode之下一個順序的node即為以「Current->rightchild為root」之subtree中，最左的node。  
 如圖五(a)所示，若CurrentNode站在B上，B的下一個node即為「以B的right child(也就是E)」為root之subtree中的最左node，即為G。
 2. 若CurrentNode沒有right child，則CurrentNode之下一個順序的node是「以left child的身份尋找到的ancestor」。  
 以圖五(a)中的H為例，H沒有right child，因此往上(往root方向)找ancestor，首先找到E，但是H是E的right child，因此再繼續往上找，此時CurrentNode移動到E。而E也是B的right child，再更新CurrentNode為B，往parent找到A，此時，**B為A的left child**，則A即為H的下一個順序的node。
@@ -543,7 +543,7 @@ D B G E H A F I C
 * **rightmost**：從「以CurrentNode為subtree」的root一路向右做Linked list的單向traversal。
 * **Predecessor**：某一CurrentNode的「前一個順序的node」之位置有兩種可能：
 
-    1. 若CurrentNode的left child不是NULL，則CurrentNode之前一個順序的node即為「以Current->lefttchild為root」之subtree中，最右的node。  
+    1. 若CurrentNode的left child不是NULL，則CurrentNode之前一個順序的node即為以「Current->lefttchild為root」之subtree中，最右的node。  
 如圖五(b)所示，若CurrentNode站在C上，C的前一個node即為「以C的right child(也就是F)」為root之subtree中的最右node，即為I。
     2. 若CurrentNode沒有left child，則CurrentNode之前一個順序的node是「以right child的身份尋找到的ancestor」。  
 以圖五(b)中的F為例，F沒有left child，因此往上(往root方向)找ancestor，首先找到C，但是F是C的left child，因此再繼續往上找，此時CurrentNode為C，往parent找到A，此時，**C為A的right child**，則A即為F的前一個順序的node。
