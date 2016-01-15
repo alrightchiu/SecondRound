@@ -451,7 +451,7 @@
 
 <p>接著觀察在inorder規則下，某一node的下一個node的所在位置有兩種可能：</p>
 <ol>
-<li>若CurrentNode的right child不是NULL，則CurrentNode之下一個順序的node即為「以Current-&gt;rightchild為root」之subtree中，最左的node。<br />
+<li>若CurrentNode的right child不是NULL，則CurrentNode之下一個順序的node即為以「Current-&gt;rightchild為root」之subtree中，最左的node。<br />
 如圖五(a)所示，若CurrentNode站在B上，B的下一個node即為「以B的right child(也就是E)」為root之subtree中的最左node，即為G。</li>
 <li>若CurrentNode沒有right child，則CurrentNode之下一個順序的node是「以left child的身份尋找到的ancestor」。<br />
 以圖五(a)中的H為例，H沒有right child，因此往上(往root方向)找ancestor，首先找到E，但是H是E的right child，因此再繼續往上找，此時CurrentNode移動到E。而E也是B的right child，再更新CurrentNode為B，往parent找到A，此時，<strong>B為A的left child</strong>，則A即為H的下一個順序的node。</li>
@@ -507,7 +507,7 @@
 <li>
 <p><strong>Predecessor</strong>：某一CurrentNode的「前一個順序的node」之位置有兩種可能：</p>
 <ol>
-<li>若CurrentNode的left child不是NULL，則CurrentNode之前一個順序的node即為「以Current-&gt;lefttchild為root」之subtree中，最右的node。<br />
+<li>若CurrentNode的left child不是NULL，則CurrentNode之前一個順序的node即為以「Current-&gt;lefttchild為root」之subtree中，最右的node。<br />
 如圖五(b)所示，若CurrentNode站在C上，C的前一個node即為「以C的right child(也就是F)」為root之subtree中的最右node，即為I。</li>
 <li>若CurrentNode沒有left child，則CurrentNode之前一個順序的node是「以right child的身份尋找到的ancestor」。<br />
 以圖五(b)中的F為例，F沒有left child，因此往上(往root方向)找ancestor，首先找到C，但是F是C的left child，因此再繼續往上找，此時CurrentNode為C，往parent找到A，此時，<strong>C為A的right child</strong>，則A即為F的前一個順序的node。</li>

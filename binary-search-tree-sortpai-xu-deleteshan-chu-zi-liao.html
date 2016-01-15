@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="zh-hant">
+<head>
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" type="text/css" href="http://alrightchiu.github.io/SecondRound/theme/css/style.min.css">
+  <link rel="stylesheet" type="text/css" href="http://alrightchiu.github.io/SecondRound/theme/css/pygments.min.css">
+  <link rel="stylesheet" type="text/css" href="http://alrightchiu.github.io/SecondRound/theme/css/font-awesome.min.css">
+  <link href="http://alrightchiu.github.io/SecondRound/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Ordinary Days Atom">
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+<meta name="author" content="Chiu CC" />
+<meta name="description" content="介紹Binary Search Tree的基本操作：Sort(排序)與Delete(刪除資料)。" />
+<meta name="keywords" content="今天不寫明天就忘了, C++">
+<meta property="og:site_name" content="Ordinary Days"/>
+<meta property="og:title" content="Binary Search Tree: Sort(排序)、Delete(刪除資料)"/>
+<meta property="og:description" content="介紹Binary Search Tree的基本操作：Sort(排序)與Delete(刪除資料)。"/>
+<meta property="og:locale" content="zh_TW"/>
+<meta property="og:url" content="http://alrightchiu.github.io/SecondRound/binary-search-tree-sortpai-xu-deleteshan-chu-zi-liao.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2016-01-06 20:27:00+08:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="http://alrightchiu.github.io/SecondRound/author/chiu-cc.html">
+<meta property="article:section" content="演算法與資料結構"/>
+<meta property="article:tag" content="今天不寫明天就忘了"/>
+<meta property="article:tag" content="C++"/>
+<meta property="og:image" content="http://alrightchiu.github.io/SecondRound/fig/antiwar.jpg">  <title>Ordinary Days &ndash; Binary Search Tree: Sort(排序)、Delete(刪除資料)</title>
+</head>
+<body>
+  <aside>
+    <div>
+      <a href="http://alrightchiu.github.io/SecondRound">
+        <img src="http://alrightchiu.github.io/SecondRound/fig/antiwar.jpg" alt="Ordinary Days" title="Ordinary Days">
+      </a>
+      <h1><a href="http://alrightchiu.github.io/SecondRound">Ordinary Days</a></h1>
+      <p>Hey</p>
+      <nav>
+        <ul class="list">
+          <li><a href="http://alrightchiu.github.io/SecondRound/pages/about.html#about">About</a></li>
+        </ul>
+      </nav>
+      <ul class="social">
+        <li><a class="sc-github" href="https://github.com/alrightchiu" target="_blank"><i class="fa fa-github"></i></a></li>
+      </ul>
+    </div>
+  </aside>
+  <main>
+    <nav>
+      <a href="http://alrightchiu.github.io/SecondRound">Home</a>
+      <a href="http://alrightchiu.github.io/SecondRound/archives.html">Archives</a>
+      <a href="http://alrightchiu.github.io/SecondRound/categories.html">Categories</a>
+      <a href="http://alrightchiu.github.io/SecondRound/tags.html">Tags</a>
+      <a href="http://alrightchiu.github.io/SecondRound/feeds/all.atom.xml">Atom</a>
+    </nav>
+
+<article>
+  <header>
+    <h1 id="binary-search-tree-sortpai-xu-deleteshan-chu-zi-liao">Binary Search Tree: Sort(排序)、Delete(刪除資料)</h1>
+    <p>Posted on  1 06, 2016 in <a href="http://alrightchiu.github.io/SecondRound/category/yan-suan-fa-yu-zi-liao-jie-gou.html">演算法與資料結構</a></p>
+  </header>
+  <div>
+    <p></br></p>
+<h6><strong>先備知識與注意事項</strong></h6>
+<p>由於Sort與Delete會用到先前在<a href="http://alrightchiu.github.io/SecondRound/binary-tree-traversalxun-fang.html#in_parent">Binary Tree：Traversal介紹過的Leftmost()、Rightmost()、Successor()與Predecessor()</a>，因此建議在開始閱讀本篇文章之前，先復習上述四個函式操作。<br />
+在文章最後將會附上四個函式的範例程式碼。</p>
+<hr />
+<h2>目錄</h2>
+<ul>
+<li><a href="#sort">Sort(排序)</a></li>
+<li><a href="#delete">BST::DeleteBST(刪除資料)</a></li>
+<li><a href="#main">main()</a></li>
+<li><a href="#4function">Leftmost、Rightmost、Successor、Predecessor範例程式碼</a></li>
+<li><a href="#ref">參考資料</a></li>
+</ul>
+<p><a name="sort"></a></p>
+<h2><strong>Sort(排序)</strong></h2>
+<p>讀者可能會發現，在<code>class BST</code>的定義中，根本就沒有類似<code>SortBST()</code>的函式，沒錯，因為在BST中，每一個<code>Treenode</code>都有<span class="math">\(Key(L)&lt;Key(Current)&lt;Key(R)\)</span>的性質，這正好與Inorder(LVR)之順序相同，因此，對整棵樹進行Inorder Traversal，就能夠對資料由小到大(依照Key)進行Visiting。</p>
+<p>以上一篇<a href="http://alrightchiu.github.io/SecondRound/binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao.html#binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao">Binary Search Tree: Search()、Insert()</a>所建立的BST為例，如圖一，要將此樹中的資料按照Key之順序由小到大印出，只需要對整棵樹做一次Inorder Traversal即可。</p>
+<p><center>
+<img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/sort_delete/sort_delete1.png?raw=true" /></p>
+<p><strong>圖一：。</strong><br />
+</center></p>
+<p>以下範例程式，將Visiting用作列印資料(print)：</p>
+<div class="highlight"><pre><span class="code-line"><span class="c1">// C++ code</span></span>
+<span class="code-line"><span class="kt">void</span> <span class="n">BST</span><span class="o">::</span><span class="n">InorderPrint</span><span class="p">(){</span></span>
+<span class="code-line">    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">;</span></span>
+<span class="code-line">    <span class="n">current</span> <span class="o">=</span> <span class="n">Leftmost</span><span class="p">(</span><span class="n">root</span><span class="p">);</span></span>
+<span class="code-line">    <span class="k">while</span><span class="p">(</span><span class="n">current</span><span class="p">){</span></span>
+<span class="code-line">        <span class="c1">// Visiting</span></span>
+<span class="code-line">        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">element</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;(&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">key</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;)&quot;</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span><span class="p">;</span>    </span>
+<span class="code-line">        <span class="n">current</span> <span class="o">=</span> <span class="n">Successor</span><span class="p">(</span><span class="n">current</span><span class="p">);</span>            <span class="c1">// 移動至current的Successor</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+
+
+<p>output:</p>
+<div class="highlight"><pre><span class="code-line"><span class="err">克林</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="err">龜仙人</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span> <span class="err">比克</span><span class="p">(</span><span class="mi">513</span><span class="p">)</span> <span class="err">悟空</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span> </span>
+</pre></div>
+
+
+<p><a name="delete"></a></p>
+<h2><strong>BST::DeleteBST(刪除資料)</strong></h2>
+<p>要在BST上執行刪除資料(被刪除的node稱為A)，必須讓刪除A後的BST仍然維持BST的性質，因此，所有「具有指向A的pointer」之node(也就是A的parent、A的left child與A的right child)都必須指向新的記憶體位置。</p>
+<p>刪除資料的工作，根據欲刪除之node「有幾個child pointer」分成三類：</p>
+<ol>
+<li>欲刪除之node沒有child pointer；</li>
+<li>欲刪除之node只有一個child pointer(不論是left child或right child)；</li>
+<li>欲刪除之node有兩個child pointer。</li>
+</ol>
+<p>以圖二(a)為例，依序刪除撒旦、弗力札與西魯：</p>
+<p><center>
+<img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/sort_delete/sort_delete2.png?raw=true" /></p>
+<p><strong>圖二(a)：。</strong><br />
+</center></p>
+<ul>
+<li>由於撒旦沒有child pointer，因此只要考慮撒旦的parent(普烏)，將普烏的left child指向<code>NULL</code>即可維持BST的正確性，如圖二(b)。</li>
+</ul>
+<p><center>
+<img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/sort_delete/sort_delete3.png?raw=true" /></p>
+<p><strong>圖二(b)：。</strong><br />
+</center></p>
+<ul>
+<li>由於弗力札有一個left child(基紐)，因此在刪除弗力札之前，需要先將基紐的parent指向弗力札的parent(龜仙人)，並且將龜仙人的right child從原本的弗力札指向基紐，因為基紐原本就位於龜仙人的right subtree(右子樹)，因此，上述操作仍能維持BST的正確性，如圖二(c)。</li>
+</ul>
+<p><center>
+<img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/sort_delete/sort_delete4.png?raw=true" /></p>
+<p><strong>圖二(c)：。</strong><br />
+</center></p>
+<ul>
+<li>
+<p>由於西魯有兩個child，若直接刪除西魯的資料，並釋放其記憶體位置，要牽動的node較多。變通的祕訣就是「找替身」，原本要刪西魯，但是實際上是釋放西魯的「Successor(達爾)」的記憶體位置(或是「Predecessor(16號)」)，最後再把「Successor(達爾)」(或是「Predecessor(16號)」)的資料放回到西魯的記憶體位置上，又因為BST的特徵，所有「具有兩個child」的node的Successor或是Predecessor一定是leaf node或是只有一個child，如此，便回到如同撒旦與弗力札「至多只有一個child」的情境。 </p>
+</li>
+<li>
+<p>驗證「具有兩個child的node的Successor或是Predecessor一定是leaf node或是只有一個child」：若某個node有兩個child，則Successor找的是「right subtree中Key最小的node」，而Predecessor找的是「left subtree中Key最大的node」，因此Successor和Predecessor必定不會同時也有兩個child。以圖二(d)為例：</p>
+<ul>
+<li>龜仙人(8)的Predecessor為克林(2)，Successor為基紐(69)；</li>
+<li>比克(513)的Predecessor為基紐(69)，Successor為16號(520)；</li>
+<li>悟飯(888)的Predecessor為達爾(881)，Successor為普烏(999)；</li>
+</ul>
+</li>
+</ul>
+<p><center>
+<img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/sort_delete/sort_delete5.png?raw=true" /></p>
+<p><strong>圖二(d)：。</strong><br />
+</center></p>
+<ul>
+<li>現欲刪除西魯，就去找西魯的Successor(達爾)當做替身，因為達爾沒有child，其刪除方法便如同上述刪除撒旦的方法，如圖二(e)。</li>
+</ul>
+<p><center>
+<img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/sort_delete/sort_delete6.png?raw=true" /></p>
+<p><strong>圖二(e)：。</strong><br />
+</center></p>
+<ul>
+<li>最後再將達爾的資料放進原先存放西魯資料的記憶體位置，便完成了刪除西魯的操作，如圖二(f)。</li>
+</ul>
+<p><center>
+<img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/sort_delete/sort_delete7.png?raw=true" /></p>
+<p><strong>圖二(f)：。</strong><br />
+</center></p>
+<p>範例程式碼大約分成幾個步驟：</p>
+<ol>
+<li>先確認BST中有沒有要刪除的node；</li>
+<li>把要刪除的node調整成「至多只有一個child」；</li>
+<li>把要刪除的node的child指向新的parent；</li>
+<li>把要刪除的node的parent指向新的child；</li>
+<li>若是刪除「替身」，再把替身的資料放回BST中。</li>
+</ol>
+<p>即完成BST之刪除資料操作。</p>
+<div class="highlight"><pre><span class="code-line"><span class="c1">// C++ code</span></span>
+<span class="code-line"><span class="kt">void</span> <span class="n">BST</span><span class="o">::</span><span class="n">DeleteBST</span><span class="p">(</span><span class="kt">int</span> <span class="n">KEY</span><span class="p">){</span>               <span class="c1">// 要刪除具有KEY的node</span></span>
+<span class="code-line">    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">delete_node</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">;</span></span>
+<span class="code-line">    <span class="n">delete_node</span> <span class="o">=</span> <span class="n">Search</span><span class="p">(</span><span class="n">KEY</span><span class="p">);</span>              <span class="c1">// 先確認BST中是否有具有KEY的node</span></span>
+<span class="code-line">    <span class="k">if</span> <span class="p">(</span><span class="n">delete_node</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;data not found.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span></span>
+<span class="code-line">        <span class="k">return</span><span class="p">;</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">y</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">;</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>      <span class="c1">// 真正要被刪除的node</span></span>
+<span class="code-line">    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">x</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">;</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>      <span class="c1">// 要被刪除的node的child</span></span>
+<span class="code-line">    <span class="k">if</span> <span class="p">(</span><span class="n">delete_node</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">==</span> <span class="nb">NULL</span> <span class="o">||</span> <span class="n">delete_node</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span></span>
+<span class="code-line">        <span class="n">y</span> <span class="o">=</span> <span class="n">delete_node</span><span class="p">;</span></span>
+<span class="code-line">    <span class="k">else</span></span>
+<span class="code-line">        <span class="n">y</span> <span class="o">=</span> <span class="n">Successor</span><span class="p">(</span><span class="n">delete_node</span><span class="p">);</span></span>
+<span class="code-line">                                            <span class="c1">// 經過以上的if-else, y至多只有一個child</span></span>
+<span class="code-line">    <span class="k">if</span> <span class="p">(</span><span class="n">y</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span>               <span class="c1">// 將x設成y的child, 可能是有效記憶體, 也有可能是NULL</span></span>
+<span class="code-line">        <span class="n">x</span> <span class="o">=</span> <span class="n">y</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">;</span></span>
+<span class="code-line">    <span class="k">else</span></span>
+<span class="code-line">        <span class="n">x</span> <span class="o">=</span> <span class="n">y</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="p">;</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span>                          </span>
+<span class="code-line">        <span class="n">x</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">=</span> <span class="n">y</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">;</span>              <span class="c1">// 此即為圖二(c)中, 基紐指向龜仙人的實作方式</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="k">if</span> <span class="p">(</span><span class="n">y</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>                  <span class="c1">// 再將要被刪除的node之parent指向新的child</span></span>
+<span class="code-line">        <span class="k">this</span><span class="o">-&gt;</span><span class="n">root</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span></span>
+<span class="code-line">    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">y</span> <span class="o">==</span> <span class="n">y</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">)</span></span>
+<span class="code-line">        <span class="n">y</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span></span>
+<span class="code-line">    <span class="k">else</span></span>
+<span class="code-line">        <span class="n">y</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="k">if</span> <span class="p">(</span><span class="n">y</span> <span class="o">!=</span> <span class="n">delete_node</span><span class="p">)</span> <span class="p">{</span>                 <span class="c1">// y即是達爾, delete_node即是西魯</span></span>
+<span class="code-line">        <span class="n">delete_node</span><span class="o">-&gt;</span><span class="n">SetKey</span><span class="p">(</span><span class="n">y</span><span class="o">-&gt;</span><span class="n">GetKey</span><span class="p">());</span>   <span class="c1">// 實際被刪除的是y, 因此最後要再將y的資料放進delete_node的記憶體位置</span></span>
+<span class="code-line">        <span class="n">delete_node</span><span class="o">-&gt;</span><span class="n">SetElement</span><span class="p">(</span><span class="n">y</span><span class="o">-&gt;</span><span class="n">GetElement</span><span class="p">());</span></span>
+<span class="code-line">    <span class="p">}</span>   </span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+
+
+<p><a name="main"></a></p>
+<h2><strong>main()</strong></h2>
+<p>延續上一篇文章<a href="http://alrightchiu.github.io/SecondRound/binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao.html#binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao">Binary Search Tree: Search()、Insert()</a>的main()，加入<code>BST::DeleteBST</code>，把龜仙人(8)刪除，應該會得到如圖三的BST，比克(513)成為新的<code>root</code>：</p>
+<p><center>
+<img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/sort_delete/sort_delete8.png?raw=true" /></p>
+<p><strong>圖三：。</strong><br />
+</center></p>
+<div class="highlight"><pre><span class="code-line"><span class="c1">// C++ code</span></span>
+<span class="code-line"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="n">BST</span> <span class="n">b1</span><span class="p">;</span></span>
+<span class="code-line">    <span class="n">TreeNode</span> <span class="n">n1</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="s">&quot;龜仙人&quot;</span><span class="p">);</span></span>
+<span class="code-line">    <span class="n">TreeNode</span> <span class="n">n2</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span><span class="s">&quot;悟空&quot;</span><span class="p">);</span></span>
+<span class="code-line">    <span class="n">TreeNode</span> <span class="n">n3</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="s">&quot;克林&quot;</span><span class="p">);</span></span>
+<span class="code-line">    <span class="n">TreeNode</span> <span class="n">n4</span><span class="p">(</span><span class="mi">513</span><span class="p">,</span><span class="s">&quot;比克&quot;</span><span class="p">);</span></span>
+<span class="code-line">    <span class="n">b1</span><span class="p">.</span><span class="n">InsertBST</span><span class="p">(</span><span class="n">n1</span><span class="p">);</span></span>
+<span class="code-line">    <span class="n">b1</span><span class="p">.</span><span class="n">InsertBST</span><span class="p">(</span><span class="n">n2</span><span class="p">);</span></span>
+<span class="code-line">    <span class="n">b1</span><span class="p">.</span><span class="n">InsertBST</span><span class="p">(</span><span class="n">n3</span><span class="p">);</span></span>
+<span class="code-line">    <span class="n">b1</span><span class="p">.</span><span class="n">InsertBST</span><span class="p">(</span><span class="n">n4</span><span class="p">);</span></span>
+<span class="code-line">    <span class="n">b1</span><span class="p">.</span><span class="n">DeleteBST</span><span class="p">(</span><span class="mi">8</span><span class="p">);</span>          <span class="c1">// 刪除龜仙人</span></span>
+<span class="code-line">    <span class="n">b1</span><span class="p">.</span><span class="n">InorderPrint</span><span class="p">();</span></span>
+<span class="code-line">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+
+
+<p>output:</p>
+<div class="highlight"><pre><span class="code-line"><span class="err">克林</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="err">比克</span><span class="p">(</span><span class="mi">513</span><span class="p">)</span> <span class="err">悟空</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span> </span>
+</pre></div>
+
+
+<p><a name="4function"></a></p>
+<h2><strong>Leftmost、Rightmost、Successor、Predecessor範例程式碼</strong></h2>
+<div class="highlight"><pre><span class="code-line"><span class="c1">// C++ code</span></span>
+<span class="code-line"><span class="n">TreeNode</span><span class="o">*</span> <span class="n">BST</span><span class="o">::</span><span class="n">Leftmost</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">){</span></span>
+<span class="code-line">    <span class="k">while</span> <span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span></span>
+<span class="code-line">        <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">;</span></span>
+<span class="code-line">    <span class="k">return</span> <span class="n">current</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">}</span></span>
+<span class="code-line"><span class="n">TreeNode</span><span class="o">*</span> <span class="n">BST</span><span class="o">::</span><span class="n">Rightmost</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">){</span></span>
+<span class="code-line">    <span class="k">while</span> <span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span></span>
+<span class="code-line">        <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="p">;</span></span>
+<span class="code-line">    <span class="k">return</span> <span class="n">current</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">}</span></span>
+<span class="code-line"><span class="n">TreeNode</span><span class="o">*</span> <span class="n">BST</span><span class="o">::</span><span class="n">Successor</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">){</span></span>
+<span class="code-line">    <span class="k">if</span> <span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">Leftmost</span><span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="p">);</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">new_node</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">;</span></span>
+<span class="code-line">    <span class="n">new_node</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">;</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="k">while</span> <span class="p">(</span><span class="n">new_node</span> <span class="o">!=</span> <span class="nb">NULL</span> <span class="o">&amp;&amp;</span> <span class="n">current</span> <span class="o">==</span> <span class="n">new_node</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">        <span class="n">current</span> <span class="o">=</span> <span class="n">new_node</span><span class="p">;</span></span>
+<span class="code-line">        <span class="n">new_node</span> <span class="o">=</span> <span class="n">new_node</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">;</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line">    <span class="k">return</span> <span class="n">new_node</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">}</span></span>
+<span class="code-line"><span class="n">TreeNode</span><span class="o">*</span> <span class="n">BST</span><span class="o">::</span><span class="n">Predecessor</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">){</span></span>
+<span class="code-line">    <span class="k">if</span> <span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">Rightmost</span><span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">);</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">new_node</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">;</span></span>
+<span class="code-line">    <span class="n">new_node</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">;</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="k">while</span> <span class="p">(</span><span class="n">new_node</span> <span class="o">!=</span> <span class="nb">NULL</span> <span class="o">&amp;&amp;</span> <span class="n">current</span> <span class="o">==</span> <span class="n">new_node</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">        <span class="n">current</span> <span class="o">=</span> <span class="n">new_node</span><span class="p">;</span></span>
+<span class="code-line">        <span class="n">new_node</span> <span class="o">=</span> <span class="n">new_node</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">;</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line">    <span class="k">return</span> <span class="n">new_node</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+
+
+<p>以上便是BST中<code>BST::DeleteBST()</code>之介紹，關鍵即在Successor與Predecessor。  </p>
+<p>在接下來將介紹的Red Black Tree(RBT，紅黑樹)中，BST的<code>Insert()</code>與<code>Delete()</code>會再次出現，不過，需要再「多一道手續」以滿足RBT的性質。</p>
+<p>最後，因為RBT的圖比較複雜，所以圈圈裏面放名字會太擠，有礙觀瞻，因此忍痛要將「悟空」、「克林」改回「A」、「B」、「C」。<br />
+不過，相信透過這三篇BST的介紹，讀者對七龍珠也有一定程度的了解，後面的部分一定可以靠自學來搜集龍珠的。</p>
+<p>cha la head cha la～～</p>
+<p></br>
+<a name="ref"></a></p>
+<h6><strong>參考資料</strong>：</h6>
+<ul>
+<li><a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844">Introduction to Algorithms</a> </li>
+<li><a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376">Fundamentals of Data Structures in C++</a></li>
+</ul>
+<p></br></p>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' && location_protocol !== 'https') location_protocol = 'https:';
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="http://alrightchiu.github.io/SecondRound/tag/jin-tian-bu-xie-ming-tian-jiu-wang-liao.html">今天不寫明天就忘了</a>
+      <a href="http://alrightchiu.github.io/SecondRound/tag/c.html">C++</a>
+    </p>
+  </div>
+</article>
+
+    <footer>
+<p>
+  &copy; Chiu CC  - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>
+</p>
+<p>Built using <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a></p><p>
+  <a rel="license"
+     href="http://creativecommons.org/licenses/by-sa/4.0/"
+     target="_blank">
+    <img alt="Creative Commons License"
+         title="Creative Commons License"
+         style="border-width:0"
+         src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png"
+         width="80"
+         height="15"/>
+  </a>
+</p>    </footer>
+  </main>
+
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "name": "Binary Search Tree: Sort(排序)、Delete(刪除資料)",
+  "headline": "Binary Search Tree: Sort(排序)、Delete(刪除資料)",
+  "datePublished": "2016-01-06 20:27:00+08:00",
+  "dateModified": "",
+  "author": {
+    "@type": "Person",
+    "name": "Chiu CC",
+    "url": "http://alrightchiu.github.io/SecondRound/author/chiu-cc.html"
+  },
+  "image": "http://alrightchiu.github.io/SecondRound/fig/antiwar.jpg",
+  "url": "http://alrightchiu.github.io/SecondRound/binary-search-tree-sortpai-xu-deleteshan-chu-zi-liao.html",
+  "description": "介紹Binary Search Tree的基本操作：Sort(排序)與Delete(刪除資料)。"
+}
+</script></body>
+</html>
