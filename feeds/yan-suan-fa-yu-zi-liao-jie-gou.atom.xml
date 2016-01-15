@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom"><title>Ordinary Days</title><link href="http://alrightchiu.github.io/SecondRound/" rel="alternate"></link><link href="http://alrightchiu.github.io/SecondRound/feeds/yan-suan-fa-yu-zi-liao-jie-gou.atom.xml" rel="self"></link><id>http://alrightchiu.github.io/SecondRound/</id><updated>2016-01-06T20:27:00+08:00</updated><entry><title>Binary Search Tree: Sort(排序)、Delete(刪除資料)</title><link href="http://alrightchiu.github.io/SecondRound/binary-search-tree-sortpai-xu-deleteshan-chu-zi-liao.html" rel="alternate"></link><updated>2016-01-06T20:27:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-01-06:SecondRound/binary-search-tree-sortpai-xu-deleteshan-chu-zi-liao.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h6&gt;&lt;strong&gt;先備知識與注意事項&lt;/strong&gt;&lt;/h6&gt;
-&lt;p&gt;由於Sort與Delete會用到先前在&lt;a href="http://alrightchiu.github.io/SecondRound/binary-tree-traversalxun-fang.html#in_parent"&gt;Binary Tree：Traversal介紹過的Leftmost()、Rightmost()、Successor()與Predecessor()&lt;/a&gt;，因此建議在開始閱讀本篇文章之前，先復習上述四個函式操作。&lt;br /&gt;
-在文章最後將會附上四個函式的範例程式碼。&lt;/p&gt;
+&lt;p&gt;由於Sort與Delete會用到先前在&lt;a href="http://alrightchiu.github.io/SecondRound/binary-tree-traversalxun-fang.html#in_parent"&gt;Binary Tree：Traversal介紹過的Leftmost()、Rightmost()、Successor()與Predecessor()&lt;/a&gt;，因此建議在開始閱讀本篇文章之前，先復習上述四個函式操作。  &lt;/p&gt;
+&lt;p&gt;在文章最後將會附上四個函式的範例程式碼。&lt;/p&gt;
 &lt;hr /&gt;
 &lt;h2&gt;目錄&lt;/h2&gt;
 &lt;ul&gt;
@@ -15,7 +15,7 @@
 &lt;p&gt;&lt;a name="sort"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;&lt;strong&gt;Sort(排序)&lt;/strong&gt;&lt;/h2&gt;
 &lt;p&gt;讀者可能會發現，在&lt;code&gt;class BST&lt;/code&gt;的定義中，根本就沒有類似&lt;code&gt;SortBST()&lt;/code&gt;的函式，沒錯，因為在BST中，每一個&lt;code&gt;Treenode&lt;/code&gt;都有&lt;span class="math"&gt;\(Key(L)&amp;lt;Key(Current)&amp;lt;Key(R)\)&lt;/span&gt;的性質，這正好與Inorder(LVR)之順序相同，因此，對整棵樹進行Inorder Traversal，就能夠對資料由小到大(依照Key)進行Visiting。&lt;/p&gt;
-&lt;p&gt;以上一篇&lt;a href="http://alrightchiu.github.io/SecondRound/binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao.html#binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao"&gt;Binary Search Tree: Search()、Insert()&lt;/a&gt;所建立的BST為例，如圖一，要將此樹中的資料按照Key之順序由小到大印出，只需要對整棵樹做一次Inorder Traversal即可。&lt;/p&gt;
+&lt;p&gt;以上一篇&lt;a href="http://alrightchiu.github.io/SecondRound/binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao.html#binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao"&gt;Binary Search Tree: Search()、Insert()&lt;/a&gt;的&lt;code&gt;main()&lt;/code&gt;所建立的BST為例，如圖一，要將此樹中的資料按照Key之順序由小到大印出，只需要對整棵樹做一次Inorder Traversal即可。&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/sort_delete/sort_delete1.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖一：。&lt;/strong&gt;&lt;br /&gt;
@@ -104,7 +104,7 @@
 &lt;li&gt;把要刪除的node調整成「至多只有一個child」；&lt;/li&gt;
 &lt;li&gt;把要刪除的node的child指向新的parent；&lt;/li&gt;
 &lt;li&gt;把要刪除的node的parent指向新的child；&lt;/li&gt;
-&lt;li&gt;若是刪除「替身」，再把替身的資料放回BST中。&lt;/li&gt;
+&lt;li&gt;若實際上刪除的是「替身」，再把替身的資料放回BST中。&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;即完成BST之刪除資料操作。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="c1"&gt;// C++ code&lt;/span&gt;&lt;/span&gt;
@@ -148,7 +148,7 @@
 
 &lt;p&gt;&lt;a name="main"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;&lt;strong&gt;main()&lt;/strong&gt;&lt;/h2&gt;
-&lt;p&gt;延續上一篇文章&lt;a href="http://alrightchiu.github.io/SecondRound/binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao.html#binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao"&gt;Binary Search Tree: Search()、Insert()&lt;/a&gt;的main()，加入&lt;code&gt;BST::DeleteBST&lt;/code&gt;，把龜仙人(8)刪除，應該會得到如圖三的BST，比克(513)成為新的&lt;code&gt;root&lt;/code&gt;：&lt;/p&gt;
+&lt;p&gt;延續上一篇文章&lt;a href="http://alrightchiu.github.io/SecondRound/binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao.html#binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao"&gt;Binary Search Tree: Search()、Insert()&lt;/a&gt;的&lt;code&gt;main()&lt;/code&gt;，加入&lt;code&gt;BST::DeleteBST&lt;/code&gt;，把龜仙人(8)刪除，應該會得到如圖三的BST，比克(513)成為新的&lt;code&gt;root&lt;/code&gt;：&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/sort_delete/sort_delete8.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖三：。&lt;/strong&gt;&lt;br /&gt;
@@ -1491,7 +1491,7 @@ pointer連接完成後，結束迴圈。&lt;/li&gt;
 &lt;img alt="ex_in" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/ex_in.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖四(c)：。&lt;/strong&gt;&lt;br /&gt;
 &lt;/center&gt;&lt;/p&gt;
-&lt;p&gt;特別介紹inorder，一大原因是為了Binary Search Tree(BST)鋪路，在BST中，照著inorder順序印出node，就會得到排序過的資訊(詳見：&lt;a href=""&gt;sorry還沒寫&lt;/a&gt;)。&lt;br /&gt;
+&lt;p&gt;特別介紹inorder，一大原因是為了Binary Search Tree(BST)鋪路，在BST中，照著inorder順序印出node，就會得到排序過的資訊(詳見：&lt;a href="http://alrightchiu.github.io/SecondRound/binary-search-tree-sortpai-xu-deleteshan-chu-zi-liao.html#binary-search-tree-sortpai-xu-deleteshan-chu-zi-liao"&gt;Binary Search Tree: Sort(排序)、Delete(刪除資料)&lt;/a&gt;)。&lt;br /&gt;
 另外，若觀察前面提過的遞迴(recursion)形式之inorder traversal，Visiting被包含在遞迴函式內，這表示若要進行多種不同的Visiting，例如print(顯示資料)、assign(賦值、更新資料)，都需要重新寫一個專門功能的遞迴函式。顯然，把Visiting和Traversal獨立開來會更有效率。&lt;/p&gt;
 &lt;p&gt;在看兩個實用的函式之前，有幾件前置作業：  &lt;/p&gt;
 &lt;ul&gt;

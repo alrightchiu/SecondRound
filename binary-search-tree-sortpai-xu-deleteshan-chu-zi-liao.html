@@ -62,8 +62,8 @@
   <div>
     <p></br></p>
 <h6><strong>先備知識與注意事項</strong></h6>
-<p>由於Sort與Delete會用到先前在<a href="http://alrightchiu.github.io/SecondRound/binary-tree-traversalxun-fang.html#in_parent">Binary Tree：Traversal介紹過的Leftmost()、Rightmost()、Successor()與Predecessor()</a>，因此建議在開始閱讀本篇文章之前，先復習上述四個函式操作。<br />
-在文章最後將會附上四個函式的範例程式碼。</p>
+<p>由於Sort與Delete會用到先前在<a href="http://alrightchiu.github.io/SecondRound/binary-tree-traversalxun-fang.html#in_parent">Binary Tree：Traversal介紹過的Leftmost()、Rightmost()、Successor()與Predecessor()</a>，因此建議在開始閱讀本篇文章之前，先復習上述四個函式操作。  </p>
+<p>在文章最後將會附上四個函式的範例程式碼。</p>
 <hr />
 <h2>目錄</h2>
 <ul>
@@ -76,7 +76,7 @@
 <p><a name="sort"></a></p>
 <h2><strong>Sort(排序)</strong></h2>
 <p>讀者可能會發現，在<code>class BST</code>的定義中，根本就沒有類似<code>SortBST()</code>的函式，沒錯，因為在BST中，每一個<code>Treenode</code>都有<span class="math">\(Key(L)&lt;Key(Current)&lt;Key(R)\)</span>的性質，這正好與Inorder(LVR)之順序相同，因此，對整棵樹進行Inorder Traversal，就能夠對資料由小到大(依照Key)進行Visiting。</p>
-<p>以上一篇<a href="http://alrightchiu.github.io/SecondRound/binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao.html#binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao">Binary Search Tree: Search()、Insert()</a>所建立的BST為例，如圖一，要將此樹中的資料按照Key之順序由小到大印出，只需要對整棵樹做一次Inorder Traversal即可。</p>
+<p>以上一篇<a href="http://alrightchiu.github.io/SecondRound/binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao.html#binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao">Binary Search Tree: Search()、Insert()</a>的<code>main()</code>所建立的BST為例，如圖一，要將此樹中的資料按照Key之順序由小到大印出，只需要對整棵樹做一次Inorder Traversal即可。</p>
 <p><center>
 <img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/sort_delete/sort_delete1.png?raw=true" /></p>
 <p><strong>圖一：。</strong><br />
@@ -165,7 +165,7 @@
 <li>把要刪除的node調整成「至多只有一個child」；</li>
 <li>把要刪除的node的child指向新的parent；</li>
 <li>把要刪除的node的parent指向新的child；</li>
-<li>若是刪除「替身」，再把替身的資料放回BST中。</li>
+<li>若實際上刪除的是「替身」，再把替身的資料放回BST中。</li>
 </ol>
 <p>即完成BST之刪除資料操作。</p>
 <div class="highlight"><pre><span class="code-line"><span class="c1">// C++ code</span></span>
@@ -209,7 +209,7 @@
 
 <p><a name="main"></a></p>
 <h2><strong>main()</strong></h2>
-<p>延續上一篇文章<a href="http://alrightchiu.github.io/SecondRound/binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao.html#binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao">Binary Search Tree: Search()、Insert()</a>的main()，加入<code>BST::DeleteBST</code>，把龜仙人(8)刪除，應該會得到如圖三的BST，比克(513)成為新的<code>root</code>：</p>
+<p>延續上一篇文章<a href="http://alrightchiu.github.io/SecondRound/binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao.html#binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao">Binary Search Tree: Search()、Insert()</a>的<code>main()</code>，加入<code>BST::DeleteBST</code>，把龜仙人(8)刪除，應該會得到如圖三的BST，比克(513)成為新的<code>root</code>：</p>
 <p><center>
 <img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/sort_delete/sort_delete8.png?raw=true" /></p>
 <p><strong>圖三：。</strong><br />
