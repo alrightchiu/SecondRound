@@ -10,12 +10,10 @@ Summary: 介紹Binary Search Tree的基本操作：Sort(排序)與Delete(刪除�
 ######**先備知識與注意事項**
 
 由於Sort與Delete會用到先前在[Binary Tree：Traversal介紹過的Leftmost()、Rightmost()、Successor()與Predecessor()](http://alrightchiu.github.io/SecondRound/binary-tree-traversalxun-fang.html#in_parent)，因此建議在開始閱讀本篇文章之前，先復習上述四個函式操作。  
+
 在文章最後將會附上四個函式的範例程式碼。
 
-
 ***
-
-
 
 ##目錄
 * [Sort(排序)](#sort)
@@ -31,7 +29,7 @@ Summary: 介紹Binary Search Tree的基本操作：Sort(排序)與Delete(刪除�
 
 讀者可能會發現，在`class BST`的定義中，根本就沒有類似`SortBST()`的函式，沒錯，因為在BST中，每一個`Treenode`都有$Key(L)<Key(Current)<Key(R)$的性質，這正好與Inorder(LVR)之順序相同，因此，對整棵樹進行Inorder Traversal，就能夠對資料由小到大(依照Key)進行Visiting。
 
-以上一篇[Binary Search Tree: Search()、Insert()](http://alrightchiu.github.io/SecondRound/binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao.html#binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao)所建立的BST為例，如圖一，要將此樹中的資料按照Key之順序由小到大印出，只需要對整棵樹做一次Inorder Traversal即可。
+以上一篇[Binary Search Tree: Search()、Insert()](http://alrightchiu.github.io/SecondRound/binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao.html#binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao)的`main()`所建立的BST為例，如圖一，要將此樹中的資料按照Key之順序由小到大印出，只需要對整棵樹做一次Inorder Traversal即可。
 
 <center>
 ![bst][f1]
@@ -137,7 +135,7 @@ output:
 2. 把要刪除的node調整成「至多只有一個child」；
 3. 把要刪除的node的child指向新的parent；
 4. 把要刪除的node的parent指向新的child；
-5. 若是刪除「替身」，再把替身的資料放回BST中。
+5. 若實際上刪除的是「替身」，再把替身的資料放回BST中。
 
 即完成BST之刪除資料操作。
 
@@ -184,7 +182,7 @@ void BST::DeleteBST(int KEY){               // 要刪除具有KEY的node
 
 ##**main()**
 
-延續上一篇文章[Binary Search Tree: Search()、Insert()](http://alrightchiu.github.io/SecondRound/binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao.html#binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao)的main()，加入`BST::DeleteBST`，把龜仙人(8)刪除，應該會得到如圖三的BST，比克(513)成為新的`root`：
+延續上一篇文章[Binary Search Tree: Search()、Insert()](http://alrightchiu.github.io/SecondRound/binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao.html#binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao)的`main()`，加入`BST::DeleteBST`，把龜仙人(8)刪除，應該會得到如圖三的BST，比克(513)成為新的`root`：
 
 
 <center>
