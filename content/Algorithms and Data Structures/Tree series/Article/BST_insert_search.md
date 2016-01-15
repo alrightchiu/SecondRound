@@ -79,7 +79,7 @@ public:
 ##目錄
 
 * [BST::Search(搜尋)](#search)
-* [BST::Insert(新增資料)](#insert)
+* [BST::InsertBST(新增資料)](#insert)
 * [main()](#main)
 * [參考資料](#ref)
 
