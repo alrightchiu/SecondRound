@@ -1,8 +1,8 @@
-Title: Binary Search Tree: search(搜尋資料)、insert(新增資料)    
+Title: Binary Search Tree: Search(搜尋資料)、Insert(新增資料)    
 Date: 2016-1-3 20:17  
 Category: 演算法與資料結構  
 Tags: C++  
-Summary: 介紹Binary Search Tree的基本操作：search(搜尋資料)與insert(新增資料)。
+Summary: 介紹Binary Search Tree的基本操作：Search(搜尋資料)與Insert(新增資料)。
  
 
 </br>
@@ -229,7 +229,7 @@ TreeNode* BST::Search(int KEY){
 **圖二(d)：。**  
 </center> 
 
-以下是`BST::inesrt()`的範例程式碼，關鍵便是「哨兵**x**」與「準新手爸媽**y**」的冒險之旅：
+以下是`BST::InsertBST()`的範例程式碼，關鍵便是「哨兵**x**」與「準新手爸媽**y**」的冒險之旅：
 
 ```cpp
 // C++ code
