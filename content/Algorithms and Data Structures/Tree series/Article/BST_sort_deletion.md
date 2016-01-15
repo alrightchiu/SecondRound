@@ -1,7 +1,7 @@
 Title: Binary Search Tree: Sort(排序)、Delete(刪除資料)    
-Date: 2016-1-6 20:27  
+Date: 2016-1-15 21:27  
 Category: 演算法與資料結構  
-Tags: 今天不寫明天就忘了, C++  
+Tags: C++  
 Summary: 介紹Binary Search Tree的基本操作：Sort(排序)與Delete(刪除資料)。
  
 
@@ -268,7 +268,8 @@ TreeNode* BST::Predecessor(TreeNode *current){
 [f6]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/sort_delete/sort_delete6.png?raw=true
 [f7]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/sort_delete/sort_delete7.png?raw=true
 [f8]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/sort_delete/sort_delete8.png?raw=true
-  
+
+</br>
   
 以上便是BST中`BST::DeleteBST()`之介紹，關鍵即在Successor與Predecessor。  
 
