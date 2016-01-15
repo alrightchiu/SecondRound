@@ -33,11 +33,11 @@ public:
     // default copy constructor
     // default destructor
     
-    int getKey() const{ return key;};
-    std::string getElement() const{ return element;};
+    int GetKey() const{ return key;};
+    std::string GetElement() const{ return element;};
     
-    void setKey(int k){ key = k;};
-    void setElement(std::string e){ element = e;};   
+    void SetKey(int k){ key = k;};
+    void SetElement(std::string e){ element = e;};   
     
     friend class BST;   // 放在 private 或 public 都可以 
 };
@@ -46,25 +46,25 @@ public:
 class BST{
 private:
     TreeNode *root;
-    TreeNode* rightmost(TreeNode *current);
-    TreeNode* leftmost(TreeNode *current);
-    TreeNode* copy(const TreeNode *origNode);    // preorder traversal, 用在 copy constructor和 operator=
-    void postorderDelete(TreeNode *current);
+    TreeNode* Rightmost(TreeNode *current);
+    TreeNode* Leftmost(TreeNode *current);
+    TreeNode* Copy(const TreeNode *origNode);    // preorder traversal, 用在 copy constructor和 operator=
+    void PostorderDelete(TreeNode *current);
 public:
     BST(){ root = 0; };		// default constructor
     BST(const BST &p);		// copy constructor
     BST& operator = (const BST &p);
     ~BST();  // destructor
     
-    TreeNode* search(int key);
-    void insertBST(TreeNode &new_node);
+    TreeNode* Search(int key);
+    void InsertBST(TreeNode &new_node);
     
     TreeNode* Successor(TreeNode *current);
     TreeNode* Predecessor(TreeNode *current);
-    void Inorder_print();
-    void deleteBST(int KEY);
+    void InorderPrint();
+    void DeleteBST(int KEY);
     
-    bool isEmpty() const{return (root==NULL);};    // 確認BST是否存有資料
+    bool IsEmpty() const{return (root==NULL);};    // 確認BST是否存有資料
 };
 
 ```
@@ -87,7 +87,7 @@ public:
 
 ##**BST::Search(搜尋)**
 
-BST的`search()`操作，便是根據BST的特徵：$Key(L)<Key(Current)<Key(R)$，判斷`Current`node應該往left subtree走，還是往right subtree走。
+BST的`Search()`操作，便是根據BST的特徵：$Key(L)<Key(Current)<Key(R)$，判斷`Current`node應該往left subtree走，還是往right subtree走。
 
 現有一棵BST如圖一(a)所示：
 
@@ -135,13 +135,13 @@ BST的`search()`操作，便是根據BST的特徵：$Key(L)<Key(Current)<Key(R)$
 **圖一(e)：。**  
 </center>
 
-* 此時，`Current`的Key(627)與傳送進`search()`的KEY(627)相同，便確認`Current`即為基紐隊長，於是跳出`while`迴圈，並傳回`Current`。  
+* 此時，`Current`的Key(627)與傳送進`Search()`的KEY(627)相同，便確認`Current`即為基紐隊長，於是跳出`while`迴圈，並傳回`Current`。  
 即搜尋成功。
 
 
 ####搜尋失敗
 
-* 若現在要從BST中尋找克林，便以克林的戰鬥力(2)為KEY(2)，進入`search()`。  
+* 若現在要從BST中尋找克林，便以克林的戰鬥力(2)為KEY(2)，進入`Search()`。  
 進入BST後，同樣把用來移動的`Current`node指向`root`，如圖一(b)。
 
 <center>
@@ -161,21 +161,21 @@ BST的`search()`操作，便是根據BST的特徵：$Key(L)<Key(Current)<Key(R)$
 * 將`Current`移動至龜仙人後，將KEY(2)和龜仙人的戰鬥力(8)比較，便判斷出，要將`Current`往龜仙人的left child移動，如圖一(f)。  
 然而，由於龜仙人沒有left child，於是`Current`指向`NULL`，便跳出迴圈，並回傳`NULL`，即表示搜尋失敗，克林不在BST中。
 
-以下是`BST::search()`的範例程式碼，其中，有兩種情況會跳出`while`迴圈：
+以下是`BST::Search()`的範例程式碼，其中，有兩種情況會跳出`while`迴圈：
 
 1. KEY與`Current`node的key相同，表示搜尋成功；
 2. `Current`移動到`NULL`，表示搜尋失敗。
 
 ```cpp
 // C++ code
-TreeNode* BST::search(int KEY){
+TreeNode* BST::Search(int KEY){
     TreeNode *current = new TreeNode;
     current = root;
-    while (current != NULL && KEY != current->getKey()) {
-        if (KEY < current->getKey())
-            current = current->leftchild;    // 向左走
+    while (current != NULL && KEY != current->GetKey()) {
+        if (KEY < current->GetKey())
+            current = current->leftchild;   // 向左走
         else
-            current = current->rightchild;   // 向右走
+            current = current->rightchild;  // 向右走
     }
     return current;
 }
@@ -183,9 +183,9 @@ TreeNode* BST::search(int KEY){
 </br> 
 <a name="insert"></a>
 
-##**BST::Insert(新增資料)**
+##**BST::InsertBST(新增資料)**
 
-函式`insert()`的演算法概念，可以視為`search()`的延伸：
+函式`InsertBST()`的演算法概念，可以視為`Search()`的延伸：
 
 1. 根據BST對Key之規則，先找到「將要新增之node」適合的位置；
 2. 再將欲新增的node接上BST。
@@ -193,7 +193,7 @@ TreeNode* BST::search(int KEY){
 要尋找「對新增node而言的適當位置」，需要召喚一位「哨兵」先行探路，而「將會成為新增node的**parent node**(準新手爸媽)」則跟著「哨兵」的腳步，往前推進。 
  
 定義「哨兵」為**x**，「準新手爸媽」為**y**，現欲新增「比克，戰鬥力(513)」進入如圖二(a)之BST。  
-(這裡的「哨兵**x**」具有`BST::search()`中`Current`node的功能。)
+(這裡的「哨兵**x**」具有`BST::Search()`中`Current`node的功能。)
 
 
 <center>
@@ -233,7 +233,7 @@ TreeNode* BST::search(int KEY){
 
 ```cpp
 // C++ code
-void BST::insertBST(TreeNode &new_node){
+void BST::InsertBST(TreeNode &new_node){
     TreeNode *y = new TreeNode; y = 0;
     TreeNode *x = new TreeNode; x = 0;
     TreeNode *insert_node = new TreeNode(new_node); // call default copy constructor of TreeNode
@@ -241,7 +241,7 @@ void BST::insertBST(TreeNode &new_node){
     x = root;
     while (x != NULL) {
         y = x;
-        if (insert_node->getKey() < x->getKey())
+        if (insert_node->GetKey() < x->GetKey())
             x = x->leftchild;
         else
             x = x->rightchild;
@@ -249,13 +249,16 @@ void BST::insertBST(TreeNode &new_node){
     insert_node->parent = y;
     if (y == NULL)
         this->root = insert_node;
-    else if (insert_node->getKey() < y->getKey())
+    else if (insert_node->GetKey() < y->GetKey())
         y->leftchild = insert_node;
     else
         y->rightchild = insert_node;
 }
 ```
-備註：在定義函式`insert()`時，函式的參數(argument)可能會視情境而有所改變，這裡是以一個`TreeNode`的物件(object)之**reference**作為參數，傳進函式`insert()`。
+備註：  
+
+* 在定義函式`InsertBST()`時，函式的參數(argument)可能會視情境而有所改變，這裡是以一個`TreeNode`的物件(object)之**reference**作為參數，傳進函式`InsertBST()`。
+* 在`InsertBST()`特別標示出BST是為了與之後會介紹的Red Black Tree(紅黑樹)之`InsertRBT()`做區別。
 
 [search0]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f18.png?raw=true
 [search1]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f19.png?raw=true
@@ -270,7 +273,7 @@ void BST::insertBST(TreeNode &new_node){
 
 </br>
 
-以上便是BST中`search()`與`insert()`之介紹，只要掌握BST的性質$Key(L)<Key(Current)<Key(R)$與樹中的Traversal(pointer的移動)即可輕鬆上路。  
+以上便是BST中`Search()`與`InsertBST()`之介紹，只要掌握BST的性質$Key(L)<Key(Current)<Key(R)$與樹中的Traversal(pointer的移動)即可輕鬆上路。  
 
 
 </br>
