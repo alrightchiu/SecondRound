@@ -236,20 +236,20 @@ TreeNode* BST::Search(int KEY){
 ```cpp
 // C++ code
 void BST::InsertBST(TreeNode &new_node){
-    TreeNode *y = new TreeNode; y = 0;
-    TreeNode *x = new TreeNode; x = 0;
+    TreeNode *y = new TreeNode; y = 0;        // 準新手爸媽
+    TreeNode *x = new TreeNode; x = 0;        // 哨兵
     TreeNode *insert_node = new TreeNode(new_node); // call default copy constructor of TreeNode
     
     x = root;
-    while (x != NULL) {
-        y = x;
+    while (x != NULL) {                // 在while中, 以如同Search()的方式尋找適當的位置       
+        y = x;                                
         if (insert_node->GetKey() < x->GetKey())
             x = x->leftchild;
         else
             x = x->rightchild;
-    }
-    insert_node->parent = y;
-    if (y == NULL)
+    }                                  // 跳出迴圈後, x即為NULL
+    insert_node->parent = y;           // y即為insert_node的parent
+    if (y == NULL)                     // 下面一組if-else, 把insert_node接上BST
         this->root = insert_node;
     else if (insert_node->GetKey() < y->GetKey())
         y->leftchild = insert_node;
