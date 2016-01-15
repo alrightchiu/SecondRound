@@ -80,7 +80,9 @@ public:
 
 * [BST::Search(搜尋)](#search)
 * [BST::Insert(新增資料)](#insert)
+* [main()](#main)
 * [參考資料](#ref)
+
 
 
 <a name="search"></a>
@@ -271,10 +273,31 @@ void BST::InsertBST(TreeNode &new_node){
 [insert3]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f26.png?raw=true
 [insert4]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f27.png?raw=true
 
-</br>
 
-以上便是BST中`Search()`與`InsertBST()`之介紹，只要掌握BST的性質$Key(L)<Key(Current)<Key(R)$與樹中的Traversal(pointer的移動)即可輕鬆上路。  
+<a name="main"></a>
 
+##**main()**
+
+有了`BST::InsertBST()`後，就可以用土法煉鋼的方式建立一棵如圖二(d)的BST:
+
+```cpp
+// C++ code
+int main() {
+    BST b1;
+    TreeNode n1(8,"龜仙人");
+    TreeNode n2(1000,"悟空");
+    TreeNode n3(2,"克林");
+    TreeNode n4(513,"比克");
+    b1.InsertBST(n1);
+    b1.InsertBST(n2);
+    b1.InsertBST(n3);
+    b1.InsertBST(n4);
+    return 0;
+}
+```
+
+
+以上便是BST中`Search()`與`InsertBST()`之介紹，只要掌握BST的性質$Key(L)<Key(Current)<Key(R)$與樹中的Traversal(pointer的移動)即可輕鬆上路。 
 
 </br>
 <a name="ref"></a>

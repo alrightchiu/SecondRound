@@ -528,7 +528,7 @@ void BinaryTree::Inorder_by_parent(TreeNode *root){
 }
 ```
 
-output：
+output:
 
 ```cpp
 D B G E H A F I C
@@ -540,7 +540,7 @@ D B G E H A F I C
 
 只要把`InorderSuccessor()`與`leftmost()`中，所有的left與right互換，就得到`InorderPredecessor()`與`rightmost()`，而概念上也確實是如此：
 
-* **rightmost**：從「以CurrentNode為subtree」的root一路向右做Linked list的單向tracersal。
+* **rightmost**：從「以CurrentNode為subtree」的root一路向右做Linked list的單向traversal。
 * **Predecessor**：某一CurrentNode的「前一個順序的node」之位置有兩種可能：
 
     1. 若CurrentNode的left child不是NULL，則CurrentNode之前一個順序的node即為「以Current->lefttchild為root」之subtree中，最右的node。  
@@ -593,7 +593,7 @@ void BinaryTree::Inorder_Reverse(TreeNode *root){
 }
 ```
 
-output：
+output:
 
 ```cpp
 C I F A H E G B D
