@@ -1,7 +1,7 @@
 Title: Binary Tree: 建立一棵Binary Tree  
 Date: 2015-12-27 16:53  
 Category: 演算法與資料結構  
-Tags: C++  
+Tags: C++, Binary Tree(二元樹)    
 Summary: 介紹如何以字元陣列(char array)獲得資料(data)後，建立一棵Binary Tree(二元樹)。
  
  

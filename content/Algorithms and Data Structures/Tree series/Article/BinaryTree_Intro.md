@@ -1,7 +1,7 @@
 Title: Binary Tree: Intro(簡介) 
 Date: 2015-12-21 22:24  
 Category: 演算法與資料結構  
-Tags: C++  
+Tags: C++, Binary Tree(二元樹)    
 Summary: 介紹Binary Tree(二元樹)的基本概念。
 
 

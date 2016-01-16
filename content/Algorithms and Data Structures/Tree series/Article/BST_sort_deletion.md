@@ -1,7 +1,7 @@
 Title: Binary Search Tree: Sort(排序)、Delete(刪除資料)    
 Date: 2016-1-15 21:27  
 Category: 演算法與資料結構  
-Tags: C++  
+Tags: C++, Binary Search Tree(二元搜尋樹)  
 Summary: 介紹Binary Search Tree(二元搜尋樹)的基本操作：Sort(排序)與Delete(刪除資料)。
  
 
