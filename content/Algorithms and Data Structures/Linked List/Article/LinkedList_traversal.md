@@ -2,7 +2,7 @@ Title: Linked List: Traversal(尋訪)
 Date: 2015-12-23 20:00 
 Category: 演算法與資料結構  
 Tags: C++  
-Summary: 介紹Linked List中的Traversal(尋訪)。
+Summary: 介紹Linked List(連結串列)中的Traversal(尋訪)。
  
 
 
