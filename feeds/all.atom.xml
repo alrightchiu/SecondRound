@@ -221,7 +221,7 @@
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;p&gt;以上便是BST中&lt;code&gt;BST::DeleteBST()&lt;/code&gt;之介紹，關鍵即在Successor與Predecessor。  &lt;/p&gt;
 &lt;p&gt;在接下來將介紹的Red Black Tree(RBT，紅黑樹)中，BST的&lt;code&gt;Insert()&lt;/code&gt;與&lt;code&gt;Delete()&lt;/code&gt;會再次出現，不過，需要再「多一道手續」以滿足RBT的性質。&lt;/p&gt;
-&lt;p&gt;最後，因為RBT的圖比較複雜，所以圈圈裏面放名字會太擠，有礙觀瞻，因此忍痛要將「悟空」、「克林」改回「A」、「B」、「C」。&lt;br /&gt;
+&lt;p&gt;最後，因為RBT的圖比較複雜，所以圈圈裏面放名字會太擠，有礙觀瞻，因此要忍痛讓「悟空」、「克林」退居幕後，直接在node裡面放上Key。 
 不過，相信透過這三篇BST的介紹，讀者對七龍珠也有一定程度的了解，後面的部分一定可以靠自學來搜集龍珠的。&lt;/p&gt;
 &lt;p&gt;cha la head cha la～～&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;
