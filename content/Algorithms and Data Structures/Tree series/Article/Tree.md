@@ -2,7 +2,7 @@ Title: Tree(樹)
 Date: 2015-12-19 20:27  
 Category: 演算法與資料結構  
 Tags: C++  
-Summary: 介紹資料結構中樹(Tree)的概念。
+Summary: 介紹資料結構中Tree(樹)的概念。
 
 
 </br>

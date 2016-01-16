@@ -2,7 +2,7 @@ Title: Binary Search Tree: Intro(簡介)
 Date: 2016-1-2 12:15  
 Category: 演算法與資料結構  
 Tags: C++  
-Summary: 謹以Binary Search Tree向拯救90後的童年的鉅作《七龍珠》以及鳥山明老師致敬。
+Summary: 謹以Binary Search Tree(二元搜尋樹)向拯救90後的童年的鉅作《七龍珠》以及鳥山明老師致敬。
 
 </br>
 ######**先備知識與注意事項**
