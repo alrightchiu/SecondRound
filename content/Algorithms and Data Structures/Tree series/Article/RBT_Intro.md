@@ -86,11 +86,11 @@ Red Black Tree(RBT)是node塗了「顏色」的Binary Search Tree(BST)，藉由�
 <center>
 ![rbt][f4]
 
-**圖四：最短的path為3(36-55-57)，其餘path最長只能是6(36-21-15-9-6-2)。  
+**圖四：最短的path為3(最右path:36-55-57)，其餘path最長只能是6(最左path:36-21-15-9-6-2)。  
 若蓋住`NIL`與顏色，此即為BST。**  
 </center>
 
-圖四中，所有原本在BST中指向`NULL`的pointer，在RBT中，全部指向了`NIL`。然而什麼是`NIL`？`NIL`是永遠為黑色、並且實際占有記憶體的node，因為有配置記憶體，因此能夠以`Node->color`的方式取得某個node之顏色(若使用`NULL`則無法)，此條件式將在之後介紹如何在RBT中Insert(新增資料)與Delete(刪除資料)並對RBT進行Fix-Up(修正)時派上用場。
+圖四中，所有原本在BST中指向`NULL`的pointer，在RBT中，全部指向了`NIL`。然而什麼是`NIL`？`NIL`是永遠為黑色、並且實際占有記憶體的node，因為有配置記憶體，因此能夠以`Node->color`的方式取得某個node之顏色(若使用`NULL`則無法)，此優勢將在後續介紹如何於RBT中Insert(新增資料)與Delete(刪除資料)時派上用場。
 
 接著來看RBT的五項特徵：
 
@@ -149,7 +149,7 @@ private:
 ```
 (為了避開某些IDE將`NIL`設定成保留關鍵字(reserved keywords，例如不能用`while`、`struct`當作變數名稱)，因此使用`neel`。)
 
-為求畫面簡潔，將把RBT示意圖中的`NIL`隱藏起來，只顯示RBT中的internal node，如圖六，不過心裡要記得，RBT無時無刻都被`NIL`充滿著。
+為求畫面簡潔，往後的篇幅裡將把RBT示意圖中的`NIL`隱藏起來，只顯示RBT中的internal node，如圖六，不過心裡要記得，RBT無時無刻都被`NIL`充滿著。
 
 <center>
 ![rbt][f6]
@@ -166,7 +166,7 @@ private:
 [f6]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/rbt5.png?raw=true
   
   
-以上便是RBT之初探，最重要的結論即為：就時間複雜度而言，RBT能夠被視為平衡的BST。  
+以上便是RBT之初探，最重要的結論即為：就時間複雜度而言，RBT能夠被視為平衡的BST，所有操作皆能在時間複雜度為$O(\log N)$內完成。
 
 在接下來的三篇文章中，將依序介紹Rotation(旋轉)、Insert(新增資料)與Delete(刪除資料)。
   
