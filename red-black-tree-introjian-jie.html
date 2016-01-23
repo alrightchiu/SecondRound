@@ -135,7 +135,7 @@
 </ul>
 </li>
 </ol>
-<p>根據上面的第四點與第五點，RBT中path可能的長度最小值一定是全部node皆為黑色，而path可能的長度最大值並定是紅色-黑色相間(如圖四中，最左與最右兩條path分別為最長與最短)，如此便確保RBT擁有<strong>最長path(路徑)不會超過最短path的兩倍</strong>的特性。</p>
+<p>根據上面的第四點與第五點，RBT中path可能的長度最小值一定是全部node皆為黑色，而path可能的長度最大值並定是紅色-黑色相間(如圖四)，如此便確保RBT擁有<strong>最長path(路徑)不會超過最短path的兩倍</strong>的特性。</p>
 <p><a name="code"></a></p>
 <h2><strong>程式碼</strong></h2>
 <p>實際的程式實現上，會把所有<code>NIL</code>視為同一個<code>NIL</code>，並把<code>root</code>的parent指向<code>NIL</code>，以節省記憶體空間，如圖五。</p>
@@ -168,7 +168,7 @@
 </pre></div>
 
 
-<p>(為了避開某些IDE將<code>NIL</code>設定成保留關鍵字(reserved keywords，例如不能用<code>while</code>、<code>struct</code>當作變數名稱)，因此使用<code>neel</code>。)</p>
+<p>(為了避開某些IDE將<code>NIL</code>設定成保留關鍵字(reserved keywords，例如<code>template</code>、<code>while</code>、<code>struct</code>等等)，因此使用<code>neel</code>。)</p>
 <p>為求畫面簡潔，往後的篇幅裡將把RBT示意圖中的<code>NIL</code>隱藏起來，只顯示RBT中的internal node，如圖六，不過心裡要記得，RBT無時無刻都被<code>NIL</code>充滿著。</p>
 <p><center>
 <img alt="rbt" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/rbt5.png?raw=true" /></p>

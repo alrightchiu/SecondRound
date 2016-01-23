@@ -74,7 +74,7 @@
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;根據上面的第四點與第五點，RBT中path可能的長度最小值一定是全部node皆為黑色，而path可能的長度最大值並定是紅色-黑色相間(如圖四中，最左與最右兩條path分別為最長與最短)，如此便確保RBT擁有&lt;strong&gt;最長path(路徑)不會超過最短path的兩倍&lt;/strong&gt;的特性。&lt;/p&gt;
+&lt;p&gt;根據上面的第四點與第五點，RBT中path可能的長度最小值一定是全部node皆為黑色，而path可能的長度最大值並定是紅色-黑色相間(如圖四)，如此便確保RBT擁有&lt;strong&gt;最長path(路徑)不會超過最短path的兩倍&lt;/strong&gt;的特性。&lt;/p&gt;
 &lt;p&gt;&lt;a name="code"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;&lt;strong&gt;程式碼&lt;/strong&gt;&lt;/h2&gt;
 &lt;p&gt;實際的程式實現上，會把所有&lt;code&gt;NIL&lt;/code&gt;視為同一個&lt;code&gt;NIL&lt;/code&gt;，並把&lt;code&gt;root&lt;/code&gt;的parent指向&lt;code&gt;NIL&lt;/code&gt;，以節省記憶體空間，如圖五。&lt;/p&gt;
@@ -107,7 +107,7 @@
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;(為了避開某些IDE將&lt;code&gt;NIL&lt;/code&gt;設定成保留關鍵字(reserved keywords，例如不能用&lt;code&gt;while&lt;/code&gt;、&lt;code&gt;struct&lt;/code&gt;當作變數名稱)，因此使用&lt;code&gt;neel&lt;/code&gt;。)&lt;/p&gt;
+&lt;p&gt;(為了避開某些IDE將&lt;code&gt;NIL&lt;/code&gt;設定成保留關鍵字(reserved keywords，例如&lt;code&gt;template&lt;/code&gt;、&lt;code&gt;while&lt;/code&gt;、&lt;code&gt;struct&lt;/code&gt;等等)，因此使用&lt;code&gt;neel&lt;/code&gt;。)&lt;/p&gt;
 &lt;p&gt;為求畫面簡潔，往後的篇幅裡將把RBT示意圖中的&lt;code&gt;NIL&lt;/code&gt;隱藏起來，只顯示RBT中的internal node，如圖六，不過心裡要記得，RBT無時無刻都被&lt;code&gt;NIL&lt;/code&gt;充滿著。&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="rbt" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/rbt5.png?raw=true" /&gt;&lt;/p&gt;
