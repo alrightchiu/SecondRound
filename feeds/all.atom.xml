@@ -4,7 +4,7 @@
 &lt;p&gt;在閱讀過BST系列文章後可以發現，在BST中的操作，不論是Insert(新增資料)或是Delete(刪除資料)，皆需要先做Search(搜尋)，而Search(搜尋)的效率，取決於BST的height(樹高)，如果一棵樹越矮、越平衡(balanced)，則在此BST中搜尋資料的速度較快，理想狀況為Complete Binary Tree(時間複雜度：&lt;span class="math"&gt;\(O(\log N)\)&lt;/span&gt;)。反之，若由於輸入資料的順序使得BST沒長好、偏一邊，則在此BST中搜尋資料的最壞情況將有可能如同在Linked List做搜尋(時間複雜度：&lt;span class="math"&gt;\(O(N)\)&lt;/span&gt;)。  &lt;/p&gt;
 &lt;p&gt;本篇文章將介紹BST的進階版Red Black Tree(RBT，紅黑樹)之基本性質，會說是進階版，原因在於RBT其實也是BST(滿足&lt;span class="math"&gt;\(Key(L)&amp;lt;Key(Current)&amp;lt;Key(R)\)&lt;/span&gt;)，不過RBT的node比BST多加了「顏色」(紅色或黑色)，而正因為多了「顏色」，便能修正BST有可能退化成Linked list(連結串列)的潛在缺陷。 &lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
-&lt;img alt="anarchy" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/biasedtree.png?raw=true" /&gt;&lt;/p&gt;
+&lt;img alt="anarchy" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Intro/biasedtree.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖一：不平衡的BST。&lt;/strong&gt;&lt;br /&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;另外，本篇文章將不進行「RBT之時間複雜度如何能視同Complete Binary Tree」之論證(筆者火侯不夠，請見諒)，建議讀者可以參考&lt;a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844"&gt;Introduction to Algorithms，第13章&lt;/a&gt;，不過結論就是，RBT可以被視為如同Complete Binary Tree的BST，所有與Search(搜尋)有關的操作(Leftmost、Successor、Insert、Delete等等)，都能夠在&lt;span class="math"&gt;\(O(\log N)\)&lt;/span&gt;內完成。&lt;/p&gt;
@@ -32,7 +32,7 @@
 
 &lt;p&gt;圖二中，右側的藍色數字表示「搜尋該node需要比較(&lt;code&gt;if KEY == current-&amp;gt;key&lt;/code&gt;)的次數」，也就是迴圈的次數。考慮一串Linked List共有N個node，若要尋找第K個node，則最壞情況即是一路找到最後一個node，需要N次。&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
-&lt;img alt="linked list" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/rbt1.png?raw=true" /&gt;&lt;/p&gt;
+&lt;img alt="linked list" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Intro/rbt1.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖二：BST退化成Linked List。&lt;/strong&gt;&lt;br /&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;再比較Complete Binary Tree，如圖三。其中，node裡的數字即為Key，node旁邊的藍色數字代表該node在Complete Binary Tree中的位置順序，右側的藍色數字代表迴圈次數。&lt;br /&gt;
@@ -42,7 +42,7 @@
 &lt;li&gt;依此類推，若BST中有N個node，則所有node保證能夠在&lt;span class="math"&gt;\(\log N +1\)&lt;/span&gt;次 (&lt;span class="math"&gt;\(2^k\leq N&amp;lt;2^{k+1}, k=\log N\)&lt;/span&gt;)迴圈以內找到。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;center&gt;
-&lt;img alt="cbt" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/rbt2.png?raw=true" /&gt;&lt;/p&gt;
+&lt;img alt="cbt" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Intro/rbt2.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖三：搜尋BST的理想情況：Complete Binary Tree。&lt;/strong&gt;&lt;br /&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;以上兩個範例為一棵具有N個node的BST之height(樹高)提供了邊界：&lt;span class="math"&gt;\(\log N\leq height\leq N\)&lt;/span&gt;。&lt;/p&gt;
@@ -52,7 +52,7 @@
 &lt;h2&gt;&lt;strong&gt;Red Black Tree的特徵&lt;/strong&gt;&lt;/h2&gt;
 &lt;p&gt;Red Black Tree(RBT)是node塗了「顏色」的Binary Search Tree(BST)，藉由控制顏色，能夠保證在RBT中，&lt;strong&gt;最長path(路徑)不會超過最短path的兩倍&lt;/strong&gt;(若最短的path是5，最長的path至多只能是10)，如此，RBT便能夠近似地視為平衡，如圖四。&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
-&lt;img alt="rbt" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/rbt3.png?raw=true" /&gt;&lt;/p&gt;
+&lt;img alt="rbt" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Intro/rbt3.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖四：最短的path為3(最右path:36-55-57)，其餘path最長只能是6(最左path:36-21-15-9-6-2)。&lt;br /&gt;
 若蓋住&lt;code&gt;NIL&lt;/code&gt;與顏色，此即為BST。&lt;/strong&gt;&lt;br /&gt;
 &lt;/center&gt;&lt;/p&gt;
@@ -79,7 +79,7 @@
 &lt;h2&gt;&lt;strong&gt;程式碼&lt;/strong&gt;&lt;/h2&gt;
 &lt;p&gt;實際的程式實現上，會把所有&lt;code&gt;NIL&lt;/code&gt;視為同一個&lt;code&gt;NIL&lt;/code&gt;，並把&lt;code&gt;root&lt;/code&gt;的parent指向&lt;code&gt;NIL&lt;/code&gt;，以節省記憶體空間，如圖五。&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
-&lt;img alt="rbt" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/rbt4.png?raw=true" /&gt;&lt;/p&gt;
+&lt;img alt="rbt" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Intro/rbt4.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖五：。&lt;/strong&gt;&lt;br /&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;class TreeNode&lt;/code&gt;與&lt;code&gt;class RBT&lt;/code&gt;之資料成員(data member)程式範例如下：&lt;/p&gt;
@@ -110,7 +110,7 @@
 &lt;p&gt;(為了避開某些IDE將&lt;code&gt;NIL&lt;/code&gt;設定成保留關鍵字(reserved keywords，例如&lt;code&gt;template&lt;/code&gt;、&lt;code&gt;while&lt;/code&gt;、&lt;code&gt;struct&lt;/code&gt;等等)，因此使用&lt;code&gt;neel&lt;/code&gt;。)&lt;/p&gt;
 &lt;p&gt;為求畫面簡潔，往後的篇幅裡將把RBT示意圖中的&lt;code&gt;NIL&lt;/code&gt;隱藏起來，只顯示RBT中的internal node，如圖六，不過心裡要記得，RBT無時無刻都被&lt;code&gt;NIL&lt;/code&gt;充滿著。&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
-&lt;img alt="rbt" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/rbt5.png?raw=true" /&gt;&lt;/p&gt;
+&lt;img alt="rbt" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Intro/rbt5.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖六：。&lt;/strong&gt;&lt;br /&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;以上便是RBT之初探，最重要的結論即為：就時間複雜度而言，RBT能夠被視為平衡的BST，所有操作皆能在時間複雜度為&lt;span class="math"&gt;\(O(\log N)\)&lt;/span&gt;內完成。&lt;/p&gt;
