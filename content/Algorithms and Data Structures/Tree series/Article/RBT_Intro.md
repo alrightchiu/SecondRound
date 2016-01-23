@@ -1,5 +1,5 @@
 Title: Red Black Tree: Intro(簡介)    
-Date: 2016-1-22 20:27  
+Date: 2016-1-23 16:09  
 Category: 演算法與資料結構  
 Tags: C++, Red Black Tree  
 Summary: 介紹Red Black Tree(紅黑樹)的基本性質。
@@ -44,7 +44,7 @@ Summary: 介紹Red Black Tree(紅黑樹)的基本性質。
 // C++ code
 int main{
     BST T;
-    T.InsertBST(1);   // 
+    T.InsertBST(1);   // 依序加入Key為1、2、3...之資料
     T.InsertBST(2);
     T.InsertBST(3);
     ...
@@ -166,7 +166,7 @@ private:
 [f6]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Intro/rbt5.png?raw=true
   
   
-以上便是RBT之初探，最重要的結論即為：就時間複雜度而言，RBT能夠被視為平衡的BST，所有操作皆能在時間複雜度為$O(\log N)$內完成。
+以上便是RBT之初探，最重要的結論為：就時間複雜度而言，RBT能夠被視為平衡的BST，所有操作皆能在時間複雜度為$O(\log N)$內完成。
 
 在接下來的三篇文章中，將依序介紹Rotation(旋轉)、Insert(新增資料)與Delete(刪除資料)。
   
