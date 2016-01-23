@@ -107,7 +107,7 @@ Red Black Tree(RBT)是node塗了「顏色」的Binary Search Tree(BST)，藉由�
     * path4:15(**b**)-19(**b**)-17(r)-NIL(**b**)；
     * path5:15(**b**)-19(**b**)-NIL(**b**)；   
 
-根據上面的第四點與第五點，RBT中path可能的長度最小值一定是全部node皆為黑色，而path可能的長度最大值並定是紅色-黑色相間(如圖四中，最左與最右兩條path分別為最長與最短)，如此便確保RBT擁有**最長path(路徑)不會超過最短path的兩倍**的特性。
+根據上面的第四點與第五點，RBT中path可能的長度最小值一定是全部node皆為黑色，而path可能的長度最大值並定是紅色-黑色相間(如圖四)，如此便確保RBT擁有**最長path(路徑)不會超過最短path的兩倍**的特性。
 
 
 <a name="code"></a>
@@ -147,7 +147,7 @@ private:
     ...
 }
 ```
-(為了避開某些IDE將`NIL`設定成保留關鍵字(reserved keywords，例如不能用`while`、`struct`當作變數名稱)，因此使用`neel`。)
+(為了避開某些IDE將`NIL`設定成保留關鍵字(reserved keywords，例如`template`、`while`、`struct`等等)，因此使用`neel`。)
 
 為求畫面簡潔，往後的篇幅裡將把RBT示意圖中的`NIL`隱藏起來，只顯示RBT中的internal node，如圖六，不過心裡要記得，RBT無時無刻都被`NIL`充滿著。
 
