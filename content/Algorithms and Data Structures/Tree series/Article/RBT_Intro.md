@@ -143,7 +143,7 @@ private:
 class RBT{
 private:
     TreeNode *root;
-    TreeNode *neel;    // 此即為NIL, 稱為sentinel
+    TreeNode *neel;    // 此即為NIL, 常被稱為sentinel
     ...
 }
 ```
