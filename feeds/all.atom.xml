@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom"><title>Ordinary Days</title><link href="http://alrightchiu.github.io/SecondRound/" rel="alternate"></link><link href="http://alrightchiu.github.io/SecondRound/feeds/all.atom.xml" rel="self"></link><id>http://alrightchiu.github.io/SecondRound/</id><updated>2016-01-24T23:06:00+08:00</updated><entry><title>Red Black Tree: Rotation(旋轉)</title><link href="http://alrightchiu.github.io/SecondRound/red-black-tree-rotationxuan-zhuan.html" rel="alternate"></link><updated>2016-01-24T23:06:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-01-24:SecondRound/red-black-tree-rotationxuan-zhuan.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h6&gt;&lt;strong&gt;先備知識與注意事項&lt;/strong&gt;&lt;/h6&gt;
-&lt;p&gt;// 雖說是旋轉，但其實沒有這麼神奇，只是視覺上看起來像旋轉，電腦實際讀取的程式碼只是把pointer的指向重新改寫&lt;/p&gt;
-&lt;p&gt;// 為什麼需要Rotation, 為了Fix-Up&lt;/p&gt;
-&lt;p&gt;// insert與delete更複雜，留待後續文章，這裡不講&lt;/p&gt;
+&lt;p&gt;雖說是Rotation(旋轉)，但其實沒有這麼神奇，只是視覺上看起來像旋轉，在電腦實際將讀取的程式碼實現上，僅僅是數個pointer之指向的重新改寫，所以千萬別害怕。&lt;/p&gt;
+&lt;p&gt;本篇文章的第一部分將以Insert(新增資料)與Delete(刪除資料)來說明為什麼需要Rotation(旋轉)，但是讀者可以先不必理會細節，因為實際上的Insert與Delete將有更多情況必須考慮，此部分將留待後續文章逐項說明，在本篇文章只要掌握Rotation(旋轉)即可。&lt;/p&gt;
 &lt;hr /&gt;
 &lt;h2&gt;目錄&lt;/h2&gt;
 &lt;ul&gt;
