@@ -6,18 +6,18 @@
 &lt;hr /&gt;
 &lt;h2&gt;目錄&lt;/h2&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href="#fail"&gt;於RBT中進行Insert與Delete後不符合RBT&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#fail"&gt;於RBT中進行Insert與Delete後竟然不符合RBT&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="#rotation"&gt;Rotation(旋轉)&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="#ref"&gt;參考資料&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;a name="fail"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;&lt;strong&gt;於RBT中進行Insert與Delete後不符合RBT&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2&gt;&lt;strong&gt;於RBT中進行Insert與Delete後竟然不符合RBT&lt;/strong&gt;&lt;/h2&gt;
 &lt;p&gt;現考慮如圖一(a)之RBT，欲進行Insert(新增資料)與Delete(刪除資料)：&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="rotation" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Rotation/rotate0.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖一(a)：一棵符合規則的RBT。&lt;/strong&gt;&lt;br /&gt;
 &lt;/center&gt;&lt;/p&gt;
-&lt;p&gt;為滿足RBT之特徵第五點：從&lt;code&gt;root&lt;/code&gt;走向任何一個leaf node(&lt;code&gt;NIL&lt;/code&gt;)的任何一條path上之黑色node數皆相同，一般在RBT中Insert(新增資料)時，會先將node塗成紅色。&lt;br /&gt;
+&lt;p&gt;為滿足RBT之特徵第五點：從&lt;code&gt;root&lt;/code&gt;走向任何一個leaf node(&lt;code&gt;NIL&lt;/code&gt;)的任何一條path上之黑色node數皆相同，一般在RBT中Insert(新增資料)時，會先將欲新增的node塗成紅色。&lt;br /&gt;
 若幸運地，新增的node接在黑色node上，則RBT仍然是一棵RBT，如圖一(b)，新增node(15)。&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="rotation" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Rotation/rotate1.png?raw=true" /&gt;&lt;/p&gt;
@@ -57,7 +57,7 @@
 &lt;img alt="rotation" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Rotation/rotate6.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖二(a)：。&lt;/strong&gt;&lt;br /&gt;
 &lt;/center&gt;&lt;/p&gt;
-&lt;p&gt;從圖二(a)中可以看出，要對以node(X)為&lt;code&gt;root&lt;/code&gt;之subtree進行Left Rotation，必須調整的node之pointer共有node(X)、node(Y)、node(A)與node(J)，其中node(J)有可能為&lt;code&gt;NIL&lt;/code&gt;，不過為求完整，在此將以node(J)不為&lt;code&gt;NIL&lt;/code&gt;作說明。&lt;br /&gt;
+&lt;p&gt;從圖二(a)中可以看出，要對以node(X)為&lt;code&gt;root&lt;/code&gt;之subtree進行Left Rotation，必須調整的pointer分別長在node(X)、node(Y)、node(A)與node(J)身上，其中node(J)有可能為&lt;code&gt;NIL&lt;/code&gt;，不過為求完整，在此將以node(J)不為&lt;code&gt;NIL&lt;/code&gt;作說明。&lt;br /&gt;
 另外，node(i)與node(k)是否為&lt;code&gt;NIL&lt;/code&gt;皆不影響Left Rotation。&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="rotation" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Rotation/rotate7.png?raw=true" /&gt;&lt;/p&gt;
@@ -130,7 +130,7 @@
 &lt;img alt="rotation" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Rotation/rotate11.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖三：。&lt;/strong&gt;&lt;br /&gt;
 &lt;/center&gt;&lt;/p&gt;
-&lt;p&gt;Right Rotation之程式範例如下，把所有&lt;code&gt;LeftRotation()&lt;/code&gt;中&lt;code&gt;left-&lt;/code&gt;與&lt;code&gt;right-&lt;/code&gt;對調就是了：&lt;/p&gt;
+&lt;p&gt;Right Rotation之程式範例如下，把所有&lt;code&gt;LeftRotation()&lt;/code&gt;中的&lt;code&gt;left-&lt;/code&gt;與&lt;code&gt;right-&lt;/code&gt;對調就是了：&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="c1"&gt;// C++ code&lt;/span&gt;&lt;/span&gt;
 &lt;span class="code-line"&gt;&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;RBT&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;RightRotation&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;TreeNode&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;&lt;/span&gt;
 &lt;span class="code-line"&gt;&lt;/span&gt;
@@ -156,7 +156,8 @@
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;以上便是Rotation(旋轉)的介紹，在接下來介紹Insert(新增資料)與Delete(刪除資料)的兩篇文章中將會再次與各位相會。  &lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;  &lt;/p&gt;
+&lt;p&gt;以上便是Rotation(旋轉)的說明，在接下來介紹Insert(新增資料)與Delete(刪除資料)的兩篇文章中將會再次與各位相會。  &lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;
 &lt;a name="ref"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h6&gt;&lt;strong&gt;參考資料&lt;/strong&gt;：&lt;/h6&gt;
@@ -1105,7 +1106,7 @@
 &lt;img alt="search" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/Intro/f16.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖六：。&lt;/strong&gt;&lt;br /&gt;
 &lt;/center&gt;&lt;/p&gt;
-&lt;p&gt;（界王神的聲音：為什麼&lt;code&gt;root&lt;/code&gt;從龜仙人變成比克？不會違反BST規則嗎？詳見&lt;a href="#"&gt;Red Black Tree系列之Rotation(旋轉)&lt;/a&gt;。）&lt;/p&gt;
+&lt;p&gt;（界王神的聲音：為什麼&lt;code&gt;root&lt;/code&gt;從龜仙人變成比克？不會違反BST規則嗎？詳見&lt;a href="http://alrightchiu.github.io/SecondRound/red-black-tree-rotationxuan-zhuan.html"&gt;Red Black Tree系列之Rotation(旋轉)&lt;/a&gt;。）&lt;/p&gt;
 &lt;p&gt;&lt;a name="sort"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h4&gt;&lt;strong&gt;sort(排序)&lt;/strong&gt;&lt;/h4&gt;
 &lt;p&gt;故事來到了魔人普烏篇，因為角色有點多，有點混亂，此時，若想要知道各角色戰鬥力的大小排序，只要按照&lt;strong&gt;Inorder Traversal&lt;/strong&gt;即可按照戰鬥力(Key)高低列出所有資料：&lt;/p&gt;

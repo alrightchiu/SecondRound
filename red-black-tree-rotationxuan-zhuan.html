@@ -67,18 +67,18 @@
 <hr />
 <h2>目錄</h2>
 <ul>
-<li><a href="#fail">於RBT中進行Insert與Delete後不符合RBT</a></li>
+<li><a href="#fail">於RBT中進行Insert與Delete後竟然不符合RBT</a></li>
 <li><a href="#rotation">Rotation(旋轉)</a></li>
 <li><a href="#ref">參考資料</a></li>
 </ul>
 <p><a name="fail"></a></p>
-<h2><strong>於RBT中進行Insert與Delete後不符合RBT</strong></h2>
+<h2><strong>於RBT中進行Insert與Delete後竟然不符合RBT</strong></h2>
 <p>現考慮如圖一(a)之RBT，欲進行Insert(新增資料)與Delete(刪除資料)：</p>
 <p><center>
 <img alt="rotation" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Rotation/rotate0.png?raw=true" /></p>
 <p><strong>圖一(a)：一棵符合規則的RBT。</strong><br />
 </center></p>
-<p>為滿足RBT之特徵第五點：從<code>root</code>走向任何一個leaf node(<code>NIL</code>)的任何一條path上之黑色node數皆相同，一般在RBT中Insert(新增資料)時，會先將node塗成紅色。<br />
+<p>為滿足RBT之特徵第五點：從<code>root</code>走向任何一個leaf node(<code>NIL</code>)的任何一條path上之黑色node數皆相同，一般在RBT中Insert(新增資料)時，會先將欲新增的node塗成紅色。<br />
 若幸運地，新增的node接在黑色node上，則RBT仍然是一棵RBT，如圖一(b)，新增node(15)。</p>
 <p><center>
 <img alt="rotation" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Rotation/rotate1.png?raw=true" /></p>
@@ -118,7 +118,7 @@
 <img alt="rotation" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Rotation/rotate6.png?raw=true" /></p>
 <p><strong>圖二(a)：。</strong><br />
 </center></p>
-<p>從圖二(a)中可以看出，要對以node(X)為<code>root</code>之subtree進行Left Rotation，必須調整的node之pointer共有node(X)、node(Y)、node(A)與node(J)，其中node(J)有可能為<code>NIL</code>，不過為求完整，在此將以node(J)不為<code>NIL</code>作說明。<br />
+<p>從圖二(a)中可以看出，要對以node(X)為<code>root</code>之subtree進行Left Rotation，必須調整的pointer分別長在node(X)、node(Y)、node(A)與node(J)身上，其中node(J)有可能為<code>NIL</code>，不過為求完整，在此將以node(J)不為<code>NIL</code>作說明。<br />
 另外，node(i)與node(k)是否為<code>NIL</code>皆不影響Left Rotation。</p>
 <p><center>
 <img alt="rotation" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Rotation/rotate7.png?raw=true" /></p>
@@ -191,7 +191,7 @@
 <img alt="rotation" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Rotation/rotate11.png?raw=true" /></p>
 <p><strong>圖三：。</strong><br />
 </center></p>
-<p>Right Rotation之程式範例如下，把所有<code>LeftRotation()</code>中<code>left-</code>與<code>right-</code>對調就是了：</p>
+<p>Right Rotation之程式範例如下，把所有<code>LeftRotation()</code>中的<code>left-</code>與<code>right-</code>對調就是了：</p>
 <div class="highlight"><pre><span class="code-line"><span class="c1">// C++ code</span></span>
 <span class="code-line"><span class="kt">void</span> <span class="n">RBT</span><span class="o">::</span><span class="n">RightRotation</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">y</span><span class="p">){</span></span>
 <span class="code-line"></span>
@@ -217,7 +217,8 @@
 </pre></div>
 
 
-<p>以上便是Rotation(旋轉)的介紹，在接下來介紹Insert(新增資料)與Delete(刪除資料)的兩篇文章中將會再次與各位相會。  </p>
+<p></br>  </p>
+<p>以上便是Rotation(旋轉)的說明，在接下來介紹Insert(新增資料)與Delete(刪除資料)的兩篇文章中將會再次與各位相會。  </p>
 <p></br>
 <a name="ref"></a></p>
 <h6><strong>參考資料</strong>：</h6>
