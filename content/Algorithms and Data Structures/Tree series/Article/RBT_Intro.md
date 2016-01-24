@@ -86,7 +86,7 @@ Red Black Tree(RBT)是node塗了「顏色」的Binary Search Tree(BST)，藉由�
 <center>
 ![rbt][f4]
 
-**圖四：最短的path為3(最右path:36-55-57)，其餘path最長只能是6(最左path:36-21-15-9-6-2)。  
+**圖四：最短的path為3(最右path:26-41-47)，其餘path最長只能是6(最左path:26-17-14-10-7-3)。  
 若蓋住`NIL`與顏色，此即為BST。**  
 </center>
 
@@ -97,15 +97,15 @@ Red Black Tree(RBT)是node塗了「顏色」的Binary Search Tree(BST)，藉由�
 1. RBT中的每一個node不是黑色就是紅色。
 2. `root`一定是黑色。
 3. 每一個leaf node(也就是`NIL`)一定是黑色。
-4. 如果某個node是紅色，那麼其兩個child必定是黑色，不能有兩個紅色node相連，如圖四中的node(21)、node(40)。  
-若某個node為黑色，其child之顏色沒有限制，如圖四中的node(48)、node(36)、node(31)。
+4. 如果某個node是紅色，那麼其兩個child必定是黑色，不能有兩個紅色node相連，如圖四中的node(17)、node(30)。  
+若某個node為黑色，其child之顏色沒有限制，如圖四中的node(38)、node(26)、node(21)。
 5. 站在任何一個node上，所有從該node走到其任意descendant的path上之黑色node數必定相同。  
-以圖四為例，站在node(15)上，所有從node(15)走向其descendant leaves(也就是`NIL`)的path上之黑色node數必為3： 
-    * path1:15(**b**)-9(r)-6(**b**)-2(r)-NIL(**b**)；
-    * path2:15(**b**)-9(r)-6(**b**)-NIL(**b**)；
-    * path3:15(**b**)-9(r)-13(**b**)-NIL(**b**)；
-    * path4:15(**b**)-19(**b**)-17(r)-NIL(**b**)；
-    * path5:15(**b**)-19(**b**)-NIL(**b**)；   
+以圖四為例，站在node(14)上，所有從node(14)走向其descendant leaves(也就是`NIL`)的path上之黑色node數必為3： 
+    * path1:14(**b**)-10(r)-7(**b**)-3(r)-NIL(**b**)；
+    * path2:14(**b**)-10(r)-7(**b**)-NIL(**b**)；
+    * path3:14(**b**)-10(r)-12(**b**)-NIL(**b**)；
+    * path4:14(**b**)-16(**b**)-15(r)-NIL(**b**)；
+    * path5:14(**b**)-16(**b**)-NIL(**b**)；   
 
 根據上述特徵的第四點與第五點，RBT中path可能的長度最小值一定是全部node皆為黑色，而path可能的長度最大值並定是紅色-黑色相間(如圖四)，如此便確保RBT擁有**最長path(路徑)不會超過最短path的兩倍**的特性。
 
