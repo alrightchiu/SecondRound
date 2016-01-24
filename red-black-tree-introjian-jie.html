@@ -126,7 +126,7 @@
 <li>如果某個node是紅色，那麼其兩個child必定是黑色，不能有兩個紅色node相連，如圖四中的node(21)、node(40)。<br />
 若某個node為黑色，其child之顏色沒有限制，如圖四中的node(48)、node(36)、node(31)。</li>
 <li>站在任何一個node上，所有從該node走到其任意descendant的path上之黑色node數必定相同。<br />
-以圖四為例，站在node(15)上，所有從node(15)走向其descendant的path上之黑色node數必為3： <ul>
+以圖四為例，站在node(15)上，所有從node(15)走向其descendant leaves(也就是<code>NIL</code>)的path上之黑色node數必為3： <ul>
 <li>path1:15(<strong>b</strong>)-9(r)-6(<strong>b</strong>)-2(r)-NIL(<strong>b</strong>)；</li>
 <li>path2:15(<strong>b</strong>)-9(r)-6(<strong>b</strong>)-NIL(<strong>b</strong>)；</li>
 <li>path3:15(<strong>b</strong>)-9(r)-13(<strong>b</strong>)-NIL(<strong>b</strong>)；</li>
