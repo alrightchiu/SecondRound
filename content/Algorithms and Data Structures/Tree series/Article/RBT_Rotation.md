@@ -18,14 +18,14 @@ Summary: 介紹Red Black Tree(紅黑樹)的Rotation(旋轉)操作。
 
 
 ##目錄
-* [於RBT中進行Insert與Delete後不符合RBT](#fail)
+* [於RBT中進行Insert與Delete後竟然不符合RBT](#fail)
 * [Rotation(旋轉)](#rotation)
 * [參考資料](#ref)
 
 
 <a name="fail"></a>
 
-##**於RBT中進行Insert與Delete後不符合RBT**
+##**於RBT中進行Insert與Delete後竟然不符合RBT**
 
 現考慮如圖一(a)之RBT，欲進行Insert(新增資料)與Delete(刪除資料)：
 
@@ -35,7 +35,7 @@ Summary: 介紹Red Black Tree(紅黑樹)的Rotation(旋轉)操作。
 **圖一(a)：一棵符合規則的RBT。**  
 </center>
 
-為滿足RBT之特徵第五點：從`root`走向任何一個leaf node(`NIL`)的任何一條path上之黑色node數皆相同，一般在RBT中Insert(新增資料)時，會先將node塗成紅色。  
+為滿足RBT之特徵第五點：從`root`走向任何一個leaf node(`NIL`)的任何一條path上之黑色node數皆相同，一般在RBT中Insert(新增資料)時，會先將欲新增的node塗成紅色。  
 若幸運地，新增的node接在黑色node上，則RBT仍然是一棵RBT，如圖一(b)，新增node(15)。
 
 
@@ -106,7 +106,7 @@ Summary: 介紹Red Black Tree(紅黑樹)的Rotation(旋轉)操作。
 **圖二(a)：。**  
 </center>
 
-從圖二(a)中可以看出，要對以node(X)為`root`之subtree進行Left Rotation，必須調整的node之pointer共有node(X)、node(Y)、node(A)與node(J)，其中node(J)有可能為`NIL`，不過為求完整，在此將以node(J)不為`NIL`作說明。  
+從圖二(a)中可以看出，要對以node(X)為`root`之subtree進行Left Rotation，必須調整的pointer分別長在node(X)、node(Y)、node(A)與node(J)身上，其中node(J)有可能為`NIL`，不過為求完整，在此將以node(J)不為`NIL`作說明。  
 另外，node(i)與node(k)是否為`NIL`皆不影響Left Rotation。
 
 <center>

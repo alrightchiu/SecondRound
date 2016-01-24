@@ -152,7 +152,7 @@ private:
 **圖六：。**  
 </center>
 
-（界王神的聲音：為什麼`root`從龜仙人變成比克？不會違反BST規則嗎？詳見[Red Black Tree系列之Rotation(旋轉)](#)。）
+（界王神的聲音：為什麼`root`從龜仙人變成比克？不會違反BST規則嗎？詳見[Red Black Tree系列之Rotation(旋轉)](http://alrightchiu.github.io/SecondRound/red-black-tree-rotationxuan-zhuan.html)。）
 
 <a name="sort"></a>
 
