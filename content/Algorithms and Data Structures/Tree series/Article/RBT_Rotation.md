@@ -197,7 +197,7 @@ Right Rotation的邏輯與Left Rotation完全相同，只要確實地把與node(
 **圖三：。**  
 </center>
 
-Right Rotation之程式範例如下，把所有`LeftRotation()`中`left-`與`right-`對調就是了：
+Right Rotation之程式範例如下，把所有`LeftRotation()`中的`left-`與`right-`對調就是了：
 
 ```cpp
 // C++ code
@@ -237,8 +237,9 @@ void RBT::RightRotation(TreeNode *y){
 [f10]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Rotation/rotate10.png?raw=true
 [f11]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Rotation/rotate11.png?raw=true  
   
+</br>  
   
-以上便是Rotation(旋轉)的介紹，在接下來介紹Insert(新增資料)與Delete(刪除資料)的兩篇文章中將會再次與各位相會。  
+以上便是Rotation(旋轉)的說明，在接下來介紹Insert(新增資料)與Delete(刪除資料)的兩篇文章中將會再次與各位相會。  
 
 
 </br>
