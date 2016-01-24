@@ -135,7 +135,7 @@
 </ul>
 </li>
 </ol>
-<p>根據上面的第四點與第五點，RBT中path可能的長度最小值一定是全部node皆為黑色，而path可能的長度最大值並定是紅色-黑色相間(如圖四)，如此便確保RBT擁有<strong>最長path(路徑)不會超過最短path的兩倍</strong>的特性。</p>
+<p>根據上述特徵的第四點與第五點，RBT中path可能的長度最小值一定是全部node皆為黑色，而path可能的長度最大值並定是紅色-黑色相間(如圖四)，如此便確保RBT擁有<strong>最長path(路徑)不會超過最短path的兩倍</strong>的特性。</p>
 <p><a name="code"></a></p>
 <h2><strong>程式碼</strong></h2>
 <p>實際的程式實現上，會把所有<code>NIL</code>視為同一個<code>NIL</code>，並把<code>root</code>的parent指向<code>NIL</code>，以節省記憶體空間，如圖五。</p>
