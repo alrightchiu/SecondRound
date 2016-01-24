@@ -100,7 +100,7 @@ Red Black Tree(RBT)是node塗了「顏色」的Binary Search Tree(BST)，藉由�
 4. 如果某個node是紅色，那麼其兩個child必定是黑色，不能有兩個紅色node相連，如圖四中的node(21)、node(40)。  
 若某個node為黑色，其child之顏色沒有限制，如圖四中的node(48)、node(36)、node(31)。
 5. 站在任何一個node上，所有從該node走到其任意descendant的path上之黑色node數必定相同。  
-以圖四為例，站在node(15)上，所有從node(15)走向其descendant的path上之黑色node數必為3： 
+以圖四為例，站在node(15)上，所有從node(15)走向其descendant leaves(也就是`NIL`)的path上之黑色node數必為3： 
     * path1:15(**b**)-9(r)-6(**b**)-2(r)-NIL(**b**)；
     * path2:15(**b**)-9(r)-6(**b**)-NIL(**b**)；
     * path3:15(**b**)-9(r)-13(**b**)-NIL(**b**)；
