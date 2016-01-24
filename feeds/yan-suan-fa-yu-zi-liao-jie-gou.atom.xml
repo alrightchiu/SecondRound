@@ -60,7 +60,7 @@
 &lt;p&gt;從圖二(a)中可以看出，要對以node(X)為&lt;code&gt;root&lt;/code&gt;之subtree進行Left Rotation，必須調整的pointer分別長在node(X)、node(Y)、node(A)與node(J)身上，其中node(J)有可能為&lt;code&gt;NIL&lt;/code&gt;，不過為求完整，在此將以node(J)不為&lt;code&gt;NIL&lt;/code&gt;作說明。&lt;br /&gt;
 另外，node(i)與node(k)是否為&lt;code&gt;NIL&lt;/code&gt;皆不影響Left Rotation。&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
-&lt;img alt="rotation" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Rotation/rotate_7.png?raw=true" /&gt;&lt;/p&gt;
+&lt;img alt="rotation" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Rotation/rotate7.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖二(b)：。&lt;/strong&gt;&lt;br /&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;圖二(b)將所有可能需要更動的pointer列出，其中，藍色箭頭表示由&lt;code&gt;parent pointer&lt;/code&gt;指向&lt;code&gt;child pointer&lt;/code&gt;，紅色箭頭則為&lt;code&gt;child pointer&lt;/code&gt;指向&lt;code&gt;parent pointer&lt;/code&gt;。&lt;/p&gt;
