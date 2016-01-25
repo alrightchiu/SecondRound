@@ -262,7 +262,7 @@
 位置順序與迴圈次數有以下關係：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;在位置&lt;span class="math"&gt;\(2^3=8\)&lt;/span&gt;與&lt;span class="math"&gt;\(2^4=16\)&lt;/span&gt;之間的node(&lt;span class="math"&gt;\(2^3\leq i&amp;lt;2^4, i=8\sim 15\)&lt;/span&gt;)，只需要&lt;span class="math"&gt;\(3+1\)&lt;/span&gt;次比較(comparison)即可找到。&lt;/li&gt;
-&lt;li&gt;依此類推，若BST中有N個node，則所有node保證能夠在&lt;span class="math"&gt;\(\log N +1\)&lt;/span&gt;次 (&lt;span class="math"&gt;\(2^k\leq N&amp;lt;2^{k+1}, k=\log N\)&lt;/span&gt;)迴圈以內找到。&lt;/li&gt;
+&lt;li&gt;依此類推，若BST中有N個node，則所有node保證能夠在&lt;span class="math"&gt;\(\floor*{\log N} +1\)&lt;/span&gt;次 (&lt;span class="math"&gt;\(2^k\leq N&amp;lt;2^{k+1}, k=\log N\)&lt;/span&gt;)迴圈以內找到。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="cbt" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Intro/rbt2.png?raw=true" /&gt;&lt;/p&gt;
