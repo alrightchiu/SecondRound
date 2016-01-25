@@ -62,7 +62,7 @@ int main{
 位置順序與迴圈次數有以下關係：
 
 * 在位置$2^3=8$與$2^4=16$之間的node($2^3\leq i<2^4, i=8\sim 15$)，只需要$3+1$次比較(comparison)即可找到。
-* 依此類推，若BST中有N個node，則所有node保證能夠在$\floor*{\log N} +1$次 ($2^k\leq N<2^{k+1}, k=\log N$)迴圈以內找到。
+* 依此類推，若BST中有N個node，則所有node保證能夠在$\lfloor {\log N} \rfloor +1$次 ($2^k\leq N<2^{k+1}, k\leq\log N$)迴圈以內找到。
 
 
 <center>
