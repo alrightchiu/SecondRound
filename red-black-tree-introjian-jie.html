@@ -99,7 +99,7 @@
 <p>再比較Complete Binary Tree，如圖三。其中，node裡的數字即為Key，node旁邊的藍色數字代表該node在Complete Binary Tree中的位置順序，右側的藍色數字代表迴圈次數。<br />
 位置順序與迴圈次數有以下關係：</p>
 <ul>
-<li>在位置<span class="math">\(2^3=8\)</span>與<span class="math">\(2^4=16\)</span>之間的node(<span class="math">\(2^3\leq i&lt;2^4, i=8~15\)</span>)，只需要<span class="math">\(3+1\)</span>次比較(comparison)即可找到。</li>
+<li>在位置<span class="math">\(2^3=8\)</span>與<span class="math">\(2^4=16\)</span>之間的node(<span class="math">\(2^3\leq i&lt;2^4, i=8\sim 15\)</span>)，只需要<span class="math">\(3+1\)</span>次比較(comparison)即可找到。</li>
 <li>依此類推，若BST中有N個node，則所有node保證能夠在<span class="math">\(\log N +1\)</span>次 (<span class="math">\(2^k\leq N&lt;2^{k+1}, k=\log N\)</span>)迴圈以內找到。</li>
 </ul>
 <p><center>
