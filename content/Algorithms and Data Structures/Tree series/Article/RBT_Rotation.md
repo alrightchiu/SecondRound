@@ -106,7 +106,7 @@ Summary: 介紹Red Black Tree(紅黑樹)的Rotation(旋轉)操作。
 **圖二(a)：。**  
 </center>
 
-從圖二(a)中可以看出，要對以node(X)為`root`之subtree進行Left Rotation，必須調整的pointer分別長在node(X)、node(Y)、node(A)與node(J)身上，其中node(J)有可能為`NIL`，不過為求完整，在此將以node(J)不為`NIL`作說明。  
+從圖二(a)中可以看出，要對以node(X)為`root`之subtree進行Left Rotation，必須調整的pointer分別長在node(X)、node(Y)、node(A)與node(j)身上，其中node(j)有可能為`NIL`，不過為求完整，在此將以node(j)不為`NIL`作說明。  
 另外，node(i)與node(k)是否為`NIL`皆不影響Left Rotation。
 
 <center>
@@ -188,7 +188,7 @@ void RBT::LeftRotation(TreeNode *x){
 
 ####**Right Roration(向左旋轉)** 
 
-Right Rotation的邏輯與Left Rotation完全相同，只要確實地把與node(X)、node(Y)、node(A)與node(J)有關的pointer重新指向正確的記憶體位置，就能夠完成Right Rotation。
+Right Rotation的邏輯與Left Rotation完全相同，只要確實地把與node(X)、node(Y)、node(A)與node(j)有關的pointer重新指向正確的記憶體位置，就能夠完成Right Rotation。
 
 
 <center>
