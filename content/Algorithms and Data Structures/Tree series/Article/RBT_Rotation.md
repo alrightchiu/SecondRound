@@ -152,7 +152,7 @@ Summary: 介紹Red Black Tree(紅黑樹)的Rotation(旋轉)操作。
 **圖二(e)：。**  
 </center>
 
-最後再看一次圖二(a)，左圖中，所有node之Key順序為$i<X<j<Y<k$，而右圖中的順序亦為$i<X<j<Y<k$，因此，如上所述的Left Rotation能夠應用在BST上。
+最後再看一次圖二(a)，若忽略node(A)，左圖中，其餘node之Key順序為$i<X<j<Y<k$，而右圖中的順序亦為$i<X<j<Y<k$，因此，如上所述的Left Rotation能夠應用在BST上。
 
 <center>
 ![rotation][f6]
