@@ -57,7 +57,7 @@
 &lt;img alt="rotation" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Rotation/rotate6.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖二(a)：。&lt;/strong&gt;&lt;br /&gt;
 &lt;/center&gt;&lt;/p&gt;
-&lt;p&gt;從圖二(a)中可以看出，要對以node(X)為&lt;code&gt;root&lt;/code&gt;之subtree進行Left Rotation，必須調整的pointer分別長在node(X)、node(Y)、node(A)與node(J)身上，其中node(J)有可能為&lt;code&gt;NIL&lt;/code&gt;，不過為求完整，在此將以node(J)不為&lt;code&gt;NIL&lt;/code&gt;作說明。&lt;br /&gt;
+&lt;p&gt;從圖二(a)中可以看出，要對以node(X)為&lt;code&gt;root&lt;/code&gt;之subtree進行Left Rotation，必須調整的pointer分別長在node(X)、node(Y)、node(A)與node(j)身上，其中node(j)有可能為&lt;code&gt;NIL&lt;/code&gt;，不過為求完整，在此將以node(j)不為&lt;code&gt;NIL&lt;/code&gt;作說明。&lt;br /&gt;
 另外，node(i)與node(k)是否為&lt;code&gt;NIL&lt;/code&gt;皆不影響Left Rotation。&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="rotation" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Rotation/rotate7.png?raw=true" /&gt;&lt;/p&gt;
@@ -125,7 +125,7 @@
 
 
 &lt;h4&gt;&lt;strong&gt;Right Roration(向左旋轉)&lt;/strong&gt;&lt;/h4&gt;
-&lt;p&gt;Right Rotation的邏輯與Left Rotation完全相同，只要確實地把與node(X)、node(Y)、node(A)與node(J)有關的pointer重新指向正確的記憶體位置，就能夠完成Right Rotation。&lt;/p&gt;
+&lt;p&gt;Right Rotation的邏輯與Left Rotation完全相同，只要確實地把與node(X)、node(Y)、node(A)與node(j)有關的pointer重新指向正確的記憶體位置，就能夠完成Right Rotation。&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="rotation" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Rotation/rotate11.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖三：。&lt;/strong&gt;&lt;br /&gt;
