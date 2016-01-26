@@ -94,7 +94,7 @@
 &lt;img alt="rotation" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Rotation/rotate10.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖二(e)：。&lt;/strong&gt;&lt;br /&gt;
 &lt;/center&gt;&lt;/p&gt;
-&lt;p&gt;最後再看一次圖二(a)，左圖中，所有node之Key順序為&lt;span class="math"&gt;\(i&amp;lt;X&amp;lt;j&amp;lt;Y&amp;lt;k\)&lt;/span&gt;，而右圖中的順序亦為&lt;span class="math"&gt;\(i&amp;lt;X&amp;lt;j&amp;lt;Y&amp;lt;k\)&lt;/span&gt;，因此，如上所述的Left Rotation能夠應用在BST上。&lt;/p&gt;
+&lt;p&gt;最後再看一次圖二(a)，若忽略node(A)，左圖中，其餘node之Key順序為&lt;span class="math"&gt;\(i&amp;lt;X&amp;lt;j&amp;lt;Y&amp;lt;k\)&lt;/span&gt;，而右圖中的順序亦為&lt;span class="math"&gt;\(i&amp;lt;X&amp;lt;j&amp;lt;Y&amp;lt;k\)&lt;/span&gt;，因此，如上所述的Left Rotation能夠應用在BST上。&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="rotation" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Rotation/rotate6.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖二(a)：。&lt;/strong&gt;&lt;br /&gt;
