@@ -26,8 +26,8 @@ traversal(尋訪)有「站在A地，往所有與A地相連的地方移動」的�
 ##目錄
 
 * [Traversal in Binary Tree](#bttraversal)
-* [Example with Code](#ex_code)  
-    * [Pre-Order Traversal](#pre) 
+* [Example with Code](#ex_code)
+    * [Pre-Order Traversal](#pre)
     * [In-Order Traversal](#in)
     * [Post-Order Traversal](#post)
     * [Level-Order Traversal](#level)
