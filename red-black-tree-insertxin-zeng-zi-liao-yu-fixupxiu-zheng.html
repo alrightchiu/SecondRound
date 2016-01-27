@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="zh-hant">
+<head>
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" type="text/css" href="http://alrightchiu.github.io/SecondRound/theme/css/style.min.css">
+  <link rel="stylesheet" type="text/css" href="http://alrightchiu.github.io/SecondRound/theme/css/pygments.min.css">
+  <link rel="stylesheet" type="text/css" href="http://alrightchiu.github.io/SecondRound/theme/css/font-awesome.min.css">
+  <link href="http://alrightchiu.github.io/SecondRound/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Ordinary Days Atom">
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+<meta name="author" content="Chiu CC" />
+<meta name="description" content="介紹於Red Black Tree(紅黑樹)Insert(新增資料)與Insert後的Fixup(修正)。" />
+<meta name="keywords" content="C++, Red Black Tree">
+<meta property="og:site_name" content="Ordinary Days"/>
+<meta property="og:title" content="Red Black Tree: Insert(新增資料)與Fixup(修正)"/>
+<meta property="og:description" content="介紹於Red Black Tree(紅黑樹)Insert(新增資料)與Insert後的Fixup(修正)。"/>
+<meta property="og:locale" content="zh_TW"/>
+<meta property="og:url" content="http://alrightchiu.github.io/SecondRound/red-black-tree-insertxin-zeng-zi-liao-yu-fixupxiu-zheng.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2016-01-27 20:09:00+08:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="http://alrightchiu.github.io/SecondRound/author/chiu-cc.html">
+<meta property="article:section" content="演算法與資料結構"/>
+<meta property="article:tag" content="C++"/>
+<meta property="article:tag" content="Red Black Tree"/>
+<meta property="og:image" content="http://alrightchiu.github.io/SecondRound/fig/antiwar.jpg">  <title>Ordinary Days &ndash; Red Black Tree: Insert(新增資料)與Fixup(修正)</title>
+</head>
+<body>
+  <aside>
+    <div>
+      <a href="http://alrightchiu.github.io/SecondRound">
+        <img src="http://alrightchiu.github.io/SecondRound/fig/antiwar.jpg" alt="Ordinary Days" title="Ordinary Days">
+      </a>
+      <h1><a href="http://alrightchiu.github.io/SecondRound">Ordinary Days</a></h1>
+      <p>Hey</p>
+      <nav>
+        <ul class="list">
+          <li><a href="http://alrightchiu.github.io/SecondRound/pages/about.html#about">About</a></li>
+        </ul>
+      </nav>
+      <ul class="social">
+        <li><a class="sc-github" href="https://github.com/alrightchiu" target="_blank"><i class="fa fa-github"></i></a></li>
+      </ul>
+    </div>
+  </aside>
+  <main>
+    <nav>
+      <a href="http://alrightchiu.github.io/SecondRound">Home</a>
+      <a href="http://alrightchiu.github.io/SecondRound/archives.html">Archives</a>
+      <a href="http://alrightchiu.github.io/SecondRound/categories.html">Categories</a>
+      <a href="http://alrightchiu.github.io/SecondRound/tags.html">Tags</a>
+      <a href="http://alrightchiu.github.io/SecondRound/feeds/all.atom.xml">Atom</a>
+    </nav>
+
+<article>
+  <header>
+    <h1 id="red-black-tree-insertxin-zeng-zi-liao-yu-fixupxiu-zheng">Red Black Tree: Insert(新增資料)與Fixup(修正)</h1>
+    <p>Posted on  1 27, 2016 in <a href="http://alrightchiu.github.io/SecondRound/category/yan-suan-fa-yu-zi-liao-jie-gou.html">演算法與資料結構</a></p>
+  </header>
+  <div>
+    <p></br></p>
+<h6><strong>先備知識與注意事項</strong></h6>
+<p>RBT也是一棵BST，因此RBT之Insert(新增資料)的方法便是先沿用<code>InsertBST()</code>，再對顏色進行修正。而修正的方法將用上<code>Rotation()</code>，因此，建議在閱讀本篇文章之前，先熟悉<a href="http://alrightchiu.github.io/SecondRound/binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao.html">Binary Search Tree: Search(搜尋資料)、Insert(新增資料)</a>與<a href="http://alrightchiu.github.io/SecondRound/red-black-tree-rotationxuan-zhuan.html">Red Black Tree: Rotation(旋轉)</a>會很有幫助。 </p>
+<hr />
+<h2>目錄</h2>
+<ul>
+<li><a href="#bst">先滿足BST的Key特徵</a></li>
+<li><a href="#fixup">修正：InsertFixUpRBT()</a><ul>
+<li><a href="#case1">Case1</a></li>
+<li><a href="#case3">Case3</a></li>
+<li><a href="#case2">Case2</a></li>
+<li><a href="#example">幾個範例</a></li>
+<li><a href="#code">程式範例</a></li>
+</ul>
+</li>
+<li><a href="#ref">參考資料</a></li>
+</ul>
+<p><a name="bst"></a></p>
+<h2><strong>先滿足BST的Key特徵</strong></h2>
+<p>RBT也是一棵BST，在Insert(新增資料)時，必須滿足：<span class="math">\(Key(L)&lt;Key(Current)&lt;Key(R)\)</span>，因此，RBT的<code>InsertRBT()</code>前半部演算法與<a href="http://alrightchiu.github.io/SecondRound/binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao.html#insert">BST的函式：InsertBST()大同小異</a>。<br />
+需要修改的部分有兩處：</p>
+<ol>
+<li><code>NIL</code>：所有原先在BST中指向<code>NULL</code>的pointer，在RBT中需要修正成指向<code>NIL</code>，包括條件式與新增node的<code>child pointer</code>。</li>
+<li>顏色：如同在<a href="http://alrightchiu.github.io/SecondRound/red-black-tree-rotationxuan-zhuan.html#fail">RBT：Rotation(旋轉)</a>所說，一般預設新增node為紅色，因此，若新增node接在黑色node之後，仍能滿足RBT的特徵，但是若新增node接在紅色node之後，則違反了<a href="http://alrightchiu.github.io/SecondRound/red-black-tree-introjian-jie.html#rbt">RBT之第四點特徵</a>，必須進行修正。</li>
+</ol>
+<p><code>InsertRBT()</code>的程式範例如下：</p>
+<div class="highlight"><pre><span class="code-line"><span class="c1">// C++ code</span></span>
+<span class="code-line"><span class="kt">void</span> <span class="n">RBT</span><span class="o">::</span><span class="n">InsertRBT</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">&amp;</span><span class="n">new_node</span><span class="p">){</span></span>
+<span class="code-line">    <span class="c1">// 前半部與 InsertBST()之邏輯完全相同, 僅僅需要修改 NULL &lt;-&gt; NIL</span></span>
+<span class="code-line">    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">y</span> <span class="o">=</span> <span class="n">neel</span><span class="p">;</span></span>
+<span class="code-line">    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">x</span> <span class="o">=</span> <span class="n">root</span><span class="p">;</span></span>
+<span class="code-line">    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">insert_node</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">(</span><span class="n">new_node</span><span class="p">);</span> <span class="c1">// default copy constructor</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="k">while</span> <span class="p">(</span><span class="n">x</span> <span class="o">!=</span> <span class="n">neel</span><span class="p">)</span> <span class="p">{</span>     <span class="c1">// 把root初始化成neel, 這裡就可以用neel來做判斷</span></span>
+<span class="code-line">        <span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span></span>
+<span class="code-line">        <span class="k">if</span> <span class="p">(</span><span class="n">insert_node</span><span class="o">-&gt;</span><span class="n">GetKey</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">x</span><span class="o">-&gt;</span><span class="n">GetKey</span><span class="p">())</span></span>
+<span class="code-line">            <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">;</span></span>
+<span class="code-line">        <span class="k">else</span></span>
+<span class="code-line">            <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="p">;</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="n">insert_node</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">=</span> <span class="n">y</span><span class="p">;</span></span>
+<span class="code-line">    <span class="k">if</span> <span class="p">(</span><span class="n">y</span> <span class="o">==</span> <span class="n">neel</span><span class="p">)</span></span>
+<span class="code-line">        <span class="k">this</span><span class="o">-&gt;</span><span class="n">root</span> <span class="o">=</span> <span class="n">insert_node</span><span class="p">;</span></span>
+<span class="code-line">    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">insert_node</span><span class="o">-&gt;</span><span class="n">GetKey</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">y</span><span class="o">-&gt;</span><span class="n">GetKey</span><span class="p">())</span></span>
+<span class="code-line">        <span class="n">y</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">=</span> <span class="n">insert_node</span><span class="p">;</span></span>
+<span class="code-line">    <span class="k">else</span></span>
+<span class="code-line">        <span class="n">y</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">=</span> <span class="n">insert_node</span><span class="p">;</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="c1">// 以下是對RBT之node的設定, 將child pointer指向NIL, 顏色設為紅色</span></span>
+<span class="code-line">    <span class="n">insert_node</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">=</span> <span class="n">neel</span><span class="p">;</span></span>
+<span class="code-line">    <span class="n">insert_node</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">=</span> <span class="n">neel</span><span class="p">;</span></span>
+<span class="code-line">    <span class="n">insert_node</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>             <span class="c1">// 顏色可以在constructor中預設</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="n">InsertFixedUpRBT</span><span class="p">(</span><span class="n">insert_node</span><span class="p">);</span>      <span class="c1">// 對可能出現紅色與紅色node相連之情形做修正</span></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+
+
+<p><a name="fixup"></a></p>
+<h2><strong>修正：InsertFixUpRBT()</strong></h2>
+<p>什麼情況需要對<code>InsertRBT()</code>做修正？<br />
+當新增node接在紅色的node的<code>child pointer</code>，形成紅色與紅色相連時。</p>
+<p>考慮以下情況，如圖一(a)，新增的node將要接在node(X)上：  </p>
+<ul>
+<li>node(X)為其<code>parent</code>，顏色為紅色；</li>
+<li>node(Y)為其<code>uncle</code>，其顏色<strong>可能為紅色或黑色</strong>。</li>
+<li>node(Z)為其grandparent(<code>parent-&gt;parent</code>)，顏色必定為黑色；</li>
+<li>node(W)的顏色<strong>可能是紅色或黑色</strong>。</li>
+<li>所有灰色node(如node(a)、node(b)、node(c)、node(d))表示：只要不影響RBT之特徵，是否實際攜帶資料或為<code>NIL</code>並不影響結果。</li>
+</ul>
+<p><center>
+<img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Insert/insert1.png?raw=true" /></p>
+<p><strong>圖一(a)：。</strong><br />
+</center></p>
+<p>根據<code>uncle</code>的顏色是紅色或者黑色，可以將修正(FixUp)分成三種情形(case)：</p>
+<ol>
+<li>Case1：<code>uncle</code>是紅色，不論新增的node是node(X)的<code>leftchild</code>或<code>rightchild</code>；</li>
+<li>Case2：<code>uncle</code>是黑色，而且新增的node為node(X)的<code>rightchild</code>；</li>
+<li>Case3：<code>uncle</code>是黑色，而且新增的node為node(X)的<code>leftchild</code>。</li>
+</ol>
+<p><a name="case1"></a></p>
+<h4><strong>Case1</strong></h4>
+<p>圖一(b)左，此時<code>current</code>指向新增的node(A)，而node(A)成為node(X)的<code>rightchild</code>，其<code>uncle</code>node(Y)是紅色的。<br />
+修正的方法就是「把債還給上一代的上一代」：</p>
+<ul>
+<li>將<code>parent</code>塗成黑色：node(X)塗成黑色；</li>
+<li>將<code>uncle</code>塗成黑色：node(Y)塗成黑色；</li>
+<li>將<code>parent-&gt;parent</code>塗成紅色：node(Z)塗成紅色：</li>
+<li>將<code>current</code>從node(A)移到node(Z)。</li>
+</ul>
+<p>此時，如圖一(b)右，從node(Z)出發往其descendant leaves的任一path上之黑色node數皆相同，這個subtree便滿足了RBT的特徵。  </p>
+<p>接著必需根據node(W)的顏色採取不同行動：</p>
+<ul>
+<li>若node(W)為黑色，就不需要再做調整；</li>
+<li>若node(W)為紅色，則node(Z)與node(W)再次形成紅色node與紅色node相連，必須重複同樣的判斷流程。</li>
+</ul>
+<p><center>
+<img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Insert/insert2.png?raw=true" /></p>
+<p><strong>圖一(b)：。</strong><br />
+</center></p>
+<p>若node(A)成為node(X)的<code>leftchild</code>，如圖一(c)，修正的方法同上。</p>
+<p><center>
+<img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Insert/insert3.png?raw=true" /></p>
+<p><strong>圖一(c)：。</strong><br />
+</center></p>
+<p><a name="case3"></a></p>
+<h4><strong>Case3</strong></h4>
+<p>圖一(d)，新增的node(A)成為node(X)的<code>leftchild</code>，其<code>uncle</code>node(Y)是黑色。 </p>
+<p><center>
+<img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Insert/insert4.png?raw=true" /></p>
+<p><strong>圖一(d)：。</strong><br />
+</center></p>
+<p>事實上，若<code>current</code>指向之node(此為node(A))是新增的node，則根據RBT之第五點特徵，其<code>uncle</code>node(Y)必定是<code>NIL</code>，如圖一(e)左。</p>
+<p>不過，在稍後的範例中將會看到，<code>current</code>不一定是「剛剛新增的node」，也
+有可能是「修正到一半，出現紅色與紅色相連的node」，但因為是「修正到一半」，尚未調整node(Z)的顏色，因此所有從node(Z)往其descendant leaves的任意path上之黑色node數必定不變，此時，若node(Y)不為<code>NIL</code>，則node(X)以及node(A)必定還有黑色的<code>child pointer</code>，如圖一(e)右所示，node(a)、node(b)與node(c)皆為黑色。</p>
+<p><center>
+<img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Insert/insert5.png?raw=true" /></p>
+<p><strong>圖一(e)：。</strong><br />
+</center></p>
+<p>修正方法如下，見圖一(f)：</p>
+<ul>
+<li>將<code>parent</code>塗成黑色：node(X)塗成黑色；</li>
+<li>將<code>parent-&gt;parent</code>塗成紅色：node(Z)塗成紅色；</li>
+<li>對<code>parent-&gt;parent</code>node(Z)進行<strong>Right Rotation(向右旋轉)</strong></li>
+</ul>
+<p><center>
+<img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Insert/insert6.png?raw=true" /></p>
+<p><strong>圖一(f)：。</strong><br />
+</center></p>
+<p>經過<strong>Case3</strong>的修正，必定會滿足RBT之規則，原因在於：</p>
+<ul>
+<li>先考慮圖一(e)，若從node(A)往其descendant leaves的任意path上之黑色node數為<span class="math">\(M\)</span>，則從node(Z)往其descendant leaves的任意path上之黑色node數為<span class="math">\(M+1\)</span>；</li>
+<li>再看圖一(g)，因為在修正的過程中，node(Z)從黑色被修改成紅色，因此從node(Z)往其descendant leaves的任意path上之黑色node數下修為<span class="math">\(M\)</span>，與node(A)相同，使得整棵樹滿足RBT之特徵。</li>
+</ul>
+<p><center>
+<img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Insert/insert7.png?raw=true" /></p>
+<p><strong>圖一(g)：。</strong><br />
+</center></p>
+<p><a name="case2"></a></p>
+<h4><strong>Case2</strong></h4>
+<p>圖一(h)，新增的node(A)成為node(X)的<code>rightchild</code>，其<code>uncle</code>node(Y)是黑色。</p>
+<p><center>
+<img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Insert/insert8.png?raw=true" /></p>
+<p><strong>圖一(h)：。</strong><br />
+</center></p>
+<p>如同Case3，圖一(h)的<code>uncle</code>node(Y)同樣有兩種可能：攜帶實際資料的黑色node，或者<code>NIL</code>，如圖一(i)：</p>
+<p><center>
+<img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Insert/insert9.png?raw=true" /></p>
+<p><strong>圖一(i)：。</strong><br />
+</center></p>
+<p>而修正Case2的方法就是將其轉換成Case3，再利用上述Case3的方法調整成正確的RBT。<br />
+從Case2調整成Case3，如圖一(j)：</p>
+<ul>
+<li>將<code>current</code>移至<code>current-&gt;parent</code>：將<code>current</code>從node(A)移到node(X)；</li>
+<li>對新的<code>current</code>進行Left Rotation：對node(X)進行Left Rotation。</li>
+</ul>
+<p>圖一(j)右符合Case3：「<code>current</code>成為其<code>parent</code>的<code>leftchild</code>，且其<code>uncle</code>node(Y)是黑色」，因此，只要再進行如同圖一(f)之修正流程即可。</p>
+<p><center>
+<img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Insert/insert10.png?raw=true" /></p>
+<p><strong>圖一(j)：。</strong><br />
+</center></p>
+<p><a name="example"></a></p>
+<h4>幾個範例</h4>
+<p><strong>Example1</strong></p>
+<p>考慮一棵RBT如圖二(a)：</p>
+<p><center>
+<img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Insert/insert11.png?raw=true" /></p>
+<p><strong>圖二(a)：。</strong><br />
+</center></p>
+<p>若想新增node(75)，由於其將接在node(80)的<code>leftchild</code>位置上，而node(80)為紅色，因此需要進行修正。<br />
+接著觀察，node(75)之<code>uncle</code>為node(60)，同樣是紅色，因此可以使用Case1的方法，如圖二(b)：</p>
+<ul>
+<li>將<code>parent</code>與<code>uncle</code>塗黑：node(80)與node(60)塗黑；</li>
+<li>將grandparent塗紅：node(70)塗紅；</li>
+<li>將<code>current</code>移至node(70)；</li>
+<li><strong>進入下一個迴圈</strong>判斷node(70)是否與其<code>parent</code>形成紅色與紅色node相連。</li>
+</ul>
+<p>恰好，node(50)為<code>root</code>，一定是黑色，因此新增node(75)便算是完成。</p>
+<p><center>
+<img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Insert/insert12.png?raw=true" /></p>
+<p><strong>圖二(b)：。</strong><br />
+</center></p>
+<p>若想繼續新增node(25)，由於其將接在node(30)的<code>leftchild</code>，而node(30)為紅色，因此需要修正。<br />
+接著觀察，node(25)之<code>uncle</code>為<code>NIL</code>是黑色，而node(25)本身是<code>leftchild</code>，因此可以使用Case3的方法，如圖二(c)：</p>
+<ul>
+<li>將<code>parent</code>塗成黑色：node(30)塗成黑色；</li>
+<li>將<code>parent-&gt;parent</code>塗成紅色：node(40)塗成紅色；</li>
+<li>對<code>parent-&gt;parent</code>node(40)進行<strong>Right Rotation(向右旋轉)</strong></li>
+</ul>
+<p><center>
+<img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Insert/insert13.png?raw=true" /></p>
+<p><strong>圖二(c)：。</strong><br />
+</center></p>
+<p>若想繼續新增node(79)，由於其將接在node(75)的<code>rightchild</code>，而node(75)為紅色，因此需要修正。<br />
+接著觀察，node(79)之<code>uncle</code>為<code>NIL</code>是黑色，而node(79)本身是<code>rightchild</code>，因此可以使用Case2的方法，先將問題從Case2轉換成Case3，再由Case3之方法修正，如圖二(d)：</p>
+<p><center>
+<img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Insert/insert14.png?raw=true" /></p>
+<p><strong>圖二(d)：。</strong><br />
+</center></p>
+<p><strong>Example2</strong></p>
+<p>考慮一棵RBT如圖三(a)：</p>
+<p><center>
+<img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Insert/insert15.png?raw=true" /></p>
+<p><strong>圖三(a)：。</strong><br />
+</center></p>
+<p>要在其中新增node(4)，則會依序經歷case1、case2直到case3完成修正，如圖三(b)、圖三(c)、圖三(d)與圖三(e)所示。</p>
+<p><center>
+<img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Insert/insert16.png?raw=true" /></p>
+<p><strong>圖三(b)：。</strong>  </p>
+<p><img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Insert/insert17.png?raw=true" /></p>
+<p><strong>圖三(c)：。</strong></p>
+<p><img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Insert/insert18.png?raw=true" /></p>
+<p><strong>圖三(d)：。</strong></p>
+<p><img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Insert/insert19.png?raw=true" /></p>
+<p><strong>圖三(e)：。</strong>
+</center></p>
+<p>根據以上說明，可以歸納出對於<code>InsertRBT()</code>的修正(Fix-Up)之情形(Case)間的循環圖，如圖四：</p>
+<ul>
+<li>當新增node之<code>parent</code>為紅色時，需要對RBT進行修正；</li>
+<li>若進入Case1，有可能執行一次即完成，也有可能再次出現紅色與紅色相連的情況，如圖三(b)-(c)；</li>
+<li>若進入Case2，就轉換成Case3的情境；</li>
+<li>一旦進入Case3，經過修正後必定能滿足RBT之特徵限制。</li>
+</ul>
+<p><center>
+<img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Insert/insert20.png?raw=true" /></p>
+<p><strong>圖四：。</strong><br />
+</center></p>
+<p>最後還有一點需要說明。</p>
+<p>圖五中：</p>
+<ul>
+<li>左圖是本篇文章介紹修正(Fix-Up)的出發點：將新增的node接在node(X)上，而node(X)是node(Z)的<code>leftchild</code>(<code>parent</code>是<code>parent-&gt;parent</code>的<code>leftchild</code>)；</li>
+<li>還有另外一半的情況就如圖五之右圖：將新增的node接在node(Y)上，而node(Y)是node(Z)的<code>rightchild</code>(<code>parent</code>是<code>parent-&gt;parent</code>的<code>rightchild</code>)。</li>
+</ul>
+<p><center>
+<img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Insert/insert21.png?raw=true" /></p>
+<p><strong>圖五：。</strong><br />
+</center></p>
+<p>必須要區分這兩者的原因有二：</p>
+<ul>
+<li>一是<code>uncle</code>：因為<code>parent</code>與<code>uncle</code>分別為<code>parent-&gt;parent</code>之<code>leftchild</code>與<code>rightchild</code>，若<code>parent</code>是<code>left-</code>，<code>uncle</code>就要是<code>right-</code>，反之亦然，兩者屬於互斥(exclusive)的、不能同時發生的情境；</li>
+<li>二是Rotation(旋轉)：在Case2與Case3中必須使用Left/Right Rotation，因此，延續第一點原因，考慮到<code>parent</code>是<code>leftchild</code>或是<code>rightchild</code>的不同，Left/Right Rotation的方向也會相反。</li>
+</ul>
+<p><a name="code"></a></p>
+<h2><strong>程式範例</strong></h2>
+<p><code>InsertFixedUpRBT()</code>之程式範例如下，其中分成幾個部分：</p>
+<ul>
+<li>定義<code>color</code>：0為紅色，1為黑色；</li>
+<li>如同圖四所示，修正的過程可能歷經不止一個Case，因此利用<code>while</code>迴圈實現，條件式便是判斷當前<code>current</code>之<code>parent</code>是否為紅色；</li>
+<li>分別進行Case1(圖一(b)與圖一(c))、Case2(圖一(j))與Case3(圖一(f))之修正；</li>
+<li>最後，在<strong>line50</strong>出現一行<code>root-&gt;color=1</code>，將<code>root</code>之顏色塗黑，這是為了Case1所設，由於Case1之修正方法是把「紅色與紅色node相連」之可能性往<code>root</code>方向傳遞，有可能<code>root</code>恰好是<code>current</code>的grandparent而被塗成紅色，如圖六，但因為RBT之第二點特徵要求<code>root</code>一定是黑色，因此必須作此預防。</li>
+</ul>
+<p><center>
+<img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Insert/insert22.png?raw=true" /></p>
+<p><strong>圖六：。</strong><br />
+</center></p>
+<div class="highlight"><pre><span class="code-line"><span class="c1">// C++ code</span></span>
+<span class="code-line"><span class="kt">void</span> <span class="n">RBT</span><span class="o">::</span><span class="n">InsertFixedUpRBT</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">){</span></span>
+<span class="code-line">    <span class="c1">// Case0: parent是黑色, 就不用進迴圈</span></span>
+<span class="code-line">    <span class="k">while</span> <span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>   <span class="c1">// 若parent是紅色即進入迴圈</span></span>
+<span class="code-line">        <span class="c1">// 上半部：parent為grandparent的leftchild之情況，如圖五左</span></span>
+<span class="code-line">        <span class="k">if</span> <span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">==</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">)</span> <span class="p">{</span> </span>
+<span class="code-line">            <span class="n">TreeNode</span> <span class="o">*</span><span class="n">uncle</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="p">;</span></span>
+<span class="code-line">            <span class="c1">// 若uncle是紅色：Case1</span></span>
+<span class="code-line">            <span class="k">if</span> <span class="p">(</span><span class="n">uncle</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">                <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span></span>
+<span class="code-line">                <span class="n">uncle</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span></span>
+<span class="code-line">                <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">//grandparent改成紅色</span></span>
+<span class="code-line">                <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">;</span></span>
+<span class="code-line">            <span class="p">}</span></span>
+<span class="code-line">            <span class="c1">// 若uncle是黑色：Case2 or Case3</span></span>
+<span class="code-line">            <span class="k">else</span> <span class="p">{</span></span>
+<span class="code-line">                <span class="c1">// 若current是rightchild：Case2  </span></span>
+<span class="code-line">                <span class="k">if</span> <span class="p">(</span><span class="n">current</span> <span class="o">==</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="p">){</span>        </span>
+<span class="code-line">                    <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">;</span></span>
+<span class="code-line">                    <span class="n">LeftRotation</span><span class="p">(</span><span class="n">current</span><span class="p">);</span></span>
+<span class="code-line">                <span class="p">}</span></span>
+<span class="code-line">                <span class="c1">// 若current是leftchild：Case3</span></span>
+<span class="code-line">                <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>     </span>
+<span class="code-line">                <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>     </span>
+<span class="code-line">                <span class="n">RightRotation</span><span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">);</span></span>
+<span class="code-line">            <span class="p">}</span></span>
+<span class="code-line">        <span class="p">}</span></span>
+<span class="code-line">        <span class="c1">// 下半部：parent為grandparent的rightchild之情況，如圖五右</span></span>
+<span class="code-line">        <span class="k">else</span> <span class="p">{</span>  </span>
+<span class="code-line">            <span class="n">TreeNode</span> <span class="o">*</span><span class="n">uncle</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">;</span></span>
+<span class="code-line">            <span class="c1">// 若uncle是紅色：Case1</span></span>
+<span class="code-line">            <span class="k">if</span> <span class="p">(</span><span class="n">uncle</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">                <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span></span>
+<span class="code-line">                <span class="n">uncle</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span></span>
+<span class="code-line">                <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">//grandparent改成紅色</span></span>
+<span class="code-line">                <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">;</span></span>
+<span class="code-line">            <span class="p">}</span></span>
+<span class="code-line">            <span class="c1">// 若uncle是黑色：Case2 or Case3</span></span>
+<span class="code-line">            <span class="k">else</span> <span class="p">{</span></span>
+<span class="code-line">                <span class="k">if</span> <span class="p">(</span><span class="n">current</span> <span class="o">==</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">                    <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">;</span></span>
+<span class="code-line">                    <span class="n">RightRotation</span><span class="p">(</span><span class="n">current</span><span class="p">);</span></span>
+<span class="code-line">                <span class="p">}</span></span>
+<span class="code-line">                <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span></span>
+<span class="code-line">                <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></span>
+<span class="code-line">                <span class="n">LeftRotation</span><span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">);</span></span>
+<span class="code-line">            <span class="p">}</span></span>
+<span class="code-line">        <span class="p">}</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line">    <span class="n">root</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>    </span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+
+
+<p></br>
+<a name="ref"></a></p>
+<h6><strong>參考資料</strong>：</h6>
+<ul>
+<li><a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844">Introduction to Algorithms, Ch13</a> </li>
+<li><a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376">Fundamentals of Data Structures in C++</a></li>
+<li><a href="http://code.geeksforgeeks.org/NtLnIk">GeeksforGeeks：Red Black Tree</a></li>
+</ul>
+<p></br></p>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' && location_protocol !== 'https') location_protocol = 'https:';
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="http://alrightchiu.github.io/SecondRound/tag/c.html">C++</a>
+      <a href="http://alrightchiu.github.io/SecondRound/tag/red-black-tree.html">Red Black Tree</a>
+    </p>
+  </div>
+</article>
+
+    <footer>
+<p>
+  &copy; Chiu CC  - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>
+</p>
+<p>Built using <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a></p><p>
+  <a rel="license"
+     href="http://creativecommons.org/licenses/by-sa/4.0/"
+     target="_blank">
+    <img alt="Creative Commons License"
+         title="Creative Commons License"
+         style="border-width:0"
+         src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png"
+         width="80"
+         height="15"/>
+  </a>
+</p>    </footer>
+  </main>
+
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "name": "Red Black Tree: Insert(新增資料)與Fixup(修正)",
+  "headline": "Red Black Tree: Insert(新增資料)與Fixup(修正)",
+  "datePublished": "2016-01-27 20:09:00+08:00",
+  "dateModified": "",
+  "author": {
+    "@type": "Person",
+    "name": "Chiu CC",
+    "url": "http://alrightchiu.github.io/SecondRound/author/chiu-cc.html"
+  },
+  "image": "http://alrightchiu.github.io/SecondRound/fig/antiwar.jpg",
+  "url": "http://alrightchiu.github.io/SecondRound/red-black-tree-insertxin-zeng-zi-liao-yu-fixupxiu-zheng.html",
+  "description": "介紹於Red Black Tree(紅黑樹)Insert(新增資料)與Insert後的Fixup(修正)。"
+}
+</script></body>
+</html>
