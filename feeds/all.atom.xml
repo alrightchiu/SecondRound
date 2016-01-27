@@ -1010,7 +1010,7 @@
 &lt;h6&gt;&lt;strong&gt;先備知識與注意事項&lt;/strong&gt;&lt;/h6&gt;
 &lt;p&gt;先前的文章介紹過廣義的Tree(樹)、Binary Tree(二元樹)，這篇文章將繼續增加限制條件，使Binary Tree晉升成Binary Search Tree(BST，二元搜尋樹)。  &lt;/p&gt;
 &lt;p&gt;這裡要處理的資料是日本漫畫的曠世鉅作《七龍珠》中各角色的戰鬥力。&lt;br /&gt;
-七龍珠的劇情(正篇有七龍珠、七龍珠Z、七龍珠改、七龍珠GT、七龍珠超，劇場版還有&lt;a href="https://zh.wikipedia.org/wiki/%E4%B8%83%E9%BE%99%E7%8F%A0#.E5.8A.87.E5.A0.B4.E7.89.88"&gt;七龍珠劇場版(太多了請參閱維基百科)&lt;/a&gt;)時而前後連貫，時而交錯，為了維持每個系列之間的角色設定，就需要對角色的戰鬥力進行管理，避免劇情不合邏輯變成鬧劇，在此，筆者推薦鳥山明老師可以使用先進如BST的資料結構來整理角色的資料(也是可以用excel或是國小生字簿)。  &lt;/p&gt;
+七龍珠的劇情(正篇有七龍珠、七龍珠Z、七龍珠改、七龍珠GT、七龍珠超，劇場版還有&lt;a href="https://zh.wikipedia.org/wiki/%E4%B8%83%E9%BE%99%E7%8F%A0#.E5.8A.87.E5.A0.B4.E7.89.88"&gt;七龍珠劇場版(太多了請參閱維基百科)&lt;/a&gt;)時而前後連貫，時而交錯，為了維持每個系列之間的角色設定，就需要對角色的戰鬥力進行管理，避免劇情不合邏輯變成鬧劇，在此，筆者推薦鳥山明老師可以使用先進如BST的資料結構來整理角色的資料(當然，也是可以用excel或是國小生字簿，&lt;a href="http://www.imdb.com/title/tt1178663/"&gt;Whatever Works&lt;/a&gt;)。  &lt;/p&gt;
 &lt;p&gt;熱血沸騰了。  &lt;/p&gt;
 &lt;hr /&gt;
 &lt;h2&gt;目錄&lt;/h2&gt;
@@ -1138,6 +1138,7 @@
 &lt;li&gt;&lt;a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844"&gt;Introduction to Algorithms&lt;/a&gt; &lt;/li&gt;
 &lt;li&gt;&lt;a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376"&gt;Fundamentals of Data Structures in C++&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://zh.wikipedia.org/wiki/%E4%B8%83%E9%BE%99%E7%8F%A0#.E5.8A.87.E5.A0.B4.E7.89.88"&gt;Wikipedia：七龍珠&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.imdb.com/title/tt1178663/"&gt;IMDB：Whatever Works&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;/br&gt;  &lt;/p&gt;
 &lt;script type="text/javascript"&gt;if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
