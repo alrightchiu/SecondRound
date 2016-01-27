@@ -18,14 +18,13 @@ Summary: 介紹如何以字元陣列(char array)獲得資料(data)後，建立�
 ***  
   
 ##目錄
+
 * [問題描述](#description)
-* [程式碼](#code)  
- 
+* [程式碼](#code)   
     * [定義class TreeNode、class BinaryTree](#def) 
     * [Constructor of BinaryTree](#constructor) 
     * [Function：LevelorderConstruct()](#func1)
     * [Function：insertLevelorder()](#func2)
-
 * [參考資料](#ref)
 
 <a name="description"></a>
