@@ -17,9 +17,10 @@ Summary: 介紹Binary Tree(二元樹)的基本概念。
 ***
 
 ##目錄
-* [Binary Tree](#bt) 
-* [程式碼](#code)   
-* [Full & Complete Binary Tree](#fullcomplete) 
+
+* [Binary Tree](#bt)
+* [程式碼](#code)
+* [Full & Complete Binary Tree](#fullcomplete)
 * [學習Binary Tree的未來出路](#application)
 * [參考資料](#ref)
 
