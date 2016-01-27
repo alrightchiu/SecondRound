@@ -7,7 +7,11 @@
 &lt;h2&gt;目錄&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="#fail"&gt;於RBT中進行Insert與Delete後竟然不符合RBT&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="#rotation"&gt;Rotation(旋轉)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#rotation"&gt;Rotation(旋轉)&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href="#left-rotate"&gt;Left Rotation(向左轉)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#right-rotate"&gt;Right Rotation(向右轉)&lt;/a&gt;  &lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
 &lt;li&gt;&lt;a href="#ref"&gt;參考資料&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;a name="fail"&gt;&lt;/a&gt;&lt;/p&gt;
@@ -52,6 +56,7 @@
 &lt;li&gt;若是要應用在BST上，則Rotation(旋轉)前後的BST必須要維持相同之Key排序。此處介紹的Rotation(旋轉)便屬於此類。&lt;/li&gt;
 &lt;li&gt;Rotation(旋轉)與node是否具有顏色無關，即使是在一般的BST，亦能夠使用Rotation(旋轉)來調整height(樹高)。&lt;/li&gt;
 &lt;/ol&gt;
+&lt;p&gt;&lt;a name="left-rotate"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h4&gt;&lt;strong&gt;Left Roration(向左旋轉)&lt;/strong&gt;&lt;/h4&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="rotation" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Rotation/rotate6.png?raw=true" /&gt;&lt;/p&gt;
@@ -124,6 +129,7 @@
 &lt;/pre&gt;&lt;/div&gt;
 
 
+&lt;p&gt;&lt;a name="right-rotate"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h4&gt;&lt;strong&gt;Right Roration(向左旋轉)&lt;/strong&gt;&lt;/h4&gt;
 &lt;p&gt;Right Rotation的邏輯與Left Rotation完全相同，只要確實地把與node(X)、node(Y)、node(A)與node(j)有關的pointer重新指向正確的記憶體位置，就能夠完成Right Rotation。&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
