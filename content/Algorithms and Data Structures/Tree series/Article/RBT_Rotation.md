@@ -20,7 +20,10 @@ Summary: 介紹Red Black Tree(紅黑樹)的Rotation(旋轉)操作。
 ##目錄
 * [於RBT中進行Insert與Delete後竟然不符合RBT](#fail)
 * [Rotation(旋轉)](#rotation)
+    * [Left Rotation(向左轉)](#left-rotate)
+    * [Right Rotation(向右轉)](#right-rotate)  
 * [參考資料](#ref)
+
 
 
 <a name="fail"></a>
@@ -97,6 +100,9 @@ Summary: 介紹Red Black Tree(紅黑樹)的Rotation(旋轉)操作。
 
 1. 若是要應用在BST上，則Rotation(旋轉)前後的BST必須要維持相同之Key排序。此處介紹的Rotation(旋轉)便屬於此類。
 2. Rotation(旋轉)與node是否具有顏色無關，即使是在一般的BST，亦能夠使用Rotation(旋轉)來調整height(樹高)。
+
+
+<a name="left-rotate"></a>
 
 ####**Left Roration(向左旋轉)** 
 
@@ -185,6 +191,8 @@ void RBT::LeftRotation(TreeNode *x){
     x->parent = y;                  // 圖二(e)右
 }
 ```
+
+<a name="right-rotate"></a>
 
 ####**Right Roration(向左旋轉)** 
 
