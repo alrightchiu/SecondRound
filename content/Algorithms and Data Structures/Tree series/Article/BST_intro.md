@@ -17,15 +17,14 @@ Summary: 謹以Binary Search Tree(二元搜尋樹)向拯救90後的童年的鉅�
 *** 
 
 ##目錄
+
 * [引入dictionary](#dictionary)
 * [Binary Search Tree的特徵](#bst)
 * [在Binary Search Tree中管理資料](#operation)
-
     * [insert(新增資料)](#insert) 
     * [search(搜尋資料)](#search)
     * [sort(排序)](#sort)
     * [delete(刪除資料)](#delete)
-
 * [參考資料](#ref)
 
 
