@@ -151,8 +151,7 @@ void RBT::InsertRBT(TreeNode &new_node){
 
 事實上，若`current`指向之node(此為node(A))是新增的node，則根據RBT之第五點特徵，其`uncle`node(Y)必定是`NIL`，如圖一(e)左。
 
-不過，在稍後的範例中將會看到，`current`不一定是「剛剛新增的node」，也
-有可能是「修正到一半，出現紅色與紅色相連的node」，但因為是「修正到一半」，尚未調整node(Z)的顏色，因此所有從node(Z)往其descendant leaves的任意path上之黑色node數必定不變，此時，若node(Y)不為`NIL`，則node(X)以及node(A)必定還有黑色的`child pointer`，如圖一(e)右所示，node(a)、node(b)與node(c)皆為黑色。
+不過，在稍後的範例中將會看到，`current`不一定是「剛剛新增的node」，也有可能是「修正到一半，出現紅色與紅色相連的node」，但因為是「修正到一半」，尚未調整node(Z)的顏色，因此所有從node(Z)往其descendant leaves的任意path上之黑色node數必定不變，此時，若node(Y)不為`NIL`，則node(X)以及node(A)必定還有黑色的`child pointer`，如圖一(e)右所示，node(a)、node(b)與node(c)皆為黑色。
 
 <center>
 ![bst][f5]
