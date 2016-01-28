@@ -62,7 +62,7 @@
   <div>
     <p></br></p>
 <h6><strong>先備知識與注意事項</strong></h6>
-<p>RBT也是一棵BST，因此RBT之Insert(新增資料)的方法便是先沿用<code>InsertBST()</code>，再對顏色進行修正。而修正的方法將用上<code>Rotation()</code>，因此，建議在閱讀本篇文章之前，先熟悉<a href="http://alrightchiu.github.io/SecondRound/binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao.html">Binary Search Tree: Search(搜尋資料)、Insert(新增資料)</a>與<a href="http://alrightchiu.github.io/SecondRound/red-black-tree-rotationxuan-zhuan.html">Red Black Tree: Rotation(旋轉)</a>會很有幫助。 </p>
+<p>RBT也是一棵BST，而RBT之Insert(新增資料)方法便是先沿用<code>InsertBST()</code>，再對顏色進行修正。而修正的方法將用上<code>Rotation()</code>，因此，建議在閱讀本篇文章之前，先熟悉<a href="http://alrightchiu.github.io/SecondRound/binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao.html">Binary Search Tree: Search(搜尋資料)、Insert(新增資料)</a>與<a href="http://alrightchiu.github.io/SecondRound/red-black-tree-rotationxuan-zhuan.html">Red Black Tree: Rotation(旋轉)</a>會很有幫助。 </p>
 <hr />
 <h2>目錄</h2>
 <ul>
@@ -72,7 +72,7 @@
 <li><a href="#case3">Case3</a></li>
 <li><a href="#case2">Case2</a></li>
 <li><a href="#example">幾個範例</a></li>
-<li><a href="#code">程式範例</a></li>
+<li><a href="#code">程式碼</a></li>
 </ul>
 </li>
 <li><a href="#ref">參考資料</a></li>
@@ -304,7 +304,7 @@
 <li>二是Rotation(旋轉)：在Case2與Case3中必須使用Left/Right Rotation，因此，延續第一點原因，考慮到<code>parent</code>是<code>leftchild</code>或是<code>rightchild</code>的不同，Left/Right Rotation的方向也會相反。</li>
 </ul>
 <p><a name="code"></a></p>
-<h2><strong>程式範例</strong></h2>
+<h2><strong>程式碼</strong></h2>
 <p><code>InsertFixedUpRBT()</code>之程式範例如下，其中分成幾個部分：</p>
 <ul>
 <li>定義<code>color</code>：0為紅色，1為黑色；</li>

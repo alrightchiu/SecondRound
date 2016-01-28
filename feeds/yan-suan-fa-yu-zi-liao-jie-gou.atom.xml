@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom"><title>Ordinary Days</title><link href="http://alrightchiu.github.io/SecondRound/" rel="alternate"></link><link href="http://alrightchiu.github.io/SecondRound/feeds/yan-suan-fa-yu-zi-liao-jie-gou.atom.xml" rel="self"></link><id>http://alrightchiu.github.io/SecondRound/</id><updated>2016-01-27T20:09:00+08:00</updated><entry><title>Red Black Tree: Insert(新增資料)與Fixup(修正)</title><link href="http://alrightchiu.github.io/SecondRound/red-black-tree-insertxin-zeng-zi-liao-yu-fixupxiu-zheng.html" rel="alternate"></link><updated>2016-01-27T20:09:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-01-27:SecondRound/red-black-tree-insertxin-zeng-zi-liao-yu-fixupxiu-zheng.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h6&gt;&lt;strong&gt;先備知識與注意事項&lt;/strong&gt;&lt;/h6&gt;
-&lt;p&gt;RBT也是一棵BST，因此RBT之Insert(新增資料)的方法便是先沿用&lt;code&gt;InsertBST()&lt;/code&gt;，再對顏色進行修正。而修正的方法將用上&lt;code&gt;Rotation()&lt;/code&gt;，因此，建議在閱讀本篇文章之前，先熟悉&lt;a href="http://alrightchiu.github.io/SecondRound/binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao.html"&gt;Binary Search Tree: Search(搜尋資料)、Insert(新增資料)&lt;/a&gt;與&lt;a href="http://alrightchiu.github.io/SecondRound/red-black-tree-rotationxuan-zhuan.html"&gt;Red Black Tree: Rotation(旋轉)&lt;/a&gt;會很有幫助。 &lt;/p&gt;
+&lt;p&gt;RBT也是一棵BST，而RBT之Insert(新增資料)方法便是先沿用&lt;code&gt;InsertBST()&lt;/code&gt;，再對顏色進行修正。而修正的方法將用上&lt;code&gt;Rotation()&lt;/code&gt;，因此，建議在閱讀本篇文章之前，先熟悉&lt;a href="http://alrightchiu.github.io/SecondRound/binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao.html"&gt;Binary Search Tree: Search(搜尋資料)、Insert(新增資料)&lt;/a&gt;與&lt;a href="http://alrightchiu.github.io/SecondRound/red-black-tree-rotationxuan-zhuan.html"&gt;Red Black Tree: Rotation(旋轉)&lt;/a&gt;會很有幫助。 &lt;/p&gt;
 &lt;hr /&gt;
 &lt;h2&gt;目錄&lt;/h2&gt;
 &lt;ul&gt;
@@ -11,7 +11,7 @@
 &lt;li&gt;&lt;a href="#case3"&gt;Case3&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="#case2"&gt;Case2&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="#example"&gt;幾個範例&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="#code"&gt;程式範例&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#code"&gt;程式碼&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;&lt;a href="#ref"&gt;參考資料&lt;/a&gt;&lt;/li&gt;
@@ -243,7 +243,7 @@
 &lt;li&gt;二是Rotation(旋轉)：在Case2與Case3中必須使用Left/Right Rotation，因此，延續第一點原因，考慮到&lt;code&gt;parent&lt;/code&gt;是&lt;code&gt;leftchild&lt;/code&gt;或是&lt;code&gt;rightchild&lt;/code&gt;的不同，Left/Right Rotation的方向也會相反。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;a name="code"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;&lt;strong&gt;程式範例&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2&gt;&lt;strong&gt;程式碼&lt;/strong&gt;&lt;/h2&gt;
 &lt;p&gt;&lt;code&gt;InsertFixedUpRBT()&lt;/code&gt;之程式範例如下，其中分成幾個部分：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;定義&lt;code&gt;color&lt;/code&gt;：0為紅色，1為黑色；&lt;/li&gt;
