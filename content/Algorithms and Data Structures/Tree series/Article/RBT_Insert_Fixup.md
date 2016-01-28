@@ -9,7 +9,7 @@ Summary: 介紹於Red Black Tree(紅黑樹)Insert(新增資料)與Insert後的Fi
 </br>
 ######**先備知識與注意事項**
 
-RBT也是一棵BST，因此RBT之Insert(新增資料)的方法便是先沿用`InsertBST()`，再對顏色進行修正。而修正的方法將用上`Rotation()`，因此，建議在閱讀本篇文章之前，先熟悉[Binary Search Tree: Search(搜尋資料)、Insert(新增資料)](http://alrightchiu.github.io/SecondRound/binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao.html)與[Red Black Tree: Rotation(旋轉)](http://alrightchiu.github.io/SecondRound/red-black-tree-rotationxuan-zhuan.html)會很有幫助。 
+RBT也是一棵BST，而RBT之Insert(新增資料)方法便是先沿用`InsertBST()`，再對顏色進行修正。而修正的方法將用上`Rotation()`，因此，建議在閱讀本篇文章之前，先熟悉[Binary Search Tree: Search(搜尋資料)、Insert(新增資料)](http://alrightchiu.github.io/SecondRound/binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao.html)與[Red Black Tree: Rotation(旋轉)](http://alrightchiu.github.io/SecondRound/red-black-tree-rotationxuan-zhuan.html)會很有幫助。 
 
 ***
 
@@ -21,7 +21,7 @@ RBT也是一棵BST，因此RBT之Insert(新增資料)的方法便是先沿用`In
     * [Case3](#case3)
     * [Case2](#case2)
     * [幾個範例](#example)
-    * [程式範例](#code)
+    * [程式碼](#code)
 * [參考資料](#ref)
 
 
@@ -343,7 +343,7 @@ void RBT::InsertRBT(TreeNode &new_node){
 
 <a name="code"></a>
 
-##**程式範例**
+##**程式碼**
 
 `InsertFixedUpRBT()`之程式範例如下，其中分成幾個部分：
 
