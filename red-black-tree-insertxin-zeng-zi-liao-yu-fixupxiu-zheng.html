@@ -174,8 +174,7 @@
 <p><strong>圖一(d)：。</strong><br />
 </center></p>
 <p>事實上，若<code>current</code>指向之node(此為node(A))是新增的node，則根據RBT之第五點特徵，其<code>uncle</code>node(Y)必定是<code>NIL</code>，如圖一(e)左。</p>
-<p>不過，在稍後的範例中將會看到，<code>current</code>不一定是「剛剛新增的node」，也
-有可能是「修正到一半，出現紅色與紅色相連的node」，但因為是「修正到一半」，尚未調整node(Z)的顏色，因此所有從node(Z)往其descendant leaves的任意path上之黑色node數必定不變，此時，若node(Y)不為<code>NIL</code>，則node(X)以及node(A)必定還有黑色的<code>child pointer</code>，如圖一(e)右所示，node(a)、node(b)與node(c)皆為黑色。</p>
+<p>不過，在稍後的範例中將會看到，<code>current</code>不一定是「剛剛新增的node」，也有可能是「修正到一半，出現紅色與紅色相連的node」，但因為是「修正到一半」，尚未調整node(Z)的顏色，因此所有從node(Z)往其descendant leaves的任意path上之黑色node數必定不變，此時，若node(Y)不為<code>NIL</code>，則node(X)以及node(A)必定還有黑色的<code>child pointer</code>，如圖一(e)右所示，node(a)、node(b)與node(c)皆為黑色。</p>
 <p><center>
 <img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Insert/insert5.png?raw=true" /></p>
 <p><strong>圖一(e)：。</strong><br />
