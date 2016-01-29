@@ -2,7 +2,7 @@ Title: Red Black Tree: Insert(新增資料)與Fixup(修正)
 Date: 2016-1-27 20:09  
 Category: 演算法與資料結構  
 Tags: C++, Red Black Tree  
-Summary: 介紹於Red Black Tree(紅黑樹)Insert(新增資料)與Insert後的Fixup(修正)。
+Summary: 介紹於Red Black Tree(紅黑樹)中Insert(新增資料)與Insert後的Fixup(修正)。
  
 
 

@@ -64,13 +64,13 @@ output:
 
 ##**BST::DeleteBST(刪除資料)**
 
-要在BST上執行刪除資料(被刪除的node稱為A)，必須讓刪除A後的BST仍然維持BST的性質，因此，所有「具有指向A的pointer」之node(也就是A的parent、A的left child與A的right child)都必須指向新的記憶體位置。
+要在BST上執行刪除資料(被刪除的node稱為A)，必須讓刪除A後的BST仍然維持BST的性質，因此，所有「具有指向A的pointer」之node(也就是A的`parent`、A的`leftchild`與A的`rightchild`)都必須指向新的記憶體位置。
 
 刪除資料的工作，根據欲刪除之node「有幾個child pointer」分成三類：
 
-1. 欲刪除之node沒有child pointer；
-2. 欲刪除之node只有一個child pointer(不論是left child或right child)；
-3. 欲刪除之node有兩個child pointer。
+1. Case1：欲刪除之node沒有`child pointer`；
+2. Case2：欲刪除之node只有一個`child pointer`(不論是`leftchild`或`rightchild`)；
+3. Case3：欲刪除之node有兩個`child pointer`。
 
 以圖二(a)為例，依序刪除撒旦、弗力札與西魯：
 
@@ -80,7 +80,7 @@ output:
 **圖二(a)：。**  
 </center>
 
-* 由於撒旦沒有child pointer，因此只要考慮撒旦的parent(普烏)，將普烏的left child指向`NULL`即可維持BST的正確性，如圖二(b)。
+* **Case1**：由於撒旦沒有`child pointer`，因此只要考慮撒旦的parent(普烏)，將普烏的`leftchild`指向`NULL`即可維持BST的正確性，如圖二(b)。
 
 <center>
 ![bst][f3]
@@ -89,7 +89,7 @@ output:
 </center>
 
 
-* 由於弗力札有一個left child(基紐)，因此在刪除弗力札之前，需要先將基紐的parent指向弗力札的parent(龜仙人)，並且將龜仙人的right child從原本的弗力札指向基紐，因為基紐原本就位於龜仙人的right subtree(右子樹)，因此，上述操作仍能維持BST的正確性，如圖二(c)。
+* **Case2**：由於弗力札有一個`leftchild`(基紐)，因此在刪除弗力札之前，需要先將基紐的parent指向弗力札的`parent`(龜仙人)，並且將龜仙人的`rightchild`從原本的弗力札指向基紐，因為基紐原本就位於龜仙人的right subtree(右子樹)，因此，上述操作仍能維持BST的正確性，如圖二(c)。
 
 <center>
 ![bst][f4]
@@ -98,9 +98,9 @@ output:
 </center>
 
 
-* 由於西魯有兩個child，若直接刪除西魯的資料，並釋放其記憶體位置，要牽動的node較多。變通的祕訣就是「找替身」，原本要刪西魯，但是實際上是釋放西魯的「Successor(達爾)」的記憶體位置(或是「Predecessor(16號)」)，最後再把「Successor(達爾)」(或是「Predecessor(16號)」)的資料放回到西魯的記憶體位置上，又因為BST的特徵，所有「具有兩個child」的node的Successor或是Predecessor一定是leaf node或是只有一個child，如此，便回到如同撒旦與弗力札「至多只有一個child」的情境。 
+* **Case3**：由於西魯有兩個`child`，若直接刪除西魯的資料，並釋放其記憶體位置，要牽動的node較多。變通的祕訣就是「找替身」，原本要刪西魯，但是實際上是釋放西魯的「Successor(達爾)」的記憶體位置(或是「Predecessor(16號)」)，最後再把「Successor(達爾)」(或是「Predecessor(16號)」)的資料放回到西魯的記憶體位置上，又因為BST的特徵，所有「具有兩個`child`」的node的Successor或是Predecessor一定是leaf node或是只有一個`child`，如此，便回到如同撒旦與弗力札「至多只有一個`child`」的情境。 
  
-* 驗證「具有兩個child的node的Successor或是Predecessor一定是leaf node或是只有一個child」：若某個node有兩個child，則Successor找的是「right subtree中Key最小的node」，而Predecessor找的是「left subtree中Key最大的node」，因此Successor和Predecessor必定不會同時也有兩個child。以圖二(d)為例：
+* 驗證「具有兩個`child`的node的Successor或是Predecessor一定是leaf node或是只有一個`child`」：若某個node有兩個`child`，則Successor找的是「right subtree中Key最小的node」，而Predecessor找的是「left subtree中Key最大的node」，因此Successor和Predecessor必定不會同時也有兩個child。以圖二(d)為例：
 
     * 龜仙人(8)的Predecessor為克林(2)，Successor為基紐(69)；
     * 比克(513)的Predecessor為基紐(69)，Successor為16號(520)；
@@ -112,7 +112,7 @@ output:
 **圖二(d)：。**  
 </center>
 
-* 現欲刪除西魯，就去找西魯的Successor(達爾)當做替身，因為達爾沒有child，其刪除方法便如同上述刪除撒旦的方法，如圖二(e)。
+* 現欲刪除西魯，就去找西魯的Successor(達爾)當做替身，因為達爾沒有`child`，其刪除方法便如同上述刪除撒旦的方法，如圖二(e)。
 
 <center>
 ![bst][f6]
@@ -132,9 +132,9 @@ output:
 範例程式碼大約分成幾個步驟：
 
 1. 先確認BST中有沒有要刪除的node；
-2. 把要刪除的node調整成「至多只有一個child」；
-3. 把要刪除的node的child指向新的parent；
-4. 把要刪除的node的parent指向新的child；
+2. 把要刪除的node調整成「至多只有一個`child`」；
+3. 把要刪除的node的`child`指向新的`parent`；
+4. 把要刪除的node的`parent`指向新的`child`；
 5. 若實際上刪除的是「替身」，再把替身的資料放回BST中。
 
 即完成BST之刪除資料操作。
