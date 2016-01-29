@@ -243,7 +243,7 @@
 &lt;/ul&gt;
 &lt;p&gt;&lt;a name="code"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;&lt;strong&gt;程式碼&lt;/strong&gt;&lt;/h2&gt;
-&lt;p&gt;&lt;code&gt;InsertFixedUpRBT()&lt;/code&gt;之程式範例如下，其中分成幾個部分：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;InsertFixedUpRBT()&lt;/code&gt;之範例程式碼分成以下幾個部分：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;定義&lt;code&gt;color&lt;/code&gt;：0為紅色，1為黑色；&lt;/li&gt;
 &lt;li&gt;如同圖四所示，修正的過程可能歷經不止一個Case，因此利用&lt;code&gt;while&lt;/code&gt;迴圈實現，條件式便是判斷當前&lt;code&gt;current&lt;/code&gt;之&lt;code&gt;parent&lt;/code&gt;是否為紅色；&lt;/li&gt;
@@ -883,7 +883,7 @@
 &lt;img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/sort_delete/sort_delete7.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖二(f)：。&lt;/strong&gt;&lt;br /&gt;
 &lt;/center&gt;&lt;/p&gt;
-&lt;p&gt;範例程式碼大約分成幾個步驟：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;BST::DeleteBST()&lt;/code&gt;之範例程式碼分成以下幾個步驟：：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;先確認BST中有沒有要刪除的node；&lt;/li&gt;
 &lt;li&gt;把要刪除的node調整成「至多只有一個&lt;code&gt;child&lt;/code&gt;」；&lt;/li&gt;
