@@ -66,7 +66,7 @@
 <hr />
 <h2>目錄</h2>
 <ul>
-<li><a href="#bst">先滿足BST的Key特徵</a></li>
+<li><a href="#bst">如同於BST中Insert(新增資料)</a></li>
 <li><a href="#fixup">修正：InsertFixUpRBT()</a><ul>
 <li><a href="#case1">Case1</a></li>
 <li><a href="#case3">Case3</a></li>
@@ -78,7 +78,7 @@
 <li><a href="#ref">參考資料</a></li>
 </ul>
 <p><a name="bst"></a></p>
-<h2><strong>先滿足BST的Key特徵</strong></h2>
+<h2><strong>如同於BST中Insert(新增資料)</strong></h2>
 <p>RBT也是一棵BST，在Insert(新增資料)時，必須滿足：<span class="math">\(Key(L)&lt;Key(Current)&lt;Key(R)\)</span>，因此，RBT的<code>InsertRBT()</code>前半部演算法與<a href="http://alrightchiu.github.io/SecondRound/binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao.html#insert">BST的函式：InsertBST()大同小異</a>。<br />
 需要修改的部分有兩處：</p>
 <ol>

@@ -5,7 +5,7 @@
 &lt;hr /&gt;
 &lt;h2&gt;目錄&lt;/h2&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href="#bst"&gt;先滿足BST的Key特徵&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#bst"&gt;如同於BST中Insert(新增資料)&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="#fixup"&gt;修正：InsertFixUpRBT()&lt;/a&gt;&lt;ul&gt;
 &lt;li&gt;&lt;a href="#case1"&gt;Case1&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="#case3"&gt;Case3&lt;/a&gt;&lt;/li&gt;
@@ -17,7 +17,7 @@
 &lt;li&gt;&lt;a href="#ref"&gt;參考資料&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;a name="bst"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;&lt;strong&gt;先滿足BST的Key特徵&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2&gt;&lt;strong&gt;如同於BST中Insert(新增資料)&lt;/strong&gt;&lt;/h2&gt;
 &lt;p&gt;RBT也是一棵BST，在Insert(新增資料)時，必須滿足：&lt;span class="math"&gt;\(Key(L)&amp;lt;Key(Current)&amp;lt;Key(R)\)&lt;/span&gt;，因此，RBT的&lt;code&gt;InsertRBT()&lt;/code&gt;前半部演算法與&lt;a href="http://alrightchiu.github.io/SecondRound/binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao.html#insert"&gt;BST的函式：InsertBST()大同小異&lt;/a&gt;。&lt;br /&gt;
 需要修改的部分有兩處：&lt;/p&gt;
 &lt;ol&gt;
@@ -901,7 +901,7 @@
 &lt;span class="code-line"&gt;        &lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;/span&gt;
 &lt;span class="code-line"&gt;    &lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;
 &lt;span class="code-line"&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;    &lt;span class="n"&gt;TreeNode&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;TreeNode&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;      &lt;span class="c1"&gt;// 真正要被刪除的node&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="n"&gt;TreeNode&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;TreeNode&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;      &lt;span class="c1"&gt;// 真正要被刪除並釋放記憶體的node&lt;/span&gt;&lt;/span&gt;
 &lt;span class="code-line"&gt;    &lt;span class="n"&gt;TreeNode&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;TreeNode&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;      &lt;span class="c1"&gt;// 要被刪除的node的child&lt;/span&gt;&lt;/span&gt;
 &lt;span class="code-line"&gt;    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;delete_node&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;leftchild&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="nb"&gt;NULL&lt;/span&gt; &lt;span class="o"&gt;||&lt;/span&gt; &lt;span class="n"&gt;delete_node&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;rightchild&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="nb"&gt;NULL&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
 &lt;span class="code-line"&gt;        &lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;delete_node&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;/span&gt;
