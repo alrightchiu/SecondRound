@@ -344,7 +344,7 @@ void RBT::InsertRBT(TreeNode &new_node){
 
 ##**程式碼**
 
-`InsertFixedUpRBT()`之程式範例如下，其中分成幾個部分：
+`InsertFixedUpRBT()`之範例程式碼分成以下幾個部分：
 
 * 定義`color`：0為紅色，1為黑色；
 * 如同圖四所示，修正的過程可能歷經不止一個Case，因此利用`while`迴圈實現，條件式便是判斷當前`current`之`parent`是否為紅色；
