@@ -826,12 +826,12 @@
 
 &lt;p&gt;&lt;a name="delete"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;&lt;strong&gt;BST::DeleteBST(刪除資料)&lt;/strong&gt;&lt;/h2&gt;
-&lt;p&gt;要在BST上執行刪除資料(被刪除的node稱為A)，必須讓刪除A後的BST仍然維持BST的性質，因此，所有「具有指向A的pointer」之node(也就是A的parent、A的left child與A的right child)都必須指向新的記憶體位置。&lt;/p&gt;
+&lt;p&gt;要在BST上執行刪除資料(被刪除的node稱為A)，必須讓刪除A後的BST仍然維持BST的性質，因此，所有「具有指向A的pointer」之node(也就是A的&lt;code&gt;parent&lt;/code&gt;、A的&lt;code&gt;leftchild&lt;/code&gt;與A的&lt;code&gt;rightchild&lt;/code&gt;)都必須指向新的記憶體位置。&lt;/p&gt;
 &lt;p&gt;刪除資料的工作，根據欲刪除之node「有幾個child pointer」分成三類：&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;欲刪除之node沒有child pointer；&lt;/li&gt;
-&lt;li&gt;欲刪除之node只有一個child pointer(不論是left child或right child)；&lt;/li&gt;
-&lt;li&gt;欲刪除之node有兩個child pointer。&lt;/li&gt;
+&lt;li&gt;Case1：欲刪除之node沒有&lt;code&gt;child pointer&lt;/code&gt;；&lt;/li&gt;
+&lt;li&gt;Case2：欲刪除之node只有一個&lt;code&gt;child pointer&lt;/code&gt;(不論是&lt;code&gt;leftchild&lt;/code&gt;或&lt;code&gt;rightchild&lt;/code&gt;)；&lt;/li&gt;
+&lt;li&gt;Case3：欲刪除之node有兩個&lt;code&gt;child pointer&lt;/code&gt;。&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;以圖二(a)為例，依序刪除撒旦、弗力札與西魯：&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
@@ -839,14 +839,14 @@
 &lt;p&gt;&lt;strong&gt;圖二(a)：。&lt;/strong&gt;&lt;br /&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;由於撒旦沒有child pointer，因此只要考慮撒旦的parent(普烏)，將普烏的left child指向&lt;code&gt;NULL&lt;/code&gt;即可維持BST的正確性，如圖二(b)。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Case1&lt;/strong&gt;：由於撒旦沒有&lt;code&gt;child pointer&lt;/code&gt;，因此只要考慮撒旦的parent(普烏)，將普烏的&lt;code&gt;leftchild&lt;/code&gt;指向&lt;code&gt;NULL&lt;/code&gt;即可維持BST的正確性，如圖二(b)。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/sort_delete/sort_delete3.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖二(b)：。&lt;/strong&gt;&lt;br /&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;由於弗力札有一個left child(基紐)，因此在刪除弗力札之前，需要先將基紐的parent指向弗力札的parent(龜仙人)，並且將龜仙人的right child從原本的弗力札指向基紐，因為基紐原本就位於龜仙人的right subtree(右子樹)，因此，上述操作仍能維持BST的正確性，如圖二(c)。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Case2&lt;/strong&gt;：由於弗力札有一個&lt;code&gt;leftchild&lt;/code&gt;(基紐)，因此在刪除弗力札之前，需要先將基紐的parent指向弗力札的&lt;code&gt;parent&lt;/code&gt;(龜仙人)，並且將龜仙人的&lt;code&gt;rightchild&lt;/code&gt;從原本的弗力札指向基紐，因為基紐原本就位於龜仙人的right subtree(右子樹)，因此，上述操作仍能維持BST的正確性，如圖二(c)。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/sort_delete/sort_delete4.png?raw=true" /&gt;&lt;/p&gt;
@@ -854,10 +854,10 @@
 &lt;/center&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;由於西魯有兩個child，若直接刪除西魯的資料，並釋放其記憶體位置，要牽動的node較多。變通的祕訣就是「找替身」，原本要刪西魯，但是實際上是釋放西魯的「Successor(達爾)」的記憶體位置(或是「Predecessor(16號)」)，最後再把「Successor(達爾)」(或是「Predecessor(16號)」)的資料放回到西魯的記憶體位置上，又因為BST的特徵，所有「具有兩個child」的node的Successor或是Predecessor一定是leaf node或是只有一個child，如此，便回到如同撒旦與弗力札「至多只有一個child」的情境。 &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Case3&lt;/strong&gt;：由於西魯有兩個&lt;code&gt;child&lt;/code&gt;，若直接刪除西魯的資料，並釋放其記憶體位置，要牽動的node較多。變通的祕訣就是「找替身」，原本要刪西魯，但是實際上是釋放西魯的「Successor(達爾)」的記憶體位置(或是「Predecessor(16號)」)，最後再把「Successor(達爾)」(或是「Predecessor(16號)」)的資料放回到西魯的記憶體位置上，又因為BST的特徵，所有「具有兩個&lt;code&gt;child&lt;/code&gt;」的node的Successor或是Predecessor一定是leaf node或是只有一個&lt;code&gt;child&lt;/code&gt;，如此，便回到如同撒旦與弗力札「至多只有一個&lt;code&gt;child&lt;/code&gt;」的情境。 &lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;驗證「具有兩個child的node的Successor或是Predecessor一定是leaf node或是只有一個child」：若某個node有兩個child，則Successor找的是「right subtree中Key最小的node」，而Predecessor找的是「left subtree中Key最大的node」，因此Successor和Predecessor必定不會同時也有兩個child。以圖二(d)為例：&lt;/p&gt;
+&lt;p&gt;驗證「具有兩個&lt;code&gt;child&lt;/code&gt;的node的Successor或是Predecessor一定是leaf node或是只有一個&lt;code&gt;child&lt;/code&gt;」：若某個node有兩個&lt;code&gt;child&lt;/code&gt;，則Successor找的是「right subtree中Key最小的node」，而Predecessor找的是「left subtree中Key最大的node」，因此Successor和Predecessor必定不會同時也有兩個child。以圖二(d)為例：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;龜仙人(8)的Predecessor為克林(2)，Successor為基紐(69)；&lt;/li&gt;
 &lt;li&gt;比克(513)的Predecessor為基紐(69)，Successor為16號(520)；&lt;/li&gt;
@@ -870,7 +870,7 @@
 &lt;p&gt;&lt;strong&gt;圖二(d)：。&lt;/strong&gt;&lt;br /&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;現欲刪除西魯，就去找西魯的Successor(達爾)當做替身，因為達爾沒有child，其刪除方法便如同上述刪除撒旦的方法，如圖二(e)。&lt;/li&gt;
+&lt;li&gt;現欲刪除西魯，就去找西魯的Successor(達爾)當做替身，因為達爾沒有&lt;code&gt;child&lt;/code&gt;，其刪除方法便如同上述刪除撒旦的方法，如圖二(e)。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/sort_delete/sort_delete6.png?raw=true" /&gt;&lt;/p&gt;
@@ -886,9 +886,9 @@
 &lt;p&gt;範例程式碼大約分成幾個步驟：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;先確認BST中有沒有要刪除的node；&lt;/li&gt;
-&lt;li&gt;把要刪除的node調整成「至多只有一個child」；&lt;/li&gt;
-&lt;li&gt;把要刪除的node的child指向新的parent；&lt;/li&gt;
-&lt;li&gt;把要刪除的node的parent指向新的child；&lt;/li&gt;
+&lt;li&gt;把要刪除的node調整成「至多只有一個&lt;code&gt;child&lt;/code&gt;」；&lt;/li&gt;
+&lt;li&gt;把要刪除的node的&lt;code&gt;child&lt;/code&gt;指向新的&lt;code&gt;parent&lt;/code&gt;；&lt;/li&gt;
+&lt;li&gt;把要刪除的node的&lt;code&gt;parent&lt;/code&gt;指向新的&lt;code&gt;child&lt;/code&gt;；&lt;/li&gt;
 &lt;li&gt;若實際上刪除的是「替身」，再把替身的資料放回BST中。&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;即完成BST之刪除資料操作。&lt;/p&gt;
