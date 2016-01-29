@@ -149,7 +149,7 @@ void BST::DeleteBST(int KEY){               // 要刪除具有KEY的node
         return;
     }
     
-    TreeNode *y = new TreeNode; y = 0;      // 真正要被刪除的node
+    TreeNode *y = new TreeNode; y = 0;      // 真正要被刪除並釋放記憶體的node
     TreeNode *x = new TreeNode; x = 0;      // 要被刪除的node的child
     if (delete_node->leftchild == NULL || delete_node->rightchild == NULL)
         y = delete_node;

@@ -15,7 +15,7 @@ RBT也是一棵BST，而RBT之Insert(新增資料)方法便是先沿用`InsertBS
 
 ##目錄
 
-* [先滿足BST的Key特徵](#bst)
+* [如同於BST中Insert(新增資料)](#bst)
 * [修正：InsertFixUpRBT()](#fixup)
     * [Case1](#case1)
     * [Case3](#case3)
@@ -28,7 +28,7 @@ RBT也是一棵BST，而RBT之Insert(新增資料)方法便是先沿用`InsertBS
 
 <a name="bst"></a>
 
-##**先滿足BST的Key特徵**
+##**如同於BST中Insert(新增資料)**
 
 RBT也是一棵BST，在Insert(新增資料)時，必須滿足：$Key(L)<Key(Current)<Key(R)$，因此，RBT的`InsertRBT()`前半部演算法與[BST的函式：InsertBST()大同小異](http://alrightchiu.github.io/SecondRound/binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao.html#insert)。  
 需要修改的部分有兩處：
