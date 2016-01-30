@@ -401,7 +401,7 @@ Case1調整：
 * 如圖四所示，修正的過程可能經歷不止一個Case，因此利用`while`來實現，條件式為：`current`不是`root`，而且`current`為黑色；
 * 若`current`是其`parent`之`leftchild`，其`sibling`就必須是`rightchild`，反之亦然，而兩種情形之`Rotation`修正之方向正好相反，因此，如同`InsertFixedUpRBT()`，必須區分出「`current`是其`parent`之`leftchild`」與「`current`是其`parent`之`rightchild`」兩種情況；
 * 分別進行Case1、Case2、Case3與Case4之修正；
-* 最後，在line＿＿的`current->color = 1`將`current`之顏色塗黑，有可能在Case2用上，見圖五(d)與圖六(h)。
+* 最後，在line74的`current->color = 1`將`current`之顏色塗黑，有可能在Case2用上，見圖五(d)與圖六(h)。
 
 
 ```cpp
