@@ -222,7 +222,7 @@ void RBT::DeleteRBT(int KEY){              // 要刪除具有KEY的node
 
 ![case2][f10]
 
-**圖五(e)：此處之「Original」僅代表其中一種可能的情形，此處情形還要繼續修正。**
+**圖五(e)：此處之「Original」僅代表其中一種可能的情形，此處情形還需要繼續修正，進入Case3。**
 </center>
 
 
