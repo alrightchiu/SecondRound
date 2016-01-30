@@ -166,7 +166,7 @@
 &lt;img alt="case2" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Delete/delete9.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖五(d)：此處之「Original」僅代表其中一種可能的情形。&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img alt="case2" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Delete/delete10.png?raw=true" /&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;圖五(e)：此處之「Original」僅代表其中一種可能的情形，此處情形還需要繼續修正，進入Case3。&lt;/strong&gt;
+&lt;p&gt;&lt;strong&gt;圖五(e)：此處之「Original」僅代表其中一種可能的情形，此處情形還要繼續修正。&lt;/strong&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a name="case3"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h4&gt;&lt;strong&gt;Case3&lt;/strong&gt;&lt;/h4&gt;
