@@ -1,5 +1,5 @@
 Title: Red Black Tree: Delete(刪除資料)與Fixup(修正)    
-Date: 2016-1-28 20:27  
+Date: 2016-1-30 14:11  
 Category: 演算法與資料結構  
 Tags: C++, Red Black Tree  
 Summary: 介紹於Red Black Tree(紅黑樹)中Delete(刪除資料)與Delete後的Fixup(修正)。。
