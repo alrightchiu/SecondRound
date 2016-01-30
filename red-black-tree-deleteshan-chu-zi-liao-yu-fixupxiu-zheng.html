@@ -352,7 +352,7 @@
 <li>如圖四所示，修正的過程可能經歷不止一個Case，因此利用<code>while</code>來實現，條件式為：<code>current</code>不是<code>root</code>，而且<code>current</code>為黑色；</li>
 <li>若<code>current</code>是其<code>parent</code>之<code>leftchild</code>，其<code>sibling</code>就必須是<code>rightchild</code>，反之亦然，而兩種情形之<code>Rotation</code>修正之方向正好相反，因此，如同<code>InsertFixedUpRBT()</code>，必須區分出「<code>current</code>是其<code>parent</code>之<code>leftchild</code>」與「<code>current</code>是其<code>parent</code>之<code>rightchild</code>」兩種情況；</li>
 <li>分別進行Case1、Case2、Case3與Case4之修正；</li>
-<li>最後，在line＿＿的<code>current-&gt;color = 1</code>將<code>current</code>之顏色塗黑，有可能在Case2用上，見圖五(d)與圖六(h)。</li>
+<li>最後，在line74的<code>current-&gt;color = 1</code>將<code>current</code>之顏色塗黑，有可能在Case2用上，見圖五(d)與圖六(h)。</li>
 </ul>
 <div class="highlight"><pre><span class="code-line"><span class="c1">// C++ code</span></span>
 <span class="code-line"><span class="kt">void</span> <span class="n">RBT</span><span class="o">::</span><span class="n">DeleteFixedUpRBT</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">){</span></span>

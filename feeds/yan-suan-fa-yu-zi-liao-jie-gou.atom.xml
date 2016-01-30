@@ -291,7 +291,7 @@
 &lt;li&gt;如圖四所示，修正的過程可能經歷不止一個Case，因此利用&lt;code&gt;while&lt;/code&gt;來實現，條件式為：&lt;code&gt;current&lt;/code&gt;不是&lt;code&gt;root&lt;/code&gt;，而且&lt;code&gt;current&lt;/code&gt;為黑色；&lt;/li&gt;
 &lt;li&gt;若&lt;code&gt;current&lt;/code&gt;是其&lt;code&gt;parent&lt;/code&gt;之&lt;code&gt;leftchild&lt;/code&gt;，其&lt;code&gt;sibling&lt;/code&gt;就必須是&lt;code&gt;rightchild&lt;/code&gt;，反之亦然，而兩種情形之&lt;code&gt;Rotation&lt;/code&gt;修正之方向正好相反，因此，如同&lt;code&gt;InsertFixedUpRBT()&lt;/code&gt;，必須區分出「&lt;code&gt;current&lt;/code&gt;是其&lt;code&gt;parent&lt;/code&gt;之&lt;code&gt;leftchild&lt;/code&gt;」與「&lt;code&gt;current&lt;/code&gt;是其&lt;code&gt;parent&lt;/code&gt;之&lt;code&gt;rightchild&lt;/code&gt;」兩種情況；&lt;/li&gt;
 &lt;li&gt;分別進行Case1、Case2、Case3與Case4之修正；&lt;/li&gt;
-&lt;li&gt;最後，在line＿＿的&lt;code&gt;current-&amp;gt;color = 1&lt;/code&gt;將&lt;code&gt;current&lt;/code&gt;之顏色塗黑，有可能在Case2用上，見圖五(d)與圖六(h)。&lt;/li&gt;
+&lt;li&gt;最後，在line74的&lt;code&gt;current-&amp;gt;color = 1&lt;/code&gt;將&lt;code&gt;current&lt;/code&gt;之顏色塗黑，有可能在Case2用上，見圖五(d)與圖六(h)。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="c1"&gt;// C++ code&lt;/span&gt;&lt;/span&gt;
 &lt;span class="code-line"&gt;&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;RBT&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;DeleteFixedUpRBT&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;TreeNode&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;current&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;&lt;/span&gt;
