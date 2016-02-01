@@ -2028,6 +2028,7 @@
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;&lt;a href="#ref"&gt;參考資料&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#tree_series"&gt;Tree系列文章&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;a name="description"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;&lt;strong&gt;問題描述&lt;/strong&gt;&lt;/h2&gt;
@@ -2362,6 +2363,21 @@ pointer連接完成後，結束迴圈。&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376"&gt;Fundamentals of Data Structures in C++&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://www3.ntu.edu.sg/home/ehchua/programming/cpp/cp10_io.html"&gt;C++ Programming Language：Stream IO and File IO&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://www.geeksforgeeks.org/level-order-tree-traversal/"&gt;GeeksforGeeks：Level Order Tree Traversal&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a name="tree_series"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;&lt;strong&gt;Tree系列文章&lt;/strong&gt;&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/treeshu-introjian-jie.html"&gt;Tree(樹): Intro(簡介)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/binary-tree-introjian-jie.html"&gt;Binary Tree: Intro(簡介)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/binary-tree-traversalxun-fang.html"&gt;Binary Tree: Traversal(尋訪)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/binary-tree-jian-li-yi-ke-binary-tree.html"&gt;Binary Tree: 建立一棵Binary Tree&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/binary-search-tree-introjian-jie.html"&gt;Binary Search Tree: Intro(簡介)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao.html"&gt;Binary Search Tree: Search(搜尋資料)、Insert(新增資料)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/binary-search-tree-sortpai-xu-deleteshan-chu-zi-liao.html"&gt;Binary Search Tree: Sort(排序)、Delete(刪除資料)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/red-black-tree-introjian-jie.html"&gt;Red Black Tree: Intro(簡介)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/red-black-tree-rotationxuan-zhuan.html"&gt;Red Black Tree: Rotation(旋轉)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/red-black-tree-insertxin-zeng-zi-liao-yu-fixupxiu-zheng.html"&gt;Red Black Tree: Insert(新增資料)與Fixup(修正)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/red-black-tree-deleteshan-chu-zi-liao-yu-fixupxiu-zheng.html"&gt;Red Black Tree: Delete(刪除資料)與Fixup(修正)&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;</summary><category term="C++"></category><category term="Binary Tree(二元樹)"></category></entry><entry><title>Binary Tree: Traversal(尋訪)</title><link href="http://alrightchiu.github.io/SecondRound/binary-tree-traversalxun-fang.html" rel="alternate"></link><updated>2015-12-24T22:41:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2015-12-24:SecondRound/binary-tree-traversalxun-fang.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h6&gt;&lt;strong&gt;先備知識與注意事項&lt;/strong&gt;&lt;/h6&gt;
@@ -3335,6 +3351,7 @@ Binary Tree的node未必需要parent pointer(或稱為parent field)，然而加�
 &lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/red-black-tree-insertxin-zeng-zi-liao-yu-fixupxiu-zheng.html"&gt;Red Black Tree: Insert(新增資料)與Fixup(修正)&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/red-black-tree-deleteshan-chu-zi-liao-yu-fixupxiu-zheng.html"&gt;Red Black Tree: Delete(刪除資料)與Fixup(修正)&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;script type="text/javascript"&gt;if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
     var align = "center",
         indent = "0em",
