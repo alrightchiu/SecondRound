@@ -3552,4 +3552,4 @@ Binary Tree的node未必需要parent pointer(或稱為parent field)，然而加�
         "}";
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
-&lt;/script&gt;</summary><category term="C++"></category></entry></feed>
+&lt;/script&gt;</summary><category term="C++"></category><category term="Intro"></category></entry></feed>
