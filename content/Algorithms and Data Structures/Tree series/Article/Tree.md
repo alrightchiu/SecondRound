@@ -35,6 +35,7 @@ Summary: 介紹資料結構中Tree(樹)的概念。
 * [程式碼](#code)  
 * [集合關係](#set)  
 * [參考資料](#ref)
+* [Tree系列文章](#tree_series)
 
 
  <a name="example"></a>
@@ -193,7 +194,7 @@ class Tree{
 
 在接下來的文章將先以縮小集合的方向依序介紹：Binary Tree、BST、RB Tree，再進入圖(graph)這個更複雜的主題。
 
- <a name="ref"></a>
+<a name="ref"></a>
 </br>
 ######**參考資料**：
 * [Wikipedia：Tree(data structure)](https://en.wikipedia.org/wiki/Tree_%28data_structure%29)
@@ -202,7 +203,7 @@ class Tree{
 * [Wikipedia：九品芝麻官](https://zh.wikipedia.org/wiki/%E4%B9%9D%E5%93%81%E8%8A%9D%E9%BA%BB%E5%AE%98)
 * [Wikipedia：威龍闖天關](https://zh.wikipedia.org/wiki/%E5%AF%A9%E6%AD%BB%E5%AE%98_%281992%E5%B9%B4%E9%9B%BB%E5%BD%B1%29)  
 
-</br>
+<a name="tree_series"></a>
 
 ##**Tree系列文章**
 
