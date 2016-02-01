@@ -1,7 +1,7 @@
 Title: Red Black Tree: Intro(簡介)    
 Date: 2016-1-23 16:09  
 Category: 演算法與資料結構  
-Tags: C++, Red Black Tree  
+Tags: C++, Red Black Tree, Intro  
 Summary: 介紹Red Black Tree(紅黑樹)的基本性質。
  
 
