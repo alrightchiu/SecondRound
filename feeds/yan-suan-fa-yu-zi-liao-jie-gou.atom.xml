@@ -3186,6 +3186,7 @@ Binary Tree的node未必需要parent pointer(或稱為parent field)，然而加�
 &lt;li&gt;&lt;a href="#code"&gt;程式碼&lt;/a&gt;  &lt;/li&gt;
 &lt;li&gt;&lt;a href="#set"&gt;集合關係&lt;/a&gt;  &lt;/li&gt;
 &lt;li&gt;&lt;a href="#ref"&gt;參考資料&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#tree_series"&gt;Tree系列文章&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;a name="example"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;&lt;strong&gt;隨處可見的樹&lt;/strong&gt;&lt;/h2&gt;
@@ -3319,7 +3320,7 @@ Binary Tree的node未必需要parent pointer(或稱為parent field)，然而加�
 &lt;li&gt;&lt;a href="https://zh.wikipedia.org/wiki/%E4%B9%9D%E5%93%81%E8%8A%9D%E9%BA%BB%E5%AE%98"&gt;Wikipedia：九品芝麻官&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://zh.wikipedia.org/wiki/%E5%AF%A9%E6%AD%BB%E5%AE%98_%281992%E5%B9%B4%E9%9B%BB%E5%BD%B1%29"&gt;Wikipedia：威龍闖天關&lt;/a&gt;  &lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a name="tree_series"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;&lt;strong&gt;Tree系列文章&lt;/strong&gt;&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/treeshu-introjian-jie.html"&gt;Tree(樹): Intro(簡介)&lt;/a&gt;&lt;/li&gt;
