@@ -468,6 +468,7 @@
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;&lt;a href="#ref"&gt;參考資料&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#tree_series"&gt;Tree系列文章&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;a name="bst"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;&lt;strong&gt;如同於BST中Insert(新增資料)&lt;/strong&gt;&lt;/h2&gt;
@@ -768,6 +769,21 @@
 &lt;li&gt;&lt;a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844"&gt;Introduction to Algorithms, Ch13&lt;/a&gt; &lt;/li&gt;
 &lt;li&gt;&lt;a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376"&gt;Fundamentals of Data Structures in C++&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://code.geeksforgeeks.org/NtLnIk"&gt;GeeksforGeeks：Red Black Tree&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a name="tree_series"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;&lt;strong&gt;Tree系列文章&lt;/strong&gt;&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/treeshu-introjian-jie.html"&gt;Tree(樹): Intro(簡介)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/binary-tree-introjian-jie.html"&gt;Binary Tree: Intro(簡介)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/binary-tree-traversalxun-fang.html"&gt;Binary Tree: Traversal(尋訪)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/binary-tree-jian-li-yi-ke-binary-tree.html"&gt;Binary Tree: 建立一棵Binary Tree&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/binary-search-tree-introjian-jie.html"&gt;Binary Search Tree: Intro(簡介)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao.html"&gt;Binary Search Tree: Search(搜尋資料)、Insert(新增資料)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/binary-search-tree-sortpai-xu-deleteshan-chu-zi-liao.html"&gt;Binary Search Tree: Sort(排序)、Delete(刪除資料)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/red-black-tree-introjian-jie.html"&gt;Red Black Tree: Intro(簡介)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/red-black-tree-rotationxuan-zhuan.html"&gt;Red Black Tree: Rotation(旋轉)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/red-black-tree-insertxin-zeng-zi-liao-yu-fixupxiu-zheng.html"&gt;Red Black Tree: Insert(新增資料)與Fixup(修正)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/red-black-tree-deleteshan-chu-zi-liao-yu-fixupxiu-zheng.html"&gt;Red Black Tree: Delete(刪除資料)與Fixup(修正)&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;script type="text/javascript"&gt;if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
