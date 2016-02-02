@@ -28,8 +28,8 @@ MAIN_MENU = True
 USE_FOLDER_AS_CATEGORY = False
 
 # Theme
-# THEME = 'theme/Flex'
-THEME = 'theme/pelican-clean-blog'
+THEME = 'theme/Flex'
+# THEME = 'theme/pelican-clean-blog'
 
 # 使用pelican-plugins
 PLUGIN_PATHS = ['pelican-plugins']
@@ -54,10 +54,10 @@ SITEDESCRIPTION = u'Not Bad Not Bed'
 SITELOGO = u'http://alrightchiu.github.io/SecondRound/fig/antiwar.jpg'	# 也弄太久了！！！
 
 # for code blocks, 增加 line number 
-MD_EXTENSIONS = ['fenced_code', 'codehilite(css_class=highlight, linenums=True)', 'extra']
+# MD_EXTENSIONS = ['fenced_code', 'codehilite(css_class=highlight, linenums=True)', 'extra']
 
 # setting for plig-in: better_codeblock_line_numbering
-# MD_EXTENSIONS = ['fenced_code', 'codehilite(css_class=highlight, linenums=False)', 'extra' ]
+MD_EXTENSIONS = ['fenced_code', 'codehilite(css_class=highlight, linenums=False)', 'extra' ]
 
 PLUGINS = ['better_codeblock_line_numbering', 'render_math']
 
