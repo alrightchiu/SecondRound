@@ -5,7 +5,7 @@ Tags: C++, Binary Search Tree(二元搜尋樹), Intro
 Summary: 謹以Binary Search Tree(二元搜尋樹)向拯救90後的童年的鉅作《七龍珠》以及鳥山明老師致敬。
 
 </br>
-######**先備知識與注意事項**
+####**先備知識與注意事項**
 
 先前的文章介紹過廣義的Tree(樹)、Binary Tree(二元樹)，這篇文章將繼續增加限制條件，使Binary Tree晉升成Binary Search Tree(BST，二元搜尋樹)。  
 

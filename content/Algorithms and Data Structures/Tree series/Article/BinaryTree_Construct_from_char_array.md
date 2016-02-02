@@ -6,7 +6,7 @@ Summary: 介紹如何以字元陣列(char array)獲得資料(data)後，建立�
  
  
 </br>
-######**先備知識與注意事項**
+####**先備知識與注意事項**
 
 在[Binary Tree：Traversal](http://alrightchiu.github.io/SecondRound/binary-tree-traversal.html#ex_code)中，非常沒誠意地用暴力方式建了一棵Binary Tree，在這裡至上深深歉意，因此，在本篇文章將提供一種方法，由一個字元陣列(char array)輸入字母，並按照[Complete Binary Tree](http://alrightchiu.github.io/SecondRound/binary-tree-intro.html#fullcomplete)之順序重新建立**那顆樹**。(一種不健康的雪恥心態)
 

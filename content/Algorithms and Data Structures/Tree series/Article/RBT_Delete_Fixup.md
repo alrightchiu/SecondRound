@@ -7,7 +7,7 @@ Summary: 介紹於Red Black Tree(紅黑樹)中Delete(刪除資料)與Delete後�
 
 
 </br>
-######**先備知識與注意事項**
+####**先備知識與注意事項**
 
 如同[Red Black Tree: Insert(新增資料)與Fixup(修正)](http://alrightchiu.github.io/SecondRound/red-black-tree-insertxin-zeng-zi-liao-yu-fixupxiu-zheng.html)，RBT之Delete(刪除資料)方法同樣是先沿用`DeleteBST()`，再對顏色利用`Rotation`進行修正。  
 建議讀者在閱讀本篇文章之前，先復習[BST::DeleteBST(刪除資料)](http://alrightchiu.github.io/SecondRound/binary-search-tree-sortpai-xu-deleteshan-chu-zi-liao.html#delete)與[Red Black Tree: Rotation(旋轉)](http://alrightchiu.github.io/SecondRound/red-black-tree-rotationxuan-zhuan.html)，會比較容易上手。

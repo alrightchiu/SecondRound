@@ -6,7 +6,7 @@ Summary: 介紹Binary Search Tree(二元搜尋樹)的基本操作：Search(搜�
  
 
 </br>
-######**先備知識與注意事項**
+####**先備知識與注意事項**
 
 在開始介紹search(搜尋資料)與insert(新增資料)之前，先定義好`class TreeNode`與`class BST`，順便對未來將介紹的其他member function(成員函式)留下美好的第一印象：
 

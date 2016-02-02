@@ -7,7 +7,7 @@ Summary: 介紹Binary Tree(二元樹)的基本概念。
 
 
 </br>
-######**先備知識與注意事項**
+####**先備知識與注意事項**
 
 接續上一篇談到的[Tree(樹)](http://alrightchiu.github.io/SecondRound/treeshu.html)，這篇文章將介紹樹這個大集合裡的其中一支大宗：**Binary Tree**。
 
