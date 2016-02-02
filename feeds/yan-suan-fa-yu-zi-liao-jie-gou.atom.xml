@@ -49,7 +49,7 @@
 &lt;li&gt;若實際上刪除的是「替身」，再把替身的資料放回BST中；&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/li&gt;
-&lt;li&gt;第二部分，若刪除的node是黑色，需要進行修正(Fix-Up)。
+&lt;li&gt;第二部分，若刪除的node是黑色，需要進行修正(Fix-Up)。 &lt;br /&gt;
 &lt;/br&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// C++ code&lt;/span&gt;
