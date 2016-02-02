@@ -113,61 +113,61 @@
         <p></br></p>
 <h6><strong>先備知識與注意事項</strong></h6>
 <p>在開始介紹search(搜尋資料)與insert(新增資料)之前，先定義好<code>class TreeNode</code>與<code>class BST</code>，順便對未來將介紹的其他member function(成員函式)留下美好的第一印象：</p>
-<div class="highlight"><pre><span class="code-line"><span class="c1">// C++ code</span></span>
-<span class="code-line"><span class="cp">#include &lt;iostream&gt;</span></span>
-<span class="code-line"><span class="cp">#include &lt;string&gt;</span></span>
-<span class="code-line"><span class="k">class</span> <span class="nc">BST</span><span class="p">;</span></span>
-<span class="code-line"><span class="k">class</span> <span class="nc">TreeNode</span><span class="p">{</span></span>
-<span class="code-line"><span class="k">private</span><span class="o">:</span></span>
-<span class="code-line">    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">leftchild</span><span class="p">;</span></span>
-<span class="code-line">    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">rightchild</span><span class="p">;</span></span>
-<span class="code-line">    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">parent</span><span class="p">;</span></span>
-<span class="code-line">    <span class="kt">int</span> <span class="n">key</span><span class="p">;</span></span>
-<span class="code-line">    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">element</span><span class="p">;</span></span>
-<span class="code-line"><span class="k">public</span><span class="o">:</span></span>
-<span class="code-line">    <span class="c1">// constructor</span></span>
-<span class="code-line">    <span class="n">TreeNode</span><span class="p">()</span><span class="o">:</span><span class="n">key</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">element</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">){</span></span>
-<span class="code-line">        <span class="n">leftchild</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">rightchild</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">parent</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></span>
-<span class="code-line">    <span class="p">}</span></span>
-<span class="code-line">    <span class="n">TreeNode</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">b</span><span class="p">)</span><span class="o">:</span><span class="n">key</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="n">element</span><span class="p">(</span><span class="n">b</span><span class="p">){</span></span>
-<span class="code-line">        <span class="n">leftchild</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">rightchild</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">parent</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></span>
-<span class="code-line">    <span class="p">}</span></span>
-<span class="code-line">    <span class="c1">// default copy constructor</span></span>
-<span class="code-line">    <span class="c1">// default destructor</span></span>
-<span class="code-line"></span>
-<span class="code-line">    <span class="kt">int</span> <span class="n">GetKey</span><span class="p">()</span> <span class="k">const</span><span class="p">{</span> <span class="k">return</span> <span class="n">key</span><span class="p">;};</span></span>
-<span class="code-line">    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">GetElement</span><span class="p">()</span> <span class="k">const</span><span class="p">{</span> <span class="k">return</span> <span class="n">element</span><span class="p">;};</span></span>
-<span class="code-line"></span>
-<span class="code-line">    <span class="kt">void</span> <span class="nf">SetKey</span><span class="p">(</span><span class="kt">int</span> <span class="n">k</span><span class="p">){</span> <span class="n">key</span> <span class="o">=</span> <span class="n">k</span><span class="p">;};</span></span>
-<span class="code-line">    <span class="kt">void</span> <span class="nf">SetElement</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">e</span><span class="p">){</span> <span class="n">element</span> <span class="o">=</span> <span class="n">e</span><span class="p">;};</span>   </span>
-<span class="code-line"></span>
-<span class="code-line">    <span class="k">friend</span> <span class="k">class</span> <span class="nc">BST</span><span class="p">;</span>   <span class="c1">// 放在 private 或 public 都可以 </span></span>
-<span class="code-line"><span class="p">};</span></span>
-<span class="code-line"></span>
-<span class="code-line"><span class="c1">// class BST</span></span>
-<span class="code-line"><span class="k">class</span> <span class="nc">BST</span><span class="p">{</span></span>
-<span class="code-line"><span class="k">private</span><span class="o">:</span></span>
-<span class="code-line">    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">root</span><span class="p">;</span></span>
-<span class="code-line">    <span class="n">TreeNode</span><span class="o">*</span> <span class="nf">Rightmost</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">);</span></span>
-<span class="code-line">    <span class="n">TreeNode</span><span class="o">*</span> <span class="nf">Leftmost</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">);</span></span>
-<span class="code-line">    <span class="n">TreeNode</span><span class="o">*</span> <span class="nf">Copy</span><span class="p">(</span><span class="k">const</span> <span class="n">TreeNode</span> <span class="o">*</span><span class="n">origNode</span><span class="p">);</span>    <span class="c1">// preorder traversal, 用在 copy constructor和 operator=</span></span>
-<span class="code-line">    <span class="kt">void</span> <span class="nf">PostorderDelete</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">);</span></span>
-<span class="code-line"><span class="k">public</span><span class="o">:</span></span>
-<span class="code-line">    <span class="n">BST</span><span class="p">(){</span> <span class="n">root</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="p">};</span>     <span class="c1">// default constructor</span></span>
-<span class="code-line">    <span class="n">BST</span><span class="p">(</span><span class="k">const</span> <span class="n">BST</span> <span class="o">&amp;</span><span class="n">p</span><span class="p">);</span>      <span class="c1">// copy constructor</span></span>
-<span class="code-line">    <span class="n">BST</span><span class="o">&amp;</span> <span class="k">operator</span> <span class="o">=</span> <span class="p">(</span><span class="k">const</span> <span class="n">BST</span> <span class="o">&amp;</span><span class="n">p</span><span class="p">);</span></span>
-<span class="code-line">    <span class="o">~</span><span class="n">BST</span><span class="p">();</span>  <span class="c1">// destructor</span></span>
-<span class="code-line"></span>
-<span class="code-line">    <span class="n">TreeNode</span><span class="o">*</span> <span class="nf">Search</span><span class="p">(</span><span class="kt">int</span> <span class="n">key</span><span class="p">);</span></span>
-<span class="code-line">    <span class="kt">void</span> <span class="nf">InsertBST</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">&amp;</span><span class="n">new_node</span><span class="p">);</span></span>
-<span class="code-line"></span>
-<span class="code-line">    <span class="n">TreeNode</span><span class="o">*</span> <span class="nf">Successor</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">);</span></span>
-<span class="code-line">    <span class="n">TreeNode</span><span class="o">*</span> <span class="nf">Predecessor</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">);</span></span>
-<span class="code-line">    <span class="kt">void</span> <span class="nf">InorderPrint</span><span class="p">();</span></span>
-<span class="code-line">    <span class="kt">void</span> <span class="nf">DeleteBST</span><span class="p">(</span><span class="kt">int</span> <span class="n">KEY</span><span class="p">);</span></span>
-<span class="code-line"></span>
-<span class="code-line">    <span class="kt">bool</span> <span class="nf">IsEmpty</span><span class="p">()</span> <span class="k">const</span><span class="p">{</span><span class="k">return</span> <span class="p">(</span><span class="n">root</span><span class="o">==</span><span class="nb">NULL</span><span class="p">);};</span>    <span class="c1">// 確認BST是否存有資料</span></span>
-<span class="code-line"><span class="p">};</span></span>
+<div class="highlight"><pre><span class="c1">// C++ code</span>
+<span class="cp">#include &lt;iostream&gt;</span>
+<span class="cp">#include &lt;string&gt;</span>
+<span class="k">class</span> <span class="nc">BST</span><span class="p">;</span>
+<span class="k">class</span> <span class="nc">TreeNode</span><span class="p">{</span>
+<span class="k">private</span><span class="o">:</span>
+    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">leftchild</span><span class="p">;</span>
+    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">rightchild</span><span class="p">;</span>
+    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">parent</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">key</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">element</span><span class="p">;</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="c1">// constructor</span>
+    <span class="n">TreeNode</span><span class="p">()</span><span class="o">:</span><span class="n">key</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">element</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">){</span>
+        <span class="n">leftchild</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">rightchild</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">parent</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">TreeNode</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">b</span><span class="p">)</span><span class="o">:</span><span class="n">key</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="n">element</span><span class="p">(</span><span class="n">b</span><span class="p">){</span>
+        <span class="n">leftchild</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">rightchild</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">parent</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="c1">// default copy constructor</span>
+    <span class="c1">// default destructor</span>
+
+    <span class="kt">int</span> <span class="n">GetKey</span><span class="p">()</span> <span class="k">const</span><span class="p">{</span> <span class="k">return</span> <span class="n">key</span><span class="p">;};</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">GetElement</span><span class="p">()</span> <span class="k">const</span><span class="p">{</span> <span class="k">return</span> <span class="n">element</span><span class="p">;};</span>
+
+    <span class="kt">void</span> <span class="nf">SetKey</span><span class="p">(</span><span class="kt">int</span> <span class="n">k</span><span class="p">){</span> <span class="n">key</span> <span class="o">=</span> <span class="n">k</span><span class="p">;};</span>
+    <span class="kt">void</span> <span class="nf">SetElement</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">e</span><span class="p">){</span> <span class="n">element</span> <span class="o">=</span> <span class="n">e</span><span class="p">;};</span>   
+
+    <span class="k">friend</span> <span class="k">class</span> <span class="nc">BST</span><span class="p">;</span>   <span class="c1">// 放在 private 或 public 都可以 </span>
+<span class="p">};</span>
+
+<span class="c1">// class BST</span>
+<span class="k">class</span> <span class="nc">BST</span><span class="p">{</span>
+<span class="k">private</span><span class="o">:</span>
+    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">root</span><span class="p">;</span>
+    <span class="n">TreeNode</span><span class="o">*</span> <span class="nf">Rightmost</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">);</span>
+    <span class="n">TreeNode</span><span class="o">*</span> <span class="nf">Leftmost</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">);</span>
+    <span class="n">TreeNode</span><span class="o">*</span> <span class="nf">Copy</span><span class="p">(</span><span class="k">const</span> <span class="n">TreeNode</span> <span class="o">*</span><span class="n">origNode</span><span class="p">);</span>    <span class="c1">// preorder traversal, 用在 copy constructor和 operator=</span>
+    <span class="kt">void</span> <span class="nf">PostorderDelete</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">);</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">BST</span><span class="p">(){</span> <span class="n">root</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="p">};</span>     <span class="c1">// default constructor</span>
+    <span class="n">BST</span><span class="p">(</span><span class="k">const</span> <span class="n">BST</span> <span class="o">&amp;</span><span class="n">p</span><span class="p">);</span>      <span class="c1">// copy constructor</span>
+    <span class="n">BST</span><span class="o">&amp;</span> <span class="k">operator</span> <span class="o">=</span> <span class="p">(</span><span class="k">const</span> <span class="n">BST</span> <span class="o">&amp;</span><span class="n">p</span><span class="p">);</span>
+    <span class="o">~</span><span class="n">BST</span><span class="p">();</span>  <span class="c1">// destructor</span>
+
+    <span class="n">TreeNode</span><span class="o">*</span> <span class="nf">Search</span><span class="p">(</span><span class="kt">int</span> <span class="n">key</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="nf">InsertBST</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">&amp;</span><span class="n">new_node</span><span class="p">);</span>
+
+    <span class="n">TreeNode</span><span class="o">*</span> <span class="nf">Successor</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">);</span>
+    <span class="n">TreeNode</span><span class="o">*</span> <span class="nf">Predecessor</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="nf">InorderPrint</span><span class="p">();</span>
+    <span class="kt">void</span> <span class="nf">DeleteBST</span><span class="p">(</span><span class="kt">int</span> <span class="n">KEY</span><span class="p">);</span>
+
+    <span class="kt">bool</span> <span class="nf">IsEmpty</span><span class="p">()</span> <span class="k">const</span><span class="p">{</span><span class="k">return</span> <span class="p">(</span><span class="n">root</span><span class="o">==</span><span class="nb">NULL</span><span class="p">);};</span>    <span class="c1">// 確認BST是否存有資料</span>
+<span class="p">};</span>
 </pre></div>
 
 
@@ -251,18 +251,18 @@
 <li>KEY與<code>Current</code>node的key相同，表示搜尋成功；</li>
 <li><code>Current</code>移動到<code>NULL</code>，表示搜尋失敗。</li>
 </ol>
-<div class="highlight"><pre><span class="code-line"><span class="c1">// C++ code</span></span>
-<span class="code-line"><span class="n">TreeNode</span><span class="o">*</span> <span class="n">BST</span><span class="o">::</span><span class="n">Search</span><span class="p">(</span><span class="kt">int</span> <span class="n">KEY</span><span class="p">){</span></span>
-<span class="code-line">    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">;</span></span>
-<span class="code-line">    <span class="n">current</span> <span class="o">=</span> <span class="n">root</span><span class="p">;</span></span>
-<span class="code-line">    <span class="k">while</span> <span class="p">(</span><span class="n">current</span> <span class="o">!=</span> <span class="nb">NULL</span> <span class="o">&amp;&amp;</span> <span class="n">KEY</span> <span class="o">!=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">GetKey</span><span class="p">())</span> <span class="p">{</span></span>
-<span class="code-line">        <span class="k">if</span> <span class="p">(</span><span class="n">KEY</span> <span class="o">&lt;</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">GetKey</span><span class="p">())</span></span>
-<span class="code-line">            <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">;</span>   <span class="c1">// 向左走</span></span>
-<span class="code-line">        <span class="k">else</span></span>
-<span class="code-line">            <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="p">;</span>  <span class="c1">// 向右走</span></span>
-<span class="code-line">    <span class="p">}</span></span>
-<span class="code-line">    <span class="k">return</span> <span class="n">current</span><span class="p">;</span></span>
-<span class="code-line"><span class="p">}</span></span>
+<div class="highlight"><pre><span class="c1">// C++ code</span>
+<span class="n">TreeNode</span><span class="o">*</span> <span class="n">BST</span><span class="o">::</span><span class="n">Search</span><span class="p">(</span><span class="kt">int</span> <span class="n">KEY</span><span class="p">){</span>
+    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">;</span>
+    <span class="n">current</span> <span class="o">=</span> <span class="n">root</span><span class="p">;</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">current</span> <span class="o">!=</span> <span class="nb">NULL</span> <span class="o">&amp;&amp;</span> <span class="n">KEY</span> <span class="o">!=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">GetKey</span><span class="p">())</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">KEY</span> <span class="o">&lt;</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">GetKey</span><span class="p">())</span>
+            <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">;</span>   <span class="c1">// 向左走</span>
+        <span class="k">else</span>
+            <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="p">;</span>  <span class="c1">// 向右走</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">current</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 
 
@@ -306,28 +306,28 @@
 <p><strong>圖二(d)：。</strong><br />
 </center> </p>
 <p>以下是<code>BST::InsertBST()</code>的範例程式碼，關鍵便是「哨兵<strong>x</strong>」與「準新手爸媽<strong>y</strong>」的冒險之旅：</p>
-<div class="highlight"><pre><span class="code-line"><span class="c1">// C++ code</span></span>
-<span class="code-line"><span class="kt">void</span> <span class="n">BST</span><span class="o">::</span><span class="n">InsertBST</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">&amp;</span><span class="n">new_node</span><span class="p">){</span></span>
-<span class="code-line">    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">y</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">;</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>        <span class="c1">// 準新手爸媽</span></span>
-<span class="code-line">    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">x</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">;</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>        <span class="c1">// 哨兵</span></span>
-<span class="code-line">    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">insert_node</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">(</span><span class="n">new_node</span><span class="p">);</span> <span class="c1">// call default copy constructor of TreeNode</span></span>
-<span class="code-line"></span>
-<span class="code-line">    <span class="n">x</span> <span class="o">=</span> <span class="n">root</span><span class="p">;</span></span>
-<span class="code-line">    <span class="k">while</span> <span class="p">(</span><span class="n">x</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>                <span class="c1">// 在while中, 以如同Search()的方式尋找適當的位置       </span></span>
-<span class="code-line">        <span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>                                </span>
-<span class="code-line">        <span class="k">if</span> <span class="p">(</span><span class="n">insert_node</span><span class="o">-&gt;</span><span class="n">GetKey</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">x</span><span class="o">-&gt;</span><span class="n">GetKey</span><span class="p">())</span></span>
-<span class="code-line">            <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">;</span></span>
-<span class="code-line">        <span class="k">else</span></span>
-<span class="code-line">            <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="p">;</span></span>
-<span class="code-line">    <span class="p">}</span>                                  <span class="c1">// 跳出迴圈後, x即為NULL</span></span>
-<span class="code-line">    <span class="n">insert_node</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">=</span> <span class="n">y</span><span class="p">;</span>           <span class="c1">// y即為insert_node的parent</span></span>
-<span class="code-line">    <span class="k">if</span> <span class="p">(</span><span class="n">y</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>                     <span class="c1">// 下面一組if-else, 把insert_node接上BST</span></span>
-<span class="code-line">        <span class="k">this</span><span class="o">-&gt;</span><span class="n">root</span> <span class="o">=</span> <span class="n">insert_node</span><span class="p">;</span></span>
-<span class="code-line">    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">insert_node</span><span class="o">-&gt;</span><span class="n">GetKey</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">y</span><span class="o">-&gt;</span><span class="n">GetKey</span><span class="p">())</span></span>
-<span class="code-line">        <span class="n">y</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">=</span> <span class="n">insert_node</span><span class="p">;</span></span>
-<span class="code-line">    <span class="k">else</span></span>
-<span class="code-line">        <span class="n">y</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">=</span> <span class="n">insert_node</span><span class="p">;</span></span>
-<span class="code-line"><span class="p">}</span></span>
+<div class="highlight"><pre><span class="c1">// C++ code</span>
+<span class="kt">void</span> <span class="n">BST</span><span class="o">::</span><span class="n">InsertBST</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">&amp;</span><span class="n">new_node</span><span class="p">){</span>
+    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">y</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">;</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>        <span class="c1">// 準新手爸媽</span>
+    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">x</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">;</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>        <span class="c1">// 哨兵</span>
+    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">insert_node</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">(</span><span class="n">new_node</span><span class="p">);</span> <span class="c1">// call default copy constructor of TreeNode</span>
+
+    <span class="n">x</span> <span class="o">=</span> <span class="n">root</span><span class="p">;</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">x</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>                <span class="c1">// 在while中, 以如同Search()的方式尋找適當的位置       </span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>                                
+        <span class="k">if</span> <span class="p">(</span><span class="n">insert_node</span><span class="o">-&gt;</span><span class="n">GetKey</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">x</span><span class="o">-&gt;</span><span class="n">GetKey</span><span class="p">())</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">;</span>
+        <span class="k">else</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="p">;</span>
+    <span class="p">}</span>                                  <span class="c1">// 跳出迴圈後, x即為NULL</span>
+    <span class="n">insert_node</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">=</span> <span class="n">y</span><span class="p">;</span>           <span class="c1">// y即為insert_node的parent</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">y</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>                     <span class="c1">// 下面一組if-else, 把insert_node接上BST</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">root</span> <span class="o">=</span> <span class="n">insert_node</span><span class="p">;</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">insert_node</span><span class="o">-&gt;</span><span class="n">GetKey</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">y</span><span class="o">-&gt;</span><span class="n">GetKey</span><span class="p">())</span>
+        <span class="n">y</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">=</span> <span class="n">insert_node</span><span class="p">;</span>
+    <span class="k">else</span>
+        <span class="n">y</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">=</span> <span class="n">insert_node</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 
 
@@ -339,19 +339,19 @@
 <p><a name="main"></a></p>
 <h2><strong>main()</strong></h2>
 <p>有了<code>BST::InsertBST()</code>後，就可以用土法煉鋼的方式建立一棵如圖二(d)的BST:</p>
-<div class="highlight"><pre><span class="code-line"><span class="c1">// C++ code</span></span>
-<span class="code-line"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span></span>
-<span class="code-line">    <span class="n">BST</span> <span class="n">b1</span><span class="p">;</span></span>
-<span class="code-line">    <span class="n">TreeNode</span> <span class="n">n1</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="s">&quot;龜仙人&quot;</span><span class="p">);</span></span>
-<span class="code-line">    <span class="n">TreeNode</span> <span class="n">n2</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span><span class="s">&quot;悟空&quot;</span><span class="p">);</span></span>
-<span class="code-line">    <span class="n">TreeNode</span> <span class="n">n3</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="s">&quot;克林&quot;</span><span class="p">);</span></span>
-<span class="code-line">    <span class="n">TreeNode</span> <span class="n">n4</span><span class="p">(</span><span class="mi">513</span><span class="p">,</span><span class="s">&quot;比克&quot;</span><span class="p">);</span></span>
-<span class="code-line">    <span class="n">b1</span><span class="p">.</span><span class="n">InsertBST</span><span class="p">(</span><span class="n">n1</span><span class="p">);</span></span>
-<span class="code-line">    <span class="n">b1</span><span class="p">.</span><span class="n">InsertBST</span><span class="p">(</span><span class="n">n2</span><span class="p">);</span></span>
-<span class="code-line">    <span class="n">b1</span><span class="p">.</span><span class="n">InsertBST</span><span class="p">(</span><span class="n">n3</span><span class="p">);</span></span>
-<span class="code-line">    <span class="n">b1</span><span class="p">.</span><span class="n">InsertBST</span><span class="p">(</span><span class="n">n4</span><span class="p">);</span></span>
-<span class="code-line">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span></span>
-<span class="code-line"><span class="p">}</span></span>
+<div class="highlight"><pre><span class="c1">// C++ code</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">BST</span> <span class="n">b1</span><span class="p">;</span>
+    <span class="n">TreeNode</span> <span class="n">n1</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="s">&quot;龜仙人&quot;</span><span class="p">);</span>
+    <span class="n">TreeNode</span> <span class="n">n2</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span><span class="s">&quot;悟空&quot;</span><span class="p">);</span>
+    <span class="n">TreeNode</span> <span class="n">n3</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="s">&quot;克林&quot;</span><span class="p">);</span>
+    <span class="n">TreeNode</span> <span class="n">n4</span><span class="p">(</span><span class="mi">513</span><span class="p">,</span><span class="s">&quot;比克&quot;</span><span class="p">);</span>
+    <span class="n">b1</span><span class="p">.</span><span class="n">InsertBST</span><span class="p">(</span><span class="n">n1</span><span class="p">);</span>
+    <span class="n">b1</span><span class="p">.</span><span class="n">InsertBST</span><span class="p">(</span><span class="n">n2</span><span class="p">);</span>
+    <span class="n">b1</span><span class="p">.</span><span class="n">InsertBST</span><span class="p">(</span><span class="n">n3</span><span class="p">);</span>
+    <span class="n">b1</span><span class="p">.</span><span class="n">InsertBST</span><span class="p">(</span><span class="n">n4</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 
 

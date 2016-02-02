@@ -132,14 +132,14 @@
 <p><a name="why"></a></p>
 <h2><strong>為什麼需要Red Black Tree？</strong></h2>
 <p>若考慮最壞情況，在建立BST時，輸入資料的Key恰好被排序過(例如：1、2、3、4...)，那麼這顆BST便會退化成Linked List(接續前例，所有leftchild pointer都指向<code>NULL</code>，只有rightchild child被使用)：</p>
-<div class="highlight"><pre><span class="code-line"><span class="c1">// C++ code</span></span>
-<span class="code-line"><span class="kt">int</span> <span class="n">main</span><span class="p">{</span></span>
-<span class="code-line">    <span class="n">BST</span> <span class="n">T</span><span class="p">;</span></span>
-<span class="code-line">    <span class="n">T</span><span class="p">.</span><span class="n">InsertBST</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>   <span class="c1">// 依序加入Key為1、2、3...之資料</span></span>
-<span class="code-line">    <span class="n">T</span><span class="p">.</span><span class="n">InsertBST</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span></span>
-<span class="code-line">    <span class="n">T</span><span class="p">.</span><span class="n">InsertBST</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span></span>
-<span class="code-line">    <span class="p">...</span></span>
-<span class="code-line"><span class="p">}</span></span>
+<div class="highlight"><pre><span class="c1">// C++ code</span>
+<span class="kt">int</span> <span class="n">main</span><span class="p">{</span>
+    <span class="n">BST</span> <span class="n">T</span><span class="p">;</span>
+    <span class="n">T</span><span class="p">.</span><span class="n">InsertBST</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>   <span class="c1">// 依序加入Key為1、2、3...之資料</span>
+    <span class="n">T</span><span class="p">.</span><span class="n">InsertBST</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+    <span class="n">T</span><span class="p">.</span><span class="n">InsertBST</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+    <span class="p">...</span>
+<span class="p">}</span>
 </pre></div>
 
 
@@ -196,27 +196,27 @@
 <p><strong>圖五：。</strong><br />
 </center></p>
 <p><code>class TreeNode</code>與<code>class RBT</code>之資料成員(data member)程式範例如下：</p>
-<div class="highlight"><pre><span class="code-line"><span class="c1">// C++ code</span></span>
-<span class="code-line"><span class="cp">#include &lt;iostream&gt;</span></span>
-<span class="code-line"><span class="cp">#include &lt;string&gt;</span></span>
-<span class="code-line"><span class="k">class</span> <span class="nc">RBT</span><span class="p">;</span></span>
-<span class="code-line"><span class="k">class</span> <span class="nc">TreeNode</span><span class="p">{</span></span>
-<span class="code-line"><span class="k">private</span><span class="o">:</span></span>
-<span class="code-line">    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">leftchild</span><span class="p">;</span></span>
-<span class="code-line">    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">rightchild</span><span class="p">;</span></span>
-<span class="code-line">    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">parent</span><span class="p">;</span></span>
-<span class="code-line">    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">element</span><span class="p">;</span></span>
-<span class="code-line">    <span class="kt">int</span> <span class="n">key</span><span class="p">;</span></span>
-<span class="code-line">    <span class="kt">int</span> <span class="n">color</span><span class="p">;</span>         <span class="c1">// 0: Red,  1: Black</span></span>
-<span class="code-line">    <span class="k">friend</span> <span class="n">RBT</span><span class="p">;</span></span>
-<span class="code-line">    <span class="p">...</span></span>
-<span class="code-line"><span class="p">}</span></span>
-<span class="code-line"><span class="k">class</span> <span class="nc">RBT</span><span class="p">{</span></span>
-<span class="code-line"><span class="k">private</span><span class="o">:</span></span>
-<span class="code-line">    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">root</span><span class="p">;</span></span>
-<span class="code-line">    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">neel</span><span class="p">;</span>    <span class="c1">// 此即為NIL, 常被稱為sentinel</span></span>
-<span class="code-line">    <span class="p">...</span></span>
-<span class="code-line"><span class="p">}</span></span>
+<div class="highlight"><pre><span class="c1">// C++ code</span>
+<span class="cp">#include &lt;iostream&gt;</span>
+<span class="cp">#include &lt;string&gt;</span>
+<span class="k">class</span> <span class="nc">RBT</span><span class="p">;</span>
+<span class="k">class</span> <span class="nc">TreeNode</span><span class="p">{</span>
+<span class="k">private</span><span class="o">:</span>
+    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">leftchild</span><span class="p">;</span>
+    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">rightchild</span><span class="p">;</span>
+    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">parent</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">element</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">key</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">color</span><span class="p">;</span>         <span class="c1">// 0: Red,  1: Black</span>
+    <span class="k">friend</span> <span class="n">RBT</span><span class="p">;</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+<span class="k">class</span> <span class="nc">RBT</span><span class="p">{</span>
+<span class="k">private</span><span class="o">:</span>
+    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">root</span><span class="p">;</span>
+    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">neel</span><span class="p">;</span>    <span class="c1">// 此即為NIL, 常被稱為sentinel</span>
+    <span class="p">...</span>
+<span class="p">}</span>
 </pre></div>
 
 

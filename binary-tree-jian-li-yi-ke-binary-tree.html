@@ -158,31 +158,31 @@
 </ul>
 <p>下半部則是示範以<code>queue</code>實現level-order traversal之小應用：以Complete Binary Tree之位置規則在樹中新增node。  </p>
 <p>溫馨小提醒：純粹以inorder traversal之結果並無法驗證樹之結構正如圖一(舉例來說：以inorder traversal對某一Linked list也可能得出相同結果)，因此，建議還是使用IDE的debug功能把pointer全部攤開。</p>
-<div class="highlight"><pre><span class="code-line"><span class="c1">// C++ code</span></span>
-<span class="code-line"><span class="cp">#include &lt;iostream&gt;</span></span>
-<span class="code-line"><span class="cp">#include &lt;sstream&gt;</span></span>
-<span class="code-line"><span class="cp">#include &lt;queue&gt;</span></span>
-<span class="code-line"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span></span>
-<span class="code-line">    <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">a</span> <span class="o">=</span> <span class="s">&quot;A B C D E F x x x G H x I&quot;</span><span class="p">;</span></span>
-<span class="code-line">    <span class="n">BinaryTree</span> <span class="n">T</span><span class="p">(</span><span class="n">a</span><span class="p">);</span></span>
-<span class="code-line">    <span class="n">T</span><span class="p">.</span><span class="n">Inorder_by_parent</span><span class="p">();</span></span>
-<span class="code-line">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span></span>
-<span class="code-line"></span>
-<span class="code-line">    <span class="n">T</span><span class="p">.</span><span class="n">insertLevelorder</span><span class="p">(</span><span class="sc">&#39;K&#39;</span><span class="p">);</span></span>
-<span class="code-line">    <span class="n">T</span><span class="p">.</span><span class="n">insertLevelorder</span><span class="p">(</span><span class="sc">&#39;L&#39;</span><span class="p">);</span></span>
-<span class="code-line">    <span class="n">T</span><span class="p">.</span><span class="n">insertLevelorder</span><span class="p">(</span><span class="sc">&#39;M&#39;</span><span class="p">);</span></span>
-<span class="code-line">    <span class="n">T</span><span class="p">.</span><span class="n">insertLevelorder</span><span class="p">(</span><span class="sc">&#39;N&#39;</span><span class="p">);</span></span>
-<span class="code-line">    <span class="n">T</span><span class="p">.</span><span class="n">Inorder_by_parent</span><span class="p">();</span></span>
-<span class="code-line">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span></span>
-<span class="code-line"></span>
-<span class="code-line">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span></span>
-<span class="code-line"><span class="p">}</span></span>
+<div class="highlight"><pre><span class="c1">// C++ code</span>
+<span class="cp">#include &lt;iostream&gt;</span>
+<span class="cp">#include &lt;sstream&gt;</span>
+<span class="cp">#include &lt;queue&gt;</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">a</span> <span class="o">=</span> <span class="s">&quot;A B C D E F x x x G H x I&quot;</span><span class="p">;</span>
+    <span class="n">BinaryTree</span> <span class="n">T</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
+    <span class="n">T</span><span class="p">.</span><span class="n">Inorder_by_parent</span><span class="p">();</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+    <span class="n">T</span><span class="p">.</span><span class="n">insertLevelorder</span><span class="p">(</span><span class="sc">&#39;K&#39;</span><span class="p">);</span>
+    <span class="n">T</span><span class="p">.</span><span class="n">insertLevelorder</span><span class="p">(</span><span class="sc">&#39;L&#39;</span><span class="p">);</span>
+    <span class="n">T</span><span class="p">.</span><span class="n">insertLevelorder</span><span class="p">(</span><span class="sc">&#39;M&#39;</span><span class="p">);</span>
+    <span class="n">T</span><span class="p">.</span><span class="n">insertLevelorder</span><span class="p">(</span><span class="sc">&#39;N&#39;</span><span class="p">);</span>
+    <span class="n">T</span><span class="p">.</span><span class="n">Inorder_by_parent</span><span class="p">();</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 
 
 <p>在經過一連串程式碼後，預期得到的output：</p>
-<div class="highlight"><pre><span class="code-line"><span class="n">D</span> <span class="n">B</span> <span class="n">G</span> <span class="n">E</span> <span class="n">H</span> <span class="n">A</span> <span class="n">F</span> <span class="n">I</span> <span class="n">C</span>   </span>
-<span class="code-line"><span class="n">L</span> <span class="n">D</span> <span class="n">M</span> <span class="n">B</span> <span class="n">G</span> <span class="n">E</span> <span class="n">H</span> <span class="n">A</span> <span class="n">N</span> <span class="n">F</span> <span class="n">I</span> <span class="n">C</span> <span class="n">K</span>    </span>
+<div class="highlight"><pre><span class="n">D</span> <span class="n">B</span> <span class="n">G</span> <span class="n">E</span> <span class="n">H</span> <span class="n">A</span> <span class="n">F</span> <span class="n">I</span> <span class="n">C</span>   
+<span class="n">L</span> <span class="n">D</span> <span class="n">M</span> <span class="n">B</span> <span class="n">G</span> <span class="n">E</span> <span class="n">H</span> <span class="n">A</span> <span class="n">N</span> <span class="n">F</span> <span class="n">I</span> <span class="n">C</span> <span class="n">K</span>    
 </pre></div>
 
 
@@ -202,35 +202,35 @@
 </li>
 </ul>
 <p>看下去。</p>
-<div class="highlight"><pre><span class="code-line"><span class="c1">// C++ code</span></span>
-<span class="code-line"><span class="k">class</span> <span class="nc">BinaryTree</span><span class="p">;</span></span>
-<span class="code-line"><span class="k">class</span> <span class="nc">TreeNode</span><span class="p">{</span></span>
-<span class="code-line"><span class="k">private</span><span class="o">:</span></span>
-<span class="code-line">    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">leftchild</span><span class="p">;</span></span>
-<span class="code-line">    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">rightchild</span><span class="p">;</span></span>
-<span class="code-line">    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">parent</span><span class="p">;</span></span>
-<span class="code-line">    <span class="kt">char</span> <span class="n">data</span><span class="p">;</span></span>
-<span class="code-line"><span class="k">public</span><span class="o">:</span></span>
-<span class="code-line">    <span class="n">TreeNode</span><span class="p">(){</span> <span class="n">leftchild</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">rightchild</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">parent</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="p">};</span></span>
-<span class="code-line">    <span class="n">TreeNode</span><span class="p">(</span><span class="kt">char</span> <span class="n">s</span><span class="p">)</span><span class="o">:</span><span class="n">data</span><span class="p">(</span><span class="n">s</span><span class="p">){</span><span class="n">leftchild</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">rightchild</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">parent</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="p">};</span></span>
-<span class="code-line"></span>
-<span class="code-line">    <span class="k">friend</span> <span class="k">class</span> <span class="nc">BinaryTree</span><span class="p">;</span></span>
-<span class="code-line"><span class="p">};</span></span>
-<span class="code-line"></span>
-<span class="code-line"><span class="k">class</span> <span class="nc">BinaryTree</span><span class="p">{</span></span>
-<span class="code-line"><span class="k">private</span><span class="o">:</span></span>
-<span class="code-line">    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">root</span><span class="p">;</span></span>
-<span class="code-line"><span class="k">public</span><span class="o">:</span></span>
-<span class="code-line">    <span class="n">BinaryTree</span><span class="p">(){</span> <span class="n">root</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;};</span></span>
-<span class="code-line">    <span class="n">BinaryTree</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">str</span><span class="p">);</span></span>
-<span class="code-line"></span>
-<span class="code-line">    <span class="kt">void</span> <span class="nf">LevelorderConstruct</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">stringstream</span> <span class="o">&amp;</span><span class="n">ss</span><span class="p">);</span></span>
-<span class="code-line">    <span class="kt">void</span> <span class="nf">insertLevelorder</span><span class="p">(</span><span class="kt">char</span> <span class="n">data</span><span class="p">);</span></span>
-<span class="code-line"></span>
-<span class="code-line">    <span class="n">TreeNode</span><span class="o">*</span> <span class="nf">leftmost</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">);</span></span>
-<span class="code-line">    <span class="n">TreeNode</span><span class="o">*</span> <span class="nf">InorderSuccessor</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">);</span></span>
-<span class="code-line">    <span class="kt">void</span> <span class="nf">Inorder_by_parent</span><span class="p">();</span></span>
-<span class="code-line"><span class="p">};</span></span>
+<div class="highlight"><pre><span class="c1">// C++ code</span>
+<span class="k">class</span> <span class="nc">BinaryTree</span><span class="p">;</span>
+<span class="k">class</span> <span class="nc">TreeNode</span><span class="p">{</span>
+<span class="k">private</span><span class="o">:</span>
+    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">leftchild</span><span class="p">;</span>
+    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">rightchild</span><span class="p">;</span>
+    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">parent</span><span class="p">;</span>
+    <span class="kt">char</span> <span class="n">data</span><span class="p">;</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">TreeNode</span><span class="p">(){</span> <span class="n">leftchild</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">rightchild</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">parent</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="p">};</span>
+    <span class="n">TreeNode</span><span class="p">(</span><span class="kt">char</span> <span class="n">s</span><span class="p">)</span><span class="o">:</span><span class="n">data</span><span class="p">(</span><span class="n">s</span><span class="p">){</span><span class="n">leftchild</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">rightchild</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">parent</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="p">};</span>
+
+    <span class="k">friend</span> <span class="k">class</span> <span class="nc">BinaryTree</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">class</span> <span class="nc">BinaryTree</span><span class="p">{</span>
+<span class="k">private</span><span class="o">:</span>
+    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">root</span><span class="p">;</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">BinaryTree</span><span class="p">(){</span> <span class="n">root</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;};</span>
+    <span class="n">BinaryTree</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">str</span><span class="p">);</span>
+
+    <span class="kt">void</span> <span class="nf">LevelorderConstruct</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">stringstream</span> <span class="o">&amp;</span><span class="n">ss</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="nf">insertLevelorder</span><span class="p">(</span><span class="kt">char</span> <span class="n">data</span><span class="p">);</span>
+
+    <span class="n">TreeNode</span><span class="o">*</span> <span class="nf">leftmost</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">);</span>
+    <span class="n">TreeNode</span><span class="o">*</span> <span class="nf">InorderSuccessor</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="nf">Inorder_by_parent</span><span class="p">();</span>
+<span class="p">};</span>
 </pre></div>
 
 
@@ -238,16 +238,16 @@
 <p><a name="constructor"></a></p>
 <h4><strong>Constructor of BinaryTree</strong></h4>
 <p><code>class BinaryTree</code>的constructor很直觀，拿到一個字元陣列，先送進<code>stringstream</code>後，再由<code>stringstream</code>放進樹中，先對樹的<code>root</code>進行記憶體配置以及賦值，接著以level-order的方式建立Binary Tree。</p>
-<div class="highlight"><pre><span class="code-line"><span class="c1">// C++ code</span></span>
-<span class="code-line"><span class="n">BinaryTree</span><span class="o">::</span><span class="n">BinaryTree</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">str</span><span class="p">){</span></span>
-<span class="code-line">    <span class="n">std</span><span class="o">::</span><span class="n">stringstream</span>  <span class="n">ss</span><span class="p">;</span></span>
-<span class="code-line">    <span class="n">ss</span> <span class="o">&lt;&lt;</span> <span class="n">str</span><span class="p">;</span></span>
-<span class="code-line"></span>
-<span class="code-line">    <span class="n">root</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">;</span></span>
-<span class="code-line">    <span class="n">ss</span> <span class="o">&gt;&gt;</span> <span class="n">root</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">;</span></span>
-<span class="code-line"></span>
-<span class="code-line">    <span class="n">LevelorderConstruct</span><span class="p">(</span><span class="n">ss</span><span class="p">);</span></span>
-<span class="code-line"><span class="p">}</span></span>
+<div class="highlight"><pre><span class="c1">// C++ code</span>
+<span class="n">BinaryTree</span><span class="o">::</span><span class="n">BinaryTree</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">str</span><span class="p">){</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">stringstream</span>  <span class="n">ss</span><span class="p">;</span>
+    <span class="n">ss</span> <span class="o">&lt;&lt;</span> <span class="n">str</span><span class="p">;</span>
+
+    <span class="n">root</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">;</span>
+    <span class="n">ss</span> <span class="o">&gt;&gt;</span> <span class="n">root</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">;</span>
+
+    <span class="n">LevelorderConstruct</span><span class="p">(</span><span class="n">ss</span><span class="p">);</span>
+<span class="p">}</span>
 </pre></div>
 
 
@@ -367,32 +367,32 @@
 <p><strong>圖三(m)：。</strong><br />
 </center> </p>
 <p></br>  </p>
-<div class="highlight"><pre><span class="code-line"><span class="c1">// C++ code</span></span>
-<span class="code-line"><span class="kt">void</span> <span class="n">BinaryTree</span><span class="o">::</span><span class="n">LevelorderConstruct</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">stringstream</span> <span class="o">&amp;</span><span class="n">ss</span><span class="p">){</span></span>
-<span class="code-line">    <span class="n">std</span><span class="o">::</span><span class="n">queue</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">*&gt;</span> <span class="n">q</span><span class="p">;</span></span>
-<span class="code-line">    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span> <span class="o">=</span> <span class="n">root</span><span class="p">;</span></span>
-<span class="code-line">    <span class="kt">char</span> <span class="n">data</span> <span class="o">=</span> <span class="sc">&#39;x&#39;</span><span class="p">;</span></span>
-<span class="code-line">    <span class="k">while</span> <span class="p">(</span><span class="n">ss</span> <span class="o">&gt;&gt;</span> <span class="n">data</span><span class="p">)</span> <span class="p">{</span></span>
-<span class="code-line">        <span class="k">if</span> <span class="p">(</span><span class="n">data</span> <span class="o">&gt;=</span> <span class="mi">65</span> <span class="o">&amp;&amp;</span> <span class="n">data</span> <span class="o">&lt;=</span> <span class="mi">90</span><span class="p">){</span></span>
-<span class="code-line">            <span class="n">TreeNode</span> <span class="o">*</span><span class="n">new_node</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>  <span class="c1">// call constructor TreeNode(char s)</span></span>
-<span class="code-line">            <span class="n">new_node</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">=</span> <span class="n">current</span><span class="p">;</span></span>
-<span class="code-line">            <span class="n">current</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">=</span> <span class="n">new_node</span><span class="p">;</span></span>
-<span class="code-line">            <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">new_node</span><span class="p">);</span></span>
-<span class="code-line">        <span class="p">}</span></span>
-<span class="code-line">        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="n">ss</span> <span class="o">&gt;&gt;</span> <span class="n">data</span><span class="p">))</span></span>
-<span class="code-line">            <span class="k">break</span><span class="p">;</span></span>
-<span class="code-line"></span>
-<span class="code-line">        <span class="k">if</span> <span class="p">(</span><span class="n">data</span> <span class="o">&gt;=</span> <span class="mi">65</span> <span class="o">&amp;&amp;</span> <span class="n">data</span> <span class="o">&lt;=</span> <span class="mi">90</span><span class="p">){</span></span>
-<span class="code-line">            <span class="n">TreeNode</span> <span class="o">*</span><span class="n">new_node</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">;</span>        <span class="c1">// call constructor TreeNode()</span></span>
-<span class="code-line">            <span class="n">new_node</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">=</span> <span class="n">current</span><span class="p">;</span></span>
-<span class="code-line">            <span class="n">current</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">=</span> <span class="n">new_node</span><span class="p">;</span></span>
-<span class="code-line">            <span class="n">new_node</span><span class="o">-&gt;</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">;</span></span>
-<span class="code-line">            <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">new_node</span><span class="p">);</span></span>
-<span class="code-line">        <span class="p">}</span></span>
-<span class="code-line">        <span class="n">current</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">front</span><span class="p">();</span></span>
-<span class="code-line">        <span class="n">q</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span></span>
-<span class="code-line">    <span class="p">}</span></span>
-<span class="code-line"><span class="p">}</span></span>
+<div class="highlight"><pre><span class="c1">// C++ code</span>
+<span class="kt">void</span> <span class="n">BinaryTree</span><span class="o">::</span><span class="n">LevelorderConstruct</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">stringstream</span> <span class="o">&amp;</span><span class="n">ss</span><span class="p">){</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">queue</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">*&gt;</span> <span class="n">q</span><span class="p">;</span>
+    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span> <span class="o">=</span> <span class="n">root</span><span class="p">;</span>
+    <span class="kt">char</span> <span class="n">data</span> <span class="o">=</span> <span class="sc">&#39;x&#39;</span><span class="p">;</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">ss</span> <span class="o">&gt;&gt;</span> <span class="n">data</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">data</span> <span class="o">&gt;=</span> <span class="mi">65</span> <span class="o">&amp;&amp;</span> <span class="n">data</span> <span class="o">&lt;=</span> <span class="mi">90</span><span class="p">){</span>
+            <span class="n">TreeNode</span> <span class="o">*</span><span class="n">new_node</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>  <span class="c1">// call constructor TreeNode(char s)</span>
+            <span class="n">new_node</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">=</span> <span class="n">current</span><span class="p">;</span>
+            <span class="n">current</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">=</span> <span class="n">new_node</span><span class="p">;</span>
+            <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">new_node</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="n">ss</span> <span class="o">&gt;&gt;</span> <span class="n">data</span><span class="p">))</span>
+            <span class="k">break</span><span class="p">;</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">data</span> <span class="o">&gt;=</span> <span class="mi">65</span> <span class="o">&amp;&amp;</span> <span class="n">data</span> <span class="o">&lt;=</span> <span class="mi">90</span><span class="p">){</span>
+            <span class="n">TreeNode</span> <span class="o">*</span><span class="n">new_node</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">;</span>        <span class="c1">// call constructor TreeNode()</span>
+            <span class="n">new_node</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">=</span> <span class="n">current</span><span class="p">;</span>
+            <span class="n">current</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">=</span> <span class="n">new_node</span><span class="p">;</span>
+            <span class="n">new_node</span><span class="o">-&gt;</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">;</span>
+            <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">new_node</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="n">current</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">front</span><span class="p">();</span>
+        <span class="n">q</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 
 
@@ -423,32 +423,32 @@ pointer連接完成後，結束迴圈。</li>
 <li>對<code>current</code>之right child進行相同之步驟。</li>
 </ul>
 <p>如此便能有效控制Binary Tree之樹高(height)，使pointer所配置之記憶體空間有效利用，亦能夠減少traversal(以及其他操作)所需的時間。</p>
-<div class="highlight"><pre><span class="code-line"><span class="c1">// C++ code</span></span>
-<span class="code-line"><span class="kt">void</span> <span class="n">BinaryTree</span><span class="o">::</span><span class="n">insertLevelorder</span><span class="p">(</span><span class="kt">char</span> <span class="n">data</span><span class="p">){</span>    </span>
-<span class="code-line">    <span class="n">std</span><span class="o">::</span><span class="n">queue</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">*&gt;</span> <span class="n">q</span><span class="p">;</span></span>
-<span class="code-line">    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span> <span class="o">=</span> <span class="n">root</span><span class="p">;</span></span>
-<span class="code-line"></span>
-<span class="code-line">    <span class="k">while</span> <span class="p">(</span><span class="n">current</span><span class="p">)</span> <span class="p">{</span></span>
-<span class="code-line">        <span class="k">if</span> <span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span></span>
-<span class="code-line">            <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">);</span></span>
-<span class="code-line">        <span class="k">else</span><span class="p">{</span></span>
-<span class="code-line">            <span class="n">TreeNode</span> <span class="o">*</span><span class="n">new_node</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">(</span><span class="n">data</span><span class="p">);</span></span>
-<span class="code-line">            <span class="n">new_node</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">=</span> <span class="n">current</span><span class="p">;</span></span>
-<span class="code-line">            <span class="n">current</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">=</span> <span class="n">new_node</span><span class="p">;</span></span>
-<span class="code-line">            <span class="k">break</span><span class="p">;</span></span>
-<span class="code-line">        <span class="p">}</span></span>
-<span class="code-line">        <span class="k">if</span> <span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span></span>
-<span class="code-line">            <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="p">);</span></span>
-<span class="code-line">        <span class="k">else</span><span class="p">{</span></span>
-<span class="code-line">            <span class="n">TreeNode</span> <span class="o">*</span><span class="n">new_node</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">(</span><span class="n">data</span><span class="p">);</span></span>
-<span class="code-line">            <span class="n">new_node</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">=</span> <span class="n">current</span><span class="p">;</span></span>
-<span class="code-line">            <span class="n">current</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">=</span> <span class="n">new_node</span><span class="p">;</span></span>
-<span class="code-line">            <span class="k">break</span><span class="p">;</span></span>
-<span class="code-line">        <span class="p">}</span></span>
-<span class="code-line">        <span class="n">current</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">front</span><span class="p">();</span></span>
-<span class="code-line">        <span class="n">q</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span></span>
-<span class="code-line">    <span class="p">}</span></span>
-<span class="code-line"><span class="p">}</span></span>
+<div class="highlight"><pre><span class="c1">// C++ code</span>
+<span class="kt">void</span> <span class="n">BinaryTree</span><span class="o">::</span><span class="n">insertLevelorder</span><span class="p">(</span><span class="kt">char</span> <span class="n">data</span><span class="p">){</span>    
+    <span class="n">std</span><span class="o">::</span><span class="n">queue</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">*&gt;</span> <span class="n">q</span><span class="p">;</span>
+    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span> <span class="o">=</span> <span class="n">root</span><span class="p">;</span>
+
+    <span class="k">while</span> <span class="p">(</span><span class="n">current</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span>
+            <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">);</span>
+        <span class="k">else</span><span class="p">{</span>
+            <span class="n">TreeNode</span> <span class="o">*</span><span class="n">new_node</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+            <span class="n">new_node</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">=</span> <span class="n">current</span><span class="p">;</span>
+            <span class="n">current</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">=</span> <span class="n">new_node</span><span class="p">;</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span>
+            <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="p">);</span>
+        <span class="k">else</span><span class="p">{</span>
+            <span class="n">TreeNode</span> <span class="o">*</span><span class="n">new_node</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+            <span class="n">new_node</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">=</span> <span class="n">current</span><span class="p">;</span>
+            <span class="n">current</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">=</span> <span class="n">new_node</span><span class="p">;</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="n">current</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">front</span><span class="p">();</span>
+        <span class="n">q</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 
 

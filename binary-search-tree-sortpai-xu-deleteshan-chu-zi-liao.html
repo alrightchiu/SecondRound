@@ -133,21 +133,21 @@
 <p><strong>圖一：。</strong><br />
 </center></p>
 <p>以下範例程式，將Visiting用作列印資料(print)：</p>
-<div class="highlight"><pre><span class="code-line"><span class="c1">// C++ code</span></span>
-<span class="code-line"><span class="kt">void</span> <span class="n">BST</span><span class="o">::</span><span class="n">InorderPrint</span><span class="p">(){</span></span>
-<span class="code-line">    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">;</span></span>
-<span class="code-line">    <span class="n">current</span> <span class="o">=</span> <span class="n">Leftmost</span><span class="p">(</span><span class="n">root</span><span class="p">);</span></span>
-<span class="code-line">    <span class="k">while</span><span class="p">(</span><span class="n">current</span><span class="p">){</span></span>
-<span class="code-line">        <span class="c1">// Visiting</span></span>
-<span class="code-line">        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">element</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;(&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">key</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;)&quot;</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span><span class="p">;</span>    </span>
-<span class="code-line">        <span class="n">current</span> <span class="o">=</span> <span class="n">Successor</span><span class="p">(</span><span class="n">current</span><span class="p">);</span>            <span class="c1">// 移動至current的Successor</span></span>
-<span class="code-line">    <span class="p">}</span></span>
-<span class="code-line"><span class="p">}</span></span>
+<div class="highlight"><pre><span class="c1">// C++ code</span>
+<span class="kt">void</span> <span class="n">BST</span><span class="o">::</span><span class="n">InorderPrint</span><span class="p">(){</span>
+    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">;</span>
+    <span class="n">current</span> <span class="o">=</span> <span class="n">Leftmost</span><span class="p">(</span><span class="n">root</span><span class="p">);</span>
+    <span class="k">while</span><span class="p">(</span><span class="n">current</span><span class="p">){</span>
+        <span class="c1">// Visiting</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">element</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;(&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">key</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;)&quot;</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span><span class="p">;</span>    
+        <span class="n">current</span> <span class="o">=</span> <span class="n">Successor</span><span class="p">(</span><span class="n">current</span><span class="p">);</span>            <span class="c1">// 移動至current的Successor</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 
 
 <p>output:</p>
-<div class="highlight"><pre><span class="code-line"><span class="err">克林</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="err">龜仙人</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span> <span class="err">比克</span><span class="p">(</span><span class="mi">513</span><span class="p">)</span> <span class="err">悟空</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span> </span>
+<div class="highlight"><pre><span class="err">克林</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="err">龜仙人</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span> <span class="err">比克</span><span class="p">(</span><span class="mi">513</span><span class="p">)</span> <span class="err">悟空</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span> 
 </pre></div>
 
 
@@ -219,42 +219,42 @@
 <li>若實際上刪除的是「替身」，再把替身的資料放回BST中。</li>
 </ol>
 <p>即完成BST之刪除資料操作。</p>
-<div class="highlight"><pre><span class="code-line"><span class="c1">// C++ code</span></span>
-<span class="code-line"><span class="kt">void</span> <span class="n">BST</span><span class="o">::</span><span class="n">DeleteBST</span><span class="p">(</span><span class="kt">int</span> <span class="n">KEY</span><span class="p">){</span>               <span class="c1">// 要刪除具有KEY的node</span></span>
-<span class="code-line">    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">delete_node</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">;</span></span>
-<span class="code-line">    <span class="n">delete_node</span> <span class="o">=</span> <span class="n">Search</span><span class="p">(</span><span class="n">KEY</span><span class="p">);</span>              <span class="c1">// 先確認BST中是否有具有KEY的node</span></span>
-<span class="code-line">    <span class="k">if</span> <span class="p">(</span><span class="n">delete_node</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span></span>
-<span class="code-line">        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;data not found.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span></span>
-<span class="code-line">        <span class="k">return</span><span class="p">;</span></span>
-<span class="code-line">    <span class="p">}</span></span>
-<span class="code-line"></span>
-<span class="code-line">    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">y</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">;</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>      <span class="c1">// 真正要被刪除並釋放記憶體的node</span></span>
-<span class="code-line">    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">x</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">;</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>      <span class="c1">// 要被刪除的node的child</span></span>
-<span class="code-line">    <span class="k">if</span> <span class="p">(</span><span class="n">delete_node</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">==</span> <span class="nb">NULL</span> <span class="o">||</span> <span class="n">delete_node</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span></span>
-<span class="code-line">        <span class="n">y</span> <span class="o">=</span> <span class="n">delete_node</span><span class="p">;</span></span>
-<span class="code-line">    <span class="k">else</span></span>
-<span class="code-line">        <span class="n">y</span> <span class="o">=</span> <span class="n">Successor</span><span class="p">(</span><span class="n">delete_node</span><span class="p">);</span></span>
-<span class="code-line">                                            <span class="c1">// 經過以上的if-else, y至多只有一個child</span></span>
-<span class="code-line">    <span class="k">if</span> <span class="p">(</span><span class="n">y</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span>               <span class="c1">// 將x設成y的child, 可能是有效記憶體, 也有可能是NULL</span></span>
-<span class="code-line">        <span class="n">x</span> <span class="o">=</span> <span class="n">y</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">;</span></span>
-<span class="code-line">    <span class="k">else</span></span>
-<span class="code-line">        <span class="n">x</span> <span class="o">=</span> <span class="n">y</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="p">;</span></span>
-<span class="code-line"></span>
-<span class="code-line">    <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span>                          </span>
-<span class="code-line">        <span class="n">x</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">=</span> <span class="n">y</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">;</span>              <span class="c1">// 此即為圖二(c)中, 基紐指向龜仙人的實作方式</span></span>
-<span class="code-line"></span>
-<span class="code-line">    <span class="k">if</span> <span class="p">(</span><span class="n">y</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>                  <span class="c1">// 再將要被刪除的node之parent指向新的child</span></span>
-<span class="code-line">        <span class="k">this</span><span class="o">-&gt;</span><span class="n">root</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span></span>
-<span class="code-line">    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">y</span> <span class="o">==</span> <span class="n">y</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">)</span></span>
-<span class="code-line">        <span class="n">y</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span></span>
-<span class="code-line">    <span class="k">else</span></span>
-<span class="code-line">        <span class="n">y</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span></span>
-<span class="code-line"></span>
-<span class="code-line">    <span class="k">if</span> <span class="p">(</span><span class="n">y</span> <span class="o">!=</span> <span class="n">delete_node</span><span class="p">)</span> <span class="p">{</span>                 <span class="c1">// y即是達爾, delete_node即是西魯</span></span>
-<span class="code-line">        <span class="n">delete_node</span><span class="o">-&gt;</span><span class="n">SetKey</span><span class="p">(</span><span class="n">y</span><span class="o">-&gt;</span><span class="n">GetKey</span><span class="p">());</span>   <span class="c1">// 實際被刪除的是y, 因此最後要再將y的資料放進delete_node的記憶體位置</span></span>
-<span class="code-line">        <span class="n">delete_node</span><span class="o">-&gt;</span><span class="n">SetElement</span><span class="p">(</span><span class="n">y</span><span class="o">-&gt;</span><span class="n">GetElement</span><span class="p">());</span></span>
-<span class="code-line">    <span class="p">}</span>   </span>
-<span class="code-line"><span class="p">}</span></span>
+<div class="highlight"><pre><span class="c1">// C++ code</span>
+<span class="kt">void</span> <span class="n">BST</span><span class="o">::</span><span class="n">DeleteBST</span><span class="p">(</span><span class="kt">int</span> <span class="n">KEY</span><span class="p">){</span>               <span class="c1">// 要刪除具有KEY的node</span>
+    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">delete_node</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">;</span>
+    <span class="n">delete_node</span> <span class="o">=</span> <span class="n">Search</span><span class="p">(</span><span class="n">KEY</span><span class="p">);</span>              <span class="c1">// 先確認BST中是否有具有KEY的node</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">delete_node</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;data not found.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">y</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">;</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>      <span class="c1">// 真正要被刪除並釋放記憶體的node</span>
+    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">x</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">;</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>      <span class="c1">// 要被刪除的node的child</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">delete_node</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">==</span> <span class="nb">NULL</span> <span class="o">||</span> <span class="n">delete_node</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">delete_node</span><span class="p">;</span>
+    <span class="k">else</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">Successor</span><span class="p">(</span><span class="n">delete_node</span><span class="p">);</span>
+                                            <span class="c1">// 經過以上的if-else, y至多只有一個child</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">y</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span>               <span class="c1">// 將x設成y的child, 可能是有效記憶體, 也有可能是NULL</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">y</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">;</span>
+    <span class="k">else</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">y</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span>                          
+        <span class="n">x</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">=</span> <span class="n">y</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">;</span>              <span class="c1">// 此即為圖二(c)中, 基紐指向龜仙人的實作方式</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">y</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>                  <span class="c1">// 再將要被刪除的node之parent指向新的child</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">root</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">y</span> <span class="o">==</span> <span class="n">y</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">)</span>
+        <span class="n">y</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>
+    <span class="k">else</span>
+        <span class="n">y</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">y</span> <span class="o">!=</span> <span class="n">delete_node</span><span class="p">)</span> <span class="p">{</span>                 <span class="c1">// y即是達爾, delete_node即是西魯</span>
+        <span class="n">delete_node</span><span class="o">-&gt;</span><span class="n">SetKey</span><span class="p">(</span><span class="n">y</span><span class="o">-&gt;</span><span class="n">GetKey</span><span class="p">());</span>   <span class="c1">// 實際被刪除的是y, 因此最後要再將y的資料放進delete_node的記憶體位置</span>
+        <span class="n">delete_node</span><span class="o">-&gt;</span><span class="n">SetElement</span><span class="p">(</span><span class="n">y</span><span class="o">-&gt;</span><span class="n">GetElement</span><span class="p">());</span>
+    <span class="p">}</span>   
+<span class="p">}</span>
 </pre></div>
 
 
@@ -265,68 +265,68 @@
 <img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/sort_delete/sort_delete8.png?raw=true" /></p>
 <p><strong>圖三：。</strong><br />
 </center></p>
-<div class="highlight"><pre><span class="code-line"><span class="c1">// C++ code</span></span>
-<span class="code-line"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span></span>
-<span class="code-line">    <span class="n">BST</span> <span class="n">b1</span><span class="p">;</span></span>
-<span class="code-line">    <span class="n">TreeNode</span> <span class="n">n1</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="s">&quot;龜仙人&quot;</span><span class="p">);</span></span>
-<span class="code-line">    <span class="n">TreeNode</span> <span class="n">n2</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span><span class="s">&quot;悟空&quot;</span><span class="p">);</span></span>
-<span class="code-line">    <span class="n">TreeNode</span> <span class="n">n3</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="s">&quot;克林&quot;</span><span class="p">);</span></span>
-<span class="code-line">    <span class="n">TreeNode</span> <span class="n">n4</span><span class="p">(</span><span class="mi">513</span><span class="p">,</span><span class="s">&quot;比克&quot;</span><span class="p">);</span></span>
-<span class="code-line">    <span class="n">b1</span><span class="p">.</span><span class="n">InsertBST</span><span class="p">(</span><span class="n">n1</span><span class="p">);</span></span>
-<span class="code-line">    <span class="n">b1</span><span class="p">.</span><span class="n">InsertBST</span><span class="p">(</span><span class="n">n2</span><span class="p">);</span></span>
-<span class="code-line">    <span class="n">b1</span><span class="p">.</span><span class="n">InsertBST</span><span class="p">(</span><span class="n">n3</span><span class="p">);</span></span>
-<span class="code-line">    <span class="n">b1</span><span class="p">.</span><span class="n">InsertBST</span><span class="p">(</span><span class="n">n4</span><span class="p">);</span></span>
-<span class="code-line">    <span class="n">b1</span><span class="p">.</span><span class="n">DeleteBST</span><span class="p">(</span><span class="mi">8</span><span class="p">);</span>          <span class="c1">// 刪除龜仙人</span></span>
-<span class="code-line">    <span class="n">b1</span><span class="p">.</span><span class="n">InorderPrint</span><span class="p">();</span></span>
-<span class="code-line">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span></span>
-<span class="code-line"><span class="p">}</span></span>
+<div class="highlight"><pre><span class="c1">// C++ code</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">BST</span> <span class="n">b1</span><span class="p">;</span>
+    <span class="n">TreeNode</span> <span class="n">n1</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="s">&quot;龜仙人&quot;</span><span class="p">);</span>
+    <span class="n">TreeNode</span> <span class="n">n2</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span><span class="s">&quot;悟空&quot;</span><span class="p">);</span>
+    <span class="n">TreeNode</span> <span class="n">n3</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="s">&quot;克林&quot;</span><span class="p">);</span>
+    <span class="n">TreeNode</span> <span class="n">n4</span><span class="p">(</span><span class="mi">513</span><span class="p">,</span><span class="s">&quot;比克&quot;</span><span class="p">);</span>
+    <span class="n">b1</span><span class="p">.</span><span class="n">InsertBST</span><span class="p">(</span><span class="n">n1</span><span class="p">);</span>
+    <span class="n">b1</span><span class="p">.</span><span class="n">InsertBST</span><span class="p">(</span><span class="n">n2</span><span class="p">);</span>
+    <span class="n">b1</span><span class="p">.</span><span class="n">InsertBST</span><span class="p">(</span><span class="n">n3</span><span class="p">);</span>
+    <span class="n">b1</span><span class="p">.</span><span class="n">InsertBST</span><span class="p">(</span><span class="n">n4</span><span class="p">);</span>
+    <span class="n">b1</span><span class="p">.</span><span class="n">DeleteBST</span><span class="p">(</span><span class="mi">8</span><span class="p">);</span>          <span class="c1">// 刪除龜仙人</span>
+    <span class="n">b1</span><span class="p">.</span><span class="n">InorderPrint</span><span class="p">();</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 
 
 <p>output:</p>
-<div class="highlight"><pre><span class="code-line"><span class="err">克林</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="err">比克</span><span class="p">(</span><span class="mi">513</span><span class="p">)</span> <span class="err">悟空</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span> </span>
+<div class="highlight"><pre><span class="err">克林</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="err">比克</span><span class="p">(</span><span class="mi">513</span><span class="p">)</span> <span class="err">悟空</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span> 
 </pre></div>
 
 
 <p><a name="4function"></a></p>
 <h2><strong>Leftmost、Rightmost、Successor、Predecessor範例程式碼</strong></h2>
-<div class="highlight"><pre><span class="code-line"><span class="c1">// C++ code</span></span>
-<span class="code-line"><span class="n">TreeNode</span><span class="o">*</span> <span class="n">BST</span><span class="o">::</span><span class="n">Leftmost</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">){</span></span>
-<span class="code-line">    <span class="k">while</span> <span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span></span>
-<span class="code-line">        <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">;</span></span>
-<span class="code-line">    <span class="k">return</span> <span class="n">current</span><span class="p">;</span></span>
-<span class="code-line"><span class="p">}</span></span>
-<span class="code-line"><span class="n">TreeNode</span><span class="o">*</span> <span class="n">BST</span><span class="o">::</span><span class="n">Rightmost</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">){</span></span>
-<span class="code-line">    <span class="k">while</span> <span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span></span>
-<span class="code-line">        <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="p">;</span></span>
-<span class="code-line">    <span class="k">return</span> <span class="n">current</span><span class="p">;</span></span>
-<span class="code-line"><span class="p">}</span></span>
-<span class="code-line"><span class="n">TreeNode</span><span class="o">*</span> <span class="n">BST</span><span class="o">::</span><span class="n">Successor</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">){</span></span>
-<span class="code-line">    <span class="k">if</span> <span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span></span>
-<span class="code-line">        <span class="k">return</span> <span class="n">Leftmost</span><span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="p">);</span></span>
-<span class="code-line"></span>
-<span class="code-line">    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">new_node</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">;</span></span>
-<span class="code-line">    <span class="n">new_node</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">;</span></span>
-<span class="code-line"></span>
-<span class="code-line">    <span class="k">while</span> <span class="p">(</span><span class="n">new_node</span> <span class="o">!=</span> <span class="nb">NULL</span> <span class="o">&amp;&amp;</span> <span class="n">current</span> <span class="o">==</span> <span class="n">new_node</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="p">)</span> <span class="p">{</span></span>
-<span class="code-line">        <span class="n">current</span> <span class="o">=</span> <span class="n">new_node</span><span class="p">;</span></span>
-<span class="code-line">        <span class="n">new_node</span> <span class="o">=</span> <span class="n">new_node</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">;</span></span>
-<span class="code-line">    <span class="p">}</span></span>
-<span class="code-line">    <span class="k">return</span> <span class="n">new_node</span><span class="p">;</span></span>
-<span class="code-line"><span class="p">}</span></span>
-<span class="code-line"><span class="n">TreeNode</span><span class="o">*</span> <span class="n">BST</span><span class="o">::</span><span class="n">Predecessor</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">){</span></span>
-<span class="code-line">    <span class="k">if</span> <span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span></span>
-<span class="code-line">        <span class="k">return</span> <span class="n">Rightmost</span><span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">);</span></span>
-<span class="code-line"></span>
-<span class="code-line">    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">new_node</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">;</span></span>
-<span class="code-line">    <span class="n">new_node</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">;</span></span>
-<span class="code-line"></span>
-<span class="code-line">    <span class="k">while</span> <span class="p">(</span><span class="n">new_node</span> <span class="o">!=</span> <span class="nb">NULL</span> <span class="o">&amp;&amp;</span> <span class="n">current</span> <span class="o">==</span> <span class="n">new_node</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">)</span> <span class="p">{</span></span>
-<span class="code-line">        <span class="n">current</span> <span class="o">=</span> <span class="n">new_node</span><span class="p">;</span></span>
-<span class="code-line">        <span class="n">new_node</span> <span class="o">=</span> <span class="n">new_node</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">;</span></span>
-<span class="code-line">    <span class="p">}</span></span>
-<span class="code-line">    <span class="k">return</span> <span class="n">new_node</span><span class="p">;</span></span>
-<span class="code-line"><span class="p">}</span></span>
+<div class="highlight"><pre><span class="c1">// C++ code</span>
+<span class="n">TreeNode</span><span class="o">*</span> <span class="n">BST</span><span class="o">::</span><span class="n">Leftmost</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">){</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span>
+        <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">current</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="n">TreeNode</span><span class="o">*</span> <span class="n">BST</span><span class="o">::</span><span class="n">Rightmost</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">){</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span>
+        <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">current</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="n">TreeNode</span><span class="o">*</span> <span class="n">BST</span><span class="o">::</span><span class="n">Successor</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">){</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Leftmost</span><span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="p">);</span>
+
+    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">new_node</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">;</span>
+    <span class="n">new_node</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">;</span>
+
+    <span class="k">while</span> <span class="p">(</span><span class="n">new_node</span> <span class="o">!=</span> <span class="nb">NULL</span> <span class="o">&amp;&amp;</span> <span class="n">current</span> <span class="o">==</span> <span class="n">new_node</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">current</span> <span class="o">=</span> <span class="n">new_node</span><span class="p">;</span>
+        <span class="n">new_node</span> <span class="o">=</span> <span class="n">new_node</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">new_node</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="n">TreeNode</span><span class="o">*</span> <span class="n">BST</span><span class="o">::</span><span class="n">Predecessor</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">){</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Rightmost</span><span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">);</span>
+
+    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">new_node</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">;</span>
+    <span class="n">new_node</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">;</span>
+
+    <span class="k">while</span> <span class="p">(</span><span class="n">new_node</span> <span class="o">!=</span> <span class="nb">NULL</span> <span class="o">&amp;&amp;</span> <span class="n">current</span> <span class="o">==</span> <span class="n">new_node</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">current</span> <span class="o">=</span> <span class="n">new_node</span><span class="p">;</span>
+        <span class="n">new_node</span> <span class="o">=</span> <span class="n">new_node</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">new_node</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 
 

@@ -24,7 +24,7 @@
  h5,
  h6{
  	font-family:'Helvetica Neue','Open Sans',Helvetica,Arial,sans-serif;
- 	font-weight:800
+ 	font-weight:400
  }
  a{
  	color:#404040
@@ -177,7 +177,8 @@
 .intro-header .site-heading .subheading{
 		font-size:24px;
 		line-height:1.1,display:block;
-		font-family:'Helvetica Neue','Open Sans',Helvetica,Arial,sans-serif;
+		/*font-family:'Helvetica Neue','Open Sans',Helvetica,Arial,sans-serif;*/
+		font-family:'EB garamond', 'Georgia', 'Lora','Times New Roman', serif;
 		font-weight:300;
 		margin:10px 0 0
 }
@@ -195,7 +196,8 @@
 	line-height:1.1;display:block
 }
 .intro-header .post-heading .subheading{
-	font-family:'Helvetica Neue','Open Sans',Helvetica,Arial,sans-serif;
+	/*font-family:'Helvetica Neue','Open Sans',Helvetica,Arial,sans-serif;*/
+	font-family:'EB garamond', 'Georgia', 'Lora','Times New Roman', serif;
 	font-size:24px;
 	margin:10px 0 30px;
 	font-weight:600
@@ -259,7 +261,7 @@
 }
 .caption{
 	text-align:center;
-	font-size:14px;
+	font-size:16px;
 	padding:10px;
 	font-style:italic;
 	margin:0;
@@ -328,7 +330,7 @@ form .row:first-child .floating-label-form-group{
 .btn{
 	font-family:'Helvetica Neue','Open Sans',Helvetica,Arial,sans-serif;
 	text-transform:uppercase;
-	font-size:14px;
+	font-size:16px;
 	font-weight:800;
 	letter-spacing:1px;
 	border-radius:0;
@@ -350,7 +352,7 @@ form .row:first-child .floating-label-form-group{
 .pager li>a,.pager li>span{
 	font-family:'Helvetica Neue','Open Sans',Helvetica,Arial,sans-serif;
 	text-transform:uppercase;
-	font-size:14px;
+	font-size:16px;
 	font-weight:800;
 	letter-spacing:1px;
 	padding:15px 25px;
