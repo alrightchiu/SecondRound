@@ -69,7 +69,7 @@ PLUGINS = ['render_math']
 
 MENUITEMS = [	# 別人直接用 /archives.html應該是因為 user pages, 總之我要用URL才行, 至少是搞定了
     ('Archives', 'http://alrightchiu.github.io/SecondRound/archives.html'),	
-    ('Categories', 'http://alrightchiu.github.io/SecondRound/categories.html'),
+    # ('Categories', 'http://alrightchiu.github.io/SecondRound/categories.html'),
     ('Tags', 'http://alrightchiu.github.io/SecondRound/tags.html'),
 ]
 
