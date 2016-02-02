@@ -3,7 +3,7 @@
 from __future__ import unicode_literals
 
 AUTHOR = u'Chiu CC'
-SITENAME = u'Ordinary Days'
+SITENAME = u'Second Round'
 SITEURL = 'http://alrightchiu.github.io/SecondRound/'
 
 PATH = 'content'
@@ -28,8 +28,8 @@ MAIN_MENU = True
 USE_FOLDER_AS_CATEGORY = False
 
 # Theme
-THEME = 'theme/Flex'
-# THEME = 'theme/pelican-clean-blog'
+# THEME = 'theme/Flex'
+THEME = 'theme/pelican-clean-blog'
 
 # 使用pelican-plugins
 PLUGIN_PATHS = ['pelican-plugins']
