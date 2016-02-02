@@ -1,116 +1,66 @@
 <!DOCTYPE html>
 <html lang="zh-hant">
-
 <head>
-            <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="">
-        <meta name="author" content="">
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" type="text/css" href="http://alrightchiu.github.io/SecondRound/theme/css/style.min.css">
+  <link rel="stylesheet" type="text/css" href="http://alrightchiu.github.io/SecondRound/theme/css/pygments.min.css">
+  <link rel="stylesheet" type="text/css" href="http://alrightchiu.github.io/SecondRound/theme/css/font-awesome.min.css">
+  <link href="http://alrightchiu.github.io/SecondRound/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Ordinary Days Atom">
 
-
-        <title>Red Black Tree: Rotation(旋轉)</title>
-
-            <link href="http://alrightchiu.github.io/SecondRound/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Ordinary Days Full Atom Feed" />
-            <link href="http://alrightchiu.github.io/SecondRound/feeds/yan-suan-fa-yu-zi-liao-jie-gou.atom.xml" type="application/atom+xml" rel="alternate" title="Ordinary Days Categories Atom Feed" />
-
-        <!-- Bootstrap Core CSS -->
-        <link href="http://alrightchiu.github.io/SecondRound/theme/css/bootstrap.min.css" rel="stylesheet">
-
-        <!-- Custom CSS -->
-        <link href="http://alrightchiu.github.io/SecondRound/theme/css/clean-blog.min.css" rel="stylesheet">
-
-        <!-- Code highlight color scheme -->
-            <link href="http://alrightchiu.github.io/SecondRound/theme/css/code_blocks/darkly.css" rel="stylesheet">
-
-
-        <!-- Custom Fonts -->
-        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-        <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
-
-        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
-            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-        <![endif]-->
-
-
-
-
-        <meta name="tags" contents="C++" />
-        <meta name="tags" contents="Red Black Tree" />
-
-
-	                <meta property="og:locale" content="">
-		<meta property="og:site_name" content="Ordinary Days">
-
-	<meta property="og:type" content="article">
-	<meta property="article:author" content="">
-	<meta property="og:url" content="http://alrightchiu.github.io/SecondRound/red-black-tree-rotationxuan-zhuan.html">
-	<meta property="og:title" content="Red Black Tree: Rotation(旋轉)">
-	<meta property="og:description" content="">
-	<meta property="og:image" content="http://alrightchiu.github.io/SecondRound/">
-	<meta property="article:published_time" content="2016-01-24 23:06:00+08:00">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+<meta name="author" content="Chiu CC" />
+<meta name="description" content="介紹Red Black Tree(紅黑樹)的Rotation(旋轉)操作。" />
+<meta name="keywords" content="C++, Red Black Tree">
+<meta property="og:site_name" content="Ordinary Days"/>
+<meta property="og:title" content="Red Black Tree: Rotation(旋轉)"/>
+<meta property="og:description" content="介紹Red Black Tree(紅黑樹)的Rotation(旋轉)操作。"/>
+<meta property="og:locale" content="zh_TW"/>
+<meta property="og:url" content="http://alrightchiu.github.io/SecondRound/red-black-tree-rotationxuan-zhuan.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2016-01-24 23:06:00+08:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="http://alrightchiu.github.io/SecondRound/author/chiu-cc.html">
+<meta property="article:section" content="演算法與資料結構"/>
+<meta property="article:tag" content="C++"/>
+<meta property="article:tag" content="Red Black Tree"/>
+<meta property="og:image" content="http://alrightchiu.github.io/SecondRound/fig/antiwar.jpg">  <title>Ordinary Days &ndash; Red Black Tree: Rotation(旋轉)</title>
 </head>
-
 <body>
-
-    <!-- Navigation -->
-    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
-        <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header page-scroll">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="http://alrightchiu.github.io/SecondRound/">Ordinary Days</a>
-            </div>
-
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                        <li><a href="http://alrightchiu.github.io/SecondRound/archives.html">Archives</a></li>
-                        <li><a href="http://alrightchiu.github.io/SecondRound/categories.html">Categories</a></li>
-                        <li><a href="http://alrightchiu.github.io/SecondRound/tags.html">Tags</a></li>
-
-                            <li><a href="http://alrightchiu.github.io/SecondRound/pages/about.html">About</a></li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container -->
+  <aside>
+    <div>
+      <a href="http://alrightchiu.github.io/SecondRound">
+        <img src="http://alrightchiu.github.io/SecondRound/fig/antiwar.jpg" alt="Ordinary Days" title="Ordinary Days">
+      </a>
+      <h1><a href="http://alrightchiu.github.io/SecondRound">Ordinary Days</a></h1>
+      <p>Hey</p>
+      <nav>
+        <ul class="list">
+          <li><a href="http://alrightchiu.github.io/SecondRound/pages/about.html#about">About</a></li>
+        </ul>
+      </nav>
+      <ul class="social">
+        <li><a class="sc-github" href="https://github.com/alrightchiu" target="_blank"><i class="fa fa-github"></i></a></li>
+      </ul>
+    </div>
+  </aside>
+  <main>
+    <nav>
+      <a href="http://alrightchiu.github.io/SecondRound">Home</a>
+      <a href="http://alrightchiu.github.io/SecondRound/archives.html">Archives</a>
+      <a href="http://alrightchiu.github.io/SecondRound/categories.html">Categories</a>
+      <a href="http://alrightchiu.github.io/SecondRound/tags.html">Tags</a>
+      <a href="http://alrightchiu.github.io/SecondRound/feeds/all.atom.xml">Atom</a>
     </nav>
 
-    <!-- Page Header -->
-        <header class="intro-header" style="background-image: url('http://alrightchiu.github.io/SecondRound/theme/images/post-bg.jpg')">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                    <div class="post-heading">
-                        <h1>Red Black Tree: Rotation(旋轉)</h1>
-                        <span class="meta">Posted by
-                                <a href="http://alrightchiu.github.io/SecondRound/author/chiu-cc.html">Chiu CC</a>
-                             on  1 24, 2016
-                        </span>
-                        
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <!-- Main Content -->
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-    <!-- Post Content -->
-    <article>
-        <p></br></p>
+<article>
+  <header>
+    <h1 id="red-black-tree-rotationxuan-zhuan">Red Black Tree: Rotation(旋轉)</h1>
+    <p>Posted on  1 24, 2016 in <a href="http://alrightchiu.github.io/SecondRound/category/yan-suan-fa-yu-zi-liao-jie-gou.html">演算法與資料結構</a></p>
+  </header>
+  <div>
+    <p></br></p>
 <h6><strong>先備知識與注意事項</strong></h6>
 <p>雖說是Rotation(旋轉)，但其實沒有這麼神奇，只是視覺上看起來像旋轉，在電腦實際將讀取的程式碼實現上，僅僅是數個pointer之指向的重新改寫，所以千萬別害怕。</p>
 <p>本篇文章的第一部分將以Insert(新增資料)與Delete(刪除資料)來說明為什麼需要Rotation(旋轉)，但是讀者可以先不必理會細節，因為實際上的Insert與Delete將有更多情況必須考慮，此部分將留待後續文章逐項說明，在本篇文章只要掌握Rotation(旋轉)即可。</p>
@@ -217,27 +167,7 @@
 <p><strong>圖二(a)：。</strong><br />
 </center></p>
 <p>Left Rotation之程式範例如下：</p>
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="code-line"> 1</span>
-<span class="code-line"> 2</span>
-<span class="code-line"> 3</span>
-<span class="code-line"> 4</span>
-<span class="code-line"> 5</span>
-<span class="code-line"> 6</span>
-<span class="code-line"> 7</span>
-<span class="code-line"> 8</span>
-<span class="code-line"> 9</span>
-<span class="code-line">10</span>
-<span class="code-line">11</span>
-<span class="code-line">12</span>
-<span class="code-line">13</span>
-<span class="code-line">14</span>
-<span class="code-line">15</span>
-<span class="code-line">16</span>
-<span class="code-line">17</span>
-<span class="code-line">18</span>
-<span class="code-line">19</span>
-<span class="code-line">20</span>
-<span class="code-line">21</pre></div></td><td class="code"><div class="highlight"><pre><span class="code-line"><span class="c1">// C++ code</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="c1">// C++ code</span></span>
 <span class="code-line"><span class="kt">void</span> <span class="n">RBT</span><span class="o">::</span><span class="n">LeftRotation</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">x</span><span class="p">){</span></span>
 <span class="code-line">    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">y</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">;</span></span>
 <span class="code-line">    <span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="p">;</span>              <span class="c1">// 把y設成x的rightchild</span></span>
@@ -259,7 +189,7 @@
 <span class="code-line">    <span class="n">x</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">=</span> <span class="n">y</span><span class="p">;</span>                  <span class="c1">// 圖二(e)右</span></span>
 <span class="code-line"><span class="p">}</span></span>
 </pre></div>
-</td></tr></table>
+
 
 <p><a name="right-rotate"></a></p>
 <h4><strong>Right Roration(向左旋轉)</strong></h4>
@@ -269,28 +199,7 @@
 <p><strong>圖三：。</strong><br />
 </center></p>
 <p>Right Rotation之程式範例如下，把所有<code>LeftRotation()</code>中的<code>left-</code>與<code>right-</code>對調就是了：</p>
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="code-line"> 1</span>
-<span class="code-line"> 2</span>
-<span class="code-line"> 3</span>
-<span class="code-line"> 4</span>
-<span class="code-line"> 5</span>
-<span class="code-line"> 6</span>
-<span class="code-line"> 7</span>
-<span class="code-line"> 8</span>
-<span class="code-line"> 9</span>
-<span class="code-line">10</span>
-<span class="code-line">11</span>
-<span class="code-line">12</span>
-<span class="code-line">13</span>
-<span class="code-line">14</span>
-<span class="code-line">15</span>
-<span class="code-line">16</span>
-<span class="code-line">17</span>
-<span class="code-line">18</span>
-<span class="code-line">19</span>
-<span class="code-line">20</span>
-<span class="code-line">21</span>
-<span class="code-line">22</pre></div></td><td class="code"><div class="highlight"><pre><span class="code-line"><span class="c1">// C++ code</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="c1">// C++ code</span></span>
 <span class="code-line"><span class="kt">void</span> <span class="n">RBT</span><span class="o">::</span><span class="n">RightRotation</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">y</span><span class="p">){</span></span>
 <span class="code-line"></span>
 <span class="code-line">    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">x</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">;</span></span>
@@ -313,7 +222,7 @@
 <span class="code-line">    <span class="n">y</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>                  <span class="c1">// 將x設為y之parent</span></span>
 <span class="code-line"><span class="p">}</span></span>
 </pre></div>
-</td></tr></table>
+
 
 <p></br>  </p>
 <p>以上便是Rotation(旋轉)的說明，在接下來介紹Insert(新增資料)與Delete(刪除資料)的兩篇文章中將會再次與各位相會。  </p>
@@ -398,55 +307,53 @@
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
 </script>
-    </article>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="http://alrightchiu.github.io/SecondRound/tag/c.html">C++</a>
+      <a href="http://alrightchiu.github.io/SecondRound/tag/red-black-tree.html">Red Black Tree</a>
+    </p>
+  </div>
+</article>
 
-        <div class="tags">
-            <p>tags: <a href="http://alrightchiu.github.io/SecondRound/tag/c.html">C++</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/red-black-tree.html">Red Black Tree</a>, </p>
-        </div>
-
-<hr>
-<div class="sharing">
-</div>
-    <hr>
-
-            </div>
-        </div>
-    </div>
-
-    <hr>
-
-    <!-- Footer -->
     <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                    <ul class="list-inline text-center">
-                            <li>
-                                <a href="https://github.com/alrightchiu">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                    </ul>
-<p class="copyright text-muted">
-    Blog powered by <a href="http://getpelican.com">Pelican</a>,
-    which takes great advantage of <a href="http://python.org">Python</a>.
-</p>                </div>
-            </div>
-        </div>
-    </footer>
+<p>
+  &copy; Chiu CC  - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>
+</p>
+<p>Built using <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a></p><p>
+  <a rel="license"
+     href="http://creativecommons.org/licenses/by-sa/4.0/"
+     target="_blank">
+    <img alt="Creative Commons License"
+         title="Creative Commons License"
+         style="border-width:0"
+         src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png"
+         width="80"
+         height="15"/>
+  </a>
+</p>    </footer>
+  </main>
 
-    <!-- jQuery -->
-    <script src="http://alrightchiu.github.io/SecondRound/theme/js/jquery.js"></script>
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src="http://alrightchiu.github.io/SecondRound/theme/js/bootstrap.min.js"></script>
 
-        <!-- Custom Theme JavaScript -->
-        <script src="http://alrightchiu.github.io/SecondRound/theme/js/clean-blog.min.js"></script>
 
-</body>
 
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "name": "Red Black Tree: Rotation(旋轉)",
+  "headline": "Red Black Tree: Rotation(旋轉)",
+  "datePublished": "2016-01-24 23:06:00+08:00",
+  "dateModified": "",
+  "author": {
+    "@type": "Person",
+    "name": "Chiu CC",
+    "url": "http://alrightchiu.github.io/SecondRound/author/chiu-cc.html"
+  },
+  "image": "http://alrightchiu.github.io/SecondRound/fig/antiwar.jpg",
+  "url": "http://alrightchiu.github.io/SecondRound/red-black-tree-rotationxuan-zhuan.html",
+  "description": "介紹Red Black Tree(紅黑樹)的Rotation(旋轉)操作。"
+}
+</script></body>
 </html>
