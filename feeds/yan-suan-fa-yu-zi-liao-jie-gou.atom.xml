@@ -3017,7 +3017,7 @@ pointer連接完成後，結束迴圈。&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/red-black-tree-deleteshan-chu-zi-liao-yu-fixupxiu-zheng.html"&gt;Red Black Tree: Delete(刪除資料)與Fixup(修正)&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;</summary><category term="C++"></category><category term="Binary Tree(二元樹)"></category></entry><entry><title>Linked List: Traversal(尋訪)</title><link href="http://alrightchiu.github.io/SecondRound/linked-list-traversalxun-fang.html" rel="alternate"></link><updated>2015-12-23T20:00:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2015-12-23:SecondRound/linked-list-traversalxun-fang.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
-&lt;h6&gt;&lt;strong&gt;先備知識與注意事項&lt;/strong&gt;&lt;/h6&gt;
+&lt;h4&gt;&lt;strong&gt;先備知識與注意事項&lt;/strong&gt;&lt;/h4&gt;
 &lt;p&gt;traversal(尋訪)有「站在A地，往所有與A地相連的地方移動」的意思：  &lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;以Graph(圖)的語言來說，站在vertex A上，有一條edge連結A與B，若能夠由A往B移動，此即可視為traversal；&lt;/li&gt;
@@ -3144,7 +3144,7 @@ A B C D     // from traversal()
 &lt;p&gt;&lt;/br&gt;  &lt;/p&gt;
 &lt;p&gt;以上是在Linked list中，單向(single direction)的traversal之介紹，只要把握pointer對記憶體位置(memory address)的操作原則，應該能輕鬆掌握。&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
-&lt;h6&gt;&lt;strong&gt;參考資料&lt;/strong&gt;：&lt;/h6&gt;
+&lt;h4&gt;&lt;strong&gt;參考資料&lt;/strong&gt;：&lt;/h4&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="https://en.wikipedia.org/wiki/Linked_list"&gt;Wikipedia：Linked List&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://www.youtube.com/watch?v=Qdcfxk-e_iw"&gt;太hardcore了&lt;/a&gt;&lt;/li&gt;
