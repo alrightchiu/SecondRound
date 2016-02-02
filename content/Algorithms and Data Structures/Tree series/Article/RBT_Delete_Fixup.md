@@ -184,7 +184,8 @@ void RBT::DeleteRBT(int KEY){              // 要刪除具有KEY的node
 在上述步驟中，並沒有更改`current`之記憶體位置和顏色，`current`仍為黑色。不過其`sibling`必定會變成黑色，因此將進入Case2、Case3或Case4。
 
 為什麼Case1經過以上修正還沒有結束？原因要回到刪除node之前的RBT。  
-圖五(b)左，展示了刪除node之前，以node(C)為`root`的RBT(或是更大的RBT之subtree)。從node(C)往任何一個descendant leaf的path上之黑色node數為$3$，刪除node(B)後，使得其中一條path的黑色node數減少，經過修正，仍然無法使得所有path之黑色node數相同。  
+圖五(b)左，展示了刪除node之前，以node(C)為`root`的RBT(或是更大的RBT之subtree)的其中一種可能情況。  
+從node(C)往任何一個descendant leaf的path上之黑色node數為$3$，刪除node(B)後，使得其中一條path的黑色node數減少，經過上述方法之調整，仍然無法使得所有path之黑色node數相同，如圖五(b)右。  
 不過Case1所提出的修正方法能夠將情況調整成Case2、Case3或Case4，並且修正至滿足RBT之特徵。
 
 

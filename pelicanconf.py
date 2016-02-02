@@ -28,7 +28,8 @@ MAIN_MENU = True
 USE_FOLDER_AS_CATEGORY = False
 
 # Theme
-THEME = 'theme/Flex'
+# THEME = 'theme/Flex'
+THEME = 'theme/storm'
 
 # 使用pelican-plugins
 PLUGIN_PATHS = ['pelican-plugins']
