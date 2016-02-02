@@ -206,7 +206,8 @@
 &lt;p&gt;&lt;strong&gt;圖五(h)：圖中的「Original」僅代表其中一種可能的情形。&lt;/strong&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a name="example"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h4&gt;範例&lt;/h4&gt;
+&lt;hr /&gt;
+&lt;h4&gt;&lt;strong&gt;範例&lt;/strong&gt;&lt;/h4&gt;
 &lt;p&gt;接著以一個簡單的範例(圖六(a)之RBT)操作上述四種Case的修正方法。&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="example" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Delete/delete14.png?raw=true" /&gt;&lt;/p&gt;
@@ -617,7 +618,8 @@
 &lt;p&gt;&lt;strong&gt;圖一(j)：。&lt;/strong&gt;&lt;br /&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a name="example"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h4&gt;幾個範例&lt;/h4&gt;
+&lt;hr /&gt;
+&lt;h4&gt;&lt;strong&gt;幾個範例&lt;/strong&gt;&lt;/h4&gt;
 &lt;p&gt;&lt;strong&gt;Example1&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;考慮一棵RBT如圖二(a)：&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
