@@ -51,6 +51,7 @@
 &lt;/li&gt;
 &lt;li&gt;第二部分，若刪除的node是黑色，需要進行修正(Fix-Up)。&lt;/li&gt;
 &lt;/ol&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// C++ code&lt;/span&gt;
 &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;RBT&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;DeleteRBT&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;KEY&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;              &lt;span class="c1"&gt;// 要刪除具有KEY的node&lt;/span&gt;
 
