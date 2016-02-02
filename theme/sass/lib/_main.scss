@@ -1,0 +1,188 @@
+.border-radius { border-radius: 5px;}
+.round-radius { border-radius: 10px }
+
+#main {
+  h1, h2, h3, h4, h5, h6 {
+    color: $header-text-color;
+    font-family: $heading-font-family;
+    margin: 1em 0;
+    line-height: 140%;
+  }
+  h1, h2 {background: $img-border bottom left repeat-x;}
+  h2 {
+    a {
+      display: inline-block;
+      text-decoration: none;
+      color: $header-text-color;
+      &:visited {color: $header-text-color;}
+    }
+    &:first-child {
+      margin: 1em 0;
+    }
+  }
+  p {
+    margin-bottom: 1em;
+  }
+
+  img {
+    display: block;
+    margin: 1em auto;
+    padding: .3em;
+    border: 1px none;
+    max-width: 100%;
+    @extend .round-radius;
+  }
+  a[href$=".png"], a[href$=".gif"], a[href$=".jpg"], a[href$=".jpeg"] {
+    cursor: pointer;
+    cursor: zoom-in;
+    cursor: -moz-zoom-in;
+    cursor: -webkit-zoom-in;
+  }
+  ul {margin: 1em 0px;}
+  ol, li {
+  margin-left: 1em;
+  }
+  img[alt="many"] {
+    display: inline;
+    margin: 1em 0;
+  }
+  img[alt="none"] {
+      border: none;
+    }
+  img[alt="left"] {
+    float: left;
+    margin: .5em 1em .25em 0;
+  }
+  img[alt="right"] {
+    float: right;
+    margin: .5em 1em .25em 0;
+  }
+  .archive-date {text-align: left; float: right; background: $img-border bottom left repeat-x;
+    color: $light-blue;}
+  .align-left {
+    display: block;
+    text-align: left;
+  }
+  .align-center {
+    display: block;
+    text-align: center;
+  }
+  .align-right {
+    display: block;
+    text-align: right;
+  }
+  blockquote {
+    margin-bottom: 0.5em;
+    padding: .5em;
+    border: 1px dashed $border;
+    @extend .border-radius;
+    font-style: italic;
+  }
+  a {color: $light-blue; text-decoration: none;
+    &:hover {color: $blue; text-decoration: underline;}
+    &:visited {color: $violet;}
+  }
+table {
+  width:100%;
+  max-width: 100%;
+  border-collapse:collapse;
+  margin: 2% 0;
+  border: $gray;
+  th {
+  background: $light-gray;
+  }
+}
+th, td {
+  text-align:left;
+  padding:0.313em 0.625em;
+  border:1px solid $border;
+}
+
+dt {
+  color:#444;
+  font-weight:700;
+}
+dd {margin-left: 1em;}
+
+.video {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    @extend .round-radius;
+}
+.video iframe,
+.video object,
+.video embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    margin-bottom: 1em;
+}
+  code {
+    font-size: 1.0rem;
+    display: inline-block;
+    background-color: transparent;
+    color: $base0_sol;
+  }
+  pre {
+    line-height: 1.5;
+    font-size: 0.95rem;
+    margin-bottom: 1em;
+    padding: 0.313em;
+    overflow: auto;
+    background-color: $white-mono;
+    border: 1px solid $gray;
+    @extend .border-radius;
+  }
+}
+
+.pagination {
+  text-align: center;
+  margin: 1em 0;
+}
+
+input[type="text"], textarea {
+  display: inline-block;
+  height: 25px;
+  vertical-align: middle;
+  background-color: $white;
+  border: 1px solid $gray;
+  border-radius: 4px;
+    &:focus {
+      border-color: $bright-blue;
+      outline: 0;
+      -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+      box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+    }
+}
+
+input[type="submit"] {
+  display: inline-block;
+  padding: 6px 12px;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.428571429;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  border: 1px solid $gray;
+  border-radius: 4px;
+  color: rgb(51, 51, 51);
+  background-color: $white;
+  border-color: $border;
+  -webkit-user-select: text;
+     -moz-user-select: text;
+      -ms-user-select: text;
+       -o-user-select: text;
+          user-select: text;
+  &:hover {
+    outline: 5px auto -webkit-focus-ring-color;
+    outline-offset: -2px;
+    background-color: $light-gray;
+    }
+}

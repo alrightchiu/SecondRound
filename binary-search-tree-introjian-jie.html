@@ -1,67 +1,39 @@
 <!DOCTYPE html>
-<html lang="zh-hant">
+<html lang="en">
 <head>
-  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
-  <link rel="stylesheet" type="text/css" href="http://alrightchiu.github.io/SecondRound/theme/css/style.min.css">
-  <link rel="stylesheet" type="text/css" href="http://alrightchiu.github.io/SecondRound/theme/css/pygments.min.css">
-  <link rel="stylesheet" type="text/css" href="http://alrightchiu.github.io/SecondRound/theme/css/font-awesome.min.css">
-  <link href="http://alrightchiu.github.io/SecondRound/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Ordinary Days Atom">
-
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="robots" content="" />
-<meta name="author" content="Chiu CC" />
-<meta name="description" content="謹以Binary Search Tree(二元搜尋樹)向拯救90後的童年的鉅作《七龍珠》以及鳥山明老師致敬。" />
-<meta name="keywords" content="C++, Binary Search Tree(二元搜尋樹), Intro">
-<meta property="og:site_name" content="Ordinary Days"/>
-<meta property="og:title" content="Binary Search Tree: Intro(簡介)"/>
-<meta property="og:description" content="謹以Binary Search Tree(二元搜尋樹)向拯救90後的童年的鉅作《七龍珠》以及鳥山明老師致敬。"/>
-<meta property="og:locale" content="zh_TW"/>
-<meta property="og:url" content="http://alrightchiu.github.io/SecondRound/binary-search-tree-introjian-jie.html"/>
-<meta property="og:type" content="article"/>
-<meta property="article:published_time" content="2016-01-02 12:15:00+08:00"/>
-<meta property="article:modified_time" content=""/>
-<meta property="article:author" content="http://alrightchiu.github.io/SecondRound/author/chiu-cc.html">
-<meta property="article:section" content="演算法與資料結構"/>
-<meta property="article:tag" content="C++"/>
-<meta property="article:tag" content="Binary Search Tree(二元搜尋樹)"/>
-<meta property="article:tag" content="Intro"/>
-<meta property="og:image" content="http://alrightchiu.github.io/SecondRound/fig/antiwar.jpg">  <title>Ordinary Days &ndash; Binary Search Tree: Intro(簡介)</title>
+  <title>Binary Search Tree: Intro(簡介) | Ordinary Days</title>
+  <meta charset="utf-8">
+<meta name="description" content="謹以Binary Search Tree(二元搜尋樹)向拯救90後的童年的鉅作《七龍珠》以及鳥山明老師致敬。"><meta name="author" content="Chiu CC">  <meta name="viewport" content="initial-scale=1, maximum-scale=1" />
+  <meta http-equiv="Cache-Control" content="max-age=604800, must-revalidate" />
+  <link href="http://alrightchiu.github.io/SecondRound/theme/css/screen.css" rel="stylesheet" type="text/css" />
+  <link rel="icon" href="http://alrightchiu.github.io/SecondRound/favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="http://alrightchiu.github.io/SecondRound/favicon.ico" type="image/x-icon">
+  <link href="http://alrightchiu.github.io/SecondRound/" type="application/atom+xml" rel="alternate" title="Ordinary Days ATOM Feed" />
 </head>
 <body>
-  <aside>
-    <div>
-      <a href="http://alrightchiu.github.io/SecondRound">
-        <img src="http://alrightchiu.github.io/SecondRound/fig/antiwar.jpg" alt="Ordinary Days" title="Ordinary Days">
-      </a>
-      <h1><a href="http://alrightchiu.github.io/SecondRound">Ordinary Days</a></h1>
-      <p>Hey</p>
-      <nav>
-        <ul class="list">
-          <li><a href="http://alrightchiu.github.io/SecondRound/pages/about.html#about">About</a></li>
-        </ul>
-      </nav>
-      <ul class="social">
-        <li><a class="sc-github" href="https://github.com/alrightchiu" target="_blank"><i class="fa fa-github"></i></a></li>
-      </ul>
+<div id="outer-wrapper">
+<div id="header-wrapper">
+  <div class="logo"><a href="http://alrightchiu.github.io/SecondRound">Ordinary Days</a></div>
+  <div class="small">Hey</div>
+    <div class="nav">
+  <li><a href="http://alrightchiu.github.io/SecondRound/http://alrightchiu.github.io/SecondRound/archives.html">Archives</a></li>
+  <li><a href="http://alrightchiu.github.io/SecondRound/http://alrightchiu.github.io/SecondRound/categories.html">Categories</a></li>
+  <li><a href="http://alrightchiu.github.io/SecondRound/http://alrightchiu.github.io/SecondRound/tags.html">Tags</a></li>
     </div>
-  </aside>
-  <main>
-    <nav>
-      <a href="http://alrightchiu.github.io/SecondRound">Home</a>
-      <a href="http://alrightchiu.github.io/SecondRound/archives.html">Archives</a>
-      <a href="http://alrightchiu.github.io/SecondRound/categories.html">Categories</a>
-      <a href="http://alrightchiu.github.io/SecondRound/tags.html">Tags</a>
-      <a href="http://alrightchiu.github.io/SecondRound/feeds/all.atom.xml">Atom</a>
-    </nav>
+    <div class="nav social">
+<ul>
+    <li><a href="https://github.com/alrightchiu">github</a></li>
+</ul>    </div>
+</div>    <div id="main">
+<h2><a href="http://alrightchiu.github.io/SecondRound/binary-search-tree-introjian-jie.html">Binary Search Tree: Intro(簡介)</a></h2>
+<h5><i class="icon-feather"></i>  1 02, 2016
+<i class="icon-bookmarks"></i>
+<span><a href="http://alrightchiu.github.io/SecondRound/tag/c.html">C++</a> / </span>
+<span><a href="http://alrightchiu.github.io/SecondRound/tag/binary-search-treeer-yuan-sou-xun-shu.html">Binary Search Tree(二元搜尋樹)</a> / </span>
+<span><a href="http://alrightchiu.github.io/SecondRound/tag/intro.html">Intro</a> / </span>
+</h5>
 
-<article>
-  <header>
-    <h1 id="binary-search-tree-introjian-jie">Binary Search Tree: Intro(簡介)</h1>
-    <p>Posted on  1 02, 2016 in <a href="http://alrightchiu.github.io/SecondRound/category/yan-suan-fa-yu-zi-liao-jie-gou.html">演算法與資料結構</a></p>
-  </header>
-  <div>
-    <p></br></p>
+<p></br></p>
 <h6><strong>先備知識與注意事項</strong></h6>
 <p>先前的文章介紹過廣義的Tree(樹)、Binary Tree(二元樹)，這篇文章將繼續增加限制條件，使Binary Tree晉升成Binary Search Tree(BST，二元搜尋樹)。  </p>
 <p>這裡要處理的資料是日本漫畫的曠世鉅作《七龍珠》中各角色的戰鬥力。<br />
@@ -269,54 +241,23 @@
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
 </script>
-  </div>
-  <div class="tag-cloud">
-    <p>
-      <a href="http://alrightchiu.github.io/SecondRound/tag/c.html">C++</a>
-      <a href="http://alrightchiu.github.io/SecondRound/tag/binary-search-treeer-yuan-sou-xun-shu.html">Binary Search Tree(二元搜尋樹)</a>
-      <a href="http://alrightchiu.github.io/SecondRound/tag/intro.html">Intro</a>
-    </p>
-  </div>
-</article>
 
-    <footer>
-<p>
-  &copy; Chiu CC  - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>
-</p>
-<p>Built using <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a></p><p>
-  <a rel="license"
-     href="http://creativecommons.org/licenses/by-sa/4.0/"
-     target="_blank">
-    <img alt="Creative Commons License"
-         title="Creative Commons License"
-         style="border-width:0"
-         src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png"
-         width="80"
-         height="15"/>
-  </a>
-</p>    </footer>
-  </main>
-
-
-
-
-
-<script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "BlogPosting",
-  "name": "Binary Search Tree: Intro(簡介)",
-  "headline": "Binary Search Tree: Intro(簡介)",
-  "datePublished": "2016-01-02 12:15:00+08:00",
-  "dateModified": "",
-  "author": {
-    "@type": "Person",
-    "name": "Chiu CC",
-    "url": "http://alrightchiu.github.io/SecondRound/author/chiu-cc.html"
-  },
-  "image": "http://alrightchiu.github.io/SecondRound/fig/antiwar.jpg",
-  "url": "http://alrightchiu.github.io/SecondRound/binary-search-tree-introjian-jie.html",
-  "description": "謹以Binary Search Tree(二元搜尋樹)向拯救90後的童年的鉅作《七龍珠》以及鳥山明老師致敬。"
-}
-</script></body>
+<p align="center"><a href="#">on the top</a></p>
+    </div>
+</div>
+<div id="footer-wrapper">
+<ul class="footer">
+     <li class="footer"><a href="http://alrightchiu.github.io/SecondRound/tag/binary-search-treeer-yuan-sou-xun-shu.html">Binary Search Tree(二元搜尋樹)&nbsp;&bull;&nbsp;</a></li>
+     <li class="footer"><a href="http://alrightchiu.github.io/SecondRound/tag/binary-treeer-yuan-shu.html">Binary Tree(二元樹)&nbsp;&bull;&nbsp;</a></li>
+     <li class="footer"><a href="http://alrightchiu.github.io/SecondRound/tag/c.html">C++&nbsp;&bull;&nbsp;</a></li>
+     <li class="footer"><a href="http://alrightchiu.github.io/SecondRound/tag/intro.html">Intro&nbsp;&bull;&nbsp;</a></li>
+     <li class="footer"><a href="http://alrightchiu.github.io/SecondRound/tag/linked-listlian-jie-chuan-lie.html">Linked List(連結串列)&nbsp;&bull;&nbsp;</a></li>
+     <li class="footer"><a href="http://alrightchiu.github.io/SecondRound/tag/red-black-tree.html">Red Black Tree</a></li>
+</ul><ul class="footer">
+    <li class="footer">&copy;&nbsp;2014&nbsp;::</li>
+    <li class="footer"><a href="http://alrightchiu.github.io/SecondRound">Ordinary Days </a>&nbsp;::</li>
+    <li class="footer">powered by <a href="https://github.com/getpelican">pelican</a>&nbsp;::</li>
+    <li class="footer"><a href="http://creativecommons.org/licenses/by-nc/3.0/deed.ru">CC BY-NC</a></li>
+</ul>
+</div></body>
 </html>

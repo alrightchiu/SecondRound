@@ -1,0 +1,127 @@
+$img-border: url('../img/dotted-border.png');
+$header-bg: url("../img/header-bg.jpg");
+$noise-img: url("../img/noise.jpg");
+$logo: url("../img/logo.png");
+
+/*
+for use logo.png:
+replace line
+<div class="logo"><a href="{{ SITEURL }}">{{ SITENAME }}</a></div>
+on
+<a href="{{ SITEURL }}"><div class="logo"></div></a>
+in templates/_include/header.html
+*/
+
+* {
+ margin: 0;
+ padding: 0;
+}
+
+html, body {height: 100%; color: $text-color; background-color: $light-gray;}
+
+#outer-wrapper {
+  position: relative;
+  width: 100%;
+  font: normal 17px/1.524 $sans; /* base font */
+  line-height: 140%;
+  min-height: 100%;
+  background-image: $noise-img;
+}
+
+* html #outer-wrapper {
+  height: 100%;
+}
+
+#header-wrapper {
+  color: $white;
+  min-height: 8.375em;
+  vertical-align: middle;
+  text-align: center;
+  border-bottom: 1px solid $border;
+  background: $header-bg;
+/*  .logo {
+    background: $logo no-repeat;
+    margin: 0 auto;
+    width: 305px;
+    max-width: 100%;
+    height: 52px;
+  }*/
+  .small {
+    font-size: 80%;
+  }
+  .logo {
+    a {
+      font: bold 230% $heading-font-family;
+      text-align: center;
+      text-decoration: none;
+      text-transform: uppercase;
+      color: $white;
+      padding-top: 3%;
+    }
+  }
+  .social {
+    font-size:60%;
+    padding:1em 0 0;
+  }
+.nav {
+  margin: 0 auto;
+  max-width: 100%;
+  font-family: $heading-font-family;
+  ul {
+    text-align: center;
+    list-style-type: none;
+  }
+  li {
+    padding: 1em 1em 1em 0;
+    display: inline-block;
+  }
+  a {
+    color: $white;
+    text-decoration: none;
+    font-size: 140%;
+    text-transform: uppercase;
+    &:hover {text-decoration: line-through;}
+  }
+}
+}
+
+#main {
+  width: 55%;
+  max-width: 960px;
+  margin: 0 auto; /* centering text */
+  padding-bottom: 6.250em;
+}
+
+#footer-wrapper {
+    position: relative;
+    height: 5.000em;
+    margin-top: -5.000em;
+    text-align: center;
+    border-top: 1px solid $border;
+    text-transform: uppercase;
+    background-color: $light-gray;
+    font: {
+      family: $sans;
+    }
+    a {
+      text-decoration: none;
+      color: $gray-mono;
+      &:hover {
+        color: $blue;
+      }
+    }
+    ul, ol, li, p{
+    color: $gray-mono;
+  }
+  p, ul {font-size: 80%; overflow: auto; padding-top: 1em;}
+  li{display: inline; padding: 0; margin: 0 auto;}
+
+}
+
+.footer {
+  width: 55%;
+  max-width: 960px;
+  padding: 0.313em 0;
+  margin: auto; /* centering text */
+
+}
