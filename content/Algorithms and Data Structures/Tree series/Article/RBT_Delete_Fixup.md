@@ -26,7 +26,7 @@ Summary: 介紹於Red Black Tree(紅黑樹)中Delete(刪除資料)與Delete後�
     * [Case3](#case3)
     * [Case4](#case4)
     * [範例](#example)
-    * [程式碼](#code)
+* [程式碼](#code)
 * [參考資料](#ref)
 * [Tree系列文章](#tree_series)
 

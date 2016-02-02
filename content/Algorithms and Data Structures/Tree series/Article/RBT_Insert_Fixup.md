@@ -21,7 +21,7 @@ RBT也是一棵BST，而RBT之Insert(新增資料)方法便是先沿用`InsertBS
     * [Case3](#case3)
     * [Case2](#case2)
     * [幾個範例](#example)
-    * [程式碼](#code)
+* [程式碼](#code)
 * [參考資料](#ref)
 * [Tree系列文章](#tree_series)
 
