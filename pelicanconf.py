@@ -57,11 +57,12 @@ SITELOGO = u'http://alrightchiu.github.io/SecondRound/fig/antiwar.jpg'	# 也弄�
 # MD_EXTENSIONS = ['fenced_code', 'codehilite(css_class=highlight, linenums=True)', 'extra']
 
 # setting for plig-in: better_codeblock_line_numbering
-MD_EXTENSIONS = ['fenced_code', 'codehilite(css_class=highlight, linenums=False)', 'extra' ]
+# MD_EXTENSIONS = ['fenced_code', 'codehilite(css_class=highlight, linenums=False)', 'extra' ]
 
-PLUGINS = ['better_codeblock_line_numbering', 'render_math']
+# PLUGINS = ['better_codeblock_line_numbering', 'render_math']
+PLUGINS = ['render_math']
 
-# TYPOGRIFY = True
+TYPOGRIFY = True
 
 
 
