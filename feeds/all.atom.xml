@@ -3384,18 +3384,18 @@ Binary Tree的node未必需要parent pointer(或稱為parent field)，然而加�
 &lt;p&gt;(若不是樹，皆稱為圖(graph)。)&lt;/p&gt;
 &lt;p&gt;下列四種結構中，a、b可以視為樹，而c、d則否：
 &lt;/br&gt;
-&lt;center&gt;&lt;img alt="fig2.a" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/Tree_fig/is_Tree_a_size.png?raw=true" /&gt;&lt;br /&gt;
-&lt;strong&gt;圖三.a：若樹的node只有指向左子樹(left subtree)與右子樹(right subtree)時，又稱為Binary Tree(二元樹)。&lt;/strong&gt;&lt;br /&gt;
+&lt;center&gt;&lt;img alt="fig2.a" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/Tree_fig/is_Tree_a_size.png?raw=true" /&gt;  &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖三.a：若樹的node只有指向左子樹(left subtree)與右子樹(right subtree)時，又稱為Binary Tree(二元樹)。&lt;/strong&gt;&lt;br /&gt;
 &lt;/br&gt; 
-&lt;img alt="fig2.b" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/Tree_fig/is_Tree_b_size.png?raw=true" /&gt;&lt;br /&gt;
-&lt;strong&gt;圖三.b：若樹退化成Linked list(連結串列)，仍滿足樹的定義。&lt;/strong&gt;  &lt;br /&gt;
+&lt;img alt="fig2.b" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/Tree_fig/is_Tree_b_size.png?raw=true" /&gt;  &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖三.b：若樹退化成Linked list(連結串列)，仍滿足樹的定義。&lt;/strong&gt;  &lt;br /&gt;
 &lt;/br&gt;
-&lt;img alt="fig2.c" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/Tree_fig/is_Not_Tree_c_size.png?raw=true" /&gt;&lt;br /&gt;
-&lt;strong&gt;圖三.c：在F出現cycle；C-&amp;gt;B-&amp;gt;D-&amp;gt;E出現undirected cycle，詳見圖論(graph theory)。&lt;br /&gt;
+&lt;img alt="fig2.c" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/Tree_fig/is_Not_Tree_c_size.png?raw=true" /&gt;  &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖三.c：在F出現cycle；C-&amp;gt;B-&amp;gt;D-&amp;gt;E出現undirected cycle，詳見圖論(graph theory)。&lt;br /&gt;
 後者等價於：D有兩個parent node。&lt;/strong&gt;&lt;br /&gt;
 &lt;/br&gt;
-&lt;img alt="fig2.d" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/Tree_fig/is_Not_Tree_d_size.png?raw=true" /&gt;&lt;br /&gt;
-&lt;strong&gt;圖三.d：一棵樹只能有一個樹根(root)。此圖像又稱為樹林(forest)。&lt;/strong&gt;
+&lt;img alt="fig2.d" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/Tree_fig/is_Not_Tree_d_size.png?raw=true" /&gt;  &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖三.d：一棵樹只能有一個樹根(root)。此圖像又稱為樹林(forest)。&lt;/strong&gt;
 &lt;/center&gt;
 &lt;/br&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a name="element"&gt;&lt;/a&gt;&lt;/p&gt;
@@ -3462,8 +3462,8 @@ Binary Tree的node未必需要parent pointer(或稱為parent field)，然而加�
 &lt;h2&gt;&lt;strong&gt;集合關係&lt;/strong&gt;&lt;/h2&gt;
 &lt;p&gt;本篇介紹的樹(Tree)位居承先啟後的戰略位置，圖五展示了與樹有關的資料結構的集合關係圖：&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
-&lt;img alt="fig4" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/Tree_fig/Set_Graph_Tree_size.png?raw=true" /&gt;&lt;br /&gt;
-&lt;strong&gt;圖五：與樹相關的資料結構之集合關係。&lt;/strong&gt;
+&lt;img alt="fig4" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/Tree_fig/Set_Graph_Tree_size.png?raw=true" /&gt;  &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖五：與樹相關的資料結構之集合關係。&lt;/strong&gt;
 &lt;/center&gt;
 &lt;/br&gt;&lt;/p&gt;
 &lt;p&gt;本篇介紹的樹並沒有限制child/ subtree的個數，理論上可以有多到超過記憶體空間的child node。&lt;br /&gt;
