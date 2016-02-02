@@ -162,7 +162,46 @@
 </li>
 <li>第二部分，若刪除的node是黑色，需要進行修正(Fix-Up)。</li>
 </ol>
-<div class="highlight"><pre><span class="code-line"><span class="c1">// C++ code</span></span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="code-line"> 1</span>
+<span class="code-line"> 2</span>
+<span class="code-line"> 3</span>
+<span class="code-line"> 4</span>
+<span class="code-line"> 5</span>
+<span class="code-line"> 6</span>
+<span class="code-line"> 7</span>
+<span class="code-line"> 8</span>
+<span class="code-line"> 9</span>
+<span class="code-line">10</span>
+<span class="code-line">11</span>
+<span class="code-line">12</span>
+<span class="code-line">13</span>
+<span class="code-line">14</span>
+<span class="code-line">15</span>
+<span class="code-line">16</span>
+<span class="code-line">17</span>
+<span class="code-line">18</span>
+<span class="code-line">19</span>
+<span class="code-line">20</span>
+<span class="code-line">21</span>
+<span class="code-line">22</span>
+<span class="code-line">23</span>
+<span class="code-line">24</span>
+<span class="code-line">25</span>
+<span class="code-line">26</span>
+<span class="code-line">27</span>
+<span class="code-line">28</span>
+<span class="code-line">29</span>
+<span class="code-line">30</span>
+<span class="code-line">31</span>
+<span class="code-line">32</span>
+<span class="code-line">33</span>
+<span class="code-line">34</span>
+<span class="code-line">35</span>
+<span class="code-line">36</span>
+<span class="code-line">37</span>
+<span class="code-line">38</span>
+<span class="code-line">39</span>
+<span class="code-line">40</pre></div></td><td class="code"><div class="highlight"><pre><span class="code-line"><span class="c1">// C++ code</span></span>
 <span class="code-line"><span class="kt">void</span> <span class="n">RBT</span><span class="o">::</span><span class="n">DeleteRBT</span><span class="p">(</span><span class="kt">int</span> <span class="n">KEY</span><span class="p">){</span>              <span class="c1">// 要刪除具有KEY的node</span></span>
 <span class="code-line"></span>
 <span class="code-line">    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">delete_node</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">;</span></span>
@@ -203,7 +242,7 @@
 <span class="code-line">    <span class="p">}</span></span>
 <span class="code-line"><span class="p">}</span></span>
 </pre></div>
-
+</td></tr></table>
 
 <p><a name="fixup"></a></p>
 <h2><strong>修正：DeleteFixUpRBT()</strong></h2>
@@ -406,7 +445,81 @@
 <li>分別進行Case1、Case2、Case3與Case4之修正；</li>
 <li>最後，在line74的<code>current-&gt;color = 1</code>將<code>current</code>之顏色塗黑，有可能在Case2用上，見圖五(d)與圖六(h)。</li>
 </ul>
-<div class="highlight"><pre><span class="code-line"><span class="c1">// C++ code</span></span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="code-line"> 1</span>
+<span class="code-line"> 2</span>
+<span class="code-line"> 3</span>
+<span class="code-line"> 4</span>
+<span class="code-line"> 5</span>
+<span class="code-line"> 6</span>
+<span class="code-line"> 7</span>
+<span class="code-line"> 8</span>
+<span class="code-line"> 9</span>
+<span class="code-line">10</span>
+<span class="code-line">11</span>
+<span class="code-line">12</span>
+<span class="code-line">13</span>
+<span class="code-line">14</span>
+<span class="code-line">15</span>
+<span class="code-line">16</span>
+<span class="code-line">17</span>
+<span class="code-line">18</span>
+<span class="code-line">19</span>
+<span class="code-line">20</span>
+<span class="code-line">21</span>
+<span class="code-line">22</span>
+<span class="code-line">23</span>
+<span class="code-line">24</span>
+<span class="code-line">25</span>
+<span class="code-line">26</span>
+<span class="code-line">27</span>
+<span class="code-line">28</span>
+<span class="code-line">29</span>
+<span class="code-line">30</span>
+<span class="code-line">31</span>
+<span class="code-line">32</span>
+<span class="code-line">33</span>
+<span class="code-line">34</span>
+<span class="code-line">35</span>
+<span class="code-line">36</span>
+<span class="code-line">37</span>
+<span class="code-line">38</span>
+<span class="code-line">39</span>
+<span class="code-line">40</span>
+<span class="code-line">41</span>
+<span class="code-line">42</span>
+<span class="code-line">43</span>
+<span class="code-line">44</span>
+<span class="code-line">45</span>
+<span class="code-line">46</span>
+<span class="code-line">47</span>
+<span class="code-line">48</span>
+<span class="code-line">49</span>
+<span class="code-line">50</span>
+<span class="code-line">51</span>
+<span class="code-line">52</span>
+<span class="code-line">53</span>
+<span class="code-line">54</span>
+<span class="code-line">55</span>
+<span class="code-line">56</span>
+<span class="code-line">57</span>
+<span class="code-line">58</span>
+<span class="code-line">59</span>
+<span class="code-line">60</span>
+<span class="code-line">61</span>
+<span class="code-line">62</span>
+<span class="code-line">63</span>
+<span class="code-line">64</span>
+<span class="code-line">65</span>
+<span class="code-line">66</span>
+<span class="code-line">67</span>
+<span class="code-line">68</span>
+<span class="code-line">69</span>
+<span class="code-line">70</span>
+<span class="code-line">71</span>
+<span class="code-line">72</span>
+<span class="code-line">73</span>
+<span class="code-line">74</span>
+<span class="code-line">75</pre></div></td><td class="code"><div class="highlight"><pre><span class="code-line"><span class="c1">// C++ code</span></span>
 <span class="code-line"><span class="kt">void</span> <span class="n">RBT</span><span class="o">::</span><span class="n">DeleteFixedUpRBT</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">){</span></span>
 <span class="code-line">    <span class="c1">// Case0:(i)  current是紅色的, 不影響黑色在path上的數量</span></span>
 <span class="code-line">    <span class="c1">//       (ii) current是root,</span></span>
@@ -482,7 +595,7 @@
 <span class="code-line">    <span class="n">current</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span></span>
 <span class="code-line"><span class="p">}</span></span>
 </pre></div>
-
+</td></tr></table>
 
 <p></br>
 <a name="ref"></a></p>

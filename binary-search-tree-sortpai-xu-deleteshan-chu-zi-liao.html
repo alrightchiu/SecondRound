@@ -133,7 +133,16 @@
 <p><strong>圖一：。</strong><br />
 </center></p>
 <p>以下範例程式，將Visiting用作列印資料(print)：</p>
-<div class="highlight"><pre><span class="code-line"><span class="c1">// C++ code</span></span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="code-line"> 1</span>
+<span class="code-line"> 2</span>
+<span class="code-line"> 3</span>
+<span class="code-line"> 4</span>
+<span class="code-line"> 5</span>
+<span class="code-line"> 6</span>
+<span class="code-line"> 7</span>
+<span class="code-line"> 8</span>
+<span class="code-line"> 9</span>
+<span class="code-line">10</pre></div></td><td class="code"><div class="highlight"><pre><span class="code-line"><span class="c1">// C++ code</span></span>
 <span class="code-line"><span class="kt">void</span> <span class="n">BST</span><span class="o">::</span><span class="n">InorderPrint</span><span class="p">(){</span></span>
 <span class="code-line">    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">;</span></span>
 <span class="code-line">    <span class="n">current</span> <span class="o">=</span> <span class="n">Leftmost</span><span class="p">(</span><span class="n">root</span><span class="p">);</span></span>
@@ -144,12 +153,12 @@
 <span class="code-line">    <span class="p">}</span></span>
 <span class="code-line"><span class="p">}</span></span>
 </pre></div>
-
+</td></tr></table>
 
 <p>output:</p>
-<div class="highlight"><pre><span class="code-line"><span class="err">克林</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="err">龜仙人</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span> <span class="err">比克</span><span class="p">(</span><span class="mi">513</span><span class="p">)</span> <span class="err">悟空</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span> </span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="code-line">1</pre></div></td><td class="code"><div class="highlight"><pre><span class="code-line"><span class="err">克林</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="err">龜仙人</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span> <span class="err">比克</span><span class="p">(</span><span class="mi">513</span><span class="p">)</span> <span class="err">悟空</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span> </span>
 </pre></div>
-
+</td></tr></table>
 
 <p><a name="delete"></a></p>
 <h2><strong>BST::DeleteBST(刪除資料)</strong></h2>
@@ -219,7 +228,42 @@
 <li>若實際上刪除的是「替身」，再把替身的資料放回BST中。</li>
 </ol>
 <p>即完成BST之刪除資料操作。</p>
-<div class="highlight"><pre><span class="code-line"><span class="c1">// C++ code</span></span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="code-line"> 1</span>
+<span class="code-line"> 2</span>
+<span class="code-line"> 3</span>
+<span class="code-line"> 4</span>
+<span class="code-line"> 5</span>
+<span class="code-line"> 6</span>
+<span class="code-line"> 7</span>
+<span class="code-line"> 8</span>
+<span class="code-line"> 9</span>
+<span class="code-line">10</span>
+<span class="code-line">11</span>
+<span class="code-line">12</span>
+<span class="code-line">13</span>
+<span class="code-line">14</span>
+<span class="code-line">15</span>
+<span class="code-line">16</span>
+<span class="code-line">17</span>
+<span class="code-line">18</span>
+<span class="code-line">19</span>
+<span class="code-line">20</span>
+<span class="code-line">21</span>
+<span class="code-line">22</span>
+<span class="code-line">23</span>
+<span class="code-line">24</span>
+<span class="code-line">25</span>
+<span class="code-line">26</span>
+<span class="code-line">27</span>
+<span class="code-line">28</span>
+<span class="code-line">29</span>
+<span class="code-line">30</span>
+<span class="code-line">31</span>
+<span class="code-line">32</span>
+<span class="code-line">33</span>
+<span class="code-line">34</span>
+<span class="code-line">35</span>
+<span class="code-line">36</pre></div></td><td class="code"><div class="highlight"><pre><span class="code-line"><span class="c1">// C++ code</span></span>
 <span class="code-line"><span class="kt">void</span> <span class="n">BST</span><span class="o">::</span><span class="n">DeleteBST</span><span class="p">(</span><span class="kt">int</span> <span class="n">KEY</span><span class="p">){</span>               <span class="c1">// 要刪除具有KEY的node</span></span>
 <span class="code-line">    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">delete_node</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">;</span></span>
 <span class="code-line">    <span class="n">delete_node</span> <span class="o">=</span> <span class="n">Search</span><span class="p">(</span><span class="n">KEY</span><span class="p">);</span>              <span class="c1">// 先確認BST中是否有具有KEY的node</span></span>
@@ -256,7 +300,7 @@
 <span class="code-line">    <span class="p">}</span>   </span>
 <span class="code-line"><span class="p">}</span></span>
 </pre></div>
-
+</td></tr></table>
 
 <p><a name="main"></a></p>
 <h2><strong>main()</strong></h2>
@@ -265,7 +309,21 @@
 <img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/sort_delete/sort_delete8.png?raw=true" /></p>
 <p><strong>圖三：。</strong><br />
 </center></p>
-<div class="highlight"><pre><span class="code-line"><span class="c1">// C++ code</span></span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="code-line"> 1</span>
+<span class="code-line"> 2</span>
+<span class="code-line"> 3</span>
+<span class="code-line"> 4</span>
+<span class="code-line"> 5</span>
+<span class="code-line"> 6</span>
+<span class="code-line"> 7</span>
+<span class="code-line"> 8</span>
+<span class="code-line"> 9</span>
+<span class="code-line">10</span>
+<span class="code-line">11</span>
+<span class="code-line">12</span>
+<span class="code-line">13</span>
+<span class="code-line">14</span>
+<span class="code-line">15</pre></div></td><td class="code"><div class="highlight"><pre><span class="code-line"><span class="c1">// C++ code</span></span>
 <span class="code-line"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span></span>
 <span class="code-line">    <span class="n">BST</span> <span class="n">b1</span><span class="p">;</span></span>
 <span class="code-line">    <span class="n">TreeNode</span> <span class="n">n1</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="s">&quot;龜仙人&quot;</span><span class="p">);</span></span>
@@ -281,16 +339,52 @@
 <span class="code-line">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span></span>
 <span class="code-line"><span class="p">}</span></span>
 </pre></div>
-
+</td></tr></table>
 
 <p>output:</p>
-<div class="highlight"><pre><span class="code-line"><span class="err">克林</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="err">比克</span><span class="p">(</span><span class="mi">513</span><span class="p">)</span> <span class="err">悟空</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span> </span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="code-line">1</pre></div></td><td class="code"><div class="highlight"><pre><span class="code-line"><span class="err">克林</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="err">比克</span><span class="p">(</span><span class="mi">513</span><span class="p">)</span> <span class="err">悟空</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span> </span>
 </pre></div>
-
+</td></tr></table>
 
 <p><a name="4function"></a></p>
 <h2><strong>Leftmost、Rightmost、Successor、Predecessor範例程式碼</strong></h2>
-<div class="highlight"><pre><span class="code-line"><span class="c1">// C++ code</span></span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="code-line"> 1</span>
+<span class="code-line"> 2</span>
+<span class="code-line"> 3</span>
+<span class="code-line"> 4</span>
+<span class="code-line"> 5</span>
+<span class="code-line"> 6</span>
+<span class="code-line"> 7</span>
+<span class="code-line"> 8</span>
+<span class="code-line"> 9</span>
+<span class="code-line">10</span>
+<span class="code-line">11</span>
+<span class="code-line">12</span>
+<span class="code-line">13</span>
+<span class="code-line">14</span>
+<span class="code-line">15</span>
+<span class="code-line">16</span>
+<span class="code-line">17</span>
+<span class="code-line">18</span>
+<span class="code-line">19</span>
+<span class="code-line">20</span>
+<span class="code-line">21</span>
+<span class="code-line">22</span>
+<span class="code-line">23</span>
+<span class="code-line">24</span>
+<span class="code-line">25</span>
+<span class="code-line">26</span>
+<span class="code-line">27</span>
+<span class="code-line">28</span>
+<span class="code-line">29</span>
+<span class="code-line">30</span>
+<span class="code-line">31</span>
+<span class="code-line">32</span>
+<span class="code-line">33</span>
+<span class="code-line">34</span>
+<span class="code-line">35</span>
+<span class="code-line">36</span>
+<span class="code-line">37</pre></div></td><td class="code"><div class="highlight"><pre><span class="code-line"><span class="c1">// C++ code</span></span>
 <span class="code-line"><span class="n">TreeNode</span><span class="o">*</span> <span class="n">BST</span><span class="o">::</span><span class="n">Leftmost</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">){</span></span>
 <span class="code-line">    <span class="k">while</span> <span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span></span>
 <span class="code-line">        <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">;</span></span>
@@ -328,7 +422,7 @@
 <span class="code-line">    <span class="k">return</span> <span class="n">new_node</span><span class="p">;</span></span>
 <span class="code-line"><span class="p">}</span></span>
 </pre></div>
-
+</td></tr></table>
 
 <p></br></p>
 <p>以上便是BST中<code>BST::DeleteBST()</code>之介紹，關鍵即在Successor與Predecessor。  </p>

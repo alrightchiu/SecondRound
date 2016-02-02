@@ -132,7 +132,14 @@
 <p><a name="why"></a></p>
 <h2><strong>為什麼需要Red Black Tree？</strong></h2>
 <p>若考慮最壞情況，在建立BST時，輸入資料的Key恰好被排序過(例如：1、2、3、4...)，那麼這顆BST便會退化成Linked List(接續前例，所有leftchild pointer都指向<code>NULL</code>，只有rightchild child被使用)：</p>
-<div class="highlight"><pre><span class="code-line"><span class="c1">// C++ code</span></span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="code-line">1</span>
+<span class="code-line">2</span>
+<span class="code-line">3</span>
+<span class="code-line">4</span>
+<span class="code-line">5</span>
+<span class="code-line">6</span>
+<span class="code-line">7</span>
+<span class="code-line">8</pre></div></td><td class="code"><div class="highlight"><pre><span class="code-line"><span class="c1">// C++ code</span></span>
 <span class="code-line"><span class="kt">int</span> <span class="n">main</span><span class="p">{</span></span>
 <span class="code-line">    <span class="n">BST</span> <span class="n">T</span><span class="p">;</span></span>
 <span class="code-line">    <span class="n">T</span><span class="p">.</span><span class="n">InsertBST</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>   <span class="c1">// 依序加入Key為1、2、3...之資料</span></span>
@@ -141,7 +148,7 @@
 <span class="code-line">    <span class="p">...</span></span>
 <span class="code-line"><span class="p">}</span></span>
 </pre></div>
-
+</td></tr></table>
 
 <p>圖二中，右側的藍色數字表示「搜尋該node需要比較(<code>if KEY == current-&gt;key</code>)的次數」，也就是迴圈的次數。考慮一串Linked List共有N個node，若要尋找第K個node，則最壞情況即是一路找到最後一個node，需要N次。</p>
 <p><center>
@@ -196,7 +203,27 @@
 <p><strong>圖五：。</strong><br />
 </center></p>
 <p><code>class TreeNode</code>與<code>class RBT</code>之資料成員(data member)程式範例如下：</p>
-<div class="highlight"><pre><span class="code-line"><span class="c1">// C++ code</span></span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="code-line"> 1</span>
+<span class="code-line"> 2</span>
+<span class="code-line"> 3</span>
+<span class="code-line"> 4</span>
+<span class="code-line"> 5</span>
+<span class="code-line"> 6</span>
+<span class="code-line"> 7</span>
+<span class="code-line"> 8</span>
+<span class="code-line"> 9</span>
+<span class="code-line">10</span>
+<span class="code-line">11</span>
+<span class="code-line">12</span>
+<span class="code-line">13</span>
+<span class="code-line">14</span>
+<span class="code-line">15</span>
+<span class="code-line">16</span>
+<span class="code-line">17</span>
+<span class="code-line">18</span>
+<span class="code-line">19</span>
+<span class="code-line">20</span>
+<span class="code-line">21</pre></div></td><td class="code"><div class="highlight"><pre><span class="code-line"><span class="c1">// C++ code</span></span>
 <span class="code-line"><span class="cp">#include &lt;iostream&gt;</span></span>
 <span class="code-line"><span class="cp">#include &lt;string&gt;</span></span>
 <span class="code-line"><span class="k">class</span> <span class="nc">RBT</span><span class="p">;</span></span>
@@ -218,7 +245,7 @@
 <span class="code-line">    <span class="p">...</span></span>
 <span class="code-line"><span class="p">}</span></span>
 </pre></div>
-
+</td></tr></table>
 
 <p>(為了避開某些IDE將<code>NIL</code>設定成保留關鍵字(reserved keywords，例如<code>template</code>、<code>while</code>、<code>struct</code>等等)，因此使用<code>neel</code>。)</p>
 <p>為求畫面簡潔，往後的篇幅裡將把RBT示意圖中的<code>NIL</code>隱藏起來，只顯示RBT中的internal node，如圖六，不過心裡要記得，RBT無時無刻都被<code>NIL</code>充滿著。</p>
