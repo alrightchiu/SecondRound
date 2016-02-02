@@ -1,39 +1,117 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>Red Black Tree: Intro(簡介) | Ordinary Days</title>
-  <meta charset="utf-8">
-<meta name="description" content="介紹Red Black Tree(紅黑樹)的基本性質。"><meta name="author" content="Chiu CC">  <meta name="viewport" content="initial-scale=1, maximum-scale=1" />
-  <meta http-equiv="Cache-Control" content="max-age=604800, must-revalidate" />
-  <link href="http://alrightchiu.github.io/SecondRound/theme/css/screen.css" rel="stylesheet" type="text/css" />
-  <link rel="icon" href="http://alrightchiu.github.io/SecondRound/favicon.ico" type="image/x-icon">
-  <link rel="shortcut icon" href="http://alrightchiu.github.io/SecondRound/favicon.ico" type="image/x-icon">
-  <link href="http://alrightchiu.github.io/SecondRound/" type="application/atom+xml" rel="alternate" title="Ordinary Days ATOM Feed" />
-</head>
-<body>
-<div id="outer-wrapper">
-<div id="header-wrapper">
-  <div class="logo"><a href="http://alrightchiu.github.io/SecondRound">Ordinary Days</a></div>
-  <div class="small">Hey</div>
-    <div class="nav">
-  <li><a href="http://alrightchiu.github.io/SecondRound/http://alrightchiu.github.io/SecondRound/archives.html">Archives</a></li>
-  <li><a href="http://alrightchiu.github.io/SecondRound/http://alrightchiu.github.io/SecondRound/categories.html">Categories</a></li>
-  <li><a href="http://alrightchiu.github.io/SecondRound/http://alrightchiu.github.io/SecondRound/tags.html">Tags</a></li>
-    </div>
-    <div class="nav social">
-<ul>
-    <li><a href="https://github.com/alrightchiu">github</a></li>
-</ul>    </div>
-</div>    <div id="main">
-<h2><a href="http://alrightchiu.github.io/SecondRound/red-black-tree-introjian-jie.html">Red Black Tree: Intro(簡介)</a></h2>
-<h5><i class="icon-feather"></i>  1 23, 2016
-<i class="icon-bookmarks"></i>
-<span><a href="http://alrightchiu.github.io/SecondRound/tag/c.html">C++</a> / </span>
-<span><a href="http://alrightchiu.github.io/SecondRound/tag/red-black-tree.html">Red Black Tree</a> / </span>
-<span><a href="http://alrightchiu.github.io/SecondRound/tag/intro.html">Intro</a> / </span>
-</h5>
+<html lang="zh-hant">
 
-<p></br></p>
+<head>
+            <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+
+        <title>Red Black Tree: Intro(簡介)</title>
+
+            <link href="http://alrightchiu.github.io/SecondRound/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Ordinary Days Full Atom Feed" />
+            <link href="http://alrightchiu.github.io/SecondRound/feeds/yan-suan-fa-yu-zi-liao-jie-gou.atom.xml" type="application/atom+xml" rel="alternate" title="Ordinary Days Categories Atom Feed" />
+
+        <!-- Bootstrap Core CSS -->
+        <link href="http://alrightchiu.github.io/SecondRound/theme/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="http://alrightchiu.github.io/SecondRound/theme/css/clean-blog.min.css" rel="stylesheet">
+
+        <!-- Code highlight color scheme -->
+            <link href="http://alrightchiu.github.io/SecondRound/theme/css/code_blocks/darkly.css" rel="stylesheet">
+
+
+        <!-- Custom Fonts -->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+
+
+
+        <meta name="tags" contents="C++" />
+        <meta name="tags" contents="Red Black Tree" />
+        <meta name="tags" contents="Intro" />
+
+
+	                <meta property="og:locale" content="">
+		<meta property="og:site_name" content="Ordinary Days">
+
+	<meta property="og:type" content="article">
+	<meta property="article:author" content="">
+	<meta property="og:url" content="http://alrightchiu.github.io/SecondRound/red-black-tree-introjian-jie.html">
+	<meta property="og:title" content="Red Black Tree: Intro(簡介)">
+	<meta property="og:description" content="">
+	<meta property="og:image" content="http://alrightchiu.github.io/SecondRound/">
+	<meta property="article:published_time" content="2016-01-23 16:09:00+08:00">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://alrightchiu.github.io/SecondRound/">Ordinary Days</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a href="http://alrightchiu.github.io/SecondRound/archives.html">Archives</a></li>
+                        <li><a href="http://alrightchiu.github.io/SecondRound/categories.html">Categories</a></li>
+                        <li><a href="http://alrightchiu.github.io/SecondRound/tags.html">Tags</a></li>
+
+                            <li><a href="http://alrightchiu.github.io/SecondRound/pages/about.html">About</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+        <header class="intro-header" style="background-image: url('http://alrightchiu.github.io/SecondRound/theme/images/post-bg.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>Red Black Tree: Intro(簡介)</h1>
+                        <span class="meta">Posted by
+                                <a href="http://alrightchiu.github.io/SecondRound/author/chiu-cc.html">Chiu CC</a>
+                             on  1 23, 2016
+                        </span>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    <!-- Post Content -->
+    <article>
+        <p></br></p>
 <h6><strong>先備知識與注意事項</strong></h6>
 <p>在閱讀過BST系列文章後可以發現，在BST中的操作，不論是Insert(新增資料)或是Delete(刪除資料)，皆需要先做Search(搜尋)，而Search(搜尋)的效率，取決於BST的height(樹高)，如果一棵樹越矮、越平衡(balanced)，則在此BST中搜尋資料的速度較快，理想狀況為Complete Binary Tree(時間複雜度：<span class="math">\(O(\log N)\)</span>)。反之，若由於輸入資料的順序使得BST沒長好、偏一邊，則在此BST中搜尋資料的最壞情況將有可能如同在Linked List做搜尋(時間複雜度：<span class="math">\(O(N)\)</span>)。  </p>
 <p>本篇文章將介紹BST的進階版Red Black Tree(RBT，紅黑樹)之基本性質，會說是進階版，原因在於RBT其實也是BST(滿足<span class="math">\(Key(L)&lt;Key(Current)&lt;Key(R)\)</span>)，不過RBT的node比BST多加了「顏色」(紅色或黑色)，而正因為多了「顏色」，便能修正BST有可能退化成Linked list(連結串列)的潛在缺陷。 </p>
@@ -231,23 +309,55 @@
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
 </script>
+    </article>
 
-<p align="center"><a href="#">on the top</a></p>
-    </div>
+        <div class="tags">
+            <p>tags: <a href="http://alrightchiu.github.io/SecondRound/tag/c.html">C++</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/red-black-tree.html">Red Black Tree</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/intro.html">Intro</a>, </p>
+        </div>
+
+<hr>
+<div class="sharing">
 </div>
-<div id="footer-wrapper">
-<ul class="footer">
-     <li class="footer"><a href="http://alrightchiu.github.io/SecondRound/tag/binary-search-treeer-yuan-sou-xun-shu.html">Binary Search Tree(二元搜尋樹)&nbsp;&bull;&nbsp;</a></li>
-     <li class="footer"><a href="http://alrightchiu.github.io/SecondRound/tag/binary-treeer-yuan-shu.html">Binary Tree(二元樹)&nbsp;&bull;&nbsp;</a></li>
-     <li class="footer"><a href="http://alrightchiu.github.io/SecondRound/tag/c.html">C++&nbsp;&bull;&nbsp;</a></li>
-     <li class="footer"><a href="http://alrightchiu.github.io/SecondRound/tag/intro.html">Intro&nbsp;&bull;&nbsp;</a></li>
-     <li class="footer"><a href="http://alrightchiu.github.io/SecondRound/tag/linked-listlian-jie-chuan-lie.html">Linked List(連結串列)&nbsp;&bull;&nbsp;</a></li>
-     <li class="footer"><a href="http://alrightchiu.github.io/SecondRound/tag/red-black-tree.html">Red Black Tree</a></li>
-</ul><ul class="footer">
-    <li class="footer">&copy;&nbsp;2014&nbsp;::</li>
-    <li class="footer"><a href="http://alrightchiu.github.io/SecondRound">Ordinary Days </a>&nbsp;::</li>
-    <li class="footer">powered by <a href="https://github.com/getpelican">pelican</a>&nbsp;::</li>
-    <li class="footer"><a href="http://creativecommons.org/licenses/by-nc/3.0/deed.ru">CC BY-NC</a></li>
-</ul>
-</div></body>
+    <hr>
+
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                            <li>
+                                <a href="https://github.com/alrightchiu">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                    </ul>
+<p class="copyright text-muted">
+    Blog powered by <a href="http://getpelican.com">Pelican</a>,
+    which takes great advantage of <a href="http://python.org">Python</a>.
+</p>                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="http://alrightchiu.github.io/SecondRound/theme/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="http://alrightchiu.github.io/SecondRound/theme/js/bootstrap.min.js"></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script src="http://alrightchiu.github.io/SecondRound/theme/js/clean-blog.min.js"></script>
+
+</body>
+
 </html>
