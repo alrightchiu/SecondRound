@@ -217,49 +217,29 @@
 <p><strong>圖二(a)：。</strong><br />
 </center></p>
 <p>Left Rotation之程式範例如下：</p>
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21</pre></div></td><td class="code"><div class="highlight"><pre><span class="c1">// C++ code</span>
-<span class="kt">void</span> <span class="n">RBT</span><span class="o">::</span><span class="n">LeftRotation</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">x</span><span class="p">){</span>
-    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">y</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">;</span>
-    <span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="p">;</span>              <span class="c1">// 把y設成x的rightchild</span>
-
-    <span class="n">x</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">=</span> <span class="n">y</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">;</span>   <span class="c1">// 圖二(c)左</span>
-
-    <span class="k">if</span> <span class="p">(</span><span class="n">y</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">!=</span> <span class="n">neel</span><span class="p">)</span>       <span class="c1">// 圖二(c)右, 若node(j)為NIL則忽略</span>
-        <span class="n">y</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>
-
-    <span class="n">y</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">=</span> <span class="n">x</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">;</span>          <span class="c1">// 圖二(d)左</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">x</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">==</span> <span class="n">neel</span><span class="p">)</span>          <span class="c1">// 圖二(d)右</span>
-        <span class="n">root</span> <span class="o">=</span> <span class="n">y</span><span class="p">;</span>                   
-    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">==</span> <span class="n">x</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">)</span>
-        <span class="n">x</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">=</span> <span class="n">y</span><span class="p">;</span>
-    <span class="k">else</span>
-        <span class="n">x</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">=</span> <span class="n">y</span><span class="p">;</span>
-
-    <span class="n">y</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>               <span class="c1">// 圖二(e)左</span>
-    <span class="n">x</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">=</span> <span class="n">y</span><span class="p">;</span>                  <span class="c1">// 圖二(e)右</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span class="code-line"><span class="c1">// C++ code</span></span>
+<span class="code-line"><span class="kt">void</span> <span class="n">RBT</span><span class="o">::</span><span class="n">LeftRotation</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">x</span><span class="p">){</span></span>
+<span class="code-line">    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">y</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">;</span></span>
+<span class="code-line">    <span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="p">;</span>              <span class="c1">// 把y設成x的rightchild</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="n">x</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">=</span> <span class="n">y</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">;</span>   <span class="c1">// 圖二(c)左</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="k">if</span> <span class="p">(</span><span class="n">y</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">!=</span> <span class="n">neel</span><span class="p">)</span>       <span class="c1">// 圖二(c)右, 若node(j)為NIL則忽略</span></span>
+<span class="code-line">        <span class="n">y</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="n">y</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">=</span> <span class="n">x</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">;</span>          <span class="c1">// 圖二(d)左</span></span>
+<span class="code-line">    <span class="k">if</span> <span class="p">(</span><span class="n">x</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">==</span> <span class="n">neel</span><span class="p">)</span>          <span class="c1">// 圖二(d)右</span></span>
+<span class="code-line">        <span class="n">root</span> <span class="o">=</span> <span class="n">y</span><span class="p">;</span>                   </span>
+<span class="code-line">    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">==</span> <span class="n">x</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">)</span></span>
+<span class="code-line">        <span class="n">x</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">=</span> <span class="n">y</span><span class="p">;</span></span>
+<span class="code-line">    <span class="k">else</span></span>
+<span class="code-line">        <span class="n">x</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">=</span> <span class="n">y</span><span class="p">;</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="n">y</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>               <span class="c1">// 圖二(e)左</span></span>
+<span class="code-line">    <span class="n">x</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">=</span> <span class="n">y</span><span class="p">;</span>                  <span class="c1">// 圖二(e)右</span></span>
+<span class="code-line"><span class="p">}</span></span>
 </pre></div>
-</td></tr></table>
+
 
 <p><a name="right-rotate"></a></p>
 <h4><strong>Right Roration(向左旋轉)</strong></h4>
@@ -269,51 +249,30 @@
 <p><strong>圖三：。</strong><br />
 </center></p>
 <p>Right Rotation之程式範例如下，把所有<code>LeftRotation()</code>中的<code>left-</code>與<code>right-</code>對調就是了：</p>
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22</pre></div></td><td class="code"><div class="highlight"><pre><span class="c1">// C++ code</span>
-<span class="kt">void</span> <span class="n">RBT</span><span class="o">::</span><span class="n">RightRotation</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">y</span><span class="p">){</span>
-
-    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">x</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">;</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="n">y</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">;</span>               <span class="c1">// 把x設成y的leftchild</span>
-
-    <span class="n">y</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">=</span> <span class="n">x</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="p">;</span>   <span class="c1">// 把x的rightchild放到y的leftchild    </span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">x</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">!=</span> <span class="n">neel</span><span class="p">)</span>      <span class="c1">// 若x的rightchild不為NIL, 將其parent指向y</span>
-        <span class="n">x</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">=</span> <span class="n">y</span><span class="p">;</span>
-
-    <span class="n">x</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">=</span> <span class="n">y</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">;</span>          <span class="c1">// 將x的parent指向原先y的parent</span>
-                                    <span class="c1">// 以下一組if-else將修改原先y的parent之child</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">y</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">==</span> <span class="n">neel</span><span class="p">)</span>               <span class="c1">// 若y原先是root, x將成為新的root</span>
-        <span class="n">root</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>                        
-    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">y</span> <span class="o">==</span> <span class="n">y</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">)</span>  <span class="c1">// 若原先y是其parent之leftchild, </span>
-        <span class="n">y</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>        <span class="c1">//   x亦成為其新的parent之leftchild</span>
-    <span class="k">else</span>                                 <span class="c1">// 若原先y是其parent之rightchild, </span>
-        <span class="n">y</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>       <span class="c1">//   x亦成為其新的parent之rightchild</span>
-
-    <span class="n">x</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">=</span> <span class="n">y</span><span class="p">;</span>              <span class="c1">// 將y設為x之rightchild</span>
-    <span class="n">y</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>                  <span class="c1">// 將x設為y之parent</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span class="code-line"><span class="c1">// C++ code</span></span>
+<span class="code-line"><span class="kt">void</span> <span class="n">RBT</span><span class="o">::</span><span class="n">RightRotation</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">y</span><span class="p">){</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">x</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">;</span></span>
+<span class="code-line">    <span class="n">x</span> <span class="o">=</span> <span class="n">y</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">;</span>               <span class="c1">// 把x設成y的leftchild</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="n">y</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">=</span> <span class="n">x</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="p">;</span>   <span class="c1">// 把x的rightchild放到y的leftchild    </span></span>
+<span class="code-line">    <span class="k">if</span> <span class="p">(</span><span class="n">x</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">!=</span> <span class="n">neel</span><span class="p">)</span>      <span class="c1">// 若x的rightchild不為NIL, 將其parent指向y</span></span>
+<span class="code-line">        <span class="n">x</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">=</span> <span class="n">y</span><span class="p">;</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="n">x</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">=</span> <span class="n">y</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">;</span>          <span class="c1">// 將x的parent指向原先y的parent</span></span>
+<span class="code-line">                                    <span class="c1">// 以下一組if-else將修改原先y的parent之child</span></span>
+<span class="code-line">    <span class="k">if</span> <span class="p">(</span><span class="n">y</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">==</span> <span class="n">neel</span><span class="p">)</span>               <span class="c1">// 若y原先是root, x將成為新的root</span></span>
+<span class="code-line">        <span class="n">root</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>                        </span>
+<span class="code-line">    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">y</span> <span class="o">==</span> <span class="n">y</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">)</span>  <span class="c1">// 若原先y是其parent之leftchild, </span></span>
+<span class="code-line">        <span class="n">y</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>        <span class="c1">//   x亦成為其新的parent之leftchild</span></span>
+<span class="code-line">    <span class="k">else</span>                                 <span class="c1">// 若原先y是其parent之rightchild, </span></span>
+<span class="code-line">        <span class="n">y</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>       <span class="c1">//   x亦成為其新的parent之rightchild</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="n">x</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">=</span> <span class="n">y</span><span class="p">;</span>              <span class="c1">// 將y設為x之rightchild</span></span>
+<span class="code-line">    <span class="n">y</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>                  <span class="c1">// 將x設為y之parent</span></span>
+<span class="code-line"><span class="p">}</span></span>
 </pre></div>
-</td></tr></table>
+
 
 <p></br>  </p>
 <p>以上便是Rotation(旋轉)的說明，在接下來介紹Insert(新增資料)與Delete(刪除資料)的兩篇文章中將會再次與各位相會。  </p>
