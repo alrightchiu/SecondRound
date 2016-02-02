@@ -217,7 +217,27 @@
 <p><strong>圖二(a)：。</strong><br />
 </center></p>
 <p>Left Rotation之程式範例如下：</p>
-<div class="highlight"><pre><span class="c1">// C++ code</span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21</pre></div></td><td class="code"><div class="highlight"><pre><span class="c1">// C++ code</span>
 <span class="kt">void</span> <span class="n">RBT</span><span class="o">::</span><span class="n">LeftRotation</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">x</span><span class="p">){</span>
     <span class="n">TreeNode</span> <span class="o">*</span><span class="n">y</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">;</span>
     <span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="p">;</span>              <span class="c1">// 把y設成x的rightchild</span>
@@ -239,7 +259,7 @@
     <span class="n">x</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">=</span> <span class="n">y</span><span class="p">;</span>                  <span class="c1">// 圖二(e)右</span>
 <span class="p">}</span>
 </pre></div>
-
+</td></tr></table>
 
 <p><a name="right-rotate"></a></p>
 <h4><strong>Right Roration(向左旋轉)</strong></h4>
@@ -249,7 +269,28 @@
 <p><strong>圖三：。</strong><br />
 </center></p>
 <p>Right Rotation之程式範例如下，把所有<code>LeftRotation()</code>中的<code>left-</code>與<code>right-</code>對調就是了：</p>
-<div class="highlight"><pre><span class="c1">// C++ code</span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22</pre></div></td><td class="code"><div class="highlight"><pre><span class="c1">// C++ code</span>
 <span class="kt">void</span> <span class="n">RBT</span><span class="o">::</span><span class="n">RightRotation</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">y</span><span class="p">){</span>
 
     <span class="n">TreeNode</span> <span class="o">*</span><span class="n">x</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">;</span>
@@ -272,7 +313,7 @@
     <span class="n">y</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>                  <span class="c1">// 將x設為y之parent</span>
 <span class="p">}</span>
 </pre></div>
-
+</td></tr></table>
 
 <p></br>  </p>
 <p>以上便是Rotation(旋轉)的說明，在接下來介紹Insert(新增資料)與Delete(刪除資料)的兩篇文章中將會再次與各位相會。  </p>

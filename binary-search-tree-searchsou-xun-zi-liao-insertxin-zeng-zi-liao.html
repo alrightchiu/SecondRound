@@ -113,7 +113,61 @@
         <p></br></p>
 <h6><strong>先備知識與注意事項</strong></h6>
 <p>在開始介紹search(搜尋資料)與insert(新增資料)之前，先定義好<code>class TreeNode</code>與<code>class BST</code>，順便對未來將介紹的其他member function(成員函式)留下美好的第一印象：</p>
-<div class="highlight"><pre><span class="c1">// C++ code</span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55</pre></div></td><td class="code"><div class="highlight"><pre><span class="c1">// C++ code</span>
 <span class="cp">#include &lt;iostream&gt;</span>
 <span class="cp">#include &lt;string&gt;</span>
 <span class="k">class</span> <span class="nc">BST</span><span class="p">;</span>
@@ -169,7 +223,7 @@
     <span class="kt">bool</span> <span class="nf">IsEmpty</span><span class="p">()</span> <span class="k">const</span><span class="p">{</span><span class="k">return</span> <span class="p">(</span><span class="n">root</span><span class="o">==</span><span class="nb">NULL</span><span class="p">);};</span>    <span class="c1">// 確認BST是否存有資料</span>
 <span class="p">};</span>
 </pre></div>
-
+</td></tr></table>
 
 <p>文章內容將著重於BST這個資料結構，並提供此資料結構中可行的演算法，因此，有關C++的實作方法並不唯一，筆者相信有更優秀的寫法(有效利用記憶體、避免memory leak(記憶體洩漏)等議題)，建議讀者可以多多參考例如<a href="http://codereview.stackexchange.com/">Stack Exchange:Code Review</a>等等眾多優秀的網站，看網友的程式碼的寫法以及由該份程式碼所開啟的討論串，應該會對實際寫作技巧有些幫助。<br />
 (筆者也還在學啊啊啊啊)</p>
@@ -251,7 +305,18 @@
 <li>KEY與<code>Current</code>node的key相同，表示搜尋成功；</li>
 <li><code>Current</code>移動到<code>NULL</code>，表示搜尋失敗。</li>
 </ol>
-<div class="highlight"><pre><span class="c1">// C++ code</span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12</pre></div></td><td class="code"><div class="highlight"><pre><span class="c1">// C++ code</span>
 <span class="n">TreeNode</span><span class="o">*</span> <span class="n">BST</span><span class="o">::</span><span class="n">Search</span><span class="p">(</span><span class="kt">int</span> <span class="n">KEY</span><span class="p">){</span>
     <span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">;</span>
     <span class="n">current</span> <span class="o">=</span> <span class="n">root</span><span class="p">;</span>
@@ -264,7 +329,7 @@
     <span class="k">return</span> <span class="n">current</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
-
+</td></tr></table>
 
 <p></br> 
 <a name="insert"></a></p>
@@ -306,7 +371,28 @@
 <p><strong>圖二(d)：。</strong><br />
 </center> </p>
 <p>以下是<code>BST::InsertBST()</code>的範例程式碼，關鍵便是「哨兵<strong>x</strong>」與「準新手爸媽<strong>y</strong>」的冒險之旅：</p>
-<div class="highlight"><pre><span class="c1">// C++ code</span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22</pre></div></td><td class="code"><div class="highlight"><pre><span class="c1">// C++ code</span>
 <span class="kt">void</span> <span class="n">BST</span><span class="o">::</span><span class="n">InsertBST</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">&amp;</span><span class="n">new_node</span><span class="p">){</span>
     <span class="n">TreeNode</span> <span class="o">*</span><span class="n">y</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">;</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>        <span class="c1">// 準新手爸媽</span>
     <span class="n">TreeNode</span> <span class="o">*</span><span class="n">x</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">;</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>        <span class="c1">// 哨兵</span>
@@ -329,7 +415,7 @@
         <span class="n">y</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">=</span> <span class="n">insert_node</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
-
+</td></tr></table>
 
 <p>備註：  </p>
 <ul>
@@ -339,7 +425,19 @@
 <p><a name="main"></a></p>
 <h2><strong>main()</strong></h2>
 <p>有了<code>BST::InsertBST()</code>後，就可以用土法煉鋼的方式建立一棵如圖二(d)的BST:</p>
-<div class="highlight"><pre><span class="c1">// C++ code</span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13</pre></div></td><td class="code"><div class="highlight"><pre><span class="c1">// C++ code</span>
 <span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="n">BST</span> <span class="n">b1</span><span class="p">;</span>
     <span class="n">TreeNode</span> <span class="n">n1</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="s">&quot;龜仙人&quot;</span><span class="p">);</span>
@@ -353,7 +451,7 @@
     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
-
+</td></tr></table>
 
 <p>以上便是BST中<code>Search()</code>與<code>InsertBST()</code>之介紹，只要掌握BST的性質<span class="math">\(Key(L)&lt;Key(Current)&lt;Key(R)\)</span>與樹中的Traversal(pointer的移動)即可輕鬆上路。 </p>
 <p></br>

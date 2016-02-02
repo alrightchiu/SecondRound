@@ -162,7 +162,46 @@
 </li>
 <li>第二部分，若刪除的node是黑色，需要進行修正(Fix-Up)。</li>
 </ol>
-<div class="highlight"><pre><span class="c1">// C++ code</span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40</pre></div></td><td class="code"><div class="highlight"><pre><span class="c1">// C++ code</span>
 <span class="kt">void</span> <span class="n">RBT</span><span class="o">::</span><span class="n">DeleteRBT</span><span class="p">(</span><span class="kt">int</span> <span class="n">KEY</span><span class="p">){</span>              <span class="c1">// 要刪除具有KEY的node</span>
 
     <span class="n">TreeNode</span> <span class="o">*</span><span class="n">delete_node</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">;</span>
@@ -203,7 +242,7 @@
     <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
-
+</td></tr></table>
 
 <p><a name="fixup"></a></p>
 <h2><strong>修正：DeleteFixUpRBT()</strong></h2>
@@ -406,7 +445,81 @@
 <li>分別進行Case1、Case2、Case3與Case4之修正；</li>
 <li>最後，在line74的<code>current-&gt;color = 1</code>將<code>current</code>之顏色塗黑，有可能在Case2用上，見圖五(d)與圖六(h)。</li>
 </ul>
-<div class="highlight"><pre><span class="c1">// C++ code</span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75</pre></div></td><td class="code"><div class="highlight"><pre><span class="c1">// C++ code</span>
 <span class="kt">void</span> <span class="n">RBT</span><span class="o">::</span><span class="n">DeleteFixedUpRBT</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">){</span>
     <span class="c1">// Case0:(i)  current是紅色的, 不影響黑色在path上的數量</span>
     <span class="c1">//       (ii) current是root,</span>
@@ -482,7 +595,7 @@
     <span class="n">current</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
-
+</td></tr></table>
 
 <p></br>
 <a name="ref"></a></p>

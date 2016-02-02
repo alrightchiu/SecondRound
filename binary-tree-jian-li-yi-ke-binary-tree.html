@@ -158,7 +158,25 @@
 </ul>
 <p>下半部則是示範以<code>queue</code>實現level-order traversal之小應用：以Complete Binary Tree之位置規則在樹中新增node。  </p>
 <p>溫馨小提醒：純粹以inorder traversal之結果並無法驗證樹之結構正如圖一(舉例來說：以inorder traversal對某一Linked list也可能得出相同結果)，因此，建議還是使用IDE的debug功能把pointer全部攤開。</p>
-<div class="highlight"><pre><span class="c1">// C++ code</span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19</pre></div></td><td class="code"><div class="highlight"><pre><span class="c1">// C++ code</span>
 <span class="cp">#include &lt;iostream&gt;</span>
 <span class="cp">#include &lt;sstream&gt;</span>
 <span class="cp">#include &lt;queue&gt;</span>
@@ -178,13 +196,14 @@
     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
-
+</td></tr></table>
 
 <p>在經過一連串程式碼後，預期得到的output：</p>
-<div class="highlight"><pre><span class="n">D</span> <span class="n">B</span> <span class="n">G</span> <span class="n">E</span> <span class="n">H</span> <span class="n">A</span> <span class="n">F</span> <span class="n">I</span> <span class="n">C</span>   
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="highlight"><pre><span class="n">D</span> <span class="n">B</span> <span class="n">G</span> <span class="n">E</span> <span class="n">H</span> <span class="n">A</span> <span class="n">F</span> <span class="n">I</span> <span class="n">C</span>   
 <span class="n">L</span> <span class="n">D</span> <span class="n">M</span> <span class="n">B</span> <span class="n">G</span> <span class="n">E</span> <span class="n">H</span> <span class="n">A</span> <span class="n">N</span> <span class="n">F</span> <span class="n">I</span> <span class="n">C</span> <span class="n">K</span>    
 </pre></div>
-
+</td></tr></table>
 
 <p></br> </p>
 <p><a name="def"></a></p>
@@ -202,7 +221,35 @@
 </li>
 </ul>
 <p>看下去。</p>
-<div class="highlight"><pre><span class="c1">// C++ code</span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29</pre></div></td><td class="code"><div class="highlight"><pre><span class="c1">// C++ code</span>
 <span class="k">class</span> <span class="nc">BinaryTree</span><span class="p">;</span>
 <span class="k">class</span> <span class="nc">TreeNode</span><span class="p">{</span>
 <span class="k">private</span><span class="o">:</span>
@@ -232,13 +279,22 @@
     <span class="kt">void</span> <span class="nf">Inorder_by_parent</span><span class="p">();</span>
 <span class="p">};</span>
 </pre></div>
-
+</td></tr></table>
 
 <p></br>  </p>
 <p><a name="constructor"></a></p>
 <h4><strong>Constructor of BinaryTree</strong></h4>
 <p><code>class BinaryTree</code>的constructor很直觀，拿到一個字元陣列，先送進<code>stringstream</code>後，再由<code>stringstream</code>放進樹中，先對樹的<code>root</code>進行記憶體配置以及賦值，接著以level-order的方式建立Binary Tree。</p>
-<div class="highlight"><pre><span class="c1">// C++ code</span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td><td class="code"><div class="highlight"><pre><span class="c1">// C++ code</span>
 <span class="n">BinaryTree</span><span class="o">::</span><span class="n">BinaryTree</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">str</span><span class="p">){</span>
     <span class="n">std</span><span class="o">::</span><span class="n">stringstream</span>  <span class="n">ss</span><span class="p">;</span>
     <span class="n">ss</span> <span class="o">&lt;&lt;</span> <span class="n">str</span><span class="p">;</span>
@@ -249,7 +305,7 @@
     <span class="n">LevelorderConstruct</span><span class="p">(</span><span class="n">ss</span><span class="p">);</span>
 <span class="p">}</span>
 </pre></div>
-
+</td></tr></table>
 
 <p></br></p>
 <p><a name="func1"></a></p>
@@ -367,7 +423,32 @@
 <p><strong>圖三(m)：。</strong><br />
 </center> </p>
 <p></br>  </p>
-<div class="highlight"><pre><span class="c1">// C++ code</span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26</pre></div></td><td class="code"><div class="highlight"><pre><span class="c1">// C++ code</span>
 <span class="kt">void</span> <span class="n">BinaryTree</span><span class="o">::</span><span class="n">LevelorderConstruct</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">stringstream</span> <span class="o">&amp;</span><span class="n">ss</span><span class="p">){</span>
     <span class="n">std</span><span class="o">::</span><span class="n">queue</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">*&gt;</span> <span class="n">q</span><span class="p">;</span>
     <span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span> <span class="o">=</span> <span class="n">root</span><span class="p">;</span>
@@ -394,7 +475,7 @@
     <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
-
+</td></tr></table>
 
 <p></br>
 <a name="func2"></a></p>
@@ -423,7 +504,32 @@ pointer連接完成後，結束迴圈。</li>
 <li>對<code>current</code>之right child進行相同之步驟。</li>
 </ul>
 <p>如此便能有效控制Binary Tree之樹高(height)，使pointer所配置之記憶體空間有效利用，亦能夠減少traversal(以及其他操作)所需的時間。</p>
-<div class="highlight"><pre><span class="c1">// C++ code</span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26</pre></div></td><td class="code"><div class="highlight"><pre><span class="c1">// C++ code</span>
 <span class="kt">void</span> <span class="n">BinaryTree</span><span class="o">::</span><span class="n">insertLevelorder</span><span class="p">(</span><span class="kt">char</span> <span class="n">data</span><span class="p">){</span>    
     <span class="n">std</span><span class="o">::</span><span class="n">queue</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">*&gt;</span> <span class="n">q</span><span class="p">;</span>
     <span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span> <span class="o">=</span> <span class="n">root</span><span class="p">;</span>
@@ -450,7 +556,7 @@ pointer連接完成後，結束迴圈。</li>
     <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
-
+</td></tr></table>
 
 <p></br><br />
 以上便是利用<code>queue</code>執行level-order方式建立Binary Tree之範例。<br />

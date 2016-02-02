@@ -143,7 +143,20 @@
 <p>修改在<a href="http://alrightchiu.github.io/SecondRound/treeshu.html#code">Tree(樹)</a>提供的程式實作方式，將node的child pointer設為left child與right child，以滿足Binary Tree的形式。<br />
 另外，在class TreeNode有個<code>TreeNode *parent</code>，顧名思義，即是指向該node之parent的pointer，以圖二為例，B的parent pointer即指向A。<br />
 Binary Tree的node未必需要parent pointer(或稱為parent field)，然而加入parent後，在對樹的操作(operaion)如inorder traversal(中序尋訪)、node deletion(刪除node)、以及任何需要back-tracing(回溯路徑)的操作時，會更加有效率。</p>
-<div class="highlight"><pre><span class="c1">// 以C++為例</span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14</pre></div></td><td class="code"><div class="highlight"><pre><span class="c1">// 以C++為例</span>
 <span class="k">class</span> <span class="nc">Tree</span><span class="p">;</span>
 <span class="k">class</span> <span class="nc">TreeNode</span><span class="p">{</span>
     <span class="n">TreeNode</span> <span class="o">*</span><span class="n">leftchild</span><span class="p">;</span>         
@@ -158,7 +171,7 @@ Binary Tree的node未必需要parent pointer(或稱為parent field)，然而加�
     <span class="n">TreeNode</span> <span class="o">*</span><span class="n">root</span><span class="p">;</span>             <span class="c1">// 以root作為存取整棵樹的起點</span>
 <span class="p">};</span>
 </pre></div>
-
+</td></tr></table>
 
 <p><a name="fullcomplete"></a></p>
 <h2><strong>Full &amp; Complete Binary Tree</strong></h2>

@@ -128,7 +128,52 @@
 <p><strong>圖一：Linked list: A-&gt;B-&gt;C-&gt;D-&gt;NULL。</strong><br />
 </center>   </p>
 <p>現要求Visiting為print(顯示資料)，欲列印出Linked list中的所有字母，也就是從A開始，依序印出B、C、D，程式範例如下：</p>
-<div class="highlight"><pre><span class="c1">// C++ code</span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46</pre></div></td><td class="code"><div class="highlight"><pre><span class="c1">// C++ code</span>
 <span class="cp">#include &lt;iostream&gt;</span>
 <span class="cp">#include &lt;string&gt;</span>
 
@@ -175,13 +220,14 @@
     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
-
+</td></tr></table>
 
 <p>output：</p>
-<div class="highlight"><pre>A B C D     // from while loop
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="highlight"><pre>A B C D     // from while loop
 A B C D     // from traversal()
 </pre></div>
-
+</td></tr></table>
 
 <p><strong>line5 - line12：</strong>定義<code>class Node</code>，其中包含了指向下一個node的pointer，以<code>string</code>攜帶字母，以及<code>Node</code>的constructor。(為了在main()中能夠取用，全部寫成public member。)</p>
 <p><strong>line13 - line18：</strong>此為recursion(遞迴)形式的traversal，與<strong>line42</strong>一併討論。</p>
@@ -189,15 +235,16 @@ A B C D     // from traversal()
 <p><strong>line27 - line29：</strong>示範如何使用最暴力的方式建立出如圖一的Linked list。(管理Linked list之過程時常是動態的(今天新增一筆資料，明天刪除兩筆資料)，因此建議將「新增node」寫成函式形式，例如：insert())。</p>
 <p><strong>line32：</strong> 定義<code>CurrentNode</code>表示「當前所位於的node」。在Linked list(及其衍生資料結構)的操作中，時常使用CurrentNode，目的是為了讓函式能夠有效地重複利用。<br />
 舉例來說，若要用最暴力的方式依序印出A、B、C、D：</p>
-<div class="highlight"><pre><span class="c1">// C++ code</span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="highlight"><pre><span class="c1">// C++ code</span>
 <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">A</span><span class="o">-&gt;</span><span class="n">str</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">A</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">str</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">A</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">str</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">A</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">str</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 </pre></div>
-
+</td></tr></table>
 
 <p>output：  </p>
-<div class="highlight"><pre><span class="n">A</span> <span class="n">B</span> <span class="n">C</span> <span class="n">D</span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span class="n">A</span> <span class="n">B</span> <span class="n">C</span> <span class="n">D</span>
 </pre></div>
-
+</td></tr></table>
 
 <p>然而，這樣的寫法除了<a href="https://www.youtube.com/watch?v=Qdcfxk-e_iw">太hardcore</a>之外，還有幾點缺陷：</p>
 <ul>
