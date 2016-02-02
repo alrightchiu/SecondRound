@@ -86,16 +86,20 @@ Summary: 介紹資料結構中Tree(樹)的概念。
 下列四種結構中，a、b可以視為樹，而c、d則否：
 </br>
 <center>![fig2.a][example-a]  
+
 **圖三.a：若樹的node只有指向左子樹(left subtree)與右子樹(right subtree)時，又稱為Binary Tree(二元樹)。**  
 </br> 
 ![fig2.b][example-b]  
+
 **圖三.b：若樹退化成Linked list(連結串列)，仍滿足樹的定義。**    
 </br>
 ![fig2.c][example-c]  
+
 **圖三.c：在F出現cycle；C->B->D->E出現undirected cycle，詳見圖論(graph theory)。  
 後者等價於：D有兩個parent node。**  
 </br>
 ![fig2.d][example-d]  
+
 **圖三.d：一棵樹只能有一個樹根(root)。此圖像又稱為樹林(forest)。**
 </center>
 </br>
@@ -181,6 +185,7 @@ class Tree{
 
 <center>
 ![fig4][set]  
+
 **圖五：與樹相關的資料結構之集合關係。**
 </center>
 </br>
