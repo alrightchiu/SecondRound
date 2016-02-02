@@ -59,7 +59,8 @@ hr.small {
   left: 0;
   width: 100%;
   z-index: 3;
-  font-family: 'Helvetica Neue','Open Sans', Helvetica, Arial, sans-serif;
+  /*font-family: 'Helvetica Neue','Open Sans', Helvetica, Arial, sans-serif;*/
+  font-family: 'EB garamond', 'Georgia', 'Lora','Times New Roman', serif;
 }
 .navbar-custom .navbar-brand {
   font-weight: 800;
@@ -176,7 +177,8 @@ hr.small {
   font-size: 24px;
   line-height: 1.1,
 			display: block;
-  font-family: 'Helvetica Neue','Open Sans', Helvetica, Arial, sans-serif;
+  /*font-family: 'Helvetica Neue','Open Sans', Helvetica, Arial, sans-serif;*/
+  font-family: 'EB garamond', 'Georgia', 'Lora','Times New Roman', serif;
   font-weight: 300;
   margin: 10px 0 0;
 }
