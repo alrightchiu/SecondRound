@@ -29,7 +29,7 @@ USE_FOLDER_AS_CATEGORY = False
 
 # Theme
 # THEME = 'theme/Flex'
-THEME = 'theme/storm'
+THEME = 'theme/pelican-clean-blog'
 
 # 使用pelican-plugins
 PLUGIN_PATHS = ['pelican-plugins']
@@ -67,7 +67,7 @@ PLUGINS = ['better_codeblock_line_numbering', 'render_math']
 
 
 MENUITEMS = [	# 別人直接用 /archives.html應該是因為 user pages, 總之我要用URL才行, 至少是搞定了
-    ('Archives', 'http://alrightchiu.github.io/SecondRound/archives.html'),	# 也弄太久了！
+    ('Archives', 'http://alrightchiu.github.io/SecondRound/archives.html'),	
     ('Categories', 'http://alrightchiu.github.io/SecondRound/categories.html'),
     ('Tags', 'http://alrightchiu.github.io/SecondRound/tags.html'),
 ]
