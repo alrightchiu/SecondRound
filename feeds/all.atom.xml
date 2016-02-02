@@ -147,7 +147,7 @@
 不過Case1所提出的修正方法能夠將情況調整成Case2、Case3或Case4，並且修正至滿足RBT之特徵。&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="case1" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Delete/delete7.png?raw=true" /&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;圖五(b)：此處之「Original」僅代表其中一種可能的情形。&lt;/strong&gt;
+&lt;p&gt;&lt;strong&gt;圖五(b)：圖中的「Original」僅代表其中一種可能的情形。&lt;/strong&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a name="case2"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h4&gt;&lt;strong&gt;Case2&lt;/strong&gt;&lt;/h4&gt;
@@ -167,9 +167,9 @@
 &lt;/ul&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="case2" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Delete/delete9.png?raw=true" /&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;圖五(d)：此處之「Original」僅代表其中一種可能的情形。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖五(d)：圖中的「Original」僅代表其中一種可能的情形。&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img alt="case2" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Delete/delete10.png?raw=true" /&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;圖五(e)：此處之「Original」僅代表其中一種可能的情形，此處情形還要繼續修正。&lt;/strong&gt;
+&lt;p&gt;&lt;strong&gt;圖五(e)：圖中的「Original」僅代表其中一種可能的情形。此時的RBT還要繼續修正，見Case3。&lt;/strong&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a name="case3"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h4&gt;&lt;strong&gt;Case3&lt;/strong&gt;&lt;/h4&gt;
@@ -203,7 +203,7 @@
 &lt;p&gt;如圖五(h)所示，Case4修正方法的邏輯便是：在刪除node(B)之後的RBT(或是subtree)中，將所有從&lt;code&gt;root&lt;/code&gt;位置(調整前是node(C)，調整後是node(E))出發往任意descendant leaf之path上的黑色數目調整成與刪除之前(Original)相同，因此，經過Case4的修正一定能夠滿足RBT之特徵。&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="case4" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Delete/delete13.png?raw=true" /&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;圖五(h)：此處之「Original」僅代表其中一種可能的情形。&lt;/strong&gt;
+&lt;p&gt;&lt;strong&gt;圖五(h)：圖中的「Original」僅代表其中一種可能的情形。&lt;/strong&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a name="example"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h4&gt;範例&lt;/h4&gt;
