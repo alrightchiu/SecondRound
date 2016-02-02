@@ -192,7 +192,7 @@ void RBT::DeleteRBT(int KEY){              // 要刪除具有KEY的node
 <center>
 ![case1][f7]
 
-**圖五(b)：此處之「Original」僅代表其中一種可能的情形。**
+**圖五(b)：圖中的「Original」僅代表其中一種可能的情形。**
 </center>
 
 
@@ -220,11 +220,11 @@ void RBT::DeleteRBT(int KEY){              // 要刪除具有KEY的node
 <center>
 ![case2][f9]
 
-**圖五(d)：此處之「Original」僅代表其中一種可能的情形。**
+**圖五(d)：圖中的「Original」僅代表其中一種可能的情形。**
 
 ![case2][f10]
 
-**圖五(e)：此處之「Original」僅代表其中一種可能的情形，此處情形還要繼續修正。**
+**圖五(e)：圖中的「Original」僅代表其中一種可能的情形。此時的RBT還要繼續修正，見Case3。**
 </center>
 
 
@@ -273,7 +273,7 @@ void RBT::DeleteRBT(int KEY){              // 要刪除具有KEY的node
 <center>
 ![case4][f13]
 
-**圖五(h)：此處之「Original」僅代表其中一種可能的情形。**
+**圖五(h)：圖中的「Original」僅代表其中一種可能的情形。**
 </center>
 
 
