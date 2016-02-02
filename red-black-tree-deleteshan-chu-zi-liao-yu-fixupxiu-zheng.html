@@ -162,46 +162,46 @@
 </li>
 <li>第二部分，若刪除的node是黑色，需要進行修正(Fix-Up)。</li>
 </ol>
-<div class="highlight"><pre><span class="code-line"><span class="c1">// C++ code</span></span>
-<span class="code-line"><span class="kt">void</span> <span class="n">RBT</span><span class="o">::</span><span class="n">DeleteRBT</span><span class="p">(</span><span class="kt">int</span> <span class="n">KEY</span><span class="p">){</span>              <span class="c1">// 要刪除具有KEY的node</span></span>
-<span class="code-line"></span>
-<span class="code-line">    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">delete_node</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">;</span></span>
-<span class="code-line">    <span class="n">delete_node</span> <span class="o">=</span> <span class="n">Search</span><span class="p">(</span><span class="n">KEY</span><span class="p">);</span>             <span class="c1">// 先確認BST中是否有具有KEY的node</span></span>
-<span class="code-line">    <span class="k">if</span> <span class="p">(</span><span class="n">delete_node</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span></span>
-<span class="code-line">        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;data not found.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span></span>
-<span class="code-line">        <span class="k">return</span><span class="p">;</span></span>
-<span class="code-line">    <span class="p">}</span></span>
-<span class="code-line"></span>
-<span class="code-line">    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">y</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">;</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>     <span class="c1">// 真正要被刪除並釋放記憶體的node</span></span>
-<span class="code-line">    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">x</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">;</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>     <span class="c1">// 要被刪除的node的child</span></span>
-<span class="code-line"></span>
-<span class="code-line">    <span class="k">if</span> <span class="p">(</span><span class="n">delete_node</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">==</span> <span class="n">neel</span> <span class="o">||</span> <span class="n">delete_node</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">==</span> <span class="n">neel</span><span class="p">)</span></span>
-<span class="code-line">        <span class="n">y</span> <span class="o">=</span> <span class="n">delete_node</span><span class="p">;</span></span>
-<span class="code-line">    <span class="k">else</span></span>
-<span class="code-line">        <span class="n">y</span> <span class="o">=</span> <span class="n">Successor</span><span class="p">(</span><span class="n">delete_node</span><span class="p">);</span></span>
-<span class="code-line">                                           <span class="c1">// 經過以上的if-else, y至多只有一個child</span></span>
-<span class="code-line">    <span class="k">if</span> <span class="p">(</span><span class="n">y</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">!=</span> <span class="n">neel</span><span class="p">)</span>              <span class="c1">// 將x設成y的child, 可能是實際資料, 也有可能是NIL</span></span>
-<span class="code-line">        <span class="n">x</span> <span class="o">=</span> <span class="n">y</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">;</span></span>
-<span class="code-line">    <span class="k">else</span></span>
-<span class="code-line">        <span class="n">x</span> <span class="o">=</span> <span class="n">y</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="p">;</span></span>
-<span class="code-line"></span>
-<span class="code-line">    <span class="n">x</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">=</span> <span class="n">y</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">;</span>                 <span class="c1">// 即使x是NIL也要把x的parent指向有效的記憶體位置</span></span>
-<span class="code-line">                                           <span class="c1">// 因為在FixUp時需要藉由x-&gt;parent判斷x為leftchild或是rightchild</span></span>
-<span class="code-line">    <span class="k">if</span> <span class="p">(</span><span class="n">y</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">==</span> <span class="n">neel</span><span class="p">)</span>                 <span class="c1">// 再將要被刪除的node之parent指向新的child</span></span>
-<span class="code-line">        <span class="k">this</span><span class="o">-&gt;</span><span class="n">root</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>                    </span>
-<span class="code-line">    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">y</span> <span class="o">==</span> <span class="n">y</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">)</span></span>
-<span class="code-line">        <span class="n">y</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span></span>
-<span class="code-line">    <span class="k">else</span></span>
-<span class="code-line">        <span class="n">y</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span></span>
-<span class="code-line"></span>
-<span class="code-line">    <span class="k">if</span> <span class="p">(</span><span class="n">y</span> <span class="o">!=</span> <span class="n">delete_node</span><span class="p">)</span> <span class="p">{</span>                <span class="c1">// 若實際上是「替身」被刪除, 要把「替身」的資料放回RBT中</span></span>
-<span class="code-line">        <span class="n">delete_node</span><span class="o">-&gt;</span><span class="n">SetKey</span><span class="p">(</span><span class="n">y</span><span class="o">-&gt;</span><span class="n">GetKey</span><span class="p">());</span></span>
-<span class="code-line">        <span class="n">delete_node</span><span class="o">-&gt;</span><span class="n">SetElement</span><span class="p">(</span><span class="n">y</span><span class="o">-&gt;</span><span class="n">GetElement</span><span class="p">());</span></span>
-<span class="code-line">    <span class="p">}</span></span>
-<span class="code-line">    <span class="k">if</span> <span class="p">(</span><span class="n">y</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>                   <span class="c1">// 若刪除的node是黑色, 則要從x進行修正</span></span>
-<span class="code-line">        <span class="n">DeleteFixedUpRBT</span><span class="p">(</span><span class="n">x</span><span class="p">);</span></span>
-<span class="code-line">    <span class="p">}</span></span>
-<span class="code-line"><span class="p">}</span></span>
+<div class="highlight"><pre><span class="c1">// C++ code</span>
+<span class="kt">void</span> <span class="n">RBT</span><span class="o">::</span><span class="n">DeleteRBT</span><span class="p">(</span><span class="kt">int</span> <span class="n">KEY</span><span class="p">){</span>              <span class="c1">// 要刪除具有KEY的node</span>
+
+    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">delete_node</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">;</span>
+    <span class="n">delete_node</span> <span class="o">=</span> <span class="n">Search</span><span class="p">(</span><span class="n">KEY</span><span class="p">);</span>             <span class="c1">// 先確認BST中是否有具有KEY的node</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">delete_node</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;data not found.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">y</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">;</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>     <span class="c1">// 真正要被刪除並釋放記憶體的node</span>
+    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">x</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">;</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>     <span class="c1">// 要被刪除的node的child</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">delete_node</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">==</span> <span class="n">neel</span> <span class="o">||</span> <span class="n">delete_node</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">==</span> <span class="n">neel</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">delete_node</span><span class="p">;</span>
+    <span class="k">else</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">Successor</span><span class="p">(</span><span class="n">delete_node</span><span class="p">);</span>
+                                           <span class="c1">// 經過以上的if-else, y至多只有一個child</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">y</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">!=</span> <span class="n">neel</span><span class="p">)</span>              <span class="c1">// 將x設成y的child, 可能是實際資料, 也有可能是NIL</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">y</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">;</span>
+    <span class="k">else</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">y</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="p">;</span>
+
+    <span class="n">x</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">=</span> <span class="n">y</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">;</span>                 <span class="c1">// 即使x是NIL也要把x的parent指向有效的記憶體位置</span>
+                                           <span class="c1">// 因為在FixUp時需要藉由x-&gt;parent判斷x為leftchild或是rightchild</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">y</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">==</span> <span class="n">neel</span><span class="p">)</span>                 <span class="c1">// 再將要被刪除的node之parent指向新的child</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">root</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>                    
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">y</span> <span class="o">==</span> <span class="n">y</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">)</span>
+        <span class="n">y</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>
+    <span class="k">else</span>
+        <span class="n">y</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">y</span> <span class="o">!=</span> <span class="n">delete_node</span><span class="p">)</span> <span class="p">{</span>                <span class="c1">// 若實際上是「替身」被刪除, 要把「替身」的資料放回RBT中</span>
+        <span class="n">delete_node</span><span class="o">-&gt;</span><span class="n">SetKey</span><span class="p">(</span><span class="n">y</span><span class="o">-&gt;</span><span class="n">GetKey</span><span class="p">());</span>
+        <span class="n">delete_node</span><span class="o">-&gt;</span><span class="n">SetElement</span><span class="p">(</span><span class="n">y</span><span class="o">-&gt;</span><span class="n">GetElement</span><span class="p">());</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">y</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>                   <span class="c1">// 若刪除的node是黑色, 則要從x進行修正</span>
+        <span class="n">DeleteFixedUpRBT</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 
 
@@ -406,81 +406,81 @@
 <li>分別進行Case1、Case2、Case3與Case4之修正；</li>
 <li>最後，在line74的<code>current-&gt;color = 1</code>將<code>current</code>之顏色塗黑，有可能在Case2用上，見圖五(d)與圖六(h)。</li>
 </ul>
-<div class="highlight"><pre><span class="code-line"><span class="c1">// C++ code</span></span>
-<span class="code-line"><span class="kt">void</span> <span class="n">RBT</span><span class="o">::</span><span class="n">DeleteFixedUpRBT</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">){</span></span>
-<span class="code-line">    <span class="c1">// Case0:(i)  current是紅色的, 不影響黑色在path上的數量</span></span>
-<span class="code-line">    <span class="c1">//       (ii) current是root,</span></span>
-<span class="code-line">    <span class="k">while</span> <span class="p">(</span><span class="n">current</span> <span class="o">!=</span> <span class="n">root</span> <span class="o">&amp;&amp;</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span></span>
-<span class="code-line">        <span class="c1">// current是leftchild</span></span>
-<span class="code-line">        <span class="k">if</span> <span class="p">(</span><span class="n">current</span> <span class="o">==</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">)</span> <span class="p">{</span>    </span>
-<span class="code-line">            <span class="n">TreeNode</span> <span class="o">*</span><span class="n">sibling</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="p">;</span></span>
-<span class="code-line">            <span class="c1">// Case1: 如果sibling是紅色</span></span>
-<span class="code-line">            <span class="k">if</span> <span class="p">(</span><span class="n">sibling</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span></span>
-<span class="code-line">                <span class="n">sibling</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span></span>
-<span class="code-line">                <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></span>
-<span class="code-line">                <span class="n">LeftRotation</span><span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">);</span></span>
-<span class="code-line">                <span class="n">sibling</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="p">;</span></span>
-<span class="code-line">            <span class="p">}</span></span>
-<span class="code-line">            <span class="c1">// 進入 Case2、3、4: sibling是黑色</span></span>
-<span class="code-line">            <span class="c1">// Case2: sibling的兩個child都是黑色</span></span>
-<span class="code-line">            <span class="k">if</span> <span class="p">(</span><span class="n">sibling</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="n">sibling</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span></span>
-<span class="code-line">                <span class="n">sibling</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></span>
-<span class="code-line">                <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">;</span></span>
-<span class="code-line">            <span class="p">}</span></span>
-<span class="code-line">            <span class="c1">// Case3 &amp; 4:</span></span>
-<span class="code-line">            <span class="k">else</span> <span class="p">{</span> <span class="c1">// case3: sibling的right child是黑的, 不管left child, 因為馬上會被塗黑</span></span>
-<span class="code-line">                <span class="k">if</span> <span class="p">(</span><span class="n">sibling</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">==</span> <span class="mi">1</span><span class="p">){</span></span>
-<span class="code-line">                    <span class="n">sibling</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span></span>
-<span class="code-line">                    <span class="n">sibling</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></span>
-<span class="code-line">                    <span class="n">RightRotation</span><span class="p">(</span><span class="n">sibling</span><span class="p">);</span></span>
-<span class="code-line">                    <span class="n">sibling</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="p">;</span></span>
-<span class="code-line">                <span class="p">}</span></span>
-<span class="code-line">                <span class="c1">// 經過Case3後, 一定會變成Case4</span></span>
-<span class="code-line">                <span class="c1">// Case 4: sibling的right child 是紅色的</span></span>
-<span class="code-line">                <span class="n">sibling</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">color</span><span class="p">;</span></span>
-<span class="code-line">                <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span></span>
-<span class="code-line">                <span class="n">sibling</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span></span>
-<span class="code-line">                <span class="n">LeftRotation</span><span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">);</span></span>
-<span class="code-line">                <span class="n">current</span> <span class="o">=</span> <span class="n">root</span><span class="p">;</span>     <span class="c1">// 只要進到Case4後, 一定跳出回圈</span></span>
-<span class="code-line">            <span class="p">}</span></span>
-<span class="code-line"></span>
-<span class="code-line">        <span class="p">}</span></span>
-<span class="code-line">        <span class="c1">// current是rightchild</span></span>
-<span class="code-line">        <span class="k">else</span> <span class="p">{</span>  </span>
-<span class="code-line">            <span class="n">TreeNode</span> <span class="o">*</span><span class="n">sibling</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">;</span></span>
-<span class="code-line">            <span class="c1">// Case1: 如果sibling是紅色</span></span>
-<span class="code-line">            <span class="k">if</span> <span class="p">(</span><span class="n">sibling</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span></span>
-<span class="code-line">                <span class="n">sibling</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span></span>
-<span class="code-line">                <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></span>
-<span class="code-line">                <span class="n">RightRotation</span><span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">);</span></span>
-<span class="code-line">                <span class="n">sibling</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">;</span></span>
-<span class="code-line">            <span class="p">}</span></span>
-<span class="code-line">            <span class="c1">// 進入 Case2、3、4: sibling是黑色</span></span>
-<span class="code-line">            <span class="c1">// Case2: sibling的兩個child都是黑色</span></span>
-<span class="code-line">            <span class="k">if</span> <span class="p">(</span><span class="n">sibling</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="n">sibling</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span></span>
-<span class="code-line">                <span class="n">sibling</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></span>
-<span class="code-line">                <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">;</span></span>
-<span class="code-line">            <span class="p">}</span></span>
-<span class="code-line">            <span class="c1">// Case3 &amp; 4:</span></span>
-<span class="code-line">            <span class="k">else</span> <span class="p">{</span> <span class="c1">// case3: sibling的left child是黑的, 不管right child, 因為馬上會被塗黑</span></span>
-<span class="code-line">                <span class="k">if</span> <span class="p">(</span><span class="n">sibling</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">==</span> <span class="mi">1</span><span class="p">){</span></span>
-<span class="code-line">                    <span class="n">sibling</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span></span>
-<span class="code-line">                    <span class="n">sibling</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></span>
-<span class="code-line">                    <span class="n">LeftRotation</span><span class="p">(</span><span class="n">sibling</span><span class="p">);</span></span>
-<span class="code-line">                    <span class="n">sibling</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">;</span></span>
-<span class="code-line">                <span class="p">}</span></span>
-<span class="code-line">                <span class="c1">// 經過Case3後, 一定會變成Case4</span></span>
-<span class="code-line">                <span class="c1">// Case 4: sibling的right child 是紅色的</span></span>
-<span class="code-line">                <span class="n">sibling</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">color</span><span class="p">;</span></span>
-<span class="code-line">                <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span></span>
-<span class="code-line">                <span class="n">sibling</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span></span>
-<span class="code-line">                <span class="n">RightRotation</span><span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">);</span></span>
-<span class="code-line">                <span class="n">current</span> <span class="o">=</span> <span class="n">root</span><span class="p">;</span>     <span class="c1">// 只要進到Case4後, 一定跳出回圈</span></span>
-<span class="code-line">            <span class="p">}</span></span>
-<span class="code-line">        <span class="p">}</span></span>
-<span class="code-line">    <span class="p">}</span></span>
-<span class="code-line">    <span class="n">current</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span></span>
-<span class="code-line"><span class="p">}</span></span>
+<div class="highlight"><pre><span class="c1">// C++ code</span>
+<span class="kt">void</span> <span class="n">RBT</span><span class="o">::</span><span class="n">DeleteFixedUpRBT</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">){</span>
+    <span class="c1">// Case0:(i)  current是紅色的, 不影響黑色在path上的數量</span>
+    <span class="c1">//       (ii) current是root,</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">current</span> <span class="o">!=</span> <span class="n">root</span> <span class="o">&amp;&amp;</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// current是leftchild</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">current</span> <span class="o">==</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">)</span> <span class="p">{</span>    
+            <span class="n">TreeNode</span> <span class="o">*</span><span class="n">sibling</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="p">;</span>
+            <span class="c1">// Case1: 如果sibling是紅色</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">sibling</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">sibling</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+                <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+                <span class="n">LeftRotation</span><span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">);</span>
+                <span class="n">sibling</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="c1">// 進入 Case2、3、4: sibling是黑色</span>
+            <span class="c1">// Case2: sibling的兩個child都是黑色</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">sibling</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="n">sibling</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">sibling</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+                <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="c1">// Case3 &amp; 4:</span>
+            <span class="k">else</span> <span class="p">{</span> <span class="c1">// case3: sibling的right child是黑的, 不管left child, 因為馬上會被塗黑</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">sibling</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">==</span> <span class="mi">1</span><span class="p">){</span>
+                    <span class="n">sibling</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+                    <span class="n">sibling</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+                    <span class="n">RightRotation</span><span class="p">(</span><span class="n">sibling</span><span class="p">);</span>
+                    <span class="n">sibling</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="p">;</span>
+                <span class="p">}</span>
+                <span class="c1">// 經過Case3後, 一定會變成Case4</span>
+                <span class="c1">// Case 4: sibling的right child 是紅色的</span>
+                <span class="n">sibling</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">color</span><span class="p">;</span>
+                <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+                <span class="n">sibling</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+                <span class="n">LeftRotation</span><span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">);</span>
+                <span class="n">current</span> <span class="o">=</span> <span class="n">root</span><span class="p">;</span>     <span class="c1">// 只要進到Case4後, 一定跳出回圈</span>
+            <span class="p">}</span>
+
+        <span class="p">}</span>
+        <span class="c1">// current是rightchild</span>
+        <span class="k">else</span> <span class="p">{</span>  
+            <span class="n">TreeNode</span> <span class="o">*</span><span class="n">sibling</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">;</span>
+            <span class="c1">// Case1: 如果sibling是紅色</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">sibling</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">sibling</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+                <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+                <span class="n">RightRotation</span><span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">);</span>
+                <span class="n">sibling</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="c1">// 進入 Case2、3、4: sibling是黑色</span>
+            <span class="c1">// Case2: sibling的兩個child都是黑色</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">sibling</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="n">sibling</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">sibling</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+                <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="c1">// Case3 &amp; 4:</span>
+            <span class="k">else</span> <span class="p">{</span> <span class="c1">// case3: sibling的left child是黑的, 不管right child, 因為馬上會被塗黑</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">sibling</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">==</span> <span class="mi">1</span><span class="p">){</span>
+                    <span class="n">sibling</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+                    <span class="n">sibling</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+                    <span class="n">LeftRotation</span><span class="p">(</span><span class="n">sibling</span><span class="p">);</span>
+                    <span class="n">sibling</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">;</span>
+                <span class="p">}</span>
+                <span class="c1">// 經過Case3後, 一定會變成Case4</span>
+                <span class="c1">// Case 4: sibling的right child 是紅色的</span>
+                <span class="n">sibling</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">color</span><span class="p">;</span>
+                <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+                <span class="n">sibling</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+                <span class="n">RightRotation</span><span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">);</span>
+                <span class="n">current</span> <span class="o">=</span> <span class="n">root</span><span class="p">;</span>     <span class="c1">// 只要進到Case4後, 一定跳出回圈</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="n">current</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 
 

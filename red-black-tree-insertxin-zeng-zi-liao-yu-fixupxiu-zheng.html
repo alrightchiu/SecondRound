@@ -137,36 +137,36 @@
 <li>顏色：如同在<a href="http://alrightchiu.github.io/SecondRound/red-black-tree-rotationxuan-zhuan.html#fail">RBT：Rotation(旋轉)</a>所說，一般預設新增node為紅色，因此，若新增node接在黑色node之後，仍能滿足RBT的特徵，但是若新增node接在紅色node之後，則違反了<a href="http://alrightchiu.github.io/SecondRound/red-black-tree-introjian-jie.html#rbt">RBT之第四點特徵</a>，必須進行修正。</li>
 </ol>
 <p><code>InsertRBT()</code>的程式範例如下：</p>
-<div class="highlight"><pre><span class="code-line"><span class="c1">// C++ code</span></span>
-<span class="code-line"><span class="kt">void</span> <span class="n">RBT</span><span class="o">::</span><span class="n">InsertRBT</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">&amp;</span><span class="n">new_node</span><span class="p">){</span></span>
-<span class="code-line">    <span class="c1">// 前半部與 InsertBST()之邏輯完全相同, 僅僅需要修改 NULL &lt;-&gt; NIL</span></span>
-<span class="code-line">    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">y</span> <span class="o">=</span> <span class="n">neel</span><span class="p">;</span></span>
-<span class="code-line">    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">x</span> <span class="o">=</span> <span class="n">root</span><span class="p">;</span></span>
-<span class="code-line">    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">insert_node</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">(</span><span class="n">new_node</span><span class="p">);</span> <span class="c1">// default copy constructor</span></span>
-<span class="code-line"></span>
-<span class="code-line">    <span class="k">while</span> <span class="p">(</span><span class="n">x</span> <span class="o">!=</span> <span class="n">neel</span><span class="p">)</span> <span class="p">{</span>     <span class="c1">// 把root初始化成neel, 這裡就可以用neel來做判斷</span></span>
-<span class="code-line">        <span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span></span>
-<span class="code-line">        <span class="k">if</span> <span class="p">(</span><span class="n">insert_node</span><span class="o">-&gt;</span><span class="n">GetKey</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">x</span><span class="o">-&gt;</span><span class="n">GetKey</span><span class="p">())</span></span>
-<span class="code-line">            <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">;</span></span>
-<span class="code-line">        <span class="k">else</span></span>
-<span class="code-line">            <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="p">;</span></span>
-<span class="code-line">    <span class="p">}</span></span>
-<span class="code-line"></span>
-<span class="code-line">    <span class="n">insert_node</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">=</span> <span class="n">y</span><span class="p">;</span></span>
-<span class="code-line">    <span class="k">if</span> <span class="p">(</span><span class="n">y</span> <span class="o">==</span> <span class="n">neel</span><span class="p">)</span></span>
-<span class="code-line">        <span class="k">this</span><span class="o">-&gt;</span><span class="n">root</span> <span class="o">=</span> <span class="n">insert_node</span><span class="p">;</span></span>
-<span class="code-line">    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">insert_node</span><span class="o">-&gt;</span><span class="n">GetKey</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">y</span><span class="o">-&gt;</span><span class="n">GetKey</span><span class="p">())</span></span>
-<span class="code-line">        <span class="n">y</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">=</span> <span class="n">insert_node</span><span class="p">;</span></span>
-<span class="code-line">    <span class="k">else</span></span>
-<span class="code-line">        <span class="n">y</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">=</span> <span class="n">insert_node</span><span class="p">;</span></span>
-<span class="code-line"></span>
-<span class="code-line">    <span class="c1">// 以下是對RBT之node的設定, 將child pointer指向NIL, 顏色設為紅色</span></span>
-<span class="code-line">    <span class="n">insert_node</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">=</span> <span class="n">neel</span><span class="p">;</span></span>
-<span class="code-line">    <span class="n">insert_node</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">=</span> <span class="n">neel</span><span class="p">;</span></span>
-<span class="code-line">    <span class="n">insert_node</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>             <span class="c1">// 顏色可以在constructor中預設</span></span>
-<span class="code-line"></span>
-<span class="code-line">    <span class="n">InsertFixedUpRBT</span><span class="p">(</span><span class="n">insert_node</span><span class="p">);</span>      <span class="c1">// 對可能出現紅色與紅色node相連之情形做修正</span></span>
-<span class="code-line"><span class="p">}</span></span>
+<div class="highlight"><pre><span class="c1">// C++ code</span>
+<span class="kt">void</span> <span class="n">RBT</span><span class="o">::</span><span class="n">InsertRBT</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">&amp;</span><span class="n">new_node</span><span class="p">){</span>
+    <span class="c1">// 前半部與 InsertBST()之邏輯完全相同, 僅僅需要修改 NULL &lt;-&gt; NIL</span>
+    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">y</span> <span class="o">=</span> <span class="n">neel</span><span class="p">;</span>
+    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">x</span> <span class="o">=</span> <span class="n">root</span><span class="p">;</span>
+    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">insert_node</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">(</span><span class="n">new_node</span><span class="p">);</span> <span class="c1">// default copy constructor</span>
+
+    <span class="k">while</span> <span class="p">(</span><span class="n">x</span> <span class="o">!=</span> <span class="n">neel</span><span class="p">)</span> <span class="p">{</span>     <span class="c1">// 把root初始化成neel, 這裡就可以用neel來做判斷</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">insert_node</span><span class="o">-&gt;</span><span class="n">GetKey</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">x</span><span class="o">-&gt;</span><span class="n">GetKey</span><span class="p">())</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">;</span>
+        <span class="k">else</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">insert_node</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">=</span> <span class="n">y</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">y</span> <span class="o">==</span> <span class="n">neel</span><span class="p">)</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">root</span> <span class="o">=</span> <span class="n">insert_node</span><span class="p">;</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">insert_node</span><span class="o">-&gt;</span><span class="n">GetKey</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">y</span><span class="o">-&gt;</span><span class="n">GetKey</span><span class="p">())</span>
+        <span class="n">y</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">=</span> <span class="n">insert_node</span><span class="p">;</span>
+    <span class="k">else</span>
+        <span class="n">y</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">=</span> <span class="n">insert_node</span><span class="p">;</span>
+
+    <span class="c1">// 以下是對RBT之node的設定, 將child pointer指向NIL, 顏色設為紅色</span>
+    <span class="n">insert_node</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">=</span> <span class="n">neel</span><span class="p">;</span>
+    <span class="n">insert_node</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">=</span> <span class="n">neel</span><span class="p">;</span>
+    <span class="n">insert_node</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>             <span class="c1">// 顏色可以在constructor中預設</span>
+
+    <span class="n">InsertFixedUpRBT</span><span class="p">(</span><span class="n">insert_node</span><span class="p">);</span>      <span class="c1">// 對可能出現紅色與紅色node相連之情形做修正</span>
+<span class="p">}</span>
 </pre></div>
 
 
@@ -366,57 +366,57 @@
 <img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Insert/insert22.png?raw=true" /></p>
 <p><strong>圖六：。</strong><br />
 </center></p>
-<div class="highlight"><pre><span class="code-line"><span class="c1">// C++ code</span></span>
-<span class="code-line"><span class="kt">void</span> <span class="n">RBT</span><span class="o">::</span><span class="n">InsertFixedUpRBT</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">){</span></span>
-<span class="code-line">    <span class="c1">// Case0: parent是黑色, 就不用進迴圈</span></span>
-<span class="code-line">    <span class="k">while</span> <span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>   <span class="c1">// 若parent是紅色即進入迴圈</span></span>
-<span class="code-line">        <span class="c1">// 上半部：parent為grandparent的leftchild之情況，如圖五左</span></span>
-<span class="code-line">        <span class="k">if</span> <span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">==</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">)</span> <span class="p">{</span> </span>
-<span class="code-line">            <span class="n">TreeNode</span> <span class="o">*</span><span class="n">uncle</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="p">;</span></span>
-<span class="code-line">            <span class="c1">// 若uncle是紅色：Case1</span></span>
-<span class="code-line">            <span class="k">if</span> <span class="p">(</span><span class="n">uncle</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span></span>
-<span class="code-line">                <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span></span>
-<span class="code-line">                <span class="n">uncle</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span></span>
-<span class="code-line">                <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">//grandparent改成紅色</span></span>
-<span class="code-line">                <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">;</span></span>
-<span class="code-line">            <span class="p">}</span></span>
-<span class="code-line">            <span class="c1">// 若uncle是黑色：Case2 or Case3</span></span>
-<span class="code-line">            <span class="k">else</span> <span class="p">{</span></span>
-<span class="code-line">                <span class="c1">// 若current是rightchild：Case2  </span></span>
-<span class="code-line">                <span class="k">if</span> <span class="p">(</span><span class="n">current</span> <span class="o">==</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="p">){</span>        </span>
-<span class="code-line">                    <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">;</span></span>
-<span class="code-line">                    <span class="n">LeftRotation</span><span class="p">(</span><span class="n">current</span><span class="p">);</span></span>
-<span class="code-line">                <span class="p">}</span></span>
-<span class="code-line">                <span class="c1">// 若current是leftchild：Case3</span></span>
-<span class="code-line">                <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>     </span>
-<span class="code-line">                <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>     </span>
-<span class="code-line">                <span class="n">RightRotation</span><span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">);</span></span>
-<span class="code-line">            <span class="p">}</span></span>
-<span class="code-line">        <span class="p">}</span></span>
-<span class="code-line">        <span class="c1">// 下半部：parent為grandparent的rightchild之情況，如圖五右</span></span>
-<span class="code-line">        <span class="k">else</span> <span class="p">{</span>  </span>
-<span class="code-line">            <span class="n">TreeNode</span> <span class="o">*</span><span class="n">uncle</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">;</span></span>
-<span class="code-line">            <span class="c1">// 若uncle是紅色：Case1</span></span>
-<span class="code-line">            <span class="k">if</span> <span class="p">(</span><span class="n">uncle</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span></span>
-<span class="code-line">                <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span></span>
-<span class="code-line">                <span class="n">uncle</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span></span>
-<span class="code-line">                <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">//grandparent改成紅色</span></span>
-<span class="code-line">                <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">;</span></span>
-<span class="code-line">            <span class="p">}</span></span>
-<span class="code-line">            <span class="c1">// 若uncle是黑色：Case2 or Case3</span></span>
-<span class="code-line">            <span class="k">else</span> <span class="p">{</span></span>
-<span class="code-line">                <span class="k">if</span> <span class="p">(</span><span class="n">current</span> <span class="o">==</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">)</span> <span class="p">{</span></span>
-<span class="code-line">                    <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">;</span></span>
-<span class="code-line">                    <span class="n">RightRotation</span><span class="p">(</span><span class="n">current</span><span class="p">);</span></span>
-<span class="code-line">                <span class="p">}</span></span>
-<span class="code-line">                <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span></span>
-<span class="code-line">                <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></span>
-<span class="code-line">                <span class="n">LeftRotation</span><span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">);</span></span>
-<span class="code-line">            <span class="p">}</span></span>
-<span class="code-line">        <span class="p">}</span></span>
-<span class="code-line">    <span class="p">}</span></span>
-<span class="code-line">    <span class="n">root</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>    </span>
-<span class="code-line"><span class="p">}</span></span>
+<div class="highlight"><pre><span class="c1">// C++ code</span>
+<span class="kt">void</span> <span class="n">RBT</span><span class="o">::</span><span class="n">InsertFixedUpRBT</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">){</span>
+    <span class="c1">// Case0: parent是黑色, 就不用進迴圈</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>   <span class="c1">// 若parent是紅色即進入迴圈</span>
+        <span class="c1">// 上半部：parent為grandparent的leftchild之情況，如圖五左</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">==</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">)</span> <span class="p">{</span> 
+            <span class="n">TreeNode</span> <span class="o">*</span><span class="n">uncle</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="p">;</span>
+            <span class="c1">// 若uncle是紅色：Case1</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">uncle</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+                <span class="n">uncle</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+                <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">//grandparent改成紅色</span>
+                <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="c1">// 若uncle是黑色：Case2 or Case3</span>
+            <span class="k">else</span> <span class="p">{</span>
+                <span class="c1">// 若current是rightchild：Case2  </span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">current</span> <span class="o">==</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="p">){</span>        
+                    <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">;</span>
+                    <span class="n">LeftRotation</span><span class="p">(</span><span class="n">current</span><span class="p">);</span>
+                <span class="p">}</span>
+                <span class="c1">// 若current是leftchild：Case3</span>
+                <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>     
+                <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>     
+                <span class="n">RightRotation</span><span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="c1">// 下半部：parent為grandparent的rightchild之情況，如圖五右</span>
+        <span class="k">else</span> <span class="p">{</span>  
+            <span class="n">TreeNode</span> <span class="o">*</span><span class="n">uncle</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">;</span>
+            <span class="c1">// 若uncle是紅色：Case1</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">uncle</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+                <span class="n">uncle</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+                <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">//grandparent改成紅色</span>
+                <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="c1">// 若uncle是黑色：Case2 or Case3</span>
+            <span class="k">else</span> <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">current</span> <span class="o">==</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">;</span>
+                    <span class="n">RightRotation</span><span class="p">(</span><span class="n">current</span><span class="p">);</span>
+                <span class="p">}</span>
+                <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+                <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+                <span class="n">LeftRotation</span><span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="n">root</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>    
+<span class="p">}</span>
 </pre></div>
 
 
