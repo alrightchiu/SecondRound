@@ -279,7 +279,9 @@ void RBT::DeleteRBT(int KEY){              // 要刪除具有KEY的node
 
 <a name="example"></a>
 
-####範例
+***
+
+####**範例**
 
 接著以一個簡單的範例(圖六(a)之RBT)操作上述四種Case的修正方法。
 

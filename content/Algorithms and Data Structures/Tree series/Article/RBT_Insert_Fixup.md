@@ -225,7 +225,9 @@ void RBT::InsertRBT(TreeNode &new_node){
 
 <a name="example"></a>
 
-####幾個範例
+***
+
+####**幾個範例**
 
 **Example1**
 
