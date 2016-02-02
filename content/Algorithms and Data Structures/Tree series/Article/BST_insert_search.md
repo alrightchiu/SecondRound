@@ -303,7 +303,7 @@ int main() {
 </br>
 <a name="ref"></a>
 
-######**參考資料**：
+####**參考資料**：
 
 * [Introduction to Algorithms](http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844) 
 * [Fundamentals of Data Structures in C++](http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376)
