@@ -87,16 +87,10 @@
 &lt;td&gt;Numerical Analysis(數值方法)&lt;/td&gt;
 &lt;td&gt;Calculus II&lt;/td&gt;
 &lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;strong&gt;表一：某計算機科學學位之必修課程表&lt;/strong&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;/center&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
+&lt;p&gt;&lt;strong&gt;表一：某計算機科學學位之必修課程表&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;第一眼或許不太容易立即由表格獲得修課順序的資訊，因為表格受限於上至下、左至右的格式，只能逐項列出資訊，不容易表達資料與資料間的「先後關係」。&lt;/p&gt;
 &lt;p&gt;現在換個方式，將具有先後修課順序的課程以線段與箭號連接，若A是B的先修課程，則箭號由A指向B，即可將表一轉換成圖一：&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
