@@ -54,6 +54,7 @@ Graph比Tree更加廣義，其定義僅僅使用了集合(Set)，並且不限制
 |Computational Theory(計算機理論)  |Analysis of Algorithm |
 |Parallel Algorithms(平行演算法)   |Computational Theory |
 |Numerical Analysis(數值方法)      |Calculus II          |
+
 **表一：某計算機科學學位之必修課程表**
 </center>
 
