@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="zh-hant">
+
+<head>
+            <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+
+        <title>Grpah: Intro(簡介)</title>
+
+            <link href="http://alrightchiu.github.io/SecondRound/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Second Round Full Atom Feed" />
+            <link href="http://alrightchiu.github.io/SecondRound/feeds/yan-suan-fa-yu-zi-liao-jie-gou.atom.xml" type="application/atom+xml" rel="alternate" title="Second Round Categories Atom Feed" />
+
+        <!-- Bootstrap Core CSS -->
+        <link href="http://alrightchiu.github.io/SecondRound/theme/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="http://alrightchiu.github.io/SecondRound/theme/css/clean-blog.min.css" rel="stylesheet">
+
+        <!-- Code highlight color scheme -->
+            <link href="http://alrightchiu.github.io/SecondRound/theme/css/code_blocks/darkly.css" rel="stylesheet">
+
+
+        <!-- Custom Fonts -->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+
+
+
+        <meta name="tags" contents="C++" />
+        <meta name="tags" contents="Graph" />
+        <meta name="tags" contents="Intro" />
+
+
+	                <meta property="og:locale" content="">
+		<meta property="og:site_name" content="Second Round">
+
+	<meta property="og:type" content="article">
+	<meta property="article:author" content="">
+	<meta property="og:url" content="http://alrightchiu.github.io/SecondRound/grpah-introjian-jie.html">
+	<meta property="og:title" content="Grpah: Intro(簡介)">
+	<meta property="og:description" content="">
+	<meta property="og:image" content="http://alrightchiu.github.io/SecondRound/">
+	<meta property="article:published_time" content="2016-02-03 23:49:00+08:00">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://alrightchiu.github.io/SecondRound/">Second Round</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a href="http://alrightchiu.github.io/SecondRound/archives.html">Archives</a></li>
+                        <li><a href="http://alrightchiu.github.io/SecondRound/tags.html">Tags</a></li>
+
+                            <li><a href="http://alrightchiu.github.io/SecondRound/pages/about.html">About</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+        <header class="intro-header" style="background-image: url('http://alrightchiu.github.io/SecondRound/theme/images/post-bg.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>Grpah: Intro(簡介)</h1>
+                        <span class="meta">Posted by
+                                <a href="http://alrightchiu.github.io/SecondRound/author/chiu-cc.html">Chiu CC</a>
+                             on  2 03, 2016
+                        </span>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    <!-- Post Content -->
+    <article>
+        <p></br></p>
+<h6><strong>先備知識與注意事項</strong></h6>
+<p>在經歷過<a href="http://alrightchiu.github.io/SecondRound/treeshu-introjian-jie.html">Tree系列文章</a>的洗禮後，接著要介紹的是Graph(圖)。</p>
+<p>Graph比Tree更加廣義，其定義僅僅使用了集合(Set)，並且不限制結構裡的node/vertex只能有唯一的<code>parent field</code>，因此，更多的問題能夠以Graph建立模型。 </p>
+<hr />
+<h2>目錄</h2>
+<ul>
+<li><a href="#course">初探Graph的美妙：以課程與其先修科目為例</a></li>
+<li><a href="#graph">Graph的定義</a><ul>
+<li><a href="#represent">表示法(representation)</a></li>
+<li><a href="#terminology">一些名詞解釋</a></li>
+</ul>
+</li>
+<li><a href="#app">預告：Graph的應用</a></li>
+<li><a href="#ref">參考資料</a></li>
+</ul>
+<p><a name="course"></a></p>
+<h2><strong>初探Graph的美妙：以課程與其先修科目為例</strong></h2>
+<p>假設，有間大學的計算機科學學位之必修課程，以及與該課程相關的先修科目設計如表一：</p>
+<p><center></p>
+<table>
+<thead>
+<tr>
+<th>Course name</th>
+<th>Prerequisites</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Programming I(程式設計 I)</td>
+<td>None</td>
+</tr>
+<tr>
+<td>Discrete Mathematics(離散數學)</td>
+<td>None</td>
+</tr>
+<tr>
+<td>Data Structures(資料結構)</td>
+<td>Programming I, Discrete Mathematics</td>
+</tr>
+<tr>
+<td>Calculus I(微積分 I)</td>
+<td>None</td>
+</tr>
+<tr>
+<td>Calculus II(微積分 II)</td>
+<td>Calculus I</td>
+</tr>
+<tr>
+<td>Linear Algebra(線性代數)</td>
+<td>Calculus II</td>
+</tr>
+<tr>
+<td>Analysis of Algorithm(演算法分析)</td>
+<td>Data Structures, Linear Algebra</td>
+</tr>
+<tr>
+<td>Assembly Language(組合語言)</td>
+<td>Data Structures</td>
+</tr>
+<tr>
+<td>Operating Systems(作業系統)</td>
+<td>Analysis of Algorithm, Assembly Language</td>
+</tr>
+<tr>
+<td>Programming Language(程式語言)</td>
+<td>Analysis of Algorithm</td>
+</tr>
+<tr>
+<td>Compiler Design(編譯器設計)</td>
+<td>Programming Language</td>
+</tr>
+<tr>
+<td>Artificial Intelligence(人工智慧)</td>
+<td>Analysis of Algorithm</td>
+</tr>
+<tr>
+<td>Computational Theory(計算機理論)</td>
+<td>Analysis of Algorithm</td>
+</tr>
+<tr>
+<td>Parallel Algorithms(平行演算法)</td>
+<td>Computational Theory</td>
+</tr>
+<tr>
+<td>Numerical Analysis(數值方法)</td>
+<td>Calculus II</td>
+</tr>
+<tr>
+<td><strong>表一：某計算機科學學位之必修課程表</strong></td>
+<td></td>
+</tr>
+<tr>
+<td></center></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>第一眼或許不太容易立即由表格獲得修課順序的資訊，因為表格受限於上至下、左至右的格式，只能逐項列出資訊，不容易表達資料與資料間的「先後關係」。</p>
+<p>現在換個方式，將具有先後修課順序的課程以線段與箭號連接，若A是B的先修課程，則箭號由A指向B，即可將表一轉換成圖一：</p>
+<p><center>
+<img alt="prerequisites" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/Intro_fig/f_1.png?raw=true" /></p>
+<p><strong>圖一。</strong><br />
+</center></p>
+<p>由圖一，將資料與資料的「先後關係」以「資料節點」與「線段(箭號)」表示，攻讀這門計算機科學學位的修課流程圖便一目了然。</p>
+<p>這樣的想法，不只是將表格轉換成對人類視覺上有意義的「圖」而已，對電腦來說，由於以Graph建立之模型能夠保持資料之間的「關係」，使得各種巧妙的演算法能夠在Graph中完成各種任務。<br />
+(反例：若要把在Graph上實現的各種演算法，如法炮製在以二維陣列表示的表一上，將會非常困難。)</p>
+<p>本篇文章的重點著重在介紹Graph(圖)的定義與實現方式，而接下來的文章將介紹一些基本的與Graph相關之演算法。</p>
+<p><a name="graph"></a></p>
+<h2><strong>Graph的定義</strong></h2>
+<p>在圖一中，每一門課程被視為「資料節點」，且課程與課程之間有「線段(箭號)」連結：</p>
+<ul>
+<li><strong>vertex</strong>：稱每一個「資料節點」為vertex(或是node)，並定義所有的vertex所形成之集合(Set)為<span class="math">\(V\)</span>或<span class="math">\(V(G)\)</span>；</li>
+<li><strong>edge</strong>：稱每一個「線段(箭號)」為edge(實際上是用一對vertex表示edge，例如<span class="math">\((V_i,V_j)\)</span>即為連結V<sub>i</sub>與V<sub>j</sub>的edge)，並定義所有的edge所形成之集合(Set)為<span class="math">\(E\)</span>或<span class="math">\(E(G)\)</span>；</li>
+</ul>
+<p>則Graph定義為<span class="math">\(V\)</span>與<span class="math">\(E\)</span>所形成的集合，表示成<span class="math">\(G(V,E)\)</span>。</p>
+<p>再根據edge是否具有「方向性」，可以將Graph分成「directed graph(有向圖)」與「undirected graph(無向圖)」：</p>
+<ul>
+<li><strong>directed graph(有向圖)</strong>：edge的方向性表示資料間的關係，若vertex(A)與vertex(B)之關係是「單向的」，那麼連結vertex(A)與vertex(B)的edge即具有方向性。  <ul>
+<li>以圖一中的課程與其先修科目為例，vertex(Data Structures)是vertex(Analysis of Algorithm)的先修課程，相反則否，因此，連結兩個vertex之edge具有方向性，而所有vertex與edge形成之集合即為directed graph；</li>
+</ul>
+</li>
+<li><strong>undirected graph(無向圖)</strong>：edge的方向性表示資料間的關係，若vertex(A)與vertex(B)的關係是「雙向的」，那麼連結vertex(A)與vertex(B)之edge就不具有方向性。  <ul>
+<li>如圖二中，如果能夠開車從玉山抵達太魯閣，就能夠從太魯閣原路折返回到玉山，因此，這兩個地理位置之間的交通路線便不具有方向性。</li>
+</ul>
+</li>
+</ul>
+<p><center>
+<img alt="google_map" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/Intro_fig/f_2.png?raw=true" /></p>
+<p><strong>圖二：Google Map路線規劃，開車過去要4小時34分鐘。</strong><br />
+</center></p>
+<p>再看幾個Graph的範例。<br />
+圖三(a)中的G<sub>1</sub>與G<sub>2</sub>為undirected graph，圖三(b)中的G<sub>3</sub>與G<sub>4</sub>為directed graph。</p>
+<p><center>
+<img alt="undirected" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/Intro_fig/f_3.png?raw=true" /></p>
+<p><strong>圖三(a)：Tree(樹)也是undirected graph(無向圖)。</strong></p>
+<p><img alt="directed" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/Intro_fig/f_4.png?raw=true" /></p>
+<p><strong>圖三(b)：directed graph(有向圖)。</strong><br />
+</center></p>
+<p><a name="represent"></a></p>
+<h4><strong>表示法(representation)</strong></h4>
+<p>那麼該如何表示Graph呢？<br />
+一般有兩種常用的表示法：</p>
+<ol>
+<li><strong>Adjacency Matrix</strong>：一個二維矩陣，若從vertex(A)到vertex(B)有edge，則矩陣位置[A][B]值為<span class="math">\(1\)</span>，反之，則為<span class="math">\(0\)</span>。  <ul>
+<li>以圖四為例，在undireced graph中，vertex(X)與vertex(Y)之間有edge，則矩陣位置[X][Y]與[Y][X]之值皆為<span class="math">\(1\)</span>；</li>
+<li>在directed graph中，有從vertex(X)指向vertex(Y)的edge，則矩陣位置[X][Y]之值為<span class="math">\(1\)</span>，但是沒有反向的edge，因此矩陣位置[Y][X]之值為<span class="math">\(0\)</span>。</li>
+</ul>
+</li>
+<li><strong>Adjacency List</strong>：先以一個一維陣列列出所有的vertex，再以Linked list表示所有與vertex相連的vertex。<br />
+(vertex接進Linked list的順序不重要，因為是Graph是定義成Set。)  <ul>
+<li>以圖四為例，在undireced graph中，vertex(W)與vertex(Z)、vertex(Y)、vertex(V)具有edge相連，則在一維陣列中表示vertex(W)之位置之後，依序接上vertex(Z)、vertex(Y)、vertex(V)。</li>
+<li>在direced graph中，vertex(W)僅僅剩下指向vertex(Y)與vertex(V)的edge，因此，在一維陣列中表示vertex(W)之位置之後，只要接上vertex(Y)與vertex(V)。</li>
+</ul>
+</li>
+</ol>
+<p><center>
+<img alt="selfloop" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/Intro_fig/f_5.png?raw=true" /></p>
+<p><strong>圖四：Adjacency Matrix與Adjacency List適用於directed graph與undirected graph。</strong> 
+</center></p>
+<p>比較兩者的差異：</p>
+<ul>
+<li>使用記憶體空間：<ol>
+<li>Adjacency Matrix：一定會用到<span class="math">\(O(|V|^2)\)</span>，因此，若Graph較為「稠密(dense)」，各vertex之間的edge數量較多則適合使用Adjacency Matrix；</li>
+<li>Adjacency List：將使用<span class="math">\(O(|V|+|E|)\)</span>，因此，若Graph較為「稀疏(sparse)」，edge數量較少，如圖一的Graph，即適合使用Adjacency List。</li>
+</ol>
+</li>
+<li>存取資料：<ol>
+<li>Adjacency Matrix：由於Matrix是連續記憶體，在存取資料時會稍微快一些；</li>
+<li>Adjacency List：同理，若是使用動態記憶體配置建立Linked list，則資料存取會稍慢(這項缺點可以使用C++的STL::Vector解決，不過STL::Vector不適合用在動態改變的Graph上)。</li>
+</ol>
+</li>
+<li>新增edge：<ol>
+<li>Adjacency Matrix：在Matrix中增加一條edge僅僅是把<span class="math">\(0\)</span>設成<span class="math">\(1\)</span>，只需要<span class="math">\(O(1)\)</span>；</li>
+<li>Adjacency List：若每次都把新的vertex加在List的最前端(front)，也只需要<span class="math">\(O(1)\)</span>。不過，最壞情況(worst case)發生在「某個vertex與其他vertex全部相連」，因此需要<span class="math">\(O(|E|)\)</span>。</li>
+</ol>
+</li>
+<li>刪除edge：<ol>
+<li>Adjacency Matrix：在Matrix中刪除edge僅僅是把<span class="math">\(1\)</span>設成<span class="math">\(0\)</span>，只需要<span class="math">\(O(1)\)</span>；</li>
+<li>Adjacency List：如同在Linked list中刪除資料，需要<span class="math">\(O(|E|)\)</span>。</li>
+</ol>
+</li>
+</ul>
+<p><a name="terminology"></a></p>
+<h4><strong>一些名詞解釋</strong></h4>
+<ul>
+<li><strong>subgraph(子圖)</strong>：若構成G'的兩個集合滿足<span class="math">\(V(G')\subseteq V(G), E(G')\subseteq E(G)\)</span>，則稱G'為G的subgraph，如圖五。</li>
+</ul>
+<p><center>
+<img alt="subgraph" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/Intro_fig/f_6.png?raw=true" /></p>
+<p><strong>圖五：G與G的subgraph。</strong> 
+</center></p>
+<ul>
+<li><strong>path(路徑)</strong>：若從vertex(V<sub>1</sub>)到vertex(V<sub>k</sub>)存在一連串前後相接的edge(<span class="math">\((V_i,V_{i+1})\subseteq E(G),i=1,2,...,k-1\)</span>)，則稱這一連串edge為「從vertex(V<sub>1</sub>)到vertex(V<sub>k</sub>)的path」。</li>
+<li><strong>length(長度)/distance(距離)</strong>：length(或distance)即是path中的edge數。</li>
+<li><strong>simple path(簡單路徑)</strong>：若一條path中，除了起點與終點之外，沒有vertex被重複經過，則稱這條path為simple path。  <ul>
+<li>如圖六中，path:X-&gt;Y-&gt;Z即為simple path，path:W-&gt;Y-&gt;Z-&gt;V-&gt;W也是simple path，即使W有重複，但是因為分別是起點與終點，所以仍符合定義。而path:Y-&gt;X-&gt;Y-&gt;W就不是simple path，因為第二次經過Y時，Y不是終點。</li>
+</ul>
+</li>
+</ul>
+<p><center>
+<img alt="subgraph" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/Intro_fig/f_7.png?raw=true" /></p>
+<p><strong>圖六：。</strong> 
+</center></p>
+<ul>
+<li><strong>cycle(循環)</strong>：若有ㄧ條「simple path」的起點與終點vertex相同，則稱這條path為cycle。  <ul>
+<li>圖六中的path:W-&gt;Y-&gt;Z-&gt;V-&gt;W，又稱為directed cycle(有向循環)；</li>
+<li>圖七中的path:Y-&gt;V-&gt;W-&gt;Y與path:X-&gt;Y-&gt;W-&gt;Z-&gt;X皆為undirected cycle(無向循環)。</li>
+</ul>
+</li>
+<li><strong>acyclic graph(無循環圖)</strong>：若graph中不存在cycle，則稱這個graph為acyclic graph，見圖七。  <ul>
+<li>在Tree中找不到任何一條simple path的起點與終點是相同vertex(node)，因此Tree一定是acyclic graph。</li>
+</ul>
+</li>
+</ul>
+<p><center>
+<img alt="subgraph" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/Intro_fig/f_8.png?raw=true" /></p>
+<p><strong>圖七：。</strong> 
+</center></p>
+<ul>
+<li><strong>weight(權重)</strong>：若要表示兩個地理位置之間的「距離」或是運送「成本」，可以在edge上加上weight，這樣的graph又稱為weighted graph，如圖八。</li>
+</ul>
+<p><center>
+<img alt="subgraph" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/Intro_fig/f_9.png?raw=true" /></p>
+<p><strong>圖八：weight的值可能為正或是負。</strong> 
+</center></p>
+<ul>
+<li><strong>connected</strong>：若存在從vertex(A)指向vertex(B)、以及從vertex(B)指向vertex(A)的edge(若是在directed graph中，需要兩條edge；若是undirected graph只需要一條edge)，則稱vertex(A)與vertex(B)為connected，見圖九(a)。</li>
+</ul>
+<p><center>
+<img alt="subgraph" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/Intro_fig/f_10.png?raw=true" /></p>
+<p><strong>圖九(a)：。</strong> 
+</center></p>
+<ul>
+<li><strong>connected in undirected graph</strong>：若在undirected graph中，對任意兩個vertex都存在一條path連結這兩個vertex，則稱此undirected graph是connected。  <ul>
+<li>圖九(b)中，G<sub>1</sub>中的所有vertex都可以經過一條path到達其他vertex，因此G<sub>1</sub>為connected。  </li>
+<li>G<sub>2</sub>中，vertex:X、S、Z分別與vertex:Y、W、T之間皆不存在path，因此G<sub>2</sub>不是connected。</li>
+</ul>
+</li>
+<li><strong>connected component</strong>：若在一個undirected graph中，存在某一個subgraph是connected，而且沒有任何vertex、edge再加入這個subgraph之集合後仍能使得這個subgraph維持connected特性，則稱此subgraph為connected component(最大集合的connected subgraph)。  <ul>
+<li>圖九(b)中，右上方為G<sub>1</sub>的其中一個subgraph。此subgraph不是connected component，原因在於，再加入vertex:W、T，以及edge:(Y,W)、(Y,T)，也就是變回G<sub>1</sub>後，仍然維持connected特性，因此這個subgraph並不是「可以維持connected的最大集合」。<br />
+換句話說，在一個connected的undirected graph中，只會有一個connected component，就是graph本身。  </li>
+<li>圖九(b)的G<sub>2</sub>本身不是connected，而是由兩個connected component組成。</li>
+</ul>
+</li>
+</ul>
+<p><center>
+<img alt="subgraph" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/Intro_fig/f_11.png?raw=true" /></p>
+<p><strong>圖九(b)：。</strong> 
+</center></p>
+<ul>
+<li><strong>strongly connected in directed graph</strong>：若在directed graph中，對任意兩個vertex都存在一條path連結這兩個vertex，則稱此directed graph是strongly connected。<ul>
+<li>圖九(c)，G<sub>3</sub>中的所有vertex都可以經過一條path到達其他vertex，因此G<sub>3</sub>為strongly connected。</li>
+<li>G<sub>4</sub>並非strongly connected，例如，vertex(Z)無法經由path到達vertex(S)，vertex(Y)無法經由path到達vertex(X)等等。</li>
+</ul>
+</li>
+<li><strong>strongly connected component</strong>：若在一個directed graph中，存在某一個subgraph是strongly connected，而且沒有任何vertex、edge再加入這個subgraph之集合後仍能使得這個subgraph維持strongly connected特性，則稱此subgraph為strongly connected component(最大集合的strongly connected subgraph)。<ul>
+<li>圖九(c)中，右上方為G<sub>3</sub>的其中一個subgraph。此subgraph不是strongly connected component，原因在於，再加入edge:(W,Z)後(也就是變回G<sub>3</sub>)，仍然維持connected特性，因此這個subgraph並不是「可以維持connected的最大集合」。<br />
+如同undirected graph，若一個directed graph本身是strongly sonnected，則本身也是唯一的strongly connected component。</li>
+<li>G<sub>4</sub>是由三個strongly connected component組成。</li>
+</ul>
+</li>
+</ul>
+<p><center>
+<img alt="subgraph" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/Intro_fig/f_12.png?raw=true" /></p>
+<p><strong>圖九(c)：。</strong> 
+</center></p>
+<p>最後要注意的是，下列兩項情形：</p>
+<ul>
+<li><strong>self-loop(自我迴圈)</strong>：若有edge從vertex(A)指向vertex(A)，即稱為self-edge或是self-loop。</li>
+<li><strong>multigraph(多邊圖)</strong>：若在graph中相同的edge重複出現多次，則稱此圖為multigraph，之後要討論的Graph將排除此種情形。</li>
+</ul>
+<p><center>
+<img alt="selfloop" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/Intro_fig/f_13.png?raw=true" /></p>
+<p><strong>圖十：self-loop與multigraph在directed graph和undirected graph中定義皆相同。</strong> 
+</center></p>
+<p><a name="app"></a></p>
+<h2><strong>預告：Graph的應用</strong></h2>
+<p>在接下來的文章，主要將探討以下三個應用的演算法：</p>
+<ol>
+<li><strong>Minimum Spanning Tree(MST，最小生成樹)</strong>：給定一個connected、weighted的undirected graph，要在這個graph中，找到(1)連結所有vertex，而且(2)edge上的weight總和最小的「Tree」。<br />
+例如，鄉公所要鋪路，先以鄉公所為中心(<code>root</code>)，把所有馬路必須到達的地區視為vertex，則路就是edge，那麼，鋪路的目標便是利用最低成本(weight總和最小)將馬路延伸到所有必須抵達的地區，這就是MST的問題。</li>
+<li><strong>Shortest Path(最短路徑)</strong>：顧名思義，最短路徑即是找到vertex(A)與vertex(B)之間lenght最小的path，例如Google Map。<br />
+其中又可以分為：<ul>
+<li><strong>Single Source Single Destination</strong>：從一個vertex，抵達特定的另一個vertex之最短路徑；</li>
+<li><strong>Single Source All Destination</strong>：從一個vertex，抵達graph中其餘所有vertex之最短路徑；</li>
+<li><strong>All Source Single Destination</strong>：從每一個graph中的vertex抵達特定的vertex之最短路徑；</li>
+<li><strong>All Source All Destination</strong>：graph中的所有vertex抵達其餘所有vertex之最短路徑。</li>
+</ul>
+</li>
+<li><strong>Network Flow(網路流)</strong>：若現在有一個複雜的水管系統，水從入水口流入，經過許多互相連結、且孔徑不一的水管後，從出水口流出，目標是一次流入最大量的水。<br />
+其中可能遇到的問題如：由於水管的孔徑各不相同，若先流過一條半徑只有2公分的水管，則接在其後的水管的半徑即使再大，水流量仍會被半徑2公分的水管所限制，因此整體流量也就受限制。<br />
+如何分配水流在水管之間的流法，即是Network Flow要處理的問題。</li>
+</ol>
+<p>不過在介紹以上三項主題之前，下兩篇文章將先介紹在Graph中最基本的搜尋(Search)方法：Breadth First Search (BFS，廣度優先搜尋)與Depth First Search (DFS，深度優先搜尋)。</p>
+<p></br></p>
+<p><a name="ref"></a></p>
+<h6><strong>參考資料</strong>：</h6>
+<ul>
+<li><a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844">Introduction to Algorithms, Ch22</a> </li>
+<li><a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376">Fundamentals of Data Structures in C++, Ch6</a></li>
+<li><a href="https://www.hackerearth.com/notes/graph-theory-part-i/">Hacker Earth：Graph Theory - Part I </a></li>
+<li><a href="http://theoryofprogramming.com/2014/12/24/graph-theory-basics/">Theory of Programming：Graph Theory Basics</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Tree_%28graph_theory%29">Wikipedia：Tree(graph theory)</a></li>
+<li><a href="https://www.google.com.tw/maps/dir/%E7%8E%89%E5%B1%B1%E5%9C%8B%E5%AE%B6%E5%85%AC%E5%9C%92%E7%AE%A1%E7%90%86%E8%99%95+553%E5%8D%97%E6%8A%95%E7%B8%A3%E6%B0%B4%E9%87%8C%E9%84%89%E4%B8%AD%E5%B1%B1%E8%B7%AF%E4%B8%80%E6%AE%B5300%E8%99%9F/%E8%8A%B1%E8%93%AE%E7%B8%A3%E5%A4%AA%E9%AD%AF%E9%96%A3%E5%9C%8B%E5%AE%B6%E5%85%AC%E5%9C%92%E7%AE%A1%E7%90%86%E8%99%95/@23.9945162,121.0278493,10.35z/data=!4m13!4m12!1m5!1m1!1s0x34692ae27ea40fff:0xab9c90d0fc985ac5!2m2!1d120.8504096!2d23.8128448!1m5!1m1!1s0x34688286a79bc241:0x9c0222099dc32245!2m2!1d121.621627!2d24.158708?hl=zh-TW">Google Map：從玉山國家公園到太魯閣國家公園</a></li>
+</ul>
+<p></br></p>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' && location_protocol !== 'https') location_protocol = 'https:';
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+    </article>
+
+        <div class="tags">
+            <p>tags: <a href="http://alrightchiu.github.io/SecondRound/tag/c.html">C++</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/graph.html">Graph</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/intro.html">Intro</a>, </p>
+        </div>
+
+<hr>
+<div class="sharing">
+</div>
+    <hr>
+
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                            <li>
+                                <a href="https://github.com/alrightchiu">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                    </ul>
+<p class="copyright text-muted">
+    Blog powered by <a href="http://getpelican.com">Pelican</a>,
+    which takes great advantage of <a href="http://python.org">Python</a>.
+</p>                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="http://alrightchiu.github.io/SecondRound/theme/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="http://alrightchiu.github.io/SecondRound/theme/js/bootstrap.min.js"></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script src="http://alrightchiu.github.io/SecondRound/theme/js/clean-blog.min.js"></script>
+
+</body>
+
+</html>

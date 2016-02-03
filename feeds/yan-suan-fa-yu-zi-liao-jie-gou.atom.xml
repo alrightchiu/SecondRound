@@ -1,5 +1,368 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Second Round</title><link href="http://alrightchiu.github.io/SecondRound/" rel="alternate"></link><link href="http://alrightchiu.github.io/SecondRound/feeds/yan-suan-fa-yu-zi-liao-jie-gou.atom.xml" rel="self"></link><id>http://alrightchiu.github.io/SecondRound/</id><updated>2016-01-30T14:11:00+08:00</updated><entry><title>Red Black Tree: Delete(刪除資料)與Fixup(修正)</title><link href="http://alrightchiu.github.io/SecondRound/red-black-tree-deleteshan-chu-zi-liao-yu-fixupxiu-zheng.html" rel="alternate"></link><updated>2016-01-30T14:11:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-01-30:SecondRound/red-black-tree-deleteshan-chu-zi-liao-yu-fixupxiu-zheng.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Second Round</title><link href="http://alrightchiu.github.io/SecondRound/" rel="alternate"></link><link href="http://alrightchiu.github.io/SecondRound/feeds/yan-suan-fa-yu-zi-liao-jie-gou.atom.xml" rel="self"></link><id>http://alrightchiu.github.io/SecondRound/</id><updated>2016-02-03T23:49:00+08:00</updated><entry><title>Grpah: Intro(簡介)</title><link href="http://alrightchiu.github.io/SecondRound/grpah-introjian-jie.html" rel="alternate"></link><updated>2016-02-03T23:49:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-02-03:SecondRound/grpah-introjian-jie.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;h6&gt;&lt;strong&gt;先備知識與注意事項&lt;/strong&gt;&lt;/h6&gt;
+&lt;p&gt;在經歷過&lt;a href="http://alrightchiu.github.io/SecondRound/treeshu-introjian-jie.html"&gt;Tree系列文章&lt;/a&gt;的洗禮後，接著要介紹的是Graph(圖)。&lt;/p&gt;
+&lt;p&gt;Graph比Tree更加廣義，其定義僅僅使用了集合(Set)，並且不限制結構裡的node/vertex只能有唯一的&lt;code&gt;parent field&lt;/code&gt;，因此，更多的問題能夠以Graph建立模型。 &lt;/p&gt;
+&lt;hr /&gt;
+&lt;h2&gt;目錄&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="#course"&gt;初探Graph的美妙：以課程與其先修科目為例&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#graph"&gt;Graph的定義&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href="#represent"&gt;表示法(representation)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#terminology"&gt;一些名詞解釋&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href="#app"&gt;預告：Graph的應用&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#ref"&gt;參考資料&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a name="course"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;&lt;strong&gt;初探Graph的美妙：以課程與其先修科目為例&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;假設，有間大學的計算機科學學位之必修課程，以及與該課程相關的先修科目設計如表一：&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Course name&lt;/th&gt;
+&lt;th&gt;Prerequisites&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Programming I(程式設計 I)&lt;/td&gt;
+&lt;td&gt;None&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Discrete Mathematics(離散數學)&lt;/td&gt;
+&lt;td&gt;None&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Data Structures(資料結構)&lt;/td&gt;
+&lt;td&gt;Programming I, Discrete Mathematics&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Calculus I(微積分 I)&lt;/td&gt;
+&lt;td&gt;None&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Calculus II(微積分 II)&lt;/td&gt;
+&lt;td&gt;Calculus I&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Linear Algebra(線性代數)&lt;/td&gt;
+&lt;td&gt;Calculus II&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Analysis of Algorithm(演算法分析)&lt;/td&gt;
+&lt;td&gt;Data Structures, Linear Algebra&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Assembly Language(組合語言)&lt;/td&gt;
+&lt;td&gt;Data Structures&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Operating Systems(作業系統)&lt;/td&gt;
+&lt;td&gt;Analysis of Algorithm, Assembly Language&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Programming Language(程式語言)&lt;/td&gt;
+&lt;td&gt;Analysis of Algorithm&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Compiler Design(編譯器設計)&lt;/td&gt;
+&lt;td&gt;Programming Language&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Artificial Intelligence(人工智慧)&lt;/td&gt;
+&lt;td&gt;Analysis of Algorithm&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Computational Theory(計算機理論)&lt;/td&gt;
+&lt;td&gt;Analysis of Algorithm&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Parallel Algorithms(平行演算法)&lt;/td&gt;
+&lt;td&gt;Computational Theory&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Numerical Analysis(數值方法)&lt;/td&gt;
+&lt;td&gt;Calculus II&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;表一：某計算機科學學位之必修課程表&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;/center&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;第一眼或許不太容易立即由表格獲得修課順序的資訊，因為表格受限於上至下、左至右的格式，只能逐項列出資訊，不容易表達資料與資料間的「先後關係」。&lt;/p&gt;
+&lt;p&gt;現在換個方式，將具有先後修課順序的課程以線段與箭號連接，若A是B的先修課程，則箭號由A指向B，即可將表一轉換成圖一：&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="prerequisites" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/Intro_fig/f_1.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖一。&lt;/strong&gt;&lt;br /&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;由圖一，將資料與資料的「先後關係」以「資料節點」與「線段(箭號)」表示，攻讀這門計算機科學學位的修課流程圖便一目了然。&lt;/p&gt;
+&lt;p&gt;這樣的想法，不只是將表格轉換成對人類視覺上有意義的「圖」而已，對電腦來說，由於以Graph建立之模型能夠保持資料之間的「關係」，使得各種巧妙的演算法能夠在Graph中完成各種任務。&lt;br /&gt;
+(反例：若要把在Graph上實現的各種演算法，如法炮製在以二維陣列表示的表一上，將會非常困難。)&lt;/p&gt;
+&lt;p&gt;本篇文章的重點著重在介紹Graph(圖)的定義與實現方式，而接下來的文章將介紹一些基本的與Graph相關之演算法。&lt;/p&gt;
+&lt;p&gt;&lt;a name="graph"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;&lt;strong&gt;Graph的定義&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;在圖一中，每一門課程被視為「資料節點」，且課程與課程之間有「線段(箭號)」連結：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;vertex&lt;/strong&gt;：稱每一個「資料節點」為vertex(或是node)，並定義所有的vertex所形成之集合(Set)為&lt;span class="math"&gt;\(V\)&lt;/span&gt;或&lt;span class="math"&gt;\(V(G)\)&lt;/span&gt;；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;edge&lt;/strong&gt;：稱每一個「線段(箭號)」為edge(實際上是用一對vertex表示edge，例如&lt;span class="math"&gt;\((V_i,V_j)\)&lt;/span&gt;即為連結V&lt;sub&gt;i&lt;/sub&gt;與V&lt;sub&gt;j&lt;/sub&gt;的edge)，並定義所有的edge所形成之集合(Set)為&lt;span class="math"&gt;\(E\)&lt;/span&gt;或&lt;span class="math"&gt;\(E(G)\)&lt;/span&gt;；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;則Graph定義為&lt;span class="math"&gt;\(V\)&lt;/span&gt;與&lt;span class="math"&gt;\(E\)&lt;/span&gt;所形成的集合，表示成&lt;span class="math"&gt;\(G(V,E)\)&lt;/span&gt;。&lt;/p&gt;
+&lt;p&gt;再根據edge是否具有「方向性」，可以將Graph分成「directed graph(有向圖)」與「undirected graph(無向圖)」：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;directed graph(有向圖)&lt;/strong&gt;：edge的方向性表示資料間的關係，若vertex(A)與vertex(B)之關係是「單向的」，那麼連結vertex(A)與vertex(B)的edge即具有方向性。  &lt;ul&gt;
+&lt;li&gt;以圖一中的課程與其先修科目為例，vertex(Data Structures)是vertex(Analysis of Algorithm)的先修課程，相反則否，因此，連結兩個vertex之edge具有方向性，而所有vertex與edge形成之集合即為directed graph；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;undirected graph(無向圖)&lt;/strong&gt;：edge的方向性表示資料間的關係，若vertex(A)與vertex(B)的關係是「雙向的」，那麼連結vertex(A)與vertex(B)之edge就不具有方向性。  &lt;ul&gt;
+&lt;li&gt;如圖二中，如果能夠開車從玉山抵達太魯閣，就能夠從太魯閣原路折返回到玉山，因此，這兩個地理位置之間的交通路線便不具有方向性。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="google_map" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/Intro_fig/f_2.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖二：Google Map路線規劃，開車過去要4小時34分鐘。&lt;/strong&gt;&lt;br /&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;再看幾個Graph的範例。&lt;br /&gt;
+圖三(a)中的G&lt;sub&gt;1&lt;/sub&gt;與G&lt;sub&gt;2&lt;/sub&gt;為undirected graph，圖三(b)中的G&lt;sub&gt;3&lt;/sub&gt;與G&lt;sub&gt;4&lt;/sub&gt;為directed graph。&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="undirected" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/Intro_fig/f_3.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖三(a)：Tree(樹)也是undirected graph(無向圖)。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="directed" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/Intro_fig/f_4.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖三(b)：directed graph(有向圖)。&lt;/strong&gt;&lt;br /&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a name="represent"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h4&gt;&lt;strong&gt;表示法(representation)&lt;/strong&gt;&lt;/h4&gt;
+&lt;p&gt;那麼該如何表示Graph呢？&lt;br /&gt;
+一般有兩種常用的表示法：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Adjacency Matrix&lt;/strong&gt;：一個二維矩陣，若從vertex(A)到vertex(B)有edge，則矩陣位置[A][B]值為&lt;span class="math"&gt;\(1\)&lt;/span&gt;，反之，則為&lt;span class="math"&gt;\(0\)&lt;/span&gt;。  &lt;ul&gt;
+&lt;li&gt;以圖四為例，在undireced graph中，vertex(X)與vertex(Y)之間有edge，則矩陣位置[X][Y]與[Y][X]之值皆為&lt;span class="math"&gt;\(1\)&lt;/span&gt;；&lt;/li&gt;
+&lt;li&gt;在directed graph中，有從vertex(X)指向vertex(Y)的edge，則矩陣位置[X][Y]之值為&lt;span class="math"&gt;\(1\)&lt;/span&gt;，但是沒有反向的edge，因此矩陣位置[Y][X]之值為&lt;span class="math"&gt;\(0\)&lt;/span&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Adjacency List&lt;/strong&gt;：先以一個一維陣列列出所有的vertex，再以Linked list表示所有與vertex相連的vertex。&lt;br /&gt;
+(vertex接進Linked list的順序不重要，因為是Graph是定義成Set。)  &lt;ul&gt;
+&lt;li&gt;以圖四為例，在undireced graph中，vertex(W)與vertex(Z)、vertex(Y)、vertex(V)具有edge相連，則在一維陣列中表示vertex(W)之位置之後，依序接上vertex(Z)、vertex(Y)、vertex(V)。&lt;/li&gt;
+&lt;li&gt;在direced graph中，vertex(W)僅僅剩下指向vertex(Y)與vertex(V)的edge，因此，在一維陣列中表示vertex(W)之位置之後，只要接上vertex(Y)與vertex(V)。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="selfloop" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/Intro_fig/f_5.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖四：Adjacency Matrix與Adjacency List適用於directed graph與undirected graph。&lt;/strong&gt; 
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;比較兩者的差異：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;使用記憶體空間：&lt;ol&gt;
+&lt;li&gt;Adjacency Matrix：一定會用到&lt;span class="math"&gt;\(O(|V|^2)\)&lt;/span&gt;，因此，若Graph較為「稠密(dense)」，各vertex之間的edge數量較多則適合使用Adjacency Matrix；&lt;/li&gt;
+&lt;li&gt;Adjacency List：將使用&lt;span class="math"&gt;\(O(|V|+|E|)\)&lt;/span&gt;，因此，若Graph較為「稀疏(sparse)」，edge數量較少，如圖一的Graph，即適合使用Adjacency List。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;存取資料：&lt;ol&gt;
+&lt;li&gt;Adjacency Matrix：由於Matrix是連續記憶體，在存取資料時會稍微快一些；&lt;/li&gt;
+&lt;li&gt;Adjacency List：同理，若是使用動態記憶體配置建立Linked list，則資料存取會稍慢(這項缺點可以使用C++的STL::Vector解決，不過STL::Vector不適合用在動態改變的Graph上)。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;新增edge：&lt;ol&gt;
+&lt;li&gt;Adjacency Matrix：在Matrix中增加一條edge僅僅是把&lt;span class="math"&gt;\(0\)&lt;/span&gt;設成&lt;span class="math"&gt;\(1\)&lt;/span&gt;，只需要&lt;span class="math"&gt;\(O(1)\)&lt;/span&gt;；&lt;/li&gt;
+&lt;li&gt;Adjacency List：若每次都把新的vertex加在List的最前端(front)，也只需要&lt;span class="math"&gt;\(O(1)\)&lt;/span&gt;。不過，最壞情況(worst case)發生在「某個vertex與其他vertex全部相連」，因此需要&lt;span class="math"&gt;\(O(|E|)\)&lt;/span&gt;。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;刪除edge：&lt;ol&gt;
+&lt;li&gt;Adjacency Matrix：在Matrix中刪除edge僅僅是把&lt;span class="math"&gt;\(1\)&lt;/span&gt;設成&lt;span class="math"&gt;\(0\)&lt;/span&gt;，只需要&lt;span class="math"&gt;\(O(1)\)&lt;/span&gt;；&lt;/li&gt;
+&lt;li&gt;Adjacency List：如同在Linked list中刪除資料，需要&lt;span class="math"&gt;\(O(|E|)\)&lt;/span&gt;。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a name="terminology"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h4&gt;&lt;strong&gt;一些名詞解釋&lt;/strong&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;subgraph(子圖)&lt;/strong&gt;：若構成G'的兩個集合滿足&lt;span class="math"&gt;\(V(G')\subseteq V(G), E(G')\subseteq E(G)\)&lt;/span&gt;，則稱G'為G的subgraph，如圖五。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="subgraph" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/Intro_fig/f_6.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖五：G與G的subgraph。&lt;/strong&gt; 
+&lt;/center&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;path(路徑)&lt;/strong&gt;：若從vertex(V&lt;sub&gt;1&lt;/sub&gt;)到vertex(V&lt;sub&gt;k&lt;/sub&gt;)存在一連串前後相接的edge(&lt;span class="math"&gt;\((V_i,V_{i+1})\subseteq E(G),i=1,2,...,k-1\)&lt;/span&gt;)，則稱這一連串edge為「從vertex(V&lt;sub&gt;1&lt;/sub&gt;)到vertex(V&lt;sub&gt;k&lt;/sub&gt;)的path」。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;length(長度)/distance(距離)&lt;/strong&gt;：length(或distance)即是path中的edge數。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;simple path(簡單路徑)&lt;/strong&gt;：若一條path中，除了起點與終點之外，沒有vertex被重複經過，則稱這條path為simple path。  &lt;ul&gt;
+&lt;li&gt;如圖六中，path:X-&amp;gt;Y-&amp;gt;Z即為simple path，path:W-&amp;gt;Y-&amp;gt;Z-&amp;gt;V-&amp;gt;W也是simple path，即使W有重複，但是因為分別是起點與終點，所以仍符合定義。而path:Y-&amp;gt;X-&amp;gt;Y-&amp;gt;W就不是simple path，因為第二次經過Y時，Y不是終點。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="subgraph" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/Intro_fig/f_7.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖六：。&lt;/strong&gt; 
+&lt;/center&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;cycle(循環)&lt;/strong&gt;：若有ㄧ條「simple path」的起點與終點vertex相同，則稱這條path為cycle。  &lt;ul&gt;
+&lt;li&gt;圖六中的path:W-&amp;gt;Y-&amp;gt;Z-&amp;gt;V-&amp;gt;W，又稱為directed cycle(有向循環)；&lt;/li&gt;
+&lt;li&gt;圖七中的path:Y-&amp;gt;V-&amp;gt;W-&amp;gt;Y與path:X-&amp;gt;Y-&amp;gt;W-&amp;gt;Z-&amp;gt;X皆為undirected cycle(無向循環)。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;acyclic graph(無循環圖)&lt;/strong&gt;：若graph中不存在cycle，則稱這個graph為acyclic graph，見圖七。  &lt;ul&gt;
+&lt;li&gt;在Tree中找不到任何一條simple path的起點與終點是相同vertex(node)，因此Tree一定是acyclic graph。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="subgraph" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/Intro_fig/f_8.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖七：。&lt;/strong&gt; 
+&lt;/center&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;weight(權重)&lt;/strong&gt;：若要表示兩個地理位置之間的「距離」或是運送「成本」，可以在edge上加上weight，這樣的graph又稱為weighted graph，如圖八。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="subgraph" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/Intro_fig/f_9.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖八：weight的值可能為正或是負。&lt;/strong&gt; 
+&lt;/center&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;connected&lt;/strong&gt;：若存在從vertex(A)指向vertex(B)、以及從vertex(B)指向vertex(A)的edge(若是在directed graph中，需要兩條edge；若是undirected graph只需要一條edge)，則稱vertex(A)與vertex(B)為connected，見圖九(a)。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="subgraph" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/Intro_fig/f_10.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖九(a)：。&lt;/strong&gt; 
+&lt;/center&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;connected in undirected graph&lt;/strong&gt;：若在undirected graph中，對任意兩個vertex都存在一條path連結這兩個vertex，則稱此undirected graph是connected。  &lt;ul&gt;
+&lt;li&gt;圖九(b)中，G&lt;sub&gt;1&lt;/sub&gt;中的所有vertex都可以經過一條path到達其他vertex，因此G&lt;sub&gt;1&lt;/sub&gt;為connected。  &lt;/li&gt;
+&lt;li&gt;G&lt;sub&gt;2&lt;/sub&gt;中，vertex:X、S、Z分別與vertex:Y、W、T之間皆不存在path，因此G&lt;sub&gt;2&lt;/sub&gt;不是connected。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;connected component&lt;/strong&gt;：若在一個undirected graph中，存在某一個subgraph是connected，而且沒有任何vertex、edge再加入這個subgraph之集合後仍能使得這個subgraph維持connected特性，則稱此subgraph為connected component(最大集合的connected subgraph)。  &lt;ul&gt;
+&lt;li&gt;圖九(b)中，右上方為G&lt;sub&gt;1&lt;/sub&gt;的其中一個subgraph。此subgraph不是connected component，原因在於，再加入vertex:W、T，以及edge:(Y,W)、(Y,T)，也就是變回G&lt;sub&gt;1&lt;/sub&gt;後，仍然維持connected特性，因此這個subgraph並不是「可以維持connected的最大集合」。&lt;br /&gt;
+換句話說，在一個connected的undirected graph中，只會有一個connected component，就是graph本身。  &lt;/li&gt;
+&lt;li&gt;圖九(b)的G&lt;sub&gt;2&lt;/sub&gt;本身不是connected，而是由兩個connected component組成。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="subgraph" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/Intro_fig/f_11.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖九(b)：。&lt;/strong&gt; 
+&lt;/center&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;strongly connected in directed graph&lt;/strong&gt;：若在directed graph中，對任意兩個vertex都存在一條path連結這兩個vertex，則稱此directed graph是strongly connected。&lt;ul&gt;
+&lt;li&gt;圖九(c)，G&lt;sub&gt;3&lt;/sub&gt;中的所有vertex都可以經過一條path到達其他vertex，因此G&lt;sub&gt;3&lt;/sub&gt;為strongly connected。&lt;/li&gt;
+&lt;li&gt;G&lt;sub&gt;4&lt;/sub&gt;並非strongly connected，例如，vertex(Z)無法經由path到達vertex(S)，vertex(Y)無法經由path到達vertex(X)等等。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;strongly connected component&lt;/strong&gt;：若在一個directed graph中，存在某一個subgraph是strongly connected，而且沒有任何vertex、edge再加入這個subgraph之集合後仍能使得這個subgraph維持strongly connected特性，則稱此subgraph為strongly connected component(最大集合的strongly connected subgraph)。&lt;ul&gt;
+&lt;li&gt;圖九(c)中，右上方為G&lt;sub&gt;3&lt;/sub&gt;的其中一個subgraph。此subgraph不是strongly connected component，原因在於，再加入edge:(W,Z)後(也就是變回G&lt;sub&gt;3&lt;/sub&gt;)，仍然維持connected特性，因此這個subgraph並不是「可以維持connected的最大集合」。&lt;br /&gt;
+如同undirected graph，若一個directed graph本身是strongly sonnected，則本身也是唯一的strongly connected component。&lt;/li&gt;
+&lt;li&gt;G&lt;sub&gt;4&lt;/sub&gt;是由三個strongly connected component組成。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="subgraph" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/Intro_fig/f_12.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖九(c)：。&lt;/strong&gt; 
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;最後要注意的是，下列兩項情形：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;self-loop(自我迴圈)&lt;/strong&gt;：若有edge從vertex(A)指向vertex(A)，即稱為self-edge或是self-loop。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;multigraph(多邊圖)&lt;/strong&gt;：若在graph中相同的edge重複出現多次，則稱此圖為multigraph，之後要討論的Graph將排除此種情形。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="selfloop" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/Intro_fig/f_13.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖十：self-loop與multigraph在directed graph和undirected graph中定義皆相同。&lt;/strong&gt; 
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a name="app"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;&lt;strong&gt;預告：Graph的應用&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;在接下來的文章，主要將探討以下三個應用的演算法：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Minimum Spanning Tree(MST，最小生成樹)&lt;/strong&gt;：給定一個connected、weighted的undirected graph，要在這個graph中，找到(1)連結所有vertex，而且(2)edge上的weight總和最小的「Tree」。&lt;br /&gt;
+例如，鄉公所要鋪路，先以鄉公所為中心(&lt;code&gt;root&lt;/code&gt;)，把所有馬路必須到達的地區視為vertex，則路就是edge，那麼，鋪路的目標便是利用最低成本(weight總和最小)將馬路延伸到所有必須抵達的地區，這就是MST的問題。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Shortest Path(最短路徑)&lt;/strong&gt;：顧名思義，最短路徑即是找到vertex(A)與vertex(B)之間lenght最小的path，例如Google Map。&lt;br /&gt;
+其中又可以分為：&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Single Source Single Destination&lt;/strong&gt;：從一個vertex，抵達特定的另一個vertex之最短路徑；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Single Source All Destination&lt;/strong&gt;：從一個vertex，抵達graph中其餘所有vertex之最短路徑；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;All Source Single Destination&lt;/strong&gt;：從每一個graph中的vertex抵達特定的vertex之最短路徑；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;All Source All Destination&lt;/strong&gt;：graph中的所有vertex抵達其餘所有vertex之最短路徑。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Network Flow(網路流)&lt;/strong&gt;：若現在有一個複雜的水管系統，水從入水口流入，經過許多互相連結、且孔徑不一的水管後，從出水口流出，目標是一次流入最大量的水。&lt;br /&gt;
+其中可能遇到的問題如：由於水管的孔徑各不相同，若先流過一條半徑只有2公分的水管，則接在其後的水管的半徑即使再大，水流量仍會被半徑2公分的水管所限制，因此整體流量也就受限制。&lt;br /&gt;
+如何分配水流在水管之間的流法，即是Network Flow要處理的問題。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;不過在介紹以上三項主題之前，下兩篇文章將先介紹在Graph中最基本的搜尋(Search)方法：Breadth First Search (BFS，廣度優先搜尋)與Depth First Search (DFS，深度優先搜尋)。&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a name="ref"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h6&gt;&lt;strong&gt;參考資料&lt;/strong&gt;：&lt;/h6&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844"&gt;Introduction to Algorithms, Ch22&lt;/a&gt; &lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376"&gt;Fundamentals of Data Structures in C++, Ch6&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://www.hackerearth.com/notes/graph-theory-part-i/"&gt;Hacker Earth：Graph Theory - Part I &lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://theoryofprogramming.com/2014/12/24/graph-theory-basics/"&gt;Theory of Programming：Graph Theory Basics&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://en.wikipedia.org/wiki/Tree_%28graph_theory%29"&gt;Wikipedia：Tree(graph theory)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://www.google.com.tw/maps/dir/%E7%8E%89%E5%B1%B1%E5%9C%8B%E5%AE%B6%E5%85%AC%E5%9C%92%E7%AE%A1%E7%90%86%E8%99%95+553%E5%8D%97%E6%8A%95%E7%B8%A3%E6%B0%B4%E9%87%8C%E9%84%89%E4%B8%AD%E5%B1%B1%E8%B7%AF%E4%B8%80%E6%AE%B5300%E8%99%9F/%E8%8A%B1%E8%93%AE%E7%B8%A3%E5%A4%AA%E9%AD%AF%E9%96%A3%E5%9C%8B%E5%AE%B6%E5%85%AC%E5%9C%92%E7%AE%A1%E7%90%86%E8%99%95/@23.9945162,121.0278493,10.35z/data=!4m13!4m12!1m5!1m1!1s0x34692ae27ea40fff:0xab9c90d0fc985ac5!2m2!1d120.8504096!2d23.8128448!1m5!1m1!1s0x34688286a79bc241:0x9c0222099dc32245!2m2!1d121.621627!2d24.158708?hl=zh-TW"&gt;Google Map：從玉山國家公園到太魯閣國家公園&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;script type="text/javascript"&gt;if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width &lt; 768) ? "left" : align;
+        indent = (screen.width &lt; 768) ? "0em" : indent;
+        linebreak = (screen.width &lt; 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' &amp;&amp; location_protocol !== 'https') location_protocol = 'https:';
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+&lt;/script&gt;</summary><category term="C++"></category><category term="Graph"></category><category term="Intro"></category></entry><entry><title>Red Black Tree: Delete(刪除資料)與Fixup(修正)</title><link href="http://alrightchiu.github.io/SecondRound/red-black-tree-deleteshan-chu-zi-liao-yu-fixupxiu-zheng.html" rel="alternate"></link><updated>2016-01-30T14:11:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-01-30:SecondRound/red-black-tree-deleteshan-chu-zi-liao-yu-fixupxiu-zheng.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h4&gt;&lt;strong&gt;先備知識與注意事項&lt;/strong&gt;&lt;/h4&gt;
 &lt;p&gt;如同&lt;a href="http://alrightchiu.github.io/SecondRound/red-black-tree-insertxin-zeng-zi-liao-yu-fixupxiu-zheng.html"&gt;Red Black Tree: Insert(新增資料)與Fixup(修正)&lt;/a&gt;，RBT之Delete(刪除資料)方法同樣是先沿用&lt;code&gt;DeleteBST()&lt;/code&gt;，再對顏色利用&lt;code&gt;Rotation&lt;/code&gt;進行修正。&lt;br /&gt;
 建議讀者在閱讀本篇文章之前，先復習&lt;a href="http://alrightchiu.github.io/SecondRound/binary-search-tree-sortpai-xu-deleteshan-chu-zi-liao.html#delete"&gt;BST::DeleteBST(刪除資料)&lt;/a&gt;與&lt;a href="http://alrightchiu.github.io/SecondRound/red-black-tree-rotationxuan-zhuan.html"&gt;Red Black Tree: Rotation(旋轉)&lt;/a&gt;，會比較容易上手。&lt;/p&gt;
