@@ -200,7 +200,7 @@ post-order traversal流程如下：
 **圖四(a)：。**  
 </center>
 
-並以最暴力的方式定義`TreeNode`與`BinaryTree`之物件(object)：
+並以最暴力的方式建立`TreeNode`與`BinaryTree`之物件(object)：
 
 ```cpp
 // C++ code
