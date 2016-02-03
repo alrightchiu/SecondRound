@@ -7,7 +7,7 @@ Summary: 介紹Graph(圖)的基本性質。
 
 
 </br>
-######**先備知識與注意事項**
+####**先備知識與注意事項**
 
 在經歷過[Tree系列文章](http://alrightchiu.github.io/SecondRound/treeshu-introjian-jie.html)的洗禮後，接著要介紹的是Graph(圖)。
 
@@ -146,10 +146,10 @@ Graph比Tree更加廣義，其定義僅僅使用了集合(Set)，並且不限制
     1. Adjacency Matrix：由於Matrix是連續記憶體，在存取資料時會稍微快一些；
     2. Adjacency List：同理，若是使用動態記憶體配置建立Linked list，則資料存取會稍慢(這項缺點可以使用C++的STL::Vector解決，不過STL::Vector不適合用在動態改變的Graph上)。
 * 新增edge：
-    1. Adjacency Matrix：在Matrix中增加一條edge僅僅是把$0$設成$1$，只需要$O(1)$；
+    1. Adjacency Matrix：在Matrix中增加一條edge僅僅是把矩陣中相對應位置的值從$0$設成$1$，只需要$O(1)$；
     2. Adjacency List：若每次都把新的vertex加在List的最前端(front)，也只需要$O(1)$。不過，最壞情況(worst case)發生在「某個vertex與其他vertex全部相連」，因此需要$O(|E|)$。
 * 刪除edge：
-    1. Adjacency Matrix：在Matrix中刪除edge僅僅是把$1$設成$0$，只需要$O(1)$；
+    1. Adjacency Matrix：在Matrix中刪除edge僅僅是把矩陣中相對應位置的值從$1$設成$0$，只需要$O(1)$；
     2. Adjacency List：如同在Linked list中刪除資料，需要$O(|E|)$。
 
 
@@ -169,7 +169,7 @@ Graph比Tree更加廣義，其定義僅僅使用了集合(Set)，並且不限制
 
 * **path(路徑)**：若從vertex(V<sub>1</sub>)到vertex(V<sub>k</sub>)存在一連串前後相接的edge($(V_i,V_{i+1})\subseteq E(G),i=1,2,...,k-1$)，則稱這一連串edge為「從vertex(V<sub>1</sub>)到vertex(V<sub>k</sub>)的path」。
 * **length(長度)/distance(距離)**：length(或distance)即是path中的edge數。
-* **simple path(簡單路徑)**：若一條path中，除了起點與終點之外，沒有vertex被重複經過，則稱這條path為simple path。  
+* **simple path(簡單路徑)**：若一條path中，除了起點vertex與終點vertex之外，沒有vertex被重複經過，則稱這條path為simple path。  
     * 如圖六中，path:X->Y->Z即為simple path，path:W->Y->Z->V->W也是simple path，即使W有重複，但是因為分別是起點與終點，所以仍符合定義。而path:Y->X->Y->W就不是simple path，因為第二次經過Y時，Y不是終點。
 
 <center>
@@ -179,7 +179,7 @@ Graph比Tree更加廣義，其定義僅僅使用了集合(Set)，並且不限制
 </center>
 
 
-* **cycle(循環)**：若有ㄧ條「simple path」的起點與終點vertex相同，則稱這條path為cycle。  
+* **cycle(循環)**：若有ㄧ條「simple path」的起點vertex與終點vertex相同，則稱這條path為cycle。  
     * 圖六中的path:W->Y->Z->V->W，又稱為directed cycle(有向循環)；
     * 圖七中的path:Y->V->W->Y與path:X->Y->W->Z->X皆為undirected cycle(無向循環)。
 * **acyclic graph(無循環圖)**：若graph中不存在cycle，則稱這個graph為acyclic graph，見圖七。  
@@ -239,7 +239,6 @@ Graph比Tree更加廣義，其定義僅僅使用了集合(Set)，並且不限制
 </center>
 
 
-最後要注意的是，下列兩項情形：
 
 * **self-loop(自我迴圈)**：若有edge從vertex(A)指向vertex(A)，即稱為self-edge或是self-loop。
 * **multigraph(多邊圖)**：若在graph中相同的edge重複出現多次，則稱此圖為multigraph，之後要討論的Graph將排除此種情形。
@@ -293,7 +292,7 @@ Graph比Tree更加廣義，其定義僅僅使用了集合(Set)，並且不限制
 
 <a name="ref"></a>
 
-######**參考資料**：
+####**參考資料**：
 
 * [Introduction to Algorithms, Ch22](http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844) 
 * [Fundamentals of Data Structures in C++, Ch6](http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376)
