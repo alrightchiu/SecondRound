@@ -272,19 +272,19 @@ Graph比Tree更加廣義，其定義僅僅使用了集合(Set)，並且不限制
 不過在介紹以上三項主題之前，下兩篇文章將先介紹在Graph中最基本的搜尋(Search)方法：Breadth First Search (BFS，廣度優先搜尋)與Depth First Search (DFS，深度優先搜尋)。
 
 
-[f1]: f_1.png
-[f2]: f_2.png
-[f3]: f_3.png
-[f4]: f_4.png
-[f5]: f_5.png
-[f6]: f_6.png
-[f7]: f_7.png
-[f8]: f_8.png
-[f9]: f_9.png
-[f10]: f_10.png
-[f11]: f_11.png
-[f12]: f_12.png
-[f13]: f_13.png
+[f1]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/Intro_fig/f_1.png?raw=true
+[f2]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/Intro_fig/f_2.png?raw=true
+[f3]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/Intro_fig/f_3.png?raw=true
+[f4]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/Intro_fig/f_4.png?raw=true
+[f5]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/Intro_fig/f_5.png?raw=true
+[f6]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/Intro_fig/f_6.png?raw=true
+[f7]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/Intro_fig/f_7.png?raw=true
+[f8]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/Intro_fig/f_8.png?raw=true
+[f9]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/Intro_fig/f_9.png?raw=true
+[f10]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/Intro_fig/f_10.png?raw=true
+[f11]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/Intro_fig/f_11.png?raw=true
+[f12]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/Intro_fig/f_12.png?raw=true
+[f13]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/Intro_fig/f_13.png?raw=true
 
 
 </br>
