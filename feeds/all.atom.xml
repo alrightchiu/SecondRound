@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom"><title>Second Round</title><link href="http://alrightchiu.github.io/SecondRound/" rel="alternate"></link><link href="http://alrightchiu.github.io/SecondRound/feeds/all.atom.xml" rel="self"></link><id>http://alrightchiu.github.io/SecondRound/</id><updated>2016-02-03T23:49:00+08:00</updated><entry><title>Grpah: Intro(簡介)</title><link href="http://alrightchiu.github.io/SecondRound/grpah-introjian-jie.html" rel="alternate"></link><updated>2016-02-03T23:49:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-02-03:SecondRound/grpah-introjian-jie.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
-&lt;h6&gt;&lt;strong&gt;先備知識與注意事項&lt;/strong&gt;&lt;/h6&gt;
+&lt;h4&gt;&lt;strong&gt;先備知識與注意事項&lt;/strong&gt;&lt;/h4&gt;
 &lt;p&gt;在經歷過&lt;a href="http://alrightchiu.github.io/SecondRound/treeshu-introjian-jie.html"&gt;Tree系列文章&lt;/a&gt;的洗禮後，接著要介紹的是Graph(圖)。&lt;/p&gt;
 &lt;p&gt;Graph比Tree更加廣義，其定義僅僅使用了集合(Set)，並且不限制結構裡的node/vertex只能有唯一的&lt;code&gt;parent field&lt;/code&gt;，因此，更多的問題能夠以Graph建立模型。 &lt;/p&gt;
 &lt;hr /&gt;
@@ -166,12 +166,12 @@
 &lt;/ol&gt;
 &lt;/li&gt;
 &lt;li&gt;新增edge：&lt;ol&gt;
-&lt;li&gt;Adjacency Matrix：在Matrix中增加一條edge僅僅是把&lt;span class="math"&gt;\(0\)&lt;/span&gt;設成&lt;span class="math"&gt;\(1\)&lt;/span&gt;，只需要&lt;span class="math"&gt;\(O(1)\)&lt;/span&gt;；&lt;/li&gt;
+&lt;li&gt;Adjacency Matrix：在Matrix中增加一條edge僅僅是把矩陣中相對應位置的值從&lt;span class="math"&gt;\(0\)&lt;/span&gt;設成&lt;span class="math"&gt;\(1\)&lt;/span&gt;，只需要&lt;span class="math"&gt;\(O(1)\)&lt;/span&gt;；&lt;/li&gt;
 &lt;li&gt;Adjacency List：若每次都把新的vertex加在List的最前端(front)，也只需要&lt;span class="math"&gt;\(O(1)\)&lt;/span&gt;。不過，最壞情況(worst case)發生在「某個vertex與其他vertex全部相連」，因此需要&lt;span class="math"&gt;\(O(|E|)\)&lt;/span&gt;。&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/li&gt;
 &lt;li&gt;刪除edge：&lt;ol&gt;
-&lt;li&gt;Adjacency Matrix：在Matrix中刪除edge僅僅是把&lt;span class="math"&gt;\(1\)&lt;/span&gt;設成&lt;span class="math"&gt;\(0\)&lt;/span&gt;，只需要&lt;span class="math"&gt;\(O(1)\)&lt;/span&gt;；&lt;/li&gt;
+&lt;li&gt;Adjacency Matrix：在Matrix中刪除edge僅僅是把矩陣中相對應位置的值從&lt;span class="math"&gt;\(1\)&lt;/span&gt;設成&lt;span class="math"&gt;\(0\)&lt;/span&gt;，只需要&lt;span class="math"&gt;\(O(1)\)&lt;/span&gt;；&lt;/li&gt;
 &lt;li&gt;Adjacency List：如同在Linked list中刪除資料，需要&lt;span class="math"&gt;\(O(|E|)\)&lt;/span&gt;。&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/li&gt;
@@ -188,7 +188,7 @@
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;path(路徑)&lt;/strong&gt;：若從vertex(V&lt;sub&gt;1&lt;/sub&gt;)到vertex(V&lt;sub&gt;k&lt;/sub&gt;)存在一連串前後相接的edge(&lt;span class="math"&gt;\((V_i,V_{i+1})\subseteq E(G),i=1,2,...,k-1\)&lt;/span&gt;)，則稱這一連串edge為「從vertex(V&lt;sub&gt;1&lt;/sub&gt;)到vertex(V&lt;sub&gt;k&lt;/sub&gt;)的path」。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;length(長度)/distance(距離)&lt;/strong&gt;：length(或distance)即是path中的edge數。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;simple path(簡單路徑)&lt;/strong&gt;：若一條path中，除了起點與終點之外，沒有vertex被重複經過，則稱這條path為simple path。  &lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;simple path(簡單路徑)&lt;/strong&gt;：若一條path中，除了起點vertex與終點vertex之外，沒有vertex被重複經過，則稱這條path為simple path。  &lt;ul&gt;
 &lt;li&gt;如圖六中，path:X-&amp;gt;Y-&amp;gt;Z即為simple path，path:W-&amp;gt;Y-&amp;gt;Z-&amp;gt;V-&amp;gt;W也是simple path，即使W有重複，但是因為分別是起點與終點，所以仍符合定義。而path:Y-&amp;gt;X-&amp;gt;Y-&amp;gt;W就不是simple path，因為第二次經過Y時，Y不是終點。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
@@ -198,7 +198,7 @@
 &lt;p&gt;&lt;strong&gt;圖六：。&lt;/strong&gt; 
 &lt;/center&gt;&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;cycle(循環)&lt;/strong&gt;：若有ㄧ條「simple path」的起點與終點vertex相同，則稱這條path為cycle。  &lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;cycle(循環)&lt;/strong&gt;：若有ㄧ條「simple path」的起點vertex與終點vertex相同，則稱這條path為cycle。  &lt;ul&gt;
 &lt;li&gt;圖六中的path:W-&amp;gt;Y-&amp;gt;Z-&amp;gt;V-&amp;gt;W，又稱為directed cycle(有向循環)；&lt;/li&gt;
 &lt;li&gt;圖七中的path:Y-&amp;gt;V-&amp;gt;W-&amp;gt;Y與path:X-&amp;gt;Y-&amp;gt;W-&amp;gt;Z-&amp;gt;X皆為undirected cycle(無向循環)。&lt;/li&gt;
 &lt;/ul&gt;
@@ -260,7 +260,6 @@
 &lt;img alt="subgraph" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/Intro_fig/f_12.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖九(c)：。&lt;/strong&gt; 
 &lt;/center&gt;&lt;/p&gt;
-&lt;p&gt;最後要注意的是，下列兩項情形：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;self-loop(自我迴圈)&lt;/strong&gt;：若有edge從vertex(A)指向vertex(A)，即稱為self-edge或是self-loop。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;multigraph(多邊圖)&lt;/strong&gt;：若在graph中相同的edge重複出現多次，則稱此圖為multigraph，之後要討論的Graph將排除此種情形。&lt;/li&gt;
@@ -290,7 +289,7 @@
 &lt;p&gt;不過在介紹以上三項主題之前，下兩篇文章將先介紹在Graph中最基本的搜尋(Search)方法：Breadth First Search (BFS，廣度優先搜尋)與Depth First Search (DFS，深度優先搜尋)。&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a name="ref"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h6&gt;&lt;strong&gt;參考資料&lt;/strong&gt;：&lt;/h6&gt;
+&lt;h4&gt;&lt;strong&gt;參考資料&lt;/strong&gt;：&lt;/h4&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844"&gt;Introduction to Algorithms, Ch22&lt;/a&gt; &lt;/li&gt;
 &lt;li&gt;&lt;a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376"&gt;Fundamentals of Data Structures in C++, Ch6&lt;/a&gt;&lt;/li&gt;

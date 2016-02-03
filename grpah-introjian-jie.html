@@ -111,7 +111,7 @@
     <!-- Post Content -->
     <article>
         <p></br></p>
-<h6><strong>先備知識與注意事項</strong></h6>
+<h4><strong>先備知識與注意事項</strong></h4>
 <p>在經歷過<a href="http://alrightchiu.github.io/SecondRound/treeshu-introjian-jie.html">Tree系列文章</a>的洗禮後，接著要介紹的是Graph(圖)。</p>
 <p>Graph比Tree更加廣義，其定義僅僅使用了集合(Set)，並且不限制結構裡的node/vertex只能有唯一的<code>parent field</code>，因此，更多的問題能夠以Graph建立模型。 </p>
 <hr />
@@ -277,12 +277,12 @@
 </ol>
 </li>
 <li>新增edge：<ol>
-<li>Adjacency Matrix：在Matrix中增加一條edge僅僅是把<span class="math">\(0\)</span>設成<span class="math">\(1\)</span>，只需要<span class="math">\(O(1)\)</span>；</li>
+<li>Adjacency Matrix：在Matrix中增加一條edge僅僅是把矩陣中相對應位置的值從<span class="math">\(0\)</span>設成<span class="math">\(1\)</span>，只需要<span class="math">\(O(1)\)</span>；</li>
 <li>Adjacency List：若每次都把新的vertex加在List的最前端(front)，也只需要<span class="math">\(O(1)\)</span>。不過，最壞情況(worst case)發生在「某個vertex與其他vertex全部相連」，因此需要<span class="math">\(O(|E|)\)</span>。</li>
 </ol>
 </li>
 <li>刪除edge：<ol>
-<li>Adjacency Matrix：在Matrix中刪除edge僅僅是把<span class="math">\(1\)</span>設成<span class="math">\(0\)</span>，只需要<span class="math">\(O(1)\)</span>；</li>
+<li>Adjacency Matrix：在Matrix中刪除edge僅僅是把矩陣中相對應位置的值從<span class="math">\(1\)</span>設成<span class="math">\(0\)</span>，只需要<span class="math">\(O(1)\)</span>；</li>
 <li>Adjacency List：如同在Linked list中刪除資料，需要<span class="math">\(O(|E|)\)</span>。</li>
 </ol>
 </li>
@@ -299,7 +299,7 @@
 <ul>
 <li><strong>path(路徑)</strong>：若從vertex(V<sub>1</sub>)到vertex(V<sub>k</sub>)存在一連串前後相接的edge(<span class="math">\((V_i,V_{i+1})\subseteq E(G),i=1,2,...,k-1\)</span>)，則稱這一連串edge為「從vertex(V<sub>1</sub>)到vertex(V<sub>k</sub>)的path」。</li>
 <li><strong>length(長度)/distance(距離)</strong>：length(或distance)即是path中的edge數。</li>
-<li><strong>simple path(簡單路徑)</strong>：若一條path中，除了起點與終點之外，沒有vertex被重複經過，則稱這條path為simple path。  <ul>
+<li><strong>simple path(簡單路徑)</strong>：若一條path中，除了起點vertex與終點vertex之外，沒有vertex被重複經過，則稱這條path為simple path。  <ul>
 <li>如圖六中，path:X-&gt;Y-&gt;Z即為simple path，path:W-&gt;Y-&gt;Z-&gt;V-&gt;W也是simple path，即使W有重複，但是因為分別是起點與終點，所以仍符合定義。而path:Y-&gt;X-&gt;Y-&gt;W就不是simple path，因為第二次經過Y時，Y不是終點。</li>
 </ul>
 </li>
@@ -309,7 +309,7 @@
 <p><strong>圖六：。</strong> 
 </center></p>
 <ul>
-<li><strong>cycle(循環)</strong>：若有ㄧ條「simple path」的起點與終點vertex相同，則稱這條path為cycle。  <ul>
+<li><strong>cycle(循環)</strong>：若有ㄧ條「simple path」的起點vertex與終點vertex相同，則稱這條path為cycle。  <ul>
 <li>圖六中的path:W-&gt;Y-&gt;Z-&gt;V-&gt;W，又稱為directed cycle(有向循環)；</li>
 <li>圖七中的path:Y-&gt;V-&gt;W-&gt;Y與path:X-&gt;Y-&gt;W-&gt;Z-&gt;X皆為undirected cycle(無向循環)。</li>
 </ul>
@@ -371,7 +371,6 @@
 <img alt="subgraph" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/Intro_fig/f_12.png?raw=true" /></p>
 <p><strong>圖九(c)：。</strong> 
 </center></p>
-<p>最後要注意的是，下列兩項情形：</p>
 <ul>
 <li><strong>self-loop(自我迴圈)</strong>：若有edge從vertex(A)指向vertex(A)，即稱為self-edge或是self-loop。</li>
 <li><strong>multigraph(多邊圖)</strong>：若在graph中相同的edge重複出現多次，則稱此圖為multigraph，之後要討論的Graph將排除此種情形。</li>
@@ -401,7 +400,7 @@
 <p>不過在介紹以上三項主題之前，下兩篇文章將先介紹在Graph中最基本的搜尋(Search)方法：Breadth First Search (BFS，廣度優先搜尋)與Depth First Search (DFS，深度優先搜尋)。</p>
 <p></br></p>
 <p><a name="ref"></a></p>
-<h6><strong>參考資料</strong>：</h6>
+<h4><strong>參考資料</strong>：</h4>
 <ul>
 <li><a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844">Introduction to Algorithms, Ch22</a> </li>
 <li><a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376">Fundamentals of Data Structures in C++, Ch6</a></li>
