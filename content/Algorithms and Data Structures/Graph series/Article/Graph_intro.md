@@ -39,21 +39,21 @@ Graph比Tree更加廣義，其定義僅僅使用了集合(Set)，並且不限制
 
 |Course name                      |Prerequisites    |
 |---                              |---              |
-|Programming I(程式設計 I)&nbsp         |None  |
-|Discrete Mathematics(離散數學)&nbsp    |None  |
-|Data Structures(資料結構)&nbsp         |Programming I, Discrete Mathematics|
-|Calculus I(微積分 I)&nbsp              |None  |
-|Calculus II(微積分 II)&nbsp            |Calculus I      |
-|Linear Algebra(線性代數)&nbsp           |Calculus II     |
-|Analysis of Algorithm(演算法分析)&nbsp  |Data Structures, Linear Algebra|
-|Assembly Language(組合語言)&nbsp       |Data Structures |
-|Operating Systems(作業系統)&nbsp       |Analysis of Algorithm, Assembly Language|
-|Programming Language(程式語言) &nbsp   |Analysis of Algorithm  |
-|Compiler Design(編譯器設計)&nbsp        |Programming Language  |
-|Artificial Intelligence(人工智慧)&nbsp  |Analysis of Algorithm |
-|Computational Theory(計算機理論)&nbsp&nbsp&nbsp&nbsp   |Analysis of Algorithm |
-|Parallel Algorithms(平行演算法)&nbsp    |Computational Theory |
-|Numerical Analysis(數值方法)&nbsp       |Calculus II          |
+|Programming I(程式設計 I)           |None  |
+|Discrete Mathematics(離散數學)      |None  |
+|Data Structures(資料結構)           |Programming I, Discrete Mathematics|
+|Calculus I(微積分 I)                |None  |
+|Calculus II(微積分 II)             |Calculus I      |
+|Linear Algebra(線性代數)             |Calculus II     |
+|Analysis of Algorithm(演算法分析)   |Data Structures, Linear Algebra|
+|Assembly Language(組合語言)        |Data Structures |
+|Operating Systems(作業系統)         |Analysis of Algorithm, Assembly Language|
+|Programming Language(程式語言)      |Analysis of Algorithm  |
+|Compiler Design(編譯器設計)          |Programming Language  |
+|Artificial Intelligence(人工智慧)    |Analysis of Algorithm |
+|Computational Theory(計算機理論)  &nbsp;&nbsp;   |Analysis of Algorithm |
+|Parallel Algorithms(平行演算法)      |Computational Theory |
+|Numerical Analysis(數值方法)         |Calculus II          |
 
 **表一：某計算機科學學位之必修課程表**
 </center>
