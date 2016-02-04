@@ -51,7 +51,7 @@ Graph比Tree更加廣義，其定義僅僅使用了集合(Set)，並且不限制
 |Programming Language(程式語言) &nbsp   |Analysis of Algorithm  |
 |Compiler Design(編譯器設計)&nbsp        |Programming Language  |
 |Artificial Intelligence(人工智慧)&nbsp  |Analysis of Algorithm |
-|Computational Theory(計算機理論)&nbsp   |Analysis of Algorithm |
+|Computational Theory(計算機理論)&nbsp&nbsp&nbsp&nbsp   |Analysis of Algorithm |
 |Parallel Algorithms(平行演算法)&nbsp    |Computational Theory |
 |Numerical Analysis(數值方法)&nbsp       |Calculus II          |
 
