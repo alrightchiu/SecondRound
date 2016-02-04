@@ -17,7 +17,7 @@
 &lt;/ul&gt;
 &lt;p&gt;&lt;a name="course"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;&lt;strong&gt;初探Graph的美妙：以課程與其先修科目為例&lt;/strong&gt;&lt;/h2&gt;
-&lt;p&gt;假設，有間大學的計算機科學學位之必修課程，以及與該課程相關的先修科目設計如表一：&lt;/p&gt;
+&lt;p&gt;舉例來說，有間大學的計算機科學學位之必修課程，以及與該課程相關的先修科目設計如表一：&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
@@ -127,9 +127,9 @@
 &lt;p&gt;再看幾個Graph的範例。&lt;br /&gt;
 圖三(a)中的G&lt;sub&gt;1&lt;/sub&gt;與G&lt;sub&gt;2&lt;/sub&gt;為undirected graph，圖三(b)中的G&lt;sub&gt;3&lt;/sub&gt;與G&lt;sub&gt;4&lt;/sub&gt;為directed graph。&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
-&lt;img alt="undirected" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/Intro_fig/f_3.png?raw=true" /&gt;&lt;/p&gt;
+&lt;img alt="undirected" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/Intro_fig/f3.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖三(a)：Tree(樹)也是undirected graph(無向圖)。&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img alt="directed" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/Intro_fig/f_4.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="directed" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/Intro_fig/f4.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖三(b)：directed graph(有向圖)。&lt;/strong&gt;&lt;br /&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a name="represent"&gt;&lt;/a&gt;&lt;/p&gt;
