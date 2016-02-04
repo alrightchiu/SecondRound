@@ -165,7 +165,7 @@ B. **Tree(樹)**是由一個或多個nodes/vertices以及edge所組成，而且�
 **圖五：Forest(樹林)由多個Tree(樹)所組成，可以用來表示互斥集合(disjoint set)。**
 </center>
 
-[forest]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/Tree_fig/forest.png?raw=true
+[forest]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/Tree_fig/forest_.png?raw=true
 
 
  <a name="code"></a>
