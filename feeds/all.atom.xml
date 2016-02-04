@@ -286,7 +286,7 @@
 其中可能遇到的問題如：由於水管的孔徑各不相同，若先流過一條半徑只有2公分的水管，則接在其後的水管的半徑即使再大，水流量仍會被半徑2公分的水管所限制，因此整體流量也就受限制。&lt;br /&gt;
 如何分配水流在水管之間的流法，即是Network Flow要處理的問題。&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;不過在介紹以上三項主題之前，下兩篇文章將先介紹在Graph中最基本的搜尋(Search)方法：Breadth First Search (BFS，廣度優先搜尋)與Depth First Search (DFS，深度優先搜尋)。&lt;/p&gt;
+&lt;p&gt;不過在介紹以上三項主題之前，下兩篇文章將先介紹在Graph中最基本的搜尋(Search)方法：Breadth First Search(BFS，廣度優先搜尋)與Depth First Search(DFS，深度優先搜尋)。&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a name="ref"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h4&gt;&lt;strong&gt;參考資料&lt;/strong&gt;：&lt;/h4&gt;
