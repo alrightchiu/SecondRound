@@ -3798,7 +3798,7 @@ Binary Tree的node未必需要parent pointer(或稱為parent field)，然而加�
 &lt;li&gt;由&lt;span class="math"&gt;\(n\geq 0\)&lt;/span&gt;棵彼此互斥(disjoint)的Tree(樹)所形成的集合(Set)，即稱為Forest(樹林)。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;center&gt;
-&lt;img alt="forest" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/Tree_fig/forest.png?raw=true" /&gt;  &lt;/p&gt;
+&lt;img alt="forest" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/Tree_fig/forest_.png?raw=true" /&gt;  &lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖五：Forest(樹林)由多個Tree(樹)所組成，可以用來表示互斥集合(disjoint set)。&lt;/strong&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a name="code"&gt;&lt;/a&gt;&lt;/p&gt;
