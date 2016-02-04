@@ -19,15 +19,17 @@ Summary: 介紹資料結構中Tree(樹)的概念。
 [linked_list]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/Tree_fig/linked_list_size.png?raw=true
 
 
-另外則是用詞翻譯的選擇，為響應兩性平權(feminism)以及使用的頻繁程度，名詞如node/vertex(節點)、edge(邊緣？)、parent(父還是母？)、child(孩子？)、ancestor(祖先？)...皆視為專有名詞，不做翻譯。因此文句中會出現中英夾雜的情況，敬請見諒。  
-</br>  
+另外則是用詞翻譯的選擇，由於許多名詞時常被設置為程式碼的變數名稱，而且翻譯後將造成理解上的斷層(如node/vertex(節點)、edge(邊緣？)、parent(父還是母？)、child(孩子？)、ancestor(祖先？)、sibling(手足？兄弟姐妹？)...)，所以決定將此類用詞視為專有名詞，不做翻譯。  
+文句中將出現中英夾雜的情形，敬請見諒。
+
+  
 [OK Go](https://www.youtube.com/watch?v=u1ZB_rGFyeU).  
 
 ***
 
 ##目錄
 
-* [隨處可見的樹](#example)  
+* [隨處可見的Tree(樹)](#example)  
 * [那麼，樹最根本的特徵是什麼？](#essence)   
 * [還有哪些結構是樹？](#tree_not_tree)  
 * [用以描述一棵樹的元素](#element)  
@@ -40,8 +42,8 @@ Summary: 介紹資料結構中Tree(樹)的概念。
 
  <a name="example"></a>
  
-##**隨處可見的樹**
-**樹**(Tree)是用以描述具有**階層結構**(hierarchical structure)的問題的首選，階層結構意味著明確的先後次序，例如，若要印出ABC三個字母的所有排列組合(permutation)，直覺反射的圖像會是：  
+##**隨處可見的Tree(樹)**
+**Tree(樹)**是用以描述具有**階層結構**(hierarchical structure)的問題的首選，階層結構意味著明確的先後次序，例如，若要印出ABC三個字母的所有排列組合(permutation)，直覺反射的圖像會是：  
 
 <center>  
 ![fig1.a][abc_permu-a]
@@ -64,7 +66,7 @@ Summary: 介紹資料結構中Tree(樹)的概念。
 ##**那麼，樹最根本的特徵是什麼？**
 以族譜為例，若包龍星是宋世傑的爸爸，那麼包龍星就絕對不能同時又是宋世傑的兒子。圖三以node與edge描述此關係，並定義箭頭是從父指向子，則包龍星指向宋世傑的箭頭表示包為父、宋為子，而宋世傑指向包龍星的箭頭表示宋為父、包為子，這一個箭頭即違反了最初「包龍星是宋世傑的爸爸」的命題，此即稱為cycle，也就是著名的「雞生蛋」與「蛋生雞」。  
 
-而樹的最根本特徵就是：**在樹的結構裡，只有一個樹根(root)，並且不存在cycle**。
+而樹的最根本特徵就是：**在樹的結構裡，只有一個root(樹根)，並且不存在cycle**。
 此特徵將衍生出另外兩項等價的性質：
 
 1. **在樹中若要從root尋找特定node，一定只存在一條路徑(path)。**  
@@ -87,7 +89,7 @@ Summary: 介紹資料結構中Tree(樹)的概念。
 </br>
 <center>![fig2.a][example-a]  
 
-**圖三.a：若樹的node只有指向左子樹(left subtree)與右子樹(right subtree)時，又稱為Binary Tree(二元樹)。**  
+**圖三.a：若樹的node只有指向left subtree(左子樹)與right subtree(右子樹)時，又稱為Binary Tree(二元樹)。**  
 </br> 
 ![fig2.b][example-b]  
 
@@ -95,11 +97,11 @@ Summary: 介紹資料結構中Tree(樹)的概念。
 </br>
 ![fig2.c][example-c]  
 
-**圖三.c：在F出現cycle；C->B->D->E出現undirected cycle，詳見圖論(graph theory)。後者等價於：D有兩個parent node。**  
+**圖三.c：在F出現cycle；C->B->D->E出現undirected cycle，詳見Graph theory(圖論)。後者等價於：D有兩個parent node。**  
 </br>
 ![fig2.d][example-d]  
 
-**圖三.d：一棵樹只能有一個樹根(root)。此圖像又稱為樹林(forest)。**
+**圖三.d：一棵樹只能有一個root(樹根)。此圖像又稱為Forest(樹林)。**
 </center>
 </br>
 [example-a]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/Tree_fig/is_Tree_a_size.png?raw=true
@@ -142,17 +144,29 @@ Summary: 介紹資料結構中Tree(樹)的概念。
 
 <a name="definition"></a>
 ##**定義**
+  
+以下列出兩種互相等價的Tree(樹)的定義：  
+(根據以上範例說明，再配合樹的定義，還不飛上天？)
 
-根據以上範例說明，再配合樹的定義，還不飛上天？  
-以下列出兩種樹的定義：  
+A. **Tree(樹)**是由一個或多個節點所組成的有限集合，並且滿足：  
 
-A. **樹**是由一個或多個節點所組成的有限集合，並且滿足：  
+1. 存在且只有一個稱為`root`(樹根)的節點；
+2. 其餘的節點可以分割成任意正整數個(包含零個)互斥(disjoint)的集合：$T_1、...、T_n$，其中每一個集合也都滿足樹的定義，這些集合又稱為這棵樹的**subtree(子樹)**。
 
-1. 存在且只有一個稱為樹根(root)的節點；
-2. 其餘的節點可以分割成任意正整數個(包含零個)互斥(disjoint)的集合：$T_1、...、T_n$，其中每一個集合也都滿足樹的定義，這些集合又稱為這棵樹的**子樹**(subtree)。
+B. **Tree(樹)**是由一個或多個nodes/vertices以及edge所組成，而且沒有cycle的集合(set)。  
 
-B. **樹**是由一個或多個nodes/vertices以及edge所組成，而且沒有cycle的集合(set)。  
-</br>
+在圖三(d)中，曾出現**Forest(樹林)**，其定義很直觀：
+
+* 由$n\geq 0$棵彼此互斥(disjoint)的Tree(樹)所形成的集合(Set)，即稱為Forest(樹林)。
+
+<center>
+![forest][forest]  
+
+**圖五：Forest(樹林)由多個Tree(樹)所組成，可以用來表示互斥集合(disjoint set)。**
+</center>
+
+[forest]: forest.png
+
 
  <a name="code"></a>
 ##**程式碼**
@@ -180,23 +194,23 @@ class Tree{
  <a name="set"></a>
 ##**集合關係**
 
-本篇介紹的樹(Tree)位居承先啟後的戰略位置，圖五展示了與樹有關的資料結構的集合關係圖：
+本篇介紹的Tree(樹)位居承先啟後的戰略位置，圖六展示了與Tree(樹)有關的資料結構的集合關係圖：
 
 <center>
 ![fig4][set]  
 
-**圖五：與樹相關的資料結構之集合關係。**
+**圖六：與Tree(樹)相關的資料結構之集合關係。**
 </center>
 </br>
 [set]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/Tree_fig/Set_Graph_Tree_size.png?raw=true
 
-本篇介紹的樹並沒有限制child/ subtree的個數，理論上可以有多到超過記憶體空間的child node。  
-然而在實務上，較常使用每個node至多只有兩個child的樹，稱為**Binary Tree**(二元樹)。  
-從Binary Tree再增加「鍵值大小規則」，即得到**Binary Search Tree**(BST，二元搜尋樹)。  
-以BST為基礎，在每個node上添加顏色(紅與黑)用以平衡樹的height，以減短搜尋時間，此種樹稱為**Red Black Tree**(RB Tree，紅黑樹)。  
-另一個方向，若打破「不能存在cycle」的限制，則從樹推廣至**圖(graph)**。  
+本篇介紹的Tree(樹)並沒有限制child/ subtree的個數，理論上可以有多到超過記憶體空間的child node。  
+然而在實務上，較常使用每個node至多只有兩個child的樹，稱為[**Binary Tree**(二元樹)]((http://alrightchiu.github.io/SecondRound/binary-tree-introjian-jie.html))。  
+從Binary Tree再增加「鍵值大小規則」，即得到[**Binary Search Tree**(BST，二元搜尋樹)](http://alrightchiu.github.io/SecondRound/binary-search-tree-introjian-jie.html)。  
+以BST為基礎，在每個node上添加顏色(紅與黑)用以平衡樹的height，以減短搜尋時間，此種樹稱為[**Red Black Tree**(RB Tree，紅黑樹)](http://alrightchiu.github.io/SecondRound/red-black-tree-introjian-jie.html)。  
+另一個方向，若打破「不能存在cycle」的限制，則從樹推廣至[**圖(graph)**](http://alrightchiu.github.io/SecondRound/grpah-introjian-jie.html)。  
 
-在接下來的文章將先以縮小集合的方向依序介紹：Binary Tree、BST、RB Tree，再進入圖(graph)這個更複雜的主題。
+在接下來的文章將先以縮小集合的方向依序介紹：Binary Tree、BST、RB Tree，再進入Graph(圖)這個更複雜的主題。
 
 <a name="ref"></a>
 </br>
