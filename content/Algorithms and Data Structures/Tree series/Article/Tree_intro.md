@@ -165,7 +165,7 @@ B. **Tree(樹)**是由一個或多個nodes/vertices以及edge所組成，而且�
 **圖五：Forest(樹林)由多個Tree(樹)所組成，可以用來表示互斥集合(disjoint set)。**
 </center>
 
-[forest]: forest.png
+[forest]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/Tree_fig/forest.png?raw=true
 
 
  <a name="code"></a>
@@ -201,7 +201,8 @@ class Tree{
 
 **圖六：與Tree(樹)相關的資料結構之集合關係。**
 </center>
-</br>
+
+
 [set]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/Tree_fig/Set_Graph_Tree_size.png?raw=true
 
 本篇介紹的Tree(樹)並沒有限制child/ subtree的個數，理論上可以有多到超過記憶體空間的child node。  
