@@ -122,10 +122,10 @@ Graph比Tree更加廣義，其定義僅僅使用了集合(Set)，並且不限制
 那麼該如何表示Graph呢？  
 一般有兩種常用的表示法：
 
-1. **Adjacency Matrix**：一個二維矩陣，若從vertex(A)到vertex(B)有edge，則矩陣位置[A][B]值為$1$，反之，則為$0$。  
+1. **Adjacency Matrix(相鄰矩陣)**：一個二維矩陣，若從vertex(A)到vertex(B)有edge，則矩陣位置[A][B]值為$1$，反之，則為$0$。  
     * 以圖四為例，在undireced graph中，vertex(X)與vertex(Y)之間有edge，則矩陣位置[X][Y]與[Y][X]之值皆為$1$；
     * 在directed graph中，有從vertex(X)指向vertex(Y)的edge，則矩陣位置[X][Y]之值為$1$，但是沒有反向的edge，因此矩陣位置[Y][X]之值為$0$。
-2. **Adjacency List**：先以一個一維陣列列出所有的vertex，再以Linked list表示所有與vertex相連的vertex。  
+2. **Adjacency List(相鄰串列)**：先以一個一維陣列列出所有的vertex，再以Linked list表示所有與vertex相連的vertex。  
 (vertex接進Linked list的順序不重要，因為是Graph是定義成Set。)  
     * 以圖四為例，在undireced graph中，vertex(W)與vertex(Z)、vertex(Y)、vertex(V)具有edge相連，則在一維陣列中表示vertex(W)之位置之後，依序接上vertex(Z)、vertex(Y)、vertex(V)。
     * 在direced graph中，vertex(W)僅僅剩下指向vertex(Y)與vertex(V)的edge，因此，在一維陣列中表示vertex(W)之位置之後，只要接上vertex(Y)與vertex(V)。
@@ -158,6 +158,7 @@ Graph比Tree更加廣義，其定義僅僅使用了集合(Set)，並且不限制
 
 ####**一些名詞解釋**
 
+* **adjacent(相鄰)**：若在vertex(A)與vertex(B)之間有一條edge(不論是否具有方向性)，則稱vertex(A)與vertex(B)為adjacent(相鄰)。
 * **subgraph(子圖)**：若構成G'的兩個集合滿足$V(G')\subseteq V(G), E(G')\subseteq E(G)$，則稱G'為G的subgraph，如圖五。
 
 <center>
