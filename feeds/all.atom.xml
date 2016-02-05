@@ -137,12 +137,12 @@
 &lt;p&gt;那麼該如何表示Graph呢？&lt;br /&gt;
 一般有兩種常用的表示法：&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;Adjacency Matrix&lt;/strong&gt;：一個二維矩陣，若從vertex(A)到vertex(B)有edge，則矩陣位置[A][B]值為&lt;span class="math"&gt;\(1\)&lt;/span&gt;，反之，則為&lt;span class="math"&gt;\(0\)&lt;/span&gt;。  &lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Adjacency Matrix(相鄰矩陣)&lt;/strong&gt;：一個二維矩陣，若從vertex(A)到vertex(B)有edge，則矩陣位置[A][B]值為&lt;span class="math"&gt;\(1\)&lt;/span&gt;，反之，則為&lt;span class="math"&gt;\(0\)&lt;/span&gt;。  &lt;ul&gt;
 &lt;li&gt;以圖四為例，在undireced graph中，vertex(X)與vertex(Y)之間有edge，則矩陣位置[X][Y]與[Y][X]之值皆為&lt;span class="math"&gt;\(1\)&lt;/span&gt;；&lt;/li&gt;
 &lt;li&gt;在directed graph中，有從vertex(X)指向vertex(Y)的edge，則矩陣位置[X][Y]之值為&lt;span class="math"&gt;\(1\)&lt;/span&gt;，但是沒有反向的edge，因此矩陣位置[Y][X]之值為&lt;span class="math"&gt;\(0\)&lt;/span&gt;。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Adjacency List&lt;/strong&gt;：先以一個一維陣列列出所有的vertex，再以Linked list表示所有與vertex相連的vertex。&lt;br /&gt;
+&lt;li&gt;&lt;strong&gt;Adjacency List(相鄰串列)&lt;/strong&gt;：先以一個一維陣列列出所有的vertex，再以Linked list表示所有與vertex相連的vertex。&lt;br /&gt;
 (vertex接進Linked list的順序不重要，因為是Graph是定義成Set。)  &lt;ul&gt;
 &lt;li&gt;以圖四為例，在undireced graph中，vertex(W)與vertex(Z)、vertex(Y)、vertex(V)具有edge相連，則在一維陣列中表示vertex(W)之位置之後，依序接上vertex(Z)、vertex(Y)、vertex(V)。&lt;/li&gt;
 &lt;li&gt;在direced graph中，vertex(W)僅僅剩下指向vertex(Y)與vertex(V)的edge，因此，在一維陣列中表示vertex(W)之位置之後，只要接上vertex(Y)與vertex(V)。&lt;/li&gt;
@@ -179,6 +179,7 @@
 &lt;p&gt;&lt;a name="terminology"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h4&gt;&lt;strong&gt;一些名詞解釋&lt;/strong&gt;&lt;/h4&gt;
 &lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;adjacent(相鄰)&lt;/strong&gt;：若在vertex(A)與vertex(B)之間有一條edge(不論是否具有方向性)，則稱vertex(A)與vertex(B)為adjacent(相鄰)。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;subgraph(子圖)&lt;/strong&gt;：若構成G'的兩個集合滿足&lt;span class="math"&gt;\(V(G')\subseteq V(G), E(G')\subseteq E(G)\)&lt;/span&gt;，則稱G'為G的subgraph，如圖五。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;center&gt;
