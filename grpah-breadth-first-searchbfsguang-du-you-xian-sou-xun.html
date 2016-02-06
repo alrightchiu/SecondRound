@@ -385,7 +385,7 @@
 <p>由於<code>BFS()</code>是用<code>AdjList</code>來判斷edge的連結狀況，因此，<code>BFS()</code>對undirected graph或directed graph皆適用。</p>
 </li>
 <li>
-<p>若將<code>predecessor array</code>中，所有vertex的「前後關係」以edge連結，可以得到<strong>Predecessor Subgraph</strong>，因為其connected與acyclic的性質，使得<strong>Predecessor Subgraph</strong>會是一棵以起點vertex為<code>root</code>的Tree，又稱為<strong>Breadth-First Tree</strong>，而所有<strong>Predecessor Subgraph</strong>出現的edge稱為<strong>tree edge</strong>，見圖三(a)：</p>
+<p>若將<code>predecessor array</code>中，所有vertex的「前後關係」以edge連結，可以得到<strong>Predecessor Subgraph</strong>，因為其connected與acyclic的性質，使得Predecessor Subgraph會是一棵以起點vertex為<code>root</code>的Tree，又稱為<strong>Breadth-First Tree</strong>，而所有Predecessor Subgraph出現的edge稱為<strong>tree edge</strong>，見圖三(a)：</p>
 </li>
 </ul>
 <p><center>
@@ -394,8 +394,8 @@
 </center></p>
 <ul>
 <li>如圖三(a)的<strong>Breadth-First Tree</strong>可能不止有一種可能，原因在於「建立<code>Adjacency List</code>時的順序」，將會影響到<code>BFS()</code>中的<code>for loop</code>在「找到」vertex時的順序。<ul>
-<li>如圖三(b)，若更改圖二(a)之<code>AdjList</code>，把vertex(A)之Linked list中，vertex(B)與vertex(C)之順序對調，使得<code>BFS()</code>在搜尋vertex時，vertex(C)會比vertex(B)更早進入<code>queue</code>，也就更早成為搜尋的新起點，那麼最後得到的<strong>Breadth-First Tree</strong>就會不同。</li>
-<li>不過，雖然<strong>Breadth-First Tree</strong>不一樣，但是每個vertex相對於起點vertex的<code>distance</code>保證相同。</li>
+<li>如圖三(b)，若更改圖二(a)之<code>AdjList</code>，把vertex(A)之Linked list中，vertex(B)與vertex(C)之順序對調，使得<code>BFS()</code>在搜尋vertex時，vertex(C)會比vertex(B)更早進入<code>queue</code>，也就更早成為搜尋的新起點，那麼最後得到的Breadth-First Tree就會不同。</li>
+<li>不過，雖然Breadth-First Tree不一樣，但是每個vertex相對於起點vertex的<code>distance</code>保證相同。</li>
 </ul>
 </li>
 </ul>
