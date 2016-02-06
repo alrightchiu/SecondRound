@@ -124,7 +124,6 @@
 <p><strong>圖一。</strong><br />
 </center></p>
 <p>另外，在解釋演算法時，可能會用到Graph中的專有名詞，如<strong>undirected</strong>、<strong>connected component</strong>、<strong>weight</strong>等等，若覺得這些名詞像被打了馬賽克糊糊的，可以先回到<a href="http://alrightchiu.github.io/SecondRound/grpah-introjian-jie.html">Grpah: Intro(簡介)</a>狠狠回憶一番。</p>
-<p>// stl: vector, list, iterator, queue</p>
 <hr />
 <h2>目錄</h2>
 <ul>
@@ -188,14 +187,14 @@
 如圖二(d)，vertex(B)、vertex(C)、vertex(D)與vertex(A)相鄰，如果vertex的顏色是白色，表示還沒有被其他vertex「找到」，便執行以下步驟：</p>
 <ul>
 <li>將三個vertex的<code>color</code>塗成灰色；</li>
-<li>將<code>distance[B]、distance[C]、distance[D]</code>設成<span class="math">\(<code>distance[A]</code>+1=1\)</span>，</li>
+<li>將<code>distance[B]、distance[C]、distance[D]</code>設成<code>distance[A]</code><span class="math">\(+1=1\)</span>，</li>
 <li>將<code>predecessor[B]、predecessor[C]、predecessor[D]</code>設成vertex(A)。</li>
 <li>把三個vertex按照「找到」的順序，依序推進<code>queue</code>裡；</li>
 <li>最後，把vertex(A)塗黑，移出<code>queue</code>。</li>
 </ul>
 <p>經過以上步驟，vertex(B)、vertex(C)、vertex(D)便被vertex(A)「找到」，並把<code>predecessor</code>設成vertex(A)，所以回溯路徑時，任何經過vertex(B)的path，必定是由vertex(A)來。同理，vertex(C)與vertex(D)也是。</p>
 <p>而<code>distance[B]</code>是vertex(A)的<code>distance[A]</code>加一，如此一來，只要到達vertex(A)是經由最短路徑，那麼從vertex(A)走到vertex(B)的路徑，也會是最短路徑。<br />
-由於vertex(A)是起點，<span class="math">\(<code>distance[A]</code>=0\)</span>，因此，<span class="math">\(<code>distance[B]</code>=1\)</span>一定是從vertex(A)走到vertex(B)的最短距離。</p>
+由於vertex(A)是起點，<code>distance[A]</code><span class="math">\(=0\)</span>，因此，<code>distance[B]</code><span class="math">\(=1\)</span>一定是從vertex(A)走到vertex(B)的最短距離。</p>
 <p>由於推進<code>queue</code>的順序正好是vertex被「找到」的順序，因此，之後要取得<code>queue</code>的<code>front</code>作為新的起點做搜尋時，便能確保按照先前被「找到」的順序(如同Tree的Level-Order Traversal)。</p>
 <p><center>
 <img alt="bfs" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/BFS_fig/f5.png?raw=true" /></p>
@@ -205,7 +204,7 @@
 新的起點是vertex(B)，檢查所有與其相鄰的vertex，共有vertex(A)與vertex(E)。由於vertex(A)已經被「找到」過(顏色為灰色或黑色)，因此，vertex(B)只能找到vertex(E)，便進行以下步驟：</p>
 <ul>
 <li>將vertex(E)的<code>color</code>塗成灰色；</li>
-<li>將<code>distance[E]</code>設成<span class="math">\(<code>distance[B]</code>+1=2\)</span>；</li>
+<li>將<code>distance[E]</code>設成<code>distance[B]</code><span class="math">\(+1=2\)</span>；</li>
 <li>將<code>predecessor[E]</code>設成vertex(B)；</li>
 <li>將vertex(E)推進<code>queue</code>；</li>
 <li>最後，把vertex(B)塗黑，移出<code>queue</code>。</li>
@@ -220,11 +219,11 @@
 <li>搜尋過其相鄰之vertex；</li>
 <li>被塗成黑色。</li>
 </ol>
-<p>接下來，<code>queue</code>裡面只會出現<span class="math">\(<code>distance</code>\geq 1\)</span>的vertex。</p>
+<p>接下來，<code>queue</code>裡面只會出現<code>distance</code><span class="math">\(\geq 1\)</span>的vertex。</p>
 <p>繼續以<code>queue</code>的<code>front</code>，得到vertex(C)作為新的起點，檢查其相鄰的vertex的顏色，如果是灰色或黑色(vertex(A)與vertex(E)已經被「找到」)則忽略，若是白色(vertex(F)、vertex(G)、vertex(H))，見圖二(f)：</p>
 <ul>
 <li>將<code>color</code>修改成灰色；</li>
-<li>將<code>distance</code>修改成<span class="math">\(<code>distance[C]+1</code>\)</span>；</li>
+<li>將<code>distance</code>修改成<code>distance[C]</code><span class="math">\(+1\)</span>；</li>
 <li>將<code>predecessor</code>修改成vertex(C)；</li>
 <li>將vertex按照被「找到」的順序，推進<code>queue</code>；</li>
 <li>將vertex(C)塗黑，移出<code>queue</code>。</li>
@@ -261,37 +260,7 @@
 </center></p>
 <p><a name="code"></a></p>
 <h2><strong>程式碼</strong></h2>
-<p>(為了簡化程式，以下程式將使用<code>int</code>處理資料，把<span class="math">\(9\)</span>個vertex<code>char A~I</code>依序對應到<code>int 0~8</code>，如下表)</p>
-<p><center></p>
-<table>
-<thead>
-<tr>
-<th>A</th>
-<th>B</th>
-<th>C</th>
-<th>D</th>
-<th>E</th>
-<th>F</th>
-<th>G</th>
-<th>H</th>
-<th>I</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0</td>
-<td>1</td>
-<td>2</td>
-<td>3</td>
-<td>4</td>
-<td>5</td>
-<td>6</td>
-<td>7</td>
-<td>8</td>
-</tr>
-</tbody>
-</table>
-<p></center></p>
+<p>(為了簡化程式，以下程式將使用<code>int</code>處理資料，把<span class="math">\(9\)</span>個vertex<code>char A~I</code>依序對應到<code>int 0~8</code>)</p>
 <p>範例程式碼包含幾個部分：</p>
 <ul>
 <li><code>class Graph</code>：定義方式有非常多種，這裡提供的<code>class Graph</code>的主要目標有(1)建立如圖二(a)的<code>Adjacency List</code>，(2)進行<code>BFS()</code>。<ul>
