@@ -261,16 +261,15 @@
 <p><a name="code"></a></p>
 <h2><strong>程式碼</strong></h2>
 <p>(為了簡化程式，以下程式將使用<code>int</code>處理資料，把<span class="math">\(9\)</span>個vertex<code>char A~I</code>依序對應到<code>int 0~8</code>)</p>
-<p>範例程式碼包含幾個部分：</p>
+<p>範例程式碼的主要功能為：</p>
+<ol>
+<li>建立如圖二(a)的<code>Adjacency List</code>；</li>
+<li>進行<code>BFS()</code>。</li>
+</ol>
+<p>共包含幾個部分：</p>
 <ul>
 <li>
 <p><code>class Graph</code>：定義方式有非常多種，這裡提供的<code>class Graph</code>的主要目標有二：</p>
-</li>
-<li>
-<p>建立如圖二(a)的<code>Adjacency List</code>；</p>
-</li>
-<li>
-<p>進行<code>BFS()</code>。</p>
 <ul>
 <li><code>private data member</code>：<ul>
 <li><code>num_vertex</code>：需要在定義<code>Graph</code>的object(物件)時，給定vertex的數目，以便建立<code>Adjacency List</code>(或者<code>Adjacency Matrix</code>)。</li>
