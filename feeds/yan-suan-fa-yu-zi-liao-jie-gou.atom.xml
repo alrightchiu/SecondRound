@@ -153,7 +153,15 @@
 &lt;p&gt;(為了簡化程式，以下程式將使用&lt;code&gt;int&lt;/code&gt;處理資料，把&lt;span class="math"&gt;\(9\)&lt;/span&gt;個vertex&lt;code&gt;char A~I&lt;/code&gt;依序對應到&lt;code&gt;int 0~8&lt;/code&gt;)&lt;/p&gt;
 &lt;p&gt;範例程式碼包含幾個部分：&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;code&gt;class Graph&lt;/code&gt;：定義方式有非常多種，這裡提供的&lt;code&gt;class Graph&lt;/code&gt;的主要目標有(1)建立如圖二(a)的&lt;code&gt;Adjacency List&lt;/code&gt;，(2)進行&lt;code&gt;BFS()&lt;/code&gt;。&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;class Graph&lt;/code&gt;：定義方式有非常多種，這裡提供的&lt;code&gt;class Graph&lt;/code&gt;的主要目標有二：&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;建立如圖二(a)的&lt;code&gt;Adjacency List&lt;/code&gt;；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;進行&lt;code&gt;BFS()&lt;/code&gt;。&lt;/p&gt;
+&lt;ul&gt;
 &lt;li&gt;&lt;code&gt;private data member&lt;/code&gt;：&lt;ul&gt;
 &lt;li&gt;&lt;code&gt;num_vertex&lt;/code&gt;：需要在定義&lt;code&gt;Graph&lt;/code&gt;的object(物件)時，給定vertex的數目，以便建立&lt;code&gt;Adjacency List&lt;/code&gt;(或者&lt;code&gt;Adjacency Matrix&lt;/code&gt;)。&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;std::vector&amp;lt; std::list&amp;lt;int&amp;gt; &amp;gt; AdjList&lt;/code&gt;：利用C++標準函式庫(STL)提供的container(容器):&lt;code&gt;std::vector&lt;/code&gt;與&lt;code&gt;std::list&lt;/code&gt;來實現。這樣的寫法的優點是：不需要使用到&lt;code&gt;new operator&lt;/code&gt;，便能夠將記憶體控管交給STL，不需要自行處理&lt;code&gt;delete operator&lt;/code&gt;，以避免記憶體遺漏(memory leak)，詳細討論請參考&lt;a href="http://codereview.stackexchange.com/questions/82476/depth-first-search-and-breadth-first-search-in-c"&gt;Code Review：Depth First Search and Breadth First Search in C++&lt;/a&gt;。&lt;/li&gt;
@@ -168,7 +176,9 @@
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;code&gt;main()&lt;/code&gt;：用&lt;code&gt;AddEdgeList()&lt;/code&gt;建立起如圖二(a)的Graph之&lt;code&gt;AdjList()&lt;/code&gt;，並在Graph上執行&lt;code&gt;BFS()&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;main()&lt;/code&gt;：用&lt;code&gt;AddEdgeList()&lt;/code&gt;建立起如圖二(a)的Graph之&lt;code&gt;AdjList()&lt;/code&gt;，並在Graph上執行&lt;code&gt;BFS()&lt;/code&gt;。&lt;/p&gt;
+&lt;/li&gt;
 &lt;/ul&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// C++ code&lt;/span&gt;
 &lt;span class="cp"&gt;#include &amp;lt;iostream&amp;gt;&lt;/span&gt;
