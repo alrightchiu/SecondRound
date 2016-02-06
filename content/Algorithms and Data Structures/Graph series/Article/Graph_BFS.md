@@ -235,11 +235,11 @@ Summary: 介紹Graph(圖)中的基本操作：Breadth First Search(BFS，廣度�
 共包含幾個部分：
 
 * `class Graph`：定義方式有非常多種，這裡提供的`class Graph`的主要目標有二：
-    * `private data member`：
+    * private data member：
         * `num_vertex`：需要在定義`Graph`的object(物件)時，給定vertex的數目，以便建立`Adjacency List`(或者`Adjacency Matrix`)。
         * `std::vector< std::list<int> > AdjList`：利用C++標準函式庫(STL)提供的container(容器):`std::vector`與`std::list`來實現。這樣的寫法的優點是：不需要使用到`new operator`，便能夠將記憶體控管交給STL，不需要自行處理`delete operator`，以避免記憶體遺漏(memory leak)，詳細討論請參考[Code Review：Depth First Search and Breadth First Search in C++](http://codereview.stackexchange.com/questions/82476/depth-first-search-and-breadth-first-search-in-c)。
         * `color`、`distance`、`predecessor`：將在`BFS()`中使用，功能如上述。
-    * `public member function`：
+    * public member function：
         * `Constructor:Graph(int num_vertex)`：在定義Graph的object(物件)時，需要知道vertex的數目，並在`constructor`中定義好`AdjList`。
         * `AddEdgeList(int from, in to)`：功能便是在`AdjList`新增從`from`到`to`的edge。
         * `BFS(int Start)`：需要知道起點vertex。
@@ -355,7 +355,7 @@ int main(){
 
 * 如圖三(a)的**Breadth-First Tree**可能不止有一種可能，原因在於「建立`Adjacency List`時的順序」，將會影響到`BFS()`中的`for loop`在「找到」vertex時的順序。
     * 如圖三(b)，若更改圖二(a)之`AdjList`，把vertex(A)之Linked list中，vertex(B)與vertex(C)之順序對調，使得`BFS()`在搜尋vertex時，vertex(C)會比vertex(B)更早進入`queue`，也就更早成為搜尋的新起點，那麼最後得到的**Breadth-First Tree**就會不同。
-    * 但是可以確定的是，雖然**Breadth-First Tree**不一樣，但是每個vertex相對於起點vertex的`distance`保證相同。
+    * 不過，雖然**Breadth-First Tree**不一樣，但是每個vertex相對於起點vertex的`distance`保證相同。
 
 <center>
 ![bfs][f17]
