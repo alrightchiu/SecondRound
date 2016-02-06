@@ -219,8 +219,9 @@
 <li>搜尋過其相鄰之vertex；</li>
 <li>被塗成黑色。</li>
 </ol>
-<p>接下來，<code>queue</code>裡面只會出現<code>distance</code><span class="math">\(\geq 1\)</span>的vertex。</p>
-<p>繼續以<code>queue</code>的<code>front</code>，得到vertex(C)作為新的起點，檢查其相鄰的vertex的顏色，如果是灰色或黑色(vertex(A)與vertex(E)已經被「找到」)則忽略，若是白色(vertex(F)、vertex(G)、vertex(H))，見圖二(f)：</p>
+<p>往後<code>queue</code>裡面只會出現<code>distance</code><span class="math">\(\geq 1\)</span>的vertex。</p>
+<p></br></p>
+<p>接下來，繼續以<code>queue</code>的<code>front</code>，得到vertex(C)作為新的起點，檢查其相鄰的vertex的顏色，如果是灰色或黑色(vertex(A)與vertex(E)已經被「找到」)則忽略，若是白色(vertex(F)、vertex(G)、vertex(H))，見圖二(f)：</p>
 <ul>
 <li>將<code>color</code>修改成灰色；</li>
 <li>將<code>distance</code>修改成<code>distance[C]</code><span class="math">\(+1\)</span>；</li>
