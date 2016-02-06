@@ -109,8 +109,8 @@
 &lt;li&gt;搜尋過其相鄰之vertex；&lt;/li&gt;
 &lt;li&gt;被塗成黑色。&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;往後&lt;code&gt;queue&lt;/code&gt;裡面只會出現&lt;code&gt;distance&lt;/code&gt;&lt;span class="math"&gt;\(\geq 1\)&lt;/span&gt;的vertex。&lt;/p&gt;
-&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;往後&lt;code&gt;queue&lt;/code&gt;裡面只會出現&lt;code&gt;distance&lt;/code&gt;&lt;span class="math"&gt;\(\geq 1\)&lt;/span&gt;的vertex。
+&lt;/br&gt;&lt;/p&gt;
 &lt;p&gt;接下來，繼續以&lt;code&gt;queue&lt;/code&gt;的&lt;code&gt;front&lt;/code&gt;，得到vertex(C)作為新的起點，檢查其相鄰的vertex的顏色，如果是灰色或黑色(vertex(A)與vertex(E)已經被「找到」)則忽略，若是白色(vertex(F)、vertex(G)、vertex(H))，見圖二(f)：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;將&lt;code&gt;color&lt;/code&gt;修改成灰色；&lt;/li&gt;
