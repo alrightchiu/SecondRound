@@ -28,7 +28,6 @@ Summary: 介紹Graph(圖)中的基本操作：Breadth First Search(BFS，廣度�
 
 另外，在解釋演算法時，可能會用到Graph中的專有名詞，如**undirected**、**connected component**、**weight**等等，若覺得這些名詞像被打了馬賽克糊糊的，可以先回到[Grpah: Intro(簡介)](http://alrightchiu.github.io/SecondRound/grpah-introjian-jie.html)狠狠回憶一番。
 
-// stl: vector, list, iterator, queue
 
 ***
 
@@ -114,7 +113,7 @@ Summary: 介紹Graph(圖)中的基本操作：Breadth First Search(BFS，廣度�
 如圖二(d)，vertex(B)、vertex(C)、vertex(D)與vertex(A)相鄰，如果vertex的顏色是白色，表示還沒有被其他vertex「找到」，便執行以下步驟：
 
 * 將三個vertex的`color`塗成灰色；
-* 將`distance[B]、distance[C]、distance[D]`設成$`distance[A]`+1=1$，
+* 將`distance[B]、distance[C]、distance[D]`設成`distance[A]`$+1=1$，
 * 將`predecessor[B]、predecessor[C]、predecessor[D]`設成vertex(A)。
 * 把三個vertex按照「找到」的順序，依序推進`queue`裡；
 * 最後，把vertex(A)塗黑，移出`queue`。
@@ -122,7 +121,7 @@ Summary: 介紹Graph(圖)中的基本操作：Breadth First Search(BFS，廣度�
 經過以上步驟，vertex(B)、vertex(C)、vertex(D)便被vertex(A)「找到」，並把`predecessor`設成vertex(A)，所以回溯路徑時，任何經過vertex(B)的path，必定是由vertex(A)來。同理，vertex(C)與vertex(D)也是。
 
 而`distance[B]`是vertex(A)的`distance[A]`加一，如此一來，只要到達vertex(A)是經由最短路徑，那麼從vertex(A)走到vertex(B)的路徑，也會是最短路徑。  
-由於vertex(A)是起點，$`distance[A]`=0$，因此，$`distance[B]`=1$一定是從vertex(A)走到vertex(B)的最短距離。
+由於vertex(A)是起點，`distance[A]`$=0$，因此，`distance[B]`$=1$一定是從vertex(A)走到vertex(B)的最短距離。
 
 由於推進`queue`的順序正好是vertex被「找到」的順序，因此，之後要取得`queue`的`front`作為新的起點做搜尋時，便能確保按照先前被「找到」的順序(如同Tree的Level-Order Traversal)。
 
@@ -138,7 +137,7 @@ Summary: 介紹Graph(圖)中的基本操作：Breadth First Search(BFS，廣度�
 新的起點是vertex(B)，檢查所有與其相鄰的vertex，共有vertex(A)與vertex(E)。由於vertex(A)已經被「找到」過(顏色為灰色或黑色)，因此，vertex(B)只能找到vertex(E)，便進行以下步驟：
 
 * 將vertex(E)的`color`塗成灰色；
-* 將`distance[E]`設成$`distance[B]`+1=2$；
+* 將`distance[E]`設成`distance[B]`$+1=2$；
 * 將`predecessor[E]`設成vertex(B)；
 * 將vertex(E)推進`queue`；
 * 最後，把vertex(B)塗黑，移出`queue`。
@@ -156,12 +155,12 @@ Summary: 介紹Graph(圖)中的基本操作：Breadth First Search(BFS，廣度�
 2. 搜尋過其相鄰之vertex；
 3. 被塗成黑色。
 
-接下來，`queue`裡面只會出現$`distance`\geq 1$的vertex。
+接下來，`queue`裡面只會出現`distance`$\geq 1$的vertex。
 
 繼續以`queue`的`front`，得到vertex(C)作為新的起點，檢查其相鄰的vertex的顏色，如果是灰色或黑色(vertex(A)與vertex(E)已經被「找到」)則忽略，若是白色(vertex(F)、vertex(G)、vertex(H))，見圖二(f)：
 
 * 將`color`修改成灰色；
-* 將`distance`修改成$`distance[C]+1`$；
+* 將`distance`修改成`distance[C]`$+1$；
 * 將`predecessor`修改成vertex(C)；
 * 將vertex按照被「找到」的順序，推進`queue`；
 * 將vertex(C)塗黑，移出`queue`。
@@ -224,15 +223,8 @@ Summary: 介紹Graph(圖)中的基本操作：Breadth First Search(BFS，廣度�
 
 ##**程式碼**
 
-(為了簡化程式，以下程式將使用`int`處理資料，把$9$個vertex`char A~I`依序對應到`int 0~8`，如下表)
+(為了簡化程式，以下程式將使用`int`處理資料，把$9$個vertex`char A~I`依序對應到`int 0~8`)
 
-<center>
-
-|A|B|C|D|E|F|G|H|I|
-|---|---|---|---|---|---|---|---|---|
-|0|1|2|3|4|5|6|7|8|
-
-</center>
 
 範例程式碼包含幾個部分：
 
