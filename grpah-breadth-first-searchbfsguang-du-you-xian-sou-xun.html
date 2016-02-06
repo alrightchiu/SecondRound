@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="zh-hant">
+
+<head>
+            <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+
+        <title>Grpah: Breadth First Search(BFS，廣度優先搜尋)</title>
+
+            <link href="http://alrightchiu.github.io/SecondRound/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Second Round Full Atom Feed" />
+            <link href="http://alrightchiu.github.io/SecondRound/feeds/yan-suan-fa-yu-zi-liao-jie-gou.atom.xml" type="application/atom+xml" rel="alternate" title="Second Round Categories Atom Feed" />
+
+        <!-- Bootstrap Core CSS -->
+        <link href="http://alrightchiu.github.io/SecondRound/theme/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="http://alrightchiu.github.io/SecondRound/theme/css/clean-blog.min.css" rel="stylesheet">
+
+        <!-- Code highlight color scheme -->
+            <link href="http://alrightchiu.github.io/SecondRound/theme/css/code_blocks/darkly.css" rel="stylesheet">
+
+
+        <!-- Custom Fonts -->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+
+
+
+        <meta name="tags" contents="C++" />
+        <meta name="tags" contents="Graph" />
+
+
+	                <meta property="og:locale" content="">
+		<meta property="og:site_name" content="Second Round">
+
+	<meta property="og:type" content="article">
+	<meta property="article:author" content="">
+	<meta property="og:url" content="http://alrightchiu.github.io/SecondRound/grpah-breadth-first-searchbfsguang-du-you-xian-sou-xun.html">
+	<meta property="og:title" content="Grpah: Breadth First Search(BFS，廣度優先搜尋)">
+	<meta property="og:description" content="">
+	<meta property="og:image" content="http://alrightchiu.github.io/SecondRound/">
+	<meta property="article:published_time" content="2016-02-06 14:15:00+08:00">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://alrightchiu.github.io/SecondRound/">Second Round</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a href="http://alrightchiu.github.io/SecondRound/archives.html">Archives</a></li>
+                        <li><a href="http://alrightchiu.github.io/SecondRound/tags.html">Tags</a></li>
+
+                            <li><a href="http://alrightchiu.github.io/SecondRound/pages/about.html">About</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+        <header class="intro-header" style="background-image: url('http://alrightchiu.github.io/SecondRound/theme/images/post-bg.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>Grpah: Breadth First Search(BFS，廣度優先搜尋)</h1>
+                        <span class="meta">Posted by
+                                <a href="http://alrightchiu.github.io/SecondRound/author/chiu-cc.html">Chiu CC</a>
+                             on  2 06, 2016
+                        </span>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    <!-- Post Content -->
+    <article>
+        <p></br></p>
+<h4><strong>先備知識與注意事項</strong></h4>
+<p>在<a href="http://alrightchiu.github.io/SecondRound/binary-tree-traversalxun-fang.html#level">Binary Tree: Traversal(尋訪)</a>與<a href="http://alrightchiu.github.io/SecondRound/binary-tree-jian-li-yi-ke-binary-tree.html">Binary Tree: 建立一棵Binary Tree</a>兩篇文章裡，介紹了如何利用<code>queue</code>在Binary Tree中進行<strong>Level-Order Traversal</strong>，其概念便是：各個node相對於<code>root</code>有其相對應的level，按照level由小到大依序對node進行Visiting。<br />
+而level便代表了node與<code>root</code>之「距離」，以Graph的語言來說，「距離」便是path的<strong>length(長度)/distance(距離)</strong>。如圖一：</p>
+<ul>
+<li>Level=2：path(A-B)、path(A-C)之length為<span class="math">\(1\)</span>。</li>
+<li>Level=3：path(A-B-D)、path(A-B-E)、path(A-C-F)之length為<span class="math">\(2\)</span>。</li>
+<li>Level=4：path(A-B-E-G)、path(A-B-E-H)之length為<span class="math">\(3\)</span>。</li>
+</ul>
+<p>而Breadth First Search(BFS，廣度優先搜尋)便是廣義的Level-Order Traversal，將試用情境從Tree推廣至Graph。</p>
+<p><center>
+<img alt="level-order" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/BFS_fig/f1.png?raw=true" /></p>
+<p><strong>圖一。</strong><br />
+</center></p>
+<p>另外，在解釋演算法時，可能會用到Graph中的專有名詞，如<strong>undirected</strong>、<strong>connected component</strong>、<strong>weight</strong>等等，若覺得這些名詞像被打了馬賽克糊糊的，可以先回到<a href="http://alrightchiu.github.io/SecondRound/grpah-introjian-jie.html">Grpah: Intro(簡介)</a>狠狠回憶一番。</p>
+<p>// stl: vector, list, iterator, queue</p>
+<hr />
+<h2>目錄</h2>
+<ul>
+<li><a href="#bfs">Breadth First Search(BFS，廣度優先搜尋)</a></li>
+<li><a href="#algorithm">演算法</a></li>
+<li><a href="#code">程式碼</a></li>
+<li><a href="#discuss">討論</a></li>
+<li><a href="#ref">參考資料</a></li>
+</ul>
+<p><a name="bfs"></a></p>
+<h2><strong>Breadth First Search(BFS，廣度優先搜尋)</strong></h2>
+<p>所以<code>BFS()</code>的功能有哪些呢？</p>
+<p>考慮圖二(a)的Graph(沒有weight、是connected的undirected graph)：</p>
+<p><center>
+<img alt="bfs" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/BFS_fig/f2.png?raw=true" /></p>
+<p><strong>圖二(a)。</strong><br />
+</center></p>
+<p>若選定以vertex(A)作為起點，對圖二(a)的G進行<code>BFS()</code>，可以得到：</p>
+<ol>
+<li>從vertex(A)抵達在G裡所有「與vertex(A)在同一個connected component裡」的vertex的最短距離(shortest path)。<br />
+(由於圖二(a)的G是connected undirected graph，所以從G中任何一點出發進行<code>BFS()</code>皆能抵達其餘所有vertex。)</li>
+<li>不僅僅能夠得到vertex(I)與vertex(A)的最短距離為<span class="math">\(3\)</span>，還能夠指出一條可能的path，說明要如何從vertex(A)走到vertex(I)，例如path:A-C-F-I，或者path:A-C-G-I。  </li>
+</ol>
+<p><a name="algorithm"></a></p>
+<h2><strong>演算法</strong></h2>
+<p>在正式開始之前，需要先準備三項武器：</p>
+<ol>
+<li><code>color</code> array：利用color標記哪些vertex已經被「找到」，哪些還沒有。<ul>
+<li>白色表示該vertex還沒有被找過；</li>
+<li>灰色表示該vertex已經被某個vertex找過；</li>
+<li>黑色表示該vertex已經從<code>queue</code>的隊伍中移除。</li>
+</ul>
+</li>
+<li><code>distance</code> array：記錄每一個vertex與起點vertex之距離。</li>
+<li><code>predecessor</code> array：記錄某個vertex是被哪一個vertex找到的，如此便能回溯路徑。</li>
+</ol>
+<p><code>BFS()</code>的方法如下：</p>
+<p>初始化(initialization)，如圖二(b)：</p>
+<ul>
+<li>把所有vertex塗成白色；</li>
+<li>把所有vertex的<code>distance</code>設為無限大，表示從起點vertex走不到，或者還沒有走到；</li>
+<li>把所有vertex的<code>predecessor</code>清除(或者設成<code>NULL</code>、<code>-1</code>，可以辨識即可)。</li>
+<li>建立空的<code>queue</code>。</li>
+</ul>
+<p><center>
+<img alt="bfs" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/BFS_fig/f3.png?raw=true" /></p>
+<p><strong>圖二(b)。</strong><br />
+</center></p>
+<p>把起點vertex(A)推進<code>queue</code>，如圖二(c)：</p>
+<ul>
+<li>將vertex(A)塗成灰色；</li>
+<li><code>distance[A]</code>設為<span class="math">\(0\)</span>；</li>
+<li><code>predecessor[A]</code>不更動(只要能辨識出vertex(A)沒有predecesor即可。)</li>
+</ul>
+<p><center>
+<img alt="bfs" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/BFS_fig/f4.png?raw=true" /></p>
+<p><strong>圖二(c)。</strong><br />
+</center></p>
+<p>接著，以<code>queue</code>的<code>front</code>當作新的起點搜尋。<br />
+新的起點是vertex(A)，便檢查所有與vertex(A)相鄰的vertex(見圖二(a)的<code>Adjacency List</code>)，修改其<code>color</code>、<code>distance</code>、<code>predecessor</code>。<br />
+如圖二(d)，vertex(B)、vertex(C)、vertex(D)與vertex(A)相鄰，如果vertex的顏色是白色，表示還沒有被其他vertex「找到」，便執行以下步驟：</p>
+<ul>
+<li>將三個vertex的<code>color</code>塗成灰色；</li>
+<li>將<code>distance[B]、distance[C]、distance[D]</code>設成<span class="math">\(<code>distance[A]</code>+1=1\)</span>，</li>
+<li>將<code>predecessor[B]、predecessor[C]、predecessor[D]</code>設成vertex(A)。</li>
+<li>把三個vertex按照「找到」的順序，依序推進<code>queue</code>裡；</li>
+<li>最後，把vertex(A)塗黑，移出<code>queue</code>。</li>
+</ul>
+<p>經過以上步驟，vertex(B)、vertex(C)、vertex(D)便被vertex(A)「找到」，並把<code>predecessor</code>設成vertex(A)，所以回溯路徑時，任何經過vertex(B)的path，必定是由vertex(A)來。同理，vertex(C)與vertex(D)也是。</p>
+<p>而<code>distance[B]</code>是vertex(A)的<code>distance[A]</code>加一，如此一來，只要到達vertex(A)是經由最短路徑，那麼從vertex(A)走到vertex(B)的路徑，也會是最短路徑。<br />
+由於vertex(A)是起點，<span class="math">\(<code>distance[A]</code>=0\)</span>，因此，<span class="math">\(<code>distance[B]</code>=1\)</span>一定是從vertex(A)走到vertex(B)的最短距離。</p>
+<p>由於推進<code>queue</code>的順序正好是vertex被「找到」的順序，因此，之後要取得<code>queue</code>的<code>front</code>作為新的起點做搜尋時，便能確保按照先前被「找到」的順序(如同Tree的Level-Order Traversal)。</p>
+<p><center>
+<img alt="bfs" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/BFS_fig/f5.png?raw=true" /></p>
+<p><strong>圖二(d)：以vertex(A)作為搜尋起點。</strong><br />
+</center></p>
+<p>接著，繼續以<code>queue</code>的<code>front</code>當作新的起點搜尋。<br />
+新的起點是vertex(B)，檢查所有與其相鄰的vertex，共有vertex(A)與vertex(E)。由於vertex(A)已經被「找到」過(顏色為灰色或黑色)，因此，vertex(B)只能找到vertex(E)，便進行以下步驟：</p>
+<ul>
+<li>將vertex(E)的<code>color</code>塗成灰色；</li>
+<li>將<code>distance[E]</code>設成<span class="math">\(<code>distance[B]</code>+1=2\)</span>；</li>
+<li>將<code>predecessor[E]</code>設成vertex(B)；</li>
+<li>將vertex(E)推進<code>queue</code>；</li>
+<li>最後，把vertex(B)塗黑，移出<code>queue</code>。</li>
+</ul>
+<p><center>
+<img alt="bfs" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/BFS_fig/f6.png?raw=true" /></p>
+<p><strong>圖二(e)：以vertex(B)作為搜尋起點。</strong><br />
+</center></p>
+<p>由於vertex(B)是第一個<code>distance</code>為<span class="math">\(1\)</span>且被視為搜尋起點的vertex，這就表示，所有<code>distance</code>為<span class="math">\(0\)</span>的vertex都已經</p>
+<ol>
+<li>被當作搜尋起點；</li>
+<li>搜尋過其相鄰之vertex；</li>
+<li>被塗成黑色。</li>
+</ol>
+<p>接下來，<code>queue</code>裡面只會出現<span class="math">\(<code>distance</code>\geq 1\)</span>的vertex。</p>
+<p>繼續以<code>queue</code>的<code>front</code>，得到vertex(C)作為新的起點，檢查其相鄰的vertex的顏色，如果是灰色或黑色(vertex(A)與vertex(E)已經被「找到」)則忽略，若是白色(vertex(F)、vertex(G)、vertex(H))，見圖二(f)：</p>
+<ul>
+<li>將<code>color</code>修改成灰色；</li>
+<li>將<code>distance</code>修改成<span class="math">\(<code>distance[C]+1</code>\)</span>；</li>
+<li>將<code>predecessor</code>修改成vertex(C)；</li>
+<li>將vertex按照被「找到」的順序，推進<code>queue</code>；</li>
+<li>將vertex(C)塗黑，移出<code>queue</code>。</li>
+</ul>
+<p><center>
+<img alt="bfs" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/BFS_fig/f7.png?raw=true" /></p>
+<p><strong>圖二(f)：以vertex(C)作為搜尋起點。</strong><br />
+</center></p>
+<p>接著，從<code>queue</code>的<code>front</code>找到vertex(D)，可惜所有與vertex(D)相鄰的vertex(A)與vertex(H)不是灰色就是黑色，都已經被「找到」，見圖二(g)：</p>
+<ul>
+<li>將vertex(D)塗黑，移出<code>queue</code>。</li>
+</ul>
+<p><center>
+<img alt="bfs" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/BFS_fig/f8.png?raw=true" /></p>
+<p><strong>圖二(g)：以vertex(D)作為搜尋起點。</strong><br />
+</center></p>
+<p>接著，重複上述之步驟，直到<code>queue</code>被清空，即結束<code>BFS()</code>搜尋，見圖二(h)-(l)。</p>
+<p><center>
+<img alt="bfs" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/BFS_fig/f9.png?raw=true" /></p>
+<p><strong>圖二(h)：以vertex(E)作為搜尋起點。</strong>  </p>
+<p><img alt="bfs" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/BFS_fig/f10.png?raw=true" /></p>
+<p><strong>圖二(i)：以vertex(F)作為搜尋起點，將vertex(I)推進<code>queue</code>。</strong> </p>
+<p><img alt="bfs" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/BFS_fig/f11.png?raw=true" /></p>
+<p><strong>圖二(j)：以vertex(G)作為搜尋起點。</strong> </p>
+<p><img alt="bfs" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/BFS_fig/f12.png?raw=true" /></p>
+<p><strong>圖二(k)：以vertex(H)作為搜尋起點。</strong> </p>
+<p><img alt="bfs" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/BFS_fig/f13.png?raw=true" /></p>
+<p><strong>圖二(l)：以vertex(I)作為搜尋起點。</strong></p>
+<p></center></p>
+<p>當<code>queue</code>中的vertex都被移除(<code>pop()</code>)，表示<code>Adjacency List</code>中的所有vertex都被當作起點搜尋過其相鄰的vertex，此時<code>BFS()</code>便完成，得到以vertex(A)為起點，所有其餘vertex之相對應<code>distance</code>與<code>predecessor</code>，如圖二(m)。</p>
+<p><center>
+<img alt="bfs" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/BFS_fig/f14.png?raw=true" /></p>
+<p><strong>圖二(m)：。</strong><br />
+</center></p>
+<p><a name="code"></a></p>
+<h2><strong>程式碼</strong></h2>
+<p>(為了簡化程式，以下程式將使用<code>int</code>處理資料，把<span class="math">\(9\)</span>個vertex<code>char A~I</code>依序對應到<code>int 0~8</code>，如下表)</p>
+<p><center></p>
+<table>
+<thead>
+<tr>
+<th>A</th>
+<th>B</th>
+<th>C</th>
+<th>D</th>
+<th>E</th>
+<th>F</th>
+<th>G</th>
+<th>H</th>
+<th>I</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+<td>5</td>
+<td>6</td>
+<td>7</td>
+<td>8</td>
+</tr>
+</tbody>
+</table>
+<p></center></p>
+<p>範例程式碼包含幾個部分：</p>
+<ul>
+<li><code>class Graph</code>：定義方式有非常多種，這裡提供的<code>class Graph</code>的主要目標有(1)建立如圖二(a)的<code>Adjacency List</code>，(2)進行<code>BFS()</code>。<ul>
+<li><code>private data member</code>：<ul>
+<li><code>num_vertex</code>：需要在定義<code>Graph</code>的object(物件)時，給定vertex的數目，以便建立<code>Adjacency List</code>(或者<code>Adjacency Matrix</code>)。</li>
+<li><code>std::vector&lt; std::list&lt;int&gt; &gt; AdjList</code>：利用C++標準函式庫(STL)提供的container(容器):<code>std::vector</code>與<code>std::list</code>來實現。這樣的寫法的優點是：不需要使用到<code>new operator</code>，便能夠將記憶體控管交給STL，不需要自行處理<code>delete operator</code>，以避免記憶體遺漏(memory leak)，詳細討論請參考<a href="http://codereview.stackexchange.com/questions/82476/depth-first-search-and-breadth-first-search-in-c">Code Review：Depth First Search and Breadth First Search in C++</a>。</li>
+<li><code>color</code>、<code>distance</code>、<code>predecessor</code>：將在<code>BFS()</code>中使用，功能如上述。</li>
+</ul>
+</li>
+<li><code>public member function</code>：<ul>
+<li><code>Constructor:Graph(int num_vertex)</code>：在定義Graph的object(物件)時，需要知道vertex的數目，並在<code>constructor</code>中定義好<code>AdjList</code>。</li>
+<li><code>AddEdgeList(int from, in to)</code>：功能便是在<code>AdjList</code>新增從<code>from</code>到<code>to</code>的edge。</li>
+<li><code>BFS(int Start)</code>：需要知道起點vertex。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>main()</code>：用<code>AddEdgeList()</code>建立起如圖二(a)的Graph之<code>AdjList()</code>，並在Graph上執行<code>BFS()</code>。</li>
+</ul>
+<div class="highlight"><pre><span class="c1">// C++ code</span>
+<span class="cp">#include &lt;iostream&gt;</span>
+<span class="cp">#include &lt;vector&gt;</span>
+<span class="cp">#include &lt;list&gt;</span>
+<span class="cp">#include &lt;queue&gt;</span>
+
+<span class="k">class</span> <span class="nc">Graph</span><span class="p">{</span>
+<span class="k">private</span><span class="o">:</span>
+    <span class="kt">int</span> <span class="n">num_vertex</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">list</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">AdjList</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="o">*</span><span class="n">color</span><span class="p">,</span>             <span class="c1">// 0:白色, 1:灰色, 2:黑色</span>
+        <span class="o">*</span><span class="n">distance</span><span class="p">,</span>          <span class="c1">// 0:起點, 無限大:從起點走不到的vertex</span>
+        <span class="o">*</span><span class="n">predecessor</span><span class="p">;</span>       <span class="c1">// -1:沒有predecessor, 表示為起點vertex</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">Graph</span><span class="p">()</span><span class="o">:</span><span class="n">num_vertex</span><span class="p">(</span><span class="mi">0</span><span class="p">){};</span>           <span class="c1">// default constructor</span>
+    <span class="n">Graph</span><span class="p">(</span><span class="kt">int</span> <span class="n">N</span><span class="p">)</span><span class="o">:</span><span class="n">num_vertex</span><span class="p">(</span><span class="n">N</span><span class="p">){</span>        <span class="c1">// constructor with input: number of vertex</span>
+        <span class="c1">// initialize Adjacency List</span>
+        <span class="n">AdjList</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">num_vertex</span><span class="p">);</span>
+    <span class="p">};</span>
+    <span class="kt">void</span> <span class="nf">AddEdgeList</span><span class="p">(</span><span class="kt">int</span> <span class="n">from</span><span class="p">,</span> <span class="kt">int</span> <span class="n">to</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="nf">BFS</span><span class="p">(</span><span class="kt">int</span> <span class="n">Start</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="kt">void</span> <span class="n">Graph</span><span class="o">::</span><span class="n">AddEdgeList</span><span class="p">(</span><span class="kt">int</span> <span class="n">from</span><span class="p">,</span> <span class="kt">int</span> <span class="n">to</span><span class="p">){</span>
+    <span class="n">AdjList</span><span class="p">[</span><span class="n">from</span><span class="p">].</span><span class="n">push_back</span><span class="p">(</span><span class="n">to</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">Graph</span><span class="o">::</span><span class="n">BFS</span><span class="p">(</span><span class="kt">int</span> <span class="n">Start</span><span class="p">){</span>
+
+    <span class="n">color</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">[</span><span class="n">num_vertex</span><span class="p">];</span>
+    <span class="n">predecessor</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">[</span><span class="n">num_vertex</span><span class="p">];</span>
+    <span class="n">distance</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">[</span><span class="n">num_vertex</span><span class="p">];</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">num_vertex</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>  <span class="c1">// 初始化，如圖二(b)</span>
+        <span class="n">color</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>                       <span class="c1">// 0:白色;</span>
+        <span class="n">predecessor</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>                <span class="c1">// -1表示沒有predecessor</span>
+        <span class="n">distance</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">num_vertex</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>         <span class="c1">// num_vertex個vertex, </span>
+    <span class="p">}</span>                                       <span class="c1">// 最長距離 distance = num_vertex -1條edge</span>
+
+    <span class="c1">// 先處理起點vertex，如圖二(c)</span>
+    <span class="n">color</span><span class="p">[</span><span class="n">Start</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>   <span class="c1">// 1:gray</span>
+    <span class="n">distance</span><span class="p">[</span><span class="n">Start</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">predecessor</span><span class="p">[</span><span class="n">Start</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+
+    <span class="n">std</span><span class="o">::</span><span class="n">queue</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">q</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">Start</span><span class="p">;</span>
+    <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+
+    <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">q</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">u</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">front</span><span class="p">();</span>                  <span class="c1">// u 為新的搜尋起點</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">list</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;::</span><span class="n">iterator</span> <span class="n">itr</span> <span class="o">=</span> <span class="n">AdjList</span><span class="p">[</span><span class="n">u</span><span class="p">].</span><span class="n">begin</span><span class="p">();</span> <span class="n">itr</span> <span class="o">!=</span> <span class="n">AdjList</span><span class="p">[</span><span class="n">u</span><span class="p">].</span><span class="n">end</span><span class="p">();</span> <span class="n">itr</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">color</span><span class="p">[</span><span class="o">*</span><span class="n">itr</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>                <span class="c1">// 若被「找到」的vertex是白色</span>
+                <span class="n">color</span><span class="p">[</span><span class="o">*</span><span class="n">itr</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>                   <span class="c1">// 塗成灰色, 表示已經被「找到」</span>
+                <span class="n">distance</span><span class="p">[</span><span class="o">*</span><span class="n">itr</span><span class="p">]</span> <span class="o">=</span> <span class="n">distance</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>  <span class="c1">// 距離是predecessor之距離加一</span>
+                <span class="n">predecessor</span><span class="p">[</span><span class="o">*</span><span class="n">itr</span><span class="p">]</span> <span class="o">=</span> <span class="n">u</span><span class="p">;</span>             <span class="c1">// 更新被「找到」的vertex的predecessor</span>
+                <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="o">*</span><span class="n">itr</span><span class="p">);</span>                      <span class="c1">// 把vertex推進queue            </span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="n">q</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>        <span class="c1">// 把u移出queue</span>
+        <span class="n">color</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>   <span class="c1">// 並且把u塗成黑色</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+    <span class="n">Graph</span> <span class="n">g1</span><span class="p">(</span><span class="mi">9</span><span class="p">);</span>    
+    <span class="c1">// 建立出圖二(a)的Adjacency List</span>
+    <span class="n">g1</span><span class="p">.</span><span class="n">AddEdgeList</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span><span class="n">g1</span><span class="p">.</span><span class="n">AddEdgeList</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span><span class="n">g1</span><span class="p">.</span><span class="n">AddEdgeList</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+    <span class="n">g1</span><span class="p">.</span><span class="n">AddEdgeList</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span><span class="n">g1</span><span class="p">.</span><span class="n">AddEdgeList</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
+    <span class="n">g1</span><span class="p">.</span><span class="n">AddEdgeList</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span><span class="n">g1</span><span class="p">.</span><span class="n">AddEdgeList</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span><span class="n">g1</span><span class="p">.</span><span class="n">AddEdgeList</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span><span class="n">g1</span><span class="p">.</span><span class="n">AddEdgeList</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">);</span><span class="n">g1</span><span class="p">.</span><span class="n">AddEdgeList</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">7</span><span class="p">);</span>
+    <span class="n">g1</span><span class="p">.</span><span class="n">AddEdgeList</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span><span class="n">g1</span><span class="p">.</span><span class="n">AddEdgeList</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">);</span>
+    <span class="n">g1</span><span class="p">.</span><span class="n">AddEdgeList</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span><span class="n">g1</span><span class="p">.</span><span class="n">AddEdgeList</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span><span class="n">g1</span><span class="p">.</span><span class="n">AddEdgeList</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span>
+    <span class="n">g1</span><span class="p">.</span><span class="n">AddEdgeList</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span><span class="n">g1</span><span class="p">.</span><span class="n">AddEdgeList</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span><span class="n">g1</span><span class="p">.</span><span class="n">AddEdgeList</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">);</span>
+    <span class="n">g1</span><span class="p">.</span><span class="n">AddEdgeList</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span><span class="n">g1</span><span class="p">.</span><span class="n">AddEdgeList</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">);</span><span class="n">g1</span><span class="p">.</span><span class="n">AddEdgeList</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">);</span>
+    <span class="n">g1</span><span class="p">.</span><span class="n">AddEdgeList</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span><span class="n">g1</span><span class="p">.</span><span class="n">AddEdgeList</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span><span class="n">g1</span><span class="p">.</span><span class="n">AddEdgeList</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">6</span><span class="p">);</span>
+    <span class="n">g1</span><span class="p">.</span><span class="n">AddEdgeList</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span><span class="n">g1</span><span class="p">.</span><span class="n">AddEdgeList</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">);</span>
+
+    <span class="n">g1</span><span class="p">.</span><span class="n">BFS</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>    
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>在<code>g1.BFS(0)</code>後，若觀察<code>distance</code>與<code>predecessor</code>，應該能看到如圖二(n)的結果：</p>
+<p><center>
+<img alt="bfs" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/BFS_fig/f15.png?raw=true" /></p>
+<p><strong>圖二(n)。</strong><br />
+</center></p>
+<p><a name="discuss"></a></p>
+<h2><strong>討論</strong></h2>
+<ul>
+<li>
+<p>由於<code>BFS()</code>是用<code>AdjList</code>來判斷edge的連結狀況，因此，<code>BFS()</code>對undirected graph或directed graph皆適用。</p>
+</li>
+<li>
+<p>若將<code>predecessor array</code>中，所有vertex的「前後關係」以edge連結，可以得到<strong>Predecessor Subgraph</strong>，因為其connected與acyclic的性質，使得<strong>Predecessor Subgraph</strong>會是一棵以起點vertex為<code>root</code>的Tree，又稱為<strong>Breadth-First Tree</strong>，而所有<strong>Predecessor Subgraph</strong>出現的edge稱為<strong>tree edge</strong>，見圖三(a)：</p>
+</li>
+</ul>
+<p><center>
+<img alt="bfs" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/BFS_fig/f16.png?raw=true" /></p>
+<p><strong>圖三(a)。</strong><br />
+</center></p>
+<ul>
+<li>如圖三(a)的<strong>Breadth-First Tree</strong>可能不止有一種可能，原因在於「建立<code>Adjacency List</code>時的順序」，將會影響到<code>BFS()</code>中的<code>for loop</code>在「找到」vertex時的順序。<ul>
+<li>如圖三(b)，若更改圖二(a)之<code>AdjList</code>，把vertex(A)之Linked list中，vertex(B)與vertex(C)之順序對調，使得<code>BFS()</code>在搜尋vertex時，vertex(C)會比vertex(B)更早進入<code>queue</code>，也就更早成為搜尋的新起點，那麼最後得到的<strong>Breadth-First Tree</strong>就會不同。</li>
+<li>但是可以確定的是，雖然<strong>Breadth-First Tree</strong>不一樣，但是每個vertex相對於起點vertex的<code>distance</code>保證相同。</li>
+</ul>
+</li>
+</ul>
+<p><center>
+<img alt="bfs" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/BFS_fig/f17.png?raw=true" /></p>
+<p><strong>圖三(b)。</strong><br />
+</center></p>
+<ul>
+<li>
+<p>本篇文章所提供的<code>BFS()</code>演算法，其<code>color</code>之灰色與黑色可以合併，換句話說，若只使用白色與黑色，同樣能完成<code>BFS()</code>。不過在下一篇文章將介紹的<code>DFS()</code>演算法中，白色、灰色與黑色將分別具有不同功能。</p>
+</li>
+<li>
+<p>上述之<code>BFS()</code>的時間複雜度為<span class="math">\(O(|V|+|E|)\)</span>，在所有與Graph有關的演算法中算是非常有效率。</p>
+</li>
+</ul>
+<p></br></p>
+<p>以上便是Breadth First Search(BFS，廣度優先搜尋)之介紹。<br />
+下一篇將介紹另一種在Graph同樣常見的搜尋方法：Depth First Search(DFS，深度優先搜尋)。</p>
+<p></br></p>
+<p><a name="ref"></a></p>
+<h4><strong>參考資料</strong>：</h4>
+<ul>
+<li><a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844">Introduction to Algorithms, Ch22</a> </li>
+<li><a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376">Fundamentals of Data Structures in C++, Ch6</a></li>
+<li><a href="http://codereview.stackexchange.com/questions/82476/depth-first-search-and-breadth-first-search-in-c">Code Review：Depth First Search and Breadth First Search in C++</a></li>
+<li><a href="http://theoryofprogramming.com/adjacency-list-using-cpp-stl/">Theory of Programming：Adjacency List using C++ STL</a></li>
+<li><a href="http://www.geeksforgeeks.org/detect-cycle-undirected-graph/">GeeksforGeeks：Detect cycle in an undirected graph</a></li>
+</ul>
+<p></br></p>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' && location_protocol !== 'https') location_protocol = 'https:';
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+    </article>
+
+        <div class="tags">
+            <p>tags: <a href="http://alrightchiu.github.io/SecondRound/tag/c.html">C++</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/graph.html">Graph</a>, </p>
+        </div>
+
+<hr>
+<div class="sharing">
+</div>
+    <hr>
+
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                            <li>
+                                <a href="https://github.com/alrightchiu">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                    </ul>
+<p class="copyright text-muted">
+    Blog powered by <a href="http://getpelican.com">Pelican</a>,
+    which takes great advantage of <a href="http://python.org">Python</a>.
+</p>                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="http://alrightchiu.github.io/SecondRound/theme/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="http://alrightchiu.github.io/SecondRound/theme/js/bootstrap.min.js"></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script src="http://alrightchiu.github.io/SecondRound/theme/js/clean-blog.min.js"></script>
+
+</body>
+
+</html>

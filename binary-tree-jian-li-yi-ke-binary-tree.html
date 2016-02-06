@@ -417,7 +417,7 @@
 <p>程式碼之邏輯與<code>LevelorderConstruct</code>大同小異，最主要的部分就是利用<code>queue</code>來記錄<code>CurrentNode</code>移動的順序：</p>
 <ul>
 <li>首先，將<code>current</code>設成<code>root</code>，若樹存在，則進入<code>while</code>迴圈。</li>
-<li>接著判斷，若<code>current</code>之left child已經有node，則將之放入<code>queue</code>中，再下次迴圈將以此node作為<code>current</code>，若left child還沒有node，便產生帶有<code>data</code>之新node，並將其建立成<code>current</code>之left child。<br />
+<li>接著判斷，若<code>current</code>之left child已經有node，則將之放入<code>queue</code>中，在下次迴圈將以此node作為<code>current</code>，若left child還沒有node，便產生帶有<code>data</code>之新node，並將其建立成<code>current</code>之left child。<br />
 pointer連接完成後，結束迴圈。</li>
 <li>對<code>current</code>之right child進行相同之步驟。</li>
 </ul>
