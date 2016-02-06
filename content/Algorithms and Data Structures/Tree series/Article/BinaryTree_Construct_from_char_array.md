@@ -395,7 +395,7 @@ void BinaryTree::LevelorderConstruct(std::stringstream &ss){
 程式碼之邏輯與`LevelorderConstruct`大同小異，最主要的部分就是利用`queue`來記錄`CurrentNode`移動的順序：
 
 * 首先，將`current`設成`root`，若樹存在，則進入`while`迴圈。
-* 接著判斷，若`current`之left child已經有node，則將之放入`queue`中，再下次迴圈將以此node作為`current`，若left child還沒有node，便產生帶有`data`之新node，並將其建立成`current`之left child。  
+* 接著判斷，若`current`之left child已經有node，則將之放入`queue`中，在下次迴圈將以此node作為`current`，若left child還沒有node，便產生帶有`data`之新node，並將其建立成`current`之left child。  
 pointer連接完成後，結束迴圈。
 * 對`current`之right child進行相同之步驟。
 

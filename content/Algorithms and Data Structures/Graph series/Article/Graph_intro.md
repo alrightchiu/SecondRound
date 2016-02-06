@@ -32,7 +32,7 @@ Graph比Tree更加廣義，其定義僅僅使用了集合(Set)，並且不限制
 
 ##**初探Graph的美妙：以課程與其先修科目為例**
 
-舉例來說，有間大學的計算機科學學位之必修課程，以及與該課程相關的先修科目設計如表一：
+有一間大學的計算機科學學位之必修課程，以及與該課程相關的先修科目設計如表一：
 
 
 <center>
@@ -91,7 +91,7 @@ Graph比Tree更加廣義，其定義僅僅使用了集合(Set)，並且不限制
 * **directed graph(有向圖)**：edge的方向性表示資料間的關係，若vertex(A)與vertex(B)之關係是「單向的」，那麼連結vertex(A)與vertex(B)的edge即具有方向性。  
     * 以圖一中的課程與其先修科目為例，vertex(Data Structures)是vertex(Analysis of Algorithm)的先修課程，相反則否，因此，連結兩個vertex之edge具有方向性，而所有vertex與edge形成之集合即為directed graph；
 * **undirected graph(無向圖)**：edge的方向性表示資料間的關係，若vertex(A)與vertex(B)的關係是「雙向的」，那麼連結vertex(A)與vertex(B)之edge就不具有方向性。  
-    * 如圖二中，如果能夠開車從玉山抵達太魯閣，就能夠從太魯閣原路折返回到玉山，因此，這兩個地理位置之間的交通路線便不具有方向性。
+    * 如圖二中，如果可以開車從玉山抵達太魯閣，就能夠從太魯閣原路折返回到玉山，因此，這兩個地理位置之間的交通路線便不具有方向性。
 
 
 <center>
@@ -181,7 +181,7 @@ Graph比Tree更加廣義，其定義僅僅使用了集合(Set)，並且不限制
 
 
 * **cycle(循環)**：若有ㄧ條「simple path」的起點vertex與終點vertex相同，則稱這條path為cycle。  
-    * 圖六中的path:W->Y->Z->V->W，又稱為directed cycle(有向循環)；
+    * 圖六中的path:W->Y->Z->V->W，稱為directed cycle(有向循環)；
     * 圖七中的path:Y->V->W->Y與path:X->Y->W->Z->X皆為undirected cycle(無向循環)。
 * **acyclic graph(無循環圖)**：若graph中不存在cycle，則稱這個graph為acyclic graph，見圖七。  
     * 在Tree中找不到任何一條simple path的起點與終點是相同vertex(node)，因此Tree一定是acyclic graph。
