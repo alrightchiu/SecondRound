@@ -162,13 +162,13 @@
 &lt;li&gt;
 &lt;p&gt;&lt;code&gt;class Graph&lt;/code&gt;：定義方式有非常多種，這裡提供的&lt;code&gt;class Graph&lt;/code&gt;的主要目標有二：&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;code&gt;private data member&lt;/code&gt;：&lt;ul&gt;
+&lt;li&gt;private data member：&lt;ul&gt;
 &lt;li&gt;&lt;code&gt;num_vertex&lt;/code&gt;：需要在定義&lt;code&gt;Graph&lt;/code&gt;的object(物件)時，給定vertex的數目，以便建立&lt;code&gt;Adjacency List&lt;/code&gt;(或者&lt;code&gt;Adjacency Matrix&lt;/code&gt;)。&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;std::vector&amp;lt; std::list&amp;lt;int&amp;gt; &amp;gt; AdjList&lt;/code&gt;：利用C++標準函式庫(STL)提供的container(容器):&lt;code&gt;std::vector&lt;/code&gt;與&lt;code&gt;std::list&lt;/code&gt;來實現。這樣的寫法的優點是：不需要使用到&lt;code&gt;new operator&lt;/code&gt;，便能夠將記憶體控管交給STL，不需要自行處理&lt;code&gt;delete operator&lt;/code&gt;，以避免記憶體遺漏(memory leak)，詳細討論請參考&lt;a href="http://codereview.stackexchange.com/questions/82476/depth-first-search-and-breadth-first-search-in-c"&gt;Code Review：Depth First Search and Breadth First Search in C++&lt;/a&gt;。&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;color&lt;/code&gt;、&lt;code&gt;distance&lt;/code&gt;、&lt;code&gt;predecessor&lt;/code&gt;：將在&lt;code&gt;BFS()&lt;/code&gt;中使用，功能如上述。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;code&gt;public member function&lt;/code&gt;：&lt;ul&gt;
+&lt;li&gt;public member function：&lt;ul&gt;
 &lt;li&gt;&lt;code&gt;Constructor:Graph(int num_vertex)&lt;/code&gt;：在定義Graph的object(物件)時，需要知道vertex的數目，並在&lt;code&gt;constructor&lt;/code&gt;中定義好&lt;code&gt;AdjList&lt;/code&gt;。&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;AddEdgeList(int from, in to)&lt;/code&gt;：功能便是在&lt;code&gt;AdjList&lt;/code&gt;新增從&lt;code&gt;from&lt;/code&gt;到&lt;code&gt;to&lt;/code&gt;的edge。&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;BFS(int Start)&lt;/code&gt;：需要知道起點vertex。&lt;/li&gt;
@@ -285,7 +285,7 @@
 &lt;ul&gt;
 &lt;li&gt;如圖三(a)的&lt;strong&gt;Breadth-First Tree&lt;/strong&gt;可能不止有一種可能，原因在於「建立&lt;code&gt;Adjacency List&lt;/code&gt;時的順序」，將會影響到&lt;code&gt;BFS()&lt;/code&gt;中的&lt;code&gt;for loop&lt;/code&gt;在「找到」vertex時的順序。&lt;ul&gt;
 &lt;li&gt;如圖三(b)，若更改圖二(a)之&lt;code&gt;AdjList&lt;/code&gt;，把vertex(A)之Linked list中，vertex(B)與vertex(C)之順序對調，使得&lt;code&gt;BFS()&lt;/code&gt;在搜尋vertex時，vertex(C)會比vertex(B)更早進入&lt;code&gt;queue&lt;/code&gt;，也就更早成為搜尋的新起點，那麼最後得到的&lt;strong&gt;Breadth-First Tree&lt;/strong&gt;就會不同。&lt;/li&gt;
-&lt;li&gt;但是可以確定的是，雖然&lt;strong&gt;Breadth-First Tree&lt;/strong&gt;不一樣，但是每個vertex相對於起點vertex的&lt;code&gt;distance&lt;/code&gt;保證相同。&lt;/li&gt;
+&lt;li&gt;不過，雖然&lt;strong&gt;Breadth-First Tree&lt;/strong&gt;不一樣，但是每個vertex相對於起點vertex的&lt;code&gt;distance&lt;/code&gt;保證相同。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;

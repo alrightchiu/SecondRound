@@ -272,13 +272,13 @@
 <li>
 <p><code>class Graph</code>：定義方式有非常多種，這裡提供的<code>class Graph</code>的主要目標有二：</p>
 <ul>
-<li><code>private data member</code>：<ul>
+<li>private data member：<ul>
 <li><code>num_vertex</code>：需要在定義<code>Graph</code>的object(物件)時，給定vertex的數目，以便建立<code>Adjacency List</code>(或者<code>Adjacency Matrix</code>)。</li>
 <li><code>std::vector&lt; std::list&lt;int&gt; &gt; AdjList</code>：利用C++標準函式庫(STL)提供的container(容器):<code>std::vector</code>與<code>std::list</code>來實現。這樣的寫法的優點是：不需要使用到<code>new operator</code>，便能夠將記憶體控管交給STL，不需要自行處理<code>delete operator</code>，以避免記憶體遺漏(memory leak)，詳細討論請參考<a href="http://codereview.stackexchange.com/questions/82476/depth-first-search-and-breadth-first-search-in-c">Code Review：Depth First Search and Breadth First Search in C++</a>。</li>
 <li><code>color</code>、<code>distance</code>、<code>predecessor</code>：將在<code>BFS()</code>中使用，功能如上述。</li>
 </ul>
 </li>
-<li><code>public member function</code>：<ul>
+<li>public member function：<ul>
 <li><code>Constructor:Graph(int num_vertex)</code>：在定義Graph的object(物件)時，需要知道vertex的數目，並在<code>constructor</code>中定義好<code>AdjList</code>。</li>
 <li><code>AddEdgeList(int from, in to)</code>：功能便是在<code>AdjList</code>新增從<code>from</code>到<code>to</code>的edge。</li>
 <li><code>BFS(int Start)</code>：需要知道起點vertex。</li>
@@ -395,7 +395,7 @@
 <ul>
 <li>如圖三(a)的<strong>Breadth-First Tree</strong>可能不止有一種可能，原因在於「建立<code>Adjacency List</code>時的順序」，將會影響到<code>BFS()</code>中的<code>for loop</code>在「找到」vertex時的順序。<ul>
 <li>如圖三(b)，若更改圖二(a)之<code>AdjList</code>，把vertex(A)之Linked list中，vertex(B)與vertex(C)之順序對調，使得<code>BFS()</code>在搜尋vertex時，vertex(C)會比vertex(B)更早進入<code>queue</code>，也就更早成為搜尋的新起點，那麼最後得到的<strong>Breadth-First Tree</strong>就會不同。</li>
-<li>但是可以確定的是，雖然<strong>Breadth-First Tree</strong>不一樣，但是每個vertex相對於起點vertex的<code>distance</code>保證相同。</li>
+<li>不過，雖然<strong>Breadth-First Tree</strong>不一樣，但是每個vertex相對於起點vertex的<code>distance</code>保證相同。</li>
 </ul>
 </li>
 </ul>
