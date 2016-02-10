@@ -1,8 +1,8 @@
-Title: Grpah: Breadth First Search(BFS，廣度優先搜尋)    
+Title: Grpah: Breadth-First Search(BFS，廣度優先搜尋)    
 Date: 2016-2-6 14:15  
 Category: 演算法與資料結構  
 Tags: C++, Graph  
-Summary: 介紹Graph(圖)中的基本操作：Breadth First Search(BFS，廣度優先搜尋) 。
+Summary: 介紹Graph(圖)中的基本操作：Breadth-First Search(BFS，廣度優先搜尋) 。
  
 
 
@@ -17,7 +17,7 @@ Summary: 介紹Graph(圖)中的基本操作：Breadth First Search(BFS，廣度�
 * Level=3：path(A-B-D)、path(A-B-E)、path(A-C-F)之length為$2$。
 * Level=4：path(A-B-E-G)、path(A-B-E-H)之length為$3$。
 
-而Breadth First Search(BFS，廣度優先搜尋)便是廣義的Level-Order Traversal，將試用情境從Tree推廣至Graph。
+而Breadth-First Search(BFS，廣度優先搜尋)便是廣義的Level-Order Traversal，將試用情境從Tree推廣至Graph。
 
 <center>
 ![level-order][f1]
@@ -34,7 +34,7 @@ Summary: 介紹Graph(圖)中的基本操作：Breadth First Search(BFS，廣度�
 
 ##目錄
 
-* [Breadth First Search(BFS，廣度優先搜尋)](#bfs)
+* [Breadth-First Search(BFS，廣度優先搜尋)](#bfs)
 * [演算法](#algorithm)
 * [程式碼](#code)
 * [討論](#discuss)
@@ -44,7 +44,7 @@ Summary: 介紹Graph(圖)中的基本操作：Breadth First Search(BFS，廣度�
 
 <a name="bfs"></a>
 
-##**Breadth First Search(BFS，廣度優先搜尋)**
+##**Breadth-First Search(BFS，廣度優先搜尋)**
 
 所以`BFS()`的功能有哪些呢？
 
@@ -389,8 +389,8 @@ int main(){
 
 </br>
 
-以上便是Breadth First Search(BFS，廣度優先搜尋)之介紹。  
-下一篇將介紹另一種在Graph同樣常見的搜尋方法：Depth First Search(DFS，深度優先搜尋)。
+以上便是Breadth-First Search(BFS，廣度優先搜尋)之介紹。  
+下一篇將介紹另一種在Graph同樣常見的搜尋方法：Depth-First Search(DFS，深度優先搜尋)。
 
 
 </br>

@@ -8,7 +8,7 @@ Summary: 介紹如何以字元陣列(char array)獲得資料(data)後，建立�
 </br>
 ####**先備知識與注意事項**
 
-在[Binary Tree：Traversal](http://alrightchiu.github.io/SecondRound/binary-tree-traversal.html#ex_code)中，非常沒誠意地用暴力方式建了一棵Binary Tree，在這裡至上深深歉意，因此，在本篇文章將提供一種方法，由一個字元陣列(char array)輸入字母，並按照[Complete Binary Tree](http://alrightchiu.github.io/SecondRound/binary-tree-intro.html#fullcomplete)之順序重新建立**那顆樹**。(一種不健康的雪恥心態)
+在[Binary Tree：Traversal](http://alrightchiu.github.io/SecondRound/binary-tree-traversal.html#ex_code)中，非常沒誠意地用暴力方式建了一棵Binary Tree，在這裡至上深深歉意，因此，在本篇文章將提供一種方法，由一個字元陣列(char array)輸入字母，並按照[Complete Binary Tree](http://alrightchiu.github.io/SecondRound/binary-tree-intro.html#fullcomplete)之順序重新建立*那顆樹*(一種不健康的雪恥心態)。
 
 其中，問題情境之原始資料是一個字元陣列(char array)，為了方便處理(偷懶)選擇使用C++語言中的神器：[stringstream](http://www3.ntu.edu.sg/home/ehchua/programming/cpp/cp10_io.html)，這裡礙於篇幅與主題(與筆者自己也還在摸索)，就不多談避免誤導，[點進連結中]((http://www3.ntu.edu.sg/home/ehchua/programming/cpp/cp10_io.html))有非常詳細的說明，關於`istringstream`、`ostringstream`、`stringstream`等等template class之繼承關係(inheritance)。  
 重點是，`stringstream`就是神，就是行，學起來簡直光宗耀祖。
