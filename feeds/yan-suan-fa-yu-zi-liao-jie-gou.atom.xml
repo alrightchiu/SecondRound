@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Second Round</title><link href="http://alrightchiu.github.io/SecondRound/" rel="alternate"></link><link href="http://alrightchiu.github.io/SecondRound/feeds/yan-suan-fa-yu-zi-liao-jie-gou.atom.xml" rel="self"></link><id>http://alrightchiu.github.io/SecondRound/</id><updated>2016-02-06T14:15:00+08:00</updated><entry><title>Grpah: Breadth First Search(BFS，廣度優先搜尋)</title><link href="http://alrightchiu.github.io/SecondRound/grpah-breadth-first-searchbfsguang-du-you-xian-sou-xun.html" rel="alternate"></link><updated>2016-02-06T14:15:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-02-06:SecondRound/grpah-breadth-first-searchbfsguang-du-you-xian-sou-xun.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Second Round</title><link href="http://alrightchiu.github.io/SecondRound/" rel="alternate"></link><link href="http://alrightchiu.github.io/SecondRound/feeds/yan-suan-fa-yu-zi-liao-jie-gou.atom.xml" rel="self"></link><id>http://alrightchiu.github.io/SecondRound/</id><updated>2016-02-06T14:15:00+08:00</updated><entry><title>Grpah: Breadth-First Search(BFS，廣度優先搜尋)</title><link href="http://alrightchiu.github.io/SecondRound/grpah-breadth-first-searchbfsguang-du-you-xian-sou-xun.html" rel="alternate"></link><updated>2016-02-06T14:15:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-02-06:SecondRound/grpah-breadth-first-searchbfsguang-du-you-xian-sou-xun.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h4&gt;&lt;strong&gt;先備知識與注意事項&lt;/strong&gt;&lt;/h4&gt;
 &lt;p&gt;在&lt;a href="http://alrightchiu.github.io/SecondRound/binary-tree-traversalxun-fang.html#level"&gt;Binary Tree: Traversal(尋訪)&lt;/a&gt;與&lt;a href="http://alrightchiu.github.io/SecondRound/binary-tree-jian-li-yi-ke-binary-tree.html"&gt;Binary Tree: 建立一棵Binary Tree&lt;/a&gt;兩篇文章裡，介紹了如何利用&lt;code&gt;queue&lt;/code&gt;在Binary Tree中進行&lt;strong&gt;Level-Order Traversal&lt;/strong&gt;，其概念便是：各個node相對於&lt;code&gt;root&lt;/code&gt;有其相對應的level，按照level由小到大依序對node進行Visiting。&lt;br /&gt;
 而level便代表了node與&lt;code&gt;root&lt;/code&gt;之「距離」，以Graph的語言來說，「距離」便是path的&lt;strong&gt;length(長度)/distance(距離)&lt;/strong&gt;。如圖一：&lt;/p&gt;
@@ -8,7 +8,7 @@
 &lt;li&gt;Level=3：path(A-B-D)、path(A-B-E)、path(A-C-F)之length為&lt;span class="math"&gt;\(2\)&lt;/span&gt;。&lt;/li&gt;
 &lt;li&gt;Level=4：path(A-B-E-G)、path(A-B-E-H)之length為&lt;span class="math"&gt;\(3\)&lt;/span&gt;。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;而Breadth First Search(BFS，廣度優先搜尋)便是廣義的Level-Order Traversal，將試用情境從Tree推廣至Graph。&lt;/p&gt;
+&lt;p&gt;而Breadth-First Search(BFS，廣度優先搜尋)便是廣義的Level-Order Traversal，將試用情境從Tree推廣至Graph。&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="level-order" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/BFS_fig/f1.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖一。&lt;/strong&gt;&lt;br /&gt;
@@ -17,14 +17,14 @@
 &lt;hr /&gt;
 &lt;h2&gt;目錄&lt;/h2&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href="#bfs"&gt;Breadth First Search(BFS，廣度優先搜尋)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#bfs"&gt;Breadth-First Search(BFS，廣度優先搜尋)&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="#algorithm"&gt;演算法&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="#code"&gt;程式碼&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="#discuss"&gt;討論&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="#ref"&gt;參考資料&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;a name="bfs"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;&lt;strong&gt;Breadth First Search(BFS，廣度優先搜尋)&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2&gt;&lt;strong&gt;Breadth-First Search(BFS，廣度優先搜尋)&lt;/strong&gt;&lt;/h2&gt;
 &lt;p&gt;所以&lt;code&gt;BFS()&lt;/code&gt;的功能有哪些呢？&lt;/p&gt;
 &lt;p&gt;考慮圖二(a)的Graph(沒有weight、是connected的undirected graph)：&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
@@ -302,8 +302,8 @@
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
-&lt;p&gt;以上便是Breadth First Search(BFS，廣度優先搜尋)之介紹。&lt;br /&gt;
-下一篇將介紹另一種在Graph同樣常見的搜尋方法：Depth First Search(DFS，深度優先搜尋)。&lt;/p&gt;
+&lt;p&gt;以上便是Breadth-First Search(BFS，廣度優先搜尋)之介紹。&lt;br /&gt;
+下一篇將介紹另一種在Graph同樣常見的搜尋方法：Depth-First Search(DFS，深度優先搜尋)。&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a name="ref"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h4&gt;&lt;strong&gt;參考資料&lt;/strong&gt;：&lt;/h4&gt;
@@ -659,7 +659,7 @@
 其中可能遇到的問題如：由於水管的孔徑各不相同，若先流過一條半徑只有2公分的水管，則接在其後的水管的半徑即使再大，水流量仍會被半徑2公分的水管所限制，因此整體流量也就受限制。&lt;br /&gt;
 如何分配水流在水管之間的流法，即是Network Flow要處理的問題。&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;不過在介紹以上三項主題之前，下兩篇文章將先介紹在Graph中最基本的搜尋(Search)方法：Breadth First Search(BFS，廣度優先搜尋)與Depth First Search(DFS，深度優先搜尋)。&lt;/p&gt;
+&lt;p&gt;不過在介紹以上三項主題之前，下兩篇文章將先介紹在Graph中最基本的搜尋(Search)方法：Breadth-First Search(BFS，廣度優先搜尋)與Depth-First Search(DFS，深度優先搜尋)。&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a name="ref"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h4&gt;&lt;strong&gt;參考資料&lt;/strong&gt;：&lt;/h4&gt;
@@ -2857,7 +2857,7 @@
 }
 &lt;/script&gt;</summary><category term="C++"></category><category term="Binary Search Tree(二元搜尋樹)"></category><category term="Intro"></category></entry><entry><title>Binary Tree: 建立一棵Binary Tree</title><link href="http://alrightchiu.github.io/SecondRound/binary-tree-jian-li-yi-ke-binary-tree.html" rel="alternate"></link><updated>2015-12-27T16:53:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2015-12-27:SecondRound/binary-tree-jian-li-yi-ke-binary-tree.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h4&gt;&lt;strong&gt;先備知識與注意事項&lt;/strong&gt;&lt;/h4&gt;
-&lt;p&gt;在&lt;a href="http://alrightchiu.github.io/SecondRound/binary-tree-traversal.html#ex_code"&gt;Binary Tree：Traversal&lt;/a&gt;中，非常沒誠意地用暴力方式建了一棵Binary Tree，在這裡至上深深歉意，因此，在本篇文章將提供一種方法，由一個字元陣列(char array)輸入字母，並按照&lt;a href="http://alrightchiu.github.io/SecondRound/binary-tree-intro.html#fullcomplete"&gt;Complete Binary Tree&lt;/a&gt;之順序重新建立&lt;strong&gt;那顆樹&lt;/strong&gt;。(一種不健康的雪恥心態)&lt;/p&gt;
+&lt;p&gt;在&lt;a href="http://alrightchiu.github.io/SecondRound/binary-tree-traversal.html#ex_code"&gt;Binary Tree：Traversal&lt;/a&gt;中，非常沒誠意地用暴力方式建了一棵Binary Tree，在這裡至上深深歉意，因此，在本篇文章將提供一種方法，由一個字元陣列(char array)輸入字母，並按照&lt;a href="http://alrightchiu.github.io/SecondRound/binary-tree-intro.html#fullcomplete"&gt;Complete Binary Tree&lt;/a&gt;之順序重新建立&lt;em&gt;那顆樹&lt;/em&gt;(一種不健康的雪恥心態)。&lt;/p&gt;
 &lt;p&gt;其中，問題情境之原始資料是一個字元陣列(char array)，為了方便處理(偷懶)選擇使用C++語言中的神器：&lt;a href="http://www3.ntu.edu.sg/home/ehchua/programming/cpp/cp10_io.html"&gt;stringstream&lt;/a&gt;，這裡礙於篇幅與主題(與筆者自己也還在摸索)，就不多談避免誤導，&lt;a href="(http://www3.ntu.edu.sg/home/ehchua/programming/cpp/cp10_io.html)"&gt;點進連結中&lt;/a&gt;有非常詳細的說明，關於&lt;code&gt;istringstream&lt;/code&gt;、&lt;code&gt;ostringstream&lt;/code&gt;、&lt;code&gt;stringstream&lt;/code&gt;等等template class之繼承關係(inheritance)。&lt;br /&gt;
 重點是，&lt;code&gt;stringstream&lt;/code&gt;就是神，就是行，學起來簡直光宗耀祖。&lt;/p&gt;
 &lt;p&gt;以及，以下提供的Binary Tree之建立方法，基本上是在&lt;a href="http://alrightchiu.github.io/SecondRound/binary-tree-traversal.html#ex_code"&gt;Binary Tree：Traversal介紹過的level-order traversal&lt;/a&gt;上加油添醋，因此&lt;a href="https://en.wikipedia.org/wiki/Queue_%28abstract_data_type%29"&gt;queue(佇列)&lt;/a&gt;的概念會再次出現。&lt;/p&gt;
