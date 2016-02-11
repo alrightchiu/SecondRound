@@ -434,7 +434,7 @@ finish time:
 
 <a name="dff_dft"></a>
 
-####**Depth-First Tree**
+##**Depth-First Tree**
 
 
 如同`BFS()`，在Graph上進行`DFS()`同樣可以得到**Predecessor Subgraph**，又稱為**Depth-First Tree**。若Graph本身不是**(strongly) connected component**，則有可能得到**Depth-First Forest**，如圖五：
@@ -458,7 +458,7 @@ finish time:
 
 <a name="4edge"></a>
 
-####**4種edge**
+##**4種edge**
 
 <center>
 ![dfs][f22]
