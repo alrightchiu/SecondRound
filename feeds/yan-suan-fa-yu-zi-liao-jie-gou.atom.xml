@@ -43,7 +43,7 @@
 &lt;/ul&gt;
 &lt;p&gt;看起來好像沒有&lt;code&gt;BFS()&lt;/code&gt;這麼殺手級，雖然找到一條路卻不保證是最短路徑。&lt;br /&gt;
 但其實&lt;code&gt;DFS()&lt;/code&gt;還是很有用的，因為經過一次&lt;code&gt;DFS()&lt;/code&gt;後，將得到一項資料稱作&lt;code&gt;finish&lt;/code&gt;，而&lt;code&gt;finish&lt;/code&gt;竟然可以用來...！？&lt;/p&gt;
-&lt;p&gt;看下去。&lt;/p&gt;
+&lt;p&gt;別轉台，看下去。&lt;/p&gt;
 &lt;p&gt;&lt;a name="algorithm"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;&lt;strong&gt;演算法&lt;/strong&gt;&lt;/h2&gt;
 &lt;p&gt;以下介紹的&lt;code&gt;DFS()&lt;/code&gt;需要資料項目共有：&lt;/p&gt;
