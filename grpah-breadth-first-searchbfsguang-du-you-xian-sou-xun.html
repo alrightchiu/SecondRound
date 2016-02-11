@@ -262,21 +262,21 @@
 <p><a name="code"></a></p>
 <h2><strong>程式碼</strong></h2>
 <p>(為了簡化程式，以下程式將使用<code>int</code>處理資料，把<span class="math">\(9\)</span>個vertex<code>char A~I</code>依序對應到<code>int 0~8</code>)</p>
-<p>範例程式碼包含兩個部分<code>main</code>與<code>class Graph</code>。</p>
-<p>在<code>main</code>中，主要有兩件事：</p>
+<p>範例程式碼包含兩個部分<code>main()</code>與<code>class Graph</code>。</p>
+<p>在<code>main()</code>中，主要有兩件事：</p>
 <ol>
 <li>建立如圖二(a)的<code>Adjacency List</code>；</li>
 <li>進行<code>BFS()</code>。</li>
 </ol>
 <p>在<code>class Graph</code>中：</p>
 <ul>
-<li>private data member：<ul>
+<li>private member：<ul>
 <li><code>num_vertex</code>：需要在定義<code>Graph</code>的object(物件)時，給定vertex的數目，以便建立<code>Adjacency List</code>(或者<code>Adjacency Matrix</code>)。</li>
 <li><code>std::vector&lt; std::list&lt;int&gt; &gt; AdjList</code>：利用C++標準函式庫(STL)提供的container(容器):<code>std::vector</code>與<code>std::list</code>來實現。這樣的寫法的優點是：不需要使用到<code>new operator</code>，便能夠將記憶體控管交給STL，不需要自行處理<code>delete operator</code>，以避免記憶體遺漏(memory leak)，詳細討論請參考<a href="http://codereview.stackexchange.com/questions/82476/depth-first-search-and-breadth-first-search-in-c">Code Review：Depth First Search and Breadth First Search in C++</a>。</li>
 <li><code>color</code>、<code>distance</code>、<code>predecessor</code>：將在<code>BFS()</code>中使用，功能如上述。</li>
 </ul>
 </li>
-<li>public member function：<ul>
+<li>public member：<ul>
 <li><code>Constructor:Graph(int num_vertex)</code>：在定義Graph的object(物件)時，需要知道vertex的數目，並在<code>constructor</code>中定義好<code>AdjList</code>。</li>
 <li><code>AddEdgeList(int from, in to)</code>：功能便是在<code>AdjList</code>新增從<code>from</code>到<code>to</code>的edge。</li>
 <li><code>BFS(int Start)</code>：需要知道起點vertex。</li>

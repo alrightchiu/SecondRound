@@ -1,5 +1,485 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Second Round</title><link href="http://alrightchiu.github.io/SecondRound/" rel="alternate"></link><link href="http://alrightchiu.github.io/SecondRound/feeds/yan-suan-fa-yu-zi-liao-jie-gou.atom.xml" rel="self"></link><id>http://alrightchiu.github.io/SecondRound/</id><updated>2016-02-06T14:15:00+08:00</updated><entry><title>Grpah: Breadth-First Search(BFS，廣度優先搜尋)</title><link href="http://alrightchiu.github.io/SecondRound/grpah-breadth-first-searchbfsguang-du-you-xian-sou-xun.html" rel="alternate"></link><updated>2016-02-06T14:15:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-02-06:SecondRound/grpah-breadth-first-searchbfsguang-du-you-xian-sou-xun.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Second Round</title><link href="http://alrightchiu.github.io/SecondRound/" rel="alternate"></link><link href="http://alrightchiu.github.io/SecondRound/feeds/yan-suan-fa-yu-zi-liao-jie-gou.atom.xml" rel="self"></link><id>http://alrightchiu.github.io/SecondRound/</id><updated>2016-02-11T22:36:00+08:00</updated><entry><title>Grpah: Depth-First Search(DFS，深度優先搜尋)</title><link href="http://alrightchiu.github.io/SecondRound/grpah-depth-first-searchdfsshen-du-you-xian-sou-xun.html" rel="alternate"></link><updated>2016-02-11T22:36:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-02-11:SecondRound/grpah-depth-first-searchdfsshen-du-you-xian-sou-xun.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;h4&gt;&lt;strong&gt;先備知識與注意事項&lt;/strong&gt;&lt;/h4&gt;
+&lt;p&gt;在&lt;a href="http://alrightchiu.github.io/SecondRound/binary-tree-traversalxun-fang.html#pre"&gt;Binary Tree: Traversal(尋訪)&lt;/a&gt;中介紹過Pre-Order Traversal，其Visiting順序：&lt;code&gt;CurrentNode&lt;/code&gt;、&lt;code&gt;leftchild&lt;/code&gt;、&lt;code&gt;rightchild&lt;/code&gt;可以解讀成「先遇到的node就先Visiting」，因此，每一組「Current-left-right」必定是&lt;code&gt;CurrentNode&lt;/code&gt;先Visiting，接著是&lt;code&gt;leftchild&lt;/code&gt;，最後才是&lt;code&gt;rightchild&lt;/code&gt;。&lt;br /&gt;
+若對圖一中的Binary Tree進行Pre-Order Traversal，定義Visiting為印出(print)資料，將得到：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;A&lt;/span&gt; &lt;span class="n"&gt;B&lt;/span&gt; &lt;span class="n"&gt;D&lt;/span&gt; &lt;span class="n"&gt;E&lt;/span&gt; &lt;span class="n"&gt;G&lt;/span&gt; &lt;span class="n"&gt;H&lt;/span&gt; &lt;span class="n"&gt;C&lt;/span&gt; &lt;span class="n"&gt;F&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="dfs" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/DFS_fig/f_1.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖一。&lt;/strong&gt;&lt;br /&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;Depth-First Search(DFS，深度優先搜尋)的核心精神便如同Pre-Order Traversal：「先遇到的vertex就先Visiting」，並且以先遇到的vertex作為新的搜尋起點，直到所有「有edge相連的vertex」都被探索過。&lt;/p&gt;
+&lt;p&gt;以圖二的迷宮為例，把迷宮矩陣中的每一格定義成一個vertex，若兩個vertex之間有路，則建立edge相連。若要在迷宮中尋找抵達終點的路線，通常會先選擇其中一條路線，&lt;strong&gt;只要有路就繼續往前走&lt;/strong&gt;。有可能一路走到終點，也有可能遇到死路。若遇到死路則回到上一個岔路，往另一條路探索路線。依此類推，直到走出迷宮。&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="dfs" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/DFS_fig/maze.gif?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖二：迷宮問題(maze problem)。&lt;/strong&gt;&lt;br /&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;hr /&gt;
+&lt;h2&gt;目錄&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="#dfs"&gt;Depth-First Search(DFS，深度優先搜尋)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#algorithm"&gt;演算法&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#code"&gt;程式碼&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#discuss"&gt;討論&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href="#dff_dft"&gt;Depth-First Tree&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#4edge"&gt;4種edge&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href="#ref"&gt;參考資料&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a name="dfs"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;&lt;strong&gt;Depth-First Search(DFS，深度優先搜尋)&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;考慮圖三(a)的Graph(沒有weight的directed graph)：&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="dfs" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/DFS_fig/f_2.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖三(a)：。&lt;/strong&gt;&lt;br /&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;若以vertex(A)為起點進行&lt;code&gt;DFS()&lt;/code&gt;，可以得到：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;若Graph中的vertex與vertex(A)之間存在至少一條path，則&lt;code&gt;DFS()&lt;/code&gt;必定能找到其中一條path從vertex(A)抵達該vertex。但是這條path未必保證是最短路徑(shortest path)。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;看起來好像沒有&lt;code&gt;BFS()&lt;/code&gt;這麼殺手級，雖然找到一條路卻不保證是最短路徑。&lt;br /&gt;
+但其實&lt;code&gt;DFS()&lt;/code&gt;還是很有用的，因為經過一次&lt;code&gt;DFS()&lt;/code&gt;後，將得到一項資料稱作&lt;code&gt;finish&lt;/code&gt;，而&lt;code&gt;finish&lt;/code&gt;竟然可以用來...！？&lt;/p&gt;
+&lt;p&gt;看下去。&lt;/p&gt;
+&lt;p&gt;&lt;a name="algorithm"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;&lt;strong&gt;演算法&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;以下介紹的&lt;code&gt;DFS()&lt;/code&gt;需要資料項目共有：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;time&lt;/code&gt;：在整個&lt;code&gt;DFS()&lt;/code&gt;的過程會有一條「時間軸」，若Graph中有&lt;span class="math"&gt;\(N\)&lt;/span&gt;個vertex，「時間軸」上一共會有&lt;span class="math"&gt;\(2N\)&lt;/span&gt;個「時間點」。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;discover&lt;/code&gt;與&lt;code&gt;finish&lt;/code&gt; array：每個vertex會被標記上兩個「時間點」，分別是「被發現(&lt;code&gt;discover&lt;/code&gt;)」的時間與「結束(&lt;code&gt;finish&lt;/code&gt;)」的時間：&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;discover&lt;/code&gt;：例如，vertex(B)被vertex(A)找到，則&lt;code&gt;discover[B]&lt;/code&gt;會是&lt;code&gt;discover[A]&lt;/code&gt;加一，表示vertex(B)在整個時間軸上是在vertex(A)之後被找到(這其中便存在「ancestor-descendant」的關係)。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;finish&lt;/code&gt;：若vertex(B)已經經由有效edge探索過所有與之相連的vertex，表示以vertex(B)為起點的探索已經結束，便標上&lt;code&gt;finish[B]&lt;/code&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;color&lt;/code&gt; array：利用color標記哪些vertex已經「被發現」與「結束」。&lt;ul&gt;
+&lt;li&gt;白色表示該vertex還沒有「被發現」；&lt;/li&gt;
+&lt;li&gt;灰色表示該vertex已經「被發現」，但是還沒有「結束」。&lt;/li&gt;
+&lt;li&gt;黑色表示該vertex已經「結束」。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;predecessor&lt;/code&gt; array：記錄某個vertex是被哪一個vertex找到的，如此便能回溯路徑(如同&lt;code&gt;BFS()&lt;/code&gt;，&lt;code&gt;DFS()&lt;/code&gt;亦能生成一個&lt;strong&gt;Predecessor Subgraph&lt;/strong&gt;)。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;code&gt;DFS()&lt;/code&gt;的方法如下：&lt;/p&gt;
+&lt;p&gt;初始化(initialization)，見圖三(b)：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;先把&lt;code&gt;time&lt;/code&gt;設為&lt;code&gt;0&lt;/code&gt;，表示還沒有任何vertex「被發現」。&lt;/li&gt;
+&lt;li&gt;把所有vertex塗成白色。&lt;/li&gt;
+&lt;li&gt;把所有vertex的&lt;code&gt;predecessor&lt;/code&gt;清除(或者設成&lt;code&gt;NULL&lt;/code&gt;、&lt;code&gt;-1&lt;/code&gt;，視資料形態(data type)而定)。&lt;/li&gt;
+&lt;li&gt;把所有vertex的&lt;code&gt;discover&lt;/code&gt;與&lt;code&gt;finish&lt;/code&gt;設成&lt;code&gt;0&lt;/code&gt;，表示還沒有開始進行&lt;code&gt;DFS()&lt;/code&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="dfs" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/DFS_fig/f_19.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖三(b)：。&lt;/strong&gt;&lt;br /&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;以vertex(A)作為起點，見圖三(c)：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;將vertex(A)塗成灰色，表示已經「被發現」。&lt;/li&gt;
+&lt;li&gt;由於vertex(A)已經「被發現」，便把&lt;code&gt;discover[A]&lt;/code&gt;設為&lt;code&gt;++time&lt;/code&gt;。原本&lt;code&gt;time=0&lt;/code&gt;，而vertex(A)是&lt;code&gt;DFS()&lt;/code&gt;的起點，所以&lt;code&gt;++time&lt;/code&gt;之後&lt;code&gt;distance[A]=1&lt;/code&gt;便表示vertex(A)是第一個被發現。&lt;/li&gt;
+&lt;li&gt;接著尋找所有與vertex(A)相連之vertex，只要遇到第一個&lt;strong&gt;仍為白色&lt;/strong&gt;的vertex，便把該vertex設為新的搜尋起點，並將該vertex之&lt;code&gt;predecessor&lt;/code&gt;設為vertex(A)。  &lt;ul&gt;
+&lt;li&gt;圖三(a)之&lt;code&gt;Adjacency List&lt;/code&gt;中，第一個與vertex(A)相連的vertex為vertex(B)，接著便&lt;strong&gt;以vertex(B)為起點&lt;/strong&gt;，繼續尋找與vertex(B)相連之「最近的」vertex。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;由於從vertex(A)找到了vertex(B)，便表示「從vertex(A)出發的path」還在更新，於是vertex(A)便還沒有「結束」，所以&lt;code&gt;finish[A]&lt;/code&gt;不需要更新。  &lt;ul&gt;
+&lt;li&gt;那麼，什麼時候會更新&lt;code&gt;finish[A]&lt;/code&gt;呢？&lt;br /&gt;
+在&lt;code&gt;Adjacency List&lt;/code&gt;中，與vertex(A)相連之vertex有vertex(B)與vertex(C)，要在這兩個vertex都「作為搜尋起點」，並且「探索完所有相連的vertex」後(也就是更新完&lt;code&gt;finish[B]&lt;/code&gt;與&lt;code&gt;finish[C]&lt;/code&gt;後)，才會更新到&lt;code&gt;finish[A]&lt;/code&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;圖三(c)中的「Time Stamp(時間戳記)」即為「時間軸」。&lt;br /&gt;
+此時進入「剛發現vertex(A)」，並且尚未結束「以vertex(A)作為搜尋起點」的階段。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="dfs" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/DFS_fig/f_3.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖三(c)：。&lt;/strong&gt;&lt;br /&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;從vertex(A)作為探索起點，「最先發現」的是vertex(B)，便以其作為新的起點：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;把vertex(B)塗成灰色，表示已經「被發現」。&lt;/li&gt;
+&lt;li&gt;由於vertex(B)已經「被發現」，便把&lt;code&gt;discover[B]&lt;/code&gt;設為&lt;code&gt;++time&lt;/code&gt;，也就是&lt;code&gt;distance[B]=2&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;接著，找到&lt;code&gt;Adjacency List&lt;/code&gt;中第一個與vertex(B)相連，且為&lt;strong&gt;白色&lt;/strong&gt;的vertex(D)，將vertex(D)視為新的搜尋起點。&lt;/li&gt;
+&lt;li&gt;此時圖三(d)的「時間軸」表示，「以vertex(A)作為起點」之搜尋尚未結束(vertex(A)還沒有被塗黑)，而且「以vertex(B)作為起點」之搜尋剛剛開始。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="dfs" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/DFS_fig/f_4.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖三(d)：。&lt;/strong&gt;&lt;br /&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;來到「以vertex(D)作為起點」之搜尋，大致上與「以vertex(B)作為起點」之搜尋相同：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;把vertex(D)塗成灰色，表示已經「被發現」。&lt;/li&gt;
+&lt;li&gt;由於vertex(D)已經「被發現」，便把&lt;code&gt;discover[D]&lt;/code&gt;設為&lt;code&gt;++time&lt;/code&gt;，也就是&lt;code&gt;distance[D]=3&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;接著，找到&lt;code&gt;Adjacency List&lt;/code&gt;中第一個與vertex(D)相連，且為&lt;strong&gt;白色&lt;/strong&gt;的vertex(E)，將vertex(E)視為新的搜尋起點。&lt;/li&gt;
+&lt;li&gt;此時圖三(e)的「時間軸」表示，「以vertex(A)與vertex(B)作為起點」之搜尋都還沒結束(vertex(A)、vertex(B)還沒有被塗黑)，而且「以vertex(D)作為起點」之搜尋剛剛開始。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="dfs" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/DFS_fig/f_5.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖三(e)：。&lt;/strong&gt;&lt;br /&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;來到「以vertex(E)作為起點」之搜尋，與前兩個步驟相同，不再贅述，見圖三(f)。&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="dfs" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/DFS_fig/f_6.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖三(f)：。&lt;/strong&gt;&lt;br /&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;關鍵是圖三(g)。&lt;br /&gt;
+當vertex(E)再也找不到任何「能夠抵達、且為白色」的vertex時(見圖三(g)中Graph的箭頭方向，並對照圖三(a)之&lt;code&gt;Adjacency List&lt;/code&gt;)，就表示「以vertex(E)作為起點」之搜尋已經「結束」，此時：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;把vertex(E)塗成黑色，表示「以vertex(E)作為起點」之搜尋已經「結束」。&lt;/li&gt;
+&lt;li&gt;把&lt;code&gt;finish[E]&lt;/code&gt;設成&lt;code&gt;++time&lt;/code&gt;。  &lt;ul&gt;
+&lt;li&gt;原先在vertex(E)「被發現」時&lt;code&gt;time=4&lt;/code&gt;，更新後，表示vertex(E)之搜尋在&lt;code&gt;time=5&lt;/code&gt;時「結束」。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;當vertex(E)「結束」後，便回到vertex(E)的&lt;code&gt;predecessor&lt;/code&gt;，也就是「發現vertex(E)」的vertex(D)，繼續探索其他vertex(D)能夠走到的vertex。&lt;/li&gt;
+&lt;li&gt;此時，圖三(g)的「時間軸」表示，&lt;code&gt;discover[E]=4&lt;/code&gt;，&lt;code&gt;finish[E]=5&lt;/code&gt;，往後搜尋過程就不會再有vertex(E)出現。而以vertex(A)、vertex(B)、vertex(D)作為起點的搜尋則持續進行。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="dfs" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/DFS_fig/f_7.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖三(g)：。&lt;/strong&gt;&lt;br /&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;接著，從vertex(E)退回到vertex(D)，並從vertex(D)繼續發現vertex(F)還是白色，於是便以「vertex(F)作為起點」進行搜尋：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;把vertex(F)塗成灰色。&lt;/li&gt;
+&lt;li&gt;把&lt;code&gt;discover[F]&lt;/code&gt;設為&lt;code&gt;++time&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;繼續尋找所有從vertex(F)能夠走到，且為白色的vertex。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="dfs" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/DFS_fig/f_8.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖三(h)：。&lt;/strong&gt;&lt;br /&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;觀察圖三(i)的Graph與圖三(a)的&lt;code&gt;Adjacency List&lt;/code&gt;，發現從vertex(F)能夠走到vertex(B)，但是由於vertex(B)已經是「灰色」，表示「以vertex(B)為起點」之搜尋已經開始且尚未結束，於是vertex(F)無法「發現」vertex(B)，也無法走到其餘vertex，所以，vertex(F)便宣告「結束」：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;把vertex(F)塗成黑色，表示「以vertex(F)作為起點」之搜尋已經「結束」。&lt;/li&gt;
+&lt;li&gt;把&lt;code&gt;finish[F]&lt;/code&gt;設成&lt;code&gt;++time&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;當vertex(F)「結束」後，便回到vertex(F)的&lt;code&gt;predecessor&lt;/code&gt;，也就是「發現vertex(F)」的vertex(D)，繼續探索其他vertex(D)能夠走到的vertex。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="dfs" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/DFS_fig/f_9.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖三(i)：。&lt;/strong&gt;&lt;br /&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;如圖三(j)，所有vertex(D)能夠抵達的vertex都已經變成黑色，於是「以vertex(D)作為起點」之搜尋便結束：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;把vertex(D)塗成黑色，表示「以vertex(D)作為起點」之搜尋已經「結束」。&lt;/li&gt;
+&lt;li&gt;把&lt;code&gt;finish[D]&lt;/code&gt;設成&lt;code&gt;++time&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;當vertex(D)「結束」後，便回到vertex(D)的&lt;code&gt;predecessor&lt;/code&gt;，也就是「發現vertex(D)」的vertex(B)，繼續探索其他vertex(B)能夠走到的vertex。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="dfs" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/DFS_fig/f_10.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖三(j)：。&lt;/strong&gt;&lt;br /&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;接著便以上述邏輯重複步驟，直到vertex(A)被塗成黑色，見圖三(k)-(n)。&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="dfs" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/DFS_fig/f_11.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖三(k)：。&lt;/strong&gt;  &lt;/p&gt;
+&lt;p&gt;&lt;img alt="dfs" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/DFS_fig/f_12.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖三(l)：。&lt;/strong&gt;  &lt;/p&gt;
+&lt;p&gt;&lt;img alt="dfs" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/DFS_fig/f_13.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖三(m)：。&lt;/strong&gt;  &lt;/p&gt;
+&lt;p&gt;&lt;img alt="dfs" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/DFS_fig/f_14.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖三(n)：。&lt;/strong&gt;&lt;br /&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;在「以vertex(A)為起點」之搜尋結束後，必須確認Graph中還有沒有白色的vertex，如圖三(n)，Graph裡還有vertex(G)與vertex(H)仍然是白色，因此挑選其中一個vertex作為新的起點。這裡是按照&lt;code&gt;Adjacency List&lt;/code&gt;的順序，由於vertex(G)在vertex(H)之前，便先挑選vertex(G)，重複上述步驟，見圖三(o)-(r)。&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="dfs" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/DFS_fig/f_15.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖三(o)：。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="dfs" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/DFS_fig/f_16.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖三(p)：。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="dfs" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/DFS_fig/f_17.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖三(q)：。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="dfs" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/DFS_fig/f_18.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖三(r)：。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;當Graph中所有vertex都被塗成黑色，便完成&lt;code&gt;DFS()&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;a name="code"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;&lt;strong&gt;程式碼&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;由以上說明可以觀察出，&lt;code&gt;DFS()&lt;/code&gt;本質上是一種「&lt;strong&gt;遞迴(recursion)結構&lt;/strong&gt;」，而遞迴結構其實是利用了系統的「&lt;strong&gt;堆疊(stack)&lt;/strong&gt;」，因此，這兩種方式皆能實現&lt;code&gt;DFS()&lt;/code&gt;，以下提供的範例程式碼將以遞迴形式完成。&lt;/p&gt;
+&lt;p&gt;如同上一篇&lt;a href="http://alrightchiu.github.io/SecondRound/grpah-breadth-first-searchbfsguang-du-you-xian-sou-xun.html#code"&gt;Grpah: Breadth-First Search(BFS，廣度優先搜尋)&lt;/a&gt;，以下將使用&lt;code&gt;int&lt;/code&gt;處理資料，把&lt;span class="math"&gt;\(9\)&lt;/span&gt;個vertex&lt;code&gt;char A~I&lt;/code&gt;依序對應到&lt;code&gt;int 0~8&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;範例程式碼包含兩個部分&lt;code&gt;main()&lt;/code&gt;與&lt;code&gt;class Graph&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;在&lt;code&gt;main()&lt;/code&gt;中，主要兩件事情：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;建立如圖三(a)的&lt;code&gt;Adjacency List&lt;/code&gt;；&lt;/li&gt;
+&lt;li&gt;進行&lt;code&gt;DFS()&lt;/code&gt;。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;在&lt;code&gt;class Graph&lt;/code&gt;中：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;private member：&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;num_vertex&lt;/code&gt;：需要在定義&lt;code&gt;Graph&lt;/code&gt;的object(物件)時，給定vertex的數目，以便建立&lt;code&gt;Adjacency List&lt;/code&gt;(或者&lt;code&gt;Adjacency Matrix&lt;/code&gt;)。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;std::vector&amp;lt; std::list&amp;lt;int&amp;gt; &amp;gt; AdjList&lt;/code&gt;：利用C++標準函式庫(STL)提供的container(容器):&lt;code&gt;std::vector&lt;/code&gt;與&lt;code&gt;std::list&lt;/code&gt;來實現。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;color&lt;/code&gt;、&lt;code&gt;discover&lt;/code&gt;、&lt;code&gt;finish&lt;/code&gt;、&lt;code&gt;predecessor&lt;/code&gt;：將在&lt;code&gt;DFS()&lt;/code&gt;中使用，功能如上述。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;public member：&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Constructor:Graph(int num_vertex)&lt;/code&gt;：在定義Graph的object(物件)時，需要知道vertex的數目，並在&lt;code&gt;constructor&lt;/code&gt;中定義好&lt;code&gt;AdjList&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;AddEdgeList(int from, in to)&lt;/code&gt;：功能便是在&lt;code&gt;AdjList&lt;/code&gt;新增從&lt;code&gt;from&lt;/code&gt;到&lt;code&gt;to&lt;/code&gt;的edge。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DFS(int Start)&lt;/code&gt;：需要知道起點vertex。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DFSVisit(int vertex, int &amp;amp;time)&lt;/code&gt;：利用遞迴函式呼叫，進行&lt;code&gt;color&lt;/code&gt;、&lt;code&gt;discover&lt;/code&gt;、&lt;code&gt;finish&lt;/code&gt;與&lt;code&gt;predecessor&lt;/code&gt;等資料更新的主要函式。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// C++ code&lt;/span&gt;
+&lt;span class="cp"&gt;#include &amp;lt;iostream&amp;gt;&lt;/span&gt;
+&lt;span class="cp"&gt;#include &amp;lt;vector&amp;gt;&lt;/span&gt;
+&lt;span class="cp"&gt;#include &amp;lt;list&amp;gt;&lt;/span&gt;
+&lt;span class="cp"&gt;#include &amp;lt;queue&amp;gt;&lt;/span&gt;
+&lt;span class="cp"&gt;#include &amp;lt;iomanip&amp;gt;      &lt;/span&gt;&lt;span class="c1"&gt;// for std::setw()&lt;/span&gt;
+
+&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Graph&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="k"&gt;private&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;num_vertex&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;vector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;list&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;AdjList&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;color&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;             &lt;span class="c1"&gt;// 0:white, 1:gray, 2:black&lt;/span&gt;
+        &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;predecessor&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+        &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;discover&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+        &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;finish&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="k"&gt;public&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+    &lt;span class="n"&gt;Graph&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;num_vertex&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;){};&lt;/span&gt;
+    &lt;span class="n"&gt;Graph&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;N&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;num_vertex&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;N&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
+        &lt;span class="c1"&gt;// initialize Adj List&lt;/span&gt;
+        &lt;span class="n"&gt;AdjList&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;resize&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;num_vertex&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="p"&gt;};&lt;/span&gt;
+    &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;AddEdgeList&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;from&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;BFS&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;Start&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;    &lt;span class="c1"&gt;// 定義見上一篇文章&lt;/span&gt;
+    &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;DFS&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;Start&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;DFSVisit&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;vertex&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;time&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="p"&gt;};&lt;/span&gt;
+
+&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;Graph&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;DFS&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;Start&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
+    &lt;span class="n"&gt;color&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;num_vertex&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;           &lt;span class="c1"&gt;// 配置記憶體位置&lt;/span&gt;
+    &lt;span class="n"&gt;discover&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;num_vertex&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+    &lt;span class="n"&gt;finish&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;num_vertex&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+    &lt;span class="n"&gt;predecessor&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;num_vertex&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+
+    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;time&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;                          &lt;span class="c1"&gt;// 初始化, 如圖三(b)&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;num_vertex&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; 
+        &lt;span class="n"&gt;color&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="n"&gt;discover&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="n"&gt;finish&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="n"&gt;predecessor&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+
+    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Start&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;j&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;j&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;num_vertex&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="c1"&gt;// 檢查所有Graph中的vertex都要被搜尋到&lt;/span&gt;
+        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;color&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;               &lt;span class="c1"&gt;// 若vertex不是白色, 則進行以該vertex作為起點之搜尋&lt;/span&gt;
+            &lt;span class="n"&gt;DFSVisit&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;time&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+        &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;                             &lt;span class="c1"&gt;// j會把AdjList完整走過一遍, 確保所有vertex都被搜尋過&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;Graph&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;DFSVisit&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;vertex&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;time&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;   &lt;span class="c1"&gt;// 一旦有vertex被發現而且是白色, 便進入DFSVisit()&lt;/span&gt;
+    &lt;span class="n"&gt;color&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;vertex&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;                         &lt;span class="c1"&gt;// 把vertex塗成灰色&lt;/span&gt;
+    &lt;span class="n"&gt;discover&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;vertex&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="n"&gt;time&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;                 &lt;span class="c1"&gt;// 更新vertex的discover時間&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;list&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;::&lt;/span&gt;&lt;span class="n"&gt;iterator&lt;/span&gt; &lt;span class="n"&gt;itr&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;AdjList&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;vertex&lt;/span&gt;&lt;span class="p"&gt;].&lt;/span&gt;&lt;span class="n"&gt;begin&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;   &lt;span class="c1"&gt;// for loop參數太長&lt;/span&gt;
+         &lt;span class="n"&gt;itr&lt;/span&gt; &lt;span class="o"&gt;!=&lt;/span&gt; &lt;span class="n"&gt;AdjList&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;vertex&lt;/span&gt;&lt;span class="p"&gt;].&lt;/span&gt;&lt;span class="n"&gt;end&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt; &lt;span class="n"&gt;itr&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;                    &lt;span class="c1"&gt;// 分成兩段&lt;/span&gt;
+        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;color&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;itr&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;                &lt;span class="c1"&gt;// 若搜尋到白色的vertex&lt;/span&gt;
+            &lt;span class="n"&gt;predecessor&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;itr&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;vertex&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;        &lt;span class="c1"&gt;// 更新其predecessor&lt;/span&gt;
+            &lt;span class="n"&gt;DFSVisit&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;itr&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;time&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;              &lt;span class="c1"&gt;// 立刻以其作為新的搜尋起點, 進入新的DFSVisit()&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="n"&gt;color&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;vertex&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;                         &lt;span class="c1"&gt;// 當vertex已經搜尋過所有與之相連的vertex後, 將其塗黑&lt;/span&gt;
+    &lt;span class="n"&gt;finish&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;vertex&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="n"&gt;time&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;                   &lt;span class="c1"&gt;// 並更新finish時間&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;main&lt;/span&gt;&lt;span class="p"&gt;(){&lt;/span&gt;
+    &lt;span class="c1"&gt;// 定義一個具有八個vertex的Graph&lt;/span&gt;
+    &lt;span class="n"&gt;Graph&lt;/span&gt; &lt;span class="n"&gt;g2&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;8&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="c1"&gt;// 建立如圖三之Graph&lt;/span&gt;
+    &lt;span class="n"&gt;g2&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;AddEdgeList&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;span class="n"&gt;g2&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;AddEdgeList&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt; 
+    &lt;span class="n"&gt;g2&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;AddEdgeList&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="n"&gt;g2&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;AddEdgeList&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;span class="n"&gt;g2&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;AddEdgeList&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="n"&gt;g2&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;AddEdgeList&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;span class="n"&gt;g2&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;AddEdgeList&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="c1"&gt;// AdjList[4] is empty&lt;/span&gt;
+    &lt;span class="n"&gt;g2&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;AddEdgeList&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="n"&gt;g2&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;AddEdgeList&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;6&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;span class="n"&gt;g2&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;AddEdgeList&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;6&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;7&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="n"&gt;g2&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;AddEdgeList&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;7&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;6&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+    &lt;span class="n"&gt;g2&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;DFS&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;    &lt;span class="c1"&gt;// 以vertex(0), 也就是vertex(A作為DFS()的起點&lt;/span&gt;
+
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;a name="discuss"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;&lt;strong&gt;討論&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;若在&lt;code&gt;DFS()&lt;/code&gt;函式主體的最後多加入幾行程式來檢查&lt;code&gt;predecessor&lt;/code&gt;、&lt;code&gt;discover&lt;/code&gt;與&lt;code&gt;finish&lt;/code&gt;三項資料是否符合預期：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;Graph&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;DFS&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;Start&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
+ &lt;span class="c1"&gt;// after for loop&lt;/span&gt;
+ &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;predecessor:&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;endl&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;         &lt;span class="c1"&gt;// 印出 A(0) ~ H(7)的predecessor&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;num_vertex&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
+        &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;setw&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;endl&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;num_vertex&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
+        &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;setw&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;predecessor&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s"&gt;discover time:&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;endl&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;  &lt;span class="c1"&gt;// 印出 A(0) ~ H(7)的discover time&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;num_vertex&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
+        &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;setw&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;endl&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;num_vertex&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
+        &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;setw&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;discover&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s"&gt;finish time:&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;endl&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;    &lt;span class="c1"&gt;// 印出 A(0) ~ H(7)的finish time&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;num_vertex&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
+        &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;setw&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;endl&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;num_vertex&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
+        &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;setw&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;finish&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;便能得到：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nl"&gt;predecessor&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+   &lt;span class="mi"&gt;0&lt;/span&gt;   &lt;span class="mi"&gt;1&lt;/span&gt;   &lt;span class="mi"&gt;2&lt;/span&gt;   &lt;span class="mi"&gt;3&lt;/span&gt;   &lt;span class="mi"&gt;4&lt;/span&gt;   &lt;span class="mi"&gt;5&lt;/span&gt;   &lt;span class="mi"&gt;6&lt;/span&gt;   &lt;span class="mi"&gt;7&lt;/span&gt;
+  &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;   &lt;span class="mi"&gt;0&lt;/span&gt;   &lt;span class="mi"&gt;0&lt;/span&gt;   &lt;span class="mi"&gt;1&lt;/span&gt;   &lt;span class="mi"&gt;3&lt;/span&gt;   &lt;span class="mi"&gt;3&lt;/span&gt;  &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;   &lt;span class="mi"&gt;6&lt;/span&gt;
+&lt;span class="n"&gt;discover&lt;/span&gt; &lt;span class="nl"&gt;time&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+   &lt;span class="mi"&gt;0&lt;/span&gt;   &lt;span class="mi"&gt;1&lt;/span&gt;   &lt;span class="mi"&gt;2&lt;/span&gt;   &lt;span class="mi"&gt;3&lt;/span&gt;   &lt;span class="mi"&gt;4&lt;/span&gt;   &lt;span class="mi"&gt;5&lt;/span&gt;   &lt;span class="mi"&gt;6&lt;/span&gt;   &lt;span class="mi"&gt;7&lt;/span&gt;
+   &lt;span class="mi"&gt;1&lt;/span&gt;   &lt;span class="mi"&gt;2&lt;/span&gt;  &lt;span class="mi"&gt;10&lt;/span&gt;   &lt;span class="mi"&gt;3&lt;/span&gt;   &lt;span class="mi"&gt;4&lt;/span&gt;   &lt;span class="mi"&gt;6&lt;/span&gt;  &lt;span class="mi"&gt;13&lt;/span&gt;  &lt;span class="mi"&gt;14&lt;/span&gt;
+&lt;span class="n"&gt;finish&lt;/span&gt; &lt;span class="nl"&gt;time&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+   &lt;span class="mi"&gt;0&lt;/span&gt;   &lt;span class="mi"&gt;1&lt;/span&gt;   &lt;span class="mi"&gt;2&lt;/span&gt;   &lt;span class="mi"&gt;3&lt;/span&gt;   &lt;span class="mi"&gt;4&lt;/span&gt;   &lt;span class="mi"&gt;5&lt;/span&gt;   &lt;span class="mi"&gt;6&lt;/span&gt;   &lt;span class="mi"&gt;7&lt;/span&gt;
+  &lt;span class="mi"&gt;12&lt;/span&gt;   &lt;span class="mi"&gt;9&lt;/span&gt;  &lt;span class="mi"&gt;11&lt;/span&gt;   &lt;span class="mi"&gt;8&lt;/span&gt;   &lt;span class="mi"&gt;5&lt;/span&gt;   &lt;span class="mi"&gt;7&lt;/span&gt;  &lt;span class="mi"&gt;16&lt;/span&gt;  &lt;span class="mi"&gt;15&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;與預期的結果相同，如圖四。&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="dfs" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/DFS_fig/f_19.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖四：。&lt;/strong&gt;&lt;br /&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a name="dff_dft"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h4&gt;&lt;strong&gt;Depth-First Tree&lt;/strong&gt;&lt;/h4&gt;
+&lt;p&gt;如同&lt;code&gt;BFS()&lt;/code&gt;，在Graph上進行&lt;code&gt;DFS()&lt;/code&gt;同樣可以得到&lt;strong&gt;Predecessor Subgraph&lt;/strong&gt;，又稱為&lt;strong&gt;Depth-First Tree&lt;/strong&gt;。若Graph本身不是&lt;strong&gt;(strongly) connected component&lt;/strong&gt;，則有可能得到&lt;strong&gt;Depth-First Forest&lt;/strong&gt;，如圖五：&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="dfs" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/DFS_fig/f_21.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖五：。&lt;/strong&gt;&lt;br /&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;根據圖五的「時間軸」，可以直接由&lt;code&gt;discover&lt;/code&gt;與&lt;code&gt;finish&lt;/code&gt;觀察出各個vertex之間的「ancestor-descendant」關係(也就包含了&lt;code&gt;predecessor&lt;/code&gt;關係)：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;若&lt;code&gt;discover[X]&lt;/code&gt;比&lt;code&gt;discover[Y]&lt;/code&gt;大，而且&lt;code&gt;finish[X]&lt;/code&gt;比&lt;code&gt;finish[Y]&lt;/code&gt;小，表示vertex(X)比vertex(Y)較晚「被發現」，而且較早「結束」，則vertex(X)必定是vertex(Y)的descendant。&lt;ul&gt;
+&lt;li&gt;以vertex(E)與vertex(A)為例，vertex(E)的「搜尋生命週期」完全在vertex(A)的「搜尋生命週期」&lt;strong&gt;之內&lt;/strong&gt;，因此vertex(E)必定是vertex(A)的descendant。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;相反，若&lt;code&gt;discover[X]&lt;/code&gt;比&lt;code&gt;discover[Y]&lt;/code&gt;小，而且&lt;code&gt;finish[X]&lt;/code&gt;比&lt;code&gt;finish[Y]&lt;/code&gt;大，表示vertex(X)比vertex(Y)較早「被發現」，而且較晚「結束」，則vertex(X)必定是vertex(Y)的ancestor。&lt;ul&gt;
+&lt;li&gt;以vertex(B)與vertex(F)為例，vertex(B)的「搜尋生命週期」&lt;strong&gt;完全包覆&lt;/strong&gt;住vertex(F)的「搜尋生命週期」，因此vertex(B)必定是vertex(F)的ancestor。 &lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;第三種情形，若兩個vertex的「搜尋生命週期」完全沒有重疊，那麼這兩個vertex在Depth-First Forest中：&lt;ol&gt;
+&lt;li&gt;有可能在同一棵Depth-First Tree，但是互相沒有「ancestor-descendant」的關係，例如vertex(D)與vertex(C)。此時，&lt;code&gt;discover[D]&lt;/code&gt;&lt;span class="math"&gt;\(&amp;lt;\)&lt;/span&gt;&lt;code&gt;discover[C]&lt;/code&gt;，而且&lt;code&gt;finish[D]&lt;/code&gt;&lt;span class="math"&gt;\(&amp;lt;\)&lt;/span&gt;&lt;code&gt;finish[C]&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;也有可能在不同棵Depth-First Tree，例如vertex(C)與vertex(H)。此時，&lt;code&gt;discover[C]&lt;/code&gt;&lt;span class="math"&gt;\(&amp;lt;\)&lt;/span&gt;&lt;code&gt;discover[H]&lt;/code&gt;，而且&lt;code&gt;finish[C]&lt;/code&gt;&lt;span class="math"&gt;\(&amp;lt;\)&lt;/span&gt;&lt;code&gt;finish[H]&lt;/code&gt;。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;a name="4edge"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h4&gt;&lt;strong&gt;4種edge&lt;/strong&gt;&lt;/h4&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="dfs" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/DFS_fig/f_22.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖六：。&lt;/strong&gt;&lt;br /&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;經過&lt;code&gt;DFS()&lt;/code&gt;後，還可以分類出四種edge：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Tree edge&lt;/strong&gt;：若vertex(Y)是被vertex(X)「發現」，則edge(X,Y)即為Tree edge，也就是Depth-First Tree中的edge。&lt;ul&gt;
+&lt;li&gt;也就是說，當vertex(X)搜尋到vertex(Y)，且vertex(Y)為「白色」時，就會建立出Tree edge。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Back edge&lt;/strong&gt;：所有指向ancestor的edge，稱為Back edge。如圖六中，edge(F,B)與edge(H,G)。&lt;ul&gt;
+&lt;li&gt;當vertex(X)搜尋到vertex(Y)，且vertex(Y)為「灰色」，就會建立起Back edge，見圖三(j)、圖三(q)與圖六。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Forward edge&lt;/strong&gt;：所有指向descendant但不是Tree edge的edge，稱為Forward edge。觀察「時間軸」，若Graph存在例如：edge(A,D)、edge(A,E)或者edge(B,E)，即可稱之為Forward edge。很遺憾的，圖六中，沒有Forward edge。&lt;ul&gt;
+&lt;li&gt;當vertex(X)搜尋到vertex(Y)時，vertex(Y)為「黑色」，並且&lt;code&gt;discover[X]&lt;/code&gt;&lt;span class="math"&gt;\(&amp;lt;\)&lt;/span&gt;&lt;code&gt;discover[Y]&lt;/code&gt;，edge(X,Y)即為Forward edge。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Cross edge&lt;/strong&gt;：若兩個vertex不在同一棵Depth-First Tree上，例如vertex(C)與vertex(H)，或者兩個vertex在同一棵Depth-First Tree上卻沒有「ancestor-descendant」的關係，例如vertex(C)與vertex(F)，則稱連結此兩個vertex的edge為Cross edge。&lt;ul&gt;
+&lt;li&gt;當vertex(X)搜尋到vertex(Y)時，vertex(Y)為「黑色」，並且&lt;code&gt;discover[X]&lt;/code&gt;&lt;span class="math"&gt;\(&amp;gt;\)&lt;/span&gt;&lt;code&gt;discover[Y]&lt;/code&gt;，edge(X,Y)即為Cross edge。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;分類出四種edge除了可以作為大腦體操，還可以根據Graph中是否具有/不具有某些edge來區分Graph的性質：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;若在undirected graph上執行一次&lt;code&gt;DFS()&lt;/code&gt;，所有的edge不是Tree edge就是Back edge。&lt;/li&gt;
+&lt;li&gt;若在directed graph上執行一次&lt;code&gt;DFS()&lt;/code&gt;，沒有產生Back edge，則此directed graph必定是&lt;strong&gt;acyclic&lt;/strong&gt;(沒有迴路)。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;諸如此類的，是不是很有趣呢？&lt;br /&gt;
+(好像也還好。)&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;以上便是Depth-First Search(DFS，深度優先搜尋)的介紹。&lt;br /&gt;
+在接下來的文章中，將利用&lt;code&gt;DFS()&lt;/code&gt;與神奇的&lt;code&gt;finish&lt;/code&gt;：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;進行&lt;strong&gt;Topological Sort(拓撲排序)&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;找到directed graph中的&lt;strong&gt;Strongly Connected Component(SCC)&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;不過在這之前，會先介紹利用&lt;code&gt;BFS()&lt;/code&gt;與&lt;code&gt;DFS()&lt;/code&gt;找到undirected graph中的&lt;strong&gt;connected component&lt;/strong&gt;作為暖身。&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a name="ref"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h4&gt;&lt;strong&gt;參考資料&lt;/strong&gt;：&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844"&gt;Introduction to Algorithms, Ch22&lt;/a&gt; &lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376"&gt;Fundamentals of Data Structures in C++, Ch6&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://codereview.stackexchange.com/questions/82476/depth-first-search-and-breadth-first-search-in-c"&gt;Code Review：Depth First Search and Breadth First Search in C++&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;script type="text/javascript"&gt;if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width &lt; 768) ? "left" : align;
+        indent = (screen.width &lt; 768) ? "0em" : indent;
+        linebreak = (screen.width &lt; 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' &amp;&amp; location_protocol !== 'https') location_protocol = 'https:';
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+&lt;/script&gt;</summary><category term="C++"></category><category term="Graph"></category></entry><entry><title>Grpah: Breadth-First Search(BFS，廣度優先搜尋)</title><link href="http://alrightchiu.github.io/SecondRound/grpah-breadth-first-searchbfsguang-du-you-xian-sou-xun.html" rel="alternate"></link><updated>2016-02-06T14:15:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-02-06:SecondRound/grpah-breadth-first-searchbfsguang-du-you-xian-sou-xun.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h4&gt;&lt;strong&gt;先備知識與注意事項&lt;/strong&gt;&lt;/h4&gt;
 &lt;p&gt;在&lt;a href="http://alrightchiu.github.io/SecondRound/binary-tree-traversalxun-fang.html#level"&gt;Binary Tree: Traversal(尋訪)&lt;/a&gt;與&lt;a href="http://alrightchiu.github.io/SecondRound/binary-tree-jian-li-yi-ke-binary-tree.html"&gt;Binary Tree: 建立一棵Binary Tree&lt;/a&gt;兩篇文章裡，介紹了如何利用&lt;code&gt;queue&lt;/code&gt;在Binary Tree中進行&lt;strong&gt;Level-Order Traversal&lt;/strong&gt;，其概念便是：各個node相對於&lt;code&gt;root&lt;/code&gt;有其相對應的level，按照level由小到大依序對node進行Visiting。&lt;br /&gt;
 而level便代表了node與&lt;code&gt;root&lt;/code&gt;之「距離」，以Graph的語言來說，「距離」便是path的&lt;strong&gt;length(長度)/distance(距離)&lt;/strong&gt;。如圖一：&lt;/p&gt;
@@ -152,21 +632,21 @@
 &lt;p&gt;&lt;a name="code"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;&lt;strong&gt;程式碼&lt;/strong&gt;&lt;/h2&gt;
 &lt;p&gt;(為了簡化程式，以下程式將使用&lt;code&gt;int&lt;/code&gt;處理資料，把&lt;span class="math"&gt;\(9\)&lt;/span&gt;個vertex&lt;code&gt;char A~I&lt;/code&gt;依序對應到&lt;code&gt;int 0~8&lt;/code&gt;)&lt;/p&gt;
-&lt;p&gt;範例程式碼包含兩個部分&lt;code&gt;main&lt;/code&gt;與&lt;code&gt;class Graph&lt;/code&gt;。&lt;/p&gt;
-&lt;p&gt;在&lt;code&gt;main&lt;/code&gt;中，主要有兩件事：&lt;/p&gt;
+&lt;p&gt;範例程式碼包含兩個部分&lt;code&gt;main()&lt;/code&gt;與&lt;code&gt;class Graph&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;在&lt;code&gt;main()&lt;/code&gt;中，主要有兩件事：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;建立如圖二(a)的&lt;code&gt;Adjacency List&lt;/code&gt;；&lt;/li&gt;
 &lt;li&gt;進行&lt;code&gt;BFS()&lt;/code&gt;。&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;在&lt;code&gt;class Graph&lt;/code&gt;中：&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;private data member：&lt;ul&gt;
+&lt;li&gt;private member：&lt;ul&gt;
 &lt;li&gt;&lt;code&gt;num_vertex&lt;/code&gt;：需要在定義&lt;code&gt;Graph&lt;/code&gt;的object(物件)時，給定vertex的數目，以便建立&lt;code&gt;Adjacency List&lt;/code&gt;(或者&lt;code&gt;Adjacency Matrix&lt;/code&gt;)。&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;std::vector&amp;lt; std::list&amp;lt;int&amp;gt; &amp;gt; AdjList&lt;/code&gt;：利用C++標準函式庫(STL)提供的container(容器):&lt;code&gt;std::vector&lt;/code&gt;與&lt;code&gt;std::list&lt;/code&gt;來實現。這樣的寫法的優點是：不需要使用到&lt;code&gt;new operator&lt;/code&gt;，便能夠將記憶體控管交給STL，不需要自行處理&lt;code&gt;delete operator&lt;/code&gt;，以避免記憶體遺漏(memory leak)，詳細討論請參考&lt;a href="http://codereview.stackexchange.com/questions/82476/depth-first-search-and-breadth-first-search-in-c"&gt;Code Review：Depth First Search and Breadth First Search in C++&lt;/a&gt;。&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;color&lt;/code&gt;、&lt;code&gt;distance&lt;/code&gt;、&lt;code&gt;predecessor&lt;/code&gt;：將在&lt;code&gt;BFS()&lt;/code&gt;中使用，功能如上述。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;public member function：&lt;ul&gt;
+&lt;li&gt;public member：&lt;ul&gt;
 &lt;li&gt;&lt;code&gt;Constructor:Graph(int num_vertex)&lt;/code&gt;：在定義Graph的object(物件)時，需要知道vertex的數目，並在&lt;code&gt;constructor&lt;/code&gt;中定義好&lt;code&gt;AdjList&lt;/code&gt;。&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;AddEdgeList(int from, in to)&lt;/code&gt;：功能便是在&lt;code&gt;AdjList&lt;/code&gt;新增從&lt;code&gt;from&lt;/code&gt;到&lt;code&gt;to&lt;/code&gt;的edge。&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;BFS(int Start)&lt;/code&gt;：需要知道起點vertex。&lt;/li&gt;
