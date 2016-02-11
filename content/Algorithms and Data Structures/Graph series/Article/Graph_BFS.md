@@ -227,9 +227,9 @@ Summary: 介紹Graph(圖)中的基本操作：Breadth-First Search(BFS，廣度�
 (為了簡化程式，以下程式將使用`int`處理資料，把$9$個vertex`char A~I`依序對應到`int 0~8`)
 
 
-範例程式碼包含兩個部分`main`與`class Graph`。
+範例程式碼包含兩個部分`main()`與`class Graph`。
 
-在`main`中，主要有兩件事：
+在`main()`中，主要有兩件事：
 
 1. 建立如圖二(a)的`Adjacency List`；
 2. 進行`BFS()`。
