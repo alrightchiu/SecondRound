@@ -485,6 +485,15 @@ finish time:
 諸如此類的，是不是很有趣呢？  
 (好像也還好。)
 
+最後再看一次`DFS()`的流程，見圖七：
+
+<center>
+![dfs][f23]
+
+**圖七：。**  
+</center>
+
+
 [f1]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/DFS_fig/f_1.png?raw=true
 [f2]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/DFS_fig/f_2.png?raw=true
 [f3]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/DFS_fig/f_19.png?raw=true
@@ -509,6 +518,8 @@ finish time:
 [f22]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/DFS_fig/f_22.png?raw=true
 
 [f100]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/DFS_fig/maze.gif?raw=true
+[f23]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/DFS_fig/DFS.gif?raw=true
+
 
 </br>
 
