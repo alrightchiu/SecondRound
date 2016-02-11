@@ -235,7 +235,7 @@ Depth-First Search(DFS，深度優先搜尋)的核心精神便如同Pre-Order Tr
 **圖三(n)：。**  
 </center>
 
-在「以vertex(A)為起點」之搜尋結束後，必須確認Graph中還有沒有白色的vertex，如圖三(n)，Graph裡還有vertex(G)與vertex(H)仍然是白色，因此挑選其中一個vertex作為新的起點。這裡是按照`Adjacency List`的順序，由於vertex(G)在vertex(H)之前，便先挑選vertex(G)，重複上述步驟，見圖三(o)-(r)。
+在「以vertex(A)為起點」之搜尋結束後，必須確認Graph中還有沒有白色的vertex，如圖三(n)，Graph裡還有vertex(G)與vertex(H)仍然是白色，因此挑選其中一個vertex作為新的起點。這裡是按照`Adjacency List`的順序，由於vertex(G)在vertex(H)之前，便先挑選vertex(G)，接著重複上述步驟，見圖三(o)-(r)。
 
 <center>
 ![dfs][f16]
@@ -504,7 +504,7 @@ finish time:
 [f17]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/DFS_fig/f_16.png?raw=true
 [f18]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/DFS_fig/f_17.png?raw=true
 [f19]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/DFS_fig/f_18.png?raw=true
-[f20]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/DFS_fig/f_19.png?raw=true
+[f20]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/DFS_fig/f_20.png?raw=true
 [f21]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/DFS_fig/f_21.png?raw=true
 [f22]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/DFS_fig/f_22.png?raw=true
 
