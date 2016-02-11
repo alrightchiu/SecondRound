@@ -352,7 +352,7 @@
 &lt;p&gt;&lt;strong&gt;圖四：。&lt;/strong&gt;&lt;br /&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a name="dff_dft"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h4&gt;&lt;strong&gt;Depth-First Tree&lt;/strong&gt;&lt;/h4&gt;
+&lt;h2&gt;&lt;strong&gt;Depth-First Tree&lt;/strong&gt;&lt;/h2&gt;
 &lt;p&gt;如同&lt;code&gt;BFS()&lt;/code&gt;，在Graph上進行&lt;code&gt;DFS()&lt;/code&gt;同樣可以得到&lt;strong&gt;Predecessor Subgraph&lt;/strong&gt;，又稱為&lt;strong&gt;Depth-First Tree&lt;/strong&gt;。若Graph本身不是&lt;strong&gt;(strongly) connected component&lt;/strong&gt;，則有可能得到&lt;strong&gt;Depth-First Forest&lt;/strong&gt;，如圖五：&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="dfs" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/DFS_fig/f_21.png?raw=true" /&gt;&lt;/p&gt;
@@ -375,7 +375,7 @@
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;&lt;a name="4edge"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h4&gt;&lt;strong&gt;4種edge&lt;/strong&gt;&lt;/h4&gt;
+&lt;h2&gt;&lt;strong&gt;4種edge&lt;/strong&gt;&lt;/h2&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="dfs" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/DFS_fig/f_22.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖六：。&lt;/strong&gt;&lt;br /&gt;
