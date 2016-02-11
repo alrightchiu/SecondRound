@@ -9,7 +9,7 @@ Summary: 介紹Graph(圖)的中的基本操作：Depth-First Search(DFS，深度
 </br>
 ####**先備知識與注意事項**
 
-在[Binary Tree: Traversal(尋訪)](http://alrightchiu.github.io/SecondRound/binary-tree-traversalxun-fang.html#pre)中介紹過Pre-Order Traversal，其Visiting順序：`CurrentNode`、`leftchild`、`rightchild`可以解讀成「先遇到的node就先Visiting」，因此，每一組「Current-left-right」必定是`CurrentNode`先Visiting，接著是`leftchild`，最後才是`rightchild`。  
+在[Binary Tree: Traversal(尋訪)](http://alrightchiu.github.io/SecondRound/binary-tree-traversalxun-fang.html#pre)中介紹過Pre-Order Traversal，其Visiting順序：「Current(V)-left(L)-right(R)」可以解讀成「先遇到的node就先Visiting」，因此，每一組「Current-left-right」必定是`CurrentNode`先Visiting，接著是`leftchild`，最後才是`rightchild`。  
 若對圖一中的Binary Tree進行Pre-Order Traversal，定義Visiting為印出(print)資料，將得到：
 
 ```cpp
