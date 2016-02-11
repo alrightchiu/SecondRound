@@ -177,7 +177,7 @@
 &lt;p&gt;&lt;img alt="dfs" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/DFS_fig/f_14.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖三(n)：。&lt;/strong&gt;&lt;br /&gt;
 &lt;/center&gt;&lt;/p&gt;
-&lt;p&gt;在「以vertex(A)為起點」之搜尋結束後，必須確認Graph中還有沒有白色的vertex，如圖三(n)，Graph裡還有vertex(G)與vertex(H)仍然是白色，因此挑選其中一個vertex作為新的起點。這裡是按照&lt;code&gt;Adjacency List&lt;/code&gt;的順序，由於vertex(G)在vertex(H)之前，便先挑選vertex(G)，重複上述步驟，見圖三(o)-(r)。&lt;/p&gt;
+&lt;p&gt;在「以vertex(A)為起點」之搜尋結束後，必須確認Graph中還有沒有白色的vertex，如圖三(n)，Graph裡還有vertex(G)與vertex(H)仍然是白色，因此挑選其中一個vertex作為新的起點。這裡是按照&lt;code&gt;Adjacency List&lt;/code&gt;的順序，由於vertex(G)在vertex(H)之前，便先挑選vertex(G)，接著重複上述步驟，見圖三(o)-(r)。&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="dfs" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/DFS_fig/f_15.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖三(o)：。&lt;/strong&gt;&lt;/p&gt;
@@ -348,7 +348,7 @@
 
 &lt;p&gt;與預期的結果相同，如圖四。&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
-&lt;img alt="dfs" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/DFS_fig/f_19.png?raw=true" /&gt;&lt;/p&gt;
+&lt;img alt="dfs" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/DFS_fig/f_20.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖四：。&lt;/strong&gt;&lt;br /&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a name="dff_dft"&gt;&lt;/a&gt;&lt;/p&gt;
