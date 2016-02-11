@@ -227,25 +227,25 @@ Summary: 介紹Graph(圖)中的基本操作：Breadth-First Search(BFS，廣度�
 (為了簡化程式，以下程式將使用`int`處理資料，把$9$個vertex`char A~I`依序對應到`int 0~8`)
 
 
-範例程式碼的主要功能為：
+範例程式碼包含兩個部分`main`與`class Graph`。
+
+在`main`中，主要有兩件事：
 
 1. 建立如圖二(a)的`Adjacency List`；
 2. 進行`BFS()`。
 
-共包含幾個部分：
+在`class Graph`中：
 
-* `class Graph`：定義方式有非常多種，這裡提供的`class Graph`的主要目標有二：
-    * private data member：
-        * `num_vertex`：需要在定義`Graph`的object(物件)時，給定vertex的數目，以便建立`Adjacency List`(或者`Adjacency Matrix`)。
-        * `std::vector< std::list<int> > AdjList`：利用C++標準函式庫(STL)提供的container(容器):`std::vector`與`std::list`來實現。這樣的寫法的優點是：不需要使用到`new operator`，便能夠將記憶體控管交給STL，不需要自行處理`delete operator`，以避免記憶體遺漏(memory leak)，詳細討論請參考[Code Review：Depth First Search and Breadth First Search in C++](http://codereview.stackexchange.com/questions/82476/depth-first-search-and-breadth-first-search-in-c)。
-        * `color`、`distance`、`predecessor`：將在`BFS()`中使用，功能如上述。
-    * public member function：
-        * `Constructor:Graph(int num_vertex)`：在定義Graph的object(物件)時，需要知道vertex的數目，並在`constructor`中定義好`AdjList`。
-        * `AddEdgeList(int from, in to)`：功能便是在`AdjList`新增從`from`到`to`的edge。
-        * `BFS(int Start)`：需要知道起點vertex。
+* private data member：
+    * `num_vertex`：需要在定義`Graph`的object(物件)時，給定vertex的數目，以便建立`Adjacency List`(或者`Adjacency Matrix`)。
+    * `std::vector< std::list<int> > AdjList`：利用C++標準函式庫(STL)提供的container(容器):`std::vector`與`std::list`來實現。這樣的寫法的優點是：不需要使用到`new operator`，便能夠將記憶體控管交給STL，不需要自行處理`delete operator`，以避免記憶體遺漏(memory leak)，詳細討論請參考[Code Review：Depth First Search and Breadth First Search in C++](http://codereview.stackexchange.com/questions/82476/depth-first-search-and-breadth-first-search-in-c)。
+    * `color`、`distance`、`predecessor`：將在`BFS()`中使用，功能如上述。
+* public member function：
+    * `Constructor:Graph(int num_vertex)`：在定義Graph的object(物件)時，需要知道vertex的數目，並在`constructor`中定義好`AdjList`。
+    * `AddEdgeList(int from, in to)`：功能便是在`AdjList`新增從`from`到`to`的edge。
+    * `BFS(int Start)`：需要知道起點vertex。
 
-* `main()`：用`AddEdgeList()`建立起如圖二(a)的Graph之`AdjList()`，並在Graph上執行`BFS()`。
-
+</br>
 
 ```cpp
 // C++ code
