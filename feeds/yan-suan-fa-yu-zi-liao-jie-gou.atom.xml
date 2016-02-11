@@ -406,6 +406,11 @@
 &lt;/ul&gt;
 &lt;p&gt;諸如此類的，是不是很有趣呢？&lt;br /&gt;
 (好像也還好。)&lt;/p&gt;
+&lt;p&gt;最後再看一次&lt;code&gt;DFS()&lt;/code&gt;的流程，見圖七：&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="dfs" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/DFS_fig/DFS.gif?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖七：。&lt;/strong&gt;&lt;br /&gt;
+&lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;p&gt;以上便是Depth-First Search(DFS，深度優先搜尋)的介紹。&lt;br /&gt;
 在接下來的文章中，將利用&lt;code&gt;DFS()&lt;/code&gt;與神奇的&lt;code&gt;finish&lt;/code&gt;：&lt;/p&gt;
