@@ -71,7 +71,7 @@ Depth-First Search(DFS，深度優先搜尋)的核心精神便如同Pre-Order Tr
 看起來好像沒有`BFS()`這麼殺手級，雖然找到一條路卻不保證是最短路徑。  
 但其實`DFS()`還是很有用的，因為經過一次`DFS()`後，將得到一項資料稱作`finish`，而`finish`竟然可以用來...！？
 
-看下去。
+別轉台，看下去。
 
 
 <a name="algorithm"></a>
