@@ -86,13 +86,13 @@ Summary: 利用DFS和BFS尋找undiredted graph中的Connected Component。
 
 `SetCollapsing()`是稍後會用到的函式，其功能可以拆成兩個部分理解：一個是「Set」，一個是「Collapsing」：
 
-* Set(集合)：`SetCollapsing()`處理的對象是Set，也就是不具「次序(order)」的資料，如圖二左，共有三個Set，分別是$S_1:{0,1,4,5,7}、S_2:{3,6,8}、S_3:{2}$。
+* Set(集合)：`SetCollapsing()`處理的對象是Set，也就是不具「次序(order)」的資料，如圖二左，共有三個Set，分別是$S_1:{{0,1,4,5,7}}、S_2:{3,6,8}、S_3:{2}$。
     * 在Set上，時常要做的操作便是「查看某個元素(element)在哪一個Set裡面」，而Set通常是用`root`代表，因此，若如圖二左的方式，以element(0)作為「存取(access)點」(也就是這個Set的`root`)，那麼要判斷element(7)是在element(0)所代表的Set內(而不是element(3)所代表的Set)，就需要$O(N)$的搜尋時間($N$為Set內的元素數量)，從element(7)一路找到element(0)，才能判斷。
     * 如果能夠以圖二右的資料結構表示Set，那麼以element(0)、element(2)、element(3)代表Set，要判斷任何一個元素(element)是屬於哪一個Set，便只要$O(1)$的時間。
 * Collapsing(塌陷)：讓Set「塌陷」，使得所有element皆能直接指向其所在的Set之`root`。
 
   
-(以下先以`DFS()`為例，稍後在程式碼的部分將會展示以`BFS()`進行之結果)
+(以下先以`DFS()`為例，稍後在程式碼的部分將會同步展示以`BFS()`進行之結果)
 
 考慮圖三(a)的undirected graph：
 
