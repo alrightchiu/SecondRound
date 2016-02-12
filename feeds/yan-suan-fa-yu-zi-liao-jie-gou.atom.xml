@@ -3,7 +3,7 @@
 &lt;h4&gt;&lt;strong&gt;先備知識與注意事項&lt;/strong&gt;&lt;/h4&gt;
 &lt;p&gt;若一個undirected graph中，若有任兩個vertex之間沒有path連結，那麼此undirected graph就不是connected，裡面一定包含了兩個以上的connected component。  &lt;/p&gt;
 &lt;p&gt;如圖一(a)，vertex(0)與vertex(1)不論經過Graph中其他任何vertex都沒有辦法產生一條path連結，則此Graph就不是connected。&lt;br /&gt;
-並且觀察，vertex(0)、vertex(2)、vertex(4)彼此皆有path能夠互相連結，因此subgraph：&lt;span class="math"&gt;\(V_1:\)&lt;/span&gt;{&lt;span class="math"&gt;\(0,2,4\)&lt;/span&gt;}與&lt;span class="math"&gt;\(E_1:\)&lt;/span&gt;{&lt;span class="math"&gt;\((0,2),(0,4)\)&lt;/span&gt;}即為一個connected component，而subgraph：&lt;span class="math"&gt;\(V_2:\)&lt;/span&gt;{&lt;span class="math"&gt;\(1,3\)&lt;/span&gt;}與&lt;span class="math"&gt;\(E_2:\)&lt;/span&gt;{&lt;span class="math"&gt;\((1,3)\)&lt;/span&gt;}是另一個connected component。&lt;/p&gt;
+並且觀察，vertex(0)、vertex(2)、vertex(4)彼此皆有path能夠互相連結，因此subgraph：&lt;span class="math"&gt;\(V_1\)&lt;/span&gt;:{&lt;span class="math"&gt;\(0,2,4\)&lt;/span&gt;}與&lt;span class="math"&gt;\(E_1\)&lt;/span&gt;:{&lt;span class="math"&gt;\((0,2),(0,4)\)&lt;/span&gt;}即為一個connected component，而subgraph：&lt;span class="math"&gt;\(V_2\)&lt;/span&gt;:{&lt;span class="math"&gt;\(1,3\)&lt;/span&gt;}與&lt;span class="math"&gt;\(E_2\)&lt;/span&gt;:{&lt;span class="math"&gt;\((1,3)\)&lt;/span&gt;}是另一個connected component。&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/CC_fig/f1.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖一(a)。&lt;/strong&gt;&lt;br /&gt;
@@ -52,7 +52,7 @@
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;SetCollapsing()&lt;/code&gt;是稍後會用到的函式，其功能可以拆成兩個部分理解：一個是「Set」，一個是「Collapsing」：&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;Set(集合)：&lt;code&gt;SetCollapsing()&lt;/code&gt;處理的對象是Set，也就是不具「次序(order)」的資料，如圖二左，共有三個Set，分別是&lt;span class="math"&gt;\(S_1:\)&lt;/span&gt;{&lt;span class="math"&gt;\(0,1,4,5,7\)&lt;/span&gt;}、&lt;span class="math"&gt;\(S_2:\)&lt;/span&gt;{&lt;span class="math"&gt;\(3,6,8\)&lt;/span&gt;}、&lt;span class="math"&gt;\(S_3:\)&lt;/span&gt;{&lt;span class="math"&gt;\(2\)&lt;/span&gt;}。&lt;ul&gt;
+&lt;li&gt;Set(集合)：&lt;code&gt;SetCollapsing()&lt;/code&gt;處理的對象是Set，也就是不具「次序(order)」的資料，如圖二左，共有三個Set，分別是&lt;span class="math"&gt;\(S_1\)&lt;/span&gt;:{&lt;span class="math"&gt;\(0,1,4,5,7\)&lt;/span&gt;}、&lt;span class="math"&gt;\(S_2\)&lt;/span&gt;:{&lt;span class="math"&gt;\(3,6,8\)&lt;/span&gt;}、&lt;span class="math"&gt;\(S_3\)&lt;/span&gt;:{&lt;span class="math"&gt;\(2\)&lt;/span&gt;}。&lt;ul&gt;
 &lt;li&gt;在Set上，時常要做的操作便是「查看某個元素(element)在哪一個Set裡面」，而Set通常是用&lt;code&gt;root&lt;/code&gt;代表，因此，若如圖二左的方式，以element(0)作為「存取(access)點」(也就是這個Set的&lt;code&gt;root&lt;/code&gt;)，那麼要判斷element(7)是在element(0)所代表的Set內(而不是element(3)所代表的Set)，就需要&lt;span class="math"&gt;\(O(N)\)&lt;/span&gt;的搜尋時間(&lt;span class="math"&gt;\(N\)&lt;/span&gt;為Set內的元素數量)，從element(7)一路找到element(0)，才能判斷。&lt;/li&gt;
 &lt;li&gt;如果能夠以圖二右的資料結構表示Set，那麼以element(0)、element(2)、element(3)代表Set，要判斷任何一個元素(element)是屬於哪一個Set，便只要&lt;span class="math"&gt;\(O(1)\)&lt;/span&gt;的時間。&lt;/li&gt;
 &lt;/ul&gt;
@@ -76,7 +76,7 @@
 &lt;p&gt;&lt;strong&gt;圖三(b)。&lt;/strong&gt;&lt;br /&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;接下來要進行&lt;code&gt;SetCollapsing()&lt;/code&gt;。&lt;br /&gt;
-在此先以&lt;span class="math"&gt;\(Set:\)&lt;/span&gt;{&lt;span class="math"&gt;\(0,1,4,5,7\)&lt;/span&gt;}為例作說明，目標是從圖三(c)左轉換成圖三(c)右。&lt;/p&gt;
+在此先以&lt;span class="math"&gt;\(Set\)&lt;/span&gt;:{&lt;span class="math"&gt;\(0,1,4,5,7\)&lt;/span&gt;}為例作說明，目標是從圖三(c)左轉換成圖三(c)右。&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="sc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/CC_fig/f6.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖三(c)。&lt;/strong&gt;&lt;br /&gt;
