@@ -11,7 +11,7 @@ Summary: 利用DFS和BFS尋找undiredted graph中的Connected Component。
 若一個undirected graph中，若有任兩個vertex之間沒有path連結，那麼此undirected graph就不是connected，裡面一定包含了兩個以上的connected component。  
 
 如圖一(a)，vertex(0)與vertex(1)不論經過Graph中其他任何vertex都沒有辦法產生一條path連結，則此Graph就不是connected。  
-並且觀察，vertex(0)、vertex(2)、vertex(4)彼此皆有path能夠互相連結，因此subgraph：$V_1:{0,2,4}$與$E_1:{(0,2),(0,4)}$即為一個connected component，而subgraph：$V_2:{1,3}$與$E_2:{(1,3)}$是另一個connected component。
+並且觀察，vertex(0)、vertex(2)、vertex(4)彼此皆有path能夠互相連結，因此subgraph：$V_1:${$0,2,4$}與$E_1:${$(0,2),(0,4)$}即為一個connected component，而subgraph：$V_2:${$1,3$}與$E_2:${$(1,3)$}是另一個connected component。
 
 
 <center>
@@ -117,7 +117,7 @@ Summary: 利用DFS和BFS尋找undiredted graph中的Connected Component。
 
 
 接下來要進行`SetCollapsing()`。  
-在此先以$Set:{0,1,4,5,7}$為例作說明，目標是從圖三(c)左轉換成圖三(c)右。
+在此先以$Set:${$0,1,4,5,7$}為例作說明，目標是從圖三(c)左轉換成圖三(c)右。
 
 
 <center>
