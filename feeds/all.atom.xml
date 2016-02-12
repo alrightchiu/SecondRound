@@ -834,7 +834,7 @@
         "}";
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
-&lt;/script&gt;</summary><category term="C++"></category><category term="Graph"></category></entry><entry><title>Grpah: Breadth-First Search(BFS，廣度優先搜尋)</title><link href="http://alrightchiu.github.io/SecondRound/grpah-breadth-first-searchbfsguang-du-you-xian-sou-xun.html" rel="alternate"></link><updated>2016-02-06T14:15:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-02-06:SecondRound/grpah-breadth-first-searchbfsguang-du-you-xian-sou-xun.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;/script&gt;</summary><category term="C++"></category><category term="Graph"></category><category term="DFS"></category></entry><entry><title>Grpah: Breadth-First Search(BFS，廣度優先搜尋)</title><link href="http://alrightchiu.github.io/SecondRound/grpah-breadth-first-searchbfsguang-du-you-xian-sou-xun.html" rel="alternate"></link><updated>2016-02-06T14:15:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-02-06:SecondRound/grpah-breadth-first-searchbfsguang-du-you-xian-sou-xun.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h4&gt;&lt;strong&gt;先備知識與注意事項&lt;/strong&gt;&lt;/h4&gt;
 &lt;p&gt;在&lt;a href="http://alrightchiu.github.io/SecondRound/binary-tree-traversalxun-fang.html#level"&gt;Binary Tree: Traversal(尋訪)&lt;/a&gt;與&lt;a href="http://alrightchiu.github.io/SecondRound/binary-tree-jian-li-yi-ke-binary-tree.html"&gt;Binary Tree: 建立一棵Binary Tree&lt;/a&gt;兩篇文章裡，介紹了如何利用&lt;code&gt;queue&lt;/code&gt;在Binary Tree中進行&lt;strong&gt;Level-Order Traversal&lt;/strong&gt;，其概念便是：各個node相對於&lt;code&gt;root&lt;/code&gt;有其相對應的level，按照level由小到大依序對node進行Visiting。&lt;br /&gt;
 而level便代表了node與&lt;code&gt;root&lt;/code&gt;之「距離」，以Graph的語言來說，「距離」便是path的&lt;strong&gt;length(長度)/distance(距離)&lt;/strong&gt;。如圖一：&lt;/p&gt;
@@ -1200,7 +1200,7 @@
         "}";
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
-&lt;/script&gt;</summary><category term="C++"></category><category term="Graph"></category></entry><entry><title>Grpah: Intro(簡介)</title><link href="http://alrightchiu.github.io/SecondRound/grpah-introjian-jie.html" rel="alternate"></link><updated>2016-02-03T23:49:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-02-03:SecondRound/grpah-introjian-jie.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;/script&gt;</summary><category term="C++"></category><category term="Graph"></category><category term="BFS"></category></entry><entry><title>Grpah: Intro(簡介)</title><link href="http://alrightchiu.github.io/SecondRound/grpah-introjian-jie.html" rel="alternate"></link><updated>2016-02-03T23:49:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-02-03:SecondRound/grpah-introjian-jie.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h4&gt;&lt;strong&gt;先備知識與注意事項&lt;/strong&gt;&lt;/h4&gt;
 &lt;p&gt;在經歷過&lt;a href="http://alrightchiu.github.io/SecondRound/treeshu-introjian-jie.html"&gt;Tree系列文章&lt;/a&gt;的洗禮後，接著要介紹的是Graph(圖)。&lt;/p&gt;
 &lt;p&gt;Graph比Tree更加廣義，其定義僅僅使用了集合(Set)，並且不限制結構裡的node/vertex只能有唯一的&lt;code&gt;parent field&lt;/code&gt;，因此，更多的問題能夠以Graph建立模型。 &lt;/p&gt;
