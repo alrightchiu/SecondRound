@@ -1,7 +1,7 @@
 Title: Grpah: Breadth-First Search(BFS，廣度優先搜尋)    
 Date: 2016-2-6 14:15  
 Category: 演算法與資料結構  
-Tags: C++, Graph  
+Tags: C++, Graph, BFS  
 Summary: 介紹Graph(圖)中的基本操作：Breadth-First Search(BFS，廣度優先搜尋) 。
  
 

@@ -1,7 +1,7 @@
 Title: Grpah: Depth-First Search(DFS，深度優先搜尋)    
 Date: 2016-2-11 22:36  
 Category: 演算法與資料結構  
-Tags: C++, Graph  
+Tags: C++, Graph, DFS  
 Summary: 介紹Graph(圖)的中的基本操作：Depth-First Search(DFS，深度優先搜尋)。
  
 
