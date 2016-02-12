@@ -469,13 +469,13 @@ finish time:
 經過`DFS()`後，還可以分類出四種edge：
 
 1. **Tree edge**：若vertex(Y)是被vertex(X)「發現」，則edge(X,Y)即為Tree edge，也就是Depth-First Tree中的edge。
-    * 也就是說，當vertex(X)搜尋到vertex(Y)，且vertex(Y)為「白色」時，就會建立出Tree edge。
+    * 透過顏色判斷edge：當vertex(X)搜尋到vertex(Y)，且vertex(Y)為「白色」時，就會建立出Tree edge。
 2. **Back edge**：所有指向ancestor的edge，稱為Back edge。如圖六中，edge(F,B)與edge(H,G)。
-    * 當vertex(X)搜尋到vertex(Y)，且vertex(Y)為「灰色」，就會建立起Back edge，見圖三(j)、圖三(q)與圖六。
+    * 透過顏色判斷edge：當vertex(X)搜尋到vertex(Y)，且vertex(Y)為「灰色」，就會建立起Back edge，見圖三(j)、圖三(q)與圖六。
 3. **Forward edge**：所有指向descendant但不是Tree edge的edge，稱為Forward edge。觀察「時間軸」，若Graph存在例如：edge(A,D)、edge(A,E)或者edge(B,E)，即可稱之為Forward edge。很遺憾的，圖六中，沒有Forward edge。
-    * 當vertex(X)搜尋到vertex(Y)時，vertex(Y)為「黑色」，並且`discover[X]`$<$`discover[Y]`，edge(X,Y)即為Forward edge。
+    * 透過顏色判斷edge：當vertex(X)搜尋到vertex(Y)時，vertex(Y)為「黑色」，並且`discover[X]`$<$`discover[Y]`，edge(X,Y)即為Forward edge。
 4. **Cross edge**：若兩個vertex不在同一棵Depth-First Tree上，例如vertex(C)與vertex(H)，或者兩個vertex在同一棵Depth-First Tree上卻沒有「ancestor-descendant」的關係，例如vertex(C)與vertex(F)，則稱連結此兩個vertex的edge為Cross edge。
-    * 當vertex(X)搜尋到vertex(Y)時，vertex(Y)為「黑色」，並且`discover[X]`$>$`discover[Y]`，edge(X,Y)即為Cross edge。
+    * 透過顏色判斷edge：當vertex(X)搜尋到vertex(Y)時，vertex(Y)為「黑色」，並且`discover[X]`$>$`discover[Y]`，edge(X,Y)即為Cross edge。
 
 分類出四種edge除了可以作為大腦體操，還可以根據Graph中是否具有/不具有某些edge來區分Graph的性質：
 
