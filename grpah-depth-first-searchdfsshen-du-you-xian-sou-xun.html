@@ -493,19 +493,19 @@
 <p>經過<code>DFS()</code>後，還可以分類出四種edge：</p>
 <ol>
 <li><strong>Tree edge</strong>：若vertex(Y)是被vertex(X)「發現」，則edge(X,Y)即為Tree edge，也就是Depth-First Tree中的edge。<ul>
-<li>也就是說，當vertex(X)搜尋到vertex(Y)，且vertex(Y)為「白色」時，就會建立出Tree edge。</li>
+<li>透過顏色判斷edge：當vertex(X)搜尋到vertex(Y)，且vertex(Y)為「白色」時，就會建立出Tree edge。</li>
 </ul>
 </li>
 <li><strong>Back edge</strong>：所有指向ancestor的edge，稱為Back edge。如圖六中，edge(F,B)與edge(H,G)。<ul>
-<li>當vertex(X)搜尋到vertex(Y)，且vertex(Y)為「灰色」，就會建立起Back edge，見圖三(j)、圖三(q)與圖六。</li>
+<li>透過顏色判斷edge：當vertex(X)搜尋到vertex(Y)，且vertex(Y)為「灰色」，就會建立起Back edge，見圖三(j)、圖三(q)與圖六。</li>
 </ul>
 </li>
 <li><strong>Forward edge</strong>：所有指向descendant但不是Tree edge的edge，稱為Forward edge。觀察「時間軸」，若Graph存在例如：edge(A,D)、edge(A,E)或者edge(B,E)，即可稱之為Forward edge。很遺憾的，圖六中，沒有Forward edge。<ul>
-<li>當vertex(X)搜尋到vertex(Y)時，vertex(Y)為「黑色」，並且<code>discover[X]</code><span class="math">\(&lt;\)</span><code>discover[Y]</code>，edge(X,Y)即為Forward edge。</li>
+<li>透過顏色判斷edge：當vertex(X)搜尋到vertex(Y)時，vertex(Y)為「黑色」，並且<code>discover[X]</code><span class="math">\(&lt;\)</span><code>discover[Y]</code>，edge(X,Y)即為Forward edge。</li>
 </ul>
 </li>
 <li><strong>Cross edge</strong>：若兩個vertex不在同一棵Depth-First Tree上，例如vertex(C)與vertex(H)，或者兩個vertex在同一棵Depth-First Tree上卻沒有「ancestor-descendant」的關係，例如vertex(C)與vertex(F)，則稱連結此兩個vertex的edge為Cross edge。<ul>
-<li>當vertex(X)搜尋到vertex(Y)時，vertex(Y)為「黑色」，並且<code>discover[X]</code><span class="math">\(&gt;\)</span><code>discover[Y]</code>，edge(X,Y)即為Cross edge。</li>
+<li>透過顏色判斷edge：當vertex(X)搜尋到vertex(Y)時，vertex(Y)為「黑色」，並且<code>discover[X]</code><span class="math">\(&gt;\)</span><code>discover[Y]</code>，edge(X,Y)即為Cross edge。</li>
 </ul>
 </li>
 </ol>
