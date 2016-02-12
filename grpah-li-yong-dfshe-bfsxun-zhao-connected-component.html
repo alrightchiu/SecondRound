@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="zh-hant">
+
+<head>
+            <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+
+        <title>Grpah: 利用DFS和BFS尋找Connected Component</title>
+
+            <link href="http://alrightchiu.github.io/SecondRound/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Second Round Full Atom Feed" />
+            <link href="http://alrightchiu.github.io/SecondRound/feeds/yan-suan-fa-yu-zi-liao-jie-gou.atom.xml" type="application/atom+xml" rel="alternate" title="Second Round Categories Atom Feed" />
+
+        <!-- Bootstrap Core CSS -->
+        <link href="http://alrightchiu.github.io/SecondRound/theme/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="http://alrightchiu.github.io/SecondRound/theme/css/clean-blog.min.css" rel="stylesheet">
+
+        <!-- Code highlight color scheme -->
+            <link href="http://alrightchiu.github.io/SecondRound/theme/css/code_blocks/darkly.css" rel="stylesheet">
+
+
+        <!-- Custom Fonts -->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+
+
+
+        <meta name="tags" contents="C++" />
+        <meta name="tags" contents="Graph" />
+        <meta name="tags" contents="BFS" />
+        <meta name="tags" contents="DFS" />
+
+
+	                <meta property="og:locale" content="">
+		<meta property="og:site_name" content="Second Round">
+
+	<meta property="og:type" content="article">
+	<meta property="article:author" content="">
+	<meta property="og:url" content="http://alrightchiu.github.io/SecondRound/grpah-li-yong-dfshe-bfsxun-zhao-connected-component.html">
+	<meta property="og:title" content="Grpah: 利用DFS和BFS尋找Connected Component">
+	<meta property="og:description" content="">
+	<meta property="og:image" content="http://alrightchiu.github.io/SecondRound/">
+	<meta property="article:published_time" content="2016-02-12 22:55:00+08:00">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://alrightchiu.github.io/SecondRound/">Second Round</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a href="http://alrightchiu.github.io/SecondRound/archives.html">Archives</a></li>
+                        <li><a href="http://alrightchiu.github.io/SecondRound/tags.html">Tags</a></li>
+
+                            <li><a href="http://alrightchiu.github.io/SecondRound/pages/about.html">About</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+        <header class="intro-header" style="background-image: url('http://alrightchiu.github.io/SecondRound/theme/images/post-bg.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>Grpah: 利用DFS和BFS尋找Connected Component</h1>
+                        <span class="meta">Posted by
+                                <a href="http://alrightchiu.github.io/SecondRound/author/chiu-cc.html">Chiu CC</a>
+                             on  2 12, 2016
+                        </span>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    <!-- Post Content -->
+    <article>
+        <p></br></p>
+<h4><strong>先備知識與注意事項</strong></h4>
+<p>若一個undirected graph中，若有任兩個vertex之間沒有path連結，那麼此undirected graph就不是connected，裡面一定包含了兩個以上的connected component。  </p>
+<p>如圖一(a)，vertex(0)與vertex(1)不論經過Graph中其他任何vertex都沒有辦法產生一條path連結，則此Graph就不是connected。<br />
+並且觀察，vertex(0)、vertex(2)、vertex(4)彼此皆有path能夠互相連結，因此subgraph：<span class="math">\(V_1:{0,2,4}\)</span>與<span class="math">\(E_1:{(0,2),(0,4)}\)</span>即為一個connected component，而subgraph：<span class="math">\(V_2:{1,3}\)</span>與<span class="math">\(E_2:{(1,3)}\)</span>是另一個connected component。</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/CC_fig/f1.png?raw=true" /></p>
+<p><strong>圖一(a)。</strong><br />
+</center></p>
+<p>再看圖一(b)，Graph中的任何vertex皆能經由一條path通往其餘vertex，因此，整個Graph所形成的集合即為一個connected component。</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/CC_fig/f2.png?raw=true" /></p>
+<p><strong>圖一(b)。</strong><br />
+</center></p>
+<p>本篇文章要示範強大的<code>DFS()</code>與<code>BFS()</code>的小小應用：尋找undirected graph中的<strong>connected component</strong>。<br />
+若不太熟悉<strong>connected</strong>的定義，可以先閱讀<a href="alrightchiu.github.io/SecondRound/grpah-introjian-jie.html">Grpah: Intro(簡介)</a>稍稍複習。<br />
+此外，為了集中火力，<code>DFS()</code>與<code>BFS()</code>的程式碼就留在<a href="http://alrightchiu.github.io/SecondRound/grpah-depth-first-searchdfsshen-du-you-xian-sou-xun.html">Grpah: Depth-First Search(DFS，深度優先搜尋)</a>與<a href="http://alrightchiu.github.io/SecondRound/grpah-breadth-first-searchbfsguang-du-you-xian-sou-xun.html">Grpah: Breadth-First Search(BFS，廣度優先搜尋)</a>裡面，如果還沒有對兩個演算法送出交友邀請，千萬不要客氣。</p>
+<p>最後一點溫馨小提醒：Graph與connected component的本質上是Set(集合)，因此，以下將會用到Set的觀點做說明。如果不熟悉Set也沒關係，只要知道Set是「一團不在意次序(order)的資料」就可以了。</p>
+<hr />
+<h2>目錄</h2>
+<ul>
+<li><a href="#how">DFS與BFS何德何能？</a></li>
+<li><a href="#algorithm">演算法</a></li>
+<li><a href="#code">程式碼</a></li>
+<li><a href="#scc">如果是Strongly Connected Component呢</a></li>
+<li><a href="#ref">參考資料</a></li>
+</ul>
+<p><a name="how"></a></p>
+<h2><strong>DFS與BFS何德何能？</strong></h2>
+<p>關鍵就是，兩個演算法都能產生<code>predecessor</code>。</p>
+<p>若vertex(Y)的<code>predecessor[Y]</code>是vertex(X)，表示：</p>
+<ul>
+<li>vertex(Y)是被vertex(X)給找到。</li>
+<li>也就表示，在undirected graph中，存在edge(X,Y)。</li>
+<li>又因為是undirected graph，若存在edge(X,Y)，就能從vertex(X)走到vertex(Y)，也能從vertex(Y)走到vertex(X)。</li>
+</ul>
+<p>因此，若vertex(Y)的<code>predecessor[Y]</code>是vertex(X)，就表示vertex(X)與vertex(Y)一定在同一個connected component裡面。</p>
+<p>這也就是為什麼<code>DFS()</code>與<code>BFS()</code>都能夠用來尋找undirected graph中的connected component的原因。</p>
+<p><a name="algorithm"></a></p>
+<h2><strong>演算法</strong></h2>
+<p>尋找connected component的演算法很直觀，只要三步驟：</p>
+<ol>
+<li>在Graph上執行<code>DFS()</code>或<code>BFS()</code>得到<code>predecessor</code>。</li>
+<li>進行<code>SetCollapsing()</code>。（蛤？）</li>
+<li>印出共有幾個connected component，以及各個connected component中的vertex。</li>
+</ol>
+<p>以上步驟，顯然有個傢伙很突兀。</p>
+<p><center>
+<img alt="sc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/CC_fig/f3.png?raw=true" /></p>
+<p><strong>圖二。</strong><br />
+</center></p>
+<p><code>SetCollapsing()</code>是稍後會用到的函式，其功能可以拆成兩個部分理解：一個是「Set」，一個是「Collapsing」：</p>
+<ul>
+<li>Set(集合)：<code>SetCollapsing()</code>處理的對象是Set，也就是不具「次序(order)」的資料，如圖二左，共有三個Set，分別是<span class="math">\(S_1:{0,1,4,5,7}、S_2:{3,6,8}、S_3:{2}\)</span>。<ul>
+<li>在Set上，時常要做的操作便是「查看某個元素(element)在哪一個Set裡面」，而Set通常是用<code>root</code>代表，因此，若如圖二左的方式，以element(0)作為「存取(access)點」(也就是這個Set的<code>root</code>)，那麼要判斷element(7)是在element(0)所代表的Set內(而不是element(3)所代表的Set)，就需要<span class="math">\(O(N)\)</span>的搜尋時間(<span class="math">\(N\)</span>為Set內的元素數量)，從element(7)一路找到element(0)，才能判斷。</li>
+<li>如果能夠以圖二右的資料結構表示Set，那麼以element(0)、element(2)、element(3)代表Set，要判斷任何一個元素(element)是屬於哪一個Set，便只要<span class="math">\(O(1)\)</span>的時間。</li>
+</ul>
+</li>
+<li>Collapsing(塌陷)：讓Set「塌陷」，使得所有element皆能直接指向其所在的Set之<code>root</code>。</li>
+</ul>
+<p>(以下先以<code>DFS()</code>為例，稍後在程式碼的部分將會展示以<code>BFS()</code>進行之結果)</p>
+<p>考慮圖三(a)的undirected graph：</p>
+<p><center>
+<img alt="dfs" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/CC_fig/f4.png?raw=true" /></p>
+<p><strong>圖三(a)。</strong><br />
+</center></p>
+<p>首先，對Graph進行<code>DFS()</code>，取得<code>predecessor</code>，以及圖三(b)的Depth-First Forest：  </p>
+<ul>
+<li>由於是undirected graph，由任意vertex作為<code>DFS()</code>起點，結果都會相同。此處以vertex(0)作為起點。</li>
+<li>圖三(b)中，vertex(0)、vertex(2)、vertex(3)的<code>predecessor</code>皆為<span class="math">\(-1\)</span>，表示這三者皆為Depth-First Tree的<code>root</code>，也就是Set的<code>root</code>。</li>
+<li>而其餘的vertex，皆能透過<code>predecessor</code>回溯到<code>root</code>。</li>
+</ul>
+<p><center>
+<img alt="sc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/CC_fig/f5.png?raw=true" /></p>
+<p><strong>圖三(b)。</strong><br />
+</center></p>
+<p>接下來要進行<code>SetCollapsing()</code>。<br />
+在此先以<span class="math">\(Set:{0,1,4,5,7}\)</span>為例作說明，目標是從圖三(c)左轉換成圖三(c)右。</p>
+<p><center>
+<img alt="sc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/CC_fig/f6.png?raw=true" /></p>
+<p><strong>圖三(c)。</strong><br />
+</center></p>
+<p>先觀察：<code>SetCollapsing()</code>什麼時候完成？<br />
+就是當Set中，除了<code>root</code>之外的所有vertex(等義於element)的<code>predecessor</code>都指向<code>root</code>時，也就是當要被「塌陷」的vertex剩下<code>root</code>的時候，<code>SetCollapsing()</code>便完成。</p>
+<p>若現在要對vertex(7)進行<code>SetCollapsing()</code>，見圖三(d)：</p>
+<ul>
+<li>把vertex(7)標記上<code>current</code>。</li>
+<li>找到vertex(7)所在的Set的<code>root</code>，也就是vertex(0)，標記上<code>root</code>。</li>
+<li>找到vertex(7)的<code>predecessor</code>，也就是vertex(5)，標記上<code>parent</code>。</li>
+</ul>
+<p>接著判斷，若<code>current</code>不等於<code>root</code>(表示除了<code>root</code>之外，還有vertex還沒有「塌陷」，因此<code>SetCollapsing()</code>還沒有完成)，那麼就把：</p>
+<ul>
+<li><code>current</code>的<code>predecessor</code>更新成<code>root</code>：<code>predecessor[7]</code>更新成vertex(0)。</li>
+<li>並且把原先的<code>parent</code>當成新的<code>current</code>：<code>current</code>移動到vertex(5)。</li>
+</ul>
+<p><center>
+<img alt="sc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/CC_fig/f7.png?raw=true" /></p>
+<p><strong>圖三(d)。</strong><br />
+</center></p>
+<p>現在<code>current</code>變成了vertex(5)，不等於<code>root</code>vertex(0)，因此繼續：</p>
+<ul>
+<li>把<code>parent</code>標記成vertex(4)。</li>
+<li><code>current</code>的<code>predecessor</code>更新成<code>root</code>：<code>predecessor[5]</code>更新成vertex(0)。</li>
+<li>並且把原先的<code>parent</code>當成新的<code>current</code>：<code>current</code>移動到vertex(4)。</li>
+</ul>
+<p><center>
+<img alt="sc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/CC_fig/f8.png?raw=true" /></p>
+<p><strong>圖三(e)。</strong><br />
+</center></p>
+<p>接下來的<code>current</code>依序會是vertex(4)、vertex(1)，因為<code>current</code>還不是vertex(0)，便按照上述步驟「塌陷」。直到<code>current</code>移到vertex(0)後，<code>SetCollapsing()</code>便完成，見圖三(f)。</p>
+<p><center>
+<img alt="sc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/CC_fig/f9.png?raw=true" /></p>
+<p><strong>圖三(f9)。</strong><br />
+</center></p>
+<p>比較一下經過<code>SetCollapsing()</code>處立前後的<code>predecessor</code>，如圖四。</p>
+<p><center>
+<img alt="sc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/CC_fig/f10.png?raw=true" /></p>
+<p><strong>圖四。</strong><br />
+</center></p>
+<p>只要先找到<code>predecessor</code>為「負值」的vertex，就找到了代表某一connected component的Set之<code>root</code>，再尋找哪些vertex的<code>predecessor</code>指向該<code>root</code>，便能找出該connected component所包含的所有vertex。</p>
+<p>大功告成。</p>
+<p><a name="code"></a></p>
+<h2><strong>程式碼</strong></h2>
+<p>範例程式碼除了已經介紹過的<code>class Graph</code>、<code>DFS()</code>以及<code>BFS()</code>之外，還多了四個函式。<br />
+其中，在undirected graph中尋找connected component的主要函式：<code>CCDFS(int vertex)</code>與<code>CCBFS(int vertex)</code>共包含三個部分：</p>
+<ul>
+<li><code>DFS()</code>或者<code>BFS()</code>，取得<code>predecessor</code>。</li>
+<li><code>SetCollapsing</code>是為了讓尋找connected component變得更簡單。</li>
+<li>最後，是利用「塌陷」過後的<code>predecessor</code>找到connected component。<br />
+(<code>PrintPredecessor()</code>是為了印出<code>predecessor</code>以驗證<code>SetCollapsing</code>的正確性，非必要。)</li>
+</ul>
+<div class="highlight"><pre><span class="c1">// C++ code</span>
+<span class="cp">#include &lt;iostream&gt;</span>
+<span class="cp">#include &lt;vector&gt;</span>
+<span class="cp">#include &lt;list&gt;</span>
+<span class="cp">#include &lt;queue&gt;</span>
+<span class="cp">#include &lt;iomanip&gt;      </span><span class="c1">// for std::setw()</span>
+
+<span class="k">class</span> <span class="nc">Graph</span><span class="p">{</span>
+<span class="k">private</span><span class="o">:</span>
+    <span class="kt">int</span> <span class="n">num_vertex</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">list</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">AdjList</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="o">*</span><span class="n">color</span><span class="p">,</span>             <span class="c1">// 0:white, 1:gray, 2:black</span>
+        <span class="o">*</span><span class="n">predecessor</span><span class="p">,</span>
+        <span class="o">*</span><span class="n">distance</span><span class="p">,</span>          <span class="c1">// for BFS()</span>
+        <span class="o">*</span><span class="n">discover</span><span class="p">,</span>          <span class="c1">// for DFS()</span>
+        <span class="o">*</span><span class="n">finish</span><span class="p">;</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">Graph</span><span class="p">()</span><span class="o">:</span><span class="n">num_vertex</span><span class="p">(</span><span class="mi">0</span><span class="p">){};</span>
+    <span class="n">Graph</span><span class="p">(</span><span class="kt">int</span> <span class="n">N</span><span class="p">)</span><span class="o">:</span><span class="n">num_vertex</span><span class="p">(</span><span class="n">N</span><span class="p">){</span>
+        <span class="c1">// initialize Adj List</span>
+        <span class="n">AdjList</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">num_vertex</span><span class="p">);</span>
+    <span class="p">};</span>
+    <span class="kt">void</span> <span class="nf">AddEdgeList</span><span class="p">(</span><span class="kt">int</span> <span class="n">from</span><span class="p">,</span> <span class="kt">int</span> <span class="n">to</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="nf">BFS</span><span class="p">(</span><span class="kt">int</span> <span class="n">Start</span><span class="p">);</span>    
+    <span class="kt">void</span> <span class="nf">DFS</span><span class="p">(</span><span class="kt">int</span> <span class="n">Start</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="nf">DFSVisit</span><span class="p">(</span><span class="kt">int</span> <span class="n">vertex</span><span class="p">,</span> <span class="kt">int</span> <span class="o">&amp;</span><span class="n">time</span><span class="p">);</span>
+
+    <span class="kt">void</span> <span class="nf">CCDFS</span><span class="p">(</span><span class="kt">int</span> <span class="n">vertex</span><span class="p">);</span>                <span class="c1">// 利用DFS </span>
+    <span class="kt">void</span> <span class="nf">CCBFS</span><span class="p">(</span><span class="kt">int</span> <span class="n">vertex</span> <span class="o">=</span> <span class="mi">0</span><span class="p">);</span>            <span class="c1">// 利用BFS, 兩者邏輯完全相同</span>
+    <span class="kt">void</span> <span class="nf">SetCollapsing</span><span class="p">(</span><span class="kt">int</span> <span class="n">vertex</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="nf">PrintPredecessor</span><span class="p">();</span>               <span class="c1">// 印出predecessor, 供驗証用, 非必要</span>
+<span class="p">};</span>
+
+<span class="kt">void</span> <span class="n">Graph</span><span class="o">::</span><span class="n">SetCollapsing</span><span class="p">(</span><span class="kt">int</span> <span class="n">current</span><span class="p">){</span>
+    <span class="kt">int</span> <span class="n">root</span><span class="p">;</span>  <span class="c1">// root</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">root</span> <span class="o">=</span> <span class="n">current</span><span class="p">;</span> <span class="n">predecessor</span><span class="p">[</span><span class="n">root</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">root</span> <span class="o">=</span> <span class="n">predecessor</span><span class="p">[</span><span class="n">root</span><span class="p">]);</span>
+
+    <span class="k">while</span> <span class="p">(</span><span class="n">current</span> <span class="o">!=</span> <span class="n">root</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">parent</span> <span class="o">=</span> <span class="n">predecessor</span><span class="p">[</span><span class="n">current</span><span class="p">];</span>
+        <span class="n">predecessor</span><span class="p">[</span><span class="n">current</span><span class="p">]</span> <span class="o">=</span> <span class="n">root</span><span class="p">;</span>
+        <span class="n">current</span> <span class="o">=</span> <span class="n">parent</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">Graph</span><span class="o">::</span><span class="n">CCDFS</span><span class="p">(</span><span class="kt">int</span> <span class="n">vertex</span> <span class="o">=</span> <span class="mi">0</span><span class="p">){</span>
+
+    <span class="n">DFS</span><span class="p">(</span><span class="n">vertex</span><span class="p">);</span>      <span class="c1">// </span>
+    <span class="n">PrintPredecessor</span><span class="p">();</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span> <span class="n">num_vertex</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+        <span class="n">SetCollapsing</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="n">PrintPredecessor</span><span class="p">();</span>
+
+    <span class="kt">int</span> <span class="n">num_cc</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">num_vertex</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">predecessor</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Component#&quot;</span> <span class="o">&lt;&lt;</span> <span class="o">++</span><span class="n">num_cc</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span><span class="p">;</span>
+            <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">num_vertex</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">predecessor</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">j</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span><span class="p">;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+            <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">Graph</span><span class="o">::</span><span class="n">CCBFS</span><span class="p">(</span><span class="kt">int</span> <span class="n">vertex</span><span class="p">){</span>
+
+    <span class="n">BFS</span><span class="p">(</span><span class="n">vertex</span><span class="p">);</span>
+    <span class="n">PrintPredecessor</span><span class="p">();</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span> <span class="n">num_vertex</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+        <span class="n">SetCollapsing</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="n">PrintPredecessor</span><span class="p">();</span>
+
+    <span class="kt">int</span> <span class="n">num_cc</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">num_vertex</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">predecessor</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Component#&quot;</span> <span class="o">&lt;&lt;</span> <span class="o">++</span><span class="n">num_cc</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span><span class="p">;</span>
+            <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">num_vertex</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">predecessor</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">j</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span><span class="p">;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+            <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="n">Graph</span><span class="o">::</span><span class="n">PrintPredecessor</span><span class="p">(){</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;predecessor:&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">num_vertex</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setw</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">i</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">num_vertex</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setw</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">predecessor</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+    <span class="n">Graph</span> <span class="n">g4</span><span class="p">(</span><span class="mi">9</span><span class="p">);</span>
+    <span class="n">g4</span><span class="p">.</span><span class="n">AddEdgeList</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="n">g4</span><span class="p">.</span><span class="n">AddEdgeList</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span><span class="n">g4</span><span class="p">.</span><span class="n">AddEdgeList</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span><span class="n">g4</span><span class="p">.</span><span class="n">AddEdgeList</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span>
+    <span class="c1">// AdjList[2] empty</span>
+    <span class="n">g4</span><span class="p">.</span><span class="n">AddEdgeList</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">);</span>
+    <span class="n">g4</span><span class="p">.</span><span class="n">AddEdgeList</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span><span class="n">g4</span><span class="p">.</span><span class="n">AddEdgeList</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span>
+    <span class="n">g4</span><span class="p">.</span><span class="n">AddEdgeList</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span><span class="n">g4</span><span class="p">.</span><span class="n">AddEdgeList</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span><span class="n">g4</span><span class="p">.</span><span class="n">AddEdgeList</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">);</span>
+    <span class="n">g4</span><span class="p">.</span><span class="n">AddEdgeList</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span><span class="n">g4</span><span class="p">.</span><span class="n">AddEdgeList</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">);</span>
+    <span class="n">g4</span><span class="p">.</span><span class="n">AddEdgeList</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span>
+    <span class="n">g4</span><span class="p">.</span><span class="n">AddEdgeList</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">);</span>
+
+    <span class="n">g4</span><span class="p">.</span><span class="n">CCDFS</span><span class="p">();</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="n">g4</span><span class="p">.</span><span class="n">CCBFS</span><span class="p">();</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>output:</p>
+<div class="highlight"><pre><span class="nl">predecessor</span><span class="p">:</span>
+   <span class="mi">0</span>   <span class="mi">1</span>   <span class="mi">2</span>   <span class="mi">3</span>   <span class="mi">4</span>   <span class="mi">5</span>   <span class="mi">6</span>   <span class="mi">7</span>   <span class="mi">8</span>
+  <span class="o">-</span><span class="mi">1</span>   <span class="mi">0</span>  <span class="o">-</span><span class="mi">1</span>  <span class="o">-</span><span class="mi">1</span>   <span class="mi">1</span>   <span class="mi">4</span>   <span class="mi">3</span>   <span class="mi">5</span>   <span class="mi">6</span>
+<span class="nl">predecessor</span><span class="p">:</span>
+   <span class="mi">0</span>   <span class="mi">1</span>   <span class="mi">2</span>   <span class="mi">3</span>   <span class="mi">4</span>   <span class="mi">5</span>   <span class="mi">6</span>   <span class="mi">7</span>   <span class="mi">8</span>
+  <span class="o">-</span><span class="mi">1</span>   <span class="mi">0</span>  <span class="o">-</span><span class="mi">1</span>  <span class="o">-</span><span class="mi">1</span>   <span class="mi">0</span>   <span class="mi">0</span>   <span class="mi">3</span>   <span class="mi">0</span>   <span class="mi">3</span>
+<span class="n">Component</span><span class="err">#</span><span class="mi">1</span><span class="o">:</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">7</span> 
+<span class="n">Component</span><span class="err">#</span><span class="mi">2</span><span class="o">:</span> <span class="mi">2</span> 
+<span class="n">Component</span><span class="err">#</span><span class="mi">3</span><span class="o">:</span> <span class="mi">3</span> <span class="mi">6</span> <span class="mi">8</span> 
+
+<span class="nl">predecessor</span><span class="p">:</span>
+   <span class="mi">0</span>   <span class="mi">1</span>   <span class="mi">2</span>   <span class="mi">3</span>   <span class="mi">4</span>   <span class="mi">5</span>   <span class="mi">6</span>   <span class="mi">7</span>   <span class="mi">8</span>
+  <span class="o">-</span><span class="mi">1</span>   <span class="mi">0</span>  <span class="o">-</span><span class="mi">1</span>  <span class="o">-</span><span class="mi">1</span>   <span class="mi">1</span>   <span class="mi">1</span>   <span class="mi">3</span>   <span class="mi">5</span>   <span class="mi">6</span>
+<span class="nl">predecessor</span><span class="p">:</span>
+   <span class="mi">0</span>   <span class="mi">1</span>   <span class="mi">2</span>   <span class="mi">3</span>   <span class="mi">4</span>   <span class="mi">5</span>   <span class="mi">6</span>   <span class="mi">7</span>   <span class="mi">8</span>
+  <span class="o">-</span><span class="mi">1</span>   <span class="mi">0</span>  <span class="o">-</span><span class="mi">1</span>  <span class="o">-</span><span class="mi">1</span>   <span class="mi">0</span>   <span class="mi">0</span>   <span class="mi">3</span>   <span class="mi">0</span>   <span class="mi">3</span>
+<span class="n">Component</span><span class="err">#</span><span class="mi">1</span><span class="o">:</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">7</span> 
+<span class="n">Component</span><span class="err">#</span><span class="mi">2</span><span class="o">:</span> <span class="mi">2</span> 
+<span class="n">Component</span><span class="err">#</span><span class="mi">3</span><span class="o">:</span> <span class="mi">3</span> <span class="mi">6</span> <span class="mi">8</span> 
+</pre></div>
+
+
+<p>聰明的讀者一定已經發現了，不進行<code>SetCollapsing()</code>，單單只靠<code>predecessor</code>一樣可以找出connected component。  </p>
+<p>不過筆者認為使用<code>SetCollapsing()</code>處理<code>predecessor</code>，雖然不見得是最有效率的方法，但是概念上比較直觀，因為connected component就是Set。</p>
+<p>事實上，這兩種Set表示法(「塌陷」前後的<code>predecessor</code>)，正好是在Set問題中永恆的兩難(trade-off)：「要Union方便」還是「Find方便」，有興趣的讀者可以看看這篇：<a href="https://www.hackerearth.com/notes/disjoint-set-union-union-find/">Disjoint Set Union (Union Find)</a>。</p>
+<p><a name="scc"></a></p>
+<h2><strong>如果是Strongly Connected Component呢</strong></h2>
+<p>以上處理的是「在undirected graph中尋找connected component」，那如果要在「directed graph中尋找strongly connected component」呢？</p>
+<p>顯然，光是只有<code>predecessor</code>是不夠的，因為在directed graph中，<code>predecessor</code>能夠保證的是一個「有方向性」的edge，例如edge(X,Y)表示，從vertex(X)能夠走到vertex(y)，卻不能肯定從vertex(Y)也能夠走回vertex(X)。因此，要找到strongly connected component需要更高級的方法才行。</p>
+<p>不過到這裡，是時候<a href="https://www.youtube.com/watch?v=NrGxru6nqeQ">該說再見了朋友們</a>。<br />
+更高級的方法，請見下回分曉。</p>
+<p></br></p>
+<p><a name="ref"></a></p>
+<h4><strong>參考資料</strong>：</h4>
+<ul>
+<li><a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844">Introduction to Algorithms, Ch22</a> </li>
+<li><a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376">Fundamentals of Data Structures in C++, Ch6</a></li>
+<li><a href="https://www.hackerearth.com/notes/disjoint-set-union-union-find/">Hackerearth：Disjoint Set Union(Union Find)</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Set_%28abstract_data_type%29">Wikipedia：Set (abstract data type)</a></li>
+</ul>
+<p></br></p>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' && location_protocol !== 'https') location_protocol = 'https:';
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+    </article>
+
+        <div class="tags">
+            <p>tags: <a href="http://alrightchiu.github.io/SecondRound/tag/c.html">C++</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/graph.html">Graph</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/bfs.html">BFS</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/dfs.html">DFS</a>, </p>
+        </div>
+
+<hr>
+<div class="sharing">
+</div>
+    <hr>
+
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                            <li>
+                                <a href="https://github.com/alrightchiu">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                    </ul>
+<p class="copyright text-muted">
+    Blog powered by <a href="http://getpelican.com">Pelican</a>,
+    which takes great advantage of <a href="http://python.org">Python</a>.
+</p>                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="http://alrightchiu.github.io/SecondRound/theme/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="http://alrightchiu.github.io/SecondRound/theme/js/bootstrap.min.js"></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script src="http://alrightchiu.github.io/SecondRound/theme/js/clean-blog.min.js"></script>
+
+</body>
+
+</html>
