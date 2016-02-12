@@ -343,11 +343,11 @@ Component#3: 3 6 8
 ```
 
 
-聰明的讀者一定已經發現了，不進行`SetCollapsing()`，單單只靠`predecessor`一樣可以找出connected component。  
+聰明的讀者們一定已經發現了，不進行`SetCollapsing()`，單單只靠`predecessor`一樣可以找出connected component。  
 
 不過筆者認為使用`SetCollapsing()`處理`predecessor`，雖然不見得是最有效率的方法，但是概念上比較直觀，因為connected component就是Set。
 
-事實上，這兩種Set表示法(「塌陷」前後的`predecessor`)，正好是在Set問題中永恆的兩難(trade-off)：「要Union方便」還是「Find方便」，有興趣的讀者可以看看這篇：[Disjoint Set Union (Union Find)](https://www.hackerearth.com/notes/disjoint-set-union-union-find/)。
+事實上，這兩種Set表示法(「塌陷」前後的`predecessor`)，正好是在Set問題中永恆的兩難(trade-off)：「要**Union**方便」還是「**Find**方便」，有興趣的讀者可以看看這篇：[Disjoint Set Union (Union Find)](https://www.hackerearth.com/notes/disjoint-set-union-union-find/)。
 
 <a name="scc"></a>
 
@@ -355,10 +355,10 @@ Component#3: 3 6 8
 
 以上處理的是「在undirected graph中尋找connected component」，那如果要在「directed graph中尋找strongly connected component」呢？
 
-顯然，光是只有`predecessor`是不夠的，因為在directed graph中，`predecessor`能夠保證的是一個「有方向性」的edge，例如edge(X,Y)表示，從vertex(X)能夠走到vertex(y)，卻不能肯定從vertex(Y)也能夠走回vertex(X)。因此，要找到strongly connected component需要更高級的方法才行。
+顯然，光是只有`predecessor`是不夠的，因為在directed graph中，`predecessor`能夠保證的是一個「有方向性」的edge，例如edge(X,Y)表示，從vertex(X)能夠走到vertex(Y)，卻不能打包票從vertex(Y)也能走回vertex(X)。因此，要找到strongly connected component需要更高級的方法才行。
 
 不過到這裡，是時候[該說再見了朋友們](https://www.youtube.com/watch?v=NrGxru6nqeQ)。  
-更高級的方法，請見下回分曉。
+更高級的方法，請待下回分曉。
 
 
 [f1]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/CC_fig/f1.png?raw=true
