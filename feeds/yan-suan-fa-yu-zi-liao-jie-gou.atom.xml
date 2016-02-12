@@ -52,7 +52,7 @@
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;SetCollapsing()&lt;/code&gt;是稍後會用到的函式，其功能可以拆成兩個部分理解：一個是「Set」，一個是「Collapsing」：&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;Set(集合)：&lt;code&gt;SetCollapsing()&lt;/code&gt;處理的對象是Set，也就是不具「次序(order)」的資料，如圖二左，共有三個Set，分別是&lt;span class="math"&gt;\(S_1:{{0,1,4,5,7}}、S_2:{3,6,8}、S_3:{2}\)&lt;/span&gt;。&lt;ul&gt;
+&lt;li&gt;Set(集合)：&lt;code&gt;SetCollapsing()&lt;/code&gt;處理的對象是Set，也就是不具「次序(order)」的資料，如圖二左，共有三個Set，分別是&lt;span class="math"&gt;\(S_1:\)&lt;/span&gt;{&lt;span class="math"&gt;\(0,1,4,5,7\)&lt;/span&gt;}、&lt;span 3_6_8="3,6,8" class="math"&gt;\(S_2:\)&lt;/span&gt;、&lt;span class="math"&gt;\(S_3:\)&lt;/span&gt;{&lt;span class="math"&gt;\(2\)&lt;/span&gt;}。&lt;ul&gt;
 &lt;li&gt;在Set上，時常要做的操作便是「查看某個元素(element)在哪一個Set裡面」，而Set通常是用&lt;code&gt;root&lt;/code&gt;代表，因此，若如圖二左的方式，以element(0)作為「存取(access)點」(也就是這個Set的&lt;code&gt;root&lt;/code&gt;)，那麼要判斷element(7)是在element(0)所代表的Set內(而不是element(3)所代表的Set)，就需要&lt;span class="math"&gt;\(O(N)\)&lt;/span&gt;的搜尋時間(&lt;span class="math"&gt;\(N\)&lt;/span&gt;為Set內的元素數量)，從element(7)一路找到element(0)，才能判斷。&lt;/li&gt;
 &lt;li&gt;如果能夠以圖二右的資料結構表示Set，那麼以element(0)、element(2)、element(3)代表Set，要判斷任何一個元素(element)是屬於哪一個Set，便只要&lt;span class="math"&gt;\(O(1)\)&lt;/span&gt;的時間。&lt;/li&gt;
 &lt;/ul&gt;

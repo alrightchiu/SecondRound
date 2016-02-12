@@ -164,7 +164,7 @@
 </center></p>
 <p><code>SetCollapsing()</code>是稍後會用到的函式，其功能可以拆成兩個部分理解：一個是「Set」，一個是「Collapsing」：</p>
 <ul>
-<li>Set(集合)：<code>SetCollapsing()</code>處理的對象是Set，也就是不具「次序(order)」的資料，如圖二左，共有三個Set，分別是<span class="math">\(S_1:{{0,1,4,5,7}}、S_2:{3,6,8}、S_3:{2}\)</span>。<ul>
+<li>Set(集合)：<code>SetCollapsing()</code>處理的對象是Set，也就是不具「次序(order)」的資料，如圖二左，共有三個Set，分別是<span class="math">\(S_1:\)</span>{<span class="math">\(0,1,4,5,7\)</span>}、<span 3_6_8="3,6,8" class="math">\(S_2:\)</span>、<span class="math">\(S_3:\)</span>{<span class="math">\(2\)</span>}。<ul>
 <li>在Set上，時常要做的操作便是「查看某個元素(element)在哪一個Set裡面」，而Set通常是用<code>root</code>代表，因此，若如圖二左的方式，以element(0)作為「存取(access)點」(也就是這個Set的<code>root</code>)，那麼要判斷element(7)是在element(0)所代表的Set內(而不是element(3)所代表的Set)，就需要<span class="math">\(O(N)\)</span>的搜尋時間(<span class="math">\(N\)</span>為Set內的元素數量)，從element(7)一路找到element(0)，才能判斷。</li>
 <li>如果能夠以圖二右的資料結構表示Set，那麼以element(0)、element(2)、element(3)代表Set，要判斷任何一個元素(element)是屬於哪一個Set，便只要<span class="math">\(O(1)\)</span>的時間。</li>
 </ul>
