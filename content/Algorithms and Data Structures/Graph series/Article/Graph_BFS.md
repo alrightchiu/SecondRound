@@ -10,14 +10,14 @@ Summary: 介紹Graph(圖)中的基本操作：Breadth-First Search(BFS，廣度�
 ####**先備知識與注意事項**
 
 
-在[Binary Tree: Traversal(尋訪)](http://alrightchiu.github.io/SecondRound/binary-tree-traversalxun-fang.html#level)與[Binary Tree: 建立一棵Binary Tree](http://alrightchiu.github.io/SecondRound/binary-tree-jian-li-yi-ke-binary-tree.html)兩篇文章裡，介紹了如何利用`queue`在Binary Tree中進行**Level-Order Traversal**，其概念便是：各個node相對於`root`有其相對應的level，按照level由小到大依序對node進行Visiting。  
+在[Binary Tree: Traversal(尋訪)](http://alrightchiu.github.io/SecondRound/binary-tree-traversalxun-fang.html#level)與[Binary Tree: 建立一棵Binary Tree](http://alrightchiu.github.io/SecondRound/binary-tree-jian-li-yi-ke-binary-tree.html)兩篇文章裡，介紹了如何利用`queue`在Binary Tree中進行**Level-Order Traversal**，其概念便是：各個node相對於`root`有其對應的level，按照level由小到大依序對node進行Visiting。  
 而level便代表了node與`root`之「距離」，以Graph的語言來說，「距離」便是path的**length(長度)/distance(距離)**。如圖一：
 
 * Level=2：path(A-B)、path(A-C)之length為$1$。
 * Level=3：path(A-B-D)、path(A-B-E)、path(A-C-F)之length為$2$。
 * Level=4：path(A-B-E-G)、path(A-B-E-H)之length為$3$。
 
-而Breadth-First Search(BFS，廣度優先搜尋)便是廣義的Level-Order Traversal，將試用情境從Tree推廣至Graph。
+而Breadth-First Search(BFS，廣度優先搜尋)便是廣義的Level-Order Traversal，將使用情境從Tree推廣至Graph。
 
 <center>
 ![level-order][f1]
@@ -59,8 +59,8 @@ Summary: 介紹Graph(圖)中的基本操作：Breadth-First Search(BFS，廣度�
 
 若選定以vertex(A)作為起點，對圖二(a)的G進行`BFS()`，可以得到：
 
-1. 從vertex(A)抵達在G裡所有「與vertex(A)在同一個connected component裡」的vertex的最短距離(shortest path)。  
-(由於圖二(a)的G是connected undirected graph，所以從G中任何一點出發進行`BFS()`皆能抵達其餘所有vertex。)
+1. 從vertex(A)抵達在Graph裡所有「與vertex(A)在同一個connected component裡」的vertex的最短距離(shortest path)。  
+(由於圖二(a)的Graph是connected undirected graph，所以從G中任何一點出發進行`BFS()`皆能抵達其餘所有vertex。)
 2. 不僅僅能夠得到vertex(I)與vertex(A)的最短距離為$3$，還能夠指出一條可能的path，說明要如何從vertex(A)走到vertex(I)，例如path:A-C-F-I，或者path:A-C-G-I。  
 
 
@@ -70,22 +70,23 @@ Summary: 介紹Graph(圖)中的基本操作：Breadth-First Search(BFS，廣度�
 ##**演算法**
 
 
-在正式開始之前，需要先準備三項武器：
+在正式開始之前，需要先準備四項武器：
 
-1. `color` array：利用color標記哪些vertex已經被「找到」，哪些還沒有。
+1. `queue`：如同Level-Order Traversal，`BFS()`將使用`queue`來確保「先被搜尋到的vertex，就先成為新的搜尋起點」。
+2. `color` array：利用color標記哪些vertex已經被「找到」，哪些還沒有。
     * 白色表示該vertex還沒有被找過；
     * 灰色表示該vertex已經被某個vertex找過；
     * 黑色表示該vertex已經從`queue`的隊伍中移除。
-2. `distance` array：記錄每一個vertex與起點vertex之距離。
-3. `predecessor` array：記錄某個vertex是被哪一個vertex找到的，如此便能回溯路徑。
+3. `distance` array：記錄每一個vertex與起點vertex之距離。
+4. `predecessor` array：記錄某個vertex是被哪一個vertex找到的，如此便能回溯路徑。
 
 `BFS()`的方法如下：
 
 初始化(initialization)，如圖二(b)：
 
-* 把所有vertex塗成白色；
-* 把所有vertex的`distance`設為無限大，表示從起點vertex走不到，或者還沒有走到；
-* 把所有vertex的`predecessor`清除(或者設成`NULL`、`-1`，可以辨識即可)。
+* 把所有vertex塗成白色，表示還沒有任何vertex被「找到」。
+* 把所有vertex的`distance`設為無限大，表示從起點vertex走不到，或者還沒有走到。
+* 把所有vertex的`predecessor`清除(或者設成`NULL`、`-1`，可以辨識出何者為「起點」即可)。
 * 建立空的`queue`。
 
 <center>
@@ -97,9 +98,9 @@ Summary: 介紹Graph(圖)中的基本操作：Breadth-First Search(BFS，廣度�
 
 把起點vertex(A)推進`queue`，如圖二(c)：
 
-* 將vertex(A)塗成灰色；
-* `distance[A]`設為$0$；
-* `predecessor[A]`不更動(只要能辨識出vertex(A)沒有predecesor即可。)
+* 將vertex(A)塗成灰色，表示vertex(A)在之後的`BFS()`過程中，將不可能再被其他vertex「找到」。
+* `distance[A]`設為$0$。換句話說，`distance`為$0$的vertex就是在「一個connected component」上進行`BFS()`的起點。
+* `predecessor[A]`不更動。若將`predecessor`初始化成$-1$，即表示，在`BFS()`結束後，`predecessor`仍為$-1$的vertex即為起點。
 
 <center>
 ![bfs][f4]
@@ -112,10 +113,10 @@ Summary: 介紹Graph(圖)中的基本操作：Breadth-First Search(BFS，廣度�
 新的起點是vertex(A)，便檢查所有與vertex(A)相鄰的vertex(見圖二(a)的`Adjacency List`)，修改其`color`、`distance`、`predecessor`。  
 如圖二(d)，vertex(B)、vertex(C)、vertex(D)與vertex(A)相鄰，如果vertex的顏色是白色，表示還沒有被其他vertex「找到」，便執行以下步驟：
 
-* 將三個vertex的`color`塗成灰色；
-* 將`distance[B]、distance[C]、distance[D]`設成`distance[A]`$+1=1$，
+* 將三個vertex的`color`塗成灰色。
+* 將`distance[B]、distance[C]、distance[D]`設成`distance[A]`$+1=1$。
 * 將`predecessor[B]、predecessor[C]、predecessor[D]`設成vertex(A)。
-* 把三個vertex按照「找到」的順序，依序推進`queue`裡；
+* 把三個vertex按照「找到」的順序，依序推進`queue`裡。
 * 最後，把vertex(A)塗黑，移出`queue`。
 
 經過以上步驟，vertex(B)、vertex(C)、vertex(D)便被vertex(A)「找到」，並把`predecessor`設成vertex(A)，所以回溯路徑時，任何經過vertex(B)的path，必定是由vertex(A)來。同理，vertex(C)與vertex(D)也是。
@@ -136,10 +137,10 @@ Summary: 介紹Graph(圖)中的基本操作：Breadth-First Search(BFS，廣度�
 接著，繼續以`queue`的`front`當作新的起點搜尋。  
 新的起點是vertex(B)，檢查所有與其相鄰的vertex，共有vertex(A)與vertex(E)。由於vertex(A)已經被「找到」過(顏色為灰色或黑色)，因此，vertex(B)只能找到vertex(E)，便進行以下步驟：
 
-* 將vertex(E)的`color`塗成灰色；
-* 將`distance[E]`設成`distance[B]`$+1=2$；
-* 將`predecessor[E]`設成vertex(B)；
-* 將vertex(E)推進`queue`；
+* 將vertex(E)的`color`塗成灰色。
+* 將`distance[E]`設成`distance[B]`$+1=2$。
+* 將`predecessor[E]`設成vertex(B)。
+* 將vertex(E)推進`queue`。
 * 最後，把vertex(B)塗黑，移出`queue`。
 
 
@@ -151,8 +152,8 @@ Summary: 介紹Graph(圖)中的基本操作：Breadth-First Search(BFS，廣度�
 
 由於vertex(B)是第一個`distance`為$1$且被視為搜尋起點的vertex，這就表示，所有`distance`為$0$的vertex都已經
 
-1. 被當作搜尋起點；
-2. 搜尋過其相鄰之vertex；
+1. 被當作搜尋起點。
+2. 搜尋過其相鄰之vertex。
 3. 被塗成黑色。
 
 往後`queue`裡面只會出現`distance`$\geq 1$的vertex。
@@ -160,10 +161,10 @@ Summary: 介紹Graph(圖)中的基本操作：Breadth-First Search(BFS，廣度�
 
 接下來，繼續以`queue`的`front`，得到vertex(C)作為新的起點，檢查其相鄰的vertex的顏色，如果是灰色或黑色(vertex(A)與vertex(E)已經被「找到」)則忽略，若是白色(vertex(F)、vertex(G)、vertex(H))，見圖二(f)：
 
-* 將`color`修改成灰色；
-* 將`distance`修改成`distance[C]`$+1$；
-* 將`predecessor`修改成vertex(C)；
-* 將vertex按照被「找到」的順序，推進`queue`；
+* 將`color`修改成灰色。
+* 將`distance`修改成`distance[C]`$+1$。
+* 將`predecessor`修改成vertex(C)。
+* 將vertex按照被「找到」的順序，推進`queue`。
 * 將vertex(C)塗黑，移出`queue`。
 
 <center>
@@ -243,7 +244,7 @@ Summary: 介紹Graph(圖)中的基本操作：Breadth-First Search(BFS，廣度�
 * public member：
     * `Constructor:Graph(int num_vertex)`：在定義Graph的object(物件)時，需要知道vertex的數目，並在`constructor`中定義好`AdjList`。
     * `AddEdgeList(int from, in to)`：功能便是在`AdjList`新增從`from`到`to`的edge。
-    * `BFS(int Start)`：需要知道起點vertex。
+    * `BFS(int Start)`：前面提到的Graph恰好是connected undirected graph，因此只要一次`BFS()`就能走到Graph中的所有vertex。然而，有些Graph並不是connected graph，無法以任意vertex作為起點走到其餘所有vertex(Graph中具有多個connected component)，因此，需要再多一個迴圈(以下是用`for loop`)確保Graph中的全部vertex都被「找到」。
 
 </br>
 
@@ -287,27 +288,33 @@ void Graph::BFS(int Start){
         distance[i] = num_vertex+1;         // num_vertex個vertex, 
     }                                       // 最長距離 distance = num_vertex -1條edge
     
-    // 先處理起點vertex，如圖二(c)
-    color[Start] = 1;   // 1:gray
-    distance[Start] = 0;
-    predecessor[Start] = -1;
-    
     std::queue<int> q;
     int i = Start;
-    q.push(i);
     
-    while (!q.empty()) {
-        int u = q.front();                  // u 為新的搜尋起點
-        for (std::list<int>::iterator itr = AdjList[u].begin(); itr != AdjList[u].end(); itr++) {
-            if (color[*itr] == 0) {                // 若被「找到」的vertex是白色
-                color[*itr] = 1;                   // 塗成灰色, 表示已經被「找到」
-                distance[*itr] = distance[u] + 1;  // 距離是predecessor之距離加一
-                predecessor[*itr] = u;             // 更新被「找到」的vertex的predecessor
-                q.push(*itr);                      // 把vertex推進queue            
+    for (int j = 0; j < num_vertex; j++) {  // j從0數到num_vertex-1, 因此j會走過graph中所有vertex
+        if (color[i] == 0) {                // 第一次i會是起點vertex, 如圖二(c)
+            color[i] = 1;                   // 1:灰色
+            distance[i] = 0;                // 每一個connected component的起點之距離設成0
+            predecessor[i] = -1;            // 每一個connected component的起點沒有predecessor
+            q.push(i);
+            while (!q.empty()) {
+                int u = q.front();                  // u 為新的搜尋起點
+                for (std::list<int>::iterator itr = AdjList[u].begin();        // for loop 太長
+                     itr != AdjList[u].end(); itr++) {                         // 分成兩段
+                    if (color[*itr] == 0) {                // 若被「找到」的vertex是白色
+                        color[*itr] = 1;                   // 塗成灰色, 表示已經被「找到」
+                        distance[*itr] = distance[u] + 1;  // 距離是predecessor之距離加一
+                        predecessor[*itr] = u;             // 更新被「找到」的vertex的predecessor
+                        q.push(*itr);                      // 把vertex推進queue
+                    }
+                }
+                q.pop();        // 把u移出queue
+                color[u] = 2;   // 並且把u塗成黑色
             }
         }
-        q.pop();        // 把u移出queue
-        color[u] = 2;   // 並且把u塗成黑色
+        // 若一次回圈沒有把所有vertex走過, 表示graph有多個connected component
+        // 就把i另成j, 繼續檢查graph中的其他vertex是否仍是白色, 若是, 重複while loop
+        i = j;
     }
 }
 
@@ -345,7 +352,8 @@ int main(){
 
 * 由於`BFS()`是用`AdjList`來判斷edge的連結狀況，因此，`BFS()`對undirected graph或directed graph皆適用。
 
-* 若將`predecessor array`中，所有vertex的「前後關係」以edge連結，可以得到**Predecessor Subgraph**，因為其connected與acyclic的性質，使得Predecessor Subgraph會是一棵以起點vertex為`root`的Tree，又稱為**Breadth-First Tree**，而所有Predecessor Subgraph出現的edge稱為**tree edge**，見圖三(a)：
+* 若將`predecessor array`中，所有vertex的「前後關係」以edge連結，可以得到**Predecessor Subgraph**。以圖三(a)的Graph為例，因為其connected與acyclic的性質，使得Predecessor Subgraph會是一棵以起點vertex為`root`的Tree，又稱為**Breadth-First Tree**，而所有Predecessor Subgraph出現的edge稱為**tree edge**。  
+(若Graph本身是由多個(strongly) connected component，則有可能得到**Breadth-First Forest**，詳見[Grpah: 利用DFS和BFS尋找Connected Component](http://alrightchiu.github.io/SecondRound/grpah-li-yong-dfshe-bfsxun-zhao-connected-component.html))
 
 <center>
 ![bfs][f16]
@@ -366,7 +374,6 @@ int main(){
 
 * 本篇文章所提供的`BFS()`演算法，其`color`之灰色與黑色可以合併，換句話說，若只使用白色與黑色，同樣能完成`BFS()`。不過在下一篇文章將介紹的`DFS()`演算法中，白色、灰色與黑色將分別具有不同功能。
 
-* 上述之`BFS()`的時間複雜度為$O(|V|+|E|)$，在所有與Graph有關的演算法中算是非常有效率。
 
 
 [f1]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/BFS_fig/f1.png?raw=true
