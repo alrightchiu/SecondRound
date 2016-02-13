@@ -1,4 +1,4 @@
-Title: Grpah: 利用DFS和BFS尋找Connected Component    
+Title: Graph: 利用DFS和BFS尋找Connected Component    
 Date: 2016-2-12 22:55  
 Category: 演算法與資料結構  
 Tags: C++, Graph, BFS, DFS  
@@ -31,8 +31,8 @@ Summary: 利用DFS和BFS尋找undiredted graph中的Connected Component。
 
 
 本篇文章要示範強大的`DFS()`與`BFS()`的小小應用：尋找undirected graph中的**connected component**。  
-若不太熟悉**connected**的定義，可以先閱讀[Grpah: Intro(簡介)](alrightchiu.github.io/SecondRound/grpah-introjian-jie.html)稍稍複習。  
-此外，為了集中火力，`DFS()`與`BFS()`的程式碼就留在[Grpah: Depth-First Search(DFS，深度優先搜尋)](http://alrightchiu.github.io/SecondRound/grpah-depth-first-searchdfsshen-du-you-xian-sou-xun.html)與[Grpah: Breadth-First Search(BFS，廣度優先搜尋)](http://alrightchiu.github.io/SecondRound/grpah-breadth-first-searchbfsguang-du-you-xian-sou-xun.html)裡面，如果還沒有對兩個演算法送出交友邀請，千萬不要客氣。
+若不太熟悉**connected**的定義，可以先閱讀[Graph: Intro(簡介)](alrightchiu.github.io/SecondRound/graph-introjian-jie.html)稍稍複習。  
+此外，為了集中火力，`DFS()`與`BFS()`的程式碼就留在[Graph: Depth-First Search(DFS，深度優先搜尋)](http://alrightchiu.github.io/SecondRound/graph-depth-first-searchdfsshen-du-you-xian-sou-xun.html)與[Graph: Breadth-First Search(BFS，廣度優先搜尋)](http://alrightchiu.github.io/SecondRound/graph-breadth-first-searchbfsguang-du-you-xian-sou-xun.html)裡面，如果還沒有對兩個演算法送出交友邀請，千萬不要客氣。
 
 最後一點溫馨小提醒：Graph與connected component的本質上是Set(集合)，因此，以下將會用到Set的觀點做說明。如果不熟悉Set也沒關係，只要知道Set是「一團不在意次序(order)的資料」就可以了。
 

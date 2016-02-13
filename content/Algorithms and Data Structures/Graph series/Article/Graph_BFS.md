@@ -1,4 +1,4 @@
-Title: Grpah: Breadth-First Search(BFS，廣度優先搜尋)    
+Title: Graph: Breadth-First Search(BFS，廣度優先搜尋)    
 Date: 2016-2-6 14:15  
 Category: 演算法與資料結構  
 Tags: C++, Graph, BFS  
@@ -26,7 +26,7 @@ Summary: 介紹Graph(圖)中的基本操作：Breadth-First Search(BFS，廣度�
 </center>
 
 
-溫馨小提醒：在解釋演算法時，可能會用到Graph中的專有名詞，如**undirected**、**connected component**、**weight**等等，若覺得這些名詞像被打了馬賽克糊糊的，可以先回到[Grpah: Intro(簡介)](http://alrightchiu.github.io/SecondRound/grpah-introjian-jie.html)狠狠回憶一番。
+溫馨小提醒：在解釋演算法時，可能會用到Graph中的專有名詞，如**undirected**、**connected component**、**weight**等等，若覺得這些名詞像被打了馬賽克糊糊的，可以先回到[Graph: Intro(簡介)](http://alrightchiu.github.io/SecondRound/graph-introjian-jie.html)狠狠回憶一番。
 
 
 ***
@@ -352,8 +352,8 @@ int main(){
 
 * 由於`BFS()`是用`AdjList`來判斷edge的連結狀況，因此，`BFS()`對undirected graph或directed graph皆適用。
 
-* 若將`predecessor array`中，所有vertex的「前後關係」以edge連結，可以得到**Predecessor Subgraph**。以圖三(a)的Graph為例，因為其connected與acyclic的性質，使得Predecessor Subgraph會是一棵以起點vertex為`root`的Tree，又稱為**Breadth-First Tree**，而所有Predecessor Subgraph出現的edge稱為**tree edge**。  
-(若Graph本身是由多個(strongly) connected component，則有可能得到**Breadth-First Forest**，詳見[Grpah: 利用DFS和BFS尋找Connected Component](http://alrightchiu.github.io/SecondRound/grpah-li-yong-dfshe-bfsxun-zhao-connected-component.html))
+* 若將`predecessor array`中，所有vertex的「前後關係」以edge連結，可以得到**Predecessor Subgraph**。以圖三(a)的subgraph為例，因為其connected與acyclic的性質，使得Predecessor Subgraph會是一棵以起點vertex為`root`的Tree，又稱為**Breadth-First Tree**，而所有Predecessor Subgraph出現的edge稱為**tree edge**。  
+(若Graph本身是由多個(strongly) connected component，則有可能得到**Breadth-First Forest**，詳見[Graph: 利用DFS和BFS尋找Connected Component](http://alrightchiu.github.io/SecondRound/graph-li-yong-dfshe-bfsxun-zhao-connected-component.html))
 
 <center>
 ![bfs][f16]

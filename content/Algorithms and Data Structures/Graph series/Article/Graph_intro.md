@@ -1,4 +1,4 @@
-Title: Grpah: Intro(簡介)    
+Title: Graph: Intro(簡介)    
 Date: 2016-2-3 23:49  
 Category: 演算法與資料結構  
 Tags: C++, Graph, Intro  

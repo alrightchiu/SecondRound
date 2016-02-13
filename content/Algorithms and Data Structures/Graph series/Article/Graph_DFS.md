@@ -1,4 +1,4 @@
-Title: Grpah: Depth-First Search(DFS，深度優先搜尋)    
+Title: Graph: Depth-First Search(DFS，深度優先搜尋)    
 Date: 2016-2-11 22:36  
 Category: 演算法與資料結構  
 Tags: C++, Graph, DFS  
@@ -266,7 +266,7 @@ Depth-First Search(DFS，深度優先搜尋)的核心精神便如同Pre-Order Tr
 
 由以上說明可以觀察出，`DFS()`本質上是一種「**遞迴(recursion)結構**」，而遞迴結構其實是利用了系統的「**堆疊(stack)**」，因此，這兩種方式皆能實現`DFS()`，以下提供的範例程式碼將以遞迴形式完成。
 
-如同上一篇[Grpah: Breadth-First Search(BFS，廣度優先搜尋)](http://alrightchiu.github.io/SecondRound/grpah-breadth-first-searchbfsguang-du-you-xian-sou-xun.html#code)，以下將使用`int`處理資料，把$9$個vertex`char A~I`依序對應到`int 0~8`。
+如同上一篇[Graph: Breadth-First Search(BFS，廣度優先搜尋)](http://alrightchiu.github.io/SecondRound/graph-breadth-first-searchbfsguang-du-you-xian-sou-xun.html#code)，以下將使用`int`處理資料，把$9$個vertex`char A~I`依序對應到`int 0~8`。
 
 範例程式碼包含兩個部分`main()`與`class Graph`。
 
