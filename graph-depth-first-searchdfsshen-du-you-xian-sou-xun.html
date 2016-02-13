@@ -9,7 +9,7 @@
         <meta name="author" content="">
 
 
-        <title>Grpah: Depth-First Search(DFS，深度優先搜尋)</title>
+        <title>Graph: Depth-First Search(DFS，深度優先搜尋)</title>
 
             <link href="http://alrightchiu.github.io/SecondRound/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Second Round Full Atom Feed" />
             <link href="http://alrightchiu.github.io/SecondRound/feeds/yan-suan-fa-yu-zi-liao-jie-gou.atom.xml" type="application/atom+xml" rel="alternate" title="Second Round Categories Atom Feed" />
@@ -49,8 +49,8 @@
 
 	<meta property="og:type" content="article">
 	<meta property="article:author" content="">
-	<meta property="og:url" content="http://alrightchiu.github.io/SecondRound/grpah-depth-first-searchdfsshen-du-you-xian-sou-xun.html">
-	<meta property="og:title" content="Grpah: Depth-First Search(DFS，深度優先搜尋)">
+	<meta property="og:url" content="http://alrightchiu.github.io/SecondRound/graph-depth-first-searchdfsshen-du-you-xian-sou-xun.html">
+	<meta property="og:title" content="Graph: Depth-First Search(DFS，深度優先搜尋)">
 	<meta property="og:description" content="">
 	<meta property="og:image" content="http://alrightchiu.github.io/SecondRound/">
 	<meta property="article:published_time" content="2016-02-11 22:36:00+08:00">
@@ -92,7 +92,7 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="post-heading">
-                        <h1>Grpah: Depth-First Search(DFS，深度優先搜尋)</h1>
+                        <h1>Graph: Depth-First Search(DFS，深度優先搜尋)</h1>
                         <span class="meta">Posted by
                                 <a href="http://alrightchiu.github.io/SecondRound/author/chiu-cc.html">Chiu CC</a>
                              on  2 11, 2016
@@ -303,7 +303,7 @@
 <p><a name="code"></a></p>
 <h2><strong>程式碼</strong></h2>
 <p>由以上說明可以觀察出，<code>DFS()</code>本質上是一種「<strong>遞迴(recursion)結構</strong>」，而遞迴結構其實是利用了系統的「<strong>堆疊(stack)</strong>」，因此，這兩種方式皆能實現<code>DFS()</code>，以下提供的範例程式碼將以遞迴形式完成。</p>
-<p>如同上一篇<a href="http://alrightchiu.github.io/SecondRound/grpah-breadth-first-searchbfsguang-du-you-xian-sou-xun.html#code">Grpah: Breadth-First Search(BFS，廣度優先搜尋)</a>，以下將使用<code>int</code>處理資料，把<span class="math">\(9\)</span>個vertex<code>char A~I</code>依序對應到<code>int 0~8</code>。</p>
+<p>如同上一篇<a href="http://alrightchiu.github.io/SecondRound/graph-breadth-first-searchbfsguang-du-you-xian-sou-xun.html#code">Graph: Breadth-First Search(BFS，廣度優先搜尋)</a>，以下將使用<code>int</code>處理資料，把<span class="math">\(9\)</span>個vertex<code>char A~I</code>依序對應到<code>int 0~8</code>。</p>
 <p>範例程式碼包含兩個部分<code>main()</code>與<code>class Graph</code>。</p>
 <p>在<code>main()</code>中，主要兩件事情：</p>
 <ol>
