@@ -8,7 +8,7 @@ Summary: 利用DFS和BFS尋找undiredted graph中的Connected Component。
 </br>
 ####**先備知識與注意事項**
 
-若一個undirected graph中，若有任兩個vertex之間沒有path連結，那麼此undirected graph就不是connected，裡面一定包含了兩個以上的connected component。  
+在一個undirected graph中，若有任兩個vertex之間沒有path連結，那麼此undirected graph就不是connected，裡面一定包含了兩個以上的connected component。  
 
 如圖一(a)，vertex(0)與vertex(1)不論經過Graph中其他任何vertex都沒有辦法產生一條path連結，則此Graph就不是connected。  
 並且觀察，vertex(0)、vertex(2)、vertex(4)彼此皆有path能夠互相連結，因此subgraph：$G(V_1,E_1)$，其中$V_1$:{$0,2,4$}與$E_1$:{$(0,2),(0,4)$}即為一個connected component；subgraph：$G(V_2,E_2)$，其中$V_2$:{$1,3$}與$E_2$:{$(1,3)$}是另一個connected component。
@@ -31,7 +31,7 @@ Summary: 利用DFS和BFS尋找undiredted graph中的Connected Component。
 
 
 本篇文章要示範強大的`DFS()`與`BFS()`的小小應用：尋找undirected graph中的**connected component**。  
-若不太熟悉**connected**的定義，可以先閱讀[Graph: Intro(簡介)](alrightchiu.github.io/SecondRound/graph-introjian-jie.html)稍稍複習。  
+若不太熟悉**connected**的定義，可以先閱讀[Graph: Intro(簡介)](http://alrightchiu.github.io/SecondRound/graph-introjian-jie.html)稍稍複習。  
 此外，為了集中火力，`DFS()`與`BFS()`的程式碼就留在[Graph: Depth-First Search(DFS，深度優先搜尋)](http://alrightchiu.github.io/SecondRound/graph-depth-first-searchdfsshen-du-you-xian-sou-xun.html)與[Graph: Breadth-First Search(BFS，廣度優先搜尋)](http://alrightchiu.github.io/SecondRound/graph-breadth-first-searchbfsguang-du-you-xian-sou-xun.html)裡面，如果還沒有對兩個演算法送出交友邀請，千萬不要客氣。
 
 最後一點溫馨小提醒：Graph與connected component的本質上是Set(集合)，因此，以下將會用到Set的觀點做說明。如果不熟悉Set也沒關係，只要知道Set是「一團不在意次序(order)的資料」就可以了。
