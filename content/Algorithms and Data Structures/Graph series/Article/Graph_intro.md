@@ -225,9 +225,9 @@ Graph比Tree更加廣義，其定義僅僅使用了集合(Set)，並且不限制
 </center>
 
 
-* **strongly connected in directed graph**：若在directed graph中，對任意兩個vertex都存在一條path連結這兩個vertex，則稱此directed graph是strongly connected。
+* **strongly connected in directed graph**：若在directed graph中，對任意兩個vertex(A)與vertex(B)同時存在「從vertex(A)走到vertex(B)」以及「從vertex(B)走到vertex(A)」的path，則稱此directed graph是strongly connected。
     * 圖九(c)，G<sub>3</sub>中的所有vertex都可以經過一條path到達其他vertex，因此G<sub>3</sub>為strongly connected。
-    * G<sub>4</sub>並非strongly connected，例如，vertex(Z)無法經由path到達vertex(S)，vertex(Y)無法經由path到達vertex(X)等等。
+    * G<sub>4</sub>並非strongly connected，例如，雖然path:S-X-T-Z可以從vertex(S)走到vertex(Z)，但是從vertex(Z)卻無法經由任何一條path到達vertex(S)。
 * **strongly connected component**：若在一個directed graph中，存在某一個subgraph是strongly connected，而且沒有任何vertex、edge再加入這個subgraph之集合後仍能使得這個subgraph維持strongly connected特性，則稱此subgraph為strongly connected component(最大集合的strongly connected subgraph)。
     * 圖九(c)中，右上方為G<sub>3</sub>的其中一個subgraph。此subgraph不是strongly connected component，原因在於，再加入edge:(W,Z)後(也就是變回G<sub>3</sub>)，仍然維持connected特性，因此這個subgraph並不是「可以維持connected的最大集合」。  
     如同undirected graph，若一個directed graph本身是strongly sonnected，則本身也是唯一的strongly connected component。
