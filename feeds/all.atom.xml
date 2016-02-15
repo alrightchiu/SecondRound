@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom"><title>Second Round</title><link href="http://alrightchiu.github.io/SecondRound/" rel="alternate"></link><link href="http://alrightchiu.github.io/SecondRound/feeds/all.atom.xml" rel="self"></link><id>http://alrightchiu.github.io/SecondRound/</id><updated>2016-02-12T22:55:00+08:00</updated><entry><title>Graph: 利用DFS和BFS尋找Connected Component</title><link href="http://alrightchiu.github.io/SecondRound/graph-li-yong-dfshe-bfsxun-zhao-connected-component.html" rel="alternate"></link><updated>2016-02-12T22:55:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-02-12:SecondRound/graph-li-yong-dfshe-bfsxun-zhao-connected-component.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h4&gt;&lt;strong&gt;先備知識與注意事項&lt;/strong&gt;&lt;/h4&gt;
-&lt;p&gt;在一個undirected graph中，若有任兩個vertex之間沒有path連結，那麼此undirected graph就不是connected，裡面一定包含了兩個以上的connected component。  &lt;/p&gt;
+&lt;p&gt;在一個undirected graph中，若存在任意兩個vertex之間不具有path連結，那麼此undirected graph就不是connected，裡面一定包含了兩個以上的connected component。  &lt;/p&gt;
 &lt;p&gt;如圖一(a)，vertex(0)與vertex(1)不論經過Graph中其他任何vertex都沒有辦法產生一條path連結，則此Graph就不是connected。&lt;br /&gt;
 並且觀察，vertex(0)、vertex(2)、vertex(4)彼此皆有path能夠互相連結，因此subgraph：&lt;span class="math"&gt;\(G(V_1,E_1)\)&lt;/span&gt;，其中&lt;span class="math"&gt;\(V_1\)&lt;/span&gt;:{&lt;span class="math"&gt;\(0,2,4\)&lt;/span&gt;}與&lt;span class="math"&gt;\(E_1\)&lt;/span&gt;:{&lt;span class="math"&gt;\((0,2),(0,4)\)&lt;/span&gt;}即為一個connected component；subgraph：&lt;span class="math"&gt;\(G(V_2,E_2)\)&lt;/span&gt;，其中&lt;span class="math"&gt;\(V_2\)&lt;/span&gt;:{&lt;span class="math"&gt;\(1,3\)&lt;/span&gt;}與&lt;span class="math"&gt;\(E_2\)&lt;/span&gt;:{&lt;span class="math"&gt;\((1,3)\)&lt;/span&gt;}是另一個connected component。&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
@@ -1449,9 +1449,9 @@
 &lt;p&gt;&lt;strong&gt;圖九(b)：。&lt;/strong&gt; 
 &lt;/center&gt;&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;strongly connected in directed graph&lt;/strong&gt;：若在directed graph中，對任意兩個vertex都存在一條path連結這兩個vertex，則稱此directed graph是strongly connected。&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;strongly connected in directed graph&lt;/strong&gt;：若在directed graph中，對任意兩個vertex(A)與vertex(B)同時存在「從vertex(A)走到vertex(B)」以及「從vertex(B)走到vertex(A)」的path，則稱此directed graph是strongly connected。&lt;ul&gt;
 &lt;li&gt;圖九(c)，G&lt;sub&gt;3&lt;/sub&gt;中的所有vertex都可以經過一條path到達其他vertex，因此G&lt;sub&gt;3&lt;/sub&gt;為strongly connected。&lt;/li&gt;
-&lt;li&gt;G&lt;sub&gt;4&lt;/sub&gt;並非strongly connected，例如，vertex(Z)無法經由path到達vertex(S)，vertex(Y)無法經由path到達vertex(X)等等。&lt;/li&gt;
+&lt;li&gt;G&lt;sub&gt;4&lt;/sub&gt;並非strongly connected，例如，雖然path:S-X-T-Z可以從vertex(S)走到vertex(Z)，但是從vertex(Z)卻無法經由任何一條path到達vertex(S)。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;strongly connected component&lt;/strong&gt;：若在一個directed graph中，存在某一個subgraph是strongly connected，而且沒有任何vertex、edge再加入這個subgraph之集合後仍能使得這個subgraph維持strongly connected特性，則稱此subgraph為strongly connected component(最大集合的strongly connected subgraph)。&lt;ul&gt;

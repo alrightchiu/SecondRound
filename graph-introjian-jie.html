@@ -356,9 +356,9 @@
 <p><strong>圖九(b)：。</strong> 
 </center></p>
 <ul>
-<li><strong>strongly connected in directed graph</strong>：若在directed graph中，對任意兩個vertex都存在一條path連結這兩個vertex，則稱此directed graph是strongly connected。<ul>
+<li><strong>strongly connected in directed graph</strong>：若在directed graph中，對任意兩個vertex(A)與vertex(B)同時存在「從vertex(A)走到vertex(B)」以及「從vertex(B)走到vertex(A)」的path，則稱此directed graph是strongly connected。<ul>
 <li>圖九(c)，G<sub>3</sub>中的所有vertex都可以經過一條path到達其他vertex，因此G<sub>3</sub>為strongly connected。</li>
-<li>G<sub>4</sub>並非strongly connected，例如，vertex(Z)無法經由path到達vertex(S)，vertex(Y)無法經由path到達vertex(X)等等。</li>
+<li>G<sub>4</sub>並非strongly connected，例如，雖然path:S-X-T-Z可以從vertex(S)走到vertex(Z)，但是從vertex(Z)卻無法經由任何一條path到達vertex(S)。</li>
 </ul>
 </li>
 <li><strong>strongly connected component</strong>：若在一個directed graph中，存在某一個subgraph是strongly connected，而且沒有任何vertex、edge再加入這個subgraph之集合後仍能使得這個subgraph維持strongly connected特性，則稱此subgraph為strongly connected component(最大集合的strongly connected subgraph)。<ul>
