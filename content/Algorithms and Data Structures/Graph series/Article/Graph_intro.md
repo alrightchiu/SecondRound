@@ -171,7 +171,7 @@ Graph比Tree更加廣義，其定義僅僅使用了集合(Set)，並且不限制
 * **path(路徑)**：若從vertex(V<sub>1</sub>)到vertex(V<sub>k</sub>)存在一連串前後相接的edge($(V_i,V_{i+1})\subseteq E(G),i=1,2,...,k-1$)，則稱這一連串edge為「從vertex(V<sub>1</sub>)到vertex(V<sub>k</sub>)的path」。
 * **length(長度)/distance(距離)**：length(或distance)即是path中的edge數。
 * **simple path(簡單路徑)**：若一條path中，除了起點vertex與終點vertex之外，沒有vertex被重複經過，則稱這條path為simple path。  
-    * 如圖六中，path:X->Y->Z即為simple path，path:W->Y->Z->V->W也是simple path，即使W有重複，但是因為分別是起點與終點，所以仍符合定義。而path:Y->X->Y->W就不是simple path，因為第二次經過Y時，Y不是終點。
+    * 如圖六中，path:X-Y-Z即為simple path，path:W-Y-Z-V-W也是simple path，即使W有重複，但是因為分別是起點與終點，所以仍符合定義。而path:Y-X-Y-W就不是simple path，因為第二次經過Y時，Y不是終點。
 
 <center>
 ![subgraph][f7]
@@ -181,8 +181,8 @@ Graph比Tree更加廣義，其定義僅僅使用了集合(Set)，並且不限制
 
 
 * **cycle(循環)**：若有ㄧ條「simple path」的起點vertex與終點vertex相同，則稱這條path為cycle。  
-    * 圖六中的path:W->Y->Z->V->W，稱為directed cycle(有向循環)；
-    * 圖七中的path:Y->V->W->Y與path:X->Y->W->Z->X皆為undirected cycle(無向循環)。
+    * 圖六中的path:W-Y-Z-V-W，稱為directed cycle(有向循環)；
+    * 圖七中的path:Y-V-W-Y與path:X-Y-W-Z-X皆為undirected cycle(無向循環)。
 * **acyclic graph(無循環圖)**：若graph中不存在cycle，則稱這個graph為acyclic graph，見圖七。  
     * 在Tree中找不到任何一條simple path的起點與終點是相同vertex(node)，因此Tree一定是acyclic graph。
 
