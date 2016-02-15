@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom"><title>Second Round</title><link href="http://alrightchiu.github.io/SecondRound/" rel="alternate"></link><link href="http://alrightchiu.github.io/SecondRound/feeds/all.atom.xml" rel="self"></link><id>http://alrightchiu.github.io/SecondRound/</id><updated>2016-02-12T22:55:00+08:00</updated><entry><title>Graph: 利用DFS和BFS尋找Connected Component</title><link href="http://alrightchiu.github.io/SecondRound/graph-li-yong-dfshe-bfsxun-zhao-connected-component.html" rel="alternate"></link><updated>2016-02-12T22:55:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-02-12:SecondRound/graph-li-yong-dfshe-bfsxun-zhao-connected-component.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h4&gt;&lt;strong&gt;先備知識與注意事項&lt;/strong&gt;&lt;/h4&gt;
-&lt;p&gt;若一個undirected graph中，若有任兩個vertex之間沒有path連結，那麼此undirected graph就不是connected，裡面一定包含了兩個以上的connected component。  &lt;/p&gt;
+&lt;p&gt;在一個undirected graph中，若有任兩個vertex之間沒有path連結，那麼此undirected graph就不是connected，裡面一定包含了兩個以上的connected component。  &lt;/p&gt;
 &lt;p&gt;如圖一(a)，vertex(0)與vertex(1)不論經過Graph中其他任何vertex都沒有辦法產生一條path連結，則此Graph就不是connected。&lt;br /&gt;
 並且觀察，vertex(0)、vertex(2)、vertex(4)彼此皆有path能夠互相連結，因此subgraph：&lt;span class="math"&gt;\(G(V_1,E_1)\)&lt;/span&gt;，其中&lt;span class="math"&gt;\(V_1\)&lt;/span&gt;:{&lt;span class="math"&gt;\(0,2,4\)&lt;/span&gt;}與&lt;span class="math"&gt;\(E_1\)&lt;/span&gt;:{&lt;span class="math"&gt;\((0,2),(0,4)\)&lt;/span&gt;}即為一個connected component；subgraph：&lt;span class="math"&gt;\(G(V_2,E_2)\)&lt;/span&gt;，其中&lt;span class="math"&gt;\(V_2\)&lt;/span&gt;:{&lt;span class="math"&gt;\(1,3\)&lt;/span&gt;}與&lt;span class="math"&gt;\(E_2\)&lt;/span&gt;:{&lt;span class="math"&gt;\((1,3)\)&lt;/span&gt;}是另一個connected component。&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
@@ -14,7 +14,7 @@
 &lt;p&gt;&lt;strong&gt;圖一(b)。&lt;/strong&gt;&lt;br /&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;本篇文章要示範強大的&lt;code&gt;DFS()&lt;/code&gt;與&lt;code&gt;BFS()&lt;/code&gt;的小小應用：尋找undirected graph中的&lt;strong&gt;connected component&lt;/strong&gt;。&lt;br /&gt;
-若不太熟悉&lt;strong&gt;connected&lt;/strong&gt;的定義，可以先閱讀&lt;a href="alrightchiu.github.io/SecondRound/graph-introjian-jie.html"&gt;Graph: Intro(簡介)&lt;/a&gt;稍稍複習。&lt;br /&gt;
+若不太熟悉&lt;strong&gt;connected&lt;/strong&gt;的定義，可以先閱讀&lt;a href="http://alrightchiu.github.io/SecondRound/graph-introjian-jie.html"&gt;Graph: Intro(簡介)&lt;/a&gt;稍稍複習。&lt;br /&gt;
 此外，為了集中火力，&lt;code&gt;DFS()&lt;/code&gt;與&lt;code&gt;BFS()&lt;/code&gt;的程式碼就留在&lt;a href="http://alrightchiu.github.io/SecondRound/graph-depth-first-searchdfsshen-du-you-xian-sou-xun.html"&gt;Graph: Depth-First Search(DFS，深度優先搜尋)&lt;/a&gt;與&lt;a href="http://alrightchiu.github.io/SecondRound/graph-breadth-first-searchbfsguang-du-you-xian-sou-xun.html"&gt;Graph: Breadth-First Search(BFS，廣度優先搜尋)&lt;/a&gt;裡面，如果還沒有對兩個演算法送出交友邀請，千萬不要客氣。&lt;/p&gt;
 &lt;p&gt;最後一點溫馨小提醒：Graph與connected component的本質上是Set(集合)，因此，以下將會用到Set的觀點做說明。如果不熟悉Set也沒關係，只要知道Set是「一團不在意次序(order)的資料」就可以了。&lt;/p&gt;
 &lt;hr /&gt;
