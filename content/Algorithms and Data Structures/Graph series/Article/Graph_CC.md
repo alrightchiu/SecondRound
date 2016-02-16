@@ -11,7 +11,7 @@ Summary: 利用DFS和BFS尋找undiredted graph中的Connected Component。
 在一個undirected graph中，若存在任意兩個vertex之間不具有path連結，那麼此undirected graph就不是connected，裡面一定包含了兩個以上的connected component。  
 
 如圖一(a)，vertex(0)與vertex(1)不論經過Graph中其他任何vertex都沒有辦法產生一條path連結，則此Graph就不是connected。  
-並且觀察，vertex(0)、vertex(2)、vertex(4)彼此皆有path能夠互相連結，因此subgraph：$G(V_1,E_1)$，其中$V_1$:{$0,2,4$}與$E_1$:{$(0,2),(0,4)$}即為一個connected component；subgraph：$G(V_2,E_2)$，其中$V_2$:{$1,3$}與$E_2$:{$(1,3)$}是另一個connected component。
+並且觀察，vertex(0)、vertex(2)、vertex(4)彼此皆有path能夠互相連結，因此subgraph：$G(V_1,E_1)$，其中$V_1=${$0,2,4$}與$E_1=${$(0,2),(0,4)$}即為一個connected component；subgraph：$G(V_2,E_2)$，其中$V_2=${$1,3$}與$E_2=${$(1,3)$}是另一個connected component。
 
 
 <center>
@@ -86,7 +86,7 @@ Summary: 利用DFS和BFS尋找undiredted graph中的Connected Component。
 
 `SetCollapsing()`是稍後會用到的函式，其功能可以拆成兩個部分理解：一個是「Set」，一個是「Collapsing」：
 
-* Set(集合)：`SetCollapsing()`處理的對象是Set，也就是不具「次序(order)」的資料，如圖二左，共有三個Set，分別是$S_1$:{$0,1,4,5,7$}、$S_2$:{$3,6,8$}、$S_3$:{$2$}。
+* Set(集合)：`SetCollapsing()`處理的對象是Set，也就是不具「次序(order)」的資料，如圖二左，共有三個Set，分別是$S_1=${$0,1,4,5,7$}、$S_2=${$3,6,8$}、$S_3=${$2$}。
     * 在Set上，時常要做的操作便是「查看某個元素(element)在哪一個Set裡面」，而Set通常是用`root`代表，因此，若如圖二左的方式，以element(0)作為「存取(access)點」(也就是這個Set的`root`)，那麼要判斷element(7)是在element(0)所代表的Set內(而不是element(3)所代表的Set)，就需要$O(N)$的搜尋時間($N$為Set內的元素數量)，從element(7)一路找到element(0)，才能判斷。
     * 如果能夠以圖二右的資料結構表示Set，那麼以element(0)、element(2)、element(3)代表Set，要判斷任何一個元素(element)是屬於哪一個Set，便只要$O(1)$的時間。
 * Collapsing(塌陷)：讓Set「塌陷」，使得所有element皆能直接指向其所在的Set之`root`。
