@@ -1,5 +1,519 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Second Round</title><link href="http://alrightchiu.github.io/SecondRound/" rel="alternate"></link><link href="http://alrightchiu.github.io/SecondRound/feeds/yan-suan-fa-yu-zi-liao-jie-gou.atom.xml" rel="self"></link><id>http://alrightchiu.github.io/SecondRound/</id><updated>2016-02-12T22:55:00+08:00</updated><entry><title>Graph: 利用DFS和BFS尋找Connected Component</title><link href="http://alrightchiu.github.io/SecondRound/graph-li-yong-dfshe-bfsxun-zhao-connected-component.html" rel="alternate"></link><updated>2016-02-12T22:55:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-02-12:SecondRound/graph-li-yong-dfshe-bfsxun-zhao-connected-component.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Second Round</title><link href="http://alrightchiu.github.io/SecondRound/" rel="alternate"></link><link href="http://alrightchiu.github.io/SecondRound/feeds/yan-suan-fa-yu-zi-liao-jie-gou.atom.xml" rel="self"></link><id>http://alrightchiu.github.io/SecondRound/</id><updated>2016-02-17T21:49:00+08:00</updated><entry><title>Grpah: 利用DFS尋找Strongly Connected Component(SCC)</title><link href="http://alrightchiu.github.io/SecondRound/grpah-li-yong-dfsxun-zhao-strongly-connected-componentscc.html" rel="alternate"></link><updated>2016-02-17T21:49:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-02-17:SecondRound/grpah-li-yong-dfsxun-zhao-strongly-connected-componentscc.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;h4&gt;&lt;strong&gt;先備知識與注意事項&lt;/strong&gt;&lt;/h4&gt;
+&lt;p&gt;在一個directed graph中，若對於任意兩個vertex(A)與vertex(B)之間，不是同時存在「從vertex(A)走到vertex(B)」以及「從vertex(B)走到vertex(A)」的path，那麼此directed graph就不是strongly connected，裡面一定包含了兩個以上的strongly connected component(SCC)。  &lt;/p&gt;
+&lt;p&gt;如圖一(a)，經由path:&lt;span class="math"&gt;\(0-1-2-5\)&lt;/span&gt;，可以從vertex(0)走到vertex(5)，但是無論經過任何vertex，都沒有辦法從vertex(5)走到vertex(0)，因此，圖一(a)的directed graph並不是strongly connected，其中包含了兩個以上的SCC(答案是三個)。&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/SCC_fig/f1.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖一(a)。&lt;/strong&gt;&lt;br /&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;那麼，要如何分辨一個directed graph中的strongly connected component(SCC)，並列出每一個SCC中的所有vertex呢？&lt;/p&gt;
+&lt;p&gt;本篇文章的目的就是要回應此問題。&lt;/p&gt;
+&lt;p&gt;演算法將會用到&lt;strong&gt;Transpose of Graph&lt;/strong&gt;，如圖一(b)，把G中所有vertex維持不變，&lt;strong&gt;edge的方向顛倒&lt;/strong&gt;，就得到G&lt;sup&gt;T&lt;/sup&gt;，例如，原本的edge(0,1)改為edge(1,0)，edge(5,6)改為edge(6,5)。  &lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/SCC_fig/f2.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖一(b)。&lt;/strong&gt;&lt;br /&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;最重要的是：&lt;strong&gt;G與G&lt;sup&gt;T&lt;/sup&gt;的SCC完全相同&lt;/strong&gt;。  &lt;/p&gt;
+&lt;p&gt;原因在於，觀察G中包含在同一個SCC裡的vertex(2)與vertex(3)。G中同時存在「從vertex(2)走到vertex(3)」的path，以及「從vertex(3)走到vertex(2)」的path。在G進行「Transpose」得到G&lt;sup&gt;T&lt;/sup&gt;後，這兩條path分別變成與原方向之相反方向，但是存在於vertex(2)與vertex(3)之間的&lt;strong&gt;cycle&lt;/strong&gt;仍然存在。&lt;br /&gt;
+因此，在G裡面屬於同一個SCC的vertex，在G&lt;sup&gt;T&lt;/sup&gt;裡將形成相同的SCC。 &lt;/p&gt;
+&lt;p&gt;最後一點溫馨小提醒：一如往常，本篇文章將不會有嚴謹證明，不過在&lt;strong&gt;參考資料&lt;/strong&gt;會附上內有嚴謹證明的網站連結，請讀者務必前往一窺究竟。&lt;/p&gt;
+&lt;hr /&gt;
+&lt;h2&gt;目錄&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="#if_dfs_only"&gt;如果只有一次DFS()不行嗎？&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#algorithm"&gt;演算法&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#code"&gt;程式碼&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#"&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#ref"&gt;參考資料&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a name="if_dfs_only"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;&lt;strong&gt;如果只有一次DFS()不行嗎？&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;在&lt;a href="http://alrightchiu.github.io/SecondRound/graph-li-yong-dfshe-bfsxun-zhao-connected-component.html"&gt;上一篇文章&lt;/a&gt;提到，只用一次&lt;code&gt;DFS()&lt;/code&gt;或&lt;code&gt;BFS()&lt;/code&gt;得到&lt;code&gt;predecessor&lt;/code&gt;後，便能夠找到undirected graph中的connected component。&lt;/p&gt;
+&lt;p&gt;那如果用來找SCC？&lt;/p&gt;
+&lt;p&gt;以下示範兩次&lt;code&gt;DFS()&lt;/code&gt;來說明，一次是按照「&lt;span class="math"&gt;\(8、7、...、2、1\)&lt;/span&gt;」之順序把vertex設為搜尋起點，另一次則是按照「&lt;span class="math"&gt;\(1、2、...、7、8\)&lt;/span&gt;」之順序。&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="dfs" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/SCC_fig/f3.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖二(a)：以vertex(8)作為起點，接著是vertex(5)、vertex(3)。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;圖二(a)，首先以vertex(8)作為&lt;code&gt;DFS()&lt;/code&gt;的第一次起點，在搜尋完以vertex(8)作為&lt;code&gt;root&lt;/code&gt;的Depth-First Tree後，再以vertex(5)作為新的起點。同樣的，在搜尋完以vertex(5)作為&lt;code&gt;root&lt;/code&gt;的Depth-First Tree後，再以vertex(3)作為新的起點。&lt;br /&gt;
+從圖二(a)的「時間軸」可以看出，此次&lt;code&gt;DFS()&lt;/code&gt;找到了一個Depth-First Forest，其中包含三棵Depth-First Tree，而這三棵Depth-First Tree分別就是Graph中的三個SCC。&lt;/p&gt;
+&lt;p&gt;問題不就解決了嗎？&lt;br /&gt;
+透過一次&lt;code&gt;DFS()&lt;/code&gt;就找到了directed graph中的SCC。&lt;/p&gt;
+&lt;p&gt;再接著看圖二(b)，以vertex(0)作為&lt;code&gt;DFS()&lt;/code&gt;的起點。&lt;br /&gt;
+很遺憾，「時間軸」裡形成了一整棵Depth-First Tree，directed graph中的三個SCC沒有被分開。&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="dfs" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/SCC_fig/f4.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖二(b)：以vertex(0)作為起點。&lt;/strong&gt;&lt;br /&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;由於SCC需要兩個方向的path(「vertex(X)到vertex(Y)」和「vertex(Y)到vertex(X)」)都成立，但是&lt;code&gt;DFS()&lt;/code&gt;只在意「單方向」的edge，只要存在edge(X,Y)，便把&lt;code&gt;predecessor[Y]&lt;/code&gt;更新成vertex(X)，在Predecessor Subgraph裡，vertex(X)與vertex(Y)便在同一棵Depth-First Tree中。  &lt;/p&gt;
+&lt;p&gt;因此，只有一次&lt;code&gt;DFS()&lt;/code&gt;的&lt;code&gt;predecessor&lt;/code&gt;是不夠的，圖二(a)只是運氣好。&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;
+以下便開始本次的「拒絕運氣好大作戰」。&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a name="algorithm"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;&lt;strong&gt;演算法&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;若考慮具有多個SCC的directed graph，為了方便起見，定義其&lt;strong&gt;Component Graph&lt;/strong&gt;為&lt;span class="math"&gt;\(G^SCC=(V^SCC,E^SCC)\)&lt;/span&gt;，其中：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(V^SCC\)&lt;/span&gt;：把每個SCC視為一個元素，並以該元素作為&lt;span class="math"&gt;\(V^SCC\)&lt;/span&gt;的vertex。&lt;ul&gt;
+&lt;li&gt;例如圖三(a)，令&lt;span class="math"&gt;\(C_1=\)&lt;/span&gt;{&lt;span class="math"&gt;\(0,1,2,3\)&lt;/span&gt;}，&lt;span class="math"&gt;\(C_2=\)&lt;/span&gt;{&lt;span class="math"&gt;\(4,5\)&lt;/span&gt;}，&lt;span class="math"&gt;\(C_3=\)&lt;/span&gt;{&lt;span class="math"&gt;\(6,7,8\)&lt;/span&gt;}，則&lt;span class="math"&gt;\(V^SCC=\)&lt;/span&gt;{&lt;span class="math"&gt;\(C_1,C_2,C_3\)&lt;/span&gt;}。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(E^SCC\)&lt;/span&gt;：考慮vertex(X)屬於&lt;span class="math"&gt;\(C_1\)&lt;/span&gt;，vertex(Y)屬於&lt;span class="math"&gt;\(C_2\)&lt;/span&gt;，若存在「連結兩個不同SCC」的edge(X,Y)，則edge(X,Y)便屬於&lt;span class="math"&gt;\(E^SCC\)&lt;/span&gt;。&lt;ul&gt;
+&lt;li&gt;以圖三(a)為例，vertex(1)屬於&lt;span class="math"&gt;\(C_1\)&lt;/span&gt;，vertex(4)屬於&lt;span class="math"&gt;\(C_2\)&lt;/span&gt;，則edge(1,4)屬於&lt;span class="math"&gt;\(E^SCC\)&lt;/span&gt;，依此類推，便得到&lt;span class="math"&gt;\(E^SCC=\)&lt;/span&gt;{&lt;span class="math"&gt;\((1,4),(2,5),(4,6),(5,6),(5,7)\)&lt;/span&gt;}。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="dfs" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/SCC_fig/f5.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖三(a)：每一個directed graph，只要「以SCC作為基本元素(vertex)」，都會有其相對應的component graph。&lt;/strong&gt;&lt;br /&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;由上述定義可以觀察出，每一個directed graph，只要「以SCC作為基本元素(vertex)」，都會有其相對應的component graph。&lt;/p&gt;
+&lt;p&gt;而使用component graph的優點是：「component graph一定是&lt;strong&gt;directed acyclic graph(DAG)&lt;/strong&gt;」。  &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;因為SCC的定義&lt;a href="http://alrightchiu.github.io/SecondRound/graph-introjian-jie.html"&gt;(請參閱：Graph: Intro(簡介))&lt;/a&gt;，若C&lt;sub&gt;1&lt;/sub&gt;與C&lt;sub&gt;2&lt;/sub&gt;之前存在&lt;strong&gt;cycle&lt;/strong&gt;，那就表示C&lt;sub&gt;1&lt;/sub&gt;和C&lt;sub&gt;2&lt;/sub&gt;都不應該自稱為SCC，而要合併C&lt;sub&gt;1&lt;/sub&gt;與C&lt;sub&gt;2&lt;/sub&gt;成為一個更大集合的SCC。因此，不同的SCC之間，一定不存在&lt;strong&gt;cycle&lt;/strong&gt;。  &lt;/li&gt;
+&lt;li&gt;等價的性質：若directed graph中存在兩個SCC，分別為C&lt;sub&gt;1&lt;/sub&gt;與C&lt;sub&gt;2&lt;/sub&gt;，若存在一條path從C&lt;sub&gt;1&lt;/sub&gt;中的vertex(X)走到C&lt;sub&gt;2&lt;/sub&gt;中的vertex(Y)，就不可能同時存在一條path從C&lt;sub&gt;2&lt;/sub&gt;中的vertex(Z)走到C&lt;sub&gt;1&lt;/sub&gt;中的vertex(W)，否則即出現&lt;strong&gt;cycle&lt;/strong&gt;，應該合併成更大的SCC(C&lt;sub&gt;3&lt;/sub&gt;)，如圖三(b)。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="dfs" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/SCC_fig/f6.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖三(b)：SCC。&lt;/strong&gt;&lt;br /&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;考慮如圖三(c)的DAG(directed acyclic graph)，若&lt;code&gt;DFS()&lt;/code&gt;在每次尋找「新的搜尋起點時」，能夠按照「一條path上，從尾端至開頭」的vertex順序，那麼&lt;strong&gt;Predecessor Subgraph&lt;/strong&gt;就能長成「能夠分辨出SCC」的&lt;strong&gt;Depth-First Forest&lt;/strong&gt;。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;圖三(c)中，由於從C&lt;sub&gt;3&lt;/sub&gt;無法往回走到C&lt;sub&gt;2&lt;/sub&gt;，從C&lt;sub&gt;2&lt;/sub&gt;無法往回走到C&lt;sub&gt;1&lt;/sub&gt;，因此，&lt;code&gt;DFS()&lt;/code&gt;的起點順序若為：C&lt;sub&gt;3&lt;/sub&gt;、C&lt;sub&gt;2&lt;/sub&gt;、C&lt;sub&gt;1&lt;/sub&gt;，就能夠把這三個component graph中的vertex(也就是directed graph的SCC)給分開。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="dfs" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/SCC_fig/f7.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖三(c)：。&lt;/strong&gt;&lt;br /&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;那麼，該如何確保每一次都能找到「一條path上，從尾端至開頭的vertex順序」？&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="dfs" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/SCC_fig/f8.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖三(d)：。&lt;/strong&gt;&lt;br /&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;再觀察圖三(d)，分別以起點順序「C&lt;sub&gt;2&lt;/sub&gt;、C&lt;sub&gt;3&lt;/sub&gt;、C&lt;sub&gt;1&lt;/sub&gt;」與起點順序「C&lt;sub&gt;1&lt;/sub&gt;、C&lt;sub&gt;2&lt;/sub&gt;、C&lt;sub&gt;3&lt;/sub&gt;」進行&lt;code&gt;DFS()&lt;/code&gt;，配合圖三(c)，將發現，不論以哪個vertex作為起點，「&lt;code&gt;finish&lt;/code&gt;的大小順序一定是C&lt;sub&gt;1&lt;/sub&gt;、C&lt;sub&gt;2&lt;/sub&gt;、C&lt;sub&gt;3&lt;/sub&gt;」。&lt;/p&gt;
+&lt;p&gt;更廣義地，假設現有C&lt;sub&gt;1&lt;/sub&gt;與C&lt;sub&gt;2&lt;/sub&gt;分別為directed graph中兩個互斥(disjoint)的SCC，並且vertex(X)屬於C&lt;sub&gt;1&lt;/sub&gt;，vertex(Y)屬於C&lt;sub&gt;2&lt;/sub&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;若directed graph中存在edge(X,Y)，那麼，C&lt;sub&gt;1&lt;/sub&gt;集合中所有vertex的「最大&lt;code&gt;finish&lt;/code&gt;」一定比C&lt;sub&gt;2&lt;/sub&gt;集合中所有vertex的「最大&lt;code&gt;finish&lt;/code&gt;」還要大。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;以圖三(e)為例，component graph的&lt;span class="math"&gt;\(E^SCC\)&lt;/span&gt;存在「從C&lt;sub&gt;1&lt;/sub&gt;指向C&lt;sub&gt;2&lt;/sub&gt;」以及「從C&lt;sub&gt;2&lt;/sub&gt;指向C&lt;sub&gt;3&lt;/sub&gt;」的edge，因此，若以SCC中vertex的「最大&lt;code&gt;finish&lt;/code&gt;」代表&lt;code&gt;finish[SCC]&lt;/code&gt;，&lt;code&gt;finish&lt;/code&gt;的大小順序應為：&lt;code&gt;finish[C1]&lt;/code&gt;&amp;gt;&lt;code&gt;finish[C2]&lt;/code&gt;&amp;gt;&lt;code&gt;finish[C3]&lt;/code&gt;，其中：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(C_1=\)&lt;/span&gt;{&lt;span class="math"&gt;\(0,1,2,3\)&lt;/span&gt;}，&lt;code&gt;finish[C1]&lt;/code&gt;&lt;span class="math"&gt;\(=\)&lt;/span&gt;&lt;code&gt;finish[3]&lt;/code&gt;&lt;span class="math"&gt;\(=18\)&lt;/span&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(C_2=\)&lt;/span&gt;{&lt;span class="math"&gt;\(4,5\)&lt;/span&gt;}，&lt;code&gt;finish[C2]&lt;/code&gt;&lt;span class="math"&gt;\(=\)&lt;/span&gt;&lt;code&gt;finish[5]&lt;/code&gt;&lt;span class="math"&gt;\(=10\)&lt;/span&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(C_3=\)&lt;/span&gt;{&lt;span class="math"&gt;\(6,7,8\)&lt;/span&gt;}，&lt;code&gt;finish[C3]&lt;/code&gt;&lt;span class="math"&gt;\(=\)&lt;/span&gt;&lt;code&gt;finish[8]&lt;/code&gt;&lt;span class="math"&gt;\(=6\)&lt;/span&gt;。  &lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="dfs" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/SCC_fig/f9.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖三(e)：。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;考慮圖三(f)，仍然符合：&lt;code&gt;finish[C1]&lt;/code&gt;&amp;gt;&lt;code&gt;finish[C2]&lt;/code&gt;&amp;gt;&lt;code&gt;finish[C3]&lt;/code&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;finish[C1]&lt;/code&gt;&lt;span class="math"&gt;\(=\)&lt;/span&gt;&lt;code&gt;finish[0]&lt;/code&gt;&lt;span class="math"&gt;\(=18\)&lt;/span&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;finish[C2]&lt;/code&gt;&lt;span class="math"&gt;\(=\)&lt;/span&gt;&lt;code&gt;finish[5]&lt;/code&gt;&lt;span class="math"&gt;\(=15\)&lt;/span&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;finish[C3]&lt;/code&gt;&lt;span class="math"&gt;\(=\)&lt;/span&gt;&lt;code&gt;finish[6]&lt;/code&gt;&lt;span class="math"&gt;\(=13\)&lt;/span&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="dfs" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/SCC_fig/f10.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖三(f)：。&lt;/strong&gt; 
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;由以上推論，可以更新在圖三(c)時的說明至更廣義的結論：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;只要按照「&lt;code&gt;finish&lt;/code&gt;小到大」的順序選取SCC中的vertex作為&lt;code&gt;DFS()&lt;/code&gt;的起點，就能夠在&lt;strong&gt;Predecessor Subgraph&lt;/strong&gt;中以&lt;strong&gt;Depth-First Forest&lt;/strong&gt;分辨出所有SCC。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;到這裡為止，可以確認：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;需要第一次&lt;code&gt;DFS()&lt;/code&gt;先取得&lt;code&gt;finish&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;再根據剛取得的&lt;code&gt;finish&lt;/code&gt;之「順序」來判斷「第二次&lt;code&gt;DFS()&lt;/code&gt;」的起點順序。&lt;/li&gt;
+&lt;li&gt;進行第二次&lt;code&gt;DFS()&lt;/code&gt;來取得&lt;code&gt;predecessor&lt;/code&gt;，並利用Predecessor Subgraph分辨出SCC。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;但是問題又來了。&lt;br /&gt;
+如果真的是按照「第一次&lt;code&gt;finish&lt;/code&gt;由小到大」的順序選取SCC中的vertex作為第二次&lt;code&gt;DFS()&lt;/code&gt;的起點，還是有可能失敗，因為第一次&lt;code&gt;DFS()&lt;/code&gt;在選取起點時，並沒有對SCC的先備知識，可以視為隨機選取：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;若第一次&lt;code&gt;DFS()&lt;/code&gt;結果如圖三(e)，則按照「&lt;code&gt;finish&lt;/code&gt;由小到大」的順序選取起點，將依序選中「vertex(7)、vertex(4)、vertex(1)」作為起點進行第二次&lt;code&gt;DFS()&lt;/code&gt;，那麼將得到如圖三(g)之結果，順利區分三個SCC。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="dfs" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/SCC_fig/f11.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖三(g)：。&lt;/strong&gt; 
+&lt;/center&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;但是如果第一次&lt;code&gt;DFS()&lt;/code&gt;結果如圖三(f)，按照「&lt;code&gt;finish&lt;/code&gt;由小到大」的順序選取起點，只會選中vertex(3)作為起點，便把整個Graph搜尋完畢，最後Predecessor Subgraph又形成一整棵Depth-First Tree，如圖三(h)。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="dfs" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/SCC_fig/f12.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖三(h)：。&lt;/strong&gt; 
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;所以，先在Graph:G上執行第一次&lt;code&gt;DFS()&lt;/code&gt;，得到&lt;code&gt;finish&lt;/code&gt;後，按照&lt;code&gt;finish&lt;/code&gt;由小到大的順序，作為第二次在Graph:G上執行&lt;code&gt;DFS()&lt;/code&gt;的起點之方法，宣告失敗。&lt;/p&gt;
+&lt;p&gt;不過，還好有&lt;strong&gt;Transpose of Graph: G&lt;sup&gt;T&lt;/sup&gt;&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="dfs" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/SCC_fig/f13.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖三(i)：。&lt;/strong&gt; 
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;觀察圖三(i)中的G與G&lt;sup&gt;T&lt;/sup&gt;，發現：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;兩個Graph的SCC完全相同，皆為C&lt;sub&gt;1&lt;/sub&gt;、C&lt;sub&gt;2&lt;/sub&gt;、C&lt;sub&gt;3&lt;/sub&gt;。&lt;/li&gt;
+&lt;li&gt;SCC的&lt;code&gt;finish&lt;/code&gt;順序完全相反。&lt;ul&gt;
+&lt;li&gt;在G上，從C&lt;sub&gt;3&lt;/sub&gt;無法往回走到C&lt;sub&gt;2&lt;/sub&gt;，從C&lt;sub&gt;2&lt;/sub&gt;無法往回走到C&lt;sub&gt;1&lt;/sub&gt;。&lt;/li&gt;
+&lt;li&gt;在G&lt;sup&gt;T&lt;/sup&gt;上，從C&lt;sub&gt;1&lt;/sub&gt;無法往回走到C&lt;sub&gt;2&lt;/sub&gt;，從C&lt;sub&gt;2&lt;/sub&gt;無法往回走到C&lt;sub&gt;3&lt;/sub&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;根據以上特徵，若先在Graph:G上執行第一次&lt;code&gt;DFS()&lt;/code&gt;，得到&lt;code&gt;finish&lt;/code&gt;後，按照&lt;code&gt;finish&lt;/code&gt;由大到小的順序，會是「C&lt;sub&gt;1&lt;/sub&gt;、C&lt;sub&gt;2&lt;/sub&gt;、C&lt;sub&gt;3&lt;/sub&gt;」，而&lt;strong&gt;這個順序在Transpose of Graph: G&lt;sup&gt;T&lt;/sup&gt;，就正好是「&lt;/strong&gt;&lt;code&gt;finish&lt;/code&gt;&lt;strong&gt;小到大」的順序&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;因此，以「第一次&lt;code&gt;DFS()&lt;/code&gt;所得到的&lt;code&gt;finish&lt;/code&gt;之由大到小順序」選取起點，在G&lt;sup&gt;T&lt;/sup&gt;上進行第二次&lt;code&gt;DFS()&lt;/code&gt;，就可以先選到C&lt;sub&gt;1&lt;/sub&gt;，由於無法從C&lt;sub&gt;1&lt;/sub&gt;走回C&lt;sub&gt;2&lt;/sub&gt;，因此&lt;code&gt;DFS()&lt;/code&gt;在搜尋完C&lt;sub&gt;1&lt;/sub&gt;內的所有vertex後，便形成自己的Depth-First Tree。接著再依序挑選C&lt;sub&gt;2&lt;/sub&gt;、C&lt;sub&gt;3&lt;/sub&gt;為起點進行搜尋，並且建立起各自SCC的Depth-First Tree。&lt;/p&gt;
+&lt;p&gt;如此一來，便找到了directed graph中的SCC。&lt;/p&gt;
+&lt;p&gt;&lt;a name="code"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;&lt;strong&gt;程式碼&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;根據以上說明，演算法分成四個步驟：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;對G執行&lt;code&gt;DFS()&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;產生G&lt;sup&gt;T&lt;/sup&gt;。&lt;/li&gt;
+&lt;li&gt;按照第一次&lt;code&gt;DFS()&lt;/code&gt;所得到的&lt;code&gt;finish&lt;/code&gt;由大到小的順序選取起點，對G&lt;sup&gt;T&lt;/sup&gt;執行&lt;code&gt;DFS()&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;從第二次&lt;code&gt;DFS()&lt;/code&gt;的&lt;code&gt;predecessor&lt;/code&gt;找到Predecessor Subgraph。若directed graph有多個SCC，那麼Predecessor Subgraph就會是Depth-First Forest，其中的每一棵Depth-First Tree都是一個SCC。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;範例程式碼延續上一篇文章定義的&lt;code&gt;class Graph&lt;/code&gt;，主要多了幾個函式：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;GetColor()&lt;/code&gt;、&lt;code&gt;GetFinish()&lt;/code&gt;、&lt;code&gt;GetPredecessor&lt;/code&gt;：用來取得&lt;code&gt;color&lt;/code&gt;、&lt;code&gt;finish&lt;/code&gt;、&lt;code&gt;predecessor&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GraphTranspose()&lt;/code&gt;：產生G&lt;sup&gt;T&lt;/sup&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;VariableInitializeDFS()&lt;/code&gt;：把原先&lt;code&gt;DFS()&lt;/code&gt;主函式中，「配置記憶體」與「初始化」資料的部分獨立出來。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;QuickSort()&lt;/code&gt;等三個函式：用來得到&lt;code&gt;finish&lt;/code&gt;由大致小的vertex順序。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PrintSCCs()&lt;/code&gt;：尋找SCC最主要的函式，主要包含上述的四個步驟。(其中有許多用以顯示資料項的指令，與尋找SCC無關)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// C++ code&lt;/span&gt;
+&lt;span class="cp"&gt;#include &amp;lt;iostream&amp;gt;&lt;/span&gt;
+&lt;span class="cp"&gt;#include &amp;lt;vector&amp;gt;&lt;/span&gt;
+&lt;span class="cp"&gt;#include &amp;lt;list&amp;gt;&lt;/span&gt;
+&lt;span class="cp"&gt;#include &amp;lt;queue&amp;gt;&lt;/span&gt;
+&lt;span class="cp"&gt;#include &amp;lt;iomanip&amp;gt;      &lt;/span&gt;&lt;span class="c1"&gt;// for std::setw()&lt;/span&gt;
+
+&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Graph&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="k"&gt;private&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;num_vertex&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;vector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;list&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;AdjList&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;color&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;             &lt;span class="c1"&gt;// 0:white, 1:gray, 2:black&lt;/span&gt;
+        &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;predecessor&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+        &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;distance&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;          &lt;span class="c1"&gt;// for BFS()&lt;/span&gt;
+        &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;discover&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;          &lt;span class="c1"&gt;// for DFS()&lt;/span&gt;
+        &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;finish&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="k"&gt;public&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+    &lt;span class="n"&gt;Graph&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;num_vertex&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;){};&lt;/span&gt;
+    &lt;span class="n"&gt;Graph&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;N&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;num_vertex&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;N&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
+        &lt;span class="c1"&gt;// initialize Adj List&lt;/span&gt;
+        &lt;span class="n"&gt;AdjList&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;resize&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;num_vertex&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="p"&gt;};&lt;/span&gt;
+
+    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;GetColor&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;&lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;color&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;];};&lt;/span&gt;              &lt;span class="c1"&gt;// 取得private data: color&lt;/span&gt;
+    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;GetFinish&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;&lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;finish&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;];};&lt;/span&gt;            &lt;span class="c1"&gt;// 取得private data: finish&lt;/span&gt;
+    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;GetPredecessor&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;&lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;predecessor&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;];};&lt;/span&gt;  &lt;span class="c1"&gt;// 取得private data: predecessor&lt;/span&gt;
+
+    &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;AddEdgeList&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;from&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+    &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;BFS&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;Start&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;DFS&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;Start&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;DFSVisit&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;vertex&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;time&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;VariableInitializeDFS&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;     &lt;span class="c1"&gt;// 對DFS()需要的資料：color, discover, finish, predecessor&lt;/span&gt;
+                                      &lt;span class="c1"&gt;// 進行「配置記憶體」與「初始化」&lt;/span&gt;
+
+    &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;CCDFS&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;vertex&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;           &lt;span class="c1"&gt;// 吃一個int, 表示起點vertex, 若沒給就從0開始&lt;/span&gt;
+    &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;CCBFS&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;vertex&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;SetCollapsing&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;vertex&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;PrintDataArray&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;array&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;  &lt;span class="c1"&gt;// 列印出array[]&lt;/span&gt;
+    &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;PrintFinish&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;               &lt;span class="c1"&gt;// 列印出 finish[]&lt;/span&gt;
+    &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;PrintPredecessor&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;          &lt;span class="c1"&gt;// 列印出 predecessor[]&lt;/span&gt;
+
+    &lt;span class="n"&gt;Graph&lt;/span&gt; &lt;span class="nf"&gt;GraphTranspose&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;           &lt;span class="c1"&gt;// 產生Transpose of Graph&lt;/span&gt;
+    &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;PrintSCCs&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;Start&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;    &lt;span class="c1"&gt;// 吃一個int, 表示起點vertex, 若沒給就從0開始&lt;/span&gt;
+
+    &lt;span class="c1"&gt;// 利用QuickSort()得到 finish[] 由大致小的vertex順序&lt;/span&gt;
+    &lt;span class="k"&gt;friend&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;QuickSort&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;vec&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;front&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;end&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;vec2&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="k"&gt;friend&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;Partition&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;vec&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;front&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;end&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;vec2&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="k"&gt;friend&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;swap&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="p"&gt;};&lt;/span&gt;
+
+&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;swap&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
+    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;temp&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;temp&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;Partition&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;vec&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;front&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;end&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;vec2&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
+    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;pivot&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;vec&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;end&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;front&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;j&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;front&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;j&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;end&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;vec&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;pivot&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+            &lt;span class="n"&gt;swap&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;vec&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;vec&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="p"&gt;]);&lt;/span&gt;
+            &lt;span class="n"&gt;swap&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;vec2&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;vec2&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="p"&gt;]);&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="n"&gt;swap&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;vec&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;vec&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;end&lt;/span&gt;&lt;span class="p"&gt;]);&lt;/span&gt;
+    &lt;span class="n"&gt;swap&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;vec2&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;vec2&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;end&lt;/span&gt;&lt;span class="p"&gt;]);&lt;/span&gt;
+
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;   &lt;span class="c1"&gt;// 把 i + 1 當成下一個 recurrsive call 的 中間斷點&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;QuickSort&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;vec&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;front&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;end&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;vec2&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;front&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;end&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;pivot&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Partition&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;vec&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;front&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;end&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;vec2&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+        &lt;span class="n"&gt;QuickSort&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;vec&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;front&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;pivot&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;vec2&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+        &lt;span class="n"&gt;QuickSort&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;vec&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;pivot&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;end&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;vec2&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;Graph&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;PrintSCCs&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;Start&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
+    &lt;span class="c1"&gt;// 第一次DFS(), 目的是取得finish[]&lt;/span&gt;
+    &lt;span class="n"&gt;DFS&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Start&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+    &lt;span class="c1"&gt;// 顯示 第一次DFS()後的finish[]&lt;/span&gt;
+    &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;First DFS() on G, finish time:&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;endl&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;PrintFinish&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+
+    &lt;span class="c1"&gt;// gT代表Transpose of Graph&lt;/span&gt;
+    &lt;span class="n"&gt;Graph&lt;/span&gt; &lt;span class="nf"&gt;gT&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;num_vertex&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="n"&gt;gT&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;GraphTranspose&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+
+    &lt;span class="c1"&gt;// 矩陣 finishLargetoSmall[] 用來儲存 finish[] 由大至小的vertex順序&lt;/span&gt;
+    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;finishLargetoSmall&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;num_vertex&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;num_vertex&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="n"&gt;finishLargetoSmall&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="c1"&gt;// QuickSort()會更新 finishLargetoSmall[] 成 finish[] 由大至小的vertex順序&lt;/span&gt;
+    &lt;span class="n"&gt;QuickSort&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;finish&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;num_vertex&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;finishLargetoSmall&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+    &lt;span class="c1"&gt;// 列印出 finish[] 由大至小的vertex順序&lt;/span&gt;
+    &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;finish time Large to Small:&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;endl&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;PrintDataArray&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;finishLargetoSmall&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+    &lt;span class="c1"&gt;// 第二次DFS(), 執行在gT上, 先對四個資料「配置記憶體」且「初始化」&lt;/span&gt;
+    &lt;span class="n"&gt;gT&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;VariableInitializeDFS&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;time&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;num_vertex&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
+        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;gT&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;GetColor&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;finishLargetoSmall&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="n"&gt;gT&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;DFSVisit&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;finishLargetoSmall&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="n"&gt;time&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+
+    &lt;span class="c1"&gt;// 顯示 第二次DFS()後的finish[]&lt;/span&gt;
+    &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;Second DFS() on gT, finish time:&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;gT&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;PrintFinish&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+    &lt;span class="c1"&gt;// 顯示 第二次DFS()後的predecessor[]&lt;/span&gt;
+    &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;predecessor[] before SetCollapsing:&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;gT&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;PrintPredecessor&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;num_vertex&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="n"&gt;gT&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;SetCollapsing&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+    &lt;span class="c1"&gt;// 顯示 SetCollapsing後的predecessor[]&lt;/span&gt;
+    &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;predecessor after SetCollapsing:&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;gT&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;PrintPredecessor&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+
+    &lt;span class="c1"&gt;// 如同在undirected graph中尋找connected component&lt;/span&gt;
+    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;num_cc&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;num_vertex&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;gT&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;GetPredecessor&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;SCC#&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="n"&gt;num_cc&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;: &amp;quot;&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="s"&gt;&amp;quot; &amp;quot;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+            &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;j&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;j&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;num_vertex&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+                &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;gT&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;GetPredecessor&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+                    &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;j&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="s"&gt;&amp;quot; &amp;quot;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+                &lt;span class="p"&gt;}&lt;/span&gt;
+            &lt;span class="p"&gt;}&lt;/span&gt;
+            &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;endl&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;endl&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;Graph&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;VariableInitializeDFS&lt;/span&gt;&lt;span class="p"&gt;(){&lt;/span&gt;
+    &lt;span class="n"&gt;color&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;num_vertex&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+    &lt;span class="n"&gt;discover&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;num_vertex&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+    &lt;span class="n"&gt;finish&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;num_vertex&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+    &lt;span class="n"&gt;predecessor&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;num_vertex&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;num_vertex&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="n"&gt;color&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="n"&gt;discover&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="n"&gt;finish&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="n"&gt;predecessor&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="n"&gt;Graph&lt;/span&gt; &lt;span class="n"&gt;Graph&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;GraphTranspose&lt;/span&gt;&lt;span class="p"&gt;(){&lt;/span&gt;
+    &lt;span class="n"&gt;Graph&lt;/span&gt; &lt;span class="n"&gt;gT&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;num_vertex&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;num_vertex&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;list&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;::&lt;/span&gt;&lt;span class="n"&gt;iterator&lt;/span&gt; &lt;span class="n"&gt;itr&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;AdjList&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;].&lt;/span&gt;&lt;span class="n"&gt;begin&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;&lt;span class="n"&gt;itr&lt;/span&gt; &lt;span class="o"&gt;!=&lt;/span&gt; &lt;span class="n"&gt;AdjList&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;].&lt;/span&gt;&lt;span class="n"&gt;end&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt; &lt;span class="n"&gt;itr&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="n"&gt;gT&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;AddEdgeList&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;itr&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;gT&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;Graph&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;PrintDataArray&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;array&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;num_vertex&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;setw&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;endl&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;num_vertex&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;setw&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;array&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+    &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;endl&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;Graph&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;PrintFinish&lt;/span&gt;&lt;span class="p"&gt;(){&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;num_vertex&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;setw&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;endl&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;num_vertex&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;setw&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;finish&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+    &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;endl&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;Graph&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;PrintPredecessor&lt;/span&gt;&lt;span class="p"&gt;(){&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;num_vertex&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;setw&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;endl&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;num_vertex&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;setw&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;predecessor&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+    &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;endl&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;main&lt;/span&gt;&lt;span class="p"&gt;(){&lt;/span&gt;
+    &lt;span class="n"&gt;Graph&lt;/span&gt; &lt;span class="n"&gt;g4&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;9&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="n"&gt;g4&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;AddEdgeList&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="n"&gt;g4&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;AddEdgeList&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;span class="n"&gt;g4&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;AddEdgeList&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="n"&gt;g4&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;AddEdgeList&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;span class="n"&gt;g4&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;AddEdgeList&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;span class="n"&gt;g4&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;AddEdgeList&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="n"&gt;g4&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;AddEdgeList&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="n"&gt;g4&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;AddEdgeList&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;span class="n"&gt;g4&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;AddEdgeList&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;6&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="n"&gt;g4&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;AddEdgeList&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;span class="n"&gt;g4&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;AddEdgeList&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;6&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;span class="n"&gt;g4&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;AddEdgeList&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;7&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="n"&gt;g4&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;AddEdgeList&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;6&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;7&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="n"&gt;g4&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;AddEdgeList&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;7&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;8&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="n"&gt;g4&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;AddEdgeList&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;8&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;6&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+    &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;Vertex(0) as starting point for the First DFS():&lt;/span&gt;&lt;span class="se"&gt;\n\n&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;g4&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;PrintSCCs&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+    &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;Vertex(3) as starting point for the First DFS():&lt;/span&gt;&lt;span class="se"&gt;\n\n&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;g4&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;PrintSCCs&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;output:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;Vertex&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;as&lt;/span&gt; &lt;span class="n"&gt;starting&lt;/span&gt; &lt;span class="n"&gt;point&lt;/span&gt; &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;First&lt;/span&gt; &lt;span class="n"&gt;DFS&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+
+&lt;span class="n"&gt;First&lt;/span&gt; &lt;span class="n"&gt;DFS&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="n"&gt;on&lt;/span&gt; &lt;span class="n"&gt;G&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;finish&lt;/span&gt; &lt;span class="nl"&gt;time&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+   &lt;span class="mi"&gt;0&lt;/span&gt;   &lt;span class="mi"&gt;1&lt;/span&gt;   &lt;span class="mi"&gt;2&lt;/span&gt;   &lt;span class="mi"&gt;3&lt;/span&gt;   &lt;span class="mi"&gt;4&lt;/span&gt;   &lt;span class="mi"&gt;5&lt;/span&gt;   &lt;span class="mi"&gt;6&lt;/span&gt;   &lt;span class="mi"&gt;7&lt;/span&gt;   &lt;span class="mi"&gt;8&lt;/span&gt;
+  &lt;span class="mi"&gt;18&lt;/span&gt;  &lt;span class="mi"&gt;17&lt;/span&gt;  &lt;span class="mi"&gt;16&lt;/span&gt;   &lt;span class="mi"&gt;5&lt;/span&gt;  &lt;span class="mi"&gt;14&lt;/span&gt;  &lt;span class="mi"&gt;15&lt;/span&gt;  &lt;span class="mi"&gt;13&lt;/span&gt;  &lt;span class="mi"&gt;12&lt;/span&gt;  &lt;span class="mi"&gt;11&lt;/span&gt;
+&lt;span class="n"&gt;finish&lt;/span&gt; &lt;span class="n"&gt;time&lt;/span&gt; &lt;span class="n"&gt;Large&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="nl"&gt;Small&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+   &lt;span class="mi"&gt;0&lt;/span&gt;   &lt;span class="mi"&gt;1&lt;/span&gt;   &lt;span class="mi"&gt;2&lt;/span&gt;   &lt;span class="mi"&gt;3&lt;/span&gt;   &lt;span class="mi"&gt;4&lt;/span&gt;   &lt;span class="mi"&gt;5&lt;/span&gt;   &lt;span class="mi"&gt;6&lt;/span&gt;   &lt;span class="mi"&gt;7&lt;/span&gt;   &lt;span class="mi"&gt;8&lt;/span&gt;
+   &lt;span class="mi"&gt;0&lt;/span&gt;   &lt;span class="mi"&gt;1&lt;/span&gt;   &lt;span class="mi"&gt;2&lt;/span&gt;   &lt;span class="mi"&gt;5&lt;/span&gt;   &lt;span class="mi"&gt;4&lt;/span&gt;   &lt;span class="mi"&gt;6&lt;/span&gt;   &lt;span class="mi"&gt;7&lt;/span&gt;   &lt;span class="mi"&gt;8&lt;/span&gt;   &lt;span class="mi"&gt;3&lt;/span&gt;
+&lt;span class="n"&gt;Second&lt;/span&gt; &lt;span class="n"&gt;DFS&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="n"&gt;on&lt;/span&gt; &lt;span class="n"&gt;gT&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;finish&lt;/span&gt; &lt;span class="nl"&gt;time&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+   &lt;span class="mi"&gt;0&lt;/span&gt;   &lt;span class="mi"&gt;1&lt;/span&gt;   &lt;span class="mi"&gt;2&lt;/span&gt;   &lt;span class="mi"&gt;3&lt;/span&gt;   &lt;span class="mi"&gt;4&lt;/span&gt;   &lt;span class="mi"&gt;5&lt;/span&gt;   &lt;span class="mi"&gt;6&lt;/span&gt;   &lt;span class="mi"&gt;7&lt;/span&gt;   &lt;span class="mi"&gt;8&lt;/span&gt;
+   &lt;span class="mi"&gt;8&lt;/span&gt;   &lt;span class="mi"&gt;4&lt;/span&gt;   &lt;span class="mi"&gt;7&lt;/span&gt;   &lt;span class="mi"&gt;6&lt;/span&gt;  &lt;span class="mi"&gt;11&lt;/span&gt;  &lt;span class="mi"&gt;12&lt;/span&gt;  &lt;span class="mi"&gt;18&lt;/span&gt;  &lt;span class="mi"&gt;16&lt;/span&gt;  &lt;span class="mi"&gt;17&lt;/span&gt;
+&lt;span class="n"&gt;predecessor&lt;/span&gt;&lt;span class="p"&gt;[]&lt;/span&gt; &lt;span class="n"&gt;before&lt;/span&gt; &lt;span class="nl"&gt;SetCollapsing&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+   &lt;span class="mi"&gt;0&lt;/span&gt;   &lt;span class="mi"&gt;1&lt;/span&gt;   &lt;span class="mi"&gt;2&lt;/span&gt;   &lt;span class="mi"&gt;3&lt;/span&gt;   &lt;span class="mi"&gt;4&lt;/span&gt;   &lt;span class="mi"&gt;5&lt;/span&gt;   &lt;span class="mi"&gt;6&lt;/span&gt;   &lt;span class="mi"&gt;7&lt;/span&gt;   &lt;span class="mi"&gt;8&lt;/span&gt;
+  &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;   &lt;span class="mi"&gt;2&lt;/span&gt;   &lt;span class="mi"&gt;0&lt;/span&gt;   &lt;span class="mi"&gt;2&lt;/span&gt;   &lt;span class="mi"&gt;5&lt;/span&gt;  &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;  &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;   &lt;span class="mi"&gt;8&lt;/span&gt;   &lt;span class="mi"&gt;6&lt;/span&gt;
+&lt;span class="n"&gt;predecessor&lt;/span&gt; &lt;span class="n"&gt;after&lt;/span&gt; &lt;span class="nl"&gt;SetCollapsing&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+   &lt;span class="mi"&gt;0&lt;/span&gt;   &lt;span class="mi"&gt;1&lt;/span&gt;   &lt;span class="mi"&gt;2&lt;/span&gt;   &lt;span class="mi"&gt;3&lt;/span&gt;   &lt;span class="mi"&gt;4&lt;/span&gt;   &lt;span class="mi"&gt;5&lt;/span&gt;   &lt;span class="mi"&gt;6&lt;/span&gt;   &lt;span class="mi"&gt;7&lt;/span&gt;   &lt;span class="mi"&gt;8&lt;/span&gt;
+  &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;   &lt;span class="mi"&gt;0&lt;/span&gt;   &lt;span class="mi"&gt;0&lt;/span&gt;   &lt;span class="mi"&gt;0&lt;/span&gt;   &lt;span class="mi"&gt;5&lt;/span&gt;  &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;  &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;   &lt;span class="mi"&gt;6&lt;/span&gt;   &lt;span class="mi"&gt;6&lt;/span&gt;
+&lt;span class="n"&gt;SCC&lt;/span&gt;&lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt; 
+&lt;span class="n"&gt;SCC&lt;/span&gt;&lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt; 
+&lt;span class="n"&gt;SCC&lt;/span&gt;&lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;6&lt;/span&gt; &lt;span class="mi"&gt;7&lt;/span&gt; &lt;span class="mi"&gt;8&lt;/span&gt; 
+
+&lt;span class="n"&gt;Vertex&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;as&lt;/span&gt; &lt;span class="n"&gt;starting&lt;/span&gt; &lt;span class="n"&gt;point&lt;/span&gt; &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;First&lt;/span&gt; &lt;span class="n"&gt;DFS&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+
+&lt;span class="n"&gt;First&lt;/span&gt; &lt;span class="n"&gt;DFS&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="n"&gt;on&lt;/span&gt; &lt;span class="n"&gt;G&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;finish&lt;/span&gt; &lt;span class="nl"&gt;time&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+   &lt;span class="mi"&gt;0&lt;/span&gt;   &lt;span class="mi"&gt;1&lt;/span&gt;   &lt;span class="mi"&gt;2&lt;/span&gt;   &lt;span class="mi"&gt;3&lt;/span&gt;   &lt;span class="mi"&gt;4&lt;/span&gt;   &lt;span class="mi"&gt;5&lt;/span&gt;   &lt;span class="mi"&gt;6&lt;/span&gt;   &lt;span class="mi"&gt;7&lt;/span&gt;   &lt;span class="mi"&gt;8&lt;/span&gt;
+  &lt;span class="mi"&gt;16&lt;/span&gt;  &lt;span class="mi"&gt;15&lt;/span&gt;  &lt;span class="mi"&gt;17&lt;/span&gt;  &lt;span class="mi"&gt;18&lt;/span&gt;  &lt;span class="mi"&gt;14&lt;/span&gt;  &lt;span class="mi"&gt;13&lt;/span&gt;  &lt;span class="mi"&gt;12&lt;/span&gt;  &lt;span class="mi"&gt;11&lt;/span&gt;  &lt;span class="mi"&gt;10&lt;/span&gt;
+&lt;span class="n"&gt;finish&lt;/span&gt; &lt;span class="n"&gt;time&lt;/span&gt; &lt;span class="n"&gt;Large&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="nl"&gt;Small&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+   &lt;span class="mi"&gt;0&lt;/span&gt;   &lt;span class="mi"&gt;1&lt;/span&gt;   &lt;span class="mi"&gt;2&lt;/span&gt;   &lt;span class="mi"&gt;3&lt;/span&gt;   &lt;span class="mi"&gt;4&lt;/span&gt;   &lt;span class="mi"&gt;5&lt;/span&gt;   &lt;span class="mi"&gt;6&lt;/span&gt;   &lt;span class="mi"&gt;7&lt;/span&gt;   &lt;span class="mi"&gt;8&lt;/span&gt;
+   &lt;span class="mi"&gt;3&lt;/span&gt;   &lt;span class="mi"&gt;2&lt;/span&gt;   &lt;span class="mi"&gt;0&lt;/span&gt;   &lt;span class="mi"&gt;1&lt;/span&gt;   &lt;span class="mi"&gt;4&lt;/span&gt;   &lt;span class="mi"&gt;5&lt;/span&gt;   &lt;span class="mi"&gt;6&lt;/span&gt;   &lt;span class="mi"&gt;7&lt;/span&gt;   &lt;span class="mi"&gt;8&lt;/span&gt;
+&lt;span class="n"&gt;Second&lt;/span&gt; &lt;span class="n"&gt;DFS&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="n"&gt;on&lt;/span&gt; &lt;span class="n"&gt;gT&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;finish&lt;/span&gt; &lt;span class="nl"&gt;time&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+   &lt;span class="mi"&gt;0&lt;/span&gt;   &lt;span class="mi"&gt;1&lt;/span&gt;   &lt;span class="mi"&gt;2&lt;/span&gt;   &lt;span class="mi"&gt;3&lt;/span&gt;   &lt;span class="mi"&gt;4&lt;/span&gt;   &lt;span class="mi"&gt;5&lt;/span&gt;   &lt;span class="mi"&gt;6&lt;/span&gt;   &lt;span class="mi"&gt;7&lt;/span&gt;   &lt;span class="mi"&gt;8&lt;/span&gt;
+   &lt;span class="mi"&gt;5&lt;/span&gt;   &lt;span class="mi"&gt;6&lt;/span&gt;   &lt;span class="mi"&gt;7&lt;/span&gt;   &lt;span class="mi"&gt;8&lt;/span&gt;  &lt;span class="mi"&gt;12&lt;/span&gt;  &lt;span class="mi"&gt;11&lt;/span&gt;  &lt;span class="mi"&gt;18&lt;/span&gt;  &lt;span class="mi"&gt;16&lt;/span&gt;  &lt;span class="mi"&gt;17&lt;/span&gt;
+&lt;span class="n"&gt;predecessor&lt;/span&gt;&lt;span class="p"&gt;[]&lt;/span&gt; &lt;span class="n"&gt;before&lt;/span&gt; &lt;span class="nl"&gt;SetCollapsing&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+   &lt;span class="mi"&gt;0&lt;/span&gt;   &lt;span class="mi"&gt;1&lt;/span&gt;   &lt;span class="mi"&gt;2&lt;/span&gt;   &lt;span class="mi"&gt;3&lt;/span&gt;   &lt;span class="mi"&gt;4&lt;/span&gt;   &lt;span class="mi"&gt;5&lt;/span&gt;   &lt;span class="mi"&gt;6&lt;/span&gt;   &lt;span class="mi"&gt;7&lt;/span&gt;   &lt;span class="mi"&gt;8&lt;/span&gt;
+   &lt;span class="mi"&gt;1&lt;/span&gt;   &lt;span class="mi"&gt;2&lt;/span&gt;   &lt;span class="mi"&gt;3&lt;/span&gt;  &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;  &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;   &lt;span class="mi"&gt;4&lt;/span&gt;  &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;   &lt;span class="mi"&gt;8&lt;/span&gt;   &lt;span class="mi"&gt;6&lt;/span&gt;
+&lt;span class="n"&gt;predecessor&lt;/span&gt; &lt;span class="n"&gt;after&lt;/span&gt; &lt;span class="nl"&gt;SetCollapsing&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+   &lt;span class="mi"&gt;0&lt;/span&gt;   &lt;span class="mi"&gt;1&lt;/span&gt;   &lt;span class="mi"&gt;2&lt;/span&gt;   &lt;span class="mi"&gt;3&lt;/span&gt;   &lt;span class="mi"&gt;4&lt;/span&gt;   &lt;span class="mi"&gt;5&lt;/span&gt;   &lt;span class="mi"&gt;6&lt;/span&gt;   &lt;span class="mi"&gt;7&lt;/span&gt;   &lt;span class="mi"&gt;8&lt;/span&gt;
+   &lt;span class="mi"&gt;3&lt;/span&gt;   &lt;span class="mi"&gt;3&lt;/span&gt;   &lt;span class="mi"&gt;3&lt;/span&gt;  &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;  &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;   &lt;span class="mi"&gt;4&lt;/span&gt;  &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;   &lt;span class="mi"&gt;6&lt;/span&gt;   &lt;span class="mi"&gt;6&lt;/span&gt;
+&lt;span class="n"&gt;SCC&lt;/span&gt;&lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt; 
+&lt;span class="n"&gt;SCC&lt;/span&gt;&lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt; 
+&lt;span class="n"&gt;SCC&lt;/span&gt;&lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;6&lt;/span&gt; &lt;span class="mi"&gt;7&lt;/span&gt; &lt;span class="mi"&gt;8&lt;/span&gt;  
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;結果如圖四(a)與圖四(b)：&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="scc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/SCC_fig/f14.png?raw=true" /&gt;&lt;br /&gt;
+&lt;img alt="scc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/SCC_fig/f15.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖四(a)：第一次&lt;code&gt;DFS()&lt;/code&gt;以vertex(0)作為起點。&lt;/strong&gt; 
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="scc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/SCC_fig/f16.png?raw=true" /&gt;&lt;br /&gt;
+&lt;img alt="scc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/SCC_fig/f17.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖四(b)：第一次&lt;code&gt;DFS()&lt;/code&gt;以vertex(3)作為起點。&lt;/strong&gt; 
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;以上便是利用&lt;code&gt;DFS()&lt;/code&gt;來尋找directed graph中的strongly connected component之應用。&lt;br /&gt;
+其中，&lt;code&gt;finish&lt;/code&gt;之順序在DAG(directed acyclic graph)中扮演了關鍵角色。&lt;/p&gt;
+&lt;p&gt;下一篇將介紹如何利用&lt;code&gt;DFS()&lt;/code&gt;尋找DAG的Topological sort(拓撲排序)，敬請期待。&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a name="ref"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h4&gt;&lt;strong&gt;參考資料&lt;/strong&gt;：&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844"&gt;Introduction to Algorithms, Ch22&lt;/a&gt; &lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376"&gt;Fundamentals of Data Structures in C++, Ch6&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.personal.kent.edu/~rmuhamma/Algorithms/MyAlgorithms/GraphAlgor/strongComponent.htm"&gt;Rashid Bin Muhammad：Strongly Connected Components&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.geeksforgeeks.org/strongly-connected-components/"&gt;GeeksforGeeks：Strongly Connected Components&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;script type="text/javascript"&gt;if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width &lt; 768) ? "left" : align;
+        indent = (screen.width &lt; 768) ? "0em" : indent;
+        linebreak = (screen.width &lt; 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' &amp;&amp; location_protocol !== 'https') location_protocol = 'https:';
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+&lt;/script&gt;</summary><category term="C++"></category><category term="Graph"></category><category term="DFS"></category><category term="DAG"></category></entry><entry><title>Graph: 利用DFS和BFS尋找Connected Component</title><link href="http://alrightchiu.github.io/SecondRound/graph-li-yong-dfshe-bfsxun-zhao-connected-component.html" rel="alternate"></link><updated>2016-02-12T22:55:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-02-12:SecondRound/graph-li-yong-dfshe-bfsxun-zhao-connected-component.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h4&gt;&lt;strong&gt;先備知識與注意事項&lt;/strong&gt;&lt;/h4&gt;
 &lt;p&gt;在一個undirected graph中，若存在任意兩個vertex之間不具有path連結，那麼此undirected graph就不是connected，裡面一定包含了兩個以上的connected component。  &lt;/p&gt;
 &lt;p&gt;如圖一(a)，vertex(0)與vertex(1)不論經過Graph中其他任何vertex都沒有辦法產生一條path連結，則此Graph就不是connected。&lt;br /&gt;
