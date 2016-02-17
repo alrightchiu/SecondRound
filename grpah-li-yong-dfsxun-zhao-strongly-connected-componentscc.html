@@ -160,8 +160,8 @@
 <p>由於SCC需要兩個方向的path(「vertex(X)到vertex(Y)」和「vertex(Y)到vertex(X)」)都成立，但是<code>DFS()</code>只在意「單方向」的edge，只要存在edge(X,Y)，便把<code>predecessor[Y]</code>更新成vertex(X)，在Predecessor Subgraph裡，vertex(X)與vertex(Y)便在同一棵Depth-First Tree中。  </p>
 <p>因此，只有一次<code>DFS()</code>的<code>predecessor</code>是不夠的，圖二(a)只是運氣好。</p>
 <p></br>
-以下便開始本次的「拒絕運氣好大作戰」。</p>
-<p></br></p>
+以下便開始本次的「拒絕運氣好大作戰」。<br />
+</br></p>
 <p><a name="algorithm"></a></p>
 <h2><strong>演算法</strong></h2>
 <p>若考慮具有多個SCC的directed graph，為了方便起見，定義其<strong>Component Graph</strong>為<span class="math">\(G^SCC=(V^SCC,E^SCC)\)</span>，其中：</p>
