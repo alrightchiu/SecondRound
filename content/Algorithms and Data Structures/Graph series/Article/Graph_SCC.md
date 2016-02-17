@@ -90,8 +90,7 @@ Summary: 利用DFS尋找diredted graph中的strongly connected component(SCC)  �
 因此，只有一次`DFS()`的`predecessor`是不夠的，圖二(a)只是運氣好。
 
 </br>
-以下便開始本次的「拒絕運氣好大作戰」。
-
+以下便開始本次的「拒絕運氣好大作戰」。  
 </br>
 
 <a name="algorithm"></a>
