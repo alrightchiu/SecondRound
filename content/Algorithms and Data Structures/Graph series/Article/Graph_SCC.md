@@ -48,7 +48,6 @@ Summary: 利用DFS尋找diredted graph中的strongly connected component(SCC)  �
 * [如果只有一次DFS()不行嗎？](#if_dfs_only)
 * [演算法](#algorithm)
 * [程式碼](#code)
-* [](#)
 * [參考資料](#ref)
 
 
