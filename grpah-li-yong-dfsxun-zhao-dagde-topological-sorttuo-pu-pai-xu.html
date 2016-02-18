@@ -158,7 +158,8 @@
 
 <p>最重要的一點：只有<strong>directed acyclic graph(DAG)</strong>的Topological Sort(拓撲排序)才有意義。</p>
 <ul>
-<li>以圖二(b)為例，若根據Topological Sort的定義：「若存在一條edge(X,Y)，則序列中，vertex(X)一定要在vertex(Y)之前出現」，那麼，存在edge(fish,rice)，序列可能是「魚、飯、肉、菜」，但是卻也同時存在edge(rice,pork)，序列可能是「飯、肉、菜、魚」，而第二個序列卻違反「存在edge(fish,rice)，魚要在飯之前吃」的限制。</li>
+<li>以圖二(b)為例，若根據Topological Sort的定義：「若存在一條edge(X,Y)，則序列中，vertex(X)一定要在vertex(Y)之前出現」，那麼，存在edge(fish,rice)，序列可能是「魚、飯、肉、菜」，但是卻也同時存在edge(rice,pork)，序列可能是「飯、肉、菜、魚」，而第二個序列卻違反「存在edge(fish,rice)，魚要在飯之前吃」的限制。<br />
+因此，若directed graph中存在cycle，討論Topological Sort其實沒有什麼幫助。</li>
 </ul>
 <p><center>
 <img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/TS_fig/f4.png?raw=true" /></p>
