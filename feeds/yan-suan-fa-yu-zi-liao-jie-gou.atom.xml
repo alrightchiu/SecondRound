@@ -52,14 +52,14 @@
 &lt;/br&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a name="algorithm"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;&lt;strong&gt;演算法&lt;/strong&gt;&lt;/h2&gt;
-&lt;p&gt;若考慮具有多個SCC的directed graph，為了方便起見，定義其&lt;strong&gt;Component Graph&lt;/strong&gt;為&lt;span class="math"&gt;\(G^SCC=(V^SCC,E^SCC)\)&lt;/span&gt;，其中：&lt;/p&gt;
+&lt;p&gt;若考慮具有多個SCC的directed graph，為了方便起見，定義其&lt;strong&gt;Component Graph&lt;/strong&gt;為&lt;span class="math"&gt;\(G^{SCC}=(V^{SCC},E^{SCC})\)&lt;/span&gt;，其中：&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;span class="math"&gt;\(V^SCC\)&lt;/span&gt;：把每個SCC視為一個元素，並以該元素作為&lt;span class="math"&gt;\(V^SCC\)&lt;/span&gt;的vertex。&lt;ul&gt;
-&lt;li&gt;例如圖三(a)，令&lt;span class="math"&gt;\(C_1=\)&lt;/span&gt;{&lt;span class="math"&gt;\(0,1,2,3\)&lt;/span&gt;}，&lt;span class="math"&gt;\(C_2=\)&lt;/span&gt;{&lt;span class="math"&gt;\(4,5\)&lt;/span&gt;}，&lt;span class="math"&gt;\(C_3=\)&lt;/span&gt;{&lt;span class="math"&gt;\(6,7,8\)&lt;/span&gt;}，則&lt;span class="math"&gt;\(V^SCC=\)&lt;/span&gt;{&lt;span class="math"&gt;\(C_1,C_2,C_3\)&lt;/span&gt;}。&lt;/li&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(V^{SCC}\)&lt;/span&gt;：把每個SCC視為一個元素，並以該元素作為&lt;span class="math"&gt;\(V^{SCC}\)&lt;/span&gt;的vertex。&lt;ul&gt;
+&lt;li&gt;例如圖三(a)，令&lt;span class="math"&gt;\(C_1=\)&lt;/span&gt;{&lt;span class="math"&gt;\(0,1,2,3\)&lt;/span&gt;}，&lt;span class="math"&gt;\(C_2=\)&lt;/span&gt;{&lt;span class="math"&gt;\(4,5\)&lt;/span&gt;}，&lt;span class="math"&gt;\(C_3=\)&lt;/span&gt;{&lt;span class="math"&gt;\(6,7,8\)&lt;/span&gt;}，則&lt;span class="math"&gt;\(V^{SCC}=\)&lt;/span&gt;{&lt;span class="math"&gt;\(C_1,C_2,C_3\)&lt;/span&gt;}。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;span class="math"&gt;\(E^SCC\)&lt;/span&gt;：考慮vertex(X)屬於&lt;span class="math"&gt;\(C_1\)&lt;/span&gt;，vertex(Y)屬於&lt;span class="math"&gt;\(C_2\)&lt;/span&gt;，若存在「連結兩個不同SCC」的edge(X,Y)，則edge(X,Y)便屬於&lt;span class="math"&gt;\(E^SCC\)&lt;/span&gt;。&lt;ul&gt;
-&lt;li&gt;以圖三(a)為例，vertex(1)屬於&lt;span class="math"&gt;\(C_1\)&lt;/span&gt;，vertex(4)屬於&lt;span class="math"&gt;\(C_2\)&lt;/span&gt;，則edge(1,4)屬於&lt;span class="math"&gt;\(E^SCC\)&lt;/span&gt;，依此類推，便得到&lt;span class="math"&gt;\(E^SCC=\)&lt;/span&gt;{&lt;span class="math"&gt;\((1,4),(2,5),(4,6),(5,6),(5,7)\)&lt;/span&gt;}。&lt;/li&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(E^{SCC}\)&lt;/span&gt;：考慮vertex(X)屬於&lt;span class="math"&gt;\(C_1\)&lt;/span&gt;，vertex(Y)屬於&lt;span class="math"&gt;\(C_2\)&lt;/span&gt;，若存在「連結兩個不同SCC」的edge(X,Y)，則edge(X,Y)便屬於&lt;span class="math"&gt;\(E^{SCC}\)&lt;/span&gt;。&lt;ul&gt;
+&lt;li&gt;以圖三(a)為例，vertex(1)屬於&lt;span class="math"&gt;\(C_1\)&lt;/span&gt;，vertex(4)屬於&lt;span class="math"&gt;\(C_2\)&lt;/span&gt;，則edge(1,4)屬於&lt;span class="math"&gt;\(E^{SCC}\)&lt;/span&gt;，依此類推，便得到&lt;span class="math"&gt;\(E^{SCC}=\)&lt;/span&gt;{&lt;span class="math"&gt;\((1,4),(2,5),(4,6),(5,6),(5,7)\)&lt;/span&gt;}。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
@@ -95,7 +95,7 @@
 &lt;ul&gt;
 &lt;li&gt;若directed graph中存在edge(X,Y)，那麼，C&lt;sub&gt;1&lt;/sub&gt;集合中所有vertex的「最大&lt;code&gt;finish&lt;/code&gt;」一定比C&lt;sub&gt;2&lt;/sub&gt;集合中所有vertex的「最大&lt;code&gt;finish&lt;/code&gt;」還要大。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;以圖三(e)為例，component graph的&lt;span class="math"&gt;\(E^SCC\)&lt;/span&gt;存在「從C&lt;sub&gt;1&lt;/sub&gt;指向C&lt;sub&gt;2&lt;/sub&gt;」以及「從C&lt;sub&gt;2&lt;/sub&gt;指向C&lt;sub&gt;3&lt;/sub&gt;」的edge，因此，若以SCC中vertex的「最大&lt;code&gt;finish&lt;/code&gt;」代表&lt;code&gt;finish[SCC]&lt;/code&gt;，&lt;code&gt;finish&lt;/code&gt;的大小順序應為：&lt;code&gt;finish[C1]&lt;/code&gt;&amp;gt;&lt;code&gt;finish[C2]&lt;/code&gt;&amp;gt;&lt;code&gt;finish[C3]&lt;/code&gt;，其中：&lt;/p&gt;
+&lt;p&gt;以圖三(e)為例，component graph的&lt;span class="math"&gt;\(E^{SCC}\)&lt;/span&gt;存在「從C&lt;sub&gt;1&lt;/sub&gt;指向C&lt;sub&gt;2&lt;/sub&gt;」以及「從C&lt;sub&gt;2&lt;/sub&gt;指向C&lt;sub&gt;3&lt;/sub&gt;」的edge，因此，若以SCC中vertex的「最大&lt;code&gt;finish&lt;/code&gt;」代表&lt;code&gt;finish[SCC]&lt;/code&gt;，&lt;code&gt;finish&lt;/code&gt;的大小順序應為：&lt;code&gt;finish[C1]&lt;/code&gt;&amp;gt;&lt;code&gt;finish[C2]&lt;/code&gt;&amp;gt;&lt;code&gt;finish[C3]&lt;/code&gt;，其中：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;span class="math"&gt;\(C_1=\)&lt;/span&gt;{&lt;span class="math"&gt;\(0,1,2,3\)&lt;/span&gt;}，&lt;code&gt;finish[C1]&lt;/code&gt;&lt;span class="math"&gt;\(=\)&lt;/span&gt;&lt;code&gt;finish[3]&lt;/code&gt;&lt;span class="math"&gt;\(=18\)&lt;/span&gt;。&lt;/li&gt;
 &lt;li&gt;&lt;span class="math"&gt;\(C_2=\)&lt;/span&gt;{&lt;span class="math"&gt;\(4,5\)&lt;/span&gt;}，&lt;code&gt;finish[C2]&lt;/code&gt;&lt;span class="math"&gt;\(=\)&lt;/span&gt;&lt;code&gt;finish[5]&lt;/code&gt;&lt;span class="math"&gt;\(=10\)&lt;/span&gt;。&lt;/li&gt;

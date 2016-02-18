@@ -164,14 +164,14 @@
 </br></p>
 <p><a name="algorithm"></a></p>
 <h2><strong>演算法</strong></h2>
-<p>若考慮具有多個SCC的directed graph，為了方便起見，定義其<strong>Component Graph</strong>為<span class="math">\(G^SCC=(V^SCC,E^SCC)\)</span>，其中：</p>
+<p>若考慮具有多個SCC的directed graph，為了方便起見，定義其<strong>Component Graph</strong>為<span class="math">\(G^{SCC}=(V^{SCC},E^{SCC})\)</span>，其中：</p>
 <ul>
-<li><span class="math">\(V^SCC\)</span>：把每個SCC視為一個元素，並以該元素作為<span class="math">\(V^SCC\)</span>的vertex。<ul>
-<li>例如圖三(a)，令<span class="math">\(C_1=\)</span>{<span class="math">\(0,1,2,3\)</span>}，<span class="math">\(C_2=\)</span>{<span class="math">\(4,5\)</span>}，<span class="math">\(C_3=\)</span>{<span class="math">\(6,7,8\)</span>}，則<span class="math">\(V^SCC=\)</span>{<span class="math">\(C_1,C_2,C_3\)</span>}。</li>
+<li><span class="math">\(V^{SCC}\)</span>：把每個SCC視為一個元素，並以該元素作為<span class="math">\(V^{SCC}\)</span>的vertex。<ul>
+<li>例如圖三(a)，令<span class="math">\(C_1=\)</span>{<span class="math">\(0,1,2,3\)</span>}，<span class="math">\(C_2=\)</span>{<span class="math">\(4,5\)</span>}，<span class="math">\(C_3=\)</span>{<span class="math">\(6,7,8\)</span>}，則<span class="math">\(V^{SCC}=\)</span>{<span class="math">\(C_1,C_2,C_3\)</span>}。</li>
 </ul>
 </li>
-<li><span class="math">\(E^SCC\)</span>：考慮vertex(X)屬於<span class="math">\(C_1\)</span>，vertex(Y)屬於<span class="math">\(C_2\)</span>，若存在「連結兩個不同SCC」的edge(X,Y)，則edge(X,Y)便屬於<span class="math">\(E^SCC\)</span>。<ul>
-<li>以圖三(a)為例，vertex(1)屬於<span class="math">\(C_1\)</span>，vertex(4)屬於<span class="math">\(C_2\)</span>，則edge(1,4)屬於<span class="math">\(E^SCC\)</span>，依此類推，便得到<span class="math">\(E^SCC=\)</span>{<span class="math">\((1,4),(2,5),(4,6),(5,6),(5,7)\)</span>}。</li>
+<li><span class="math">\(E^{SCC}\)</span>：考慮vertex(X)屬於<span class="math">\(C_1\)</span>，vertex(Y)屬於<span class="math">\(C_2\)</span>，若存在「連結兩個不同SCC」的edge(X,Y)，則edge(X,Y)便屬於<span class="math">\(E^{SCC}\)</span>。<ul>
+<li>以圖三(a)為例，vertex(1)屬於<span class="math">\(C_1\)</span>，vertex(4)屬於<span class="math">\(C_2\)</span>，則edge(1,4)屬於<span class="math">\(E^{SCC}\)</span>，依此類推，便得到<span class="math">\(E^{SCC}=\)</span>{<span class="math">\((1,4),(2,5),(4,6),(5,6),(5,7)\)</span>}。</li>
 </ul>
 </li>
 </ul>
@@ -207,7 +207,7 @@
 <ul>
 <li>若directed graph中存在edge(X,Y)，那麼，C<sub>1</sub>集合中所有vertex的「最大<code>finish</code>」一定比C<sub>2</sub>集合中所有vertex的「最大<code>finish</code>」還要大。</li>
 </ul>
-<p>以圖三(e)為例，component graph的<span class="math">\(E^SCC\)</span>存在「從C<sub>1</sub>指向C<sub>2</sub>」以及「從C<sub>2</sub>指向C<sub>3</sub>」的edge，因此，若以SCC中vertex的「最大<code>finish</code>」代表<code>finish[SCC]</code>，<code>finish</code>的大小順序應為：<code>finish[C1]</code>&gt;<code>finish[C2]</code>&gt;<code>finish[C3]</code>，其中：</p>
+<p>以圖三(e)為例，component graph的<span class="math">\(E^{SCC}\)</span>存在「從C<sub>1</sub>指向C<sub>2</sub>」以及「從C<sub>2</sub>指向C<sub>3</sub>」的edge，因此，若以SCC中vertex的「最大<code>finish</code>」代表<code>finish[SCC]</code>，<code>finish</code>的大小順序應為：<code>finish[C1]</code>&gt;<code>finish[C2]</code>&gt;<code>finish[C3]</code>，其中：</p>
 <ul>
 <li><span class="math">\(C_1=\)</span>{<span class="math">\(0,1,2,3\)</span>}，<code>finish[C1]</code><span class="math">\(=\)</span><code>finish[3]</code><span class="math">\(=18\)</span>。</li>
 <li><span class="math">\(C_2=\)</span>{<span class="math">\(4,5\)</span>}，<code>finish[C2]</code><span class="math">\(=\)</span><code>finish[5]</code><span class="math">\(=10\)</span>。</li>
