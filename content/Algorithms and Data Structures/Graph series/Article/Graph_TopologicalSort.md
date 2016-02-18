@@ -10,7 +10,7 @@ Summary: 利用DFS尋找directed acyclic graph(DAG)的Topological Sort(拓撲排
 
 有些事件具有絕對的「先後關係」，例如，襪子要在鞋子之前穿上，否則穿上鞋子後要再穿襪子需要一點奇蹟。
 
-若以Graph來表示，vertex(穿襪子)、vertex(穿鞋子)與edge(先後關係)如圖一：
+若以Graph來表示，vertex(穿襪子)、vertex(穿鞋子)與edge(先後關係)如圖一(a)：
 
 <center>
 ![cc][f1]
@@ -18,7 +18,8 @@ Summary: 利用DFS尋找directed acyclic graph(DAG)的Topological Sort(拓撲排
 **圖一(a)。**  
 </center>
 
-在[Graph: Intro(簡介)](http://alrightchiu.github.io/SecondRound/graph-introjian-jie.html)曾經提過的「課程與其先修課程」亦具有這樣的「先後關係」。例如，學生一定要先修過「資料結構」，才能選修「演算法分析」，否則選課系統會生氣。
+在[Graph: Intro(簡介)](http://alrightchiu.github.io/SecondRound/graph-introjian-jie.html)曾經提過的「課程與其先修課程」亦具有這樣的「先後關係」。  
+例如，學生一定要先修過「資料結構」，才能選修「演算法分析」，否則選課系統會生氣。
 
 那麼要如何確保在選修「演算法分析」之前，已經先選修「資料結構」，而在選修「資料結構」之前，已經先修完「程式(一)」與「離散數學」？
 
@@ -70,9 +71,7 @@ Topological Sort:
 
 最重要的一點：只有**directed acyclic graph(DAG)**的Topological Sort(拓撲排序)才有意義。
 
-以圖二(b)為例，若根據Topological Sort的定義：「若存在一條edge(X,Y)，則序列中，vertex(X)一定要在vertex(Y)之前出現」，那麼，存在edge(fish,rice)，序列可能是「魚、飯、肉、菜」，但是卻也同時存在edge(rice,pork)，序列可能是「飯、肉、菜、魚」，而第二個序列卻違反「存在edge(fish,rice)，魚要在飯之前吃」的限制。
-
-因此，只有在DAG上討論Topological Sort(拓撲排序)才有意義。
+* 以圖二(b)為例，若根據Topological Sort的定義：「若存在一條edge(X,Y)，則序列中，vertex(X)一定要在vertex(Y)之前出現」，那麼，存在edge(fish,rice)，序列可能是「魚、飯、肉、菜」，但是卻也同時存在edge(rice,pork)，序列可能是「飯、肉、菜、魚」，而第二個序列卻違反「存在edge(fish,rice)，魚要在飯之前吃」的限制。
 
 
 <center>
