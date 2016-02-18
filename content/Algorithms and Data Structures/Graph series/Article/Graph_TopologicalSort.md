@@ -238,8 +238,9 @@ Topological Sort:
 
 * [Introduction to Algorithms, Ch22](http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844) 
 * [Fundamentals of Data Structures in C++, Ch6](http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376)
-* [GeeksforGeeks：Topological Sorting](http://www.geeksforgeeks.org/topological-sorting/)
 * [Rashid Bin Muhammad：Topological Sort](http://www.personal.kent.edu/~rmuhamma/Algorithms/MyAlgorithms/GraphAlgor/topoSort.htm)
+* [GeeksforGeeks：Topological Sorting](http://www.geeksforgeeks.org/topological-sorting/)
+
 
 
 
