@@ -72,7 +72,7 @@ Summary: 介紹於Red Black Tree(紅黑樹)中Delete(刪除資料)與Delete後�
     3. 把要刪除的node的`child`指向新的`parent`；
     4. 把要刪除的node的`parent`指向新的`child`；
     5. 若實際上刪除的是「替身」，再把替身的資料放回BST中；
-2. 第二部分，若刪除的node是黑色，需要進行修正(Fix-Up)。   
+2. 第二部分，若刪除的node是黑色，需要進行修正(Fix-Up)，引進函式：`DeleteFixedUpRBT()`。   
 </br>
 
 ```cpp
