@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom"><title>Second Round</title><link href="http://alrightchiu.github.io/SecondRound/" rel="alternate"></link><link href="http://alrightchiu.github.io/SecondRound/feeds/all.atom.xml" rel="self"></link><id>http://alrightchiu.github.io/SecondRound/</id><updated>2016-02-17T21:49:00+08:00</updated><entry><title>Grpah: 利用DFS尋找Strongly Connected Component(SCC)</title><link href="http://alrightchiu.github.io/SecondRound/grpah-li-yong-dfsxun-zhao-strongly-connected-componentscc.html" rel="alternate"></link><updated>2016-02-17T21:49:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-02-17:SecondRound/grpah-li-yong-dfsxun-zhao-strongly-connected-componentscc.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h4&gt;&lt;strong&gt;先備知識與注意事項&lt;/strong&gt;&lt;/h4&gt;
 &lt;p&gt;在一個directed graph中，若對於任意兩個vertex(A)與vertex(B)之間，不是同時存在「從vertex(A)走到vertex(B)」以及「從vertex(B)走到vertex(A)」的path，那麼此directed graph就不是strongly connected，裡面一定包含了兩個以上的strongly connected component(SCC)。  &lt;/p&gt;
-&lt;p&gt;如圖一(a)，經由path:&lt;span class="math"&gt;\(0-1-2-5\)&lt;/span&gt;，可以從vertex(0)走到vertex(5)，但是無論經過任何vertex，都沒有辦法從vertex(5)走到vertex(0)，因此，圖一(a)的directed graph並不是strongly connected，其中包含了兩個以上的SCC(答案是三個)。&lt;/p&gt;
+&lt;p&gt;如圖一(a)，經由path:0-1-2-5，可以從vertex(0)走到vertex(5)，但是無論經過任何vertex，都沒有辦法從vertex(5)走到vertex(0)，因此，圖一(a)的directed graph並不是strongly connected，其中包含了兩個以上的SCC(答案是三個)。&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/SCC_fig/f1.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖一(a)。&lt;/strong&gt;&lt;br /&gt;
