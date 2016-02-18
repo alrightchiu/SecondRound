@@ -11,7 +11,7 @@ Summary: 利用DFS尋找diredted graph中的strongly connected component(SCC)  �
 
 在一個directed graph中，若對於任意兩個vertex(A)與vertex(B)之間，不是同時存在「從vertex(A)走到vertex(B)」以及「從vertex(B)走到vertex(A)」的path，那麼此directed graph就不是strongly connected，裡面一定包含了兩個以上的strongly connected component(SCC)。  
 
-如圖一(a)，經由path:$0-1-2-5$，可以從vertex(0)走到vertex(5)，但是無論經過任何vertex，都沒有辦法從vertex(5)走到vertex(0)，因此，圖一(a)的directed graph並不是strongly connected，其中包含了兩個以上的SCC(答案是三個)。
+如圖一(a)，經由path:0-1-2-5，可以從vertex(0)走到vertex(5)，但是無論經過任何vertex，都沒有辦法從vertex(5)走到vertex(0)，因此，圖一(a)的directed graph並不是strongly connected，其中包含了兩個以上的SCC(答案是三個)。
 
 <center>
 ![cc][f1]
