@@ -255,7 +255,15 @@ Summary: 利用DFS尋找diredted graph中的strongly connected component(SCC)。
 2. `GraphTranspose()`：產生G<sup>T</sup>。
 3. `VariableInitializeDFS()`：把原先`DFS()`主函式中，「配置記憶體」與「初始化」資料的部分獨立出來。
 4. `QuickSort()`等三個函式：用來得到`finish`由大致小的vertex順序。
-2. `PrintSCCs()`：尋找SCC最主要的函式，主要包含上述的四個步驟。(其中有許多用以顯示資料項的指令，與尋找SCC無關)
+    * 若共有6個vertex，經過一次`DFS()`後得到`finish`如圖四，那麼`QuickSort()`將會對`finish`進行排序，並且在排序的過程，一併將`finish`原先對應的vertex排序後，放入`finishLargetoSmall`。之後再利用`finishLargetoSmall`的順序，進行第二次`DFS()`。
+5. `PrintSCCs()`：尋找SCC最主要的函式，主要包含上述的四個步驟。(其中有許多用以顯示資料項的指令，與尋找SCC無關)
+
+
+<center>
+![dfs][f18]
+
+**圖四：。** 
+</center>
 
 
 ```cpp
@@ -513,13 +521,13 @@ SCC#2: 4 5
 SCC#3: 6 7 8  
 ```
 
-結果如圖四(a)與圖四(b)：
+結果如圖五(a)與圖五(b)：
 
 <center>
 ![scc][f14]  
 ![scc][f15]
 
-**圖四(a)：第一次`DFS()`以vertex(0)作為起點。** 
+**圖五(a)：第一次**`DFS()`**以vertex(0)作為起點。** 
 </center>
 
 
@@ -527,7 +535,7 @@ SCC#3: 6 7 8
 ![scc][f16]  
 ![scc][f17]
 
-**圖四(b)：第一次`DFS()`以vertex(3)作為起點。** 
+**圖五(b)：第一次**`DFS()`**以vertex(3)作為起點。** 
 </center>
 
 
@@ -548,6 +556,8 @@ SCC#3: 6 7 8
 [f15]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/SCC_fig/f15.png?raw=true
 [f16]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/SCC_fig/f16.png?raw=true
 [f17]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/SCC_fig/f17.png?raw=true
+[f18]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/SCC_fig/f18.png?raw=true
+
 
 </br>
 
