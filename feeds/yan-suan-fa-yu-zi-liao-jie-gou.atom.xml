@@ -2130,7 +2130,7 @@
 &lt;li&gt;若實際上刪除的是「替身」，再把替身的資料放回BST中；&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/li&gt;
-&lt;li&gt;第二部分，若刪除的node是黑色，需要進行修正(Fix-Up)。 &lt;br /&gt;
+&lt;li&gt;第二部分，若刪除的node是黑色，需要進行修正(Fix-Up)，引進函式：&lt;code&gt;DeleteFixedUpRBT()&lt;/code&gt;。 &lt;br /&gt;
 &lt;/br&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// C++ code&lt;/span&gt;
@@ -2557,10 +2557,11 @@
 &lt;p&gt;&lt;a name="bst"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;&lt;strong&gt;如同於BST中Insert(新增資料)&lt;/strong&gt;&lt;/h2&gt;
 &lt;p&gt;RBT也是一棵BST，在Insert(新增資料)時，必須滿足：&lt;span class="math"&gt;\(Key(L)&amp;lt;Key(Current)&amp;lt;Key(R)\)&lt;/span&gt;，因此，RBT的&lt;code&gt;InsertRBT()&lt;/code&gt;前半部演算法與&lt;a href="http://alrightchiu.github.io/SecondRound/binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao.html#insert"&gt;BST的函式：InsertBST()大同小異&lt;/a&gt;。&lt;br /&gt;
-需要修改的部分有兩處：&lt;/p&gt;
+需要修改/擴充的部分有三處：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;code&gt;NIL&lt;/code&gt;：所有原先在BST中指向&lt;code&gt;NULL&lt;/code&gt;的pointer，在RBT中需要修正成指向&lt;code&gt;NIL&lt;/code&gt;，包括條件式與新增node的&lt;code&gt;child pointer&lt;/code&gt;。&lt;/li&gt;
 &lt;li&gt;顏色：如同在&lt;a href="http://alrightchiu.github.io/SecondRound/red-black-tree-rotationxuan-zhuan.html#fail"&gt;RBT：Rotation(旋轉)&lt;/a&gt;所說，一般預設新增node為紅色，因此，若新增node接在黑色node之後，仍能滿足RBT的特徵，但是若新增node接在紅色node之後，則違反了&lt;a href="http://alrightchiu.github.io/SecondRound/red-black-tree-introjian-jie.html#rbt"&gt;RBT之第四點特徵&lt;/a&gt;，必須進行修正。&lt;/li&gt;
+&lt;li&gt;引進函式：&lt;code&gt;InsertFixedUpRBT()&lt;/code&gt;進行修正。&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;&lt;code&gt;InsertRBT()&lt;/code&gt;的程式範例如下：&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// C++ code&lt;/span&gt;
