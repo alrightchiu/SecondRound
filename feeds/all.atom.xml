@@ -173,9 +173,16 @@
 &lt;li&gt;&lt;code&gt;GetColor()&lt;/code&gt;、&lt;code&gt;GetFinish()&lt;/code&gt;、&lt;code&gt;GetPredecessor&lt;/code&gt;：用來取得&lt;code&gt;color&lt;/code&gt;、&lt;code&gt;finish&lt;/code&gt;、&lt;code&gt;predecessor&lt;/code&gt;。&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;GraphTranspose()&lt;/code&gt;：產生G&lt;sup&gt;T&lt;/sup&gt;。&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;VariableInitializeDFS()&lt;/code&gt;：把原先&lt;code&gt;DFS()&lt;/code&gt;主函式中，「配置記憶體」與「初始化」資料的部分獨立出來。&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;QuickSort()&lt;/code&gt;等三個函式：用來得到&lt;code&gt;finish&lt;/code&gt;由大致小的vertex順序。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;QuickSort()&lt;/code&gt;等三個函式：用來得到&lt;code&gt;finish&lt;/code&gt;由大致小的vertex順序。&lt;ul&gt;
+&lt;li&gt;若共有6個vertex，經過一次&lt;code&gt;DFS()&lt;/code&gt;後得到&lt;code&gt;finish&lt;/code&gt;如圖四，那麼&lt;code&gt;QuickSort()&lt;/code&gt;將會對&lt;code&gt;finish&lt;/code&gt;進行排序，並且在排序的過程，一併將&lt;code&gt;finish&lt;/code&gt;原先對應的vertex排序後，放入&lt;code&gt;finishLargetoSmall&lt;/code&gt;。之後再利用&lt;code&gt;finishLargetoSmall&lt;/code&gt;的順序，進行第二次&lt;code&gt;DFS()&lt;/code&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;PrintSCCs()&lt;/code&gt;：尋找SCC最主要的函式，主要包含上述的四個步驟。(其中有許多用以顯示資料項的指令，與尋找SCC無關)&lt;/li&gt;
 &lt;/ol&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="dfs" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/SCC_fig/f18.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖四：。&lt;/strong&gt; 
+&lt;/center&gt;&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// C++ code&lt;/span&gt;
 &lt;span class="cp"&gt;#include &amp;lt;iostream&amp;gt;&lt;/span&gt;
 &lt;span class="cp"&gt;#include &amp;lt;vector&amp;gt;&lt;/span&gt;
@@ -431,16 +438,16 @@
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;結果如圖四(a)與圖四(b)：&lt;/p&gt;
+&lt;p&gt;結果如圖五(a)與圖五(b)：&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="scc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/SCC_fig/f14.png?raw=true" /&gt;&lt;br /&gt;
 &lt;img alt="scc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/SCC_fig/f15.png?raw=true" /&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;圖四(a)：第一次&lt;code&gt;DFS()&lt;/code&gt;以vertex(0)作為起點。&lt;/strong&gt; 
+&lt;p&gt;&lt;strong&gt;圖五(a)：第一次&lt;/strong&gt;&lt;code&gt;DFS()&lt;/code&gt;&lt;strong&gt;以vertex(0)作為起點。&lt;/strong&gt; 
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="scc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/SCC_fig/f16.png?raw=true" /&gt;&lt;br /&gt;
 &lt;img alt="scc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/SCC_fig/f17.png?raw=true" /&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;圖四(b)：第一次&lt;code&gt;DFS()&lt;/code&gt;以vertex(3)作為起點。&lt;/strong&gt; 
+&lt;p&gt;&lt;strong&gt;圖五(b)：第一次&lt;/strong&gt;&lt;code&gt;DFS()&lt;/code&gt;&lt;strong&gt;以vertex(3)作為起點。&lt;/strong&gt; 
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;p&gt;以上便是利用&lt;code&gt;DFS()&lt;/code&gt;來尋找directed graph中的strongly connected component之應用。&lt;br /&gt;
