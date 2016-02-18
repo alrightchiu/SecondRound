@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="zh-hant">
+
+<head>
+            <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+
+        <title>Grpah: 利用DFS尋找DAG的Topological Sort(拓撲排序)</title>
+
+            <link href="http://alrightchiu.github.io/SecondRound/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Second Round Full Atom Feed" />
+            <link href="http://alrightchiu.github.io/SecondRound/feeds/yan-suan-fa-yu-zi-liao-jie-gou.atom.xml" type="application/atom+xml" rel="alternate" title="Second Round Categories Atom Feed" />
+
+        <!-- Bootstrap Core CSS -->
+        <link href="http://alrightchiu.github.io/SecondRound/theme/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="http://alrightchiu.github.io/SecondRound/theme/css/clean-blog.min.css" rel="stylesheet">
+
+        <!-- Code highlight color scheme -->
+            <link href="http://alrightchiu.github.io/SecondRound/theme/css/code_blocks/darkly.css" rel="stylesheet">
+
+
+        <!-- Custom Fonts -->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+
+
+
+        <meta name="tags" contents="C++" />
+        <meta name="tags" contents="Graph" />
+        <meta name="tags" contents="DFS" />
+        <meta name="tags" contents="DAG" />
+
+
+	                <meta property="og:locale" content="">
+		<meta property="og:site_name" content="Second Round">
+
+	<meta property="og:type" content="article">
+	<meta property="article:author" content="">
+	<meta property="og:url" content="http://alrightchiu.github.io/SecondRound/grpah-li-yong-dfsxun-zhao-dagde-topological-sorttuo-pu-pai-xu.html">
+	<meta property="og:title" content="Grpah: 利用DFS尋找DAG的Topological Sort(拓撲排序)">
+	<meta property="og:description" content="">
+	<meta property="og:image" content="http://alrightchiu.github.io/SecondRound/">
+	<meta property="article:published_time" content="2016-02-18 18:01:00+08:00">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://alrightchiu.github.io/SecondRound/">Second Round</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a href="http://alrightchiu.github.io/SecondRound/archives.html">Archives</a></li>
+                        <li><a href="http://alrightchiu.github.io/SecondRound/tags.html">Tags</a></li>
+
+                            <li><a href="http://alrightchiu.github.io/SecondRound/pages/about.html">About</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+        <header class="intro-header" style="background-image: url('http://alrightchiu.github.io/SecondRound/theme/images/post-bg.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>Grpah: 利用DFS尋找DAG的Topological Sort(拓撲排序)</h1>
+                        <span class="meta">Posted by
+                                <a href="http://alrightchiu.github.io/SecondRound/author/chiu-cc.html">Chiu CC</a>
+                             on  2 18, 2016
+                        </span>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    <!-- Post Content -->
+    <article>
+        <p></br></p>
+<h4><strong>先備知識與注意事項</strong></h4>
+<p>有些事件具有絕對的「先後關係」，例如，襪子要在鞋子之前穿上，否則穿上鞋子後要再穿襪子需要一點奇蹟。</p>
+<p>若以Graph來表示，vertex(穿襪子)、vertex(穿鞋子)與edge(先後關係)如圖一：</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/TS_fig/f1.png?raw=true" /></p>
+<p><strong>圖一(a)。</strong><br />
+</center></p>
+<p>在<a href="http://alrightchiu.github.io/SecondRound/graph-introjian-jie.html">Graph: Intro(簡介)</a>曾經提過的「課程與其先修課程」亦具有這樣的「先後關係」。例如，學生一定要先修過「資料結構」，才能選修「演算法分析」，否則選課系統會生氣。</p>
+<p>那麼要如何確保在選修「演算法分析」之前，已經先選修「資料結構」，而在選修「資料結構」之前，已經先修完「程式(一)」與「離散數學」？</p>
+<p>本篇文章將要介紹的Topological Sort(拓撲排序)就是要解決這項煩惱。<br />
+如果找到了圖一(b)的Topological Sort(拓撲排序)，就能知道可行的修課順序，以確保在選修「演算法分析」之前，一定已經修過「資料結構」與「線性代數」。</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/TS_fig/f2.png?raw=true" /></p>
+<p><strong>圖一(b)。</strong><br />
+</center></p>
+<hr />
+<h2>目錄</h2>
+<ul>
+<li><a href="#ts">Topological Sort(拓撲排序)</a></li>
+<li><a href="#algorithm">演算法</a></li>
+<li><a href="#code">程式碼</a></li>
+<li><a href="#ref">參考資料</a></li>
+</ul>
+<p><a name="ts"></a></p>
+<h2><strong>Topological Sort(拓撲排序)</strong></h2>
+<p>所謂的Topological Sort(拓撲排序)要求，若<strong>directed acyclic graph(DAG)</strong>中存在一條edge(X,Y)，那麼序列中，vertex(X)一定要在vertex(Y)之前出現。</p>
+<ul>
+<li>以圖二(a)為例，存在edge(2,6)、edge(6,9)，那麼Topological Sort中，vertex(2)一定要出現在vertex(6)之前，vertex(6)一定要在vertex(9)之前。</li>
+</ul>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/TS_fig/f3.png?raw=true" /></p>
+<p><strong>圖二(a)。</strong><br />
+</center></p>
+<p>根據圖一(b)，選修「資料結構」與「線性代數」的先後順序顯然無所謂，「數值分析」與「離散數學」的修課順序也互相沒有影響，因為兩者之間沒有必然的先後關係。<br />
+因此，正確的Topological Sort可能不止一種，以下兩種排序皆為圖二(a)的可能結果：</p>
+<div class="highlight"><pre><span class="n">Topological</span> <span class="nl">Sort</span><span class="p">:</span>
+  <span class="mi">3</span>  <span class="mi">4</span>  <span class="mi">5</span> <span class="mi">14</span>  <span class="mi">1</span>  <span class="mi">0</span>  <span class="mi">2</span>  <span class="mi">7</span>  <span class="mi">6</span> <span class="mi">12</span> <span class="mi">13</span> <span class="mi">11</span>  <span class="mi">9</span> <span class="mi">10</span>  <span class="mi">8</span>
+<span class="n">Topological</span> <span class="nl">Sort</span><span class="p">:</span>
+  <span class="mi">3</span>  <span class="mi">1</span>  <span class="mi">0</span>  <span class="mi">2</span>  <span class="mi">7</span>  <span class="mi">4</span>  <span class="mi">5</span> <span class="mi">14</span>  <span class="mi">6</span> <span class="mi">12</span> <span class="mi">13</span> <span class="mi">11</span>  <span class="mi">9</span> <span class="mi">10</span>  <span class="mi">8</span>
+</pre></div>
+
+
+<p>最重要的一點：只有<strong>directed acyclic graph(DAG)</strong>的Topological Sort(拓撲排序)才有意義。</p>
+<p>以圖二(b)為例，若根據Topological Sort的定義：「若存在一條edge(X,Y)，則序列中，vertex(X)一定要在vertex(Y)之前出現」，那麼，存在edge(fish,rice)，序列可能是「魚、飯、肉、菜」，但是卻也同時存在edge(rice,pork)，序列可能是「飯、肉、菜、魚」，而第二個序列卻違反「存在edge(fish,rice)，魚要在飯之前吃」的限制。</p>
+<p>因此，只有在DAG上討論Topological Sort(拓撲排序)才有意義。</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/TS_fig/f4.png?raw=true" /></p>
+<p><strong>圖二(b)。</strong><br />
+</center></p>
+<p><a name="algorithm"></a></p>
+<h2><strong>演算法</strong></h2>
+<p>在<a href="http://alrightchiu.github.io/SecondRound/grpah-li-yong-dfsxun-zhao-strongly-connected-componentscc.html">Grpah: 利用DFS尋找Strongly Connected Component(SCC)</a>曾經提過DAG的性質：</p>
+<ul>
+<li>在DAG上執行一次<code>DFS()</code>，若存在一條path從vertex(X)到vertex(Y)，那麼<code>finish[X]</code>一定比<code>finish[Y]</code>還大。(<a href="http://www.personal.kent.edu/~rmuhamma/Algorithms/MyAlgorithms/GraphAlgor/topoSort.htm">證明請點這裡</a>)</li>
+</ul>
+<p>因此，只要進行一次<code>DFS()</code>，並且依照<code>finish[]</code>由大到小印出vertex，就是Topological Sort(拓撲排序)了。</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/TS_fig/f5.png?raw=true" /></p>
+<p><strong>圖三。</strong><br />
+</center></p>
+<p><a name="code"></a></p>
+<h2><strong>程式碼</strong></h2>
+<p>是的，只要把<a href="http://alrightchiu.github.io/SecondRound/grpah-li-yong-dfsxun-zhao-strongly-connected-componentscc.html">上一篇文章</a>介紹過的<code>PrintSCCs()</code>的前半部照抄，就能夠找到<code>finish</code>由大到小的順序。</p>
+<div class="highlight"><pre><span class="c1">// C++ code</span>
+<span class="cp">#include &lt;iostream&gt;</span>
+<span class="cp">#include &lt;vector&gt;</span>
+<span class="cp">#include &lt;list&gt;</span>
+<span class="cp">#include &lt;queue&gt;</span>
+<span class="cp">#include &lt;iomanip&gt;      </span><span class="c1">// for setw()</span>
+
+<span class="k">class</span> <span class="nc">Graph</span><span class="p">{</span>
+<span class="k">private</span><span class="o">:</span>
+    <span class="kt">int</span> <span class="n">num_vertex</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">list</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">AdjList</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="o">*</span><span class="n">color</span><span class="p">,</span>             <span class="c1">// 0:white, 1:gray, 2:black</span>
+        <span class="o">*</span><span class="n">distance</span><span class="p">,</span>
+        <span class="o">*</span><span class="n">predecessor</span><span class="p">,</span>
+        <span class="o">*</span><span class="n">discover</span><span class="p">,</span>
+        <span class="o">*</span><span class="n">finish</span><span class="p">;</span>
+
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">Graph</span><span class="p">()</span><span class="o">:</span><span class="n">num_vertex</span><span class="p">(</span><span class="mi">0</span><span class="p">){};</span>
+    <span class="n">Graph</span><span class="p">(</span><span class="kt">int</span> <span class="n">N</span><span class="p">)</span><span class="o">:</span><span class="n">num_vertex</span><span class="p">(</span><span class="n">N</span><span class="p">){</span>
+        <span class="c1">// initialize Adj List</span>
+        <span class="n">AdjList</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">num_vertex</span><span class="p">);</span>
+    <span class="p">};</span>
+
+    <span class="kt">int</span> <span class="nf">GetColor</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="p">){</span><span class="k">return</span> <span class="n">color</span><span class="p">[</span><span class="n">i</span><span class="p">];};</span>
+    <span class="kt">int</span> <span class="nf">GetFinish</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="p">){</span><span class="k">return</span> <span class="n">finish</span><span class="p">[</span><span class="n">i</span><span class="p">];};</span>
+    <span class="kt">int</span> <span class="nf">GetPredecessor</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="p">){</span><span class="k">return</span> <span class="n">predecessor</span><span class="p">[</span><span class="n">i</span><span class="p">];};</span>
+
+    <span class="kt">void</span> <span class="nf">AddEdgeList</span><span class="p">(</span><span class="kt">int</span> <span class="n">from</span><span class="p">,</span> <span class="kt">int</span> <span class="n">to</span><span class="p">);</span>
+
+    <span class="kt">void</span> <span class="nf">BFS</span><span class="p">(</span><span class="kt">int</span> <span class="n">Start</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="nf">DFS</span><span class="p">(</span><span class="kt">int</span> <span class="n">Start</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="nf">DFSVisit</span><span class="p">(</span><span class="kt">int</span> <span class="n">vertex</span><span class="p">,</span> <span class="kt">int</span> <span class="o">&amp;</span><span class="n">time</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="nf">VariableInitializeDFS</span><span class="p">();</span>
+
+    <span class="kt">void</span> <span class="nf">CCDFS</span><span class="p">(</span><span class="kt">int</span> <span class="n">vertex</span><span class="p">);</span>     <span class="c1">// 吃一個int, 表示起點vertex, 若沒給就從0開始</span>
+    <span class="kt">void</span> <span class="nf">CCBFS</span><span class="p">(</span><span class="kt">int</span> <span class="n">vertex</span> <span class="o">=</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="nf">SetCollapsing</span><span class="p">(</span><span class="kt">int</span> <span class="n">vertex</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="nf">PrintDataArray</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">array</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="nf">PrintFinish</span><span class="p">();</span>
+    <span class="kt">void</span> <span class="nf">PrintPredecessor</span><span class="p">();</span>
+
+    <span class="n">Graph</span> <span class="nf">GraphTranspose</span><span class="p">();</span>
+    <span class="kt">void</span> <span class="nf">PrintSCCs</span><span class="p">(</span><span class="kt">int</span> <span class="n">Start</span> <span class="o">=</span> <span class="mi">0</span><span class="p">);</span>
+
+    <span class="k">friend</span> <span class="kt">void</span> <span class="nf">QuickSort</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">vec</span><span class="p">,</span> <span class="kt">int</span> <span class="n">front</span><span class="p">,</span> <span class="kt">int</span> <span class="n">end</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">vec2</span><span class="p">);</span>
+    <span class="k">friend</span> <span class="kt">int</span> <span class="nf">Partition</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">vec</span><span class="p">,</span> <span class="kt">int</span> <span class="n">front</span><span class="p">,</span> <span class="kt">int</span> <span class="n">end</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">vec2</span><span class="p">);</span>
+    <span class="k">friend</span> <span class="kt">void</span> <span class="nf">swap</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">y</span><span class="p">);</span>
+
+    <span class="kt">void</span> <span class="nf">TopologicalSort</span><span class="p">(</span><span class="kt">int</span> <span class="n">Start</span> <span class="o">=</span> <span class="mi">0</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="kt">void</span> <span class="n">Graph</span><span class="o">::</span><span class="n">TopologicalSort</span><span class="p">(</span><span class="kt">int</span> <span class="n">Start</span><span class="p">){</span>
+
+    <span class="n">DFS</span><span class="p">(</span><span class="n">Start</span><span class="p">);</span>         <span class="c1">// 進行一次DFS用來取得 finish[]</span>
+
+    <span class="c1">// 矩陣 finishLargetoSmall[] 用來儲存 finish[] 由大至小的vertex順序</span>
+    <span class="kt">int</span> <span class="n">finishLargetoSmall</span><span class="p">[</span><span class="n">num_vertex</span><span class="p">];</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">num_vertex</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">finishLargetoSmall</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="c1">// QuickSort()會更新 finishLargetoSmall[] 成 finish[] 由大至小的vertex順序</span>
+    <span class="n">QuickSort</span><span class="p">(</span><span class="n">finish</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">num_vertex</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">finishLargetoSmall</span><span class="p">);</span>
+
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Topological Sort:</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">num_vertex</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setw</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">finishLargetoSmall</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+    <span class="n">Graph</span> <span class="n">g5</span><span class="p">(</span><span class="mi">15</span><span class="p">);</span>            <span class="c1">// 建立如圖二(a)的DAG</span>
+    <span class="n">g5</span><span class="p">.</span><span class="n">AddEdgeList</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+    <span class="n">g5</span><span class="p">.</span><span class="n">AddEdgeList</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+    <span class="n">g5</span><span class="p">.</span><span class="n">AddEdgeList</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">);</span><span class="n">g5</span><span class="p">.</span><span class="n">AddEdgeList</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">7</span><span class="p">);</span>
+    <span class="n">g5</span><span class="p">.</span><span class="n">AddEdgeList</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
+    <span class="n">g5</span><span class="p">.</span><span class="n">AddEdgeList</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span>
+    <span class="n">g5</span><span class="p">.</span><span class="n">AddEdgeList</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">);</span><span class="n">g5</span><span class="p">.</span><span class="n">AddEdgeList</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">14</span><span class="p">);</span>
+    <span class="n">g5</span><span class="p">.</span><span class="n">AddEdgeList</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">);</span><span class="n">g5</span><span class="p">.</span><span class="n">AddEdgeList</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">);</span><span class="n">g5</span><span class="p">.</span><span class="n">AddEdgeList</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">11</span><span class="p">);</span><span class="n">g5</span><span class="p">.</span><span class="n">AddEdgeList</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">12</span><span class="p">);</span>
+    <span class="n">g5</span><span class="p">.</span><span class="n">AddEdgeList</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">);</span>
+    <span class="n">g5</span><span class="p">.</span><span class="n">AddEdgeList</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+    <span class="n">g5</span><span class="p">.</span><span class="n">AddEdgeList</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">13</span><span class="p">);</span>
+
+    <span class="n">g5</span><span class="p">.</span><span class="n">TopologicalSort</span><span class="p">();</span>
+    <span class="n">g5</span><span class="p">.</span><span class="n">TopologicalSort</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>output:</p>
+<div class="highlight"><pre><span class="n">Topological</span> <span class="nl">Sort</span><span class="p">:</span>
+  <span class="mi">3</span>  <span class="mi">4</span>  <span class="mi">5</span> <span class="mi">14</span>  <span class="mi">1</span>  <span class="mi">0</span>  <span class="mi">2</span>  <span class="mi">7</span>  <span class="mi">6</span> <span class="mi">12</span> <span class="mi">13</span> <span class="mi">11</span>  <span class="mi">9</span> <span class="mi">10</span>  <span class="mi">8</span>
+<span class="n">Topological</span> <span class="nl">Sort</span><span class="p">:</span>
+  <span class="mi">3</span>  <span class="mi">1</span>  <span class="mi">0</span>  <span class="mi">2</span>  <span class="mi">7</span>  <span class="mi">4</span>  <span class="mi">5</span> <span class="mi">14</span>  <span class="mi">6</span> <span class="mi">12</span> <span class="mi">13</span> <span class="mi">11</span>  <span class="mi">9</span> <span class="mi">10</span>  <span class="mi">8</span>
+</pre></div>
+
+
+<p></br></p>
+<p>以上的做法是另外呼叫一個修改過的<code>QuickSort()</code>，對額外的矩陣<code>finishLargetoSmall[]</code>進行排序，優點是不需要更動<code>DFS()</code>。</p>
+<p>還有些常見的方法就是修改<code>DFS()</code>，主要有兩種，發生在當vertex要被標記為「已讀(visited)」或者「塗黑」時：</p>
+<ol>
+<li>把剛剛塗黑的vertex放進<code>stack</code>中，那麼按照順序，最先被塗黑的vertex就最先被放入<code>stack</code>的vertex，也就最後被<code>pop()</code>出<code>stack</code>。<br />
+因此，對<code>stack</code>依序進行<code>pop()</code>便能夠維持<code>finish</code>由大到小的順序。(詳見<a href="http://www.geeksforgeeks.org/topological-sorting/">GeeksforGeeks：Topological Sorting</a>)</li>
+<li>或者，把剛剛塗黑的vertex推進(push)一串Linked list，那麼，只要每次都是在Linked list的前端(front)加入vertex，當有下一個vertex被推入Linked list時，先前<code>finish</code>較小的vertex就被往後挪。<br />
+最後，對Linked list進行一次traversal，得到的vertex順序就會是<code>finish</code>由大到小。</li>
+</ol>
+<p></br></p>
+<p>以上便是利用<code>DFS()</code>來尋找DAG的Topological sort(拓撲排序)的介紹。<br />
+基本上是<code>DFS()</code>的變形/延伸，再一次<code>finish</code>又扮演關鍵角色拯救了世界。</p>
+<p></br></p>
+<p><a name="ref"></a></p>
+<h4><strong>參考資料</strong>：</h4>
+<ul>
+<li><a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844">Introduction to Algorithms, Ch22</a> </li>
+<li><a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376">Fundamentals of Data Structures in C++, Ch6</a></li>
+<li><a href="http://www.geeksforgeeks.org/topological-sorting/">GeeksforGeeks：Topological Sorting</a></li>
+<li><a href="http://www.personal.kent.edu/~rmuhamma/Algorithms/MyAlgorithms/GraphAlgor/topoSort.htm">Rashid Bin Muhammad：Topological Sort</a></li>
+</ul>
+<p></br></p>
+    </article>
+
+        <div class="tags">
+            <p>tags: <a href="http://alrightchiu.github.io/SecondRound/tag/c.html">C++</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/graph.html">Graph</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/dfs.html">DFS</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/dag.html">DAG</a>, </p>
+        </div>
+
+<hr>
+<div class="sharing">
+</div>
+    <hr>
+
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                            <li>
+                                <a href="https://github.com/alrightchiu">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                    </ul>
+<p class="copyright text-muted">
+    Blog powered by <a href="http://getpelican.com">Pelican</a>,
+    which takes great advantage of <a href="http://python.org">Python</a>.
+</p>                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="http://alrightchiu.github.io/SecondRound/theme/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="http://alrightchiu.github.io/SecondRound/theme/js/bootstrap.min.js"></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script src="http://alrightchiu.github.io/SecondRound/theme/js/clean-blog.min.js"></script>
+
+</body>
+
+</html>
