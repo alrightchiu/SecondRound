@@ -114,12 +114,13 @@
         <p></br></p>
 <h4><strong>先備知識與注意事項</strong></h4>
 <p>有些事件具有絕對的「先後關係」，例如，襪子要在鞋子之前穿上，否則穿上鞋子後要再穿襪子需要一點奇蹟。</p>
-<p>若以Graph來表示，vertex(穿襪子)、vertex(穿鞋子)與edge(先後關係)如圖一：</p>
+<p>若以Graph來表示，vertex(穿襪子)、vertex(穿鞋子)與edge(先後關係)如圖一(a)：</p>
 <p><center>
 <img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/TS_fig/f1.png?raw=true" /></p>
 <p><strong>圖一(a)。</strong><br />
 </center></p>
-<p>在<a href="http://alrightchiu.github.io/SecondRound/graph-introjian-jie.html">Graph: Intro(簡介)</a>曾經提過的「課程與其先修課程」亦具有這樣的「先後關係」。例如，學生一定要先修過「資料結構」，才能選修「演算法分析」，否則選課系統會生氣。</p>
+<p>在<a href="http://alrightchiu.github.io/SecondRound/graph-introjian-jie.html">Graph: Intro(簡介)</a>曾經提過的「課程與其先修課程」亦具有這樣的「先後關係」。<br />
+例如，學生一定要先修過「資料結構」，才能選修「演算法分析」，否則選課系統會生氣。</p>
 <p>那麼要如何確保在選修「演算法分析」之前，已經先選修「資料結構」，而在選修「資料結構」之前，已經先修完「程式(一)」與「離散數學」？</p>
 <p>本篇文章將要介紹的Topological Sort(拓撲排序)就是要解決這項煩惱。<br />
 如果找到了圖一(b)的Topological Sort(拓撲排序)，就能知道可行的修課順序，以確保在選修「演算法分析」之前，一定已經修過「資料結構」與「線性代數」。</p>
@@ -155,8 +156,9 @@
 
 
 <p>最重要的一點：只有<strong>directed acyclic graph(DAG)</strong>的Topological Sort(拓撲排序)才有意義。</p>
-<p>以圖二(b)為例，若根據Topological Sort的定義：「若存在一條edge(X,Y)，則序列中，vertex(X)一定要在vertex(Y)之前出現」，那麼，存在edge(fish,rice)，序列可能是「魚、飯、肉、菜」，但是卻也同時存在edge(rice,pork)，序列可能是「飯、肉、菜、魚」，而第二個序列卻違反「存在edge(fish,rice)，魚要在飯之前吃」的限制。</p>
-<p>因此，只有在DAG上討論Topological Sort(拓撲排序)才有意義。</p>
+<ul>
+<li>以圖二(b)為例，若根據Topological Sort的定義：「若存在一條edge(X,Y)，則序列中，vertex(X)一定要在vertex(Y)之前出現」，那麼，存在edge(fish,rice)，序列可能是「魚、飯、肉、菜」，但是卻也同時存在edge(rice,pork)，序列可能是「飯、肉、菜、魚」，而第二個序列卻違反「存在edge(fish,rice)，魚要在飯之前吃」的限制。</li>
+</ul>
 <p><center>
 <img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/TS_fig/f4.png?raw=true" /></p>
 <p><strong>圖二(b)。</strong><br />
