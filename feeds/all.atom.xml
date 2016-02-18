@@ -180,8 +180,8 @@
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844"&gt;Introduction to Algorithms, Ch22&lt;/a&gt; &lt;/li&gt;
 &lt;li&gt;&lt;a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376"&gt;Fundamentals of Data Structures in C++, Ch6&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="http://www.geeksforgeeks.org/topological-sorting/"&gt;GeeksforGeeks：Topological Sorting&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://www.personal.kent.edu/~rmuhamma/Algorithms/MyAlgorithms/GraphAlgor/topoSort.htm"&gt;Rashid Bin Muhammad：Topological Sort&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.geeksforgeeks.org/topological-sorting/"&gt;GeeksforGeeks：Topological Sorting&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;</summary><category term="C++"></category><category term="Graph"></category><category term="DFS"></category><category term="DAG"></category></entry><entry><title>Grpah: 利用DFS尋找Strongly Connected Component(SCC)</title><link href="http://alrightchiu.github.io/SecondRound/grpah-li-yong-dfsxun-zhao-strongly-connected-componentscc.html" rel="alternate"></link><updated>2016-02-17T21:49:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-02-17:SecondRound/grpah-li-yong-dfsxun-zhao-strongly-connected-componentscc.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h4&gt;&lt;strong&gt;先備知識與注意事項&lt;/strong&gt;&lt;/h4&gt;
