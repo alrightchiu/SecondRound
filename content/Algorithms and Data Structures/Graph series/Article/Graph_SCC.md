@@ -49,6 +49,7 @@ Summary: 利用DFS尋找diredted graph中的strongly connected component(SCC)。
 * [演算法](#algorithm)
 * [程式碼](#code)
 * [參考資料](#ref)
+* [Graph系列文章](#series)
 
 
 
@@ -578,7 +579,18 @@ SCC#3: 6 7 8
 * [Rashid Bin Muhammad：Strongly Connected Components](http://www.personal.kent.edu/~rmuhamma/Algorithms/MyAlgorithms/GraphAlgor/strongComponent.htm)
 * [GeeksforGeeks：Strongly Connected Components](http://www.geeksforgeeks.org/strongly-connected-components/)
 
+<a name="series"></a>
 
+</br>
+
+##Graph系列文章
+
+* [Graph: Intro(簡介)](http://alrightchiu.github.io/SecondRound/graph-introjian-jie.html)
+* [Graph: Breadth-First Search(BFS，廣度優先搜尋)](http://alrightchiu.github.io/SecondRound/graph-breadth-first-searchbfsguang-du-you-xian-sou-xun.html)
+* [Graph: Depth-First Search(DFS，深度優先搜尋)](http://alrightchiu.github.io/SecondRound/graph-depth-first-searchdfsshen-du-you-xian-sou-xun.html)
+* [Graph: 利用DFS和BFS尋找Connected Component](http://alrightchiu.github.io/SecondRound/graph-li-yong-dfshe-bfsxun-zhao-connected-component.html)
+* [Grpah: 利用DFS尋找Strongly Connected Component(SCC)](http://alrightchiu.github.io/SecondRound/grpah-li-yong-dfsxun-zhao-strongly-connected-componentscc.html)
+* [Grpah: 利用DFS尋找DAG的Topological Sort(拓撲排序)](http://alrightchiu.github.io/SecondRound/grpah-li-yong-dfsxun-zhao-dagde-topological-sorttuo-pu-pai-xu.html)
 
 
 </br>

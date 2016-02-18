@@ -46,6 +46,7 @@ Summary: 利用DFS和BFS尋找undiredted graph中的Connected Component。
 * [程式碼](#code)
 * [如果是Strongly Connected Component呢](#scc)
 * [參考資料](#ref)
+* [Graph系列文章](#series)
 
 
 
@@ -385,7 +386,18 @@ Component#3: 3 6 8
 * [Hackerearth：Disjoint Set Union(Union Find)](https://www.hackerearth.com/notes/disjoint-set-union-union-find/)
 * [Wikipedia：Set (abstract data type)](https://en.wikipedia.org/wiki/Set_%28abstract_data_type%29)
 
+<a name="series"></a>
 
+</br>
+
+##Graph系列文章
+
+* [Graph: Intro(簡介)](http://alrightchiu.github.io/SecondRound/graph-introjian-jie.html)
+* [Graph: Breadth-First Search(BFS，廣度優先搜尋)](http://alrightchiu.github.io/SecondRound/graph-breadth-first-searchbfsguang-du-you-xian-sou-xun.html)
+* [Graph: Depth-First Search(DFS，深度優先搜尋)](http://alrightchiu.github.io/SecondRound/graph-depth-first-searchdfsshen-du-you-xian-sou-xun.html)
+* [Graph: 利用DFS和BFS尋找Connected Component](http://alrightchiu.github.io/SecondRound/graph-li-yong-dfshe-bfsxun-zhao-connected-component.html)
+* [Grpah: 利用DFS尋找Strongly Connected Component(SCC)](http://alrightchiu.github.io/SecondRound/grpah-li-yong-dfsxun-zhao-strongly-connected-componentscc.html)
+* [Grpah: 利用DFS尋找DAG的Topological Sort(拓撲排序)](http://alrightchiu.github.io/SecondRound/grpah-li-yong-dfsxun-zhao-dagde-topological-sorttuo-pu-pai-xu.html)
 
 </br>
 

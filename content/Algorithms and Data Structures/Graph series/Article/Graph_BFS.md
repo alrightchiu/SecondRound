@@ -39,6 +39,7 @@ Summary: 介紹Graph(圖)中的基本操作：Breadth-First Search(BFS，廣度�
 * [程式碼](#code)
 * [討論](#discuss)
 * [參考資料](#ref)
+* [Graph系列文章](#series)
 
 
 
@@ -413,6 +414,18 @@ int main(){
 * [Theory of Programming：Adjacency List using C++ STL](http://theoryofprogramming.com/adjacency-list-using-cpp-stl/)
 * [GeeksforGeeks：Detect cycle in an undirected graph](http://www.geeksforgeeks.org/detect-cycle-undirected-graph/)
 
+<a name="series"></a>
+
+</br>
+
+##Graph系列文章
+
+* [Graph: Intro(簡介)](http://alrightchiu.github.io/SecondRound/graph-introjian-jie.html)
+* [Graph: Breadth-First Search(BFS，廣度優先搜尋)](http://alrightchiu.github.io/SecondRound/graph-breadth-first-searchbfsguang-du-you-xian-sou-xun.html)
+* [Graph: Depth-First Search(DFS，深度優先搜尋)](http://alrightchiu.github.io/SecondRound/graph-depth-first-searchdfsshen-du-you-xian-sou-xun.html)
+* [Graph: 利用DFS和BFS尋找Connected Component](http://alrightchiu.github.io/SecondRound/graph-li-yong-dfshe-bfsxun-zhao-connected-component.html)
+* [Grpah: 利用DFS尋找Strongly Connected Component(SCC)](http://alrightchiu.github.io/SecondRound/grpah-li-yong-dfsxun-zhao-strongly-connected-componentscc.html)
+* [Grpah: 利用DFS尋找DAG的Topological Sort(拓撲排序)](http://alrightchiu.github.io/SecondRound/grpah-li-yong-dfsxun-zhao-dagde-topological-sorttuo-pu-pai-xu.html)
 
 
 </br>
