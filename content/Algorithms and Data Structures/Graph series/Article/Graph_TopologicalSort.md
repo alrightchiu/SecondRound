@@ -57,7 +57,7 @@ Summary: 利用DFS尋找directed acyclic graph(DAG)的Topological Sort(拓撲排
 <center>
 ![cc][f3]
 
-**圖二(a)。**  
+**圖二(a)：將圖一(b)以符號表示。**  
 </center>
 
 根據圖一(b)，選修「資料結構」與「線性代數」的先後順序顯然無所謂，「數值分析」與「離散數學」的修課順序也互相沒有影響，因為兩者之間沒有必然的先後關係。  
