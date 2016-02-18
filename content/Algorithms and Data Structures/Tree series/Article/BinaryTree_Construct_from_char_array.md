@@ -445,9 +445,11 @@ void BinaryTree::insertLevelorder(char data){
 * [C++ Programming Language：Stream IO and File IO](http://www3.ntu.edu.sg/home/ehchua/programming/cpp/cp10_io.html)
 * [GeeksforGeeks：Level Order Tree Traversal](http://www.geeksforgeeks.org/level-order-tree-traversal/)
 
+</br>
+
 <a name="tree_series"></a>
 
-##**Tree系列文章**
+##Tree系列文章
 
 * [Tree(樹): Intro(簡介)](http://alrightchiu.github.io/SecondRound/treeshu-introjian-jie.html)
 * [Binary Tree: Intro(簡介)](http://alrightchiu.github.io/SecondRound/binary-tree-introjian-jie.html)

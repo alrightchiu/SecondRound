@@ -454,9 +454,11 @@ void RBT::InsertFixedUpRBT(TreeNode *current){
 * [GeeksforGeeks：Red Black Tree](http://code.geeksforgeeks.org/NtLnIk)
 
 
+</br>
+
 <a name="tree_series"></a>
 
-##**Tree系列文章**
+##Tree系列文章
 
 * [Tree(樹): Intro(簡介)](http://alrightchiu.github.io/SecondRound/treeshu-introjian-jie.html)
 * [Binary Tree: Intro(簡介)](http://alrightchiu.github.io/SecondRound/binary-tree-introjian-jie.html)
