@@ -2,7 +2,7 @@ Title: Grpah: 利用DFS尋找Strongly Connected Component(SCC)
 Date: 2016-2-17 21:49  
 Category: 演算法與資料結構  
 Tags: C++, Graph, DFS, DAG  
-Summary: 利用DFS尋找diredted graph中的strongly connected component(SCC)  。
+Summary: 利用DFS尋找diredted graph中的strongly connected component(SCC)。
 
 
 
