@@ -110,7 +110,7 @@
     <!-- Post Content -->
     <article>
         <p></br></p>
-<h4><strong>先備知識與注意事項</strong></h4>
+<h3>先備知識與注意事項</h3>
 <p>在<a href="http://alrightchiu.github.io/SecondRound/binary-tree-traversal.html#ex_code">Binary Tree：Traversal</a>中，非常沒誠意地用暴力方式建了一棵Binary Tree，在這裡至上深深歉意，因此，在本篇文章將提供一種方法，由一個字元陣列(char array)輸入字母，並按照<a href="http://alrightchiu.github.io/SecondRound/binary-tree-intro.html#fullcomplete">Complete Binary Tree</a>之順序重新建立<em>那顆樹</em>(一種不健康的雪恥心態)。</p>
 <p>其中，問題情境之原始資料是一個字元陣列(char array)，為了方便處理(偷懶)選擇使用C++語言中的神器：<a href="http://www3.ntu.edu.sg/home/ehchua/programming/cpp/cp10_io.html">stringstream</a>，這裡礙於篇幅與主題(與筆者自己也還在摸索)，就不多談避免誤導，<a href="(http://www3.ntu.edu.sg/home/ehchua/programming/cpp/cp10_io.html)">點進連結中</a>有非常詳細的說明，關於<code>istringstream</code>、<code>ostringstream</code>、<code>stringstream</code>等等template class之繼承關係(inheritance)。<br />
 重點是，<code>stringstream</code>就是神，就是行，學起來簡直光宗耀祖。</p>
@@ -130,7 +130,7 @@
 <li><a href="#tree_series">Tree系列文章</a></li>
 </ul>
 <p><a name="description"></a></p>
-<h2><strong>問題描述</strong></h2>
+<h2>問題描述</h2>
 <p>問題描述如下：</p>
 <ul>
 <li>給定一個字元陣列，欲按照Complete Binary Tree之位置規則建立一棵Binary Tree，若陣列元素之資料為大寫字母(ASCII：65~90)，則將其建立成Tree的node，若陣列元素為 ' x ' 則表示該位置沒有node。</li>
@@ -148,7 +148,7 @@
 </center> </p>
 <p>以下程式範例的目的就是要以如此文明的方式建立出如圖一的Binary Tree。</p>
 <p><a name="code"></a></p>
-<h2><strong>程式碼</strong></h2>
+<h2>程式碼</h2>
 <p>先看看<code>main()</code>中，上半部分別為：</p>
 <ul>
 <li>原始資料：字元陣列；</li>
@@ -187,7 +187,7 @@
 
 <p></br> </p>
 <p><a name="def"></a></p>
-<h4><strong>定義class TreeNode、class BinaryTree</strong></h4>
+<h3>定義class TreeNode、class BinaryTree</h3>
 <p>幾點說明：</p>
 <ul>
 <li>
@@ -235,7 +235,7 @@
 
 <p></br>  </p>
 <p><a name="constructor"></a></p>
-<h4><strong>Constructor of BinaryTree</strong></h4>
+<h3>Constructor of BinaryTree</h3>
 <p><code>class BinaryTree</code>的constructor很直觀，拿到一個字元陣列，先送進<code>stringstream</code>後，再由<code>stringstream</code>放進樹中，先對樹的<code>root</code>進行記憶體配置以及賦值，接著以level-order的方式建立Binary Tree。</p>
 <div class="highlight"><pre><span class="c1">// C++ code</span>
 <span class="n">BinaryTree</span><span class="o">::</span><span class="n">BinaryTree</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">str</span><span class="p">){</span>
@@ -252,7 +252,7 @@
 
 <p></br></p>
 <p><a name="func1"></a></p>
-<h4><strong>Function：LevelorderConstruct()</strong></h4>
+<h3>Function：LevelorderConstruct()</h3>
 <ul>
 <li>在看<code>LevelorderConstruct()</code>的函式主體之前，再看一眼<a href="http://alrightchiu.github.io/SecondRound/binary-tree-traversal.html#level">level-order traversal</a>，概念上即是藉著<code>queue</code>的「先排隊就先購票」的特性，在同一個level中，只要確保由左至右將node放進<code>queue</code>中，便能確保在進入下一個level後，以先前放入node之順序進行visiting。  </li>
 <li>在<code>while</code>內，新增條件用來判斷從<code>stringstream</code>中輸出的字母是「大寫字母」(ASCII：65~90)還是「x」，前者要放入樹中建成node，後者則忽略不計。  </li>
@@ -397,7 +397,7 @@
 
 <p></br>
 <a name="func2"></a></p>
-<h4><strong>Function：insertLevelorder()</strong></h4>
+<h3>Function：insertLevelorder()</h3>
 <p>函式<code>insertLevelorder()</code>的功能是，能夠按照Complete Binary Tree的位置順序放置新增的node，例如，若要在圖三之樹上新增帶有字母<strong>'K'</strong>的node，則<code>T.insertLevelorder('K')</code>便會將<strong>'K'</strong>建成C的right child，如圖四(a)：</p>
 <p><center>
 <img alt="insertK" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/insertK.png?raw=true" />  </p>
@@ -456,7 +456,7 @@ pointer連接完成後，結束迴圈。</li>
 另外，<a href="http://www.geeksforgeeks.org/level-order-tree-traversal/">有些方法是利用遞迴的方式，外帶一個迴圈來進行level-order traversal</a>，也能夠完成相同的功能。</p>
 <p></br>
 <a name="ref"></a></p>
-<h4><strong>參考資料</strong>：</h4>
+<h3>參考資料：</h3>
 <ul>
 <li><a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844">Introduction to Algorithms</a> </li>
 <li><a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376">Fundamentals of Data Structures in C++</a></li>

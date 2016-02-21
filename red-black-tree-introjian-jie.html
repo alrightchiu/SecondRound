@@ -111,7 +111,7 @@
     <!-- Post Content -->
     <article>
         <p></br></p>
-<h4><strong>先備知識與注意事項</strong></h4>
+<h3>先備知識與注意事項</h3>
 <p>在閱讀過BST系列文章後可以發現，在BST中的操作，不論是Insert(新增資料)或是Delete(刪除資料)，皆需要先做Search(搜尋)，而Search(搜尋)的效率，取決於BST的height(樹高)，如果一棵樹越矮、越平衡(balanced)，則在此BST中搜尋資料的速度較快，理想狀況為Complete Binary Tree(時間複雜度：<span class="math">\(O(\log N)\)</span>)。反之，若由於輸入資料的順序使得BST沒長好、偏一邊，則在此BST中搜尋資料的最壞情況將有可能如同在Linked List做搜尋(時間複雜度：<span class="math">\(O(N)\)</span>)。  </p>
 <p>本篇文章將介紹BST的進階版Red Black Tree(RBT，紅黑樹)之基本性質，會說是進階版，原因在於RBT其實也是BST(滿足<span class="math">\(Key(L)&lt;Key(Current)&lt;Key(R)\)</span>)，不過RBT的node比BST多加了「顏色」(紅色或黑色)，而正因為多了「顏色」，便能修正BST有可能退化成Linked list(連結串列)的潛在缺陷。 </p>
 <p><center>
@@ -129,7 +129,7 @@
 <li><a href="#tree_series">Tree系列文章</a></li>
 </ul>
 <p><a name="why"></a></p>
-<h2><strong>為什麼需要Red Black Tree？</strong></h2>
+<h2>為什麼需要Red Black Tree？</h2>
 <p>若考慮最壞情況，在建立BST時，輸入資料的Key恰好被排序過(例如：1、2、3、4...)，那麼這顆BST便會退化成Linked List(接續前例，所有leftchild pointer都指向<code>NULL</code>，只有rightchild child被使用)：</p>
 <div class="highlight"><pre><span class="c1">// C++ code</span>
 <span class="kt">int</span> <span class="n">main</span><span class="p">{</span>
@@ -161,7 +161,7 @@
 <p>因此，BST越平衡，在樹中搜尋資料的時間就越短，連帶地Insert(新增資料)、Delete(刪除資料)也會變得更有效率。<br />
 這就是RBT值得被介紹的原因。</p>
 <p><a name="rbt"></a></p>
-<h2><strong>Red Black Tree的特徵</strong></h2>
+<h2>Red Black Tree的特徵</h2>
 <p>Red Black Tree(RBT)是node塗了「顏色」的Binary Search Tree(BST)，藉由控制顏色，能夠保證在RBT中，<strong>最長path(路徑)不會超過最短path的兩倍</strong>(若最短的path是5，最長的path至多只能是10)，如此，RBT便能夠近似地視為平衡，如圖四。</p>
 <p><center>
 <img alt="rbt" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Intro/rbt3.png?raw=true" /></p>
@@ -188,7 +188,7 @@
 </ol>
 <p>根據上述特徵的第四點與第五點，RBT中path可能的長度最小值一定是全部node皆為黑色，而path可能的長度最大值並定是紅色-黑色相間(如圖四)，如此便確保RBT擁有<strong>最長path(路徑)不會超過最短path的兩倍</strong>的特性。</p>
 <p><a name="code"></a></p>
-<h2><strong>程式碼</strong></h2>
+<h2>程式碼</h2>
 <p>實際的程式實現上，會把所有<code>NIL</code>視為同一個<code>NIL</code>，並把<code>root</code>的parent指向<code>NIL</code>，以節省記憶體空間，如圖五。</p>
 <p><center>
 <img alt="rbt" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Intro/rbt4.png?raw=true" /></p>
@@ -229,7 +229,7 @@
 <p>在接下來的三篇文章中，將依序介紹Rotation(旋轉)、Insert(新增資料)與Delete(刪除資料)。</p>
 <p></br></p>
 <p><a name="ref"></a></p>
-<h4><strong>參考資料</strong>：</h4>
+<h3>參考資料：</h3>
 <ul>
 <li><a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844">Introduction to Algorithms, Ch13</a> </li>
 <li><a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376">Fundamentals of Data Structures in C++</a></li>

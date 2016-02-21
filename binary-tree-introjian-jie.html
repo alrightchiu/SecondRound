@@ -111,7 +111,7 @@
     <!-- Post Content -->
     <article>
         <p></br></p>
-<h4><strong>先備知識與注意事項</strong></h4>
+<h3>先備知識與注意事項</h3>
 <p>接續上一篇談到的<a href="http://alrightchiu.github.io/SecondRound/treeshu.html">Tree(樹)</a>，這篇文章將介紹樹這個大集合裡的其中一支大宗：<strong>Binary Tree</strong>。</p>
 <p></br>
 學海無涯，快點跳海。</p>
@@ -126,7 +126,7 @@
 <li><a href="#tree_series">Tree系列文章</a></li>
 </ul>
 <p><a name="bt"></a></p>
-<h2><strong>Binary Tree</strong></h2>
+<h2>Binary Tree</h2>
 <p>最廣義的樹(Tree)對於樹上的node之child數目沒有限制，因此，每個node可以有多個child。</p>
 <p><center><br />
 <img alt="general_tree" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Intro/general_tree.png?raw=true" /></p>
@@ -138,7 +138,7 @@
 <p><strong>圖二：這是一棵Binary Tree。</strong>
 </center></p>
 <p><a name="code"></a></p>
-<h2><strong>程式碼</strong></h2>
+<h2>程式碼</h2>
 <p>修改在<a href="http://alrightchiu.github.io/SecondRound/treeshu.html#code">Tree(樹)</a>提供的程式實作方式，將node的child pointer設為left child與right child，以滿足Binary Tree的形式。<br />
 另外，在class TreeNode有個<code>TreeNode *parent</code>，顧名思義，即是指向該node之parent的pointer，以圖二為例，B的parent pointer即指向A。<br />
 Binary Tree的node未必需要parent pointer(或稱為parent field)，然而加入parent後，在對樹的操作(operaion)如inorder traversal(中序尋訪)、node deletion(刪除node)、以及任何需要back-tracing(回溯路徑)的操作時，會更加有效率。</p>
@@ -160,10 +160,10 @@ Binary Tree的node未必需要parent pointer(或稱為parent field)，然而加�
 
 
 <p><a name="fullcomplete"></a></p>
-<h2><strong>Full &amp; Complete Binary Tree</strong></h2>
+<h2>Full &amp; Complete Binary Tree</h2>
 <p>有兩類Binary Tree十分常見，分別為<strong>Full Binary Tree</strong>以及<strong>Complete Binary Tree</strong>。<br />
-(完滿二元樹？完整二元樹？我的建議是當作專有名詞不要翻譯。) </p>
-<h5><strong>A. Full Binary Tree</strong>:</h5>
+(完滿二元樹？完整二元樹？我的建議是當作專有名詞，不要翻譯。) </p>
+<p><strong>A. Full Binary Tree</strong>:  </p>
 <p>如圖三所示，一棵<strong>Full Binary Tree</strong>(或稱作Perfect Binary Tree)具有以下性質：</p>
 <ul>
 <li>所有internal node都有兩個subtree(也就是兩個child pointer)；</li>
@@ -180,7 +180,7 @@ Binary Tree的node未必需要parent pointer(或稱為parent field)，然而加�
 <img alt="Full Binary Tree" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Intro/fullBT.png?raw=true" />  </p>
 <p><strong>圖三：若一棵Full Binary Tree的leaf node之level為<span class="math">\(n\)</span>，整棵樹共有<span class="math">\(2^n-1\)</span>個node。</strong><br />
 </center>   </p>
-<h5><strong>B. Complete Binary Tree</strong>:</h5>
+<p><strong>B. Complete Binary Tree</strong>:</p>
 <p>若一棵樹的node按照Full Binary Tree的次序排列(由上至下，由左至右)，則稱此樹為<strong>Complete Binary Tree</strong>。  </p>
 <p>以圖四及圖五作說明。<br />
 圖四的樹共有10個node，且這十個node正好填滿Full Binary Tree的前十個位置，則此樹為Complete Binary Tree。  </p>
@@ -195,7 +195,7 @@ Binary Tree的node未必需要parent pointer(或稱為parent field)，然而加�
 </center>
 </br> </p>
 <p><a name="application"></a></p>
-<h2><strong>學習Binary Tree的未來出路</strong></h2>
+<h2>學習Binary Tree的未來出路</h2>
 <p>如果有家長擔心小孩子學了Binary Tree之後對未來的出路沒有幫助，這裡有<a href="http://stackoverflow.com/questions/2130416/what-are-the-applications-of-binary-trees">網路神人在StackOverFlow</a>開示，以下簡單翻譯幾項Binary Tree的應用：</p>
 <ul>
 <li>Binary Search Tree(BST)：在某些資料經常要增加、刪除的應用中，BST常用來做搜尋，例如許多程式語言的Library中的<code>map</code>和<code>set</code>。</li>
@@ -209,7 +209,7 @@ Binary Tree的node未必需要parent pointer(或稱為parent field)，然而加�
 接下來將會介紹Binary Tree(以及往後主題)中最基本的操作：traversal(尋訪)，顧名思義，就是如何在樹中移動，有了traversal之後再進一步探討search(搜尋)、insertion(新增node)、deletion(刪除node)、sorting(排序)會更加容易。</p>
 <p></br>
 <a name="ref"></a></p>
-<h4><strong>參考資料</strong>：</h4>
+<h3>參考資料：</h3>
 <ul>
 <li><a href="https://en.wikipedia.org/wiki/Binary_tree">Wikipedia：Binary tree</a></li>
 <li><a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376">Fundamentals of Data Structures in C++</a>  </li>

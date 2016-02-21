@@ -110,7 +110,7 @@
     <!-- Post Content -->
     <article>
         <p></br></p>
-<h4><strong>先備知識與注意事項</strong></h4>
+<h3>先備知識與注意事項</h3>
 <p>如同<a href="http://alrightchiu.github.io/SecondRound/red-black-tree-insertxin-zeng-zi-liao-yu-fixupxiu-zheng.html">Red Black Tree: Insert(新增資料)與Fixup(修正)</a>，RBT之Delete(刪除資料)方法同樣是先沿用<code>DeleteBST()</code>，再對顏色利用<code>Rotation</code>進行修正。<br />
 建議讀者在閱讀本篇文章之前，先復習<a href="http://alrightchiu.github.io/SecondRound/binary-search-tree-sortpai-xu-deleteshan-chu-zi-liao.html#delete">BST::DeleteBST(刪除資料)</a>與<a href="http://alrightchiu.github.io/SecondRound/red-black-tree-rotationxuan-zhuan.html">Red Black Tree: Rotation(旋轉)</a>，會比較容易上手。</p>
 <hr />
@@ -131,7 +131,7 @@
 <li><a href="#tree_series">Tree系列文章</a></li>
 </ul>
 <p><a name="violate"></a></p>
-<h2><strong>於RBT中Delete(刪除資料)可能違反RBT之特徵</strong></h2>
+<h2>於RBT中Delete(刪除資料)可能違反RBT之特徵</h2>
 <p>在RBT中執行Delete(刪除資料)時，若刪除之node為黑色，有可能違反三點RBT特徵：</p>
 <ol>
 <li>圖一(a)：若要刪除的node恰好為<code>root</code>，而刪除後恰好是紅色的node遞補成為新的<code>root</code>，此時便違反RBT之第二點特徵：<code>root</code>一定要是黑色；</li>
@@ -148,7 +148,7 @@
 <p><strong>圖一(b)：違反RBT之第四點與第五點特徵。</strong>
 </center></p>
 <p><a name="bst"></a></p>
-<h2><strong>如同於BST中Delete(刪除資料)</strong></h2>
+<h2>如同於BST中Delete(刪除資料)</h2>
 <p><code>RBT::DeleteRBT()</code>之範例程式碼分成兩個部分：</p>
 <ol>
 <li>第一部分，如同<code>DeleteBST()</code>，依照欲刪除之node的<code>child</code>個數分成三種情形處理：<ol>
@@ -206,7 +206,7 @@
 
 
 <p><a name="fixup"></a></p>
-<h2><strong>修正：DeleteFixUpRBT()</strong></h2>
+<h2>修正：DeleteFixUpRBT()</h2>
 <p>考慮在圖二之RBT中刪除node(B)，由於node(B)是黑色，必定違反RBT之特徵，因此需要修正。<br />
 (以下圖示中，白色的node表示顏色可能為黑色也可能為紅色，而且可能是一棵subtree或是<code>NIL</code>，需視情況而定。)</p>
 <p><center>
@@ -238,7 +238,7 @@
 <p><strong>圖四：。</strong>
 </center></p>
 <p><a name="case1"></a></p>
-<h4><strong>Case1</strong></h4>
+<h3>Case1</h3>
 <p>若<code>sibling</code>為紅色，修正方法如下，見圖五(a)：</p>
 <ul>
 <li>將<code>sibling</code>塗成黑色：node(E)塗成黑色；</li>
@@ -260,7 +260,7 @@
 <p><strong>圖五(b)：圖中的「Original」僅代表其中一種可能的情形。</strong>
 </center></p>
 <p><a name="case2"></a></p>
-<h4><strong>Case2</strong></h4>
+<h3>Case2</h3>
 <p>若<code>sibling</code>為黑色，並且<code>sibling</code>之兩個<code>child</code>皆為黑色，修正的方法如下，見圖五(c)：</p>
 <ul>
 <li>將<code>sibling</code>塗成紅色：node(E)塗成紅色；</li>
@@ -282,7 +282,7 @@
 <p><strong>圖五(e)：圖中的「Original」僅代表其中一種可能的情形。此時的RBT還要繼續修正，見Case3。</strong>
 </center></p>
 <p><a name="case3"></a></p>
-<h4><strong>Case3</strong></h4>
+<h3>Case3</h3>
 <p>若<code>sibling</code>為黑色，並且<code>sibling</code>之<code>rightchild</code>為黑色，修正的方法如下，見圖五(f)：</p>
 <ul>
 <li>將<code>sibling</code>之<code>leftchild</code>塗成黑色：node(D)塗成黑色；</li>
@@ -296,7 +296,7 @@
 </center></p>
 <p>經過以上修正步驟，<code>sibling</code>之<code>rightchild</code>成為紅色，便進入Case4。</p>
 <p><a name="case4"></a></p>
-<h4><strong>Case4</strong></h4>
+<h3>Case4</h3>
 <p>若<code>sibling</code>為黑色，並且<code>sibling</code>之<code>rightchild</code>為紅色，修正的方法如下，見圖五(g)：</p>
 <ul>
 <li>將<code>sibling</code>塗成<code>current</code>之<code>parent</code>的顏色：若node(C)是紅色，則將node(E)塗成紅色，若node(C)是黑色，則將node(E)塗成黑色；</li>
@@ -317,7 +317,7 @@
 </center></p>
 <p><a name="example"></a></p>
 <hr />
-<h4><strong>範例</strong></h4>
+<h3>範例</h3>
 <p>接著以一個簡單的範例(圖六(a)之RBT)操作上述四種Case的修正方法。</p>
 <p><center>
 <img alt="example" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Delete/delete14.png?raw=true" /></p>
@@ -399,7 +399,7 @@
 <p><strong>圖六(j)：。</strong>
 </center></p>
 <p><a name="code"></a></p>
-<h2><strong>程式碼</strong></h2>
+<h2>程式碼</h2>
 <p><code>DeleteFixedUpRBT()</code>之範例程式碼分成以下幾個部分：</p>
 <ul>
 <li>如圖四所示，修正的過程可能經歷不止一個Case，因此利用<code>while</code>來實現，條件式為：<code>current</code>不是<code>root</code>，而且<code>current</code>為黑色；</li>
@@ -487,7 +487,7 @@
 
 <p></br>
 <a name="ref"></a></p>
-<h4><strong>參考資料</strong>：</h4>
+<h3>參考資料：</h3>
 <ul>
 <li><a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844">Introduction to Algorithms</a> </li>
 <li><a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376">Fundamentals of Data Structures in C++</a></li>

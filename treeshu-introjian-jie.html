@@ -110,7 +110,7 @@
     <!-- Post Content -->
     <article>
         <p></br></p>
-<h4><strong>先備知識與注意事項</strong></h4>
+<h3>先備知識與注意事項</h3>
 <p>若熟悉Linked List(連結串列)將會更容易理解樹：Linked list是一維的線性結構(不是往前、就是往後)，而樹(與圖)則推廣成多維的結構。<br />
 </br>
 <center><img alt="linkedlist" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/Tree_fig/linked_list_size.png?raw=true" /></p>
@@ -134,7 +134,7 @@
 <li><a href="#tree_series">Tree系列文章</a></li>
 </ul>
 <p><a name="example"></a></p>
-<h2><strong>隨處可見的Tree(樹)</strong></h2>
+<h2>隨處可見的Tree(樹)</h2>
 <p><strong>Tree(樹)</strong>是用以描述具有<strong>階層結構</strong>(hierarchical structure)的問題的首選，階層結構意味著明確的先後次序，例如，若要印出ABC三個字母的所有排列組合(permutation)，直覺反射的圖像會是：  </p>
 <p><center><br />
 <img alt="fig1.a" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/Tree_fig/abc_permu_size.png?raw=true" />
@@ -147,8 +147,8 @@
 <p>圖二的邏輯為：從起點(R)開始，先決定第一個字母，再依序決定第二、第三個字母，並且，在每一次選擇字母時，可能有不止一個可供選擇的字母。最後一共走出六條路徑，得到六種排列組合，而且這六種排列方式只能經由一種唯一的選擇方式(唯一的路徑)產生。若將起點(R)視為樹根(root)，每一個字母選擇的狀態(例如：A、C、BC、CAB)都視為一個node，這樣的結構便能夠視為一棵樹。  </p>
 <p>另外如一本書的目錄、族譜、官僚企業的職位關係，甚至是更廣義的「從家門口為起點尋找方圓一公里以內的便利商店」都能夠建立出樹的模型。<br />
 </br></p>
-<p><a name="essence"></a> </p>
-<h2><strong>那麼，樹最根本的特徵是什麼？</strong></h2>
+<p><a name="essence"></a></p>
+<h2>那麼，樹最根本的特徵是什麼？</h2>
 <p>以族譜為例，若包龍星是宋世傑的爸爸，那麼包龍星就絕對不能同時又是宋世傑的兒子。圖三以node與edge描述此關係，並定義箭頭是從父指向子，則包龍星指向宋世傑的箭頭表示包為父、宋為子，而宋世傑指向包龍星的箭頭表示宋為父、包為子，這一個箭頭即違反了最初「包龍星是宋世傑的爸爸」的命題，此即稱為cycle，也就是著名的「雞生蛋」與「蛋生雞」。  </p>
 <p>而樹的最根本特徵就是：<strong>在樹的結構裡，只有一個root(樹根)，並且不存在cycle</strong>。
 此特徵將衍生出另外兩項等價的性質：</p>
@@ -163,7 +163,7 @@
 </center>
 </br> </p>
 <p><a name="tree_not_tree"></a> </p>
-<h2><strong>還有哪些結構是樹？</strong></h2>
+<h2>還有哪些結構是樹？</h2>
 <p>(若不是樹，皆稱為圖(graph)。)</p>
 <p>下列四種結構中，a、b可以視為樹，而c、d則否：
 </br>
@@ -181,7 +181,7 @@
 </center>
 </br></p>
 <p><a name="element"></a></p>
-<h2><strong>用以描述一棵樹的元素</strong></h2>
+<h2>用以描述一棵樹的元素</h2>
 <p><center>
 <img alt="fig3" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/Tree_fig/general_Tree.png?raw=true" />   </p>
 <p><strong>圖四：這是一棵普通的樹。</strong><br />
@@ -209,7 +209,7 @@
 </br></li>
 </ul>
 <p><a name="definition"></a></p>
-<h2><strong>定義</strong></h2>
+<h2>定義</h2>
 <p>以下列出兩種互相等價的Tree(樹)的定義：<br />
 (根據以上範例說明，再配合樹的定義，還不飛上天？)</p>
 <p>A. <strong>Tree(樹)</strong>是由一個或多個節點所組成的有限集合，並且滿足：  </p>
@@ -227,7 +227,7 @@
 <p><strong>圖五：Forest(樹林)由多個Tree(樹)所組成，可以用來表示互斥集合(disjoint set)。</strong>
 </center></p>
 <p><a name="code"></a></p>
-<h2><strong>程式碼</strong></h2>
+<h2>程式碼</h2>
 <p>實務上，要以程式碼實作一棵樹，常用的手法為：先以class TreeNode(或是struct)定義出每顆node能夠指向多少subtree、攜帶哪些資料形態，再以另一個class Tree表示整棵樹，並以root作為樹的存取點：</p>
 <div class="highlight"><pre><span class="c1">// C++ code</span>
 <span class="k">class</span> <span class="nc">Tree</span><span class="p">;</span>
@@ -248,7 +248,7 @@
 
 
 <p><a name="set"></a></p>
-<h2><strong>集合關係</strong></h2>
+<h2>集合關係</h2>
 <p>本篇介紹的Tree(樹)位居承先啟後的戰略位置，圖六展示了與Tree(樹)有關的資料結構的集合關係圖：</p>
 <p><center>
 <img alt="fig4" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/Tree_fig/Set_Graph_Tree_size.png?raw=true" />  </p>
@@ -260,9 +260,9 @@
 以BST為基礎，在每個node上添加顏色(紅與黑)用以平衡樹的height，以減短搜尋時間，此種樹稱為<a href="http://alrightchiu.github.io/SecondRound/red-black-tree-introjian-jie.html"><strong>Red Black Tree</strong>(RBT，紅黑樹)</a>。<br />
 另一個方向，若打破「不能存在cycle」的限制，則從樹推廣至<a href="http://alrightchiu.github.io/SecondRound/grpah-introjian-jie.html"><strong>圖(Graph)</strong></a>。  </p>
 <p>在接下來的文章將先以縮小集合的方向依序介紹：Binary Tree、BST、RBT，再進入Graph(圖)這個更複雜的主題。</p>
-<p><a name="ref"></a>
-</br></p>
-<h4><strong>參考資料</strong>：</h4>
+<p></br></p>
+<p><a name="ref"></a></p>
+<h3>參考資料：</h3>
 <ul>
 <li><a href="https://en.wikipedia.org/wiki/Tree_%28data_structure%29">Wikipedia：Tree(data structure)</a></li>
 <li><a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376">Fundamentals of Data Structures in C++</a></li>

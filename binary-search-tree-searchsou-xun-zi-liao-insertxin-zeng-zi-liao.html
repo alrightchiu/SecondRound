@@ -110,7 +110,7 @@
     <!-- Post Content -->
     <article>
         <p></br></p>
-<h4><strong>先備知識與注意事項</strong></h4>
+<h3>先備知識與注意事項</h3>
 <p>在開始介紹search(搜尋資料)與insert(新增資料)之前，先定義好<code>class TreeNode</code>與<code>class BST</code>，順便對未來將介紹的其他member function(成員函式)留下美好的第一印象：</p>
 <div class="highlight"><pre><span class="c1">// C++ code</span>
 <span class="cp">#include &lt;iostream&gt;</span>
@@ -183,7 +183,7 @@
 <li><a href="#tree_series">Tree系列文章</a></li>
 </ul>
 <p><a name="search"></a></p>
-<h2><strong>BST::Search(搜尋)</strong></h2>
+<h2>BST::Search(搜尋)</h2>
 <p>BST的<code>Search()</code>操作，便是根據BST的特徵：<span class="math">\(Key(L)&lt;Key(Current)&lt;Key(R)\)</span>，判斷<code>Current</code>node應該往left subtree走，還是往right subtree走。</p>
 <p>現有一棵BST如圖一(a)所示：</p>
 <p><center>
@@ -191,7 +191,7 @@
 <p><strong>圖一(a)：。</strong><br />
 </center>   </p>
 <p>搜尋結果可能成功，可能失敗，以下便分別以兩個KEY值作說明。</p>
-<h4>搜尋成功</h4>
+<h3>搜尋成功</h3>
 <ul>
 <li>若現在要從BST中搜尋基紐隊長，便以基紐隊長的KEY(627)進入BST。<br />
 進入BST後，便把用來移動的<code>Current</code>node指向<code>root</code>，如圖一(b)。  </li>
@@ -225,7 +225,7 @@
 <li>此時，<code>Current</code>的Key(627)與傳送進<code>Search()</code>的KEY(627)相同，便確認<code>Current</code>即為基紐隊長，於是跳出<code>while</code>迴圈，並傳回<code>Current</code>。<br />
 即搜尋成功。</li>
 </ul>
-<h4>搜尋失敗</h4>
+<h3>搜尋失敗</h3>
 <ul>
 <li>若現在要從BST中尋找克林，便以克林的戰鬥力(2)為KEY(2)，進入<code>Search()</code>。<br />
 進入BST後，同樣把用來移動的<code>Current</code>node指向<code>root</code>，如圖一(b)。</li>
@@ -267,7 +267,7 @@
 
 <p></br> 
 <a name="insert"></a></p>
-<h2><strong>BST::InsertBST(新增資料)</strong></h2>
+<h2>BST::InsertBST(新增資料)</h2>
 <p>函式<code>InsertBST()</code>的演算法概念，可以視為<code>Search()</code>的延伸：</p>
 <ol>
 <li>根據BST對Key之規則，先找到「將要新增之node」適合的位置；</li>
@@ -336,7 +336,7 @@
 <li>在<code>InsertBST()</code>特別標示出BST是為了與之後會介紹的Red Black Tree(紅黑樹)之<code>InsertRBT()</code>做區別。</li>
 </ul>
 <p><a name="main"></a></p>
-<h2><strong>main()</strong></h2>
+<h2>main()</h2>
 <p>有了<code>BST::InsertBST()</code>後，就可以用土法煉鋼的方式建立一棵如圖二(d)的BST:</p>
 <div class="highlight"><pre><span class="c1">// C++ code</span>
 <span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
@@ -357,7 +357,7 @@
 <p>以上便是BST中<code>Search()</code>與<code>InsertBST()</code>之介紹，只要掌握BST的性質<span class="math">\(Key(L)&lt;Key(Current)&lt;Key(R)\)</span>與樹中的Traversal(pointer的移動)即可輕鬆上路。 </p>
 <p></br>
 <a name="ref"></a></p>
-<h4><strong>參考資料</strong>：</h4>
+<h3>參考資料：</h3>
 <ul>
 <li><a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844">Introduction to Algorithms</a> </li>
 <li><a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376">Fundamentals of Data Structures in C++</a></li>

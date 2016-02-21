@@ -110,7 +110,7 @@
     <!-- Post Content -->
     <article>
         <p></br></p>
-<h4><strong>先備知識與注意事項</strong></h4>
+<h3>先備知識與注意事項*</h3>
 <p>RBT也是一棵BST，而RBT之Insert(新增資料)方法便是先沿用<code>InsertBST()</code>，再對顏色進行修正。而修正的方法將用上<code>Rotation()</code>，因此，建議在閱讀本篇文章之前，先熟悉<a href="http://alrightchiu.github.io/SecondRound/binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao.html">Binary Search Tree: Search(搜尋資料)、Insert(新增資料)</a>與<a href="http://alrightchiu.github.io/SecondRound/red-black-tree-rotationxuan-zhuan.html">Red Black Tree: Rotation(旋轉)</a>會很有幫助。 </p>
 <hr />
 <h2>目錄</h2>
@@ -128,7 +128,7 @@
 <li><a href="#tree_series">Tree系列文章</a></li>
 </ul>
 <p><a name="bst"></a></p>
-<h2><strong>如同於BST中Insert(新增資料)</strong></h2>
+<h2>如同於BST中Insert(新增資料)</h2>
 <p>RBT也是一棵BST，在Insert(新增資料)時，必須滿足：<span class="math">\(Key(L)&lt;Key(Current)&lt;Key(R)\)</span>，因此，RBT的<code>InsertRBT()</code>前半部演算法與<a href="http://alrightchiu.github.io/SecondRound/binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao.html#insert">BST的函式：InsertBST()大同小異</a>。<br />
 需要修改/擴充的部分有三處：</p>
 <ol>
@@ -171,7 +171,7 @@
 
 
 <p><a name="fixup"></a></p>
-<h2><strong>修正：InsertFixUpRBT()</strong></h2>
+<h2>修正：InsertFixUpRBT()</h2>
 <p>什麼情況需要對<code>InsertRBT()</code>做修正？<br />
 當新增node接在紅色的node的<code>child pointer</code>，形成紅色與紅色相連時。</p>
 <p>考慮以下情況，如圖一(a)，新增的node將要接在node(X)上：  </p>
@@ -193,7 +193,7 @@
 <li>Case3：<code>uncle</code>是黑色，而且新增的node為node(X)的<code>leftchild</code>。</li>
 </ol>
 <p><a name="case1"></a></p>
-<h4><strong>Case1</strong></h4>
+<h3>Case1</h3>
 <p>圖一(b)左，此時<code>current</code>指向新增的node(A)，而node(A)成為node(X)的<code>rightchild</code>，其<code>uncle</code>node(Y)是紅色的。<br />
 修正的方法就是「把債還給上一代的上一代」：</p>
 <ul>
@@ -218,7 +218,7 @@
 <p><strong>圖一(c)：。</strong><br />
 </center></p>
 <p><a name="case3"></a></p>
-<h4><strong>Case3</strong></h4>
+<h3>Case3</h3>
 <p>圖一(d)，新增的node(A)成為node(X)的<code>leftchild</code>，其<code>uncle</code>node(Y)是黑色。 </p>
 <p><center>
 <img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Insert/insert4.png?raw=true" /></p>
@@ -250,7 +250,7 @@
 <p><strong>圖一(g)：。</strong><br />
 </center></p>
 <p><a name="case2"></a></p>
-<h4><strong>Case2</strong></h4>
+<h3>Case2</h3>
 <p>圖一(h)，新增的node(A)成為node(X)的<code>rightchild</code>，其<code>uncle</code>node(Y)是黑色。</p>
 <p><center>
 <img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Insert/insert8.png?raw=true" /></p>
@@ -274,7 +274,7 @@
 </center></p>
 <p><a name="example"></a></p>
 <hr />
-<h4><strong>幾個範例</strong></h4>
+<h3>幾個範例</h3>
 <p><strong>Example1</strong></p>
 <p>考慮一棵RBT如圖二(a)：</p>
 <p><center>
@@ -355,7 +355,7 @@
 <li>二是Rotation(旋轉)：在Case2與Case3中必須使用Left/Right Rotation，因此，延續第一點原因，考慮到<code>parent</code>是<code>leftchild</code>或是<code>rightchild</code>的不同，Left/Right Rotation的方向也會相反。</li>
 </ul>
 <p><a name="code"></a></p>
-<h2><strong>程式碼</strong></h2>
+<h2>程式碼</h2>
 <p><code>InsertFixedUpRBT()</code>之範例程式碼分成以下幾個部分：</p>
 <ul>
 <li>定義<code>color</code>：0為紅色，1為黑色；</li>
@@ -423,7 +423,7 @@
 
 <p></br>
 <a name="ref"></a></p>
-<h4><strong>參考資料</strong>：</h4>
+<h3>參考資料：</h3>
 <ul>
 <li><a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844">Introduction to Algorithms, Ch13</a> </li>
 <li><a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376">Fundamentals of Data Structures in C++</a></li>

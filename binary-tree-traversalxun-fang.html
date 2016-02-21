@@ -110,7 +110,7 @@
     <!-- Post Content -->
     <article>
         <p></br></p>
-<h4><strong>先備知識與注意事項</strong></h4>
+<h3>先備知識與注意事項</h3>
 <p>traversal(尋訪)有「站在A地，往所有與A地相連的地方移動」的意思：  </p>
 <ul>
 <li>以Graph(圖)的語言來說，站在vertex A上，有一條edge連結A與B，若能夠由A往B移動，此即可視為traversal；</li>
@@ -140,7 +140,7 @@
 <li><a href="#tree_series">Tree系列文章</a></li>
 </ul>
 <p><a name="bttraversal"></a></p>
-<h2><strong>Traversal in Binary Tree</strong></h2>
+<h2>Traversal in Binary Tree</h2>
 <p>Binary Tree的Node具有兩個指向child的pointer，Traversal以「當前所在的node」為參考點，所能夠進行的移動有三種：</p>
 <ul>
 <li><strong>V</strong>：Visiting，對當前所在的node進行print、assign或其他操作。</li>
@@ -243,7 +243,7 @@
 <p>以上說明了post-order traversal之過程，另外兩種pre-order與in-order在概念上皆相同，只要把握順序規則即可。</p>
 <p></br></p>
 <p><a name="ex_code"></a></p>
-<h2><strong>Example with Code</strong></h2>
+<h2>Example with Code</h2>
 <p>接下來，再以一棵稍微複雜的Binary Tree作為範例，展示pre-order、in-order、post-order及level-order之traversal。</p>
 <p>現有一棵樹如圖四(a)：</p>
 <p><center>
@@ -327,7 +327,7 @@
 <p>尚缺的四個函式的定義(definition)請接著看下去。<br />
 其中，pre-order、in-order、post-order traversal的邏輯就只是「V」、「L」、「R」誰先誰後的差別，以下程式碼是以較直覺的遞迴(recursion)形式完成，不過，換成迭代(iteration)配合<a href="https://en.wikipedia.org/wiki/Stack_%28abstract_data_type%29">stack(堆疊)</a>在概念上完全相同，實作上即是考慮「V」、「L」、「R」誰先push(推)進stack。  </p>
 <p><a name="pre"></a></p>
-<h4><strong>Pre-Order Traversal</strong></h4>
+<h3>Pre-Order Traversal</h3>
 <div class="highlight"><pre><span class="c1">// C++ code</span>
 <span class="kt">void</span> <span class="n">BinaryTree</span><span class="o">::</span><span class="n">Preorder</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">){</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">current</span><span class="p">)</span> <span class="p">{</span>
@@ -349,7 +349,7 @@
 <p><strong>圖四(b)：。</strong><br />
 </center></p>
 <p><a name="in"></a></p>
-<h4><strong>In-Order Traversal</strong></h4>
+<h3>In-Order Traversal</h3>
 <div class="highlight"><pre><span class="c1">// C++ code</span>
 <span class="kt">void</span> <span class="n">BinaryTree</span><span class="o">::</span><span class="n">Inorder</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">){</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">current</span><span class="p">)</span> <span class="p">{</span>
@@ -371,7 +371,7 @@
 <p><strong>圖四(c)：。</strong><br />
 </center></p>
 <p><a name="post"></a></p>
-<h4><strong>Post-Order Traversal</strong></h4>
+<h3>Post-Order Traversal</h3>
 <div class="highlight"><pre><span class="c1">// C++ code</span>
 <span class="kt">void</span> <span class="n">BinaryTree</span><span class="o">::</span><span class="n">Postorder</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">){</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">current</span><span class="p">)</span> <span class="p">{</span>
@@ -393,7 +393,7 @@
 <p><strong>圖四(d)：。</strong><br />
 </center></p>
 <p><a name="level"></a></p>
-<h4><strong>Level-Order Traversal</strong></h4>
+<h3>Level-Order Traversal</h3>
 <p>先前介紹了pre-order、in-order、post-order的traversal，而level-order則是照著level由小到大的順序，由上而下，並在同一個level由左至右地依序Visiting每個node。
 以下提供迭代(iteration)配合<a href="https://en.wikipedia.org/wiki/Queue_%28abstract_data_type%29">queue(佇列)</a>實現level-order traversal之程式碼，其邏輯也非常直觀：</p>
 <ul>
@@ -431,7 +431,7 @@
 
 <p></br>
 <a name="in_parent"></a></p>
-<h2><strong>In-Order Traversal by Parent Field</strong></h2>
+<h2>In-Order Traversal by Parent Field</h2>
 <p>在<a href="http://alrightchiu.github.io/SecondRound/binary-tree-intro.html#code">Binary Tree：Intro</a>提到，若在<code>class TreeNode</code>加入pointer指向其parent node會非常有幫助，其中一項理由正是接下來要介紹的兩個函式：InorderSuccessor()與InorderPredecessor()。<br />
 說文解字時間：  </p>
 <ul>
@@ -483,7 +483,7 @@
 <p>其中，除了<code>InorderSuccessor()</code>與<code>InorderPredecessor()</code>之函式主體外，還有<code>leftmost()</code>和<code>rightmost()</code>即是找到Binary Tree中最左與最右的node，可有可無，不過學會了很酷；以及<code>Inorder_by_parent()</code>與<code>Inorder_Reverse()</code>為用以呼叫<code>InorderSuccessor()</code>與<code>InorderPredecessor()</code>的迴圈主體。</p>
 <p>看下去。</p>
 <p><a name="successor"></a></p>
-<h4><strong>Successor、leftmost</strong></h4>
+<h3>Successor、leftmost</h3>
 <p>函式<code>TreeNode* leftmost(TreeNode *current)</code>的功能為：尋找以<code>current</code>為root之subtree中，最左邊的node，最左邊的意思是從<code>current</code>開始一路往left child做類似<a href="http://alrightchiu.github.io/SecondRound/linked-list-traversal.html">Linked list之單向traversal</a>的「一路向左」，而以inorder的順序來說，會找到該subtree中第一個進行Visiting的node。以圖四(c)為例，進入以A為root的Binary Tree，<code>leftmost()</code>將回傳D。</p>
 <div class="highlight"><pre><span class="c1">// C++ code</span>
 <span class="n">TreeNode</span><span class="o">*</span> <span class="n">BinaryTree</span><span class="o">::</span><span class="n">leftmost</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">){</span>
@@ -545,7 +545,7 @@
 
 <p></br>
 <a name="predecessor"></a></p>
-<h4><strong>Predecessor、rightmost</strong></h4>
+<h3>Predecessor、rightmost</h3>
 <p>只要把<code>InorderSuccessor()</code>與<code>leftmost()</code>中，所有的left與right互換，就得到<code>InorderPredecessor()</code>與<code>rightmost()</code>，而概念上也確實是如此：</p>
 <ul>
 <li><strong>rightmost</strong>：從「以CurrentNode為subtree」的root一路向右做Linked list的單向traversal。</li>
@@ -610,7 +610,7 @@
 <code>InorderSuccessor()</code>和<code>InorderPredecessor()</code>在Binary Search Tree的部分會再次出現，並且出現在基本操作：deletion(刪除node)中，因此學起來不止酷，還很實用的啊。</p>
 <p></br>
 <a name="ref"></a></p>
-<h4><strong>參考資料</strong>：</h4>
+<h3>參考資料：</h3>
 <ul>
 <li><a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844">Introduction to Algorithms</a> </li>
 <li><a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376">Fundamentals of Data Structures in C++</a></li>

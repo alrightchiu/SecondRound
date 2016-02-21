@@ -110,7 +110,7 @@
     <!-- Post Content -->
     <article>
         <p></br></p>
-<h4><strong>先備知識與注意事項</strong></h4>
+<h3>先備知識與注意事項</h3>
 <p>雖說是Rotation(旋轉)，但其實沒有這麼神奇，只是視覺上看起來像旋轉，在電腦實際將讀取的程式碼實現上，僅僅是數個pointer之指向的重新改寫，所以千萬別害怕。</p>
 <p>本篇文章的第一部分將以Insert(新增資料)與Delete(刪除資料)來說明為什麼需要Rotation(旋轉)，但是讀者可以先不必理會細節，因為實際上的Insert與Delete將有更多情況必須考慮，此部分將留待後續文章逐項說明，在本篇文章只要掌握Rotation(旋轉)即可。</p>
 <hr />
@@ -126,7 +126,7 @@
 <li><a href="#tree_series">Tree系列文章</a></li>
 </ul>
 <p><a name="fail"></a></p>
-<h2><strong>於RBT中進行Insert與Delete後竟然不符合RBT</strong></h2>
+<h2>於RBT中進行Insert與Delete後竟然不符合RBT</h2>
 <p>現考慮如圖一(a)之RBT，欲進行Insert(新增資料)與Delete(刪除資料)：</p>
 <p><center>
 <img alt="rotation" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Rotation/rotate0.png?raw=true" /></p>
@@ -161,14 +161,14 @@
 </center></p>
 <p>經過以上說明，應該能體會到Rotation在修正Insert(新增資料)與Delete(刪除資料)時的威力，接著便來實地走訪Rotation實際上是哪些pointer在指來指去。</p>
 <p><a name="rotation"></a></p>
-<h2><strong>Rotation(旋轉)</strong></h2>
+<h2>Rotation(旋轉)</h2>
 <p>在說明Rotation(旋轉)之前有兩點需要先申明：</p>
 <ol>
 <li>若是要應用在BST上，則Rotation(旋轉)前後的BST必須要維持相同之Key排序。此處介紹的Rotation(旋轉)便屬於此類。</li>
 <li>Rotation(旋轉)與node是否具有顏色無關，即使是在一般的BST，亦能夠使用Rotation(旋轉)來調整height(樹高)。</li>
 </ol>
 <p><a name="left-rotate"></a></p>
-<h4><strong>Left Roration(向左旋轉)</strong></h4>
+<h3>Left Roration(向左旋轉)</h3>
 <p><center>
 <img alt="rotation" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Rotation/rotate6.png?raw=true" /></p>
 <p><strong>圖二(a)：。</strong><br />
@@ -241,7 +241,7 @@
 
 
 <p><a name="right-rotate"></a></p>
-<h4><strong>Right Roration(向左旋轉)</strong></h4>
+<h3>Right Roration(向左旋轉)</h3>
 <p>Right Rotation的邏輯與Left Rotation完全相同，只要確實地把與node(X)、node(Y)、node(A)與node(j)有關的pointer重新指向正確的記憶體位置，就能夠完成Right Rotation。</p>
 <p><center>
 <img alt="rotation" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Rotation/rotate11.png?raw=true" /></p>
@@ -277,7 +277,7 @@
 <p>以上便是Rotation(旋轉)的說明，在接下來介紹Insert(新增資料)與Delete(刪除資料)的兩篇文章中將會再次與各位相會。  </p>
 <p></br>
 <a name="ref"></a></p>
-<h4><strong>參考資料</strong>：</h4>
+<h3>參考資料：</h3>
 <ul>
 <li><a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844">Introduction to Algorithms, Ch13</a> </li>
 <li><a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376">Fundamentals of Data Structures in C++</a></li>

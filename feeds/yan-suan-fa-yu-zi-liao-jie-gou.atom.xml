@@ -2340,7 +2340,7 @@
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
 &lt;/script&gt;</summary><category term="C++"></category><category term="Graph"></category><category term="Intro"></category></entry><entry><title>Red Black Tree: Delete(刪除資料)與Fixup(修正)</title><link href="http://alrightchiu.github.io/SecondRound/red-black-tree-deleteshan-chu-zi-liao-yu-fixupxiu-zheng.html" rel="alternate"></link><updated>2016-01-30T14:11:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-01-30:SecondRound/red-black-tree-deleteshan-chu-zi-liao-yu-fixupxiu-zheng.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
-&lt;h4&gt;&lt;strong&gt;先備知識與注意事項&lt;/strong&gt;&lt;/h4&gt;
+&lt;h3&gt;先備知識與注意事項&lt;/h3&gt;
 &lt;p&gt;如同&lt;a href="http://alrightchiu.github.io/SecondRound/red-black-tree-insertxin-zeng-zi-liao-yu-fixupxiu-zheng.html"&gt;Red Black Tree: Insert(新增資料)與Fixup(修正)&lt;/a&gt;，RBT之Delete(刪除資料)方法同樣是先沿用&lt;code&gt;DeleteBST()&lt;/code&gt;，再對顏色利用&lt;code&gt;Rotation&lt;/code&gt;進行修正。&lt;br /&gt;
 建議讀者在閱讀本篇文章之前，先復習&lt;a href="http://alrightchiu.github.io/SecondRound/binary-search-tree-sortpai-xu-deleteshan-chu-zi-liao.html#delete"&gt;BST::DeleteBST(刪除資料)&lt;/a&gt;與&lt;a href="http://alrightchiu.github.io/SecondRound/red-black-tree-rotationxuan-zhuan.html"&gt;Red Black Tree: Rotation(旋轉)&lt;/a&gt;，會比較容易上手。&lt;/p&gt;
 &lt;hr /&gt;
@@ -2361,7 +2361,7 @@
 &lt;li&gt;&lt;a href="#tree_series"&gt;Tree系列文章&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;a name="violate"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;&lt;strong&gt;於RBT中Delete(刪除資料)可能違反RBT之特徵&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2&gt;於RBT中Delete(刪除資料)可能違反RBT之特徵&lt;/h2&gt;
 &lt;p&gt;在RBT中執行Delete(刪除資料)時，若刪除之node為黑色，有可能違反三點RBT特徵：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;圖一(a)：若要刪除的node恰好為&lt;code&gt;root&lt;/code&gt;，而刪除後恰好是紅色的node遞補成為新的&lt;code&gt;root&lt;/code&gt;，此時便違反RBT之第二點特徵：&lt;code&gt;root&lt;/code&gt;一定要是黑色；&lt;/li&gt;
@@ -2378,7 +2378,7 @@
 &lt;p&gt;&lt;strong&gt;圖一(b)：違反RBT之第四點與第五點特徵。&lt;/strong&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a name="bst"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;&lt;strong&gt;如同於BST中Delete(刪除資料)&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2&gt;如同於BST中Delete(刪除資料)&lt;/h2&gt;
 &lt;p&gt;&lt;code&gt;RBT::DeleteRBT()&lt;/code&gt;之範例程式碼分成兩個部分：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;第一部分，如同&lt;code&gt;DeleteBST()&lt;/code&gt;，依照欲刪除之node的&lt;code&gt;child&lt;/code&gt;個數分成三種情形處理：&lt;ol&gt;
@@ -2436,7 +2436,7 @@
 
 
 &lt;p&gt;&lt;a name="fixup"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;&lt;strong&gt;修正：DeleteFixUpRBT()&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2&gt;修正：DeleteFixUpRBT()&lt;/h2&gt;
 &lt;p&gt;考慮在圖二之RBT中刪除node(B)，由於node(B)是黑色，必定違反RBT之特徵，因此需要修正。&lt;br /&gt;
 (以下圖示中，白色的node表示顏色可能為黑色也可能為紅色，而且可能是一棵subtree或是&lt;code&gt;NIL&lt;/code&gt;，需視情況而定。)&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
@@ -2468,7 +2468,7 @@
 &lt;p&gt;&lt;strong&gt;圖四：。&lt;/strong&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a name="case1"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h4&gt;&lt;strong&gt;Case1&lt;/strong&gt;&lt;/h4&gt;
+&lt;h3&gt;Case1&lt;/h3&gt;
 &lt;p&gt;若&lt;code&gt;sibling&lt;/code&gt;為紅色，修正方法如下，見圖五(a)：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;將&lt;code&gt;sibling&lt;/code&gt;塗成黑色：node(E)塗成黑色；&lt;/li&gt;
@@ -2490,7 +2490,7 @@
 &lt;p&gt;&lt;strong&gt;圖五(b)：圖中的「Original」僅代表其中一種可能的情形。&lt;/strong&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a name="case2"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h4&gt;&lt;strong&gt;Case2&lt;/strong&gt;&lt;/h4&gt;
+&lt;h3&gt;Case2&lt;/h3&gt;
 &lt;p&gt;若&lt;code&gt;sibling&lt;/code&gt;為黑色，並且&lt;code&gt;sibling&lt;/code&gt;之兩個&lt;code&gt;child&lt;/code&gt;皆為黑色，修正的方法如下，見圖五(c)：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;將&lt;code&gt;sibling&lt;/code&gt;塗成紅色：node(E)塗成紅色；&lt;/li&gt;
@@ -2512,7 +2512,7 @@
 &lt;p&gt;&lt;strong&gt;圖五(e)：圖中的「Original」僅代表其中一種可能的情形。此時的RBT還要繼續修正，見Case3。&lt;/strong&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a name="case3"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h4&gt;&lt;strong&gt;Case3&lt;/strong&gt;&lt;/h4&gt;
+&lt;h3&gt;Case3&lt;/h3&gt;
 &lt;p&gt;若&lt;code&gt;sibling&lt;/code&gt;為黑色，並且&lt;code&gt;sibling&lt;/code&gt;之&lt;code&gt;rightchild&lt;/code&gt;為黑色，修正的方法如下，見圖五(f)：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;將&lt;code&gt;sibling&lt;/code&gt;之&lt;code&gt;leftchild&lt;/code&gt;塗成黑色：node(D)塗成黑色；&lt;/li&gt;
@@ -2526,7 +2526,7 @@
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;經過以上修正步驟，&lt;code&gt;sibling&lt;/code&gt;之&lt;code&gt;rightchild&lt;/code&gt;成為紅色，便進入Case4。&lt;/p&gt;
 &lt;p&gt;&lt;a name="case4"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h4&gt;&lt;strong&gt;Case4&lt;/strong&gt;&lt;/h4&gt;
+&lt;h3&gt;Case4&lt;/h3&gt;
 &lt;p&gt;若&lt;code&gt;sibling&lt;/code&gt;為黑色，並且&lt;code&gt;sibling&lt;/code&gt;之&lt;code&gt;rightchild&lt;/code&gt;為紅色，修正的方法如下，見圖五(g)：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;將&lt;code&gt;sibling&lt;/code&gt;塗成&lt;code&gt;current&lt;/code&gt;之&lt;code&gt;parent&lt;/code&gt;的顏色：若node(C)是紅色，則將node(E)塗成紅色，若node(C)是黑色，則將node(E)塗成黑色；&lt;/li&gt;
@@ -2547,7 +2547,7 @@
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a name="example"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;hr /&gt;
-&lt;h4&gt;&lt;strong&gt;範例&lt;/strong&gt;&lt;/h4&gt;
+&lt;h3&gt;範例&lt;/h3&gt;
 &lt;p&gt;接著以一個簡單的範例(圖六(a)之RBT)操作上述四種Case的修正方法。&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="example" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Delete/delete14.png?raw=true" /&gt;&lt;/p&gt;
@@ -2629,7 +2629,7 @@
 &lt;p&gt;&lt;strong&gt;圖六(j)：。&lt;/strong&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a name="code"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;&lt;strong&gt;程式碼&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2&gt;程式碼&lt;/h2&gt;
 &lt;p&gt;&lt;code&gt;DeleteFixedUpRBT()&lt;/code&gt;之範例程式碼分成以下幾個部分：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;如圖四所示，修正的過程可能經歷不止一個Case，因此利用&lt;code&gt;while&lt;/code&gt;來實現，條件式為：&lt;code&gt;current&lt;/code&gt;不是&lt;code&gt;root&lt;/code&gt;，而且&lt;code&gt;current&lt;/code&gt;為黑色；&lt;/li&gt;
@@ -2717,7 +2717,7 @@
 
 &lt;p&gt;&lt;/br&gt;
 &lt;a name="ref"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h4&gt;&lt;strong&gt;參考資料&lt;/strong&gt;：&lt;/h4&gt;
+&lt;h3&gt;參考資料：&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844"&gt;Introduction to Algorithms&lt;/a&gt; &lt;/li&gt;
 &lt;li&gt;&lt;a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376"&gt;Fundamentals of Data Structures in C++&lt;/a&gt;&lt;/li&gt;
@@ -2797,7 +2797,7 @@
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
 &lt;/script&gt;</summary><category term="C++"></category><category term="Red Black Tree"></category></entry><entry><title>Red Black Tree: Insert(新增資料)與Fixup(修正)</title><link href="http://alrightchiu.github.io/SecondRound/red-black-tree-insertxin-zeng-zi-liao-yu-fixupxiu-zheng.html" rel="alternate"></link><updated>2016-01-27T20:09:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-01-27:SecondRound/red-black-tree-insertxin-zeng-zi-liao-yu-fixupxiu-zheng.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
-&lt;h4&gt;&lt;strong&gt;先備知識與注意事項&lt;/strong&gt;&lt;/h4&gt;
+&lt;h3&gt;先備知識與注意事項*&lt;/h3&gt;
 &lt;p&gt;RBT也是一棵BST，而RBT之Insert(新增資料)方法便是先沿用&lt;code&gt;InsertBST()&lt;/code&gt;，再對顏色進行修正。而修正的方法將用上&lt;code&gt;Rotation()&lt;/code&gt;，因此，建議在閱讀本篇文章之前，先熟悉&lt;a href="http://alrightchiu.github.io/SecondRound/binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao.html"&gt;Binary Search Tree: Search(搜尋資料)、Insert(新增資料)&lt;/a&gt;與&lt;a href="http://alrightchiu.github.io/SecondRound/red-black-tree-rotationxuan-zhuan.html"&gt;Red Black Tree: Rotation(旋轉)&lt;/a&gt;會很有幫助。 &lt;/p&gt;
 &lt;hr /&gt;
 &lt;h2&gt;目錄&lt;/h2&gt;
@@ -2815,7 +2815,7 @@
 &lt;li&gt;&lt;a href="#tree_series"&gt;Tree系列文章&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;a name="bst"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;&lt;strong&gt;如同於BST中Insert(新增資料)&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2&gt;如同於BST中Insert(新增資料)&lt;/h2&gt;
 &lt;p&gt;RBT也是一棵BST，在Insert(新增資料)時，必須滿足：&lt;span class="math"&gt;\(Key(L)&amp;lt;Key(Current)&amp;lt;Key(R)\)&lt;/span&gt;，因此，RBT的&lt;code&gt;InsertRBT()&lt;/code&gt;前半部演算法與&lt;a href="http://alrightchiu.github.io/SecondRound/binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao.html#insert"&gt;BST的函式：InsertBST()大同小異&lt;/a&gt;。&lt;br /&gt;
 需要修改/擴充的部分有三處：&lt;/p&gt;
 &lt;ol&gt;
@@ -2858,7 +2858,7 @@
 
 
 &lt;p&gt;&lt;a name="fixup"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;&lt;strong&gt;修正：InsertFixUpRBT()&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2&gt;修正：InsertFixUpRBT()&lt;/h2&gt;
 &lt;p&gt;什麼情況需要對&lt;code&gt;InsertRBT()&lt;/code&gt;做修正？&lt;br /&gt;
 當新增node接在紅色的node的&lt;code&gt;child pointer&lt;/code&gt;，形成紅色與紅色相連時。&lt;/p&gt;
 &lt;p&gt;考慮以下情況，如圖一(a)，新增的node將要接在node(X)上：  &lt;/p&gt;
@@ -2880,7 +2880,7 @@
 &lt;li&gt;Case3：&lt;code&gt;uncle&lt;/code&gt;是黑色，而且新增的node為node(X)的&lt;code&gt;leftchild&lt;/code&gt;。&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;&lt;a name="case1"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h4&gt;&lt;strong&gt;Case1&lt;/strong&gt;&lt;/h4&gt;
+&lt;h3&gt;Case1&lt;/h3&gt;
 &lt;p&gt;圖一(b)左，此時&lt;code&gt;current&lt;/code&gt;指向新增的node(A)，而node(A)成為node(X)的&lt;code&gt;rightchild&lt;/code&gt;，其&lt;code&gt;uncle&lt;/code&gt;node(Y)是紅色的。&lt;br /&gt;
 修正的方法就是「把債還給上一代的上一代」：&lt;/p&gt;
 &lt;ul&gt;
@@ -2905,7 +2905,7 @@
 &lt;p&gt;&lt;strong&gt;圖一(c)：。&lt;/strong&gt;&lt;br /&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a name="case3"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h4&gt;&lt;strong&gt;Case3&lt;/strong&gt;&lt;/h4&gt;
+&lt;h3&gt;Case3&lt;/h3&gt;
 &lt;p&gt;圖一(d)，新增的node(A)成為node(X)的&lt;code&gt;leftchild&lt;/code&gt;，其&lt;code&gt;uncle&lt;/code&gt;node(Y)是黑色。 &lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Insert/insert4.png?raw=true" /&gt;&lt;/p&gt;
@@ -2937,7 +2937,7 @@
 &lt;p&gt;&lt;strong&gt;圖一(g)：。&lt;/strong&gt;&lt;br /&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a name="case2"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h4&gt;&lt;strong&gt;Case2&lt;/strong&gt;&lt;/h4&gt;
+&lt;h3&gt;Case2&lt;/h3&gt;
 &lt;p&gt;圖一(h)，新增的node(A)成為node(X)的&lt;code&gt;rightchild&lt;/code&gt;，其&lt;code&gt;uncle&lt;/code&gt;node(Y)是黑色。&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Insert/insert8.png?raw=true" /&gt;&lt;/p&gt;
@@ -2961,7 +2961,7 @@
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a name="example"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;hr /&gt;
-&lt;h4&gt;&lt;strong&gt;幾個範例&lt;/strong&gt;&lt;/h4&gt;
+&lt;h3&gt;幾個範例&lt;/h3&gt;
 &lt;p&gt;&lt;strong&gt;Example1&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;考慮一棵RBT如圖二(a)：&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
@@ -3042,7 +3042,7 @@
 &lt;li&gt;二是Rotation(旋轉)：在Case2與Case3中必須使用Left/Right Rotation，因此，延續第一點原因，考慮到&lt;code&gt;parent&lt;/code&gt;是&lt;code&gt;leftchild&lt;/code&gt;或是&lt;code&gt;rightchild&lt;/code&gt;的不同，Left/Right Rotation的方向也會相反。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;a name="code"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;&lt;strong&gt;程式碼&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2&gt;程式碼&lt;/h2&gt;
 &lt;p&gt;&lt;code&gt;InsertFixedUpRBT()&lt;/code&gt;之範例程式碼分成以下幾個部分：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;定義&lt;code&gt;color&lt;/code&gt;：0為紅色，1為黑色；&lt;/li&gt;
@@ -3110,7 +3110,7 @@
 
 &lt;p&gt;&lt;/br&gt;
 &lt;a name="ref"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h4&gt;&lt;strong&gt;參考資料&lt;/strong&gt;：&lt;/h4&gt;
+&lt;h3&gt;參考資料：&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844"&gt;Introduction to Algorithms, Ch13&lt;/a&gt; &lt;/li&gt;
 &lt;li&gt;&lt;a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376"&gt;Fundamentals of Data Structures in C++&lt;/a&gt;&lt;/li&gt;
@@ -3190,7 +3190,7 @@
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
 &lt;/script&gt;</summary><category term="C++"></category><category term="Red Black Tree"></category></entry><entry><title>Red Black Tree: Rotation(旋轉)</title><link href="http://alrightchiu.github.io/SecondRound/red-black-tree-rotationxuan-zhuan.html" rel="alternate"></link><updated>2016-01-24T23:06:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-01-24:SecondRound/red-black-tree-rotationxuan-zhuan.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
-&lt;h4&gt;&lt;strong&gt;先備知識與注意事項&lt;/strong&gt;&lt;/h4&gt;
+&lt;h3&gt;先備知識與注意事項&lt;/h3&gt;
 &lt;p&gt;雖說是Rotation(旋轉)，但其實沒有這麼神奇，只是視覺上看起來像旋轉，在電腦實際將讀取的程式碼實現上，僅僅是數個pointer之指向的重新改寫，所以千萬別害怕。&lt;/p&gt;
 &lt;p&gt;本篇文章的第一部分將以Insert(新增資料)與Delete(刪除資料)來說明為什麼需要Rotation(旋轉)，但是讀者可以先不必理會細節，因為實際上的Insert與Delete將有更多情況必須考慮，此部分將留待後續文章逐項說明，在本篇文章只要掌握Rotation(旋轉)即可。&lt;/p&gt;
 &lt;hr /&gt;
@@ -3206,7 +3206,7 @@
 &lt;li&gt;&lt;a href="#tree_series"&gt;Tree系列文章&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;a name="fail"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;&lt;strong&gt;於RBT中進行Insert與Delete後竟然不符合RBT&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2&gt;於RBT中進行Insert與Delete後竟然不符合RBT&lt;/h2&gt;
 &lt;p&gt;現考慮如圖一(a)之RBT，欲進行Insert(新增資料)與Delete(刪除資料)：&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="rotation" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Rotation/rotate0.png?raw=true" /&gt;&lt;/p&gt;
@@ -3241,14 +3241,14 @@
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;經過以上說明，應該能體會到Rotation在修正Insert(新增資料)與Delete(刪除資料)時的威力，接著便來實地走訪Rotation實際上是哪些pointer在指來指去。&lt;/p&gt;
 &lt;p&gt;&lt;a name="rotation"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;&lt;strong&gt;Rotation(旋轉)&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2&gt;Rotation(旋轉)&lt;/h2&gt;
 &lt;p&gt;在說明Rotation(旋轉)之前有兩點需要先申明：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;若是要應用在BST上，則Rotation(旋轉)前後的BST必須要維持相同之Key排序。此處介紹的Rotation(旋轉)便屬於此類。&lt;/li&gt;
 &lt;li&gt;Rotation(旋轉)與node是否具有顏色無關，即使是在一般的BST，亦能夠使用Rotation(旋轉)來調整height(樹高)。&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;&lt;a name="left-rotate"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h4&gt;&lt;strong&gt;Left Roration(向左旋轉)&lt;/strong&gt;&lt;/h4&gt;
+&lt;h3&gt;Left Roration(向左旋轉)&lt;/h3&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="rotation" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Rotation/rotate6.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖二(a)：。&lt;/strong&gt;&lt;br /&gt;
@@ -3321,7 +3321,7 @@
 
 
 &lt;p&gt;&lt;a name="right-rotate"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h4&gt;&lt;strong&gt;Right Roration(向左旋轉)&lt;/strong&gt;&lt;/h4&gt;
+&lt;h3&gt;Right Roration(向左旋轉)&lt;/h3&gt;
 &lt;p&gt;Right Rotation的邏輯與Left Rotation完全相同，只要確實地把與node(X)、node(Y)、node(A)與node(j)有關的pointer重新指向正確的記憶體位置，就能夠完成Right Rotation。&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="rotation" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Rotation/rotate11.png?raw=true" /&gt;&lt;/p&gt;
@@ -3357,7 +3357,7 @@
 &lt;p&gt;以上便是Rotation(旋轉)的說明，在接下來介紹Insert(新增資料)與Delete(刪除資料)的兩篇文章中將會再次與各位相會。  &lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;
 &lt;a name="ref"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h4&gt;&lt;strong&gt;參考資料&lt;/strong&gt;：&lt;/h4&gt;
+&lt;h3&gt;參考資料：&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844"&gt;Introduction to Algorithms, Ch13&lt;/a&gt; &lt;/li&gt;
 &lt;li&gt;&lt;a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376"&gt;Fundamentals of Data Structures in C++&lt;/a&gt;&lt;/li&gt;
@@ -3437,7 +3437,7 @@
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
 &lt;/script&gt;</summary><category term="C++"></category><category term="Red Black Tree"></category></entry><entry><title>Red Black Tree: Intro(簡介)</title><link href="http://alrightchiu.github.io/SecondRound/red-black-tree-introjian-jie.html" rel="alternate"></link><updated>2016-01-23T16:09:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-01-23:SecondRound/red-black-tree-introjian-jie.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
-&lt;h4&gt;&lt;strong&gt;先備知識與注意事項&lt;/strong&gt;&lt;/h4&gt;
+&lt;h3&gt;先備知識與注意事項&lt;/h3&gt;
 &lt;p&gt;在閱讀過BST系列文章後可以發現，在BST中的操作，不論是Insert(新增資料)或是Delete(刪除資料)，皆需要先做Search(搜尋)，而Search(搜尋)的效率，取決於BST的height(樹高)，如果一棵樹越矮、越平衡(balanced)，則在此BST中搜尋資料的速度較快，理想狀況為Complete Binary Tree(時間複雜度：&lt;span class="math"&gt;\(O(\log N)\)&lt;/span&gt;)。反之，若由於輸入資料的順序使得BST沒長好、偏一邊，則在此BST中搜尋資料的最壞情況將有可能如同在Linked List做搜尋(時間複雜度：&lt;span class="math"&gt;\(O(N)\)&lt;/span&gt;)。  &lt;/p&gt;
 &lt;p&gt;本篇文章將介紹BST的進階版Red Black Tree(RBT，紅黑樹)之基本性質，會說是進階版，原因在於RBT其實也是BST(滿足&lt;span class="math"&gt;\(Key(L)&amp;lt;Key(Current)&amp;lt;Key(R)\)&lt;/span&gt;)，不過RBT的node比BST多加了「顏色」(紅色或黑色)，而正因為多了「顏色」，便能修正BST有可能退化成Linked list(連結串列)的潛在缺陷。 &lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
@@ -3455,7 +3455,7 @@
 &lt;li&gt;&lt;a href="#tree_series"&gt;Tree系列文章&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;a name="why"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;&lt;strong&gt;為什麼需要Red Black Tree？&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2&gt;為什麼需要Red Black Tree？&lt;/h2&gt;
 &lt;p&gt;若考慮最壞情況，在建立BST時，輸入資料的Key恰好被排序過(例如：1、2、3、4...)，那麼這顆BST便會退化成Linked List(接續前例，所有leftchild pointer都指向&lt;code&gt;NULL&lt;/code&gt;，只有rightchild child被使用)：&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// C++ code&lt;/span&gt;
 &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;main&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
@@ -3487,7 +3487,7 @@
 &lt;p&gt;因此，BST越平衡，在樹中搜尋資料的時間就越短，連帶地Insert(新增資料)、Delete(刪除資料)也會變得更有效率。&lt;br /&gt;
 這就是RBT值得被介紹的原因。&lt;/p&gt;
 &lt;p&gt;&lt;a name="rbt"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;&lt;strong&gt;Red Black Tree的特徵&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2&gt;Red Black Tree的特徵&lt;/h2&gt;
 &lt;p&gt;Red Black Tree(RBT)是node塗了「顏色」的Binary Search Tree(BST)，藉由控制顏色，能夠保證在RBT中，&lt;strong&gt;最長path(路徑)不會超過最短path的兩倍&lt;/strong&gt;(若最短的path是5，最長的path至多只能是10)，如此，RBT便能夠近似地視為平衡，如圖四。&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="rbt" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Intro/rbt3.png?raw=true" /&gt;&lt;/p&gt;
@@ -3514,7 +3514,7 @@
 &lt;/ol&gt;
 &lt;p&gt;根據上述特徵的第四點與第五點，RBT中path可能的長度最小值一定是全部node皆為黑色，而path可能的長度最大值並定是紅色-黑色相間(如圖四)，如此便確保RBT擁有&lt;strong&gt;最長path(路徑)不會超過最短path的兩倍&lt;/strong&gt;的特性。&lt;/p&gt;
 &lt;p&gt;&lt;a name="code"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;&lt;strong&gt;程式碼&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2&gt;程式碼&lt;/h2&gt;
 &lt;p&gt;實際的程式實現上，會把所有&lt;code&gt;NIL&lt;/code&gt;視為同一個&lt;code&gt;NIL&lt;/code&gt;，並把&lt;code&gt;root&lt;/code&gt;的parent指向&lt;code&gt;NIL&lt;/code&gt;，以節省記憶體空間，如圖五。&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="rbt" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Intro/rbt4.png?raw=true" /&gt;&lt;/p&gt;
@@ -3555,7 +3555,7 @@
 &lt;p&gt;在接下來的三篇文章中，將依序介紹Rotation(旋轉)、Insert(新增資料)與Delete(刪除資料)。&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a name="ref"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h4&gt;&lt;strong&gt;參考資料&lt;/strong&gt;：&lt;/h4&gt;
+&lt;h3&gt;參考資料：&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844"&gt;Introduction to Algorithms, Ch13&lt;/a&gt; &lt;/li&gt;
 &lt;li&gt;&lt;a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376"&gt;Fundamentals of Data Structures in C++&lt;/a&gt;&lt;/li&gt;
@@ -3635,7 +3635,7 @@
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
 &lt;/script&gt;</summary><category term="C++"></category><category term="Red Black Tree"></category><category term="Intro"></category></entry><entry><title>Binary Search Tree: Sort(排序)、Delete(刪除資料)</title><link href="http://alrightchiu.github.io/SecondRound/binary-search-tree-sortpai-xu-deleteshan-chu-zi-liao.html" rel="alternate"></link><updated>2016-01-15T21:27:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-01-15:SecondRound/binary-search-tree-sortpai-xu-deleteshan-chu-zi-liao.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
-&lt;h4&gt;&lt;strong&gt;先備知識與注意事項&lt;/strong&gt;&lt;/h4&gt;
+&lt;h3&gt;先備知識與注意事項&lt;/h3&gt;
 &lt;p&gt;由於Sort與Delete會用到先前在&lt;a href="http://alrightchiu.github.io/SecondRound/binary-tree-traversalxun-fang.html#in_parent"&gt;Binary Tree：Traversal介紹過的Leftmost()、Rightmost()、Successor()與Predecessor()&lt;/a&gt;，因此建議在開始閱讀本篇文章之前，先復習上述四個函式操作。  &lt;/p&gt;
 &lt;p&gt;在文章最後將會附上四個函式的範例程式碼。&lt;/p&gt;
 &lt;hr /&gt;
@@ -3649,7 +3649,7 @@
 &lt;li&gt;&lt;a href="#tree_series"&gt;Tree系列文章&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;a name="sort"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;&lt;strong&gt;Sort(排序)&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2&gt;Sort(排序)&lt;/h2&gt;
 &lt;p&gt;讀者可能會發現，在&lt;code&gt;class BST&lt;/code&gt;的定義中，根本就沒有類似&lt;code&gt;SortBST()&lt;/code&gt;的函式，沒錯，因為在BST中，每一個&lt;code&gt;Treenode&lt;/code&gt;都有&lt;span class="math"&gt;\(Key(L)&amp;lt;Key(Current)&amp;lt;Key(R)\)&lt;/span&gt;的性質，這正好與Inorder(LVR)之順序相同，因此，對整棵樹進行Inorder Traversal，就能夠對資料由小到大(依照Key)進行Visiting。&lt;/p&gt;
 &lt;p&gt;以上一篇&lt;a href="http://alrightchiu.github.io/SecondRound/binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao.html#binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao"&gt;Binary Search Tree: Search()、Insert()&lt;/a&gt;的&lt;code&gt;main()&lt;/code&gt;所建立的BST為例，如圖一，要將此樹中的資料按照Key之順序由小到大印出，只需要對整棵樹做一次Inorder Traversal即可。&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
@@ -3676,7 +3676,7 @@
 
 
 &lt;p&gt;&lt;a name="delete"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;&lt;strong&gt;BST::DeleteBST(刪除資料)&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2&gt;BST::DeleteBST(刪除資料)&lt;/h2&gt;
 &lt;p&gt;要在BST上執行刪除資料(被刪除的node稱為A)，必須讓刪除A後的BST仍然維持BST的性質，因此，所有「具有指向A的pointer」之node(也就是A的&lt;code&gt;parent&lt;/code&gt;、A的&lt;code&gt;leftchild&lt;/code&gt;與A的&lt;code&gt;rightchild&lt;/code&gt;)都必須指向新的記憶體位置。&lt;/p&gt;
 &lt;p&gt;刪除資料的工作，根據欲刪除之node「有幾個child pointer」分成三類：&lt;/p&gt;
 &lt;ol&gt;
@@ -3783,7 +3783,7 @@
 
 
 &lt;p&gt;&lt;a name="main"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;&lt;strong&gt;main()&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2&gt;main()&lt;/h2&gt;
 &lt;p&gt;延續上一篇文章&lt;a href="http://alrightchiu.github.io/SecondRound/binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao.html#binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao"&gt;Binary Search Tree: Search()、Insert()&lt;/a&gt;的&lt;code&gt;main()&lt;/code&gt;，加入&lt;code&gt;BST::DeleteBST&lt;/code&gt;，把龜仙人(8)刪除，應該會得到如圖三的BST，比克(513)成為新的&lt;code&gt;root&lt;/code&gt;：&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/sort_delete/sort_delete8.png?raw=true" /&gt;&lt;/p&gt;
@@ -3813,7 +3813,7 @@
 
 
 &lt;p&gt;&lt;a name="4function"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;&lt;strong&gt;Leftmost、Rightmost、Successor、Predecessor範例程式碼&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2&gt;Leftmost、Rightmost、Successor、Predecessor範例程式碼&lt;/h2&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// C++ code&lt;/span&gt;
 &lt;span class="n"&gt;TreeNode&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;BST&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;Leftmost&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;TreeNode&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;current&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
     &lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;current&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;leftchild&lt;/span&gt; &lt;span class="o"&gt;!=&lt;/span&gt; &lt;span class="nb"&gt;NULL&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
@@ -3862,7 +3862,7 @@
 &lt;p&gt;cha la head cha la～～&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;
 &lt;a name="ref"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h4&gt;&lt;strong&gt;參考資料&lt;/strong&gt;：&lt;/h4&gt;
+&lt;h3&gt;參考資料：&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844"&gt;Introduction to Algorithms&lt;/a&gt; &lt;/li&gt;
 &lt;li&gt;&lt;a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376"&gt;Fundamentals of Data Structures in C++&lt;/a&gt;&lt;/li&gt;
@@ -3941,7 +3941,7 @@
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
 &lt;/script&gt;</summary><category term="C++"></category><category term="Binary Search Tree(二元搜尋樹)"></category></entry><entry><title>Binary Search Tree: Search(搜尋資料)、Insert(新增資料)</title><link href="http://alrightchiu.github.io/SecondRound/binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao.html" rel="alternate"></link><updated>2016-01-03T20:17:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-01-03:SecondRound/binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
-&lt;h4&gt;&lt;strong&gt;先備知識與注意事項&lt;/strong&gt;&lt;/h4&gt;
+&lt;h3&gt;先備知識與注意事項&lt;/h3&gt;
 &lt;p&gt;在開始介紹search(搜尋資料)與insert(新增資料)之前，先定義好&lt;code&gt;class TreeNode&lt;/code&gt;與&lt;code&gt;class BST&lt;/code&gt;，順便對未來將介紹的其他member function(成員函式)留下美好的第一印象：&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// C++ code&lt;/span&gt;
 &lt;span class="cp"&gt;#include &amp;lt;iostream&amp;gt;&lt;/span&gt;
@@ -4014,7 +4014,7 @@
 &lt;li&gt;&lt;a href="#tree_series"&gt;Tree系列文章&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;a name="search"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;&lt;strong&gt;BST::Search(搜尋)&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2&gt;BST::Search(搜尋)&lt;/h2&gt;
 &lt;p&gt;BST的&lt;code&gt;Search()&lt;/code&gt;操作，便是根據BST的特徵：&lt;span class="math"&gt;\(Key(L)&amp;lt;Key(Current)&amp;lt;Key(R)\)&lt;/span&gt;，判斷&lt;code&gt;Current&lt;/code&gt;node應該往left subtree走，還是往right subtree走。&lt;/p&gt;
 &lt;p&gt;現有一棵BST如圖一(a)所示：&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
@@ -4022,7 +4022,7 @@
 &lt;p&gt;&lt;strong&gt;圖一(a)：。&lt;/strong&gt;&lt;br /&gt;
 &lt;/center&gt;   &lt;/p&gt;
 &lt;p&gt;搜尋結果可能成功，可能失敗，以下便分別以兩個KEY值作說明。&lt;/p&gt;
-&lt;h4&gt;搜尋成功&lt;/h4&gt;
+&lt;h3&gt;搜尋成功&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;若現在要從BST中搜尋基紐隊長，便以基紐隊長的KEY(627)進入BST。&lt;br /&gt;
 進入BST後，便把用來移動的&lt;code&gt;Current&lt;/code&gt;node指向&lt;code&gt;root&lt;/code&gt;，如圖一(b)。  &lt;/li&gt;
@@ -4056,7 +4056,7 @@
 &lt;li&gt;此時，&lt;code&gt;Current&lt;/code&gt;的Key(627)與傳送進&lt;code&gt;Search()&lt;/code&gt;的KEY(627)相同，便確認&lt;code&gt;Current&lt;/code&gt;即為基紐隊長，於是跳出&lt;code&gt;while&lt;/code&gt;迴圈，並傳回&lt;code&gt;Current&lt;/code&gt;。&lt;br /&gt;
 即搜尋成功。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h4&gt;搜尋失敗&lt;/h4&gt;
+&lt;h3&gt;搜尋失敗&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;若現在要從BST中尋找克林，便以克林的戰鬥力(2)為KEY(2)，進入&lt;code&gt;Search()&lt;/code&gt;。&lt;br /&gt;
 進入BST後，同樣把用來移動的&lt;code&gt;Current&lt;/code&gt;node指向&lt;code&gt;root&lt;/code&gt;，如圖一(b)。&lt;/li&gt;
@@ -4098,7 +4098,7 @@
 
 &lt;p&gt;&lt;/br&gt; 
 &lt;a name="insert"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;&lt;strong&gt;BST::InsertBST(新增資料)&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2&gt;BST::InsertBST(新增資料)&lt;/h2&gt;
 &lt;p&gt;函式&lt;code&gt;InsertBST()&lt;/code&gt;的演算法概念，可以視為&lt;code&gt;Search()&lt;/code&gt;的延伸：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;根據BST對Key之規則，先找到「將要新增之node」適合的位置；&lt;/li&gt;
@@ -4167,7 +4167,7 @@
 &lt;li&gt;在&lt;code&gt;InsertBST()&lt;/code&gt;特別標示出BST是為了與之後會介紹的Red Black Tree(紅黑樹)之&lt;code&gt;InsertRBT()&lt;/code&gt;做區別。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;a name="main"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;&lt;strong&gt;main()&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2&gt;main()&lt;/h2&gt;
 &lt;p&gt;有了&lt;code&gt;BST::InsertBST()&lt;/code&gt;後，就可以用土法煉鋼的方式建立一棵如圖二(d)的BST:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// C++ code&lt;/span&gt;
 &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
@@ -4188,7 +4188,7 @@
 &lt;p&gt;以上便是BST中&lt;code&gt;Search()&lt;/code&gt;與&lt;code&gt;InsertBST()&lt;/code&gt;之介紹，只要掌握BST的性質&lt;span class="math"&gt;\(Key(L)&amp;lt;Key(Current)&amp;lt;Key(R)\)&lt;/span&gt;與樹中的Traversal(pointer的移動)即可輕鬆上路。 &lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;
 &lt;a name="ref"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h4&gt;&lt;strong&gt;參考資料&lt;/strong&gt;：&lt;/h4&gt;
+&lt;h3&gt;參考資料：&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844"&gt;Introduction to Algorithms&lt;/a&gt; &lt;/li&gt;
 &lt;li&gt;&lt;a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376"&gt;Fundamentals of Data Structures in C++&lt;/a&gt;&lt;/li&gt;
@@ -4267,7 +4267,7 @@
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
 &lt;/script&gt;</summary><category term="C++"></category><category term="Binary Search Tree(二元搜尋樹)"></category></entry><entry><title>Binary Search Tree: Intro(簡介)</title><link href="http://alrightchiu.github.io/SecondRound/binary-search-tree-introjian-jie.html" rel="alternate"></link><updated>2016-01-02T12:15:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-01-02:SecondRound/binary-search-tree-introjian-jie.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
-&lt;h4&gt;&lt;strong&gt;先備知識與注意事項&lt;/strong&gt;&lt;/h4&gt;
+&lt;h3&gt;先備知識與注意事項&lt;/h3&gt;
 &lt;p&gt;先前的文章介紹過廣義的Tree(樹)、Binary Tree(二元樹)，這篇文章將繼續增加限制條件，使Binary Tree晉升成Binary Search Tree(BST，二元搜尋樹)。  &lt;/p&gt;
 &lt;p&gt;這裡要處理的資料是日本漫畫的曠世鉅作《七龍珠》中各角色的戰鬥力。&lt;br /&gt;
 七龍珠的劇情(正篇有七龍珠、七龍珠Z、七龍珠改、七龍珠GT、七龍珠超，劇場版還有&lt;a href="https://zh.wikipedia.org/wiki/%E4%B8%83%E9%BE%99%E7%8F%A0#.E5.8A.87.E5.A0.B4.E7.89.88"&gt;七龍珠劇場版(太多了請參閱維基百科)&lt;/a&gt;)時而前後連貫，時而交錯，為了維持每個系列之間的角色設定，就需要對角色的戰鬥力進行管理，避免劇情不合邏輯變成鬧劇，在此，筆者推薦鳥山明老師可以使用先進如BST的資料結構來整理角色的資料(當然，也是可以用excel或是國小生字簿，&lt;a href="http://www.imdb.com/title/tt1178663/"&gt;Whatever Works&lt;/a&gt;)。  &lt;/p&gt;
@@ -4288,7 +4288,7 @@
 &lt;li&gt;&lt;a href="#tree_series"&gt;Tree系列文章&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;a name="dictionary"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;&lt;strong&gt;引入dictionary&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2&gt;引入dictionary&lt;/h2&gt;
 &lt;p&gt;搜尋與排序都需要「比大小」，欲執行「比大小」，就要使用「能夠比大小」的資料形態(亦即：兩個比較之物只能唯一滿足於「大於」、「小於」或「等於」之關係)，最直觀的便是使用整數(integer)。  &lt;/p&gt;
 &lt;p&gt;在先前的文章中，&lt;code&gt;class TreeNode&lt;/code&gt;包含了指向child的pointer、指向parent的pointer，以及一個&lt;code&gt;char data&lt;/code&gt;來儲存字母。  &lt;/p&gt;
 &lt;p&gt;而更多時候，node所攜帶的資料項目(在此為&lt;code&gt;char data&lt;/code&gt;)可能更複雜，也許是一個姓名、一組帳戶資料、一本照片集、一組科學資料等等，然而，要使用這些資料進行「比大小」必須而外自行定義規則，例如：「姓氏照字母順序排序，字母越前面值越大；若第一個字相同，則依序往下比較；若姓名中所有字母之順序皆相同則...」，非常不實際，因此，不用再則了，變通的方法便是直接在資料上加上「編號」(也可以想成，把資料對應(mapping)到特定編號)，以編號做排序，並且能夠以特定編號搜尋其所對應之資料項目，即可避開上述麻煩。  &lt;/p&gt;
@@ -4326,7 +4326,7 @@
 &lt;li&gt;由於故事的角色眾多，以下將挑選具代表性之角色用來說明BST。&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;&lt;a name="bst"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;&lt;strong&gt;Binary Search Tree的特徵&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2&gt;Binary Search Tree的特徵&lt;/h2&gt;
 &lt;p&gt;有了加裝Dictionary後的&lt;code&gt;TreeNode&lt;/code&gt;，便能夠說明BST的特徵：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;任何CurrnetNode之Key若與其left child、right child之Key有以下關係(若pointer指向&lt;code&gt;NULL&lt;/code&gt;則忽略)：&lt;span class="math"&gt;\(Key(L)&amp;lt;Key(Current)&amp;lt;Key(R)\)&lt;/span&gt;，則可稱這棵樹為Binary Search Tree(BST)。&lt;/li&gt;
@@ -4338,7 +4338,7 @@
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;有了BST後，便能夠替鳥山明老師處理角色之間的戰鬥力關係了。&lt;/p&gt;
 &lt;p&gt;&lt;a name="operation"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;&lt;strong&gt;在Binary Search Tree中管理資料&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2&gt;在Binary Search Tree中管理資料&lt;/h2&gt;
 &lt;p&gt;故事一開始的主要角色有悟空(1000)、龜仙人(8)和克林(2)，以龜仙人為&lt;code&gt;root&lt;/code&gt;能夠建立出一棵BST如圖四：&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="bst1" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/Intro/f14.png?raw=true" /&gt;&lt;/p&gt;
@@ -4346,7 +4346,7 @@
 &lt;/center&gt;
 &lt;/br&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a name="insert"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h4&gt;&lt;strong&gt;insert(新增資料)&lt;/strong&gt;&lt;/h4&gt;
+&lt;h3&gt;insert(新增資料)&lt;/h3&gt;
 &lt;p&gt;隨著故事劇情推進，角色也會跟著增加，因此，要在BST中&lt;strong&gt;新增node(新增資料)&lt;/strong&gt;。&lt;br /&gt;
 在此，比克大魔王現身地球危害人間，其戰鬥力為513，欲將其放進BST，根據BST的規則判斷出，比克的戰鬥力比龜仙人高，因此要將比克放在龜仙人的right subtree(右子樹)；接著，再和悟空比較，比克的戰鬥力比悟空低，因此將比克建立在悟空的left child上，如圖五(a)所示：&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
@@ -4360,7 +4360,7 @@
 &lt;p&gt;&lt;strong&gt;圖五(b)：。&lt;/strong&gt;&lt;br /&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a name="search"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h4&gt;&lt;strong&gt;search(搜尋資料)&lt;/strong&gt;&lt;/h4&gt;
+&lt;h3&gt;search(搜尋資料)&lt;/h3&gt;
 &lt;p&gt;在處理資料時，時常需要尋找某特定資料，是否存在資料結構中。以BST處理資料，最簡單的方式便是用Key尋找。&lt;br /&gt;
 以圖六為例，故事推進到納美克星弗力札大王篇，若想要確認基紐隊長的資料是否已經建立完成，只要記住隊長的戰鬥力為「627」，進入BST中，便能夠找到隊長，必且回傳(return)隊長的node。&lt;br /&gt;
 有時會出現欲搜尋的資料尚未被建立進BST中、或者已經從BST中移除的情況，例如，若要在悟空變成超級賽亞人之前找克林，以克林的戰鬥力「2」來搜尋，但是發現找不到，便回傳(return)&lt;code&gt;NULL&lt;/code&gt;。&lt;/p&gt;
@@ -4371,14 +4371,14 @@
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;（界王神的聲音：為什麼&lt;code&gt;root&lt;/code&gt;從龜仙人變成比克？不會違反BST規則嗎？詳見&lt;a href="http://alrightchiu.github.io/SecondRound/red-black-tree-rotationxuan-zhuan.html"&gt;Red Black Tree系列之Rotation(旋轉)&lt;/a&gt;。）&lt;/p&gt;
 &lt;p&gt;&lt;a name="sort"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h4&gt;&lt;strong&gt;sort(排序)&lt;/strong&gt;&lt;/h4&gt;
+&lt;h3&gt;sort(排序)&lt;/h3&gt;
 &lt;p&gt;故事來到了魔人普烏篇，因為角色有點多，有點混亂，此時，若想要知道各角色戰鬥力的大小排序，只要按照&lt;strong&gt;Inorder Traversal&lt;/strong&gt;即可按照戰鬥力(Key)高低列出所有資料：&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="sort" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/Intro/f17.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖七：。&lt;/strong&gt;&lt;br /&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a name="delete"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h4&gt;&lt;strong&gt;delete(刪除資料)&lt;/strong&gt;&lt;/h4&gt;
+&lt;h3&gt;delete(刪除資料)&lt;/h3&gt;
 &lt;p&gt;最後，當角色死掉去領便當，就需要從BST刪除資料，而根據欲刪除資料之「&lt;strong&gt;child個數&lt;/strong&gt;」可以分成三種情況：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;刪除撒旦：撒旦&lt;strong&gt;沒有child&lt;/strong&gt;，因此，直接把撒旦的parent(普烏)之left child指向&lt;code&gt;NULL&lt;/code&gt;即可。&lt;/li&gt;
@@ -4394,7 +4394,7 @@
 &lt;p&gt;接下來，將以兩篇文章的篇幅，說明上述四種資料處理操作的演算法。&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;
 &lt;a name="ref"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h4&gt;&lt;strong&gt;參考資料&lt;/strong&gt;：&lt;/h4&gt;
+&lt;h3&gt;參考資料：&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844"&gt;Introduction to Algorithms&lt;/a&gt; &lt;/li&gt;
 &lt;li&gt;&lt;a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376"&gt;Fundamentals of Data Structures in C++&lt;/a&gt;&lt;/li&gt;
@@ -4475,7 +4475,7 @@
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
 &lt;/script&gt;</summary><category term="C++"></category><category term="Binary Search Tree(二元搜尋樹)"></category><category term="Intro"></category></entry><entry><title>Binary Tree: 建立一棵Binary Tree</title><link href="http://alrightchiu.github.io/SecondRound/binary-tree-jian-li-yi-ke-binary-tree.html" rel="alternate"></link><updated>2015-12-27T16:53:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2015-12-27:SecondRound/binary-tree-jian-li-yi-ke-binary-tree.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
-&lt;h4&gt;&lt;strong&gt;先備知識與注意事項&lt;/strong&gt;&lt;/h4&gt;
+&lt;h3&gt;先備知識與注意事項&lt;/h3&gt;
 &lt;p&gt;在&lt;a href="http://alrightchiu.github.io/SecondRound/binary-tree-traversal.html#ex_code"&gt;Binary Tree：Traversal&lt;/a&gt;中，非常沒誠意地用暴力方式建了一棵Binary Tree，在這裡至上深深歉意，因此，在本篇文章將提供一種方法，由一個字元陣列(char array)輸入字母，並按照&lt;a href="http://alrightchiu.github.io/SecondRound/binary-tree-intro.html#fullcomplete"&gt;Complete Binary Tree&lt;/a&gt;之順序重新建立&lt;em&gt;那顆樹&lt;/em&gt;(一種不健康的雪恥心態)。&lt;/p&gt;
 &lt;p&gt;其中，問題情境之原始資料是一個字元陣列(char array)，為了方便處理(偷懶)選擇使用C++語言中的神器：&lt;a href="http://www3.ntu.edu.sg/home/ehchua/programming/cpp/cp10_io.html"&gt;stringstream&lt;/a&gt;，這裡礙於篇幅與主題(與筆者自己也還在摸索)，就不多談避免誤導，&lt;a href="(http://www3.ntu.edu.sg/home/ehchua/programming/cpp/cp10_io.html)"&gt;點進連結中&lt;/a&gt;有非常詳細的說明，關於&lt;code&gt;istringstream&lt;/code&gt;、&lt;code&gt;ostringstream&lt;/code&gt;、&lt;code&gt;stringstream&lt;/code&gt;等等template class之繼承關係(inheritance)。&lt;br /&gt;
 重點是，&lt;code&gt;stringstream&lt;/code&gt;就是神，就是行，學起來簡直光宗耀祖。&lt;/p&gt;
@@ -4495,7 +4495,7 @@
 &lt;li&gt;&lt;a href="#tree_series"&gt;Tree系列文章&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;a name="description"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;&lt;strong&gt;問題描述&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2&gt;問題描述&lt;/h2&gt;
 &lt;p&gt;問題描述如下：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;給定一個字元陣列，欲按照Complete Binary Tree之位置規則建立一棵Binary Tree，若陣列元素之資料為大寫字母(ASCII：65~90)，則將其建立成Tree的node，若陣列元素為 ' x ' 則表示該位置沒有node。&lt;/li&gt;
@@ -4513,7 +4513,7 @@
 &lt;/center&gt; &lt;/p&gt;
 &lt;p&gt;以下程式範例的目的就是要以如此文明的方式建立出如圖一的Binary Tree。&lt;/p&gt;
 &lt;p&gt;&lt;a name="code"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;&lt;strong&gt;程式碼&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2&gt;程式碼&lt;/h2&gt;
 &lt;p&gt;先看看&lt;code&gt;main()&lt;/code&gt;中，上半部分別為：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;原始資料：字元陣列；&lt;/li&gt;
@@ -4552,7 +4552,7 @@
 
 &lt;p&gt;&lt;/br&gt; &lt;/p&gt;
 &lt;p&gt;&lt;a name="def"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h4&gt;&lt;strong&gt;定義class TreeNode、class BinaryTree&lt;/strong&gt;&lt;/h4&gt;
+&lt;h3&gt;定義class TreeNode、class BinaryTree&lt;/h3&gt;
 &lt;p&gt;幾點說明：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -4600,7 +4600,7 @@
 
 &lt;p&gt;&lt;/br&gt;  &lt;/p&gt;
 &lt;p&gt;&lt;a name="constructor"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h4&gt;&lt;strong&gt;Constructor of BinaryTree&lt;/strong&gt;&lt;/h4&gt;
+&lt;h3&gt;Constructor of BinaryTree&lt;/h3&gt;
 &lt;p&gt;&lt;code&gt;class BinaryTree&lt;/code&gt;的constructor很直觀，拿到一個字元陣列，先送進&lt;code&gt;stringstream&lt;/code&gt;後，再由&lt;code&gt;stringstream&lt;/code&gt;放進樹中，先對樹的&lt;code&gt;root&lt;/code&gt;進行記憶體配置以及賦值，接著以level-order的方式建立Binary Tree。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// C++ code&lt;/span&gt;
 &lt;span class="n"&gt;BinaryTree&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;BinaryTree&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;str&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
@@ -4617,7 +4617,7 @@
 
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a name="func1"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h4&gt;&lt;strong&gt;Function：LevelorderConstruct()&lt;/strong&gt;&lt;/h4&gt;
+&lt;h3&gt;Function：LevelorderConstruct()&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;在看&lt;code&gt;LevelorderConstruct()&lt;/code&gt;的函式主體之前，再看一眼&lt;a href="http://alrightchiu.github.io/SecondRound/binary-tree-traversal.html#level"&gt;level-order traversal&lt;/a&gt;，概念上即是藉著&lt;code&gt;queue&lt;/code&gt;的「先排隊就先購票」的特性，在同一個level中，只要確保由左至右將node放進&lt;code&gt;queue&lt;/code&gt;中，便能確保在進入下一個level後，以先前放入node之順序進行visiting。  &lt;/li&gt;
 &lt;li&gt;在&lt;code&gt;while&lt;/code&gt;內，新增條件用來判斷從&lt;code&gt;stringstream&lt;/code&gt;中輸出的字母是「大寫字母」(ASCII：65~90)還是「x」，前者要放入樹中建成node，後者則忽略不計。  &lt;/li&gt;
@@ -4762,7 +4762,7 @@
 
 &lt;p&gt;&lt;/br&gt;
 &lt;a name="func2"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h4&gt;&lt;strong&gt;Function：insertLevelorder()&lt;/strong&gt;&lt;/h4&gt;
+&lt;h3&gt;Function：insertLevelorder()&lt;/h3&gt;
 &lt;p&gt;函式&lt;code&gt;insertLevelorder()&lt;/code&gt;的功能是，能夠按照Complete Binary Tree的位置順序放置新增的node，例如，若要在圖三之樹上新增帶有字母&lt;strong&gt;'K'&lt;/strong&gt;的node，則&lt;code&gt;T.insertLevelorder('K')&lt;/code&gt;便會將&lt;strong&gt;'K'&lt;/strong&gt;建成C的right child，如圖四(a)：&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="insertK" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/insertK.png?raw=true" /&gt;  &lt;/p&gt;
@@ -4821,7 +4821,7 @@ pointer連接完成後，結束迴圈。&lt;/li&gt;
 另外，&lt;a href="http://www.geeksforgeeks.org/level-order-tree-traversal/"&gt;有些方法是利用遞迴的方式，外帶一個迴圈來進行level-order traversal&lt;/a&gt;，也能夠完成相同的功能。&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;
 &lt;a name="ref"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h4&gt;&lt;strong&gt;參考資料&lt;/strong&gt;：&lt;/h4&gt;
+&lt;h3&gt;參考資料：&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844"&gt;Introduction to Algorithms&lt;/a&gt; &lt;/li&gt;
 &lt;li&gt;&lt;a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376"&gt;Fundamentals of Data Structures in C++&lt;/a&gt;&lt;/li&gt;
@@ -4845,7 +4845,7 @@ pointer連接完成後，結束迴圈。&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/red-black-tree-deleteshan-chu-zi-liao-yu-fixupxiu-zheng.html"&gt;Red Black Tree: Delete(刪除資料)與Fixup(修正)&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;</summary><category term="C++"></category><category term="Binary Tree(二元樹)"></category></entry><entry><title>Binary Tree: Traversal(尋訪)</title><link href="http://alrightchiu.github.io/SecondRound/binary-tree-traversalxun-fang.html" rel="alternate"></link><updated>2015-12-24T22:41:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2015-12-24:SecondRound/binary-tree-traversalxun-fang.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
-&lt;h4&gt;&lt;strong&gt;先備知識與注意事項&lt;/strong&gt;&lt;/h4&gt;
+&lt;h3&gt;先備知識與注意事項&lt;/h3&gt;
 &lt;p&gt;traversal(尋訪)有「站在A地，往所有與A地相連的地方移動」的意思：  &lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;以Graph(圖)的語言來說，站在vertex A上，有一條edge連結A與B，若能夠由A往B移動，此即可視為traversal；&lt;/li&gt;
@@ -4875,7 +4875,7 @@ pointer連接完成後，結束迴圈。&lt;/li&gt;
 &lt;li&gt;&lt;a href="#tree_series"&gt;Tree系列文章&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;a name="bttraversal"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;&lt;strong&gt;Traversal in Binary Tree&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2&gt;Traversal in Binary Tree&lt;/h2&gt;
 &lt;p&gt;Binary Tree的Node具有兩個指向child的pointer，Traversal以「當前所在的node」為參考點，所能夠進行的移動有三種：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;V&lt;/strong&gt;：Visiting，對當前所在的node進行print、assign或其他操作。&lt;/li&gt;
@@ -4978,7 +4978,7 @@ pointer連接完成後，結束迴圈。&lt;/li&gt;
 &lt;p&gt;以上說明了post-order traversal之過程，另外兩種pre-order與in-order在概念上皆相同，只要把握順序規則即可。&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a name="ex_code"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;&lt;strong&gt;Example with Code&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2&gt;Example with Code&lt;/h2&gt;
 &lt;p&gt;接下來，再以一棵稍微複雜的Binary Tree作為範例，展示pre-order、in-order、post-order及level-order之traversal。&lt;/p&gt;
 &lt;p&gt;現有一棵樹如圖四(a)：&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
@@ -5062,7 +5062,7 @@ pointer連接完成後，結束迴圈。&lt;/li&gt;
 &lt;p&gt;尚缺的四個函式的定義(definition)請接著看下去。&lt;br /&gt;
 其中，pre-order、in-order、post-order traversal的邏輯就只是「V」、「L」、「R」誰先誰後的差別，以下程式碼是以較直覺的遞迴(recursion)形式完成，不過，換成迭代(iteration)配合&lt;a href="https://en.wikipedia.org/wiki/Stack_%28abstract_data_type%29"&gt;stack(堆疊)&lt;/a&gt;在概念上完全相同，實作上即是考慮「V」、「L」、「R」誰先push(推)進stack。  &lt;/p&gt;
 &lt;p&gt;&lt;a name="pre"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h4&gt;&lt;strong&gt;Pre-Order Traversal&lt;/strong&gt;&lt;/h4&gt;
+&lt;h3&gt;Pre-Order Traversal&lt;/h3&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// C++ code&lt;/span&gt;
 &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;BinaryTree&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;Preorder&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;TreeNode&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;current&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
     &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;current&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
@@ -5084,7 +5084,7 @@ pointer連接完成後，結束迴圈。&lt;/li&gt;
 &lt;p&gt;&lt;strong&gt;圖四(b)：。&lt;/strong&gt;&lt;br /&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a name="in"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h4&gt;&lt;strong&gt;In-Order Traversal&lt;/strong&gt;&lt;/h4&gt;
+&lt;h3&gt;In-Order Traversal&lt;/h3&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// C++ code&lt;/span&gt;
 &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;BinaryTree&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;Inorder&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;TreeNode&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;current&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
     &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;current&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
@@ -5106,7 +5106,7 @@ pointer連接完成後，結束迴圈。&lt;/li&gt;
 &lt;p&gt;&lt;strong&gt;圖四(c)：。&lt;/strong&gt;&lt;br /&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a name="post"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h4&gt;&lt;strong&gt;Post-Order Traversal&lt;/strong&gt;&lt;/h4&gt;
+&lt;h3&gt;Post-Order Traversal&lt;/h3&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// C++ code&lt;/span&gt;
 &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;BinaryTree&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;Postorder&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;TreeNode&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;current&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
     &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;current&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
@@ -5128,7 +5128,7 @@ pointer連接完成後，結束迴圈。&lt;/li&gt;
 &lt;p&gt;&lt;strong&gt;圖四(d)：。&lt;/strong&gt;&lt;br /&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a name="level"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h4&gt;&lt;strong&gt;Level-Order Traversal&lt;/strong&gt;&lt;/h4&gt;
+&lt;h3&gt;Level-Order Traversal&lt;/h3&gt;
 &lt;p&gt;先前介紹了pre-order、in-order、post-order的traversal，而level-order則是照著level由小到大的順序，由上而下，並在同一個level由左至右地依序Visiting每個node。
 以下提供迭代(iteration)配合&lt;a href="https://en.wikipedia.org/wiki/Queue_%28abstract_data_type%29"&gt;queue(佇列)&lt;/a&gt;實現level-order traversal之程式碼，其邏輯也非常直觀：&lt;/p&gt;
 &lt;ul&gt;
@@ -5166,7 +5166,7 @@ pointer連接完成後，結束迴圈。&lt;/li&gt;
 
 &lt;p&gt;&lt;/br&gt;
 &lt;a name="in_parent"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;&lt;strong&gt;In-Order Traversal by Parent Field&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2&gt;In-Order Traversal by Parent Field&lt;/h2&gt;
 &lt;p&gt;在&lt;a href="http://alrightchiu.github.io/SecondRound/binary-tree-intro.html#code"&gt;Binary Tree：Intro&lt;/a&gt;提到，若在&lt;code&gt;class TreeNode&lt;/code&gt;加入pointer指向其parent node會非常有幫助，其中一項理由正是接下來要介紹的兩個函式：InorderSuccessor()與InorderPredecessor()。&lt;br /&gt;
 說文解字時間：  &lt;/p&gt;
 &lt;ul&gt;
@@ -5218,7 +5218,7 @@ pointer連接完成後，結束迴圈。&lt;/li&gt;
 &lt;p&gt;其中，除了&lt;code&gt;InorderSuccessor()&lt;/code&gt;與&lt;code&gt;InorderPredecessor()&lt;/code&gt;之函式主體外，還有&lt;code&gt;leftmost()&lt;/code&gt;和&lt;code&gt;rightmost()&lt;/code&gt;即是找到Binary Tree中最左與最右的node，可有可無，不過學會了很酷；以及&lt;code&gt;Inorder_by_parent()&lt;/code&gt;與&lt;code&gt;Inorder_Reverse()&lt;/code&gt;為用以呼叫&lt;code&gt;InorderSuccessor()&lt;/code&gt;與&lt;code&gt;InorderPredecessor()&lt;/code&gt;的迴圈主體。&lt;/p&gt;
 &lt;p&gt;看下去。&lt;/p&gt;
 &lt;p&gt;&lt;a name="successor"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h4&gt;&lt;strong&gt;Successor、leftmost&lt;/strong&gt;&lt;/h4&gt;
+&lt;h3&gt;Successor、leftmost&lt;/h3&gt;
 &lt;p&gt;函式&lt;code&gt;TreeNode* leftmost(TreeNode *current)&lt;/code&gt;的功能為：尋找以&lt;code&gt;current&lt;/code&gt;為root之subtree中，最左邊的node，最左邊的意思是從&lt;code&gt;current&lt;/code&gt;開始一路往left child做類似&lt;a href="http://alrightchiu.github.io/SecondRound/linked-list-traversal.html"&gt;Linked list之單向traversal&lt;/a&gt;的「一路向左」，而以inorder的順序來說，會找到該subtree中第一個進行Visiting的node。以圖四(c)為例，進入以A為root的Binary Tree，&lt;code&gt;leftmost()&lt;/code&gt;將回傳D。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// C++ code&lt;/span&gt;
 &lt;span class="n"&gt;TreeNode&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;BinaryTree&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;leftmost&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;TreeNode&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;current&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
@@ -5280,7 +5280,7 @@ pointer連接完成後，結束迴圈。&lt;/li&gt;
 
 &lt;p&gt;&lt;/br&gt;
 &lt;a name="predecessor"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h4&gt;&lt;strong&gt;Predecessor、rightmost&lt;/strong&gt;&lt;/h4&gt;
+&lt;h3&gt;Predecessor、rightmost&lt;/h3&gt;
 &lt;p&gt;只要把&lt;code&gt;InorderSuccessor()&lt;/code&gt;與&lt;code&gt;leftmost()&lt;/code&gt;中，所有的left與right互換，就得到&lt;code&gt;InorderPredecessor()&lt;/code&gt;與&lt;code&gt;rightmost()&lt;/code&gt;，而概念上也確實是如此：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;rightmost&lt;/strong&gt;：從「以CurrentNode為subtree」的root一路向右做Linked list的單向traversal。&lt;/li&gt;
@@ -5345,7 +5345,7 @@ pointer連接完成後，結束迴圈。&lt;/li&gt;
 &lt;code&gt;InorderSuccessor()&lt;/code&gt;和&lt;code&gt;InorderPredecessor()&lt;/code&gt;在Binary Search Tree的部分會再次出現，並且出現在基本操作：deletion(刪除node)中，因此學起來不止酷，還很實用的啊。&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;
 &lt;a name="ref"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h4&gt;&lt;strong&gt;參考資料&lt;/strong&gt;：&lt;/h4&gt;
+&lt;h3&gt;參考資料：&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844"&gt;Introduction to Algorithms&lt;/a&gt; &lt;/li&gt;
 &lt;li&gt;&lt;a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376"&gt;Fundamentals of Data Structures in C++&lt;/a&gt;&lt;/li&gt;
@@ -5369,7 +5369,7 @@ pointer連接完成後，結束迴圈。&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/red-black-tree-deleteshan-chu-zi-liao-yu-fixupxiu-zheng.html"&gt;Red Black Tree: Delete(刪除資料)與Fixup(修正)&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;</summary><category term="C++"></category><category term="Binary Tree(二元樹)"></category></entry><entry><title>Linked List: Traversal(尋訪)</title><link href="http://alrightchiu.github.io/SecondRound/linked-list-traversalxun-fang.html" rel="alternate"></link><updated>2015-12-23T20:00:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2015-12-23:SecondRound/linked-list-traversalxun-fang.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
-&lt;h4&gt;&lt;strong&gt;先備知識與注意事項&lt;/strong&gt;&lt;/h4&gt;
+&lt;h3&gt;先備知識與注意事項&lt;/h3&gt;
 &lt;p&gt;traversal(尋訪)有「站在A地，往所有與A地相連的地方移動」的意思：  &lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;以Graph(圖)的語言來說，站在vertex A上，有一條edge連結A與B，若能夠由A往B移動，此即可視為traversal；&lt;/li&gt;
@@ -5378,7 +5378,7 @@ pointer連接完成後，結束迴圈。&lt;/li&gt;
 &lt;p&gt;移動到特定的node之後，通常伴隨著其他行為，例如print out(顯示資料)、assign(賦值)等等，這些操作又稱作Visiting。&lt;/p&gt;
 &lt;p&gt;這篇文章將介紹在Linked list中的traversal。  &lt;/p&gt;
 &lt;hr /&gt;
-&lt;h2&gt;&lt;strong&gt;Traversal in Linked List&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2&gt;Traversal in Linked List&lt;/h2&gt;
 &lt;p&gt;若有一個Linked list如圖一：&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt; 
 &lt;center&gt;
@@ -5496,13 +5496,13 @@ A B C D     // from traversal()
 &lt;p&gt;&lt;/br&gt;  &lt;/p&gt;
 &lt;p&gt;以上是在Linked list中，單向(single direction)的traversal之介紹，只要把握pointer對記憶體位置(memory address)的操作原則，應該能輕鬆掌握。&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
-&lt;h4&gt;&lt;strong&gt;參考資料&lt;/strong&gt;：&lt;/h4&gt;
+&lt;h3&gt;參考資料：&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="https://en.wikipedia.org/wiki/Linked_list"&gt;Wikipedia：Linked List&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://www.youtube.com/watch?v=Qdcfxk-e_iw"&gt;太hardcore了&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;/br&gt;  &lt;/p&gt;</summary><category term="C++"></category><category term="Linked List(連結串列)"></category></entry><entry><title>Binary Tree: Intro(簡介)</title><link href="http://alrightchiu.github.io/SecondRound/binary-tree-introjian-jie.html" rel="alternate"></link><updated>2015-12-21T22:24:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2015-12-21:SecondRound/binary-tree-introjian-jie.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
-&lt;h4&gt;&lt;strong&gt;先備知識與注意事項&lt;/strong&gt;&lt;/h4&gt;
+&lt;h3&gt;先備知識與注意事項&lt;/h3&gt;
 &lt;p&gt;接續上一篇談到的&lt;a href="http://alrightchiu.github.io/SecondRound/treeshu.html"&gt;Tree(樹)&lt;/a&gt;，這篇文章將介紹樹這個大集合裡的其中一支大宗：&lt;strong&gt;Binary Tree&lt;/strong&gt;。&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;
 學海無涯，快點跳海。&lt;/p&gt;
@@ -5517,7 +5517,7 @@ A B C D     // from traversal()
 &lt;li&gt;&lt;a href="#tree_series"&gt;Tree系列文章&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;a name="bt"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;&lt;strong&gt;Binary Tree&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2&gt;Binary Tree&lt;/h2&gt;
 &lt;p&gt;最廣義的樹(Tree)對於樹上的node之child數目沒有限制，因此，每個node可以有多個child。&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;&lt;br /&gt;
 &lt;img alt="general_tree" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Intro/general_tree.png?raw=true" /&gt;&lt;/p&gt;
@@ -5529,7 +5529,7 @@ A B C D     // from traversal()
 &lt;p&gt;&lt;strong&gt;圖二：這是一棵Binary Tree。&lt;/strong&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a name="code"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;&lt;strong&gt;程式碼&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2&gt;程式碼&lt;/h2&gt;
 &lt;p&gt;修改在&lt;a href="http://alrightchiu.github.io/SecondRound/treeshu.html#code"&gt;Tree(樹)&lt;/a&gt;提供的程式實作方式，將node的child pointer設為left child與right child，以滿足Binary Tree的形式。&lt;br /&gt;
 另外，在class TreeNode有個&lt;code&gt;TreeNode *parent&lt;/code&gt;，顧名思義，即是指向該node之parent的pointer，以圖二為例，B的parent pointer即指向A。&lt;br /&gt;
 Binary Tree的node未必需要parent pointer(或稱為parent field)，然而加入parent後，在對樹的操作(operaion)如inorder traversal(中序尋訪)、node deletion(刪除node)、以及任何需要back-tracing(回溯路徑)的操作時，會更加有效率。&lt;/p&gt;
@@ -5551,10 +5551,10 @@ Binary Tree的node未必需要parent pointer(或稱為parent field)，然而加�
 
 
 &lt;p&gt;&lt;a name="fullcomplete"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;&lt;strong&gt;Full &amp;amp; Complete Binary Tree&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2&gt;Full &amp;amp; Complete Binary Tree&lt;/h2&gt;
 &lt;p&gt;有兩類Binary Tree十分常見，分別為&lt;strong&gt;Full Binary Tree&lt;/strong&gt;以及&lt;strong&gt;Complete Binary Tree&lt;/strong&gt;。&lt;br /&gt;
-(完滿二元樹？完整二元樹？我的建議是當作專有名詞不要翻譯。) &lt;/p&gt;
-&lt;h5&gt;&lt;strong&gt;A. Full Binary Tree&lt;/strong&gt;:&lt;/h5&gt;
+(完滿二元樹？完整二元樹？我的建議是當作專有名詞，不要翻譯。) &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;A. Full Binary Tree&lt;/strong&gt;:  &lt;/p&gt;
 &lt;p&gt;如圖三所示，一棵&lt;strong&gt;Full Binary Tree&lt;/strong&gt;(或稱作Perfect Binary Tree)具有以下性質：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;所有internal node都有兩個subtree(也就是兩個child pointer)；&lt;/li&gt;
@@ -5571,7 +5571,7 @@ Binary Tree的node未必需要parent pointer(或稱為parent field)，然而加�
 &lt;img alt="Full Binary Tree" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Intro/fullBT.png?raw=true" /&gt;  &lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖三：若一棵Full Binary Tree的leaf node之level為&lt;span class="math"&gt;\(n\)&lt;/span&gt;，整棵樹共有&lt;span class="math"&gt;\(2^n-1\)&lt;/span&gt;個node。&lt;/strong&gt;&lt;br /&gt;
 &lt;/center&gt;   &lt;/p&gt;
-&lt;h5&gt;&lt;strong&gt;B. Complete Binary Tree&lt;/strong&gt;:&lt;/h5&gt;
+&lt;p&gt;&lt;strong&gt;B. Complete Binary Tree&lt;/strong&gt;:&lt;/p&gt;
 &lt;p&gt;若一棵樹的node按照Full Binary Tree的次序排列(由上至下，由左至右)，則稱此樹為&lt;strong&gt;Complete Binary Tree&lt;/strong&gt;。  &lt;/p&gt;
 &lt;p&gt;以圖四及圖五作說明。&lt;br /&gt;
 圖四的樹共有10個node，且這十個node正好填滿Full Binary Tree的前十個位置，則此樹為Complete Binary Tree。  &lt;/p&gt;
@@ -5586,7 +5586,7 @@ Binary Tree的node未必需要parent pointer(或稱為parent field)，然而加�
 &lt;/center&gt;
 &lt;/br&gt; &lt;/p&gt;
 &lt;p&gt;&lt;a name="application"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;&lt;strong&gt;學習Binary Tree的未來出路&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2&gt;學習Binary Tree的未來出路&lt;/h2&gt;
 &lt;p&gt;如果有家長擔心小孩子學了Binary Tree之後對未來的出路沒有幫助，這裡有&lt;a href="http://stackoverflow.com/questions/2130416/what-are-the-applications-of-binary-trees"&gt;網路神人在StackOverFlow&lt;/a&gt;開示，以下簡單翻譯幾項Binary Tree的應用：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Binary Search Tree(BST)：在某些資料經常要增加、刪除的應用中，BST常用來做搜尋，例如許多程式語言的Library中的&lt;code&gt;map&lt;/code&gt;和&lt;code&gt;set&lt;/code&gt;。&lt;/li&gt;
@@ -5600,7 +5600,7 @@ Binary Tree的node未必需要parent pointer(或稱為parent field)，然而加�
 接下來將會介紹Binary Tree(以及往後主題)中最基本的操作：traversal(尋訪)，顧名思義，就是如何在樹中移動，有了traversal之後再進一步探討search(搜尋)、insertion(新增node)、deletion(刪除node)、sorting(排序)會更加容易。&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;
 &lt;a name="ref"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h4&gt;&lt;strong&gt;參考資料&lt;/strong&gt;：&lt;/h4&gt;
+&lt;h3&gt;參考資料：&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="https://en.wikipedia.org/wiki/Binary_tree"&gt;Wikipedia：Binary tree&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376"&gt;Fundamentals of Data Structures in C++&lt;/a&gt;  &lt;/li&gt;
@@ -5680,7 +5680,7 @@ Binary Tree的node未必需要parent pointer(或稱為parent field)，然而加�
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
 &lt;/script&gt;</summary><category term="C++"></category><category term="Binary Tree(二元樹)"></category><category term="Intro"></category></entry><entry><title>Tree(樹): Intro(簡介)</title><link href="http://alrightchiu.github.io/SecondRound/treeshu-introjian-jie.html" rel="alternate"></link><updated>2015-12-19T20:27:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2015-12-19:SecondRound/treeshu-introjian-jie.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
-&lt;h4&gt;&lt;strong&gt;先備知識與注意事項&lt;/strong&gt;&lt;/h4&gt;
+&lt;h3&gt;先備知識與注意事項&lt;/h3&gt;
 &lt;p&gt;若熟悉Linked List(連結串列)將會更容易理解樹：Linked list是一維的線性結構(不是往前、就是往後)，而樹(與圖)則推廣成多維的結構。&lt;br /&gt;
 &lt;/br&gt;
 &lt;center&gt;&lt;img alt="linkedlist" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/Tree_fig/linked_list_size.png?raw=true" /&gt;&lt;/p&gt;
@@ -5704,7 +5704,7 @@ Binary Tree的node未必需要parent pointer(或稱為parent field)，然而加�
 &lt;li&gt;&lt;a href="#tree_series"&gt;Tree系列文章&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;a name="example"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;&lt;strong&gt;隨處可見的Tree(樹)&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2&gt;隨處可見的Tree(樹)&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;Tree(樹)&lt;/strong&gt;是用以描述具有&lt;strong&gt;階層結構&lt;/strong&gt;(hierarchical structure)的問題的首選，階層結構意味著明確的先後次序，例如，若要印出ABC三個字母的所有排列組合(permutation)，直覺反射的圖像會是：  &lt;/p&gt;
 &lt;p&gt;&lt;center&gt;&lt;br /&gt;
 &lt;img alt="fig1.a" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/Tree_fig/abc_permu_size.png?raw=true" /&gt;
@@ -5717,8 +5717,8 @@ Binary Tree的node未必需要parent pointer(或稱為parent field)，然而加�
 &lt;p&gt;圖二的邏輯為：從起點(R)開始，先決定第一個字母，再依序決定第二、第三個字母，並且，在每一次選擇字母時，可能有不止一個可供選擇的字母。最後一共走出六條路徑，得到六種排列組合，而且這六種排列方式只能經由一種唯一的選擇方式(唯一的路徑)產生。若將起點(R)視為樹根(root)，每一個字母選擇的狀態(例如：A、C、BC、CAB)都視為一個node，這樣的結構便能夠視為一棵樹。  &lt;/p&gt;
 &lt;p&gt;另外如一本書的目錄、族譜、官僚企業的職位關係，甚至是更廣義的「從家門口為起點尋找方圓一公里以內的便利商店」都能夠建立出樹的模型。&lt;br /&gt;
 &lt;/br&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a name="essence"&gt;&lt;/a&gt; &lt;/p&gt;
-&lt;h2&gt;&lt;strong&gt;那麼，樹最根本的特徵是什麼？&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;a name="essence"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;那麼，樹最根本的特徵是什麼？&lt;/h2&gt;
 &lt;p&gt;以族譜為例，若包龍星是宋世傑的爸爸，那麼包龍星就絕對不能同時又是宋世傑的兒子。圖三以node與edge描述此關係，並定義箭頭是從父指向子，則包龍星指向宋世傑的箭頭表示包為父、宋為子，而宋世傑指向包龍星的箭頭表示宋為父、包為子，這一個箭頭即違反了最初「包龍星是宋世傑的爸爸」的命題，此即稱為cycle，也就是著名的「雞生蛋」與「蛋生雞」。  &lt;/p&gt;
 &lt;p&gt;而樹的最根本特徵就是：&lt;strong&gt;在樹的結構裡，只有一個root(樹根)，並且不存在cycle&lt;/strong&gt;。
 此特徵將衍生出另外兩項等價的性質：&lt;/p&gt;
@@ -5733,7 +5733,7 @@ Binary Tree的node未必需要parent pointer(或稱為parent field)，然而加�
 &lt;/center&gt;
 &lt;/br&gt; &lt;/p&gt;
 &lt;p&gt;&lt;a name="tree_not_tree"&gt;&lt;/a&gt; &lt;/p&gt;
-&lt;h2&gt;&lt;strong&gt;還有哪些結構是樹？&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2&gt;還有哪些結構是樹？&lt;/h2&gt;
 &lt;p&gt;(若不是樹，皆稱為圖(graph)。)&lt;/p&gt;
 &lt;p&gt;下列四種結構中，a、b可以視為樹，而c、d則否：
 &lt;/br&gt;
@@ -5751,7 +5751,7 @@ Binary Tree的node未必需要parent pointer(或稱為parent field)，然而加�
 &lt;/center&gt;
 &lt;/br&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a name="element"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;&lt;strong&gt;用以描述一棵樹的元素&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2&gt;用以描述一棵樹的元素&lt;/h2&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="fig3" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/Tree_fig/general_Tree.png?raw=true" /&gt;   &lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖四：這是一棵普通的樹。&lt;/strong&gt;&lt;br /&gt;
@@ -5779,7 +5779,7 @@ Binary Tree的node未必需要parent pointer(或稱為parent field)，然而加�
 &lt;/br&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;a name="definition"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;&lt;strong&gt;定義&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2&gt;定義&lt;/h2&gt;
 &lt;p&gt;以下列出兩種互相等價的Tree(樹)的定義：&lt;br /&gt;
 (根據以上範例說明，再配合樹的定義，還不飛上天？)&lt;/p&gt;
 &lt;p&gt;A. &lt;strong&gt;Tree(樹)&lt;/strong&gt;是由一個或多個節點所組成的有限集合，並且滿足：  &lt;/p&gt;
@@ -5797,7 +5797,7 @@ Binary Tree的node未必需要parent pointer(或稱為parent field)，然而加�
 &lt;p&gt;&lt;strong&gt;圖五：Forest(樹林)由多個Tree(樹)所組成，可以用來表示互斥集合(disjoint set)。&lt;/strong&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a name="code"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;&lt;strong&gt;程式碼&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2&gt;程式碼&lt;/h2&gt;
 &lt;p&gt;實務上，要以程式碼實作一棵樹，常用的手法為：先以class TreeNode(或是struct)定義出每顆node能夠指向多少subtree、攜帶哪些資料形態，再以另一個class Tree表示整棵樹，並以root作為樹的存取點：&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// C++ code&lt;/span&gt;
 &lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Tree&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
@@ -5818,7 +5818,7 @@ Binary Tree的node未必需要parent pointer(或稱為parent field)，然而加�
 
 
 &lt;p&gt;&lt;a name="set"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;&lt;strong&gt;集合關係&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2&gt;集合關係&lt;/h2&gt;
 &lt;p&gt;本篇介紹的Tree(樹)位居承先啟後的戰略位置，圖六展示了與Tree(樹)有關的資料結構的集合關係圖：&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="fig4" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/Tree_fig/Set_Graph_Tree_size.png?raw=true" /&gt;  &lt;/p&gt;
@@ -5830,9 +5830,9 @@ Binary Tree的node未必需要parent pointer(或稱為parent field)，然而加�
 以BST為基礎，在每個node上添加顏色(紅與黑)用以平衡樹的height，以減短搜尋時間，此種樹稱為&lt;a href="http://alrightchiu.github.io/SecondRound/red-black-tree-introjian-jie.html"&gt;&lt;strong&gt;Red Black Tree&lt;/strong&gt;(RBT，紅黑樹)&lt;/a&gt;。&lt;br /&gt;
 另一個方向，若打破「不能存在cycle」的限制，則從樹推廣至&lt;a href="http://alrightchiu.github.io/SecondRound/grpah-introjian-jie.html"&gt;&lt;strong&gt;圖(Graph)&lt;/strong&gt;&lt;/a&gt;。  &lt;/p&gt;
 &lt;p&gt;在接下來的文章將先以縮小集合的方向依序介紹：Binary Tree、BST、RBT，再進入Graph(圖)這個更複雜的主題。&lt;/p&gt;
-&lt;p&gt;&lt;a name="ref"&gt;&lt;/a&gt;
-&lt;/br&gt;&lt;/p&gt;
-&lt;h4&gt;&lt;strong&gt;參考資料&lt;/strong&gt;：&lt;/h4&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a name="ref"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;參考資料：&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="https://en.wikipedia.org/wiki/Tree_%28data_structure%29"&gt;Wikipedia：Tree(data structure)&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376"&gt;Fundamentals of Data Structures in C++&lt;/a&gt;&lt;/li&gt;

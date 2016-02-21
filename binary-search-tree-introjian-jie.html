@@ -111,7 +111,7 @@
     <!-- Post Content -->
     <article>
         <p></br></p>
-<h4><strong>先備知識與注意事項</strong></h4>
+<h3>先備知識與注意事項</h3>
 <p>先前的文章介紹過廣義的Tree(樹)、Binary Tree(二元樹)，這篇文章將繼續增加限制條件，使Binary Tree晉升成Binary Search Tree(BST，二元搜尋樹)。  </p>
 <p>這裡要處理的資料是日本漫畫的曠世鉅作《七龍珠》中各角色的戰鬥力。<br />
 七龍珠的劇情(正篇有七龍珠、七龍珠Z、七龍珠改、七龍珠GT、七龍珠超，劇場版還有<a href="https://zh.wikipedia.org/wiki/%E4%B8%83%E9%BE%99%E7%8F%A0#.E5.8A.87.E5.A0.B4.E7.89.88">七龍珠劇場版(太多了請參閱維基百科)</a>)時而前後連貫，時而交錯，為了維持每個系列之間的角色設定，就需要對角色的戰鬥力進行管理，避免劇情不合邏輯變成鬧劇，在此，筆者推薦鳥山明老師可以使用先進如BST的資料結構來整理角色的資料(當然，也是可以用excel或是國小生字簿，<a href="http://www.imdb.com/title/tt1178663/">Whatever Works</a>)。  </p>
@@ -132,7 +132,7 @@
 <li><a href="#tree_series">Tree系列文章</a></li>
 </ul>
 <p><a name="dictionary"></a></p>
-<h2><strong>引入dictionary</strong></h2>
+<h2>引入dictionary</h2>
 <p>搜尋與排序都需要「比大小」，欲執行「比大小」，就要使用「能夠比大小」的資料形態(亦即：兩個比較之物只能唯一滿足於「大於」、「小於」或「等於」之關係)，最直觀的便是使用整數(integer)。  </p>
 <p>在先前的文章中，<code>class TreeNode</code>包含了指向child的pointer、指向parent的pointer，以及一個<code>char data</code>來儲存字母。  </p>
 <p>而更多時候，node所攜帶的資料項目(在此為<code>char data</code>)可能更複雜，也許是一個姓名、一組帳戶資料、一本照片集、一組科學資料等等，然而，要使用這些資料進行「比大小」必須而外自行定義規則，例如：「姓氏照字母順序排序，字母越前面值越大；若第一個字相同，則依序往下比較；若姓名中所有字母之順序皆相同則...」，非常不實際，因此，不用再則了，變通的方法便是直接在資料上加上「編號」(也可以想成，把資料對應(mapping)到特定編號)，以編號做排序，並且能夠以特定編號搜尋其所對應之資料項目，即可避開上述麻煩。  </p>
@@ -170,7 +170,7 @@
 <li>由於故事的角色眾多，以下將挑選具代表性之角色用來說明BST。</li>
 </ol>
 <p><a name="bst"></a></p>
-<h2><strong>Binary Search Tree的特徵</strong></h2>
+<h2>Binary Search Tree的特徵</h2>
 <p>有了加裝Dictionary後的<code>TreeNode</code>，便能夠說明BST的特徵：</p>
 <ul>
 <li>任何CurrnetNode之Key若與其left child、right child之Key有以下關係(若pointer指向<code>NULL</code>則忽略)：<span class="math">\(Key(L)&lt;Key(Current)&lt;Key(R)\)</span>，則可稱這棵樹為Binary Search Tree(BST)。</li>
@@ -182,7 +182,7 @@
 </center></p>
 <p>有了BST後，便能夠替鳥山明老師處理角色之間的戰鬥力關係了。</p>
 <p><a name="operation"></a></p>
-<h2><strong>在Binary Search Tree中管理資料</strong></h2>
+<h2>在Binary Search Tree中管理資料</h2>
 <p>故事一開始的主要角色有悟空(1000)、龜仙人(8)和克林(2)，以龜仙人為<code>root</code>能夠建立出一棵BST如圖四：</p>
 <p><center>
 <img alt="bst1" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/Intro/f14.png?raw=true" /></p>
@@ -190,7 +190,7 @@
 </center>
 </br></p>
 <p><a name="insert"></a></p>
-<h4><strong>insert(新增資料)</strong></h4>
+<h3>insert(新增資料)</h3>
 <p>隨著故事劇情推進，角色也會跟著增加，因此，要在BST中<strong>新增node(新增資料)</strong>。<br />
 在此，比克大魔王現身地球危害人間，其戰鬥力為513，欲將其放進BST，根據BST的規則判斷出，比克的戰鬥力比龜仙人高，因此要將比克放在龜仙人的right subtree(右子樹)；接著，再和悟空比較，比克的戰鬥力比悟空低，因此將比克建立在悟空的left child上，如圖五(a)所示：</p>
 <p><center>
@@ -204,7 +204,7 @@
 <p><strong>圖五(b)：。</strong><br />
 </center></p>
 <p><a name="search"></a></p>
-<h4><strong>search(搜尋資料)</strong></h4>
+<h3>search(搜尋資料)</h3>
 <p>在處理資料時，時常需要尋找某特定資料，是否存在資料結構中。以BST處理資料，最簡單的方式便是用Key尋找。<br />
 以圖六為例，故事推進到納美克星弗力札大王篇，若想要確認基紐隊長的資料是否已經建立完成，只要記住隊長的戰鬥力為「627」，進入BST中，便能夠找到隊長，必且回傳(return)隊長的node。<br />
 有時會出現欲搜尋的資料尚未被建立進BST中、或者已經從BST中移除的情況，例如，若要在悟空變成超級賽亞人之前找克林，以克林的戰鬥力「2」來搜尋，但是發現找不到，便回傳(return)<code>NULL</code>。</p>
@@ -215,14 +215,14 @@
 </center></p>
 <p>（界王神的聲音：為什麼<code>root</code>從龜仙人變成比克？不會違反BST規則嗎？詳見<a href="http://alrightchiu.github.io/SecondRound/red-black-tree-rotationxuan-zhuan.html">Red Black Tree系列之Rotation(旋轉)</a>。）</p>
 <p><a name="sort"></a></p>
-<h4><strong>sort(排序)</strong></h4>
+<h3>sort(排序)</h3>
 <p>故事來到了魔人普烏篇，因為角色有點多，有點混亂，此時，若想要知道各角色戰鬥力的大小排序，只要按照<strong>Inorder Traversal</strong>即可按照戰鬥力(Key)高低列出所有資料：</p>
 <p><center>
 <img alt="sort" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/Intro/f17.png?raw=true" /></p>
 <p><strong>圖七：。</strong><br />
 </center></p>
 <p><a name="delete"></a></p>
-<h4><strong>delete(刪除資料)</strong></h4>
+<h3>delete(刪除資料)</h3>
 <p>最後，當角色死掉去領便當，就需要從BST刪除資料，而根據欲刪除資料之「<strong>child個數</strong>」可以分成三種情況：</p>
 <ol>
 <li>刪除撒旦：撒旦<strong>沒有child</strong>，因此，直接把撒旦的parent(普烏)之left child指向<code>NULL</code>即可。</li>
@@ -238,7 +238,7 @@
 <p>接下來，將以兩篇文章的篇幅，說明上述四種資料處理操作的演算法。</p>
 <p></br>
 <a name="ref"></a></p>
-<h4><strong>參考資料</strong>：</h4>
+<h3>參考資料：</h3>
 <ul>
 <li><a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844">Introduction to Algorithms</a> </li>
 <li><a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376">Fundamentals of Data Structures in C++</a></li>
