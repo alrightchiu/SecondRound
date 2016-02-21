@@ -125,9 +125,9 @@ Summary: 介紹Red Black Tree(紅黑樹)的Rotation(旋轉)操作。
 
 圖二(b)將所有可能需要更動的pointer列出，其中，藍色箭頭表示由`parent pointer`指向`child pointer`，紅色箭頭則為`child pointer`指向`parent pointer`。
 
-**Left Roration(向左旋轉)**之步驟如下：
+Left Roration(向左旋轉)之步驟如下：
 
-* Left Rotation完成後，node(Y)的`leftchild`將會接上node(X)，因此要先把原先node(Y)的`leftchild`(也就是node(j))放到node(X)的`rightchild`：
+* 在Left Rotation完成後，node(Y)的`leftchild`將會接上node(X)，因此要先把原先node(Y)的`leftchild`(也就是node(j))放到node(X)的`rightchild`：
     * 圖二(c)左：將node(X)的`rightchild`指向node(j)；
     * 圖二(c)右：將node(j)的`parent`指向node(X)。
 

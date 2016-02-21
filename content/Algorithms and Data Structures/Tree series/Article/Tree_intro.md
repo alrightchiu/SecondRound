@@ -215,7 +215,7 @@ class Tree{
  
 ##集合關係
 
-本篇介紹的Tree(樹)位居承先啟後的戰略位置，圖六展示了與Tree(樹)有關的資料結構的集合關係圖：
+本篇介紹的Tree(樹)位居承先啟後的戰略位置，圖六是與Tree(樹)有關的資料結構的集合關係圖：
 
 <center>
 ![fig4][set]  
@@ -227,10 +227,10 @@ class Tree{
 [set]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/Tree_fig/Set_Graph_Tree_size.png?raw=true
 
 本篇介紹的Tree(樹)並沒有限制child/ subtree的個數，理論上可以有多到超過記憶體空間的child node。  
-然而在實務上，較常使用每個node至多只有兩個child的樹，稱為[**Binary Tree**(二元樹)]((http://alrightchiu.github.io/SecondRound/binary-tree-introjian-jie.html))。  
+然而在實務上，較常使用每個node至多只有兩個child的樹，稱為[**Binary Tree**(二元樹)](http://alrightchiu.github.io/SecondRound/binary-tree-introjian-jie.html)。  
 從Binary Tree再增加「鍵值大小規則」，即得到[**Binary Search Tree**(BST，二元搜尋樹)](http://alrightchiu.github.io/SecondRound/binary-search-tree-introjian-jie.html)。  
 以BST為基礎，在每個node上添加顏色(紅與黑)用以平衡樹的height，以減短搜尋時間，此種樹稱為[**Red Black Tree**(RBT，紅黑樹)](http://alrightchiu.github.io/SecondRound/red-black-tree-introjian-jie.html)。  
-另一個方向，若打破「不能存在cycle」的限制，則從樹推廣至[**圖(Graph)**](http://alrightchiu.github.io/SecondRound/grpah-introjian-jie.html)。  
+另一個方向，若打破「不能存在cycle」的限制，則從樹推廣至[**圖(Graph)**](http://alrightchiu.github.io/SecondRound/graph-introjian-jie.html)。  
 
 在接下來的文章將先以縮小集合的方向依序介紹：Binary Tree、BST、RBT，再進入Graph(圖)這個更複雜的主題。
 
