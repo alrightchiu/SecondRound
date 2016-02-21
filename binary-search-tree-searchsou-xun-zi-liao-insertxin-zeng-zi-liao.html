@@ -182,6 +182,7 @@
 <li><a href="#ref">參考資料</a></li>
 <li><a href="#tree_series">Tree系列文章</a></li>
 </ul>
+<p></br></p>
 <p><a name="search"></a></p>
 <h2>BST::Search(搜尋)</h2>
 <p>BST的<code>Search()</code>操作，便是根據BST的特徵：<span class="math">\(Key(L)&lt;Key(Current)&lt;Key(R)\)</span>，判斷<code>Current</code>node應該往left subtree走，還是往right subtree走。</p>
@@ -265,8 +266,8 @@
 </pre></div>
 
 
-<p></br> 
-<a name="insert"></a></p>
+<p></br> </p>
+<p><a name="insert"></a></p>
 <h2>BST::InsertBST(新增資料)</h2>
 <p>函式<code>InsertBST()</code>的演算法概念，可以視為<code>Search()</code>的延伸：</p>
 <ol>
@@ -335,6 +336,7 @@
 <li>在定義函式<code>InsertBST()</code>時，函式的參數(argument)可能會視情境而有所改變，這裡是以一個<code>TreeNode</code>的物件(object)之<strong>reference</strong>作為參數，傳進函式<code>InsertBST()</code>。</li>
 <li>在<code>InsertBST()</code>特別標示出BST是為了與之後會介紹的Red Black Tree(紅黑樹)之<code>InsertRBT()</code>做區別。</li>
 </ul>
+<p></br></p>
 <p><a name="main"></a></p>
 <h2>main()</h2>
 <p>有了<code>BST::InsertBST()</code>後，就可以用土法煉鋼的方式建立一棵如圖二(d)的BST:</p>
@@ -355,8 +357,9 @@
 
 
 <p>以上便是BST中<code>Search()</code>與<code>InsertBST()</code>之介紹，只要掌握BST的性質<span class="math">\(Key(L)&lt;Key(Current)&lt;Key(R)\)</span>與樹中的Traversal(pointer的移動)即可輕鬆上路。 </p>
-<p></br>
-<a name="ref"></a></p>
+<p></br></p>
+<hr />
+<p><a name="ref"></a></p>
 <h3>參考資料：</h3>
 <ul>
 <li><a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844">Introduction to Algorithms</a> </li>

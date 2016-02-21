@@ -130,6 +130,7 @@
 <li><a href="#ref">參考資料</a></li>
 <li><a href="#tree_series">Tree系列文章</a></li>
 </ul>
+<p></br></p>
 <p><a name="violate"></a></p>
 <h2>於RBT中Delete(刪除資料)可能違反RBT之特徵</h2>
 <p>在RBT中執行Delete(刪除資料)時，若刪除之node為黑色，有可能違反三點RBT特徵：</p>
@@ -147,6 +148,7 @@
 <p><img alt="violate" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Delete/delete2.png?raw=true" /></p>
 <p><strong>圖一(b)：違反RBT之第四點與第五點特徵。</strong>
 </center></p>
+<p></br></p>
 <p><a name="bst"></a></p>
 <h2>如同於BST中Delete(刪除資料)</h2>
 <p><code>RBT::DeleteRBT()</code>之範例程式碼分成兩個部分：</p>
@@ -205,6 +207,7 @@
 </pre></div>
 
 
+<p></br></p>
 <p><a name="fixup"></a></p>
 <h2>修正：DeleteFixUpRBT()</h2>
 <p>考慮在圖二之RBT中刪除node(B)，由於node(B)是黑色，必定違反RBT之特徵，因此需要修正。<br />
@@ -398,6 +401,7 @@
 <img alt="example" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Delete/delete23.png?raw=true" /></p>
 <p><strong>圖六(j)：。</strong>
 </center></p>
+<p></br></p>
 <p><a name="code"></a></p>
 <h2>程式碼</h2>
 <p><code>DeleteFixedUpRBT()</code>之範例程式碼分成以下幾個部分：</p>
@@ -485,8 +489,9 @@
 </pre></div>
 
 
-<p></br>
-<a name="ref"></a></p>
+<p></br></p>
+<hr />
+<p><a name="ref"></a></p>
 <h3>參考資料：</h3>
 <ul>
 <li><a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844">Introduction to Algorithms</a> </li>

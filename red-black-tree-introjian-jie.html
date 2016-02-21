@@ -128,6 +128,7 @@
 <li><a href="#ref">參考資料</a></li>
 <li><a href="#tree_series">Tree系列文章</a></li>
 </ul>
+<p></br></p>
 <p><a name="why"></a></p>
 <h2>為什麼需要Red Black Tree？</h2>
 <p>若考慮最壞情況，在建立BST時，輸入資料的Key恰好被排序過(例如：1、2、3、4...)，那麼這顆BST便會退化成Linked List(接續前例，所有leftchild pointer都指向<code>NULL</code>，只有rightchild child被使用)：</p>
@@ -160,6 +161,7 @@
 <p>以上兩個範例為一棵具有N個node的BST之height(樹高)提供了邊界：<span class="math">\(\log N\leq height\leq N\)</span>。</p>
 <p>因此，BST越平衡，在樹中搜尋資料的時間就越短，連帶地Insert(新增資料)、Delete(刪除資料)也會變得更有效率。<br />
 這就是RBT值得被介紹的原因。</p>
+<p></br></p>
 <p><a name="rbt"></a></p>
 <h2>Red Black Tree的特徵</h2>
 <p>Red Black Tree(RBT)是node塗了「顏色」的Binary Search Tree(BST)，藉由控制顏色，能夠保證在RBT中，<strong>最長path(路徑)不會超過最短path的兩倍</strong>(若最短的path是5，最長的path至多只能是10)，如此，RBT便能夠近似地視為平衡，如圖四。</p>
@@ -187,6 +189,7 @@
 </li>
 </ol>
 <p>根據上述特徵的第四點與第五點，RBT中path可能的長度最小值一定是全部node皆為黑色，而path可能的長度最大值並定是紅色-黑色相間(如圖四)，如此便確保RBT擁有<strong>最長path(路徑)不會超過最短path的兩倍</strong>的特性。</p>
+<p></br></p>
 <p><a name="code"></a></p>
 <h2>程式碼</h2>
 <p>實際的程式實現上，會把所有<code>NIL</code>視為同一個<code>NIL</code>，並把<code>root</code>的parent指向<code>NIL</code>，以節省記憶體空間，如圖五。</p>
@@ -228,6 +231,7 @@
 <p>以上便是RBT之初探，最重要的結論為：就時間複雜度而言，RBT能夠被視為平衡的BST，所有操作皆能在時間複雜度為<span class="math">\(O(\log N)\)</span>內完成。</p>
 <p>在接下來的三篇文章中，將依序介紹Rotation(旋轉)、Insert(新增資料)與Delete(刪除資料)。</p>
 <p></br></p>
+<hr />
 <p><a name="ref"></a></p>
 <h3>參考資料：</h3>
 <ul>

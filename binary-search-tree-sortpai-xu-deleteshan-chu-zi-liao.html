@@ -123,6 +123,7 @@
 <li><a href="#ref">參考資料</a></li>
 <li><a href="#tree_series">Tree系列文章</a></li>
 </ul>
+<p></br></p>
 <p><a name="sort"></a></p>
 <h2>Sort(排序)</h2>
 <p>讀者可能會發現，在<code>class BST</code>的定義中，根本就沒有類似<code>SortBST()</code>的函式，沒錯，因為在BST中，每一個<code>Treenode</code>都有<span class="math">\(Key(L)&lt;Key(Current)&lt;Key(R)\)</span>的性質，這正好與Inorder(LVR)之順序相同，因此，對整棵樹進行Inorder Traversal，就能夠對資料由小到大(依照Key)進行Visiting。</p>
@@ -150,6 +151,7 @@
 </pre></div>
 
 
+<p></br></p>
 <p><a name="delete"></a></p>
 <h2>BST::DeleteBST(刪除資料)</h2>
 <p>要在BST上執行刪除資料(被刪除的node稱為A)，必須讓刪除A後的BST仍然維持BST的性質，因此，所有「具有指向A的pointer」之node(也就是A的<code>parent</code>、A的<code>leftchild</code>與A的<code>rightchild</code>)都必須指向新的記憶體位置。</p>
@@ -257,6 +259,7 @@
 </pre></div>
 
 
+<p></br></p>
 <p><a name="main"></a></p>
 <h2>main()</h2>
 <p>延續上一篇文章<a href="http://alrightchiu.github.io/SecondRound/binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao.html#binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao">Binary Search Tree: Search()、Insert()</a>的<code>main()</code>，加入<code>BST::DeleteBST</code>，把龜仙人(8)刪除，應該會得到如圖三的BST，比克(513)成為新的<code>root</code>：</p>
@@ -287,6 +290,7 @@
 </pre></div>
 
 
+<p></br></p>
 <p><a name="4function"></a></p>
 <h2>Leftmost、Rightmost、Successor、Predecessor範例程式碼</h2>
 <div class="highlight"><pre><span class="c1">// C++ code</span>
@@ -333,10 +337,10 @@
 <p>以上便是BST中<code>BST::DeleteBST()</code>之介紹，關鍵即在Successor與Predecessor。  </p>
 <p>在接下來將介紹的Red Black Tree(RBT，紅黑樹)中，BST的<code>Insert()</code>與<code>Delete()</code>會再次出現，不過，需要再「多一道手續」以滿足RBT的性質。</p>
 <p>最後，因為RBT的圖比較複雜，所以圈圈裏面放名字會太擠，有礙觀瞻，因此要忍痛讓「悟空」、「克林」退居幕後，直接在node裡面放上Key。 
-不過，相信透過這三篇BST的介紹，讀者對七龍珠也有一定程度的了解，後面的部分一定可以靠自學來搜集龍珠的。</p>
-<p>cha la head cha la～～</p>
-<p></br>
-<a name="ref"></a></p>
+不過，相信透過這三篇BST的介紹，讀者對七龍珠也有一定程度的了解，後面的部分一定可以靠自學來搜集龍珠了。</p>
+<p></br></p>
+<hr />
+<p><a name="ref"></a></p>
 <h3>參考資料：</h3>
 <ul>
 <li><a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844">Introduction to Algorithms</a> </li>

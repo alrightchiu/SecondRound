@@ -127,6 +127,7 @@
 <li><a href="#ref">參考資料</a></li>
 <li><a href="#tree_series">Tree系列文章</a></li>
 </ul>
+<p></br></p>
 <p><a name="bst"></a></p>
 <h2>如同於BST中Insert(新增資料)</h2>
 <p>RBT也是一棵BST，在Insert(新增資料)時，必須滿足：<span class="math">\(Key(L)&lt;Key(Current)&lt;Key(R)\)</span>，因此，RBT的<code>InsertRBT()</code>前半部演算法與<a href="http://alrightchiu.github.io/SecondRound/binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao.html#insert">BST的函式：InsertBST()大同小異</a>。<br />
@@ -170,6 +171,7 @@
 </pre></div>
 
 
+<p></br></p>
 <p><a name="fixup"></a></p>
 <h2>修正：InsertFixUpRBT()</h2>
 <p>什麼情況需要對<code>InsertRBT()</code>做修正？<br />
@@ -272,8 +274,8 @@
 <img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Insert/insert10.png?raw=true" /></p>
 <p><strong>圖一(j)：。</strong><br />
 </center></p>
+<p></br></p>
 <p><a name="example"></a></p>
-<hr />
 <h3>幾個範例</h3>
 <p><strong>Example1</strong></p>
 <p>考慮一棵RBT如圖二(a)：</p>
@@ -311,6 +313,7 @@
 <img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Insert/insert14.png?raw=true" /></p>
 <p><strong>圖二(d)：。</strong><br />
 </center></p>
+<p></br></p>
 <p><strong>Example2</strong></p>
 <p>考慮一棵RBT如圖三(a)：</p>
 <p><center>
@@ -354,6 +357,7 @@
 <li>一是<code>uncle</code>：因為<code>parent</code>與<code>uncle</code>分別為<code>parent-&gt;parent</code>之<code>leftchild</code>與<code>rightchild</code>，若<code>parent</code>是<code>left-</code>，<code>uncle</code>就要是<code>right-</code>，反之亦然，兩者屬於互斥(exclusive)的、不能同時發生的情境；</li>
 <li>二是Rotation(旋轉)：在Case2與Case3中必須使用Left/Right Rotation，因此，延續第一點原因，考慮到<code>parent</code>是<code>leftchild</code>或是<code>rightchild</code>的不同，Left/Right Rotation的方向也會相反。</li>
 </ul>
+<p></br></p>
 <p><a name="code"></a></p>
 <h2>程式碼</h2>
 <p><code>InsertFixedUpRBT()</code>之範例程式碼分成以下幾個部分：</p>
@@ -421,8 +425,9 @@
 </pre></div>
 
 
-<p></br>
-<a name="ref"></a></p>
+<p></br></p>
+<hr />
+<p><a name="ref"></a></p>
 <h3>參考資料：</h3>
 <ul>
 <li><a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844">Introduction to Algorithms, Ch13</a> </li>
