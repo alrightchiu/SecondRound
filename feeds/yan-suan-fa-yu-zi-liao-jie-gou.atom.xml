@@ -199,7 +199,7 @@
 &lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/grpah-li-yong-dfsxun-zhao-dagde-topological-sorttuo-pu-pai-xu.html"&gt;Grpah: 利用DFS尋找DAG的Topological Sort(拓撲排序)&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;</summary><category term="C++"></category><category term="Graph"></category><category term="DFS"></category><category term="DAG"></category></entry><entry><title>Grpah: 利用DFS尋找Strongly Connected Component(SCC)</title><link href="http://alrightchiu.github.io/SecondRound/grpah-li-yong-dfsxun-zhao-strongly-connected-componentscc.html" rel="alternate"></link><updated>2016-02-17T21:49:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-02-17:SecondRound/grpah-li-yong-dfsxun-zhao-strongly-connected-componentscc.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
-&lt;h4&gt;&lt;strong&gt;先備知識與注意事項&lt;/strong&gt;&lt;/h4&gt;
+&lt;h3&gt;先備知識與注意事項&lt;/h3&gt;
 &lt;p&gt;在一個directed graph中，若對於任意兩個vertex(A)與vertex(B)之間，不是同時存在「從vertex(A)走到vertex(B)」以及「從vertex(B)走到vertex(A)」的path，那麼此directed graph就不是strongly connected，裡面一定包含了兩個以上的strongly connected component(SCC)。  &lt;/p&gt;
 &lt;p&gt;如圖一(a)，經由path:0-1-2-5，可以從vertex(0)走到vertex(5)，但是無論經過任何vertex，都沒有辦法從vertex(5)走到vertex(0)，因此，圖一(a)的directed graph並不是strongly connected，其中包含了兩個以上的SCC(答案是三個)。&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
@@ -227,7 +227,7 @@
 &lt;li&gt;&lt;a href="#series"&gt;Graph系列文章&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;a name="if_dfs_only"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;&lt;strong&gt;如果只有一次DFS()不行嗎？&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2&gt;如果只有一次DFS()不行嗎？&lt;/h2&gt;
 &lt;p&gt;在&lt;a href="http://alrightchiu.github.io/SecondRound/graph-li-yong-dfshe-bfsxun-zhao-connected-component.html"&gt;上一篇文章&lt;/a&gt;提到，只用一次&lt;code&gt;DFS()&lt;/code&gt;或&lt;code&gt;BFS()&lt;/code&gt;得到&lt;code&gt;predecessor&lt;/code&gt;後，便能夠找到undirected graph中的connected component。&lt;/p&gt;
 &lt;p&gt;那如果用來找SCC？&lt;/p&gt;
 &lt;p&gt;以下示範兩次&lt;code&gt;DFS()&lt;/code&gt;來說明，一次是按照「&lt;span class="math"&gt;\(8、7、...、2、1\)&lt;/span&gt;」之順序把vertex設為搜尋起點，另一次則是按照「&lt;span class="math"&gt;\(1、2、...、7、8\)&lt;/span&gt;」之順序。&lt;/p&gt;
@@ -360,7 +360,7 @@
 &lt;p&gt;因此，以「第一次&lt;code&gt;DFS()&lt;/code&gt;所得到的&lt;code&gt;finish&lt;/code&gt;之由大到小順序」選取起點，在G&lt;sup&gt;T&lt;/sup&gt;上進行第二次&lt;code&gt;DFS()&lt;/code&gt;，就可以先選到C&lt;sub&gt;1&lt;/sub&gt;，由於無法從C&lt;sub&gt;1&lt;/sub&gt;走回C&lt;sub&gt;2&lt;/sub&gt;，因此&lt;code&gt;DFS()&lt;/code&gt;在搜尋完C&lt;sub&gt;1&lt;/sub&gt;內的所有vertex後，便形成自己的Depth-First Tree。接著再依序挑選C&lt;sub&gt;2&lt;/sub&gt;、C&lt;sub&gt;3&lt;/sub&gt;為起點進行搜尋，並且建立起各自SCC的Depth-First Tree。&lt;/p&gt;
 &lt;p&gt;如此一來，便找到了directed graph中的SCC。&lt;/p&gt;
 &lt;p&gt;&lt;a name="code"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;&lt;strong&gt;程式碼&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2&gt;程式碼&lt;/h2&gt;
 &lt;p&gt;根據以上說明，演算法分成四個步驟：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;對G執行&lt;code&gt;DFS()&lt;/code&gt;。&lt;/li&gt;
@@ -655,7 +655,7 @@
 &lt;p&gt;下一篇將介紹如何利用&lt;code&gt;DFS()&lt;/code&gt;尋找DAG的Topological sort(拓撲排序)，敬請期待。&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a name="ref"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h4&gt;&lt;strong&gt;參考資料&lt;/strong&gt;：&lt;/h4&gt;
+&lt;h3&gt;參考資料：&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844"&gt;Introduction to Algorithms, Ch22&lt;/a&gt; &lt;/li&gt;
 &lt;li&gt;&lt;a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376"&gt;Fundamentals of Data Structures in C++, Ch6&lt;/a&gt;&lt;/li&gt;
@@ -731,7 +731,7 @@
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
 &lt;/script&gt;</summary><category term="C++"></category><category term="Graph"></category><category term="DFS"></category><category term="DAG"></category></entry><entry><title>Graph: 利用DFS和BFS尋找Connected Component</title><link href="http://alrightchiu.github.io/SecondRound/graph-li-yong-dfshe-bfsxun-zhao-connected-component.html" rel="alternate"></link><updated>2016-02-12T22:55:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-02-12:SecondRound/graph-li-yong-dfshe-bfsxun-zhao-connected-component.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
-&lt;h4&gt;&lt;strong&gt;先備知識與注意事項&lt;/strong&gt;&lt;/h4&gt;
+&lt;h3&gt;先備知識與注意事項&lt;/h3&gt;
 &lt;p&gt;在一個undirected graph中，若存在任意兩個vertex之間不具有path連結，那麼此undirected graph就不是connected，裡面一定包含了兩個以上的connected component。  &lt;/p&gt;
 &lt;p&gt;如圖一(a)，vertex(0)與vertex(1)不論經過Graph中其他任何vertex都沒有辦法產生一條path連結，則此Graph就不是connected。&lt;br /&gt;
 並且觀察，vertex(0)、vertex(2)、vertex(4)彼此皆有path能夠互相連結，因此subgraph：&lt;span class="math"&gt;\(G(V_1,E_1)\)&lt;/span&gt;，其中&lt;span class="math"&gt;\(V_1=\)&lt;/span&gt;{&lt;span class="math"&gt;\(0,2,4\)&lt;/span&gt;}與&lt;span class="math"&gt;\(E_1=\)&lt;/span&gt;{&lt;span class="math"&gt;\((0,2),(0,4)\)&lt;/span&gt;}即為一個connected component；subgraph：&lt;span class="math"&gt;\(G(V_2,E_2)\)&lt;/span&gt;，其中&lt;span class="math"&gt;\(V_2=\)&lt;/span&gt;{&lt;span class="math"&gt;\(1,3\)&lt;/span&gt;}與&lt;span class="math"&gt;\(E_2=\)&lt;/span&gt;{&lt;span class="math"&gt;\((1,3)\)&lt;/span&gt;}是另一個connected component。&lt;/p&gt;
@@ -754,12 +754,12 @@
 &lt;li&gt;&lt;a href="#how"&gt;DFS與BFS何德何能？&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="#algorithm"&gt;演算法&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="#code"&gt;程式碼&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="#scc"&gt;如果是Strongly Connected Component呢&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#scc"&gt;如果是Strongly Connected Component呢？&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="#ref"&gt;參考資料&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="#series"&gt;Graph系列文章&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;a name="how"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;&lt;strong&gt;DFS與BFS何德何能？&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2&gt;DFS與BFS何德何能？&lt;/h2&gt;
 &lt;p&gt;關鍵就是，兩個演算法都能產生&lt;code&gt;predecessor&lt;/code&gt;。&lt;/p&gt;
 &lt;p&gt;若vertex(Y)的&lt;code&gt;predecessor[Y]&lt;/code&gt;是vertex(X)，表示：&lt;/p&gt;
 &lt;ul&gt;
@@ -770,7 +770,7 @@
 &lt;p&gt;因此，若vertex(Y)的&lt;code&gt;predecessor[Y]&lt;/code&gt;是vertex(X)，就表示vertex(X)與vertex(Y)一定在同一個connected component裡面。&lt;/p&gt;
 &lt;p&gt;這也就是為什麼&lt;code&gt;DFS()&lt;/code&gt;與&lt;code&gt;BFS()&lt;/code&gt;都能夠用來尋找undirected graph中的connected component的原因。&lt;/p&gt;
 &lt;p&gt;&lt;a name="algorithm"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;&lt;strong&gt;演算法&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2&gt;演算法&lt;/h2&gt;
 &lt;p&gt;尋找connected component的演算法很直觀，只要三步驟：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;在Graph上執行&lt;code&gt;DFS()&lt;/code&gt;或&lt;code&gt;BFS()&lt;/code&gt;得到&lt;code&gt;predecessor&lt;/code&gt;。&lt;/li&gt;
@@ -853,7 +853,7 @@
 &lt;p&gt;只要先找到&lt;code&gt;predecessor&lt;/code&gt;為「負值」的vertex，就找到了代表某一connected component的Set之&lt;code&gt;root&lt;/code&gt;，再尋找哪些vertex的&lt;code&gt;predecessor&lt;/code&gt;指向該&lt;code&gt;root&lt;/code&gt;，便能找出該connected component所包含的所有vertex。&lt;/p&gt;
 &lt;p&gt;大功告成。&lt;/p&gt;
 &lt;p&gt;&lt;a name="code"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;&lt;strong&gt;程式碼&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2&gt;程式碼&lt;/h2&gt;
 &lt;p&gt;範例程式碼除了已經介紹過的&lt;code&gt;class Graph&lt;/code&gt;、&lt;code&gt;DFS()&lt;/code&gt;以及&lt;code&gt;BFS()&lt;/code&gt;之外，還多了四個函式。&lt;br /&gt;
 其中，在undirected graph中尋找connected component的主要函式：&lt;code&gt;CCDFS(int vertex)&lt;/code&gt;與&lt;code&gt;CCBFS(int vertex)&lt;/code&gt;共包含三個部分：&lt;/p&gt;
 &lt;ul&gt;
@@ -1010,14 +1010,14 @@
 &lt;p&gt;不過筆者認為使用&lt;code&gt;SetCollapsing()&lt;/code&gt;處理&lt;code&gt;predecessor&lt;/code&gt;，雖然不見得是最有效率的方法，但是概念上比較直觀，因為connected component就是Set。&lt;/p&gt;
 &lt;p&gt;事實上，這兩種Set表示法(「塌陷」前後的&lt;code&gt;predecessor&lt;/code&gt;)，正好是在Set問題中永恆的兩難(trade-off)：「要&lt;strong&gt;Union&lt;/strong&gt;方便」還是「&lt;strong&gt;Find&lt;/strong&gt;方便」，有興趣的讀者可以看看這篇：&lt;a href="https://www.hackerearth.com/notes/disjoint-set-union-union-find/"&gt;Disjoint Set Union (Union Find)&lt;/a&gt;。&lt;/p&gt;
 &lt;p&gt;&lt;a name="scc"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;&lt;strong&gt;如果是Strongly Connected Component呢&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2&gt;如果是Strongly Connected Component呢？&lt;/h2&gt;
 &lt;p&gt;以上處理的是「在undirected graph中尋找connected component」，那如果要在「directed graph中尋找strongly connected component」呢？&lt;/p&gt;
 &lt;p&gt;顯然，光是只有&lt;code&gt;predecessor&lt;/code&gt;是不夠的，因為在directed graph中，&lt;code&gt;predecessor&lt;/code&gt;能夠保證的是一個「有方向性」的edge，例如edge(X,Y)表示，從vertex(X)能夠走到vertex(Y)，卻不能打包票從vertex(Y)也能走回vertex(X)。因此，要找到strongly connected component需要更高級的方法才行。&lt;/p&gt;
 &lt;p&gt;不過到這裡，是時候&lt;a href="https://www.youtube.com/watch?v=NrGxru6nqeQ"&gt;該說再見了朋友們&lt;/a&gt;。&lt;br /&gt;
 更高級的方法，請待下回分曉。&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a name="ref"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h4&gt;&lt;strong&gt;參考資料&lt;/strong&gt;：&lt;/h4&gt;
+&lt;h3&gt;參考資料：&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844"&gt;Introduction to Algorithms, Ch22&lt;/a&gt; &lt;/li&gt;
 &lt;li&gt;&lt;a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376"&gt;Fundamentals of Data Structures in C++, Ch6&lt;/a&gt;&lt;/li&gt;
@@ -1093,7 +1093,7 @@
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
 &lt;/script&gt;</summary><category term="C++"></category><category term="Graph"></category><category term="BFS"></category><category term="DFS"></category></entry><entry><title>Graph: Depth-First Search(DFS，深度優先搜尋)</title><link href="http://alrightchiu.github.io/SecondRound/graph-depth-first-searchdfsshen-du-you-xian-sou-xun.html" rel="alternate"></link><updated>2016-02-11T22:36:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-02-11:SecondRound/graph-depth-first-searchdfsshen-du-you-xian-sou-xun.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
-&lt;h4&gt;&lt;strong&gt;先備知識與注意事項&lt;/strong&gt;&lt;/h4&gt;
+&lt;h3&gt;先備知識與注意事項&lt;/h3&gt;
 &lt;p&gt;在&lt;a href="http://alrightchiu.github.io/SecondRound/binary-tree-traversalxun-fang.html#pre"&gt;Binary Tree: Traversal(尋訪)&lt;/a&gt;中介紹過Pre-Order Traversal，其Visiting順序：「Current(V)-left(L)-right(R)」可以解讀成「先遇到的node就先Visiting」，因此，每一組「Current-left-right」必定是&lt;code&gt;CurrentNode&lt;/code&gt;先Visiting，接著是&lt;code&gt;leftchild&lt;/code&gt;，最後才是&lt;code&gt;rightchild&lt;/code&gt;。&lt;br /&gt;
 若對圖一中的Binary Tree進行Pre-Order Traversal，定義Visiting為印出(print)資料，將得到：&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;A&lt;/span&gt; &lt;span class="n"&gt;B&lt;/span&gt; &lt;span class="n"&gt;D&lt;/span&gt; &lt;span class="n"&gt;E&lt;/span&gt; &lt;span class="n"&gt;G&lt;/span&gt; &lt;span class="n"&gt;H&lt;/span&gt; &lt;span class="n"&gt;C&lt;/span&gt; &lt;span class="n"&gt;F&lt;/span&gt;
@@ -1125,7 +1125,7 @@
 &lt;li&gt;&lt;a href="#series"&gt;Graph系列文章&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;a name="dfs"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;&lt;strong&gt;Depth-First Search(DFS，深度優先搜尋)&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2&gt;Depth-First Search(DFS，深度優先搜尋)&lt;/h2&gt;
 &lt;p&gt;考慮圖三(a)的Graph(沒有weight的directed graph)：&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="dfs" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/DFS_fig/f_2.png?raw=true" /&gt;&lt;/p&gt;
@@ -1139,7 +1139,7 @@
 但其實&lt;code&gt;DFS()&lt;/code&gt;還是很有用的，因為經過一次&lt;code&gt;DFS()&lt;/code&gt;後，將得到一項資料稱作&lt;code&gt;finish&lt;/code&gt;，而&lt;code&gt;finish&lt;/code&gt;竟然可以用來...！？&lt;/p&gt;
 &lt;p&gt;別轉台，看下去。&lt;/p&gt;
 &lt;p&gt;&lt;a name="algorithm"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;&lt;strong&gt;演算法&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2&gt;演算法&lt;/h2&gt;
 &lt;p&gt;以下介紹的&lt;code&gt;DFS()&lt;/code&gt;需要資料項目共有：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;code&gt;time&lt;/code&gt;：在整個&lt;code&gt;DFS()&lt;/code&gt;的過程會有一條「時間軸」，若Graph中有&lt;span class="math"&gt;\(N\)&lt;/span&gt;個vertex，「時間軸」上一共會有&lt;span class="math"&gt;\(2N\)&lt;/span&gt;個「時間點」。&lt;/li&gt;
@@ -1284,7 +1284,7 @@
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;當Graph中所有vertex都被塗成黑色，便完成&lt;code&gt;DFS()&lt;/code&gt;。&lt;/p&gt;
 &lt;p&gt;&lt;a name="code"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;&lt;strong&gt;程式碼&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2&gt;程式碼&lt;/h2&gt;
 &lt;p&gt;由以上說明可以觀察出，&lt;code&gt;DFS()&lt;/code&gt;本質上是一種「&lt;strong&gt;遞迴(recursion)結構&lt;/strong&gt;」，而遞迴結構其實是利用了系統的「&lt;strong&gt;堆疊(stack)&lt;/strong&gt;」，因此，這兩種方式皆能實現&lt;code&gt;DFS()&lt;/code&gt;，以下提供的範例程式碼將以遞迴形式完成。&lt;/p&gt;
 &lt;p&gt;如同上一篇&lt;a href="http://alrightchiu.github.io/SecondRound/graph-breadth-first-searchbfsguang-du-you-xian-sou-xun.html#code"&gt;Graph: Breadth-First Search(BFS，廣度優先搜尋)&lt;/a&gt;，以下將使用&lt;code&gt;int&lt;/code&gt;處理資料，把&lt;span class="math"&gt;\(9\)&lt;/span&gt;個vertex&lt;code&gt;char A~I&lt;/code&gt;依序對應到&lt;code&gt;int 0~8&lt;/code&gt;。&lt;/p&gt;
 &lt;p&gt;範例程式碼包含兩個部分&lt;code&gt;main()&lt;/code&gt;與&lt;code&gt;class Graph&lt;/code&gt;。&lt;/p&gt;
@@ -1395,7 +1395,7 @@
 
 
 &lt;p&gt;&lt;a name="discuss"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;&lt;strong&gt;討論&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2&gt;討論&lt;/h2&gt;
 &lt;p&gt;若在&lt;code&gt;DFS()&lt;/code&gt;函式主體的最後多加入幾行程式來檢查&lt;code&gt;predecessor&lt;/code&gt;、&lt;code&gt;discover&lt;/code&gt;與&lt;code&gt;finish&lt;/code&gt;三項資料是否符合預期：&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;Graph&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;DFS&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;Start&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
  &lt;span class="c1"&gt;// after for loop&lt;/span&gt;
@@ -1446,7 +1446,7 @@
 &lt;p&gt;&lt;strong&gt;圖四：。&lt;/strong&gt;&lt;br /&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a name="dff_dft"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;&lt;strong&gt;Depth-First Tree&lt;/strong&gt;&lt;/h2&gt;
+&lt;h3&gt;Depth-First Tree&lt;/h3&gt;
 &lt;p&gt;如同&lt;code&gt;BFS()&lt;/code&gt;，在Graph上進行&lt;code&gt;DFS()&lt;/code&gt;同樣可以得到&lt;strong&gt;Predecessor Subgraph&lt;/strong&gt;，又稱為&lt;strong&gt;Depth-First Tree&lt;/strong&gt;。若Graph本身不是&lt;strong&gt;(strongly) connected component&lt;/strong&gt;，則有可能得到&lt;strong&gt;Depth-First Forest&lt;/strong&gt;，如圖五：&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="dfs" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/DFS_fig/f_21.png?raw=true" /&gt;&lt;/p&gt;
@@ -1469,7 +1469,7 @@
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;&lt;a name="4edge"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;&lt;strong&gt;4種edge&lt;/strong&gt;&lt;/h2&gt;
+&lt;h3&gt;4種edge&lt;/h3&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="dfs" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/DFS_fig/f_22.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖六：。&lt;/strong&gt;&lt;br /&gt;
@@ -1515,7 +1515,7 @@
 &lt;p&gt;不過在這之前，會先介紹利用&lt;code&gt;BFS()&lt;/code&gt;與&lt;code&gt;DFS()&lt;/code&gt;找到undirected graph中的&lt;strong&gt;connected component&lt;/strong&gt;作為暖身。&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a name="ref"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h4&gt;&lt;strong&gt;參考資料&lt;/strong&gt;：&lt;/h4&gt;
+&lt;h3&gt;參考資料：&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844"&gt;Introduction to Algorithms, Ch22&lt;/a&gt; &lt;/li&gt;
 &lt;li&gt;&lt;a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376"&gt;Fundamentals of Data Structures in C++, Ch6&lt;/a&gt;&lt;/li&gt;
@@ -1590,7 +1590,7 @@
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
 &lt;/script&gt;</summary><category term="C++"></category><category term="Graph"></category><category term="DFS"></category></entry><entry><title>Graph: Breadth-First Search(BFS，廣度優先搜尋)</title><link href="http://alrightchiu.github.io/SecondRound/graph-breadth-first-searchbfsguang-du-you-xian-sou-xun.html" rel="alternate"></link><updated>2016-02-06T14:15:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-02-06:SecondRound/graph-breadth-first-searchbfsguang-du-you-xian-sou-xun.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
-&lt;h4&gt;&lt;strong&gt;先備知識與注意事項&lt;/strong&gt;&lt;/h4&gt;
+&lt;h3&gt;先備知識與注意事項&lt;/h3&gt;
 &lt;p&gt;在&lt;a href="http://alrightchiu.github.io/SecondRound/binary-tree-traversalxun-fang.html#level"&gt;Binary Tree: Traversal(尋訪)&lt;/a&gt;與&lt;a href="http://alrightchiu.github.io/SecondRound/binary-tree-jian-li-yi-ke-binary-tree.html"&gt;Binary Tree: 建立一棵Binary Tree&lt;/a&gt;兩篇文章裡，介紹了如何利用&lt;code&gt;queue&lt;/code&gt;在Binary Tree中進行&lt;strong&gt;Level-Order Traversal&lt;/strong&gt;，其概念便是：各個node相對於&lt;code&gt;root&lt;/code&gt;有其對應的level，按照level由小到大依序對node進行Visiting。&lt;br /&gt;
 而level便代表了node與&lt;code&gt;root&lt;/code&gt;之「距離」，以Graph的語言來說，「距離」便是path的&lt;strong&gt;length(長度)/distance(距離)&lt;/strong&gt;。如圖一：&lt;/p&gt;
 &lt;ul&gt;
@@ -1615,7 +1615,7 @@
 &lt;li&gt;&lt;a href="#series"&gt;Graph系列文章&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;a name="bfs"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;&lt;strong&gt;Breadth-First Search(BFS，廣度優先搜尋)&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2&gt;Breadth-First Search(BFS，廣度優先搜尋)&lt;/h2&gt;
 &lt;p&gt;所以&lt;code&gt;BFS()&lt;/code&gt;的功能有哪些呢？&lt;/p&gt;
 &lt;p&gt;考慮圖二(a)的Graph(沒有weight、是connected的undirected graph)：&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
@@ -1629,7 +1629,7 @@
 &lt;li&gt;不僅僅能夠得到vertex(I)與vertex(A)的最短距離為&lt;span class="math"&gt;\(3\)&lt;/span&gt;，還能夠指出一條可能的path，說明要如何從vertex(A)走到vertex(I)，例如path:A-C-F-I，或者path:A-C-G-I。  &lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;&lt;a name="algorithm"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;&lt;strong&gt;演算法&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2&gt;演算法&lt;/h2&gt;
 &lt;p&gt;在正式開始之前，需要先準備四項武器：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;code&gt;queue&lt;/code&gt;：如同Level-Order Traversal，&lt;code&gt;BFS()&lt;/code&gt;將使用&lt;code&gt;queue&lt;/code&gt;來確保「先被搜尋到的vertex，就先成為新的搜尋起點」。&lt;/li&gt;
@@ -1742,7 +1742,7 @@
 &lt;p&gt;&lt;strong&gt;圖二(m)：。&lt;/strong&gt;&lt;br /&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a name="code"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;&lt;strong&gt;程式碼&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2&gt;程式碼&lt;/h2&gt;
 &lt;p&gt;(為了簡化程式，以下程式將使用&lt;code&gt;int&lt;/code&gt;處理資料，把&lt;span class="math"&gt;\(9\)&lt;/span&gt;個vertex&lt;code&gt;char A~I&lt;/code&gt;依序對應到&lt;code&gt;int 0~8&lt;/code&gt;)&lt;/p&gt;
 &lt;p&gt;範例程式碼包含兩個部分&lt;code&gt;main()&lt;/code&gt;與&lt;code&gt;class Graph&lt;/code&gt;。&lt;/p&gt;
 &lt;p&gt;在&lt;code&gt;main()&lt;/code&gt;中，主要有兩件事：&lt;/p&gt;
@@ -1861,7 +1861,7 @@
 &lt;p&gt;&lt;strong&gt;圖二(n)。&lt;/strong&gt;&lt;br /&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a name="discuss"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;&lt;strong&gt;討論&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2&gt;討論&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;由於&lt;code&gt;BFS()&lt;/code&gt;是用&lt;code&gt;AdjList&lt;/code&gt;來判斷edge的連結狀況，因此，&lt;code&gt;BFS()&lt;/code&gt;對undirected graph或directed graph皆適用。&lt;/p&gt;
@@ -1894,7 +1894,7 @@
 下一篇將介紹另一種在Graph同樣常見的搜尋方法：Depth-First Search(DFS，深度優先搜尋)。&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a name="ref"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h4&gt;&lt;strong&gt;參考資料&lt;/strong&gt;：&lt;/h4&gt;
+&lt;h3&gt;參考資料：&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844"&gt;Introduction to Algorithms, Ch22&lt;/a&gt; &lt;/li&gt;
 &lt;li&gt;&lt;a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376"&gt;Fundamentals of Data Structures in C++, Ch6&lt;/a&gt;&lt;/li&gt;
@@ -1971,7 +1971,7 @@
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
 &lt;/script&gt;</summary><category term="C++"></category><category term="Graph"></category><category term="BFS"></category></entry><entry><title>Graph: Intro(簡介)</title><link href="http://alrightchiu.github.io/SecondRound/graph-introjian-jie.html" rel="alternate"></link><updated>2016-02-03T23:49:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-02-03:SecondRound/graph-introjian-jie.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
-&lt;h4&gt;&lt;strong&gt;先備知識與注意事項&lt;/strong&gt;&lt;/h4&gt;
+&lt;h3&gt;先備知識與注意事項&lt;/h3&gt;
 &lt;p&gt;在經歷過&lt;a href="http://alrightchiu.github.io/SecondRound/treeshu-introjian-jie.html"&gt;Tree系列文章&lt;/a&gt;的洗禮後，接著要介紹的是Graph(圖)。&lt;/p&gt;
 &lt;p&gt;Graph比Tree更加廣義，其定義僅僅使用了集合(Set)，並且不限制結構裡的node/vertex只能有唯一的&lt;code&gt;parent field&lt;/code&gt;，因此，更多的問題能夠以Graph建立模型。 &lt;/p&gt;
 &lt;hr /&gt;
@@ -1988,7 +1988,7 @@
 &lt;li&gt;&lt;a href="#series"&gt;Graph系列文章&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;a name="course"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;&lt;strong&gt;初探Graph的美妙：以課程與其先修科目為例&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2&gt;初探Graph的美妙：以課程與其先修科目為例&lt;/h2&gt;
 &lt;p&gt;有一間大學的計算機科學學位之必修課程，以及與該課程相關的先修科目設計如表一：&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;&lt;/p&gt;
 &lt;table&gt;
@@ -2074,7 +2074,7 @@
 (反例：若要把在Graph上實現的各種演算法，如法炮製在以二維陣列表示的表一上，將會非常困難。)&lt;/p&gt;
 &lt;p&gt;本篇文章的重點著重在介紹Graph(圖)的定義與實現方式，而接下來的文章將介紹一些基本的與Graph相關之演算法。&lt;/p&gt;
 &lt;p&gt;&lt;a name="graph"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;&lt;strong&gt;Graph的定義&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2&gt;Graph的定義&lt;/h2&gt;
 &lt;p&gt;在圖一中，每一門課程被視為「資料節點」，且課程與課程之間有「線段(箭號)」連結：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;vertex&lt;/strong&gt;：稱每一個「資料節點」為vertex(或是node)，並定義所有的vertex所形成之集合(Set)為&lt;span class="math"&gt;\(V\)&lt;/span&gt;或&lt;span class="math"&gt;\(V(G)\)&lt;/span&gt;；&lt;/li&gt;
@@ -2105,7 +2105,7 @@
 &lt;p&gt;&lt;strong&gt;圖三(b)：directed graph(有向圖)。&lt;/strong&gt;&lt;br /&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a name="represent"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h4&gt;&lt;strong&gt;表示法(representation)&lt;/strong&gt;&lt;/h4&gt;
+&lt;h3&gt;表示法(representation)&lt;/h3&gt;
 &lt;p&gt;那麼該如何表示Graph呢？&lt;br /&gt;
 一般有兩種常用的表示法：&lt;/p&gt;
 &lt;ol&gt;
@@ -2149,7 +2149,7 @@
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;a name="terminology"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h4&gt;&lt;strong&gt;一些名詞解釋&lt;/strong&gt;&lt;/h4&gt;
+&lt;h3&gt;一些名詞解釋&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;adjacent(相鄰)&lt;/strong&gt;：若在vertex(A)與vertex(B)之間有一條edge(不論是否具有方向性)，則稱vertex(A)與vertex(B)為adjacent(相鄰)。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;subgraph(子圖)&lt;/strong&gt;：若構成G'的兩個集合滿足&lt;span class="math"&gt;\(V(G')\subseteq V(G), E(G')\subseteq E(G)\)&lt;/span&gt;，則稱G'為G的subgraph，如圖五。&lt;/li&gt;
@@ -2242,7 +2242,7 @@
 &lt;p&gt;&lt;strong&gt;圖十：self-loop與multigraph在directed graph和undirected graph中定義皆相同。&lt;/strong&gt; 
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a name="app"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;&lt;strong&gt;預告：Graph的應用&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2&gt;預告：Graph的應用&lt;/h2&gt;
 &lt;p&gt;在接下來的文章，主要將探討以下三個應用的演算法：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;strong&gt;Minimum Spanning Tree(MST，最小生成樹)&lt;/strong&gt;：給定一個connected、weighted的undirected graph，要在這個graph中，找到(1)連結所有vertex，而且(2)edge上的weight總和最小的「Tree」。&lt;br /&gt;
@@ -2262,7 +2262,7 @@
 &lt;p&gt;不過在介紹以上三項主題之前，下兩篇文章將先介紹在Graph中最基本的搜尋(Search)方法：Breadth-First Search(BFS，廣度優先搜尋)與Depth-First Search(DFS，深度優先搜尋)。&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a name="ref"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h4&gt;&lt;strong&gt;參考資料&lt;/strong&gt;：&lt;/h4&gt;
+&lt;h3&gt;參考資料：&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844"&gt;Introduction to Algorithms, Ch22&lt;/a&gt; &lt;/li&gt;
 &lt;li&gt;&lt;a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376"&gt;Fundamentals of Data Structures in C++, Ch6&lt;/a&gt;&lt;/li&gt;

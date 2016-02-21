@@ -111,7 +111,7 @@
     <!-- Post Content -->
     <article>
         <p></br></p>
-<h4><strong>先備知識與注意事項</strong></h4>
+<h3>先備知識與注意事項</h3>
 <p>在<a href="http://alrightchiu.github.io/SecondRound/binary-tree-traversalxun-fang.html#level">Binary Tree: Traversal(尋訪)</a>與<a href="http://alrightchiu.github.io/SecondRound/binary-tree-jian-li-yi-ke-binary-tree.html">Binary Tree: 建立一棵Binary Tree</a>兩篇文章裡，介紹了如何利用<code>queue</code>在Binary Tree中進行<strong>Level-Order Traversal</strong>，其概念便是：各個node相對於<code>root</code>有其對應的level，按照level由小到大依序對node進行Visiting。<br />
 而level便代表了node與<code>root</code>之「距離」，以Graph的語言來說，「距離」便是path的<strong>length(長度)/distance(距離)</strong>。如圖一：</p>
 <ul>
@@ -136,7 +136,7 @@
 <li><a href="#series">Graph系列文章</a></li>
 </ul>
 <p><a name="bfs"></a></p>
-<h2><strong>Breadth-First Search(BFS，廣度優先搜尋)</strong></h2>
+<h2>Breadth-First Search(BFS，廣度優先搜尋)</h2>
 <p>所以<code>BFS()</code>的功能有哪些呢？</p>
 <p>考慮圖二(a)的Graph(沒有weight、是connected的undirected graph)：</p>
 <p><center>
@@ -150,7 +150,7 @@
 <li>不僅僅能夠得到vertex(I)與vertex(A)的最短距離為<span class="math">\(3\)</span>，還能夠指出一條可能的path，說明要如何從vertex(A)走到vertex(I)，例如path:A-C-F-I，或者path:A-C-G-I。  </li>
 </ol>
 <p><a name="algorithm"></a></p>
-<h2><strong>演算法</strong></h2>
+<h2>演算法</h2>
 <p>在正式開始之前，需要先準備四項武器：</p>
 <ol>
 <li><code>queue</code>：如同Level-Order Traversal，<code>BFS()</code>將使用<code>queue</code>來確保「先被搜尋到的vertex，就先成為新的搜尋起點」。</li>
@@ -263,7 +263,7 @@
 <p><strong>圖二(m)：。</strong><br />
 </center></p>
 <p><a name="code"></a></p>
-<h2><strong>程式碼</strong></h2>
+<h2>程式碼</h2>
 <p>(為了簡化程式，以下程式將使用<code>int</code>處理資料，把<span class="math">\(9\)</span>個vertex<code>char A~I</code>依序對應到<code>int 0~8</code>)</p>
 <p>範例程式碼包含兩個部分<code>main()</code>與<code>class Graph</code>。</p>
 <p>在<code>main()</code>中，主要有兩件事：</p>
@@ -382,7 +382,7 @@
 <p><strong>圖二(n)。</strong><br />
 </center></p>
 <p><a name="discuss"></a></p>
-<h2><strong>討論</strong></h2>
+<h2>討論</h2>
 <ul>
 <li>
 <p>由於<code>BFS()</code>是用<code>AdjList</code>來判斷edge的連結狀況，因此，<code>BFS()</code>對undirected graph或directed graph皆適用。</p>
@@ -415,7 +415,7 @@
 下一篇將介紹另一種在Graph同樣常見的搜尋方法：Depth-First Search(DFS，深度優先搜尋)。</p>
 <p></br></p>
 <p><a name="ref"></a></p>
-<h4><strong>參考資料</strong>：</h4>
+<h3>參考資料：</h3>
 <ul>
 <li><a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844">Introduction to Algorithms, Ch22</a> </li>
 <li><a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376">Fundamentals of Data Structures in C++, Ch6</a></li>

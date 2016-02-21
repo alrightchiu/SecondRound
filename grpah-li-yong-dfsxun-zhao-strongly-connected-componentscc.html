@@ -112,7 +112,7 @@
     <!-- Post Content -->
     <article>
         <p></br></p>
-<h4><strong>先備知識與注意事項</strong></h4>
+<h3>先備知識與注意事項</h3>
 <p>在一個directed graph中，若對於任意兩個vertex(A)與vertex(B)之間，不是同時存在「從vertex(A)走到vertex(B)」以及「從vertex(B)走到vertex(A)」的path，那麼此directed graph就不是strongly connected，裡面一定包含了兩個以上的strongly connected component(SCC)。  </p>
 <p>如圖一(a)，經由path:0-1-2-5，可以從vertex(0)走到vertex(5)，但是無論經過任何vertex，都沒有辦法從vertex(5)走到vertex(0)，因此，圖一(a)的directed graph並不是strongly connected，其中包含了兩個以上的SCC(答案是三個)。</p>
 <p><center>
@@ -140,7 +140,7 @@
 <li><a href="#series">Graph系列文章</a></li>
 </ul>
 <p><a name="if_dfs_only"></a></p>
-<h2><strong>如果只有一次DFS()不行嗎？</strong></h2>
+<h2>如果只有一次DFS()不行嗎？</h2>
 <p>在<a href="http://alrightchiu.github.io/SecondRound/graph-li-yong-dfshe-bfsxun-zhao-connected-component.html">上一篇文章</a>提到，只用一次<code>DFS()</code>或<code>BFS()</code>得到<code>predecessor</code>後，便能夠找到undirected graph中的connected component。</p>
 <p>那如果用來找SCC？</p>
 <p>以下示範兩次<code>DFS()</code>來說明，一次是按照「<span class="math">\(8、7、...、2、1\)</span>」之順序把vertex設為搜尋起點，另一次則是按照「<span class="math">\(1、2、...、7、8\)</span>」之順序。</p>
@@ -273,7 +273,7 @@
 <p>因此，以「第一次<code>DFS()</code>所得到的<code>finish</code>之由大到小順序」選取起點，在G<sup>T</sup>上進行第二次<code>DFS()</code>，就可以先選到C<sub>1</sub>，由於無法從C<sub>1</sub>走回C<sub>2</sub>，因此<code>DFS()</code>在搜尋完C<sub>1</sub>內的所有vertex後，便形成自己的Depth-First Tree。接著再依序挑選C<sub>2</sub>、C<sub>3</sub>為起點進行搜尋，並且建立起各自SCC的Depth-First Tree。</p>
 <p>如此一來，便找到了directed graph中的SCC。</p>
 <p><a name="code"></a></p>
-<h2><strong>程式碼</strong></h2>
+<h2>程式碼</h2>
 <p>根據以上說明，演算法分成四個步驟：</p>
 <ol>
 <li>對G執行<code>DFS()</code>。</li>
@@ -568,7 +568,7 @@
 <p>下一篇將介紹如何利用<code>DFS()</code>尋找DAG的Topological sort(拓撲排序)，敬請期待。</p>
 <p></br></p>
 <p><a name="ref"></a></p>
-<h4><strong>參考資料</strong>：</h4>
+<h3>參考資料：</h3>
 <ul>
 <li><a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844">Introduction to Algorithms, Ch22</a> </li>
 <li><a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376">Fundamentals of Data Structures in C++, Ch6</a></li>

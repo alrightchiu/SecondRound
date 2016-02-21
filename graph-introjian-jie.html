@@ -111,7 +111,7 @@
     <!-- Post Content -->
     <article>
         <p></br></p>
-<h4><strong>先備知識與注意事項</strong></h4>
+<h3>先備知識與注意事項</h3>
 <p>在經歷過<a href="http://alrightchiu.github.io/SecondRound/treeshu-introjian-jie.html">Tree系列文章</a>的洗禮後，接著要介紹的是Graph(圖)。</p>
 <p>Graph比Tree更加廣義，其定義僅僅使用了集合(Set)，並且不限制結構裡的node/vertex只能有唯一的<code>parent field</code>，因此，更多的問題能夠以Graph建立模型。 </p>
 <hr />
@@ -128,7 +128,7 @@
 <li><a href="#series">Graph系列文章</a></li>
 </ul>
 <p><a name="course"></a></p>
-<h2><strong>初探Graph的美妙：以課程與其先修科目為例</strong></h2>
+<h2>初探Graph的美妙：以課程與其先修科目為例</h2>
 <p>有一間大學的計算機科學學位之必修課程，以及與該課程相關的先修科目設計如表一：</p>
 <p><center></p>
 <table>
@@ -214,7 +214,7 @@
 (反例：若要把在Graph上實現的各種演算法，如法炮製在以二維陣列表示的表一上，將會非常困難。)</p>
 <p>本篇文章的重點著重在介紹Graph(圖)的定義與實現方式，而接下來的文章將介紹一些基本的與Graph相關之演算法。</p>
 <p><a name="graph"></a></p>
-<h2><strong>Graph的定義</strong></h2>
+<h2>Graph的定義</h2>
 <p>在圖一中，每一門課程被視為「資料節點」，且課程與課程之間有「線段(箭號)」連結：</p>
 <ul>
 <li><strong>vertex</strong>：稱每一個「資料節點」為vertex(或是node)，並定義所有的vertex所形成之集合(Set)為<span class="math">\(V\)</span>或<span class="math">\(V(G)\)</span>；</li>
@@ -245,7 +245,7 @@
 <p><strong>圖三(b)：directed graph(有向圖)。</strong><br />
 </center></p>
 <p><a name="represent"></a></p>
-<h4><strong>表示法(representation)</strong></h4>
+<h3>表示法(representation)</h3>
 <p>那麼該如何表示Graph呢？<br />
 一般有兩種常用的表示法：</p>
 <ol>
@@ -289,7 +289,7 @@
 </li>
 </ul>
 <p><a name="terminology"></a></p>
-<h4><strong>一些名詞解釋</strong></h4>
+<h3>一些名詞解釋</h3>
 <ul>
 <li><strong>adjacent(相鄰)</strong>：若在vertex(A)與vertex(B)之間有一條edge(不論是否具有方向性)，則稱vertex(A)與vertex(B)為adjacent(相鄰)。</li>
 <li><strong>subgraph(子圖)</strong>：若構成G'的兩個集合滿足<span class="math">\(V(G')\subseteq V(G), E(G')\subseteq E(G)\)</span>，則稱G'為G的subgraph，如圖五。</li>
@@ -382,7 +382,7 @@
 <p><strong>圖十：self-loop與multigraph在directed graph和undirected graph中定義皆相同。</strong> 
 </center></p>
 <p><a name="app"></a></p>
-<h2><strong>預告：Graph的應用</strong></h2>
+<h2>預告：Graph的應用</h2>
 <p>在接下來的文章，主要將探討以下三個應用的演算法：</p>
 <ol>
 <li><strong>Minimum Spanning Tree(MST，最小生成樹)</strong>：給定一個connected、weighted的undirected graph，要在這個graph中，找到(1)連結所有vertex，而且(2)edge上的weight總和最小的「Tree」。<br />
@@ -402,7 +402,7 @@
 <p>不過在介紹以上三項主題之前，下兩篇文章將先介紹在Graph中最基本的搜尋(Search)方法：Breadth-First Search(BFS，廣度優先搜尋)與Depth-First Search(DFS，深度優先搜尋)。</p>
 <p></br></p>
 <p><a name="ref"></a></p>
-<h4><strong>參考資料</strong>：</h4>
+<h3>參考資料：</h3>
 <ul>
 <li><a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844">Introduction to Algorithms, Ch22</a> </li>
 <li><a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376">Fundamentals of Data Structures in C++, Ch6</a></li>

@@ -111,7 +111,7 @@
     <!-- Post Content -->
     <article>
         <p></br></p>
-<h4><strong>先備知識與注意事項</strong></h4>
+<h3>先備知識與注意事項</h3>
 <p>在<a href="http://alrightchiu.github.io/SecondRound/binary-tree-traversalxun-fang.html#pre">Binary Tree: Traversal(尋訪)</a>中介紹過Pre-Order Traversal，其Visiting順序：「Current(V)-left(L)-right(R)」可以解讀成「先遇到的node就先Visiting」，因此，每一組「Current-left-right」必定是<code>CurrentNode</code>先Visiting，接著是<code>leftchild</code>，最後才是<code>rightchild</code>。<br />
 若對圖一中的Binary Tree進行Pre-Order Traversal，定義Visiting為印出(print)資料，將得到：</p>
 <div class="highlight"><pre><span class="n">A</span> <span class="n">B</span> <span class="n">D</span> <span class="n">E</span> <span class="n">G</span> <span class="n">H</span> <span class="n">C</span> <span class="n">F</span>
@@ -143,7 +143,7 @@
 <li><a href="#series">Graph系列文章</a></li>
 </ul>
 <p><a name="dfs"></a></p>
-<h2><strong>Depth-First Search(DFS，深度優先搜尋)</strong></h2>
+<h2>Depth-First Search(DFS，深度優先搜尋)</h2>
 <p>考慮圖三(a)的Graph(沒有weight的directed graph)：</p>
 <p><center>
 <img alt="dfs" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/DFS_fig/f_2.png?raw=true" /></p>
@@ -157,7 +157,7 @@
 但其實<code>DFS()</code>還是很有用的，因為經過一次<code>DFS()</code>後，將得到一項資料稱作<code>finish</code>，而<code>finish</code>竟然可以用來...！？</p>
 <p>別轉台，看下去。</p>
 <p><a name="algorithm"></a></p>
-<h2><strong>演算法</strong></h2>
+<h2>演算法</h2>
 <p>以下介紹的<code>DFS()</code>需要資料項目共有：</p>
 <ol>
 <li><code>time</code>：在整個<code>DFS()</code>的過程會有一條「時間軸」，若Graph中有<span class="math">\(N\)</span>個vertex，「時間軸」上一共會有<span class="math">\(2N\)</span>個「時間點」。</li>
@@ -302,7 +302,7 @@
 </center></p>
 <p>當Graph中所有vertex都被塗成黑色，便完成<code>DFS()</code>。</p>
 <p><a name="code"></a></p>
-<h2><strong>程式碼</strong></h2>
+<h2>程式碼</h2>
 <p>由以上說明可以觀察出，<code>DFS()</code>本質上是一種「<strong>遞迴(recursion)結構</strong>」，而遞迴結構其實是利用了系統的「<strong>堆疊(stack)</strong>」，因此，這兩種方式皆能實現<code>DFS()</code>，以下提供的範例程式碼將以遞迴形式完成。</p>
 <p>如同上一篇<a href="http://alrightchiu.github.io/SecondRound/graph-breadth-first-searchbfsguang-du-you-xian-sou-xun.html#code">Graph: Breadth-First Search(BFS，廣度優先搜尋)</a>，以下將使用<code>int</code>處理資料，把<span class="math">\(9\)</span>個vertex<code>char A~I</code>依序對應到<code>int 0~8</code>。</p>
 <p>範例程式碼包含兩個部分<code>main()</code>與<code>class Graph</code>。</p>
@@ -413,7 +413,7 @@
 
 
 <p><a name="discuss"></a></p>
-<h2><strong>討論</strong></h2>
+<h2>討論</h2>
 <p>若在<code>DFS()</code>函式主體的最後多加入幾行程式來檢查<code>predecessor</code>、<code>discover</code>與<code>finish</code>三項資料是否符合預期：</p>
 <div class="highlight"><pre><span class="kt">void</span> <span class="n">Graph</span><span class="o">::</span><span class="n">DFS</span><span class="p">(</span><span class="kt">int</span> <span class="n">Start</span><span class="p">){</span>
  <span class="c1">// after for loop</span>
@@ -464,7 +464,7 @@
 <p><strong>圖四：。</strong><br />
 </center></p>
 <p><a name="dff_dft"></a></p>
-<h2><strong>Depth-First Tree</strong></h2>
+<h3>Depth-First Tree</h3>
 <p>如同<code>BFS()</code>，在Graph上進行<code>DFS()</code>同樣可以得到<strong>Predecessor Subgraph</strong>，又稱為<strong>Depth-First Tree</strong>。若Graph本身不是<strong>(strongly) connected component</strong>，則有可能得到<strong>Depth-First Forest</strong>，如圖五：</p>
 <p><center>
 <img alt="dfs" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/DFS_fig/f_21.png?raw=true" /></p>
@@ -487,7 +487,7 @@
 </li>
 </ol>
 <p><a name="4edge"></a></p>
-<h2><strong>4種edge</strong></h2>
+<h3>4種edge</h3>
 <p><center>
 <img alt="dfs" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/DFS_fig/f_22.png?raw=true" /></p>
 <p><strong>圖六：。</strong><br />
@@ -533,7 +533,7 @@
 <p>不過在這之前，會先介紹利用<code>BFS()</code>與<code>DFS()</code>找到undirected graph中的<strong>connected component</strong>作為暖身。</p>
 <p></br></p>
 <p><a name="ref"></a></p>
-<h4><strong>參考資料</strong>：</h4>
+<h3>參考資料：</h3>
 <ul>
 <li><a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844">Introduction to Algorithms, Ch22</a> </li>
 <li><a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376">Fundamentals of Data Structures in C++, Ch6</a></li>
