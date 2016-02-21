@@ -6,7 +6,7 @@ Summary: 利用DFS尋找directed acyclic graph(DAG)的Topological Sort(拓撲排
 
 
 </br>
-####**先備知識與注意事項**
+###先備知識與注意事項
 
 有些事件具有絕對的「先後關係」，例如，襪子要在鞋子之前穿上，否則穿上鞋子後要再穿襪子需要一點奇蹟。
 
@@ -47,7 +47,7 @@ Summary: 利用DFS尋找directed acyclic graph(DAG)的Topological Sort(拓撲排
 
 <a name="ts"></a>
 
-##**Topological Sort(拓撲排序)**
+##Topological Sort(拓撲排序)
 
 所謂的Topological Sort(拓撲排序)要求，若**directed acyclic graph(DAG)**中存在一條edge(X,Y)，那麼序列中，vertex(X)一定要在vertex(Y)之前出現。
 
@@ -85,7 +85,7 @@ Topological Sort:
 
 <a name="algorithm"></a>
 
-##**演算法**
+##演算法
 
 在[Grpah: 利用DFS尋找Strongly Connected Component(SCC)](http://alrightchiu.github.io/SecondRound/grpah-li-yong-dfsxun-zhao-strongly-connected-componentscc.html)曾經提過DAG的性質：
 
@@ -101,7 +101,7 @@ Topological Sort:
 
 <a name="code"></a>
 
-##**程式碼**
+##程式碼
 
 是的，只要把[上一篇文章](http://alrightchiu.github.io/SecondRound/grpah-li-yong-dfsxun-zhao-strongly-connected-componentscc.html)介紹過的`PrintSCCs()`的前半部照抄，就能夠找到`finish`由大到小的順序。
 
@@ -212,7 +212,7 @@ Topological Sort:
 還有些常見的方法就是修改`DFS()`，主要有兩種，發生在當vertex要被標記為「已讀(visited)」或者「塗黑」時：
 
 1. 把剛剛塗黑的vertex放進`stack`中，那麼按照順序，最先被塗黑的vertex就最先被放入`stack`的vertex，也就最後被`pop()`出`stack`。  
-因此，對`stack`依序進行`pop()`便能夠維持`finish`由大到小的順序。(詳見[GeeksforGeeks：Topological Sorting](http://www.geeksforgeeks.org/topological-sorting/))
+因此，對`stack`依序進行`pop()`便能夠維持`finish`由大到小的順序。([詳見GeeksforGeeks：Topological Sorting](http://www.geeksforgeeks.org/topological-sorting/))
 2. 或者，把剛剛塗黑的vertex推進(push)一串Linked list，那麼，只要每次都是在Linked list的前端(front)加入vertex，當有下一個vertex被推入Linked list時，先前`finish`較小的vertex就被往後挪。  
 最後，對Linked list進行一次traversal，得到的vertex順序就會是`finish`由大到小。
 
@@ -235,7 +235,7 @@ Topological Sort:
 
 <a name="ref"></a>
 
-####**參考資料**：
+###參考資料：
 
 * [Introduction to Algorithms, Ch22](http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844) 
 * [Fundamentals of Data Structures in C++, Ch6](http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376)
