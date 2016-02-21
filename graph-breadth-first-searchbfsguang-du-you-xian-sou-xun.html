@@ -135,6 +135,7 @@
 <li><a href="#ref">參考資料</a></li>
 <li><a href="#series">Graph系列文章</a></li>
 </ul>
+<hr />
 <p><a name="bfs"></a></p>
 <h2>Breadth-First Search(BFS，廣度優先搜尋)</h2>
 <p>所以<code>BFS()</code>的功能有哪些呢？</p>
@@ -149,6 +150,7 @@
 (由於圖二(a)的Graph是connected undirected graph，所以從G中任何一點出發進行<code>BFS()</code>皆能抵達其餘所有vertex。)</li>
 <li>不僅僅能夠得到vertex(I)與vertex(A)的最短距離為<span class="math">\(3\)</span>，還能夠指出一條可能的path，說明要如何從vertex(A)走到vertex(I)，例如path:A-C-F-I，或者path:A-C-G-I。  </li>
 </ol>
+<hr />
 <p><a name="algorithm"></a></p>
 <h2>演算法</h2>
 <p>在正式開始之前，需要先準備四項武器：</p>
@@ -262,6 +264,7 @@
 <img alt="bfs" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/BFS_fig/f14.png?raw=true" /></p>
 <p><strong>圖二(m)：。</strong><br />
 </center></p>
+<hr />
 <p><a name="code"></a></p>
 <h2>程式碼</h2>
 <p>(為了簡化程式，以下程式將使用<code>int</code>處理資料，把<span class="math">\(9\)</span>個vertex<code>char A~I</code>依序對應到<code>int 0~8</code>)</p>
@@ -381,6 +384,7 @@
 <img alt="bfs" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/BFS_fig/f15.png?raw=true" /></p>
 <p><strong>圖二(n)。</strong><br />
 </center></p>
+<hr />
 <p><a name="discuss"></a></p>
 <h2>討論</h2>
 <ul>
@@ -413,7 +417,7 @@
 <p></br></p>
 <p>以上便是Breadth-First Search(BFS，廣度優先搜尋)之介紹。<br />
 下一篇將介紹另一種在Graph同樣常見的搜尋方法：Depth-First Search(DFS，深度優先搜尋)。</p>
-<p></br></p>
+<hr />
 <p><a name="ref"></a></p>
 <h3>參考資料：</h3>
 <ul>

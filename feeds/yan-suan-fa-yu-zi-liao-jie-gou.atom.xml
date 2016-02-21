@@ -1614,6 +1614,7 @@
 &lt;li&gt;&lt;a href="#ref"&gt;參考資料&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="#series"&gt;Graph系列文章&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
+&lt;hr /&gt;
 &lt;p&gt;&lt;a name="bfs"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;Breadth-First Search(BFS，廣度優先搜尋)&lt;/h2&gt;
 &lt;p&gt;所以&lt;code&gt;BFS()&lt;/code&gt;的功能有哪些呢？&lt;/p&gt;
@@ -1628,6 +1629,7 @@
 (由於圖二(a)的Graph是connected undirected graph，所以從G中任何一點出發進行&lt;code&gt;BFS()&lt;/code&gt;皆能抵達其餘所有vertex。)&lt;/li&gt;
 &lt;li&gt;不僅僅能夠得到vertex(I)與vertex(A)的最短距離為&lt;span class="math"&gt;\(3\)&lt;/span&gt;，還能夠指出一條可能的path，說明要如何從vertex(A)走到vertex(I)，例如path:A-C-F-I，或者path:A-C-G-I。  &lt;/li&gt;
 &lt;/ol&gt;
+&lt;hr /&gt;
 &lt;p&gt;&lt;a name="algorithm"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;演算法&lt;/h2&gt;
 &lt;p&gt;在正式開始之前，需要先準備四項武器：&lt;/p&gt;
@@ -1741,6 +1743,7 @@
 &lt;img alt="bfs" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/BFS_fig/f14.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖二(m)：。&lt;/strong&gt;&lt;br /&gt;
 &lt;/center&gt;&lt;/p&gt;
+&lt;hr /&gt;
 &lt;p&gt;&lt;a name="code"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;程式碼&lt;/h2&gt;
 &lt;p&gt;(為了簡化程式，以下程式將使用&lt;code&gt;int&lt;/code&gt;處理資料，把&lt;span class="math"&gt;\(9\)&lt;/span&gt;個vertex&lt;code&gt;char A~I&lt;/code&gt;依序對應到&lt;code&gt;int 0~8&lt;/code&gt;)&lt;/p&gt;
@@ -1860,6 +1863,7 @@
 &lt;img alt="bfs" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/BFS_fig/f15.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖二(n)。&lt;/strong&gt;&lt;br /&gt;
 &lt;/center&gt;&lt;/p&gt;
+&lt;hr /&gt;
 &lt;p&gt;&lt;a name="discuss"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;討論&lt;/h2&gt;
 &lt;ul&gt;
@@ -1892,7 +1896,7 @@
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;p&gt;以上便是Breadth-First Search(BFS，廣度優先搜尋)之介紹。&lt;br /&gt;
 下一篇將介紹另一種在Graph同樣常見的搜尋方法：Depth-First Search(DFS，深度優先搜尋)。&lt;/p&gt;
-&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;hr /&gt;
 &lt;p&gt;&lt;a name="ref"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h3&gt;參考資料：&lt;/h3&gt;
 &lt;ul&gt;
