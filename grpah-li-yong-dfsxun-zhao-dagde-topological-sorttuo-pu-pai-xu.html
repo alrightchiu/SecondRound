@@ -112,7 +112,7 @@
     <!-- Post Content -->
     <article>
         <p></br></p>
-<h4><strong>先備知識與注意事項</strong></h4>
+<h3>先備知識與注意事項</h3>
 <p>有些事件具有絕對的「先後關係」，例如，襪子要在鞋子之前穿上，否則穿上鞋子後要再穿襪子需要一點奇蹟。</p>
 <p>若以Graph來表示，vertex(穿襪子)、vertex(穿鞋子)與edge(先後關係)如圖一(a)：</p>
 <p><center>
@@ -138,7 +138,7 @@
 <li><a href="#series">Graph系列文章</a></li>
 </ul>
 <p><a name="ts"></a></p>
-<h2><strong>Topological Sort(拓撲排序)</strong></h2>
+<h2>Topological Sort(拓撲排序)</h2>
 <p>所謂的Topological Sort(拓撲排序)要求，若<strong>directed acyclic graph(DAG)</strong>中存在一條edge(X,Y)，那麼序列中，vertex(X)一定要在vertex(Y)之前出現。</p>
 <ul>
 <li>以圖二(a)為例，存在edge(2,6)、edge(6,9)，那麼Topological Sort中，vertex(2)一定要出現在vertex(6)之前，vertex(6)一定要在vertex(9)之前。</li>
@@ -166,7 +166,7 @@
 <p><strong>圖二(b)。</strong><br />
 </center></p>
 <p><a name="algorithm"></a></p>
-<h2><strong>演算法</strong></h2>
+<h2>演算法</h2>
 <p>在<a href="http://alrightchiu.github.io/SecondRound/grpah-li-yong-dfsxun-zhao-strongly-connected-componentscc.html">Grpah: 利用DFS尋找Strongly Connected Component(SCC)</a>曾經提過DAG的性質：</p>
 <ul>
 <li>在DAG上執行一次<code>DFS()</code>，若存在一條path從vertex(X)到vertex(Y)，那麼<code>finish[X]</code>一定比<code>finish[Y]</code>還大。(<a href="http://www.personal.kent.edu/~rmuhamma/Algorithms/MyAlgorithms/GraphAlgor/topoSort.htm">證明請點這裡</a>)</li>
@@ -177,7 +177,7 @@
 <p><strong>圖三。</strong><br />
 </center></p>
 <p><a name="code"></a></p>
-<h2><strong>程式碼</strong></h2>
+<h2>程式碼</h2>
 <p>是的，只要把<a href="http://alrightchiu.github.io/SecondRound/grpah-li-yong-dfsxun-zhao-strongly-connected-componentscc.html">上一篇文章</a>介紹過的<code>PrintSCCs()</code>的前半部照抄，就能夠找到<code>finish</code>由大到小的順序。</p>
 <div class="highlight"><pre><span class="c1">// C++ code</span>
 <span class="cp">#include &lt;iostream&gt;</span>
@@ -283,7 +283,7 @@
 <p>還有些常見的方法就是修改<code>DFS()</code>，主要有兩種，發生在當vertex要被標記為「已讀(visited)」或者「塗黑」時：</p>
 <ol>
 <li>把剛剛塗黑的vertex放進<code>stack</code>中，那麼按照順序，最先被塗黑的vertex就最先被放入<code>stack</code>的vertex，也就最後被<code>pop()</code>出<code>stack</code>。<br />
-因此，對<code>stack</code>依序進行<code>pop()</code>便能夠維持<code>finish</code>由大到小的順序。(詳見<a href="http://www.geeksforgeeks.org/topological-sorting/">GeeksforGeeks：Topological Sorting</a>)</li>
+因此，對<code>stack</code>依序進行<code>pop()</code>便能夠維持<code>finish</code>由大到小的順序。(<a href="http://www.geeksforgeeks.org/topological-sorting/">詳見GeeksforGeeks：Topological Sorting</a>)</li>
 <li>或者，把剛剛塗黑的vertex推進(push)一串Linked list，那麼，只要每次都是在Linked list的前端(front)加入vertex，當有下一個vertex被推入Linked list時，先前<code>finish</code>較小的vertex就被往後挪。<br />
 最後，對Linked list進行一次traversal，得到的vertex順序就會是<code>finish</code>由大到小。</li>
 </ol>
@@ -292,7 +292,7 @@
 基本上是<code>DFS()</code>的變形/延伸，再一次<code>finish</code>又扮演關鍵角色拯救了世界。</p>
 <p></br></p>
 <p><a name="ref"></a></p>
-<h4><strong>參考資料</strong>：</h4>
+<h3>參考資料：</h3>
 <ul>
 <li><a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844">Introduction to Algorithms, Ch22</a> </li>
 <li><a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376">Fundamentals of Data Structures in C++, Ch6</a></li>

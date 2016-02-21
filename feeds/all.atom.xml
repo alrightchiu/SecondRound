@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom"><title>Second Round</title><link href="http://alrightchiu.github.io/SecondRound/" rel="alternate"></link><link href="http://alrightchiu.github.io/SecondRound/feeds/all.atom.xml" rel="self"></link><id>http://alrightchiu.github.io/SecondRound/</id><updated>2016-02-18T18:01:00+08:00</updated><entry><title>Grpah: 利用DFS尋找DAG的Topological Sort(拓撲排序)</title><link href="http://alrightchiu.github.io/SecondRound/grpah-li-yong-dfsxun-zhao-dagde-topological-sorttuo-pu-pai-xu.html" rel="alternate"></link><updated>2016-02-18T18:01:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-02-18:SecondRound/grpah-li-yong-dfsxun-zhao-dagde-topological-sorttuo-pu-pai-xu.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
-&lt;h4&gt;&lt;strong&gt;先備知識與注意事項&lt;/strong&gt;&lt;/h4&gt;
+&lt;h3&gt;先備知識與注意事項&lt;/h3&gt;
 &lt;p&gt;有些事件具有絕對的「先後關係」，例如，襪子要在鞋子之前穿上，否則穿上鞋子後要再穿襪子需要一點奇蹟。&lt;/p&gt;
 &lt;p&gt;若以Graph來表示，vertex(穿襪子)、vertex(穿鞋子)與edge(先後關係)如圖一(a)：&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
@@ -26,7 +26,7 @@
 &lt;li&gt;&lt;a href="#series"&gt;Graph系列文章&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;a name="ts"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;&lt;strong&gt;Topological Sort(拓撲排序)&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2&gt;Topological Sort(拓撲排序)&lt;/h2&gt;
 &lt;p&gt;所謂的Topological Sort(拓撲排序)要求，若&lt;strong&gt;directed acyclic graph(DAG)&lt;/strong&gt;中存在一條edge(X,Y)，那麼序列中，vertex(X)一定要在vertex(Y)之前出現。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;以圖二(a)為例，存在edge(2,6)、edge(6,9)，那麼Topological Sort中，vertex(2)一定要出現在vertex(6)之前，vertex(6)一定要在vertex(9)之前。&lt;/li&gt;
@@ -54,7 +54,7 @@
 &lt;p&gt;&lt;strong&gt;圖二(b)。&lt;/strong&gt;&lt;br /&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a name="algorithm"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;&lt;strong&gt;演算法&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2&gt;演算法&lt;/h2&gt;
 &lt;p&gt;在&lt;a href="http://alrightchiu.github.io/SecondRound/grpah-li-yong-dfsxun-zhao-strongly-connected-componentscc.html"&gt;Grpah: 利用DFS尋找Strongly Connected Component(SCC)&lt;/a&gt;曾經提過DAG的性質：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;在DAG上執行一次&lt;code&gt;DFS()&lt;/code&gt;，若存在一條path從vertex(X)到vertex(Y)，那麼&lt;code&gt;finish[X]&lt;/code&gt;一定比&lt;code&gt;finish[Y]&lt;/code&gt;還大。(&lt;a href="http://www.personal.kent.edu/~rmuhamma/Algorithms/MyAlgorithms/GraphAlgor/topoSort.htm"&gt;證明請點這裡&lt;/a&gt;)&lt;/li&gt;
@@ -65,7 +65,7 @@
 &lt;p&gt;&lt;strong&gt;圖三。&lt;/strong&gt;&lt;br /&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a name="code"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;&lt;strong&gt;程式碼&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2&gt;程式碼&lt;/h2&gt;
 &lt;p&gt;是的，只要把&lt;a href="http://alrightchiu.github.io/SecondRound/grpah-li-yong-dfsxun-zhao-strongly-connected-componentscc.html"&gt;上一篇文章&lt;/a&gt;介紹過的&lt;code&gt;PrintSCCs()&lt;/code&gt;的前半部照抄，就能夠找到&lt;code&gt;finish&lt;/code&gt;由大到小的順序。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// C++ code&lt;/span&gt;
 &lt;span class="cp"&gt;#include &amp;lt;iostream&amp;gt;&lt;/span&gt;
@@ -171,7 +171,7 @@
 &lt;p&gt;還有些常見的方法就是修改&lt;code&gt;DFS()&lt;/code&gt;，主要有兩種，發生在當vertex要被標記為「已讀(visited)」或者「塗黑」時：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;把剛剛塗黑的vertex放進&lt;code&gt;stack&lt;/code&gt;中，那麼按照順序，最先被塗黑的vertex就最先被放入&lt;code&gt;stack&lt;/code&gt;的vertex，也就最後被&lt;code&gt;pop()&lt;/code&gt;出&lt;code&gt;stack&lt;/code&gt;。&lt;br /&gt;
-因此，對&lt;code&gt;stack&lt;/code&gt;依序進行&lt;code&gt;pop()&lt;/code&gt;便能夠維持&lt;code&gt;finish&lt;/code&gt;由大到小的順序。(詳見&lt;a href="http://www.geeksforgeeks.org/topological-sorting/"&gt;GeeksforGeeks：Topological Sorting&lt;/a&gt;)&lt;/li&gt;
+因此，對&lt;code&gt;stack&lt;/code&gt;依序進行&lt;code&gt;pop()&lt;/code&gt;便能夠維持&lt;code&gt;finish&lt;/code&gt;由大到小的順序。(&lt;a href="http://www.geeksforgeeks.org/topological-sorting/"&gt;詳見GeeksforGeeks：Topological Sorting&lt;/a&gt;)&lt;/li&gt;
 &lt;li&gt;或者，把剛剛塗黑的vertex推進(push)一串Linked list，那麼，只要每次都是在Linked list的前端(front)加入vertex，當有下一個vertex被推入Linked list時，先前&lt;code&gt;finish&lt;/code&gt;較小的vertex就被往後挪。&lt;br /&gt;
 最後，對Linked list進行一次traversal，得到的vertex順序就會是&lt;code&gt;finish&lt;/code&gt;由大到小。&lt;/li&gt;
 &lt;/ol&gt;
@@ -180,7 +180,7 @@
 基本上是&lt;code&gt;DFS()&lt;/code&gt;的變形/延伸，再一次&lt;code&gt;finish&lt;/code&gt;又扮演關鍵角色拯救了世界。&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a name="ref"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h4&gt;&lt;strong&gt;參考資料&lt;/strong&gt;：&lt;/h4&gt;
+&lt;h3&gt;參考資料：&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844"&gt;Introduction to Algorithms, Ch22&lt;/a&gt; &lt;/li&gt;
 &lt;li&gt;&lt;a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376"&gt;Fundamentals of Data Structures in C++, Ch6&lt;/a&gt;&lt;/li&gt;
