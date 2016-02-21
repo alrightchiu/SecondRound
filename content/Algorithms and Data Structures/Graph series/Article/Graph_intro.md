@@ -27,7 +27,7 @@ Graph比Tree更加廣義，其定義僅僅使用了集合(Set)，並且不限制
 * [參考資料](#ref)
 * [Graph系列文章](#series)
 
-
+</br>
 
 <a name="course"></a>
 
@@ -75,6 +75,8 @@ Graph比Tree更加廣義，其定義僅僅使用了集合(Set)，並且不限制
 (反例：若要把在Graph上實現的各種演算法，如法炮製在以二維陣列表示的表一上，將會非常困難。)
 
 本篇文章的重點著重在介紹Graph(圖)的定義與實現方式，而接下來的文章將介紹一些基本的與Graph相關之演算法。
+
+</br>
 
 <a name="graph"></a>
 
@@ -251,7 +253,7 @@ Graph比Tree更加廣義，其定義僅僅使用了集合(Set)，並且不限制
 **圖十：self-loop與multigraph在directed graph和undirected graph中定義皆相同。** 
 </center>
 
-
+</br>
 
 <a name="app"></a>
 
@@ -291,6 +293,7 @@ Graph比Tree更加廣義，其定義僅僅使用了集合(Set)，並且不限制
 
 </br>
 
+***
 
 <a name="ref"></a>
 

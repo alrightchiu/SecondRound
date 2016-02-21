@@ -51,7 +51,7 @@ Summary: 利用DFS尋找diredted graph中的strongly connected component(SCC)。
 * [參考資料](#ref)
 * [Graph系列文章](#series)
 
-
+</br>
 
 <a name="if_dfs_only"></a>
 
@@ -93,6 +93,8 @@ Summary: 利用DFS尋找diredted graph中的strongly connected component(SCC)。
 </br>
 以下便開始本次的「拒絕運氣好大作戰」。  
 </br>
+
+
 
 <a name="algorithm"></a>
 
@@ -236,7 +238,7 @@ Summary: 利用DFS尋找diredted graph中的strongly connected component(SCC)。
 
 如此一來，便找到了directed graph中的SCC。
 
-
+</br>
 
 <a name="code"></a>
 
@@ -569,6 +571,8 @@ SCC#3: 6 7 8
 
 
 </br>
+
+***
 
 <a name="ref"></a>
 

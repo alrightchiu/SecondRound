@@ -48,7 +48,7 @@ Summary: 利用DFS和BFS尋找undiredted graph中的Connected Component。
 * [參考資料](#ref)
 * [Graph系列文章](#series)
 
-
+</br>
 
 <a name="how"></a>
 
@@ -66,6 +66,7 @@ Summary: 利用DFS和BFS尋找undiredted graph中的Connected Component。
 
 這也就是為什麼`DFS()`與`BFS()`都能夠用來尋找undirected graph中的connected component的原因。
 
+</br>
 
 <a name="algorithm"></a>
 
@@ -185,6 +186,7 @@ Summary: 利用DFS和BFS尋找undiredted graph中的Connected Component。
 
 大功告成。
 
+</br>
 
 <a name="code"></a>
 
@@ -350,6 +352,8 @@ Component#3: 3 6 8
 
 事實上，這兩種Set表示法(「塌陷」前後的`predecessor`)，正好是在Set問題中永恆的兩難(trade-off)：「要**Union**方便」還是「**Find**方便」，有興趣的讀者可以看看這篇：[Disjoint Set Union (Union Find)](https://www.hackerearth.com/notes/disjoint-set-union-union-find/)。
 
+</br>
+
 <a name="scc"></a>
 
 ##如果是Strongly Connected Component呢？
@@ -376,6 +380,7 @@ Component#3: 3 6 8
 
 </br>
 
+***
 
 <a name="ref"></a>
 

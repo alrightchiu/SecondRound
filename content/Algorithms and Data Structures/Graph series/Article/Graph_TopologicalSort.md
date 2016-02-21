@@ -43,7 +43,7 @@ Summary: 利用DFS尋找directed acyclic graph(DAG)的Topological Sort(拓撲排
 * [參考資料](#ref)
 * [Graph系列文章](#series)
 
-
+</br>
 
 <a name="ts"></a>
 
@@ -82,6 +82,7 @@ Topological Sort:
 **圖二(b)。**  
 </center>
 
+</br>
 
 <a name="algorithm"></a>
 
@@ -98,6 +99,8 @@ Topological Sort:
 
 **圖三。**  
 </center>
+
+</br>
 
 <a name="code"></a>
 
@@ -232,6 +235,8 @@ Topological Sort:
 
 
 </br>
+
+*** 
 
 <a name="ref"></a>
 

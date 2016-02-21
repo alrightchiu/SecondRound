@@ -48,7 +48,7 @@ Depth-First Search(DFS，深度優先搜尋)的核心精神便如同Pre-Order Tr
 * [參考資料](#ref)
 * [Graph系列文章](#series)
 
-
+</br>
 
 <a name="dfs"></a>
 
@@ -74,6 +74,7 @@ Depth-First Search(DFS，深度優先搜尋)的核心精神便如同Pre-Order Tr
 
 別轉台，看下去。
 
+</br>
 
 <a name="algorithm"></a>
 
@@ -258,7 +259,7 @@ Depth-First Search(DFS，深度優先搜尋)的核心精神便如同Pre-Order Tr
 
 當Graph中所有vertex都被塗成黑色，便完成`DFS()`。
 
-
+</br>
 
 <a name="code"></a>
 
@@ -374,6 +375,7 @@ int main(){
 }
 ```
 
+</br>
 
 <a name="discuss"></a>
 
@@ -535,6 +537,7 @@ finish time:
 
 </br>
 
+***
 
 <a name="ref"></a>
 
