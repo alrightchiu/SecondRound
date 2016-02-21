@@ -1604,7 +1604,7 @@
 &lt;p&gt;&lt;strong&gt;圖一。&lt;/strong&gt;&lt;br /&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;溫馨小提醒：在解釋演算法時，可能會用到Graph中的專有名詞，如&lt;strong&gt;undirected&lt;/strong&gt;、&lt;strong&gt;connected component&lt;/strong&gt;、&lt;strong&gt;weight&lt;/strong&gt;等等，若覺得這些名詞像被打了馬賽克糊糊的，可以先回到&lt;a href="http://alrightchiu.github.io/SecondRound/graph-introjian-jie.html"&gt;Graph: Intro(簡介)&lt;/a&gt;狠狠回憶一番。&lt;/p&gt;
-&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;  &lt;/p&gt;
 &lt;hr /&gt;
 &lt;h2&gt;目錄&lt;/h2&gt;
 &lt;ul&gt;
