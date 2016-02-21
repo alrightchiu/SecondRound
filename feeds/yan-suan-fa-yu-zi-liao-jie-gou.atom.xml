@@ -1604,7 +1604,6 @@
 &lt;p&gt;&lt;strong&gt;圖一。&lt;/strong&gt;&lt;br /&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;溫馨小提醒：在解釋演算法時，可能會用到Graph中的專有名詞，如&lt;strong&gt;undirected&lt;/strong&gt;、&lt;strong&gt;connected component&lt;/strong&gt;、&lt;strong&gt;weight&lt;/strong&gt;等等，若覺得這些名詞像被打了馬賽克糊糊的，可以先回到&lt;a href="http://alrightchiu.github.io/SecondRound/graph-introjian-jie.html"&gt;Graph: Intro(簡介)&lt;/a&gt;狠狠回憶一番。&lt;/p&gt;
-&lt;p&gt;&lt;/br&gt;  &lt;/p&gt;
 &lt;hr /&gt;
 &lt;h2&gt;目錄&lt;/h2&gt;
 &lt;ul&gt;
@@ -1616,7 +1615,6 @@
 &lt;li&gt;&lt;a href="#series"&gt;Graph系列文章&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
-&lt;hr /&gt;
 &lt;p&gt;&lt;a name="bfs"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;Breadth-First Search(BFS，廣度優先搜尋)&lt;/h2&gt;
 &lt;p&gt;所以&lt;code&gt;BFS()&lt;/code&gt;的功能有哪些呢？&lt;/p&gt;
@@ -1632,7 +1630,6 @@
 &lt;li&gt;不僅僅能夠得到vertex(I)與vertex(A)的最短距離為&lt;span class="math"&gt;\(3\)&lt;/span&gt;，還能夠指出一條可能的path，說明要如何從vertex(A)走到vertex(I)，例如path:A-C-F-I，或者path:A-C-G-I。  &lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
-&lt;hr /&gt;
 &lt;p&gt;&lt;a name="algorithm"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;演算法&lt;/h2&gt;
 &lt;p&gt;在正式開始之前，需要先準備四項武器：&lt;/p&gt;
@@ -1747,7 +1744,6 @@
 &lt;p&gt;&lt;strong&gt;圖二(m)：。&lt;/strong&gt;&lt;br /&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
-&lt;hr /&gt;
 &lt;p&gt;&lt;a name="code"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;程式碼&lt;/h2&gt;
 &lt;p&gt;(為了簡化程式，以下程式將使用&lt;code&gt;int&lt;/code&gt;處理資料，把&lt;span class="math"&gt;\(9\)&lt;/span&gt;個vertex&lt;code&gt;char A~I&lt;/code&gt;依序對應到&lt;code&gt;int 0~8&lt;/code&gt;)&lt;/p&gt;
@@ -1868,7 +1864,6 @@
 &lt;p&gt;&lt;strong&gt;圖二(n)。&lt;/strong&gt;&lt;br /&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
-&lt;hr /&gt;
 &lt;p&gt;&lt;a name="discuss"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;討論&lt;/h2&gt;
 &lt;ul&gt;
