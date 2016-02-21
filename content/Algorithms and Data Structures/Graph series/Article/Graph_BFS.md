@@ -41,7 +41,7 @@ Summary: 介紹Graph(圖)中的基本操作：Breadth-First Search(BFS，廣度�
 * [參考資料](#ref)
 * [Graph系列文章](#series)
 
-
+***
 
 <a name="bfs"></a>
 
@@ -64,7 +64,7 @@ Summary: 介紹Graph(圖)中的基本操作：Breadth-First Search(BFS，廣度�
 (由於圖二(a)的Graph是connected undirected graph，所以從G中任何一點出發進行`BFS()`皆能抵達其餘所有vertex。)
 2. 不僅僅能夠得到vertex(I)與vertex(A)的最短距離為$3$，還能夠指出一條可能的path，說明要如何從vertex(A)走到vertex(I)，例如path:A-C-F-I，或者path:A-C-G-I。  
 
-
+***
 
 <a name="algorithm"></a>
 
@@ -220,7 +220,7 @@ Summary: 介紹Graph(圖)中的基本操作：Breadth-First Search(BFS，廣度�
 **圖二(m)：。**  
 </center>
 
-
+***
 
 <a name="code"></a>
 
@@ -346,6 +346,7 @@ int main(){
 **圖二(n)。**  
 </center>
 
+***
 
 <a name="discuss"></a>
 
@@ -401,7 +402,7 @@ int main(){
 下一篇將介紹另一種在Graph同樣常見的搜尋方法：Depth-First Search(DFS，深度優先搜尋)。
 
 
-</br>
+***
 
 
 <a name="ref"></a>
