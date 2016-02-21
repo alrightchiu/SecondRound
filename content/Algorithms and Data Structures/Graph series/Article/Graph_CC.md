@@ -6,7 +6,7 @@ Summary: 利用DFS和BFS尋找undiredted graph中的Connected Component。
 
 
 </br>
-####**先備知識與注意事項**
+###先備知識與注意事項
 
 在一個undirected graph中，若存在任意兩個vertex之間不具有path連結，那麼此undirected graph就不是connected，裡面一定包含了兩個以上的connected component。  
 
@@ -44,7 +44,7 @@ Summary: 利用DFS和BFS尋找undiredted graph中的Connected Component。
 * [DFS與BFS何德何能？](#how)
 * [演算法](#algorithm)
 * [程式碼](#code)
-* [如果是Strongly Connected Component呢](#scc)
+* [如果是Strongly Connected Component呢？](#scc)
 * [參考資料](#ref)
 * [Graph系列文章](#series)
 
@@ -52,7 +52,7 @@ Summary: 利用DFS和BFS尋找undiredted graph中的Connected Component。
 
 <a name="how"></a>
 
-##**DFS與BFS何德何能？**
+##DFS與BFS何德何能？
 
 關鍵就是，兩個演算法都能產生`predecessor`。
 
@@ -69,7 +69,7 @@ Summary: 利用DFS和BFS尋找undiredted graph中的Connected Component。
 
 <a name="algorithm"></a>
 
-##**演算法**
+##演算法
 
 尋找connected component的演算法很直觀，只要三步驟：
 
@@ -188,7 +188,7 @@ Summary: 利用DFS和BFS尋找undiredted graph中的Connected Component。
 
 <a name="code"></a>
 
-##**程式碼**
+##程式碼
 
 範例程式碼除了已經介紹過的`class Graph`、`DFS()`以及`BFS()`之外，還多了四個函式。  
 其中，在undirected graph中尋找connected component的主要函式：`CCDFS(int vertex)`與`CCBFS(int vertex)`共包含三個部分：
@@ -352,7 +352,7 @@ Component#3: 3 6 8
 
 <a name="scc"></a>
 
-##**如果是Strongly Connected Component呢**
+##如果是Strongly Connected Component呢？
 
 以上處理的是「在undirected graph中尋找connected component」，那如果要在「directed graph中尋找strongly connected component」呢？
 
@@ -379,7 +379,7 @@ Component#3: 3 6 8
 
 <a name="ref"></a>
 
-####**參考資料**：
+###參考資料：
 
 * [Introduction to Algorithms, Ch22](http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844) 
 * [Fundamentals of Data Structures in C++, Ch6](http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376)

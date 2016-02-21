@@ -7,7 +7,7 @@ Summary: 介紹Graph(圖)的中的基本操作：Depth-First Search(DFS，深度
 
 
 </br>
-####**先備知識與注意事項**
+###先備知識與注意事項
 
 在[Binary Tree: Traversal(尋訪)](http://alrightchiu.github.io/SecondRound/binary-tree-traversalxun-fang.html#pre)中介紹過Pre-Order Traversal，其Visiting順序：「Current(V)-left(L)-right(R)」可以解讀成「先遇到的node就先Visiting」，因此，每一組「Current-left-right」必定是`CurrentNode`先Visiting，接著是`leftchild`，最後才是`rightchild`。  
 若對圖一中的Binary Tree進行Pre-Order Traversal，定義Visiting為印出(print)資料，將得到：
@@ -52,7 +52,7 @@ Depth-First Search(DFS，深度優先搜尋)的核心精神便如同Pre-Order Tr
 
 <a name="dfs"></a>
 
-##**Depth-First Search(DFS，深度優先搜尋)**
+##Depth-First Search(DFS，深度優先搜尋)
 
 
 考慮圖三(a)的Graph(沒有weight的directed graph)：
@@ -77,7 +77,7 @@ Depth-First Search(DFS，深度優先搜尋)的核心精神便如同Pre-Order Tr
 
 <a name="algorithm"></a>
 
-##**演算法**
+##演算法
 
 以下介紹的`DFS()`需要資料項目共有：
 
@@ -262,7 +262,7 @@ Depth-First Search(DFS，深度優先搜尋)的核心精神便如同Pre-Order Tr
 
 <a name="code"></a>
 
-##**程式碼**
+##程式碼
 
 
 由以上說明可以觀察出，`DFS()`本質上是一種「**遞迴(recursion)結構**」，而遞迴結構其實是利用了系統的「**堆疊(stack)**」，因此，這兩種方式皆能實現`DFS()`，以下提供的範例程式碼將以遞迴形式完成。
@@ -377,7 +377,7 @@ int main(){
 
 <a name="discuss"></a>
 
-##**討論**
+##討論
 
 
 若在`DFS()`函式主體的最後多加入幾行程式來檢查`predecessor`、`discover`與`finish`三項資料是否符合預期：
@@ -435,7 +435,7 @@ finish time:
 
 <a name="dff_dft"></a>
 
-##**Depth-First Tree**
+###Depth-First Tree
 
 
 如同`BFS()`，在Graph上進行`DFS()`同樣可以得到**Predecessor Subgraph**，又稱為**Depth-First Tree**。若Graph本身不是**(strongly) connected component**，則有可能得到**Depth-First Forest**，如圖五：
@@ -459,7 +459,7 @@ finish time:
 
 <a name="4edge"></a>
 
-##**4種edge**
+###4種edge
 
 <center>
 ![dfs][f22]
@@ -538,7 +538,7 @@ finish time:
 
 <a name="ref"></a>
 
-####**參考資料**：
+###參考資料：
 
 * [Introduction to Algorithms, Ch22](http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844) 
 * [Fundamentals of Data Structures in C++, Ch6](http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376)

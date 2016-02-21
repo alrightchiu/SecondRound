@@ -7,7 +7,7 @@ Summary: 介紹Graph(圖)中的基本操作：Breadth-First Search(BFS，廣度�
 
 
 </br>
-####**先備知識與注意事項**
+###先備知識與注意事項
 
 
 在[Binary Tree: Traversal(尋訪)](http://alrightchiu.github.io/SecondRound/binary-tree-traversalxun-fang.html#level)與[Binary Tree: 建立一棵Binary Tree](http://alrightchiu.github.io/SecondRound/binary-tree-jian-li-yi-ke-binary-tree.html)兩篇文章裡，介紹了如何利用`queue`在Binary Tree中進行**Level-Order Traversal**，其概念便是：各個node相對於`root`有其對應的level，按照level由小到大依序對node進行Visiting。  
@@ -45,7 +45,7 @@ Summary: 介紹Graph(圖)中的基本操作：Breadth-First Search(BFS，廣度�
 
 <a name="bfs"></a>
 
-##**Breadth-First Search(BFS，廣度優先搜尋)**
+##Breadth-First Search(BFS，廣度優先搜尋)
 
 所以`BFS()`的功能有哪些呢？
 
@@ -68,7 +68,7 @@ Summary: 介紹Graph(圖)中的基本操作：Breadth-First Search(BFS，廣度�
 
 <a name="algorithm"></a>
 
-##**演算法**
+##演算法
 
 
 在正式開始之前，需要先準備四項武器：
@@ -224,7 +224,7 @@ Summary: 介紹Graph(圖)中的基本操作：Breadth-First Search(BFS，廣度�
 
 <a name="code"></a>
 
-##**程式碼**
+##程式碼
 
 (為了簡化程式，以下程式將使用`int`處理資料，把$9$個vertex`char A~I`依序對應到`int 0~8`)
 
@@ -349,7 +349,7 @@ int main(){
 
 <a name="discuss"></a>
 
-##**討論**
+##討論
 
 * 由於`BFS()`是用`AdjList`來判斷edge的連結狀況，因此，`BFS()`對undirected graph或directed graph皆適用。
 
@@ -406,7 +406,7 @@ int main(){
 
 <a name="ref"></a>
 
-####**參考資料**：
+###參考資料：
 
 * [Introduction to Algorithms, Ch22](http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844) 
 * [Fundamentals of Data Structures in C++, Ch6](http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376)

@@ -7,7 +7,7 @@ Summary: 利用DFS尋找diredted graph中的strongly connected component(SCC)。
 
 
 </br>
-####**先備知識與注意事項**
+###先備知識與注意事項
 
 在一個directed graph中，若對於任意兩個vertex(A)與vertex(B)之間，不是同時存在「從vertex(A)走到vertex(B)」以及「從vertex(B)走到vertex(A)」的path，那麼此directed graph就不是strongly connected，裡面一定包含了兩個以上的strongly connected component(SCC)。  
 
@@ -55,7 +55,7 @@ Summary: 利用DFS尋找diredted graph中的strongly connected component(SCC)。
 
 <a name="if_dfs_only"></a>
 
-##**如果只有一次DFS()不行嗎？**
+##如果只有一次DFS()不行嗎？
 
 在[上一篇文章](http://alrightchiu.github.io/SecondRound/graph-li-yong-dfshe-bfsxun-zhao-connected-component.html)提到，只用一次`DFS()`或`BFS()`得到`predecessor`後，便能夠找到undirected graph中的connected component。
 
@@ -240,7 +240,7 @@ Summary: 利用DFS尋找diredted graph中的strongly connected component(SCC)。
 
 <a name="code"></a>
 
-##**程式碼**
+##程式碼
 
 根據以上說明，演算法分成四個步驟：
 
@@ -572,7 +572,7 @@ SCC#3: 6 7 8
 
 <a name="ref"></a>
 
-####**參考資料**：
+###參考資料：
 
 * [Introduction to Algorithms, Ch22](http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844) 
 * [Fundamentals of Data Structures in C++, Ch6](http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376)

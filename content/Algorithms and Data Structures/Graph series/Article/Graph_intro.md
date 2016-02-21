@@ -7,7 +7,7 @@ Summary: 介紹Graph(圖)的基本性質。
 
 
 </br>
-####**先備知識與注意事項**
+###先備知識與注意事項
 
 在經歷過[Tree系列文章](http://alrightchiu.github.io/SecondRound/treeshu-introjian-jie.html)的洗禮後，接著要介紹的是Graph(圖)。
 
@@ -31,7 +31,7 @@ Graph比Tree更加廣義，其定義僅僅使用了集合(Set)，並且不限制
 
 <a name="course"></a>
 
-##**初探Graph的美妙：以課程與其先修科目為例**
+##初探Graph的美妙：以課程與其先修科目為例
 
 有一間大學的計算機科學學位之必修課程，以及與該課程相關的先修科目設計如表一：
 
@@ -78,7 +78,7 @@ Graph比Tree更加廣義，其定義僅僅使用了集合(Set)，並且不限制
 
 <a name="graph"></a>
 
-##**Graph的定義**
+##Graph的定義
 
 在圖一中，每一門課程被視為「資料節點」，且課程與課程之間有「線段(箭號)」連結：
 
@@ -118,7 +118,7 @@ Graph比Tree更加廣義，其定義僅僅使用了集合(Set)，並且不限制
 
 <a name="represent"></a>
 
-####**表示法(representation)**
+###表示法(representation)
 
 那麼該如何表示Graph呢？  
 一般有兩種常用的表示法：
@@ -157,7 +157,7 @@ Graph比Tree更加廣義，其定義僅僅使用了集合(Set)，並且不限制
 
 <a name="terminology"></a>
 
-####**一些名詞解釋**
+###一些名詞解釋
 
 * **adjacent(相鄰)**：若在vertex(A)與vertex(B)之間有一條edge(不論是否具有方向性)，則稱vertex(A)與vertex(B)為adjacent(相鄰)。
 * **subgraph(子圖)**：若構成G'的兩個集合滿足$V(G')\subseteq V(G), E(G')\subseteq E(G)$，則稱G'為G的subgraph，如圖五。
@@ -255,7 +255,7 @@ Graph比Tree更加廣義，其定義僅僅使用了集合(Set)，並且不限制
 
 <a name="app"></a>
 
-##**預告：Graph的應用**
+##預告：Graph的應用
 
 在接下來的文章，主要將探討以下三個應用的演算法：
 
@@ -294,7 +294,7 @@ Graph比Tree更加廣義，其定義僅僅使用了集合(Set)，並且不限制
 
 <a name="ref"></a>
 
-####**參考資料**：
+###參考資料：
 
 * [Introduction to Algorithms, Ch22](http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844) 
 * [Fundamentals of Data Structures in C++, Ch6](http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376)
