@@ -5810,7 +5810,7 @@ Binary Tree的node未必需要parent pointer(或稱為parent field)，然而加�
 &lt;p&gt;&lt;strong&gt;圖三.b：若樹退化成Linked list(連結串列)，仍滿足樹的定義。&lt;/strong&gt;  &lt;br /&gt;
 &lt;/br&gt;
 &lt;img alt="fig2.c" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/Tree_fig/is_Not_Tree_c_size.png?raw=true" /&gt;  &lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;圖三.c：在F出現cycle；C-&amp;gt;B-&amp;gt;D-&amp;gt;E出現undirected cycle，詳見Graph theory(圖論)。後者等價於：D有兩個parent node。&lt;/strong&gt;&lt;br /&gt;
+&lt;p&gt;&lt;strong&gt;圖三.c：在F出現cycle；以及，D有兩個parent node。&lt;/strong&gt;&lt;br /&gt;
 &lt;/br&gt;
 &lt;img alt="fig2.d" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/Tree_fig/is_Not_Tree_d_size.png?raw=true" /&gt;  &lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖三.d：一棵樹只能有一個root(樹根)。此圖像又稱為Forest(樹林)。&lt;/strong&gt;
