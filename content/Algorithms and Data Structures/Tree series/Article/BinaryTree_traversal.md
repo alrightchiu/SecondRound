@@ -7,7 +7,7 @@ Summary: 介紹Binary Tree(二元樹)中的Traversal(尋訪)。
 
 
 </br>
-####**先備知識與注意事項**
+###先備知識與注意事項
 
 traversal(尋訪)有「站在A地，往所有與A地相連的地方移動」的意思：  
 
@@ -40,7 +40,7 @@ traversal(尋訪)有「站在A地，往所有與A地相連的地方移動」的�
 
 <a name="bttraversal"></a>
 
-##**Traversal in Binary Tree**
+##Traversal in Binary Tree
 
 Binary Tree的Node具有兩個指向child的pointer，Traversal以「當前所在的node」為參考點，所能夠進行的移動有三種：
 
@@ -188,7 +188,7 @@ post-order traversal流程如下：
 
 <a name="ex_code"></a>
 
-##**Example with Code**
+##Example with Code
 
 接下來，再以一棵稍微複雜的Binary Tree作為範例，展示pre-order、in-order、post-order及level-order之traversal。
 
@@ -281,7 +281,7 @@ int main() {
 
 <a name="pre"></a>
 
-####**Pre-Order Traversal**
+###Pre-Order Traversal
 
 ```cpp
 // C++ code
@@ -308,7 +308,7 @@ A B D E G H C F I
 
 <a name="in"></a>
 
-####**In-Order Traversal**
+###In-Order Traversal
 
 ```cpp
 // C++ code
@@ -334,7 +334,7 @@ D B G E H A F I C
 
 <a name="post"></a>
 
-####**Post-Order Traversal**
+###Post-Order Traversal
 
 ```cpp
 // C++ code
@@ -360,7 +360,7 @@ D G H E B I F C A
 
 <a name="level"></a>
 
-####**Level-Order Traversal**
+###Level-Order Traversal
 
 先前介紹了pre-order、in-order、post-order的traversal，而level-order則是照著level由小到大的順序，由上而下，並在同一個level由左至右地依序Visiting每個node。
 以下提供迭代(iteration)配合[queue(佇列)](https://en.wikipedia.org/wiki/Queue_%28abstract_data_type%29)實現level-order traversal之程式碼，其邏輯也非常直觀：
@@ -409,7 +409,7 @@ A B C D E F G H I
 </br>
 <a name="in_parent"></a>
 
-##**In-Order Traversal by Parent Field**
+##In-Order Traversal by Parent Field
 在[Binary Tree：Intro](http://alrightchiu.github.io/SecondRound/binary-tree-intro.html#code)提到，若在`class TreeNode`加入pointer指向其parent node會非常有幫助，其中一項理由正是接下來要介紹的兩個函式：InorderSuccessor()與InorderPredecessor()。  
 說文解字時間：  
 
@@ -465,7 +465,7 @@ A B C D E F G H I
 
 <a name="successor"></a>
 
-####**Successor、leftmost**
+###Successor、leftmost
 
 函式`TreeNode* leftmost(TreeNode *current)`的功能為：尋找以`current`為root之subtree中，最左邊的node，最左邊的意思是從`current`開始一路往left child做類似[Linked list之單向traversal](http://alrightchiu.github.io/SecondRound/linked-list-traversal.html)的「一路向左」，而以inorder的順序來說，會找到該subtree中第一個進行Visiting的node。以圖四(c)為例，進入以A為root的Binary Tree，`leftmost()`將回傳D。
 
@@ -534,7 +534,7 @@ D B G E H A F I C
 </br>
 <a name="predecessor"></a>
 
-####**Predecessor、rightmost**
+###Predecessor、rightmost
 
 只要把`InorderSuccessor()`與`leftmost()`中，所有的left與right互換，就得到`InorderPredecessor()`與`rightmost()`，而概念上也確實是如此：
 
@@ -602,7 +602,7 @@ C I F A H E G B D
 </br>
 <a name="ref"></a>
 
-####**參考資料**：
+###參考資料：
 
 * [Introduction to Algorithms](http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844) 
 * [Fundamentals of Data Structures in C++](http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376)

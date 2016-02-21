@@ -7,7 +7,7 @@ Summary: 介紹Linked List(連結串列)中的Traversal(尋訪)。
 
 
 </br>
-####**先備知識與注意事項**
+###先備知識與注意事項
 
 traversal(尋訪)有「站在A地，往所有與A地相連的地方移動」的意思：  
 
@@ -20,7 +20,7 @@ traversal(尋訪)有「站在A地，往所有與A地相連的地方移動」的�
 
 *** 
 
-##**Traversal in Linked List**
+##Traversal in Linked List
 
 若有一個Linked list如圖一：
 
@@ -162,7 +162,7 @@ A B C D
 
 </br>
 
-####**參考資料**：
+###參考資料：
 
 * [Wikipedia：Linked List](https://en.wikipedia.org/wiki/Linked_list)
 * [太hardcore了](https://www.youtube.com/watch?v=Qdcfxk-e_iw)

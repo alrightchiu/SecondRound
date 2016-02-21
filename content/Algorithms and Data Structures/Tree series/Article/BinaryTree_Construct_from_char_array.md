@@ -6,7 +6,7 @@ Summary: 介紹如何以字元陣列(char array)獲得資料(data)後，建立�
  
  
 </br>
-####**先備知識與注意事項**
+###先備知識與注意事項
 
 在[Binary Tree：Traversal](http://alrightchiu.github.io/SecondRound/binary-tree-traversal.html#ex_code)中，非常沒誠意地用暴力方式建了一棵Binary Tree，在這裡至上深深歉意，因此，在本篇文章將提供一種方法，由一個字元陣列(char array)輸入字母，並按照[Complete Binary Tree](http://alrightchiu.github.io/SecondRound/binary-tree-intro.html#fullcomplete)之順序重新建立*那顆樹*(一種不健康的雪恥心態)。
 
@@ -30,7 +30,7 @@ Summary: 介紹如何以字元陣列(char array)獲得資料(data)後，建立�
 
 <a name="description"></a>
 
-##**問題描述**
+##問題描述
 
 問題描述如下：
 
@@ -61,7 +61,7 @@ Summary: 介紹如何以字元陣列(char array)獲得資料(data)後，建立�
 
 <a name="code"></a>
 
-##**程式碼**
+##程式碼
 
 先看看`main()`中，上半部分別為：
 
@@ -104,7 +104,7 @@ L D M B G E H A N F I C K
 
 <a name="def"></a>
 
-####**定義class TreeNode、class BinaryTree**
+###定義class TreeNode、class BinaryTree
 
 幾點說明：
 
@@ -152,7 +152,7 @@ public:
 
 <a name="constructor"></a>
 
-####**Constructor of BinaryTree**
+###Constructor of BinaryTree
 
 `class BinaryTree`的constructor很直觀，拿到一個字元陣列，先送進`stringstream`後，再由`stringstream`放進樹中，先對樹的`root`進行記憶體配置以及賦值，接著以level-order的方式建立Binary Tree。
 
@@ -172,7 +172,7 @@ BinaryTree::BinaryTree(const char* str){
 
 <a name="func1"></a>
 
-####**Function：LevelorderConstruct()**
+###Function：LevelorderConstruct()
 
 * 在看`LevelorderConstruct()`的函式主體之前，再看一眼[level-order traversal](http://alrightchiu.github.io/SecondRound/binary-tree-traversal.html#level)，概念上即是藉著`queue`的「先排隊就先購票」的特性，在同一個level中，只要確保由左至右將node放進`queue`中，便能確保在進入下一個level後，以先前放入node之順序進行visiting。  
 * 在`while`內，新增條件用來判斷從`stringstream`中輸出的字母是「大寫字母」(ASCII：65~90)還是「x」，前者要放入樹中建成node，後者則忽略不計。  
@@ -365,7 +365,7 @@ void BinaryTree::LevelorderConstruct(std::stringstream &ss){
 </br>
 <a name="func2"></a>
 
-####**Function：insertLevelorder()**
+###Function：insertLevelorder()
 
 函式`insertLevelorder()`的功能是，能夠按照Complete Binary Tree的位置順序放置新增的node，例如，若要在圖三之樹上新增帶有字母**'K'**的node，則`T.insertLevelorder('K')`便會將**'K'**建成C的right child，如圖四(a)：
 
@@ -438,7 +438,7 @@ void BinaryTree::insertLevelorder(char data){
 </br>
 <a name="ref"></a>
 
-####**參考資料**：
+###參考資料：
 
 * [Introduction to Algorithms](http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844) 
 * [Fundamentals of Data Structures in C++](http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376)

@@ -7,7 +7,7 @@ Summary: 介紹Binary Tree(二元樹)的基本概念。
 
 
 </br>
-####**先備知識與注意事項**
+###先備知識與注意事項
 
 接續上一篇談到的[Tree(樹)](http://alrightchiu.github.io/SecondRound/treeshu.html)，這篇文章將介紹樹這個大集合裡的其中一支大宗：**Binary Tree**。
 
@@ -28,7 +28,7 @@ Summary: 介紹Binary Tree(二元樹)的基本概念。
 
  <a name="bt"></a>
  
-##**Binary Tree**
+##Binary Tree
 最廣義的樹(Tree)對於樹上的node之child數目沒有限制，因此，每個node可以有多個child。
 
 <center>  
@@ -50,7 +50,7 @@ Summary: 介紹Binary Tree(二元樹)的基本概念。
 
 
  <a name="code"></a>
-##**程式碼**
+##程式碼
 
 修改在[Tree(樹)](http://alrightchiu.github.io/SecondRound/treeshu.html#code)提供的程式實作方式，將node的child pointer設為left child與right child，以滿足Binary Tree的形式。  
 另外，在class TreeNode有個`TreeNode *parent`，顧名思義，即是指向該node之parent的pointer，以圖二為例，B的parent pointer即指向A。  
@@ -75,12 +75,12 @@ class Tree{
 
  <a name="fullcomplete"></a>
 
-##**Full & Complete Binary Tree**  
+##Full & Complete Binary Tree
 
 有兩類Binary Tree十分常見，分別為**Full Binary Tree**以及**Complete Binary Tree**。  
-(完滿二元樹？完整二元樹？我的建議是當作專有名詞不要翻譯。) 
+(完滿二元樹？完整二元樹？我的建議是當作專有名詞，不要翻譯。) 
  
-#####**A. Full Binary Tree**:  
+**A. Full Binary Tree**:  
 
 如圖三所示，一棵**Full Binary Tree**(或稱作Perfect Binary Tree)具有以下性質：
 
@@ -102,7 +102,7 @@ class Tree{
 [fullBT]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Intro/fullBT.png?raw=true  
 
 
-#####**B. Complete Binary Tree**:
+**B. Complete Binary Tree**:
 
 若一棵樹的node按照Full Binary Tree的次序排列(由上至下，由左至右)，則稱此樹為**Complete Binary Tree**。  
 
@@ -128,7 +128,7 @@ class Tree{
  
  <a name="application"></a>
 
-##**學習Binary Tree的未來出路**
+##學習Binary Tree的未來出路
 
 如果有家長擔心小孩子學了Binary Tree之後對未來的出路沒有幫助，這裡有[網路神人在StackOverFlow](http://stackoverflow.com/questions/2130416/what-are-the-applications-of-binary-trees)開示，以下簡單翻譯幾項Binary Tree的應用：
 
@@ -145,7 +145,7 @@ class Tree{
 </br>
 <a name="ref"></a>
 
-####**參考資料**：
+###參考資料：
 * [Wikipedia：Binary tree](https://en.wikipedia.org/wiki/Binary_tree)
 * [Fundamentals of Data Structures in C++](http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376)  
 * [StackOverFlow：What are the applications of binary trees?](http://stackoverflow.com/questions/2130416/what-are-the-applications-of-binary-trees)

@@ -7,7 +7,7 @@ Summary: 介紹於Red Black Tree(紅黑樹)中Delete(刪除資料)與Delete後�
 
 
 </br>
-####**先備知識與注意事項**
+###先備知識與注意事項
 
 如同[Red Black Tree: Insert(新增資料)與Fixup(修正)](http://alrightchiu.github.io/SecondRound/red-black-tree-insertxin-zeng-zi-liao-yu-fixupxiu-zheng.html)，RBT之Delete(刪除資料)方法同樣是先沿用`DeleteBST()`，再對顏色利用`Rotation`進行修正。  
 建議讀者在閱讀本篇文章之前，先復習[BST::DeleteBST(刪除資料)](http://alrightchiu.github.io/SecondRound/binary-search-tree-sortpai-xu-deleteshan-chu-zi-liao.html#delete)與[Red Black Tree: Rotation(旋轉)](http://alrightchiu.github.io/SecondRound/red-black-tree-rotationxuan-zhuan.html)，會比較容易上手。
@@ -33,7 +33,7 @@ Summary: 介紹於Red Black Tree(紅黑樹)中Delete(刪除資料)與Delete後�
 
 <a name="violate"></a>
 
-##**於RBT中Delete(刪除資料)可能違反RBT之特徵**
+##於RBT中Delete(刪除資料)可能違反RBT之特徵
 
 
 在RBT中執行Delete(刪除資料)時，若刪除之node為黑色，有可能違反三點RBT特徵：
@@ -61,7 +61,7 @@ Summary: 介紹於Red Black Tree(紅黑樹)中Delete(刪除資料)與Delete後�
 
 <a name="bst"></a>
 
-##**如同於BST中Delete(刪除資料)**
+##如同於BST中Delete(刪除資料)
 
 
 `RBT::DeleteRBT()`之範例程式碼分成兩個部分：
@@ -121,7 +121,7 @@ void RBT::DeleteRBT(int KEY){              // 要刪除具有KEY的node
 
 <a name="fixup"></a>
 
-##**修正：DeleteFixUpRBT()**
+##修正：DeleteFixUpRBT()
 
 考慮在圖二之RBT中刪除node(B)，由於node(B)是黑色，必定違反RBT之特徵，因此需要修正。  
 (以下圖示中，白色的node表示顏色可能為黑色也可能為紅色，而且可能是一棵subtree或是`NIL`，需視情況而定。)
@@ -166,7 +166,7 @@ void RBT::DeleteRBT(int KEY){              // 要刪除具有KEY的node
 
 <a name="case1"></a>
 
-####**Case1**
+###Case1
 
 若`sibling`為紅色，修正方法如下，見圖五(a)：
 
@@ -198,7 +198,7 @@ void RBT::DeleteRBT(int KEY){              // 要刪除具有KEY的node
 
 <a name="case2"></a>
 
-####**Case2**
+###Case2
 
 若`sibling`為黑色，並且`sibling`之兩個`child`皆為黑色，修正的方法如下，見圖五(c)：
 
@@ -230,7 +230,7 @@ void RBT::DeleteRBT(int KEY){              // 要刪除具有KEY的node
 
 <a name="case3"></a>
 
-####**Case3**
+###Case3
 
 若`sibling`為黑色，並且`sibling`之`rightchild`為黑色，修正的方法如下，見圖五(f)：
 
@@ -250,7 +250,7 @@ void RBT::DeleteRBT(int KEY){              // 要刪除具有KEY的node
 
 <a name="case4"></a>
 
-####**Case4**
+###Case4
 
 若`sibling`為黑色，並且`sibling`之`rightchild`為紅色，修正的方法如下，見圖五(g)：
 
@@ -281,7 +281,7 @@ void RBT::DeleteRBT(int KEY){              // 要刪除具有KEY的node
 
 ***
 
-####**範例**
+###範例
 
 接著以一個簡單的範例(圖六(a)之RBT)操作上述四種Case的修正方法。
 
@@ -397,7 +397,7 @@ Case1調整：
 
 <a name="code"></a>
 
-##**程式碼**
+##程式碼
 
 
 `DeleteFixedUpRBT()`之範例程式碼分成以下幾個部分：
@@ -516,7 +516,7 @@ void RBT::DeleteFixedUpRBT(TreeNode *current){
 </br>
 <a name="ref"></a>
 
-####**參考資料**：
+###參考資料：
 
 * [Introduction to Algorithms](http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844) 
 * [Fundamentals of Data Structures in C++](http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376)

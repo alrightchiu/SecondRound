@@ -7,7 +7,7 @@ Summary: 介紹於Red Black Tree(紅黑樹)中Insert(新增資料)與Insert後�
 
 
 </br>
-####**先備知識與注意事項**
+###先備知識與注意事項*
 
 RBT也是一棵BST，而RBT之Insert(新增資料)方法便是先沿用`InsertBST()`，再對顏色進行修正。而修正的方法將用上`Rotation()`，因此，建議在閱讀本篇文章之前，先熟悉[Binary Search Tree: Search(搜尋資料)、Insert(新增資料)](http://alrightchiu.github.io/SecondRound/binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao.html)與[Red Black Tree: Rotation(旋轉)](http://alrightchiu.github.io/SecondRound/red-black-tree-rotationxuan-zhuan.html)會很有幫助。 
 
@@ -29,7 +29,7 @@ RBT也是一棵BST，而RBT之Insert(新增資料)方法便是先沿用`InsertBS
 
 <a name="bst"></a>
 
-##**如同於BST中Insert(新增資料)**
+##如同於BST中Insert(新增資料)
 
 RBT也是一棵BST，在Insert(新增資料)時，必須滿足：$Key(L)<Key(Current)<Key(R)$，因此，RBT的`InsertRBT()`前半部演算法與[BST的函式：InsertBST()大同小異](http://alrightchiu.github.io/SecondRound/binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao.html#insert)。  
 需要修改/擴充的部分有三處：
@@ -77,7 +77,7 @@ void RBT::InsertRBT(TreeNode &new_node){
 
 <a name="fixup"></a>
 
-##**修正：InsertFixUpRBT()**
+##修正：InsertFixUpRBT()
 
 什麼情況需要對`InsertRBT()`做修正？  
 當新增node接在紅色的node的`child pointer`，形成紅色與紅色相連時。
@@ -105,7 +105,7 @@ void RBT::InsertRBT(TreeNode &new_node){
 
 <a name="case1"></a>
 
-####**Case1**
+###Case1
 
 圖一(b)左，此時`current`指向新增的node(A)，而node(A)成為node(X)的`rightchild`，其`uncle`node(Y)是紅色的。  
 修正的方法就是「把債還給上一代的上一代」：
@@ -141,7 +141,7 @@ void RBT::InsertRBT(TreeNode &new_node){
 
 <a name="case3"></a>
 
-####**Case3**
+###Case3
 
 圖一(d)，新增的node(A)成為node(X)的`leftchild`，其`uncle`node(Y)是黑色。 
 
@@ -191,7 +191,7 @@ void RBT::InsertRBT(TreeNode &new_node){
 
 <a name="case2"></a>
 
-####**Case2**
+###Case2
 
 圖一(h)，新增的node(A)成為node(X)的`rightchild`，其`uncle`node(Y)是黑色。
 
@@ -228,7 +228,7 @@ void RBT::InsertRBT(TreeNode &new_node){
 
 ***
 
-####**幾個範例**
+###幾個範例
 
 **Example1**
 
@@ -346,7 +346,7 @@ void RBT::InsertRBT(TreeNode &new_node){
 
 <a name="code"></a>
 
-##**程式碼**
+##程式碼
 
 `InsertFixedUpRBT()`之範例程式碼分成以下幾個部分：
 
@@ -447,7 +447,7 @@ void RBT::InsertFixedUpRBT(TreeNode *current){
 </br>
 <a name="ref"></a>
 
-####**參考資料**：
+###參考資料：
 
 * [Introduction to Algorithms, Ch13](http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844) 
 * [Fundamentals of Data Structures in C++](http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376)

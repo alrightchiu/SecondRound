@@ -7,7 +7,7 @@ Summary: 介紹Red Black Tree(紅黑樹)的Rotation(旋轉)操作。
 
 
 </br>
-####**先備知識與注意事項**
+###先備知識與注意事項
  
 雖說是Rotation(旋轉)，但其實沒有這麼神奇，只是視覺上看起來像旋轉，在電腦實際將讀取的程式碼實現上，僅僅是數個pointer之指向的重新改寫，所以千萬別害怕。
 
@@ -29,7 +29,7 @@ Summary: 介紹Red Black Tree(紅黑樹)的Rotation(旋轉)操作。
 
 <a name="fail"></a>
 
-##**於RBT中進行Insert與Delete後竟然不符合RBT**
+##於RBT中進行Insert與Delete後竟然不符合RBT
 
 現考慮如圖一(a)之RBT，欲進行Insert(新增資料)與Delete(刪除資料)：
 
@@ -95,7 +95,7 @@ Summary: 介紹Red Black Tree(紅黑樹)的Rotation(旋轉)操作。
 
 <a name="rotation"></a>
 
-##**Rotation(旋轉)**
+##Rotation(旋轉)
 
 在說明Rotation(旋轉)之前有兩點需要先申明：
 
@@ -105,7 +105,7 @@ Summary: 介紹Red Black Tree(紅黑樹)的Rotation(旋轉)操作。
 
 <a name="left-rotate"></a>
 
-####**Left Roration(向左旋轉)** 
+###Left Roration(向左旋轉)
 
 <center>
 ![rotation][f6]
@@ -195,7 +195,7 @@ void RBT::LeftRotation(TreeNode *x){
 
 <a name="right-rotate"></a>
 
-####**Right Roration(向左旋轉)** 
+###Right Roration(向左旋轉)
 
 Right Rotation的邏輯與Left Rotation完全相同，只要確實地把與node(X)、node(Y)、node(A)與node(j)有關的pointer重新指向正確的記憶體位置，就能夠完成Right Rotation。
 
@@ -254,7 +254,7 @@ void RBT::RightRotation(TreeNode *y){
 </br>
 <a name="ref"></a>
 
-####**參考資料**：
+###參考資料：
 
 * [Introduction to Algorithms, Ch13](http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844) 
 * [Fundamentals of Data Structures in C++](http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376)

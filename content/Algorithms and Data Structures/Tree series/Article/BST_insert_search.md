@@ -6,7 +6,7 @@ Summary: 介紹Binary Search Tree(二元搜尋樹)的基本操作：Search(搜�
  
 
 </br>
-####**先備知識與注意事項**
+###先備知識與注意事項
 
 在開始介紹search(搜尋資料)與insert(新增資料)之前，先定義好`class TreeNode`與`class BST`，順便對未來將介紹的其他member function(成員函式)留下美好的第一印象：
 
@@ -88,7 +88,7 @@ public:
 
 <a name="search"></a>
 
-##**BST::Search(搜尋)**
+##BST::Search(搜尋)
 
 BST的`Search()`操作，便是根據BST的特徵：$Key(L)<Key(Current)<Key(R)$，判斷`Current`node應該往left subtree走，還是往right subtree走。
 
@@ -103,7 +103,7 @@ BST的`Search()`操作，便是根據BST的特徵：$Key(L)<Key(Current)<Key(R)$
 
 搜尋結果可能成功，可能失敗，以下便分別以兩個KEY值作說明。
 
-####搜尋成功
+###搜尋成功
 
 * 若現在要從BST中搜尋基紐隊長，便以基紐隊長的KEY(627)進入BST。  
 進入BST後，便把用來移動的`Current`node指向`root`，如圖一(b)。  
@@ -142,7 +142,7 @@ BST的`Search()`操作，便是根據BST的特徵：$Key(L)<Key(Current)<Key(R)$
 即搜尋成功。
 
 
-####搜尋失敗
+###搜尋失敗
 
 * 若現在要從BST中尋找克林，便以克林的戰鬥力(2)為KEY(2)，進入`Search()`。  
 進入BST後，同樣把用來移動的`Current`node指向`root`，如圖一(b)。
@@ -186,7 +186,7 @@ TreeNode* BST::Search(int KEY){
 </br> 
 <a name="insert"></a>
 
-##**BST::InsertBST(新增資料)**
+##BST::InsertBST(新增資料)
 
 函式`InsertBST()`的演算法概念，可以視為`Search()`的延伸：
 
@@ -277,7 +277,7 @@ void BST::InsertBST(TreeNode &new_node){
 
 <a name="main"></a>
 
-##**main()**
+##main()
 
 有了`BST::InsertBST()`後，就可以用土法煉鋼的方式建立一棵如圖二(d)的BST:
 
@@ -303,7 +303,7 @@ int main() {
 </br>
 <a name="ref"></a>
 
-####**參考資料**：
+###參考資料：
 
 * [Introduction to Algorithms](http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844) 
 * [Fundamentals of Data Structures in C++](http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376)

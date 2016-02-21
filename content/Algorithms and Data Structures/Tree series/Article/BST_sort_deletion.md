@@ -7,7 +7,7 @@ Summary: 介紹Binary Search Tree(二元搜尋樹)的基本操作：Sort(排序)
 
 
 </br>
-####**先備知識與注意事項**
+###先備知識與注意事項
 
 由於Sort與Delete會用到先前在[Binary Tree：Traversal介紹過的Leftmost()、Rightmost()、Successor()與Predecessor()](http://alrightchiu.github.io/SecondRound/binary-tree-traversalxun-fang.html#in_parent)，因此建議在開始閱讀本篇文章之前，先復習上述四個函式操作。  
 
@@ -26,7 +26,7 @@ Summary: 介紹Binary Search Tree(二元搜尋樹)的基本操作：Sort(排序)
 
 <a name="sort"></a>
 
-##**Sort(排序)**
+##Sort(排序)
 
 讀者可能會發現，在`class BST`的定義中，根本就沒有類似`SortBST()`的函式，沒錯，因為在BST中，每一個`Treenode`都有$Key(L)<Key(Current)<Key(R)$的性質，這正好與Inorder(LVR)之順序相同，因此，對整棵樹進行Inorder Traversal，就能夠對資料由小到大(依照Key)進行Visiting。
 
@@ -63,7 +63,7 @@ output:
 
 <a name="delete"></a>
 
-##**BST::DeleteBST(刪除資料)**
+##BST::DeleteBST(刪除資料)
 
 要在BST上執行刪除資料(被刪除的node稱為A)，必須讓刪除A後的BST仍然維持BST的性質，因此，所有「具有指向A的pointer」之node(也就是A的`parent`、A的`leftchild`與A的`rightchild`)都必須指向新的記憶體位置。
 
@@ -181,7 +181,7 @@ void BST::DeleteBST(int KEY){               // 要刪除具有KEY的node
 
 <a name="main"></a>
 
-##**main()**
+##main()
 
 延續上一篇文章[Binary Search Tree: Search()、Insert()](http://alrightchiu.github.io/SecondRound/binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao.html#binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao)的`main()`，加入`BST::DeleteBST`，把龜仙人(8)刪除，應該會得到如圖三的BST，比克(513)成為新的`root`：
 
@@ -219,7 +219,7 @@ output:
 
 <a name="4function"></a>
 
-##**Leftmost、Rightmost、Successor、Predecessor範例程式碼**
+##Leftmost、Rightmost、Successor、Predecessor範例程式碼
 
 ```cpp
 // C++ code
@@ -284,7 +284,7 @@ cha la head cha la～～
 </br>
 <a name="ref"></a>
 
-####**參考資料**：
+###參考資料：
 
 * [Introduction to Algorithms](http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844) 
 * [Fundamentals of Data Structures in C++](http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376)

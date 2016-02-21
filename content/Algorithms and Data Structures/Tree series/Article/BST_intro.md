@@ -5,7 +5,7 @@ Tags: C++, Binary Search Tree(二元搜尋樹), Intro
 Summary: 謹以Binary Search Tree(二元搜尋樹)向拯救90後的童年的鉅作《七龍珠》以及鳥山明老師致敬。
 
 </br>
-####**先備知識與注意事項**
+###先備知識與注意事項
 
 先前的文章介紹過廣義的Tree(樹)、Binary Tree(二元樹)，這篇文章將繼續增加限制條件，使Binary Tree晉升成Binary Search Tree(BST，二元搜尋樹)。  
 
@@ -31,7 +31,7 @@ Summary: 謹以Binary Search Tree(二元搜尋樹)向拯救90後的童年的鉅�
 
 <a name="dictionary"></a>
 
-##**引入dictionary**
+##引入dictionary
 
 搜尋與排序都需要「比大小」，欲執行「比大小」，就要使用「能夠比大小」的資料形態(亦即：兩個比較之物只能唯一滿足於「大於」、「小於」或「等於」之關係)，最直觀的便是使用整數(integer)。  
 
@@ -83,7 +83,7 @@ private:
 
 <a name="bst"></a>
 
-##**Binary Search Tree的特徵**
+##Binary Search Tree的特徵
 
 有了加裝Dictionary後的`TreeNode`，便能夠說明BST的特徵：
 
@@ -101,7 +101,7 @@ private:
 
 <a name="operation"></a>
 
-##**在Binary Search Tree中管理資料**
+##在Binary Search Tree中管理資料
 
 故事一開始的主要角色有悟空(1000)、龜仙人(8)和克林(2)，以龜仙人為`root`能夠建立出一棵BST如圖四：
 
@@ -115,7 +115,7 @@ private:
 
 <a name="insert"></a>
 
-####**insert(新增資料)**
+###insert(新增資料)
 
 隨著故事劇情推進，角色也會跟著增加，因此，要在BST中**新增node(新增資料)**。  
 在此，比克大魔王現身地球危害人間，其戰鬥力為513，欲將其放進BST，根據BST的規則判斷出，比克的戰鬥力比龜仙人高，因此要將比克放在龜仙人的right subtree(右子樹)；接著，再和悟空比較，比克的戰鬥力比悟空低，因此將比克建立在悟空的left child上，如圖五(a)所示：
@@ -138,7 +138,7 @@ private:
 
 <a name="search"></a>
 
-####**search(搜尋資料)**
+###search(搜尋資料)
 
 在處理資料時，時常需要尋找某特定資料，是否存在資料結構中。以BST處理資料，最簡單的方式便是用Key尋找。  
 以圖六為例，故事推進到納美克星弗力札大王篇，若想要確認基紐隊長的資料是否已經建立完成，只要記住隊長的戰鬥力為「627」，進入BST中，便能夠找到隊長，必且回傳(return)隊長的node。  
@@ -156,7 +156,7 @@ private:
 
 <a name="sort"></a>
 
-####**sort(排序)**
+###sort(排序)
 
 故事來到了魔人普烏篇，因為角色有點多，有點混亂，此時，若想要知道各角色戰鬥力的大小排序，只要按照**Inorder Traversal**即可按照戰鬥力(Key)高低列出所有資料：
 
@@ -169,7 +169,7 @@ private:
 
 <a name="delete"></a>
 
-####**delete(刪除資料)**
+###delete(刪除資料)
 
 最後，當角色死掉去領便當，就需要從BST刪除資料，而根據欲刪除資料之「**child個數**」可以分成三種情況：
 
@@ -205,7 +205,7 @@ private:
 </br>
 <a name="ref"></a>
 
-####**參考資料**：
+###參考資料：
 
 * [Introduction to Algorithms](http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844) 
 * [Fundamentals of Data Structures in C++](http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376)

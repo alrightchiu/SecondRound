@@ -7,7 +7,7 @@ Summary: 介紹Red Black Tree(紅黑樹)的基本性質。
 
 
 </br>
-####**先備知識與注意事項**
+###先備知識與注意事項
  
 在閱讀過BST系列文章後可以發現，在BST中的操作，不論是Insert(新增資料)或是Delete(刪除資料)，皆需要先做Search(搜尋)，而Search(搜尋)的效率，取決於BST的height(樹高)，如果一棵樹越矮、越平衡(balanced)，則在此BST中搜尋資料的速度較快，理想狀況為Complete Binary Tree(時間複雜度：$O(\log N)$)。反之，若由於輸入資料的順序使得BST沒長好、偏一邊，則在此BST中搜尋資料的最壞情況將有可能如同在Linked List做搜尋(時間複雜度：$O(N)$)。  
 
@@ -37,7 +37,7 @@ Summary: 介紹Red Black Tree(紅黑樹)的基本性質。
 
 <a name="why"></a>
 
-##**為什麼需要Red Black Tree？**
+##為什麼需要Red Black Tree？
 
 若考慮最壞情況，在建立BST時，輸入資料的Key恰好被排序過(例如：1、2、3、4...)，那麼這顆BST便會退化成Linked List(接續前例，所有leftchild pointer都指向`NULL`，只有rightchild child被使用)：
 
@@ -80,7 +80,7 @@ int main{
 
 <a name="rbt"></a>
 
-##**Red Black Tree的特徵**
+##Red Black Tree的特徵
 
 Red Black Tree(RBT)是node塗了「顏色」的Binary Search Tree(BST)，藉由控制顏色，能夠保證在RBT中，**最長path(路徑)不會超過最短path的兩倍**(若最短的path是5，最長的path至多只能是10)，如此，RBT便能夠近似地視為平衡，如圖四。
 
@@ -113,7 +113,7 @@ Red Black Tree(RBT)是node塗了「顏色」的Binary Search Tree(BST)，藉由�
 
 <a name="code"></a>
 
-##**程式碼**
+##程式碼
 
 實際的程式實現上，會把所有`NIL`視為同一個`NIL`，並把`root`的parent指向`NIL`，以節省記憶體空間，如圖五。
 
@@ -176,7 +176,7 @@ private:
 
 <a name="ref"></a>
 
-####**參考資料**：
+###參考資料：
 
 * [Introduction to Algorithms, Ch13](http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844) 
 * [Fundamentals of Data Structures in C++](http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376)
