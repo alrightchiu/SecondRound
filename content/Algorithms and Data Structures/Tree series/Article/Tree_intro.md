@@ -106,7 +106,7 @@ Summary: 介紹資料結構中Tree(樹)的概念。
 </br>
 ![fig2.c][example-c]  
 
-**圖三.c：在F出現cycle；C->B->D->E出現undirected cycle，詳見Graph theory(圖論)。後者等價於：D有兩個parent node。**  
+**圖三.c：在F出現cycle；以及，D有兩個parent node。**  
 </br>
 ![fig2.d][example-d]  
 
