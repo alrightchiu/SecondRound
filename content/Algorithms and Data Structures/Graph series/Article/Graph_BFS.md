@@ -28,8 +28,7 @@ Summary: 介紹Graph(圖)中的基本操作：Breadth-First Search(BFS，廣度�
 
 溫馨小提醒：在解釋演算法時，可能會用到Graph中的專有名詞，如**undirected**、**connected component**、**weight**等等，若覺得這些名詞像被打了馬賽克糊糊的，可以先回到[Graph: Intro(簡介)](http://alrightchiu.github.io/SecondRound/graph-introjian-jie.html)狠狠回憶一番。
 
-</br>
-
+</br>  
 ***
 
 
