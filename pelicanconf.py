@@ -49,9 +49,9 @@ STATIC_PATHS = ['fig']
 
 # Flex setting
 SITETITLE = SITENAME
-SITESUBTITLE = u'Hey'
-SITEDESCRIPTION = u'Not Bad Not Bed'
-SITELOGO = u'http://alrightchiu.github.io/SecondRound/fig/antiwar.jpg'	# 也弄太久了！！！
+SITESUBTITLE = u'Hey Oh'
+# SITEDESCRIPTION = u'Not Bad Not Bed'
+# SITELOGO = u'http://alrightchiu.github.io/SecondRound/fig/antiwar.jpg'
 
 # for code blocks, 增加 line number 
 # MD_EXTENSIONS = ['fenced_code', 'codehilite(css_class=highlight, linenums=True)', 'extra']
@@ -67,7 +67,7 @@ PLUGINS = ['render_math']
 
 
 
-MENUITEMS = [	# 別人直接用 /archives.html應該是因為 user pages, 總之我要用URL才行, 至少是搞定了
+MENUITEMS = [	# 別人直接用 /archives.html, why? 總之我要用URL才行
     ('Archives', 'http://alrightchiu.github.io/SecondRound/archives.html'),	
     # ('Categories', 'http://alrightchiu.github.io/SecondRound/categories.html'),
     ('Tags', 'http://alrightchiu.github.io/SecondRound/tags.html'),
