@@ -142,6 +142,7 @@
 <li><a href="#ref">參考資料</a></li>
 <li><a href="#series">Graph系列文章</a></li>
 </ul>
+<p></br></p>
 <p><a name="dfs"></a></p>
 <h2>Depth-First Search(DFS，深度優先搜尋)</h2>
 <p>考慮圖三(a)的Graph(沒有weight的directed graph)：</p>
@@ -156,6 +157,7 @@
 <p>看起來好像沒有<code>BFS()</code>這麼殺手級，雖然找到一條路卻不保證是最短路徑。<br />
 但其實<code>DFS()</code>還是很有用的，因為經過一次<code>DFS()</code>後，將得到一項資料稱作<code>finish</code>，而<code>finish</code>竟然可以用來...！？</p>
 <p>別轉台，看下去。</p>
+<p></br></p>
 <p><a name="algorithm"></a></p>
 <h2>演算法</h2>
 <p>以下介紹的<code>DFS()</code>需要資料項目共有：</p>
@@ -301,6 +303,7 @@
 <p><strong>圖三(r)：。</strong>
 </center></p>
 <p>當Graph中所有vertex都被塗成黑色，便完成<code>DFS()</code>。</p>
+<p></br></p>
 <p><a name="code"></a></p>
 <h2>程式碼</h2>
 <p>由以上說明可以觀察出，<code>DFS()</code>本質上是一種「<strong>遞迴(recursion)結構</strong>」，而遞迴結構其實是利用了系統的「<strong>堆疊(stack)</strong>」，因此，這兩種方式皆能實現<code>DFS()</code>，以下提供的範例程式碼將以遞迴形式完成。</p>
@@ -412,6 +415,7 @@
 </pre></div>
 
 
+<p></br></p>
 <p><a name="discuss"></a></p>
 <h2>討論</h2>
 <p>若在<code>DFS()</code>函式主體的最後多加入幾行程式來檢查<code>predecessor</code>、<code>discover</code>與<code>finish</code>三項資料是否符合預期：</p>
@@ -532,6 +536,7 @@
 </ol>
 <p>不過在這之前，會先介紹利用<code>BFS()</code>與<code>DFS()</code>找到undirected graph中的<strong>connected component</strong>作為暖身。</p>
 <p></br></p>
+<hr />
 <p><a name="ref"></a></p>
 <h3>參考資料：</h3>
 <ul>

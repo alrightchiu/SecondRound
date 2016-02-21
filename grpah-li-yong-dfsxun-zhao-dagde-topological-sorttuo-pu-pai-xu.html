@@ -137,6 +137,7 @@
 <li><a href="#ref">參考資料</a></li>
 <li><a href="#series">Graph系列文章</a></li>
 </ul>
+<p></br></p>
 <p><a name="ts"></a></p>
 <h2>Topological Sort(拓撲排序)</h2>
 <p>所謂的Topological Sort(拓撲排序)要求，若<strong>directed acyclic graph(DAG)</strong>中存在一條edge(X,Y)，那麼序列中，vertex(X)一定要在vertex(Y)之前出現。</p>
@@ -165,6 +166,7 @@
 <img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/TS_fig/f4.png?raw=true" /></p>
 <p><strong>圖二(b)。</strong><br />
 </center></p>
+<p></br></p>
 <p><a name="algorithm"></a></p>
 <h2>演算法</h2>
 <p>在<a href="http://alrightchiu.github.io/SecondRound/grpah-li-yong-dfsxun-zhao-strongly-connected-componentscc.html">Grpah: 利用DFS尋找Strongly Connected Component(SCC)</a>曾經提過DAG的性質：</p>
@@ -176,6 +178,7 @@
 <img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/TS_fig/f5.png?raw=true" /></p>
 <p><strong>圖三。</strong><br />
 </center></p>
+<p></br></p>
 <p><a name="code"></a></p>
 <h2>程式碼</h2>
 <p>是的，只要把<a href="http://alrightchiu.github.io/SecondRound/grpah-li-yong-dfsxun-zhao-strongly-connected-componentscc.html">上一篇文章</a>介紹過的<code>PrintSCCs()</code>的前半部照抄，就能夠找到<code>finish</code>由大到小的順序。</p>
@@ -291,6 +294,7 @@
 <p>以上便是利用<code>DFS()</code>來尋找DAG的Topological sort(拓撲排序)的介紹。<br />
 基本上是<code>DFS()</code>的變形/延伸，再一次<code>finish</code>又扮演關鍵角色拯救了世界。</p>
 <p></br></p>
+<hr />
 <p><a name="ref"></a></p>
 <h3>參考資料：</h3>
 <ul>
