@@ -646,13 +646,13 @@
 
 &lt;p&gt;結果如圖五(a)與圖五(b)：&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
-&lt;img alt="scc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/SCC_fig/f14.png?raw=true" /&gt;&lt;br /&gt;
-&lt;img alt="scc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/SCC_fig/f15.png?raw=true" /&gt;&lt;/p&gt;
+&lt;img alt="scc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/SCC_fig/f14.png?raw=true" /&gt;  &lt;/p&gt;
+&lt;p&gt;&lt;img alt="scc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/SCC_fig/f15.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖五(a)：第一次&lt;/strong&gt;&lt;code&gt;DFS()&lt;/code&gt;&lt;strong&gt;以vertex(0)作為起點。&lt;/strong&gt; 
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
-&lt;img alt="scc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/SCC_fig/f16.png?raw=true" /&gt;&lt;br /&gt;
-&lt;img alt="scc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/SCC_fig/f17.png?raw=true" /&gt;&lt;/p&gt;
+&lt;img alt="scc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/SCC_fig/f16.png?raw=true" /&gt;  &lt;/p&gt;
+&lt;p&gt;&lt;img alt="scc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/SCC_fig/f17.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖五(b)：第一次&lt;/strong&gt;&lt;code&gt;DFS()&lt;/code&gt;&lt;strong&gt;以vertex(3)作為起點。&lt;/strong&gt; 
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
