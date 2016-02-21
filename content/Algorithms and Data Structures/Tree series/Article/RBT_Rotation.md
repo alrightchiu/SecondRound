@@ -25,7 +25,7 @@ Summary: 介紹Red Black Tree(紅黑樹)的Rotation(旋轉)操作。
 * [參考資料](#ref)
 * [Tree系列文章](#tree_series)
 
-
+</br>
 
 <a name="fail"></a>
 
@@ -92,6 +92,7 @@ Summary: 介紹Red Black Tree(紅黑樹)的Rotation(旋轉)操作。
 
 經過以上說明，應該能體會到Rotation在修正Insert(新增資料)與Delete(刪除資料)時的威力，接著便來實地走訪Rotation實際上是哪些pointer在指來指去。
 
+</br>
 
 <a name="rotation"></a>
 
@@ -252,6 +253,9 @@ void RBT::RightRotation(TreeNode *y){
 
 
 </br>
+
+***
+
 <a name="ref"></a>
 
 ###參考資料：

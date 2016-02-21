@@ -25,6 +25,7 @@ Summary: 介紹Binary Tree(二元樹)的基本概念。
 * [參考資料](#ref)
 * [Tree系列文章](#tree_series)
 
+</br>
 
  <a name="bt"></a>
  
@@ -48,8 +49,10 @@ Summary: 介紹Binary Tree(二元樹)的基本概念。
 </center>
 [binary_tree]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Intro/binary_tree.png?raw=true
 
+</br>
 
- <a name="code"></a>
+<a name="code"></a>
+
 ##程式碼
 
 修改在[Tree(樹)](http://alrightchiu.github.io/SecondRound/treeshu.html#code)提供的程式實作方式，將node的child pointer設為left child與right child，以滿足Binary Tree的形式。  
@@ -72,6 +75,8 @@ class Tree{
 	TreeNode *root;				// 以root作為存取整棵樹的起點
 };
 ```
+
+</br>
 
  <a name="fullcomplete"></a>
 
@@ -126,6 +131,8 @@ class Tree{
 </br> 
 [non_complBT]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Intro/non_complBT.png?raw=true
  
+ </br>
+ 
  <a name="application"></a>
 
 ##學習Binary Tree的未來出路
@@ -143,6 +150,9 @@ class Tree{
 接下來將會介紹Binary Tree(以及往後主題)中最基本的操作：traversal(尋訪)，顧名思義，就是如何在樹中移動，有了traversal之後再進一步探討search(搜尋)、insertion(新增node)、deletion(刪除node)、sorting(排序)會更加容易。
 
 </br>
+
+***
+
 <a name="ref"></a>
 
 ###參考資料：

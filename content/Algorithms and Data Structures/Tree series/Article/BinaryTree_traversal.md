@@ -37,6 +37,7 @@ traversal(尋訪)有「站在A地，往所有與A地相連的地方移動」的�
 * [參考資料](#ref)
 * [Tree系列文章](#tree_series)
 
+</br>
 
 <a name="bttraversal"></a>
 
@@ -407,6 +408,7 @@ A B C D E F G H I
 [ex_level]:https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/ex_level.png?raw=true
 
 </br>
+
 <a name="in_parent"></a>
 
 ##In-Order Traversal by Parent Field
@@ -552,6 +554,7 @@ D B G E H A F I C
 
 **圖五(b)：。**  
 </center>
+
 [predecessor]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/predecessor.png?raw=true
 
 ```cpp
@@ -600,6 +603,9 @@ C I F A H E G B D
 `InorderSuccessor()`和`InorderPredecessor()`在Binary Search Tree的部分會再次出現，並且出現在基本操作：deletion(刪除node)中，因此學起來不止酷，還很實用的啊。
 
 </br>
+
+***
+
 <a name="ref"></a>
 
 ###參考資料：

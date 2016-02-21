@@ -30,6 +30,7 @@ Summary: 介紹於Red Black Tree(紅黑樹)中Delete(刪除資料)與Delete後�
 * [參考資料](#ref)
 * [Tree系列文章](#tree_series)
 
+</br>
 
 <a name="violate"></a>
 
@@ -57,7 +58,7 @@ Summary: 介紹於Red Black Tree(紅黑樹)中Delete(刪除資料)與Delete後�
 **圖一(b)：違反RBT之第四點與第五點特徵。**
 </center>
 
-
+</br>
 
 <a name="bst"></a>
 
@@ -118,6 +119,7 @@ void RBT::DeleteRBT(int KEY){              // 要刪除具有KEY的node
 }
 ```
 
+</br>
 
 <a name="fixup"></a>
 
@@ -393,7 +395,7 @@ Case1調整：
 **圖六(j)：。**
 </center>
 
-
+</br>
 
 <a name="code"></a>
 
@@ -514,6 +516,9 @@ void RBT::DeleteFixedUpRBT(TreeNode *current){
 
 
 </br>
+
+***
+
 <a name="ref"></a>
 
 ###參考資料：

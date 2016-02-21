@@ -28,6 +28,8 @@ Summary: 介紹如何以字元陣列(char array)獲得資料(data)後，建立�
 * [參考資料](#ref)
 * [Tree系列文章](#tree_series)
 
+</br>
+
 <a name="description"></a>
 
 ##問題描述
@@ -58,6 +60,8 @@ Summary: 介紹如何以字元陣列(char array)獲得資料(data)後，建立�
 
 [bt_0]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/ex.png?raw=true
 [bt_char]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/ex_char.png?raw=true
+
+</br>
 
 <a name="code"></a>
 
@@ -436,6 +440,9 @@ void BinaryTree::insertLevelorder(char data){
 
 
 </br>
+
+***
+
 <a name="ref"></a>
 
 ###參考資料：

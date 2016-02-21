@@ -40,6 +40,8 @@ Summary: 介紹資料結構中Tree(樹)的概念。
 * [Tree系列文章](#tree_series)
 
 
+</br>
+
  <a name="example"></a>
  
 ##隨處可見的Tree(樹)
@@ -61,6 +63,7 @@ Summary: 介紹資料結構中Tree(樹)的概念。
 圖二的邏輯為：從起點(R)開始，先決定第一個字母，再依序決定第二、第三個字母，並且，在每一次選擇字母時，可能有不止一個可供選擇的字母。最後一共走出六條路徑，得到六種排列組合，而且這六種排列方式只能經由一種唯一的選擇方式(唯一的路徑)產生。若將起點(R)視為樹根(root)，每一個字母選擇的狀態(例如：A、C、BC、CAB)都視為一個node，這樣的結構便能夠視為一棵樹。  
 
 另外如一本書的目錄、族譜、官僚企業的職位關係，甚至是更廣義的「從家門口為起點尋找方圓一公里以內的便利商店」都能夠建立出樹的模型。  
+
 </br>
 
  <a name="essence"></a>
@@ -82,6 +85,7 @@ Summary: 介紹資料結構中Tree(樹)的概念。
 **圖三：包龍星若是宋世傑的parent(父)，又同時為其child(子)，即形成cycle。**
 </center>
 [cycle]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/Tree_fig/cycle_size.png?raw=true
+
 </br> 
 
 <a name="tree_not_tree"></a> 
@@ -113,6 +117,9 @@ Summary: 介紹資料結構中Tree(樹)的概念。
 [example-b]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/Tree_fig/is_Tree_b_size.png?raw=true
 [example-c]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/Tree_fig/is_Not_Tree_c_size.png?raw=true
 [example-d]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/Tree_fig/is_Not_Tree_d_size.png?raw=true
+
+
+</br>
 
  <a name="element"></a>
  
@@ -146,6 +153,8 @@ Summary: 介紹資料結構中Tree(樹)的概念。
 * **height of node**：某一node與其最長path上之descendant leaf node之間的edge數。例如F的height為1，D的height為2，leaf node的height為0。
 * **height of tree**：樹的height即為root的height，圖四中，樹的height為A的height，等於3。
 * **depth**：某一node與root之間的edge數。例如，F的depth為2，L的depth為3。  
+
+
 </br>
 
 <a name="definition"></a>
@@ -174,6 +183,7 @@ B. **Tree(樹)**是由一個或多個nodes/vertices以及edge所組成，而且�
 
 [forest]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/Tree_fig/forest_.png?raw=true
 
+</br>
 
  <a name="code"></a>
  
@@ -199,6 +209,8 @@ class Tree{
 };
 ```
 
+</br>
+
  <a name="set"></a>
  
 ##集合關係
@@ -223,6 +235,8 @@ class Tree{
 在接下來的文章將先以縮小集合的方向依序介紹：Binary Tree、BST、RBT，再進入Graph(圖)這個更複雜的主題。
 
 </br>
+
+***
 
 <a name="ref"></a>
 

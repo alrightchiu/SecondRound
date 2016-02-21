@@ -84,7 +84,7 @@ public:
 * [參考資料](#ref)
 * [Tree系列文章](#tree_series)
 
-
+</br>
 
 <a name="search"></a>
 
@@ -183,7 +183,9 @@ TreeNode* BST::Search(int KEY){
     return current;
 }
 ```
+
 </br> 
+
 <a name="insert"></a>
 
 ##BST::InsertBST(新增資料)
@@ -274,6 +276,7 @@ void BST::InsertBST(TreeNode &new_node){
 [insert3]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f26.png?raw=true
 [insert4]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f27.png?raw=true
 
+</br>
 
 <a name="main"></a>
 
@@ -301,6 +304,9 @@ int main() {
 以上便是BST中`Search()`與`InsertBST()`之介紹，只要掌握BST的性質$Key(L)<Key(Current)<Key(R)$與樹中的Traversal(pointer的移動)即可輕鬆上路。 
 
 </br>
+
+***
+
 <a name="ref"></a>
 
 ###參考資料：

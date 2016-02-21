@@ -33,7 +33,7 @@ Summary: 介紹Red Black Tree(紅黑樹)的基本性質。
 * [參考資料](#ref)
 * [Tree系列文章](#tree_series)
 
-
+</br>
 
 <a name="why"></a>
 
@@ -77,6 +77,7 @@ int main{
 因此，BST越平衡，在樹中搜尋資料的時間就越短，連帶地Insert(新增資料)、Delete(刪除資料)也會變得更有效率。  
 這就是RBT值得被介紹的原因。
 
+</br>
 
 <a name="rbt"></a>
 
@@ -110,6 +111,7 @@ Red Black Tree(RBT)是node塗了「顏色」的Binary Search Tree(BST)，藉由�
 
 根據上述特徵的第四點與第五點，RBT中path可能的長度最小值一定是全部node皆為黑色，而path可能的長度最大值並定是紅色-黑色相間(如圖四)，如此便確保RBT擁有**最長path(路徑)不會超過最短path的兩倍**的特性。
 
+</br>
 
 <a name="code"></a>
 
@@ -173,6 +175,8 @@ private:
   
 
 </br>
+
+***
 
 <a name="ref"></a>
 

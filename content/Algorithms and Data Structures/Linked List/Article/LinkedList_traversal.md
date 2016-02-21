@@ -162,6 +162,8 @@ A B C D
 
 </br>
 
+***
+
 ###參考資料：
 
 * [Wikipedia：Linked List](https://en.wikipedia.org/wiki/Linked_list)

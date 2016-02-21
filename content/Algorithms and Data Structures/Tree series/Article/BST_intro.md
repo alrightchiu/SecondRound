@@ -28,6 +28,7 @@ Summary: 謹以Binary Search Tree(二元搜尋樹)向拯救90後的童年的鉅�
 * [參考資料](#ref)
 * [Tree系列文章](#tree_series)
 
+</br>
 
 <a name="dictionary"></a>
 
@@ -81,6 +82,8 @@ private:
 2. 以下角色戰鬥力的絕對值是捏造的，不過相對值盡力維持正確(除了撒旦)，若有疑問，歡迎龍珠粉來信討論。 
 3. 由於故事的角色眾多，以下將挑選具代表性之角色用來說明BST。
 
+</br>
+
 <a name="bst"></a>
 
 ##Binary Search Tree的特徵
@@ -98,6 +101,8 @@ private:
 </center>
 
 有了BST後，便能夠替鳥山明老師處理角色之間的戰鬥力關係了。
+
+</br>
 
 <a name="operation"></a>
 
@@ -203,6 +208,9 @@ private:
 接下來，將以兩篇文章的篇幅，說明上述四種資料處理操作的演算法。
 
 </br>
+
+***
+
 <a name="ref"></a>
 
 ###參考資料：

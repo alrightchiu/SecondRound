@@ -23,6 +23,7 @@ Summary: 介紹Binary Search Tree(二元搜尋樹)的基本操作：Sort(排序)
 * [參考資料](#ref)
 * [Tree系列文章](#tree_series)
 
+</br>
 
 <a name="sort"></a>
 
@@ -60,6 +61,7 @@ output:
 克林(2) 龜仙人(8) 比克(513) 悟空(1000) 
 ```
 
+</br>
 
 <a name="delete"></a>
 
@@ -179,6 +181,8 @@ void BST::DeleteBST(int KEY){               // 要刪除具有KEY的node
 }
 ```
 
+</br>
+
 <a name="main"></a>
 
 ##main()
@@ -216,6 +220,7 @@ output:
 克林(2) 比克(513) 悟空(1000) 
 ```
 
+</br>
 
 <a name="4function"></a>
 
@@ -277,11 +282,13 @@ TreeNode* BST::Predecessor(TreeNode *current){
 在接下來將介紹的Red Black Tree(RBT，紅黑樹)中，BST的`Insert()`與`Delete()`會再次出現，不過，需要再「多一道手續」以滿足RBT的性質。
 
 最後，因為RBT的圖比較複雜，所以圈圈裏面放名字會太擠，有礙觀瞻，因此要忍痛讓「悟空」、「克林」退居幕後，直接在node裡面放上Key。 
-不過，相信透過這三篇BST的介紹，讀者對七龍珠也有一定程度的了解，後面的部分一定可以靠自學來搜集龍珠的。
+不過，相信透過這三篇BST的介紹，讀者對七龍珠也有一定程度的了解，後面的部分一定可以靠自學來搜集龍珠了。
 
-cha la head cha la～～
   
 </br>
+
+***
+
 <a name="ref"></a>
 
 ###參考資料：

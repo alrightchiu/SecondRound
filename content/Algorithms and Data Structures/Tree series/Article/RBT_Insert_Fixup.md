@@ -25,7 +25,7 @@ RBT也是一棵BST，而RBT之Insert(新增資料)方法便是先沿用`InsertBS
 * [參考資料](#ref)
 * [Tree系列文章](#tree_series)
 
-
+</br>
 
 <a name="bst"></a>
 
@@ -74,6 +74,7 @@ void RBT::InsertRBT(TreeNode &new_node){
 }
 ```
 
+</br>
 
 <a name="fixup"></a>
 
@@ -224,9 +225,9 @@ void RBT::InsertRBT(TreeNode &new_node){
 **圖一(j)：。**  
 </center>
 
-<a name="example"></a>
+</br>
 
-***
+<a name="example"></a>
 
 ###幾個範例
 
@@ -278,6 +279,7 @@ void RBT::InsertRBT(TreeNode &new_node){
 **圖二(d)：。**  
 </center>
 
+</br>
 
 **Example2**
 
@@ -343,6 +345,7 @@ void RBT::InsertRBT(TreeNode &new_node){
 * 一是`uncle`：因為`parent`與`uncle`分別為`parent->parent`之`leftchild`與`rightchild`，若`parent`是`left-`，`uncle`就要是`right-`，反之亦然，兩者屬於互斥(exclusive)的、不能同時發生的情境；
 * 二是Rotation(旋轉)：在Case2與Case3中必須使用Left/Right Rotation，因此，延續第一點原因，考慮到`parent`是`leftchild`或是`rightchild`的不同，Left/Right Rotation的方向也會相反。
 
+</br>
 
 <a name="code"></a>
 
@@ -445,6 +448,9 @@ void RBT::InsertFixedUpRBT(TreeNode *current){
 
 
 </br>
+
+***
+
 <a name="ref"></a>
 
 ###參考資料：
