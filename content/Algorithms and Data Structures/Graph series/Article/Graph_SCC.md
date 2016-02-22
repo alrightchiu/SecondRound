@@ -38,7 +38,7 @@ Summary: 利用DFS尋找diredted graph中的strongly connected component(SCC)。
 原因在於，觀察G中包含在同一個SCC裡的vertex(2)與vertex(3)。G中同時存在「從vertex(2)走到vertex(3)」的path，以及「從vertex(3)走到vertex(2)」的path。在G進行「Transpose」得到G<sup>T</sup>後，這兩條path分別變成與原方向之相反方向，但是存在於vertex(2)與vertex(3)之間的**cycle**仍然存在。  
 因此，在G裡面屬於同一個SCC的vertex，在G<sup>T</sup>裡將形成相同的SCC。 
 
-最後一點溫馨小提醒：一如往常，本篇文章將不會有嚴謹證明，不過在**參考資料**會附上內有嚴謹證明的網站連結，請讀者務必前往一窺究竟。
+最後一點溫馨小提醒：一如往常，本篇文章將不會有嚴謹證明，不過在[參考資料](#ref)會附上內有嚴謹證明的網站連結，請讀者務必前往一窺究竟。
 
 
 ***
