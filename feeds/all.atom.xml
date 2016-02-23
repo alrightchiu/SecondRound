@@ -134,7 +134,7 @@
 &lt;/ul&gt;
 &lt;p&gt;&lt;a name="theorem"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h3&gt;Theorom1&lt;/h3&gt;
-&lt;p&gt;(對應&lt;a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844"&gt;Introduction to Algorithms第23章，Theorem23.1&lt;/a&gt;)&lt;/p&gt;
+&lt;p&gt;(對應&lt;a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844"&gt;Introduction to Algorithms第23章，Theorem 23.1&lt;/a&gt;)&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Theorem1&lt;/strong&gt;要說的是，給定：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Graph &lt;span class="math"&gt;\(G=(V,E)\)&lt;/span&gt;是一個connected、weighted、undirected graph；&lt;/li&gt;
@@ -196,6 +196,7 @@
 &lt;/br&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a name="corollary"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h3&gt;Corollary2&lt;/h3&gt;
+&lt;p&gt;(對應&lt;a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844"&gt;Introduction to Algorithms第23章，Corollary 23.2&lt;/a&gt;)&lt;/p&gt;
 &lt;p&gt;與&lt;strong&gt;Theorem1&lt;/strong&gt;等價的&lt;strong&gt;Corollary2&lt;/strong&gt;要說的是，給定：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Graph &lt;span class="math"&gt;\(G=(V,E)\)&lt;/span&gt;是一個connected、weighted、undirected graph；&lt;/li&gt;
