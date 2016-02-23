@@ -143,7 +143,7 @@ Summary: 介紹Graph中的Minimum Spanning Tree(MST，最小生成樹)。
 
 ###Theorom1
 
-(對應[Introduction to Algorithms第23章，Theorem23.1](http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844))
+(對應[Introduction to Algorithms第23章，Theorem 23.1](http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844))
 
 **Theorem1**要說的是，給定：
 
@@ -218,6 +218,8 @@ $weight(T')\leq weight(T)$；
 <a name="corollary"></a>
 
 ###Corollary2
+
+(對應[Introduction to Algorithms第23章，Corollary 23.2](http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844))
 
 與**Theorem1**等價的**Corollary2**要說的是，給定：
 
