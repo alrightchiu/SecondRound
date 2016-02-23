@@ -395,7 +395,7 @@ Component#3: 3 6 8
 
 </br>
 
-##BFS/DFS系列文章
+###BFS/DFS系列文章
 
 * [Graph: Breadth-First Search(BFS，廣度優先搜尋)](http://alrightchiu.github.io/SecondRound/graph-breadth-first-searchbfsguang-du-you-xian-sou-xun.html)
 * [Graph: Depth-First Search(DFS，深度優先搜尋)](http://alrightchiu.github.io/SecondRound/graph-depth-first-searchdfsshen-du-you-xian-sou-xun.html)

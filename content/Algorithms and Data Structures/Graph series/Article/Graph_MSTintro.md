@@ -289,7 +289,7 @@ $weight(T')\leq weight(T)$；
 
 </br>
 
-##MST系列文章
+###MST系列文章
 
 * [Minimum Spanning Tree：Intro(簡介)](http://alrightchiu.github.io/SecondRound/minimum-spanning-treeintrojian-jie.html)
 
