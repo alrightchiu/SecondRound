@@ -23,7 +23,7 @@ RBT也是一棵BST，而RBT之Insert(新增資料)方法便是先沿用`InsertBS
     * [幾個範例](#example)
 * [程式碼](#code)
 * [參考資料](#ref)
-* [Tree系列文章](#tree_series)
+* [RBT系列文章](#tree_series)
 
 </br>
 
@@ -446,6 +446,11 @@ void RBT::InsertFixedUpRBT(TreeNode *current){
 [f21]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Insert/insert21.png?raw=true
 [f22]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Insert/insert22.png?raw=true
 
+</br>
+
+以上便是於Red Black Tree(紅黑樹)中進行Insert(新增資料)與Insert後的Fixup(修正)之介紹。
+
+下一篇文章將介紹於Red Black Tree(紅黑樹)中進行Delete(刪除資料)與Delete後的Fixup(修正)。
 
 </br>
 
@@ -464,19 +469,20 @@ void RBT::InsertFixedUpRBT(TreeNode *current){
 
 <a name="tree_series"></a>
 
-##Tree系列文章
+###RBT系列文章
 
-* [Tree(樹): Intro(簡介)](http://alrightchiu.github.io/SecondRound/treeshu-introjian-jie.html)
-* [Binary Tree: Intro(簡介)](http://alrightchiu.github.io/SecondRound/binary-tree-introjian-jie.html)
-* [Binary Tree: Traversal(尋訪)](http://alrightchiu.github.io/SecondRound/binary-tree-traversalxun-fang.html)
-* [Binary Tree: 建立一棵Binary Tree](http://alrightchiu.github.io/SecondRound/binary-tree-jian-li-yi-ke-binary-tree.html)
-* [Binary Search Tree: Intro(簡介)](http://alrightchiu.github.io/SecondRound/binary-search-tree-introjian-jie.html)
-* [Binary Search Tree: Search(搜尋資料)、Insert(新增資料)](http://alrightchiu.github.io/SecondRound/binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao.html)
-* [Binary Search Tree: Sort(排序)、Delete(刪除資料)](http://alrightchiu.github.io/SecondRound/binary-search-tree-sortpai-xu-deleteshan-chu-zi-liao.html)
+
 * [Red Black Tree: Intro(簡介)](http://alrightchiu.github.io/SecondRound/red-black-tree-introjian-jie.html)
 * [Red Black Tree: Rotation(旋轉)](http://alrightchiu.github.io/SecondRound/red-black-tree-rotationxuan-zhuan.html)
 * [Red Black Tree: Insert(新增資料)與Fixup(修正)](http://alrightchiu.github.io/SecondRound/red-black-tree-insertxin-zeng-zi-liao-yu-fixupxiu-zheng.html)
 * [Red Black Tree: Delete(刪除資料)與Fixup(修正)](http://alrightchiu.github.io/SecondRound/red-black-tree-deleteshan-chu-zi-liao-yu-fixupxiu-zheng.html)
+
+
+回到目錄：
+
+* [目錄：演算法與資料結構](http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html)
+
+
 
 </br>
 
