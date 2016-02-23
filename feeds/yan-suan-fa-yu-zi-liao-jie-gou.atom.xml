@@ -155,7 +155,7 @@
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;因為&lt;span class="math"&gt;\(weight(X,Y)\leq weight(Z,W)\)&lt;/span&gt;，便得到：&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;span class="math"&gt;\(weight(T')\leq weight(T)-weight(Z,W)+weight(X,Y)\)&lt;/span&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(weight(T')\leq weight(T)-weight(Z,W)+weight(X,Y)\)&lt;/span&gt;&lt;br /&gt;
 &lt;span class="math"&gt;\(weight(T')\leq weight(T)\)&lt;/span&gt;；&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;因此，若T是MST，那麼T'也會是一棵MST。&lt;/p&gt;
