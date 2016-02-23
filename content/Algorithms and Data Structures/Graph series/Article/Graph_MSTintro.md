@@ -186,8 +186,7 @@ Summary: 介紹Graph中的Minimum Spanning Tree(MST，最小生成樹)。
 </center>
 
 因為MST是一個Tree，所以T上的各個vertex之間**只存在唯一的path**，因此，vertex(Y)到vertex(X)之間，必定在T上存在一條path，而且這條path中，**將有一條edge會是Cut的crossing edge**，令這條crossing edge為edge(Z,W)。  
-
-* 同樣地，由於Cut「respect」Set A，**edge(Z,W)也不會在Set A裡面**。 
+同樣地，由於Cut「respect」Set A，**edge(Z,W)也不會在Set A裡面**。 
  
 又因為edge(X,Y)是所有crossing edge中的light edge，所以：$weight(X,Y)\leq weight(Z,W)$。
 
