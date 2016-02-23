@@ -63,7 +63,7 @@
 &lt;p&gt;&lt;a name="mst"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;Minimum Spanning Tree(MST，最小生成樹)&lt;/h2&gt;
 &lt;p&gt;&lt;center&gt;
-&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro/f1.png?raw=true" /&gt;&lt;/p&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro_fig/f1.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖一(a)。&lt;/strong&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;考慮一個connected、weighted的undirected graph，如圖一(a)，在Graph上能夠定義&lt;strong&gt;Spanning Tree&lt;/strong&gt;為：&lt;/p&gt;
@@ -73,12 +73,12 @@
 &lt;li&gt;因為是樹，若Graph有&lt;span class="math"&gt;\(V\)&lt;/span&gt;個vertex，Spanning Tree只有&lt;span class="math"&gt;\(|V|-1\)&lt;/span&gt;條edge。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;center&gt;
-&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro/f2.png?raw=true" /&gt;&lt;/p&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro_fig/f2.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖一(b)。&lt;/strong&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;由於Graph具有weight，因此，不同的Spanning Tree，可能有不同的&lt;strong&gt;weight總和&lt;/strong&gt;，而其中，具有&lt;strong&gt;最小weight總和&lt;/strong&gt;的樹，稱為&lt;strong&gt;Minimum Spanning Tree(MST)&lt;/strong&gt;，如圖一(c)。&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
-&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro/f3.png?raw=true" /&gt;&lt;/p&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro_fig/f3.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖一(c)。&lt;/strong&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;小小提醒：&lt;/p&gt;
@@ -99,11 +99,11 @@
 &lt;li&gt;演算法完成後，Set A就包含了所有MST的edge。見圖二(c)。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;center&gt;
-&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro/f4.png?raw=true" /&gt;&lt;/p&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro_fig/f4.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖二(a)。&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro/f5.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro_fig/f5.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖二(b)。&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro/f6.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro_fig/f6.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖二(c)。&lt;/strong&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;接著將介紹一個定理(theorem)與其等價的推論(corollary)，來說明怎麼樣的edge對Set A來說是&lt;strong&gt;安全的(safe)&lt;/strong&gt;，使得「該edge加入Set A後，Set A仍然滿足&lt;span class="math"&gt;\(A\subseteq E(MST)\)&lt;/span&gt;」。&lt;/p&gt;
@@ -116,7 +116,7 @@
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;center&gt;
-&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro/f7.png?raw=true" /&gt;&lt;/p&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro_fig/f7.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖三(a)。&lt;/strong&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;ul&gt;
@@ -126,7 +126,7 @@
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;center&gt;
-&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro/f8.png?raw=true" /&gt;&lt;/p&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro_fig/f8.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖三(b)。&lt;/strong&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;ul&gt;
@@ -160,7 +160,7 @@
 換句話說，edge(X,Y)一定會是MST的edge。&lt;/p&gt;
 &lt;p&gt;以圖四(a)為例，確認&lt;strong&gt;前三項條件皆滿足&lt;/strong&gt;，並且找到所有crossing edge中weight最小的edge為edge(4,6)，則edge(4,6)必定是MST的edge。&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
-&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro/f9.png?raw=true" /&gt;&lt;/p&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro_fig/f9.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖四(a)。&lt;/strong&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a name="proof"&gt;&lt;/a&gt;&lt;/p&gt;
@@ -182,7 +182,7 @@
 &lt;li&gt;由於Cut「respect」Set A，因此&lt;strong&gt;edge(X,Y)不在Set A裡面&lt;/strong&gt;。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;center&gt;
-&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro/f11.png?raw=true" /&gt;&lt;/p&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro_fig/f11.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖五(a)。&lt;/strong&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;因為MST是一個Tree，所以T上的各個vertex之間&lt;strong&gt;只存在唯一的path&lt;/strong&gt;，因此，vertex(Y)到vertex(X)之間，必定在T上存在一條path，而且這條path中，&lt;strong&gt;將有一條edge會是Cut的crossing edge&lt;/strong&gt;，令這條crossing edge為edge(Z,W)。&lt;br /&gt;
@@ -194,7 +194,7 @@
 &lt;/ul&gt;
 &lt;p&gt;再將這兩個connected component接上edge(X,Y)，形成一棵新的Tree，稱為T'，其中 &lt;span class="math"&gt;\(E(T')=E(T)-edge(Z,W)+edge(X,Y)\)&lt;/span&gt;。&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
-&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro/f12.png?raw=true" /&gt;&lt;/p&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro_fig/f12.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖五(b)。&lt;/strong&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;因為&lt;span class="math"&gt;\(weight(X,Y)\leq weight(Z,W)\)&lt;/span&gt;，便得到：&lt;/p&gt;
@@ -226,7 +226,7 @@
 &lt;p&gt;根據&lt;strong&gt;Theorem1&lt;/strong&gt;，若Cut &lt;span class="math"&gt;\((C_1,V-C_1)\)&lt;/span&gt;「respect」Set A，那麼Cut上的「crossing light edge」，一定也是MST的edge。&lt;/p&gt;
 &lt;p&gt;觀察圖四(b)，顯然，Set A中的edge都沒有「cross」Cut &lt;span class="math"&gt;\((C_1,V-C_1)\)&lt;/span&gt;，而所有crossing edge中的light edge為edge(0,1)，因此，能夠將edge(0,1)加入Set A。&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
-&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro/f10.png?raw=true" /&gt;&lt;/p&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro_fig/f10.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖四(b)。&lt;/strong&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;br /&gt;
@@ -252,6 +252,10 @@
 &lt;h2&gt;MST系列文章&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/minimum-spanning-treeintrojian-jie.html"&gt;Minimum Spanning Tree：Intro(簡介)&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;回到目錄：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html"&gt;目錄：演算法與資料結構&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;script type="text/javascript"&gt;if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
@@ -334,7 +338,7 @@
 &lt;li&gt;&lt;a href="#algorithm"&gt;演算法&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="#code"&gt;程式碼&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="#ref"&gt;參考資料&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="#series"&gt;Graph系列文章&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#series"&gt;BFS/DFS系列文章&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a name="ts"&gt;&lt;/a&gt;&lt;/p&gt;
@@ -504,14 +508,17 @@
 &lt;/ul&gt;
 &lt;p&gt;&lt;a name="series"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
-&lt;h2&gt;Graph系列文章&lt;/h2&gt;
+&lt;h2&gt;BFS/DFS系列文章&lt;/h2&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/graph-introjian-jie.html"&gt;Graph: Intro(簡介)&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/graph-breadth-first-searchbfsguang-du-you-xian-sou-xun.html"&gt;Graph: Breadth-First Search(BFS，廣度優先搜尋)&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/graph-depth-first-searchdfsshen-du-you-xian-sou-xun.html"&gt;Graph: Depth-First Search(DFS，深度優先搜尋)&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/graph-li-yong-dfshe-bfsxun-zhao-connected-component.html"&gt;Graph: 利用DFS和BFS尋找Connected Component&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/grpah-li-yong-dfsxun-zhao-strongly-connected-componentscc.html"&gt;Grpah: 利用DFS尋找Strongly Connected Component(SCC)&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/grpah-li-yong-dfsxun-zhao-dagde-topological-sorttuo-pu-pai-xu.html"&gt;Grpah: 利用DFS尋找DAG的Topological Sort(拓撲排序)&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;回到目錄：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html"&gt;目錄：演算法與資料結構&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;</summary><category term="C++"></category><category term="Graph"></category><category term="DFS"></category><category term="DAG"></category></entry><entry><title>Grpah: 利用DFS尋找Strongly Connected Component(SCC)</title><link href="http://alrightchiu.github.io/SecondRound/grpah-li-yong-dfsxun-zhao-strongly-connected-componentscc.html" rel="alternate"></link><updated>2016-02-17T21:49:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-02-17:SecondRound/grpah-li-yong-dfsxun-zhao-strongly-connected-componentscc.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h3&gt;先備知識與注意事項&lt;/h3&gt;
@@ -539,7 +546,7 @@
 &lt;li&gt;&lt;a href="#algorithm"&gt;演算法&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="#code"&gt;程式碼&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="#ref"&gt;參考資料&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="#series"&gt;Graph系列文章&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#series"&gt;BFS/DFS系列文章&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a name="if_dfs_only"&gt;&lt;/a&gt;&lt;/p&gt;
@@ -982,14 +989,17 @@
 &lt;/ul&gt;
 &lt;p&gt;&lt;a name="series"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
-&lt;h2&gt;Graph系列文章&lt;/h2&gt;
+&lt;h2&gt;BFS/DFS系列文章&lt;/h2&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/graph-introjian-jie.html"&gt;Graph: Intro(簡介)&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/graph-breadth-first-searchbfsguang-du-you-xian-sou-xun.html"&gt;Graph: Breadth-First Search(BFS，廣度優先搜尋)&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/graph-depth-first-searchdfsshen-du-you-xian-sou-xun.html"&gt;Graph: Depth-First Search(DFS，深度優先搜尋)&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/graph-li-yong-dfshe-bfsxun-zhao-connected-component.html"&gt;Graph: 利用DFS和BFS尋找Connected Component&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/grpah-li-yong-dfsxun-zhao-strongly-connected-componentscc.html"&gt;Grpah: 利用DFS尋找Strongly Connected Component(SCC)&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/grpah-li-yong-dfsxun-zhao-dagde-topological-sorttuo-pu-pai-xu.html"&gt;Grpah: 利用DFS尋找DAG的Topological Sort(拓撲排序)&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;回到目錄：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html"&gt;目錄：演算法與資料結構&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;script type="text/javascript"&gt;if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
@@ -1074,7 +1084,7 @@
 &lt;li&gt;&lt;a href="#code"&gt;程式碼&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="#scc"&gt;如果是Strongly Connected Component呢？&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="#ref"&gt;參考資料&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="#series"&gt;Graph系列文章&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#series"&gt;BFS/DFS系列文章&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a name="how"&gt;&lt;/a&gt;&lt;/p&gt;
@@ -1349,14 +1359,17 @@
 &lt;/ul&gt;
 &lt;p&gt;&lt;a name="series"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
-&lt;h2&gt;Graph系列文章&lt;/h2&gt;
+&lt;h2&gt;BFS/DFS系列文章&lt;/h2&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/graph-introjian-jie.html"&gt;Graph: Intro(簡介)&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/graph-breadth-first-searchbfsguang-du-you-xian-sou-xun.html"&gt;Graph: Breadth-First Search(BFS，廣度優先搜尋)&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/graph-depth-first-searchdfsshen-du-you-xian-sou-xun.html"&gt;Graph: Depth-First Search(DFS，深度優先搜尋)&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/graph-li-yong-dfshe-bfsxun-zhao-connected-component.html"&gt;Graph: 利用DFS和BFS尋找Connected Component&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/grpah-li-yong-dfsxun-zhao-strongly-connected-componentscc.html"&gt;Grpah: 利用DFS尋找Strongly Connected Component(SCC)&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/grpah-li-yong-dfsxun-zhao-dagde-topological-sorttuo-pu-pai-xu.html"&gt;Grpah: 利用DFS尋找DAG的Topological Sort(拓撲排序)&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;回到目錄：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html"&gt;目錄：演算法與資料結構&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;script type="text/javascript"&gt;if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
@@ -1445,7 +1458,7 @@
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;&lt;a href="#ref"&gt;參考資料&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="#series"&gt;Graph系列文章&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#series"&gt;BFS/DFS系列文章&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a name="dfs"&gt;&lt;/a&gt;&lt;/p&gt;
@@ -1851,14 +1864,17 @@
 &lt;/ul&gt;
 &lt;p&gt;&lt;a name="series"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
-&lt;h2&gt;Graph系列文章&lt;/h2&gt;
+&lt;h2&gt;BFS/DFS系列文章&lt;/h2&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/graph-introjian-jie.html"&gt;Graph: Intro(簡介)&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/graph-breadth-first-searchbfsguang-du-you-xian-sou-xun.html"&gt;Graph: Breadth-First Search(BFS，廣度優先搜尋)&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/graph-depth-first-searchdfsshen-du-you-xian-sou-xun.html"&gt;Graph: Depth-First Search(DFS，深度優先搜尋)&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/graph-li-yong-dfshe-bfsxun-zhao-connected-component.html"&gt;Graph: 利用DFS和BFS尋找Connected Component&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/grpah-li-yong-dfsxun-zhao-strongly-connected-componentscc.html"&gt;Grpah: 利用DFS尋找Strongly Connected Component(SCC)&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/grpah-li-yong-dfsxun-zhao-dagde-topological-sorttuo-pu-pai-xu.html"&gt;Grpah: 利用DFS尋找DAG的Topological Sort(拓撲排序)&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;回到目錄：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html"&gt;目錄：演算法與資料結構&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;script type="text/javascript"&gt;if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
@@ -1940,7 +1956,7 @@
 &lt;li&gt;&lt;a href="#code"&gt;程式碼&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="#discuss"&gt;討論&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="#ref"&gt;參考資料&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="#series"&gt;Graph系列文章&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#series"&gt;BFS/DFS系列文章&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a name="bfs"&gt;&lt;/a&gt;&lt;/p&gt;
@@ -2237,14 +2253,17 @@
 &lt;/ul&gt;
 &lt;p&gt;&lt;a name="series"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
-&lt;h2&gt;Graph系列文章&lt;/h2&gt;
+&lt;h2&gt;BFS/DFS系列文章&lt;/h2&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/graph-introjian-jie.html"&gt;Graph: Intro(簡介)&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/graph-breadth-first-searchbfsguang-du-you-xian-sou-xun.html"&gt;Graph: Breadth-First Search(BFS，廣度優先搜尋)&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/graph-depth-first-searchdfsshen-du-you-xian-sou-xun.html"&gt;Graph: Depth-First Search(DFS，深度優先搜尋)&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/graph-li-yong-dfshe-bfsxun-zhao-connected-component.html"&gt;Graph: 利用DFS和BFS尋找Connected Component&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/grpah-li-yong-dfsxun-zhao-strongly-connected-componentscc.html"&gt;Grpah: 利用DFS尋找Strongly Connected Component(SCC)&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/grpah-li-yong-dfsxun-zhao-dagde-topological-sorttuo-pu-pai-xu.html"&gt;Grpah: 利用DFS尋找DAG的Topological Sort(拓撲排序)&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;回到目錄：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html"&gt;目錄：演算法與資料結構&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;script type="text/javascript"&gt;if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
@@ -2618,6 +2637,11 @@
 &lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/graph-li-yong-dfshe-bfsxun-zhao-connected-component.html"&gt;Graph: 利用DFS和BFS尋找Connected Component&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/grpah-li-yong-dfsxun-zhao-strongly-connected-componentscc.html"&gt;Grpah: 利用DFS尋找Strongly Connected Component(SCC)&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/grpah-li-yong-dfsxun-zhao-dagde-topological-sorttuo-pu-pai-xu.html"&gt;Grpah: 利用DFS尋找DAG的Topological Sort(拓撲排序)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/minimum-spanning-treeintrojian-jie.html"&gt;Minimum Spanning Tree：Intro(簡介)&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;回到目錄：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html"&gt;目錄：演算法與資料結構&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;script type="text/javascript"&gt;if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {

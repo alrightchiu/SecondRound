@@ -132,7 +132,7 @@
 <p><a name="mst"></a></p>
 <h2>Minimum Spanning Tree(MST，最小生成樹)</h2>
 <p><center>
-<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro/f1.png?raw=true" /></p>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro_fig/f1.png?raw=true" /></p>
 <p><strong>圖一(a)。</strong>
 </center></p>
 <p>考慮一個connected、weighted的undirected graph，如圖一(a)，在Graph上能夠定義<strong>Spanning Tree</strong>為：</p>
@@ -142,12 +142,12 @@
 <li>因為是樹，若Graph有<span class="math">\(V\)</span>個vertex，Spanning Tree只有<span class="math">\(|V|-1\)</span>條edge。</li>
 </ul>
 <p><center>
-<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro/f2.png?raw=true" /></p>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro_fig/f2.png?raw=true" /></p>
 <p><strong>圖一(b)。</strong>
 </center></p>
 <p>由於Graph具有weight，因此，不同的Spanning Tree，可能有不同的<strong>weight總和</strong>，而其中，具有<strong>最小weight總和</strong>的樹，稱為<strong>Minimum Spanning Tree(MST)</strong>，如圖一(c)。</p>
 <p><center>
-<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro/f3.png?raw=true" /></p>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro_fig/f3.png?raw=true" /></p>
 <p><strong>圖一(c)。</strong>
 </center></p>
 <p>小小提醒：</p>
@@ -168,11 +168,11 @@
 <li>演算法完成後，Set A就包含了所有MST的edge。見圖二(c)。</li>
 </ul>
 <p><center>
-<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro/f4.png?raw=true" /></p>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro_fig/f4.png?raw=true" /></p>
 <p><strong>圖二(a)。</strong></p>
-<p><img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro/f5.png?raw=true" /></p>
+<p><img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro_fig/f5.png?raw=true" /></p>
 <p><strong>圖二(b)。</strong></p>
-<p><img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro/f6.png?raw=true" /></p>
+<p><img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro_fig/f6.png?raw=true" /></p>
 <p><strong>圖二(c)。</strong>
 </center></p>
 <p>接著將介紹一個定理(theorem)與其等價的推論(corollary)，來說明怎麼樣的edge對Set A來說是<strong>安全的(safe)</strong>，使得「該edge加入Set A後，Set A仍然滿足<span class="math">\(A\subseteq E(MST)\)</span>」。</p>
@@ -185,7 +185,7 @@
 </li>
 </ul>
 <p><center>
-<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro/f7.png?raw=true" /></p>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro_fig/f7.png?raw=true" /></p>
 <p><strong>圖三(a)。</strong>
 </center></p>
 <ul>
@@ -195,7 +195,7 @@
 </li>
 </ul>
 <p><center>
-<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro/f8.png?raw=true" /></p>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro_fig/f8.png?raw=true" /></p>
 <p><strong>圖三(b)。</strong>
 </center></p>
 <ul>
@@ -229,7 +229,7 @@
 換句話說，edge(X,Y)一定會是MST的edge。</p>
 <p>以圖四(a)為例，確認<strong>前三項條件皆滿足</strong>，並且找到所有crossing edge中weight最小的edge為edge(4,6)，則edge(4,6)必定是MST的edge。</p>
 <p><center>
-<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro/f9.png?raw=true" /></p>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro_fig/f9.png?raw=true" /></p>
 <p><strong>圖四(a)。</strong>
 </center></p>
 <p><a name="proof"></a></p>
@@ -251,7 +251,7 @@
 <li>由於Cut「respect」Set A，因此<strong>edge(X,Y)不在Set A裡面</strong>。</li>
 </ul>
 <p><center>
-<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro/f11.png?raw=true" /></p>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro_fig/f11.png?raw=true" /></p>
 <p><strong>圖五(a)。</strong>
 </center></p>
 <p>因為MST是一個Tree，所以T上的各個vertex之間<strong>只存在唯一的path</strong>，因此，vertex(Y)到vertex(X)之間，必定在T上存在一條path，而且這條path中，<strong>將有一條edge會是Cut的crossing edge</strong>，令這條crossing edge為edge(Z,W)。<br />
@@ -263,7 +263,7 @@
 </ul>
 <p>再將這兩個connected component接上edge(X,Y)，形成一棵新的Tree，稱為T'，其中 <span class="math">\(E(T')=E(T)-edge(Z,W)+edge(X,Y)\)</span>。</p>
 <p><center>
-<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro/f12.png?raw=true" /></p>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro_fig/f12.png?raw=true" /></p>
 <p><strong>圖五(b)。</strong>
 </center></p>
 <p>因為<span class="math">\(weight(X,Y)\leq weight(Z,W)\)</span>，便得到：</p>
@@ -295,7 +295,7 @@
 <p>根據<strong>Theorem1</strong>，若Cut <span class="math">\((C_1,V-C_1)\)</span>「respect」Set A，那麼Cut上的「crossing light edge」，一定也是MST的edge。</p>
 <p>觀察圖四(b)，顯然，Set A中的edge都沒有「cross」Cut <span class="math">\((C_1,V-C_1)\)</span>，而所有crossing edge中的light edge為edge(0,1)，因此，能夠將edge(0,1)加入Set A。</p>
 <p><center>
-<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro/f10.png?raw=true" /></p>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro_fig/f10.png?raw=true" /></p>
 <p><strong>圖四(b)。</strong>
 </center></p>
 <p></br><br />
@@ -321,6 +321,10 @@
 <h2>MST系列文章</h2>
 <ul>
 <li><a href="http://alrightchiu.github.io/SecondRound/minimum-spanning-treeintrojian-jie.html">Minimum Spanning Tree：Intro(簡介)</a></li>
+</ul>
+<p>回到目錄：</p>
+<ul>
+<li><a href="http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html">目錄：演算法與資料結構</a></li>
 </ul>
 <p></br></p>
 <script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
