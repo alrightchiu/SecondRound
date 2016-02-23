@@ -142,8 +142,10 @@
 &lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro/f11.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖五(a)。&lt;/strong&gt;
 &lt;/center&gt;&lt;/p&gt;
-&lt;p&gt;因為MST是一個Tree，所以T上的各個vertex之間&lt;strong&gt;只存在唯一的path&lt;/strong&gt;，因此，vertex(Y)到vertex(X)之間，必定在T上存在一條path，而且這條path中，&lt;strong&gt;將有一條edge會是Cut的crossing edge&lt;/strong&gt;，令這條crossing edge為edge(Z,W)。&lt;br /&gt;
-同樣地，由於Cut「respect」Set A，&lt;strong&gt;edge(Z,W)也不會在Set A裡面&lt;/strong&gt;。 &lt;/p&gt;
+&lt;p&gt;因為MST是一個Tree，所以T上的各個vertex之間&lt;strong&gt;只存在唯一的path&lt;/strong&gt;，因此，vertex(Y)到vertex(X)之間，必定在T上存在一條path，而且這條path中，&lt;strong&gt;將有一條edge會是Cut的crossing edge&lt;/strong&gt;，令這條crossing edge為edge(Z,W)。  &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;同樣地，由於Cut「respect」Set A，&lt;strong&gt;edge(Z,W)也不會在Set A裡面&lt;/strong&gt;。 &lt;/li&gt;
+&lt;/ul&gt;
 &lt;p&gt;又因為edge(X,Y)是所有crossing edge中的light edge，所以：&lt;span class="math"&gt;\(weight(X,Y)\leq weight(Z,W)\)&lt;/span&gt;。&lt;/p&gt;
 &lt;p&gt;此時，如果把edge(Z,W)從T中移除，T將分成兩個connected component，見圖五(b)。&lt;/p&gt;
 &lt;ul&gt;
