@@ -133,7 +133,7 @@
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;Cut &lt;span class="math"&gt;\((S,V-S)\)&lt;/span&gt;可以是任意「respect」Set A的Cut，並假設edge(X,Y)是Cut上所有crossing edge中的light edge，而且&lt;strong&gt;edge(X,Y)不屬於T&lt;/strong&gt;；&lt;ul&gt;
-&lt;li&gt;以圖五(a)為例，找到Cut &lt;span class="math"&gt;\((S,V-S)\)&lt;/span&gt;，其中，&lt;span class="math"&gt;\(S=\)&lt;/span&gt;{&lt;span class="math"&gt;\(X,Z\)&lt;/span&gt;}，&lt;span class="math"&gt;\(V-S=\)&lt;/span&gt;{&lt;span class="math"&gt;\(Y,W,B,C,A\)&lt;/span&gt;}，edge(X,Y)為light edge；&lt;/li&gt;
+&lt;li&gt;圖五(a)中，找到Cut &lt;span class="math"&gt;\((S,V-S)\)&lt;/span&gt;，其中&lt;span class="math"&gt;\(S=\)&lt;/span&gt;{&lt;span class="math"&gt;\(X,Z\)&lt;/span&gt;}，&lt;span class="math"&gt;\(V-S=\)&lt;/span&gt;{&lt;span class="math"&gt;\(Y,W,B,C,A\)&lt;/span&gt;}，edge(X,Y)為light edge；&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;由於Cut「respect」Set A，因此&lt;strong&gt;edge(X,Y)不在Set A裡面&lt;/strong&gt;。&lt;/li&gt;
@@ -155,7 +155,7 @@
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;因為&lt;span class="math"&gt;\(weight(X,Y)\leq weight(Z,W)\)&lt;/span&gt;，便得到：&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;span class="math"&gt;\(weight(T')\leq weight(T)-weight(Z,W)+weight(X,Y)\)&lt;/span&gt;&lt;br /&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(weight(T')\leq weight(T)-weight(Z,W)+weight(X,Y)\)&lt;/span&gt;；&lt;br /&gt;
 &lt;span class="math"&gt;\(weight(T')\leq weight(T)\)&lt;/span&gt;；&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;因此，若T是MST，那麼T'也會是一棵MST。&lt;/p&gt;
