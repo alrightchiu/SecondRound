@@ -176,7 +176,7 @@ Summary: 介紹Graph中的Minimum Spanning Tree(MST，最小生成樹)。
 * Set A為T的edge之subset；
     * 以圖五(a)為例，$A=${$edge(X,Z),edge(Y,W),edge(W,B),edge(W,C)$}；
 * Cut $(S,V-S)$可以是任意「respect」Set A的Cut，並假設edge(X,Y)是Cut上所有crossing edge中的light edge，而且**edge(X,Y)不屬於T**；
-    * 以圖五(a)為例，找到Cut $(S,V-S)$，其中，$S=${$X,Z$}，$V-S=${$Y,W,B,C,A$}，edge(X,Y)為light edge；
+    * 圖五(a)中，找到Cut $(S,V-S)$，其中$S=${$X,Z$}，$V-S=${$Y,W,B,C,A$}，edge(X,Y)為light edge；
 * 由於Cut「respect」Set A，因此**edge(X,Y)不在Set A裡面**。
 
 <center>
@@ -203,7 +203,7 @@ Summary: 介紹Graph中的Minimum Spanning Tree(MST，最小生成樹)。
 
 因為$weight(X,Y)\leq weight(Z,W)$，便得到：
 
-* $weight(T')\leq weight(T)-weight(Z,W)+weight(X,Y)$  
+* $weight(T')\leq weight(T)-weight(Z,W)+weight(X,Y)$；  
 $weight(T')\leq weight(T)$；
 
 因此，若T是MST，那麼T'也會是一棵MST。
