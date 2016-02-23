@@ -41,7 +41,7 @@ Summary: 利用DFS尋找directed acyclic graph(DAG)的Topological Sort(拓撲排
 * [演算法](#algorithm)
 * [程式碼](#code)
 * [參考資料](#ref)
-* [Graph系列文章](#series)
+* [BFS/DFS系列文章](#series)
 
 </br>
 
@@ -251,9 +251,8 @@ Topological Sort:
 
 </br>
 
-##Graph系列文章
+##BFS/DFS系列文章
 
-* [Graph: Intro(簡介)](http://alrightchiu.github.io/SecondRound/graph-introjian-jie.html)
 * [Graph: Breadth-First Search(BFS，廣度優先搜尋)](http://alrightchiu.github.io/SecondRound/graph-breadth-first-searchbfsguang-du-you-xian-sou-xun.html)
 * [Graph: Depth-First Search(DFS，深度優先搜尋)](http://alrightchiu.github.io/SecondRound/graph-depth-first-searchdfsshen-du-you-xian-sou-xun.html)
 * [Graph: 利用DFS和BFS尋找Connected Component](http://alrightchiu.github.io/SecondRound/graph-li-yong-dfshe-bfsxun-zhao-connected-component.html)
@@ -261,6 +260,9 @@ Topological Sort:
 * [Grpah: 利用DFS尋找DAG的Topological Sort(拓撲排序)](http://alrightchiu.github.io/SecondRound/grpah-li-yong-dfsxun-zhao-dagde-topological-sorttuo-pu-pai-xu.html)
 
 
+回到目錄：
+
+* [目錄：演算法與資料結構](http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html)
 
 </br>
 

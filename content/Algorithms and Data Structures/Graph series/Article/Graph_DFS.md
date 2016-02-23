@@ -46,7 +46,7 @@ Depth-First Search(DFS，深度優先搜尋)的核心精神便如同Pre-Order Tr
     * [Depth-First Tree](#dff_dft)
     * [4種edge](#4edge)
 * [參考資料](#ref)
-* [Graph系列文章](#series)
+* [BFS/DFS系列文章](#series)
 
 </br>
 
@@ -551,14 +551,18 @@ finish time:
 
 </br>
 
-##Graph系列文章
+##BFS/DFS系列文章
 
-* [Graph: Intro(簡介)](http://alrightchiu.github.io/SecondRound/graph-introjian-jie.html)
+
 * [Graph: Breadth-First Search(BFS，廣度優先搜尋)](http://alrightchiu.github.io/SecondRound/graph-breadth-first-searchbfsguang-du-you-xian-sou-xun.html)
 * [Graph: Depth-First Search(DFS，深度優先搜尋)](http://alrightchiu.github.io/SecondRound/graph-depth-first-searchdfsshen-du-you-xian-sou-xun.html)
 * [Graph: 利用DFS和BFS尋找Connected Component](http://alrightchiu.github.io/SecondRound/graph-li-yong-dfshe-bfsxun-zhao-connected-component.html)
 * [Grpah: 利用DFS尋找Strongly Connected Component(SCC)](http://alrightchiu.github.io/SecondRound/grpah-li-yong-dfsxun-zhao-strongly-connected-componentscc.html)
 * [Grpah: 利用DFS尋找DAG的Topological Sort(拓撲排序)](http://alrightchiu.github.io/SecondRound/grpah-li-yong-dfsxun-zhao-dagde-topological-sorttuo-pu-pai-xu.html)
+
+回到目錄：
+
+* [目錄：演算法與資料結構](http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html)
 
 </br>
 
