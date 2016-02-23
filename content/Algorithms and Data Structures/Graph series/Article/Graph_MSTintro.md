@@ -203,7 +203,7 @@ Summary: 介紹Graph中的Minimum Spanning Tree(MST，最小生成樹)。
 
 因為$weight(X,Y)\leq weight(Z,W)$，便得到：
 
-* $weight(T')\leq weight(T)-weight(Z,W)+weight(X,Y)$
+* $weight(T')\leq weight(T)-weight(Z,W)+weight(X,Y)$  
 $weight(T')\leq weight(T)$；
 
 因此，若T是MST，那麼T'也會是一棵MST。
