@@ -51,6 +51,7 @@ Summary: 請先閱讀本篇目錄。
 ###Minimum Spanning Tree(最小生成樹)
 
 [Minimum Spanning Tree：Intro(簡介)](http://alrightchiu.github.io/SecondRound/minimum-spanning-treeintrojian-jie.html)  
+[Minimum Spanning Tree：Kruskal's Algorithm](http://alrightchiu.github.io/SecondRound/minimum-spanning-treekruskals-algorithm.html)
 
 
 </br>
