@@ -361,7 +361,7 @@ void GraphMST::KruskalMST(){
             UnionSet(subset, increaseWeight[i].from, increaseWeight[i].to);
         }
     }
-    
+    // 以下僅僅是印出vertex與vertex之predecessor
     for (int i = 0; i < num_vertex-1; i++) {
         std::cout << edgesetMST[i].from << " - " << edgesetMST[i].to << " : " << edgesetMST[i].weight << "\n";
     }
@@ -399,7 +399,7 @@ MST found by Kruskal:
 3 - 4 : 7
 ```
 
-結果如同圖二(k)。
+結果如同圖二(k)：
 
 <center>
 ![cc][f14]
