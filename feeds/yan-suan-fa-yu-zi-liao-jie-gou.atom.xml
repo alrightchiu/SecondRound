@@ -223,6 +223,8 @@
 &lt;li&gt;&lt;a href="http://courses.cs.vt.edu/cs5114/spring2009/lectures/lecture08-mst-applications.pdf"&gt;T. M. Murali：Applications of Minimum Spanning Tree Problem&lt;/a&gt;。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;接下來，將以兩篇文章的篇幅介紹尋找MST的演算法：&lt;strong&gt;Kruskal's Algorithm&lt;/strong&gt;與&lt;strong&gt;Prim's Algorithm&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Kruskal's Algorithm&lt;/strong&gt;與&lt;strong&gt;Prim's Algorithm&lt;/strong&gt;都屬於&lt;strong&gt;Greedy Algorithm&lt;/strong&gt;，簡單來說，就是「追求當前的最佳情況，並期望所有最佳的當前情況，能夠歸結出最終的最佳情況」。&lt;br /&gt;
+在尋找MST的問題中，最佳情況就是「挑選weight最小的edge」，這兩個演算法將以不同的策略挑選edge，並且最後都能得到Graph上的MST。&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;hr /&gt;
 &lt;p&gt;&lt;a name="ref"&gt;&lt;/a&gt;&lt;/p&gt;
@@ -297,7 +299,7 @@
         "}";
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
-&lt;/script&gt;</summary><category term="C++"></category><category term="Graph"></category><category term="MST"></category><category term="Intro"></category></entry><entry><title>Grpah: 利用DFS尋找DAG的Topological Sort(拓撲排序)</title><link href="http://alrightchiu.github.io/SecondRound/grpah-li-yong-dfsxun-zhao-dagde-topological-sorttuo-pu-pai-xu.html" rel="alternate"></link><updated>2016-02-18T18:01:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-02-18:SecondRound/grpah-li-yong-dfsxun-zhao-dagde-topological-sorttuo-pu-pai-xu.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;/script&gt;</summary><category term="C++"></category><category term="Graph"></category><category term="MST"></category><category term="Intro"></category><category term="Cut(partition)"></category></entry><entry><title>Grpah: 利用DFS尋找DAG的Topological Sort(拓撲排序)</title><link href="http://alrightchiu.github.io/SecondRound/grpah-li-yong-dfsxun-zhao-dagde-topological-sorttuo-pu-pai-xu.html" rel="alternate"></link><updated>2016-02-18T18:01:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-02-18:SecondRound/grpah-li-yong-dfsxun-zhao-dagde-topological-sorttuo-pu-pai-xu.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h3&gt;先備知識與注意事項&lt;/h3&gt;
 &lt;p&gt;有些事件具有絕對的「先後關係」，例如，襪子要在鞋子之前穿上，否則穿上鞋子後要再穿襪子需要一點奇蹟。&lt;/p&gt;
 &lt;p&gt;若以Graph來表示，vertex(穿襪子)、vertex(穿鞋子)與edge(先後關係)如圖一(a)：&lt;/p&gt;
