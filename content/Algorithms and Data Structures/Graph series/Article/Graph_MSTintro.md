@@ -1,7 +1,7 @@
 Title: Minimum Spanning Tree：Intro(簡介)    
 Date: 2016-2-23 12:36  
 Category: 演算法與資料結構  
-Tags: C++, Graph, MST, Intro  
+Tags: C++, Graph, MST, Intro, Cut(partition)  
 Summary: 介紹Graph中的Minimum Spanning Tree(MST，最小生成樹)。
 
 
@@ -271,6 +271,8 @@ $weight(T')\leq weight(T)$；
  
 接下來，將以兩篇文章的篇幅介紹尋找MST的演算法：**Kruskal's Algorithm**與**Prim's Algorithm**。
 
+**Kruskal's Algorithm**與**Prim's Algorithm**都屬於**Greedy Algorithm**，簡單來說，就是「追求當前的最佳情況，並期望所有最佳的當前情況，能夠歸結出最終的最佳情況」。  
+在尋找MST的問題中，最佳情況就是「挑選weight最小的edge」，這兩個演算法將以不同的策略挑選edge，並且最後都能得到Graph上的MST。
 
 
 </br>
