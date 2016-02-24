@@ -451,6 +451,7 @@ MST found by Kruskal:
 * [Dickson Tsai：Disjoint Sets - Data Structures in 5 Minutes](https://www.youtube.com/watch?v=gcmjC-OcWpI)
 * [GeeksforGeeks：Greedy Algorithms | Set 2 (Kruskal’s Minimum Spanning Tree Algorithm)](http://www.geeksforgeeks.org/greedy-algorithms-set-2-kruskals-minimum-spanning-tree-mst/)
 * [HackerEarth：Disjoint Set Union (Union Find)](https://www.hackerearth.com/notes/disjoint-set-union-union-find/)
+* [Cplusplus：std::sort()](http://www.cplusplus.com/reference/algorithm/sort/?kw=sort)
 
 
 <a name="series"></a>
