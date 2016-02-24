@@ -224,7 +224,8 @@
 &lt;/ul&gt;
 &lt;p&gt;接下來，將以兩篇文章的篇幅介紹尋找MST的演算法：&lt;strong&gt;Kruskal's Algorithm&lt;/strong&gt;與&lt;strong&gt;Prim's Algorithm&lt;/strong&gt;。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Kruskal's Algorithm&lt;/strong&gt;與&lt;strong&gt;Prim's Algorithm&lt;/strong&gt;都屬於&lt;strong&gt;Greedy Algorithm&lt;/strong&gt;，簡單來說，就是「追求當前的最佳情況，並期望所有最佳的當前情況，能夠歸結出最終的最佳情況」。&lt;br /&gt;
-在尋找MST的問題中，最佳情況就是「挑選weight最小的edge」，這兩個演算法將以不同的策略挑選edge，並且最後都能得到Graph上的MST。&lt;/p&gt;
+在尋找MST的問題中，最佳情況就是「挑選weight最小的edge」，並期望透過每一次都挑選weight最小之edge，最後能得到總和weight最小的MST。&lt;br /&gt;
+這兩個演算法將以皆滿足&lt;strong&gt;Theorem1&lt;/strong&gt;與&lt;strong&gt;Corollary2&lt;/strong&gt;但不同的策略挑選edge，並且最後都能得到Graph上的MST。&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;hr /&gt;
 &lt;p&gt;&lt;a name="ref"&gt;&lt;/a&gt;&lt;/p&gt;
