@@ -259,7 +259,8 @@ Set是不講求順序(order)的資料彙集(collection)，其資料結構可以�
 
 `KruskalMST()`為主要演算法，內容如前一節所介紹。  
 
-`GetSortedEdge`是為了得到`increaseWeight[]`，其中利用了C++標準函式庫(STL)的`sort`，因此有個自行定義的`WeightComp`，用來比較兩條edge之weight大小。
+`GetSortedEdge()`是為了得到`increaseWeight[]`，其中利用了C++標準函式庫(STL)的`sort()`，因此有個自行定義的`WeightComp()`，用來比較兩條edge之weight大小。  
+(關於STL的`sort()`，請參考：[Cplusplus：std::sort()](http://www.cplusplus.com/reference/algorithm/sort/?kw=sort))
 
 與Set有關的兩個函式`FindSetCollapsing()`與`UnionSet()`內如也如本篇文章第一小節所介紹。
 
