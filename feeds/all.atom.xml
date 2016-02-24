@@ -28,279 +28,7 @@
 &lt;a href="http://alrightchiu.github.io/SecondRound/grpah-li-yong-dfsxun-zhao-dagde-topological-sorttuo-pu-pai-xu.html"&gt;Grpah: 利用DFS尋找DAG的Topological Sort(拓撲排序)&lt;/a&gt;  &lt;/p&gt;
 &lt;h3&gt;Minimum Spanning Tree(最小生成樹)&lt;/h3&gt;
 &lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/minimum-spanning-treeintrojian-jie.html"&gt;Minimum Spanning Tree：Intro(簡介)&lt;/a&gt;  &lt;/p&gt;
-&lt;p&gt;&lt;/br&gt;&lt;/p&gt;</summary><category term="C++"></category></entry><entry><title>Minimum Spanning Tree：Intro(簡介)</title><link href="http://alrightchiu.github.io/SecondRound/minimum-spanning-treeintrojian-jie.html" rel="alternate"></link><updated>2016-02-23T12:36:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-02-23:SecondRound/minimum-spanning-treeintrojian-jie.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
-&lt;h3&gt;先備知識與注意事項&lt;/h3&gt;
-&lt;p&gt;本篇文章旨在介紹Graph中常見的應用：Minimum Spanning Tree(MST，最小生成樹)。&lt;/p&gt;
-&lt;p&gt;在介紹演算法時，繼續會用上Set(集合)的概念，如果對Set有基本概念，相信讀者一定可以躺著讀完這篇。&lt;/p&gt;
-&lt;hr /&gt;
-&lt;h2&gt;目錄&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href="#mst"&gt;Minimum Spanning Tree(MST，最小生成樹)&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="#algorithm"&gt;演算法概念(Generic Algorithm)&lt;/a&gt;&lt;ul&gt;
-&lt;li&gt;&lt;a href="#theorem"&gt;Theorom1&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="#proof"&gt;證明：Theorem1&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="#corollary"&gt;Corollary2&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;a href="#ref"&gt;參考資料&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="#series"&gt;MST系列文章&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a name="mst"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;Minimum Spanning Tree(MST，最小生成樹)&lt;/h2&gt;
-&lt;p&gt;&lt;center&gt;
-&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro_fig/f1.png?raw=true" /&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;圖一(a)。&lt;/strong&gt;
-&lt;/center&gt;&lt;/p&gt;
-&lt;p&gt;考慮一個connected、weighted的undirected graph，如圖一(a)，在Graph上能夠定義&lt;strong&gt;Spanning Tree&lt;/strong&gt;為：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;連結所有Graph中的vertex的樹，見圖一(b)。&lt;/li&gt;
-&lt;li&gt;因為是樹，所以&lt;strong&gt;沒有cycle&lt;/strong&gt;。&lt;/li&gt;
-&lt;li&gt;因為是樹，若Graph有&lt;span class="math"&gt;\(V\)&lt;/span&gt;個vertex，Spanning Tree只有&lt;span class="math"&gt;\(|V|-1\)&lt;/span&gt;條edge。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;center&gt;
-&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro_fig/f2.png?raw=true" /&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;圖一(b)。&lt;/strong&gt;
-&lt;/center&gt;&lt;/p&gt;
-&lt;p&gt;由於Graph具有weight，因此，不同的Spanning Tree，可能有不同的&lt;strong&gt;weight總和&lt;/strong&gt;，而其中，具有&lt;strong&gt;最小weight總和&lt;/strong&gt;的樹，稱為&lt;strong&gt;Minimum Spanning Tree(MST)&lt;/strong&gt;，如圖一(c)。&lt;/p&gt;
-&lt;p&gt;&lt;center&gt;
-&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro_fig/f3.png?raw=true" /&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;圖一(c)。&lt;/strong&gt;
-&lt;/center&gt;&lt;/p&gt;
-&lt;p&gt;小小提醒：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;由於Graph的weight只要求要是實數(real value)，而且不要求每一條edge的weight必須唯一，因此，Graph中的MST可能不唯一。&lt;/li&gt;
-&lt;li&gt;由於MST的定義只要求「最小weight總和」，因此&lt;code&gt;root&lt;/code&gt;是哪個vertex、樹是否平衡、height(樹高)是否夠小等等問題，皆不在必要的考慮範圍內。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a name="algorithm"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;演算法概念(Generic Algorithm)&lt;/h2&gt;
-&lt;p&gt;根據MST的定義，MST一定要包含Graph中的所有vertex，而且要使得連結所有vertex的edge之&lt;strong&gt;weight總和最小&lt;/strong&gt;，所以，關鍵便是「如何挑選edge」。&lt;/p&gt;
-&lt;p&gt;尋找MST的演算法之大方向如下：&lt;br /&gt;
-(此即為下兩篇文章將介紹的&lt;strong&gt;Kruskal's Algorithm&lt;/strong&gt;與&lt;strong&gt;Prim's Algorithm&lt;/strong&gt;的心法口訣)&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;建立一個用來收集/表示「所有MST中的edge」之集合，稱為Set A。見圖二(a)。&lt;/li&gt;
-&lt;li&gt;Set A起初是空集合，演算法將逐一挑選出「滿足MST」之edge，並利用Union(聯集)把edge視為element放進Set A中。見圖二(b)。&lt;/li&gt;
-&lt;li&gt;因此，Set A會是一個逐漸長大的MST之edge的subset(子集合)，&lt;span class="math"&gt;\(A\subseteq E(MST)\)&lt;/span&gt;。&lt;/li&gt;
-&lt;li&gt;演算法完成後，Set A就包含了所有MST的edge。見圖二(c)。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;center&gt;
-&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro_fig/f4.png?raw=true" /&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;圖二(a)。&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro_fig/f5.png?raw=true" /&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;圖二(b)。&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro_fig/f6.png?raw=true" /&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;圖二(c)。&lt;/strong&gt;
-&lt;/center&gt;&lt;/p&gt;
-&lt;p&gt;接著將介紹一個定理(theorem)與其等價的推論(corollary)，來說明怎麼樣的edge對Set A來說是&lt;strong&gt;安全的(safe)&lt;/strong&gt;，使得「該edge加入Set A後，Set A仍然滿足&lt;span class="math"&gt;\(A\subseteq E(MST)\)&lt;/span&gt;」。&lt;/p&gt;
-&lt;p&gt;先定義四個名詞概念：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Cut&lt;/strong&gt;：Cut是一種將Graph(&lt;span class="math"&gt;\(G=(V,E)\)&lt;/span&gt;)的V(vertex set)分成兩部分(以&lt;span class="math"&gt;\((S,V-S)\)&lt;/span&gt;表示)的&lt;strong&gt;partition(分割)&lt;/strong&gt;。&lt;ul&gt;
-&lt;li&gt;圖三(a)左，Cut &lt;span class="math"&gt;\((S,V-S)\)&lt;/span&gt;將Graph中的vertex分割出兩個Set，&lt;span class="math"&gt;\(S=\)&lt;/span&gt;{&lt;span class="math"&gt;\(1,4\)&lt;/span&gt;}，&lt;span class="math"&gt;\(V-S=\)&lt;/span&gt;{&lt;span class="math"&gt;\(0,2,3,5,6\)&lt;/span&gt;}。&lt;/li&gt;
-&lt;li&gt;圖三(a)右，Cut &lt;span class="math"&gt;\((S,V-S)\)&lt;/span&gt;將Graph中的vertex分割出兩個Set，&lt;span class="math"&gt;\(S=\)&lt;/span&gt;{&lt;span class="math"&gt;\(1,4,6,0,5\)&lt;/span&gt;}，&lt;span class="math"&gt;\(V-S=\)&lt;/span&gt;{&lt;span class="math"&gt;\(2,3\)&lt;/span&gt;}。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;center&gt;
-&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro_fig/f7.png?raw=true" /&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;圖三(a)。&lt;/strong&gt;
-&lt;/center&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;cross&lt;/strong&gt;：若存在一條edge(X,Y)，其中&lt;span class="math"&gt;\(X\subseteq S\)&lt;/span&gt;，&lt;span class="math"&gt;\(Y\subseteq V-S\)&lt;/span&gt;，則稱這條edge「&lt;strong&gt;crosses&lt;/strong&gt;」Cut &lt;span class="math"&gt;\((S,V-S)\)&lt;/span&gt;。&lt;ul&gt;
-&lt;li&gt;把圖三(a)左圖調整成圖三(b)，觀察出edge(1,0)、edge(1,2)、edge(1,6)、edge(4,3)、edge(4,5)、edge(4,6)對Cut而言，都是crossing edge。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;center&gt;
-&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro_fig/f8.png?raw=true" /&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;圖三(b)。&lt;/strong&gt;
-&lt;/center&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;respect&lt;/strong&gt;：若Set A中沒有任何一條edge是Cut的crossing edge，則稱這個Cut「&lt;strong&gt;respect&lt;/strong&gt;」Set A。(因為尊敬，所以不切開。)&lt;ul&gt;
-&lt;li&gt;以圖三(b)為例，Set A&lt;span class="math"&gt;\(=\)&lt;/span&gt;{&lt;span class="math"&gt;\(edge(1,4)\)&lt;/span&gt;}，vertex(1)與vertex(4)都在&lt;span class="math"&gt;\(S=\)&lt;/span&gt;{&lt;span class="math"&gt;\(1,4\)&lt;/span&gt;}裡，因此edge(1,4)不是Cut &lt;span class="math"&gt;\((S,V-S)\)&lt;/span&gt;的crossing edge，則稱Cut &lt;span class="math"&gt;\((S,V-S)\)&lt;/span&gt;「&lt;strong&gt;respect&lt;/strong&gt;」Set A。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;light edge&lt;/strong&gt;：在考慮範圍內，「weight最小」的edge稱為&lt;strong&gt;light edge&lt;/strong&gt;。&lt;ul&gt;
-&lt;li&gt;以圖三(b)為例，若考慮所有的crossing edge，則edge(4,6)即為light edge。&lt;/li&gt;
-&lt;li&gt;如果有多條edge的weight都相同，並且為極小值，那麼light edge將不止一條。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;以上專有名詞有點多，最重要的是釐清：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Set A是&lt;strong&gt;edge的集合&lt;/strong&gt;；&lt;/li&gt;
-&lt;li&gt;Cut的兩個Set：&lt;span class="math"&gt;\((S,V-S)\)&lt;/span&gt;是&lt;strong&gt;vertex的集合&lt;/strong&gt;。&lt;br /&gt;
-&lt;/br&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;a name="theorem"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h3&gt;Theorom1&lt;/h3&gt;
-&lt;p&gt;(對應&lt;a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844"&gt;Introduction to Algorithms第23章，Theorem 23.1&lt;/a&gt;)&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Theorem1&lt;/strong&gt;要說的是，給定：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;Graph &lt;span class="math"&gt;\(G=(V,E)\)&lt;/span&gt;是一個connected、weighted、undirected graph；&lt;/li&gt;
-&lt;li&gt;Set A是MST之edge的subset，&lt;span class="math"&gt;\(A\subseteq E(MST)\)&lt;/span&gt;；&lt;/li&gt;
-&lt;li&gt;Cut &lt;span class="math"&gt;\((S,V-S)\)&lt;/span&gt; 必須「respect」Set A；&lt;/li&gt;
-&lt;li&gt;edge(X,Y)是crossing edge，也是light edge；&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;那麼，edge(X,Y)對Set A即為&lt;strong&gt;安全的(safe)&lt;/strong&gt;，將edge(X,Y)加入Set A後，Set A必定能夠滿足&lt;span class="math"&gt;\(A\subseteq E(MST)\)&lt;/span&gt;。&lt;br /&gt;
-換句話說，edge(X,Y)一定會是MST的edge。&lt;/p&gt;
-&lt;p&gt;以圖四(a)為例，確認&lt;strong&gt;前三項條件皆滿足&lt;/strong&gt;，並且找到所有crossing edge中weight最小的edge為edge(4,6)，則edge(4,6)必定是MST的edge。&lt;/p&gt;
-&lt;p&gt;&lt;center&gt;
-&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro_fig/f9.png?raw=true" /&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;圖四(a)。&lt;/strong&gt;
-&lt;/center&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a name="proof"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h3&gt;證明：Theorem1&lt;/h3&gt;
-&lt;p&gt;如圖五(a)，考慮一個connected、weighted、undirected graph上的MST：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;MST以T表示，&lt;span class="math"&gt;\(T=(V(T),E(T))\)&lt;/span&gt;；&lt;ul&gt;
-&lt;li&gt;以圖五(a)為例，&lt;span class="math"&gt;\(E(T)=A\cup edge(Z,W)\cup edge(A,C)\)&lt;/span&gt;；&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;Set A為T的edge之subset；&lt;ul&gt;
-&lt;li&gt;以圖五(a)為例，&lt;span class="math"&gt;\(A=\)&lt;/span&gt;{&lt;span class="math"&gt;\(edge(X,Z),edge(Y,W),edge(W,B),edge(W,C)\)&lt;/span&gt;}；&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;Cut &lt;span class="math"&gt;\((S,V-S)\)&lt;/span&gt;可以是任意「respect」Set A的Cut，並假設edge(X,Y)是Cut上所有crossing edge中的light edge，而且&lt;strong&gt;edge(X,Y)不屬於T&lt;/strong&gt;；&lt;ul&gt;
-&lt;li&gt;圖五(a)中，找到Cut &lt;span class="math"&gt;\((S,V-S)\)&lt;/span&gt;，其中 &lt;span class="math"&gt;\(S=\)&lt;/span&gt;{&lt;span class="math"&gt;\(X,Z\)&lt;/span&gt;}，&lt;span class="math"&gt;\(V-S=\)&lt;/span&gt;{&lt;span class="math"&gt;\(Y,W,B,C,A\)&lt;/span&gt;}，edge(X,Y)為light edge；&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;由於Cut「respect」Set A，因此&lt;strong&gt;edge(X,Y)不在Set A裡面&lt;/strong&gt;。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;center&gt;
-&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro_fig/f11.png?raw=true" /&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;圖五(a)。&lt;/strong&gt;
-&lt;/center&gt;&lt;/p&gt;
-&lt;p&gt;因為MST是一個Tree，所以T上的各個vertex之間&lt;strong&gt;只存在唯一的path&lt;/strong&gt;，因此，vertex(Y)到vertex(X)之間，必定在T上存在一條path，而且這條path中，&lt;strong&gt;將有一條edge會是Cut的crossing edge&lt;/strong&gt;，令這條crossing edge為edge(Z,W)。&lt;br /&gt;
-同樣地，由於Cut「respect」Set A，&lt;strong&gt;edge(Z,W)也不會在Set A裡面&lt;/strong&gt;。 &lt;/p&gt;
-&lt;p&gt;又因為edge(X,Y)是所有crossing edge中的light edge，所以：&lt;span class="math"&gt;\(weight(X,Y)\leq weight(Z,W)\)&lt;/span&gt;。&lt;/p&gt;
-&lt;p&gt;此時，如果把edge(Z,W)從T中移除，T將分成兩個connected component，見圖五(b)。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;因為edge(Z,W)不在Set A裡面，這兩個connected component的全部edge所形成之集合必定包含Set A。  &lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;再將這兩個connected component接上edge(X,Y)，形成一棵新的Tree，稱為T'，其中 &lt;span class="math"&gt;\(E(T')=E(T)-edge(Z,W)+edge(X,Y)\)&lt;/span&gt;。&lt;/p&gt;
-&lt;p&gt;&lt;center&gt;
-&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro_fig/f12.png?raw=true" /&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;圖五(b)。&lt;/strong&gt;
-&lt;/center&gt;&lt;/p&gt;
-&lt;p&gt;因為&lt;span class="math"&gt;\(weight(X,Y)\leq weight(Z,W)\)&lt;/span&gt;，便得到：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;span class="math"&gt;\(weight(T')\leq weight(T)-weight(Z,W)+weight(X,Y)\)&lt;/span&gt;；&lt;br /&gt;
-&lt;span class="math"&gt;\(weight(T')\leq weight(T)\)&lt;/span&gt;；&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;因此，若T是MST，那麼T'也會是一棵MST。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;以圖五(b)為例，經過&lt;span class="math"&gt;\(E(T')=E(T)-edge(Z,W)+edge(X,Y)\)&lt;/span&gt;後，新的&lt;span class="math"&gt;\(E(T')=\)&lt;/span&gt;{&lt;span class="math"&gt;\(A+edge(X,Y)+edge(A,C)\)&lt;/span&gt;}。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;因為Set A與edge(X,Y)同屬於MST的edge之集合，因此edge(X,Y)對Set A會是&lt;strong&gt;安全的(safe)&lt;/strong&gt;，使得edge(X,Y)加入Set A後，Set A仍然能夠滿足&lt;span class="math"&gt;\(A\subseteq E(MST)\)&lt;/span&gt;。(證明完畢)&lt;br /&gt;
-&lt;/br&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a name="corollary"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h3&gt;Corollary2&lt;/h3&gt;
-&lt;p&gt;(對應&lt;a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844"&gt;Introduction to Algorithms第23章，Corollary 23.2&lt;/a&gt;)&lt;/p&gt;
-&lt;p&gt;與&lt;strong&gt;Theorem1&lt;/strong&gt;等價的&lt;strong&gt;Corollary2&lt;/strong&gt;要說的是，給定：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;Graph &lt;span class="math"&gt;\(G=(V,E)\)&lt;/span&gt;是一個connected、weighted、undirected graph；&lt;/li&gt;
-&lt;li&gt;Set A是MST之edge的subset，&lt;span class="math"&gt;\(A\subseteq E(MST)\)&lt;/span&gt;；&lt;/li&gt;
-&lt;li&gt;subgraph &lt;span class="math"&gt;\(C=(V_C,E_C)\)&lt;/span&gt;為「Forest &lt;span class="math"&gt;\(G_A=(V,A)\)&lt;/span&gt;」中的connected component，C可以視為一棵Tree；&lt;/li&gt;
-&lt;li&gt;edge(X,Y)是所有在「Forest &lt;span class="math"&gt;\(G_A=(V,A)\)&lt;/span&gt;」中，連結各個connected component的light edge；&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;那麼，edge(X,Y)對Set A也會是&lt;strong&gt;安全的(safe)&lt;/strong&gt;，將edge(X,Y)加入Set A後，Set A必定能夠滿足&lt;span class="math"&gt;\(A\subseteq E(MST)\)&lt;/span&gt;。    &lt;/p&gt;
-&lt;p&gt;以圖四(b)為例，&lt;span class="math"&gt;\(G_A=(V,A)\)&lt;/span&gt;裡有兩個connected component，分別為：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;span class="math"&gt;\(C_1=(V_1,E_1)\)&lt;/span&gt;，其中&lt;span class="math"&gt;\(V_1=\)&lt;/span&gt;{&lt;span class="math"&gt;\(0,5\)&lt;/span&gt;}，&lt;span class="math"&gt;\(E_1=\)&lt;/span&gt;{&lt;span class="math"&gt;\(edge(0,5)\)&lt;/span&gt;}；&lt;/li&gt;
-&lt;li&gt;&lt;span class="math"&gt;\(C_2=(V_2,E_2)\)&lt;/span&gt;，其中&lt;span class="math"&gt;\(V_2=\)&lt;/span&gt;{&lt;span class="math"&gt;\(1,4,6\)&lt;/span&gt;}，&lt;span class="math"&gt;\(E_2=\)&lt;/span&gt;{&lt;span class="math"&gt;\(edge(1,4), edge(4,6)\)&lt;/span&gt;}。  &lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;根據&lt;strong&gt;Theorem1&lt;/strong&gt;，若Cut &lt;span class="math"&gt;\((C_1,V-C_1)\)&lt;/span&gt;「respect」Set A，那麼Cut上的「crossing light edge」，一定也是MST的edge。&lt;/p&gt;
-&lt;p&gt;觀察圖四(b)，顯然，Set A中的edge都沒有「cross」Cut &lt;span class="math"&gt;\((C_1,V-C_1)\)&lt;/span&gt;，而所有crossing edge中的light edge為edge(0,1)，因此，能夠將edge(0,1)加入Set A。&lt;/p&gt;
-&lt;p&gt;&lt;center&gt;
-&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro_fig/f10.png?raw=true" /&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;圖四(b)。&lt;/strong&gt;
-&lt;/center&gt;&lt;/p&gt;
-&lt;p&gt;&lt;/br&gt;&lt;br /&gt;
-關於MST的應用，筆者也還在摸索，這裡就放上兩個連結供讀者參考：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href="http://www.geeksforgeeks.org/applications-of-minimum-spanning-tree/"&gt;GeeksforGeeks：Applications of Minimum Spanning Tree Problem&lt;/a&gt;。&lt;/li&gt;
-&lt;li&gt;&lt;a href="http://courses.cs.vt.edu/cs5114/spring2009/lectures/lecture08-mst-applications.pdf"&gt;T. M. Murali：Applications of Minimum Spanning Tree Problem&lt;/a&gt;。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;接下來，將以兩篇文章的篇幅介紹尋找MST的演算法：&lt;strong&gt;Kruskal's Algorithm&lt;/strong&gt;與&lt;strong&gt;Prim's Algorithm&lt;/strong&gt;。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Kruskal's Algorithm&lt;/strong&gt;與&lt;strong&gt;Prim's Algorithm&lt;/strong&gt;都屬於&lt;strong&gt;Greedy Algorithm&lt;/strong&gt;，簡單來說，就是「追求當前的最佳情況，並期望所有最佳的當前情況，能夠歸結出最終的最佳情況」。&lt;br /&gt;
-在尋找MST的問題中，最佳情況就是「挑選weight最小的edge」，並期望透過每一次都挑選weight最小之edge，最後能得到總和weight最小的MST。&lt;br /&gt;
-這兩個演算法將以皆滿足&lt;strong&gt;Theorem1&lt;/strong&gt;與&lt;strong&gt;Corollary2&lt;/strong&gt;但不同的策略挑選edge，並且最後都能得到Graph上的MST。&lt;/p&gt;
-&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
-&lt;hr /&gt;
-&lt;p&gt;&lt;a name="ref"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h3&gt;參考資料：&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844"&gt;Introduction to Algorithms, Ch23&lt;/a&gt; &lt;/li&gt;
-&lt;li&gt;&lt;a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376"&gt;Fundamentals of Data Structures in C++, Ch6&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="http://www.personal.kent.edu/~rmuhamma/Algorithms/MyAlgorithms/GraphAlgor/genericMST.htm"&gt;Rashid Bin Muhammad：Generic-Minimum Spanning Tree&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="http://www.geeksforgeeks.org/applications-of-minimum-spanning-tree/"&gt;GeeksforGeeks：Applications of Minimum Spanning Tree Problem&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="http://courses.cs.vt.edu/cs5114/spring2009/lectures/lecture08-mst-applications.pdf"&gt;T. M. Murali：Applications of Minimum Spanning Tree Problem&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;a name="series"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
-&lt;h3&gt;MST系列文章&lt;/h3&gt;
-&lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/minimum-spanning-treeintrojian-jie.html"&gt;Minimum Spanning Tree：Intro(簡介)&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;回到目錄：&lt;/p&gt;
-&lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html"&gt;目錄：演算法與資料結構&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
-&lt;script type="text/javascript"&gt;if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
-    var align = "center",
-        indent = "0em",
-        linebreak = "false";
-
-    if (false) {
-        align = (screen.width &lt; 768) ? "left" : align;
-        indent = (screen.width &lt; 768) ? "0em" : indent;
-        linebreak = (screen.width &lt; 768) ? 'true' : linebreak;
-    }
-
-    var mathjaxscript = document.createElement('script');
-    var location_protocol = (false) ? 'https' : document.location.protocol;
-    if (location_protocol !== 'http' &amp;&amp; location_protocol !== 'https') location_protocol = 'https:';
-    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
-    mathjaxscript.type = 'text/javascript';
-    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
-    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
-        "MathJax.Hub.Config({" +
-        "    config: ['MMLorHTML.js']," +
-        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
-        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
-        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
-        "    displayAlign: '"+ align +"'," +
-        "    displayIndent: '"+ indent +"'," +
-        "    showMathMenu: true," +
-        "    messageStyle: 'normal'," +
-        "    tex2jax: { " +
-        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
-        "        displayMath: [ ['$$','$$'] ]," +
-        "        processEscapes: true," +
-        "        preview: 'TeX'," +
-        "    }, " +
-        "    'HTML-CSS': { " +
-        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
-        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
-        "    }, " +
-        "}); " +
-        "if ('default' !== 'default') {" +
-            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
-                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
-                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
-                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
-                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
-                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
-            "});" +
-            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
-                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
-                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
-                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
-                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
-                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
-            "});" +
-        "}";
-    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
-}
-&lt;/script&gt;</summary><category term="C++"></category><category term="Graph"></category><category term="MST"></category><category term="Intro"></category><category term="Cut(partition)"></category></entry><entry><title>Minimum Spanning Tree：Kruskal's Algorithm</title><link href="http://alrightchiu.github.io/SecondRound/minimum-spanning-treekruskals-algorithm.html" rel="alternate"></link><updated>2016-02-23T12:36:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-02-23:SecondRound/minimum-spanning-treekruskals-algorithm.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;</summary><category term="C++"></category></entry><entry><title>Minimum Spanning Tree：Kruskal's Algorithm</title><link href="http://alrightchiu.github.io/SecondRound/minimum-spanning-treekruskals-algorithm.html" rel="alternate"></link><updated>2016-02-24T20:50:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-02-24:SecondRound/minimum-spanning-treekruskals-algorithm.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h3&gt;先備知識與注意事項&lt;/h3&gt;
 &lt;p&gt;在上一篇文章&lt;a href="http://alrightchiu.github.io/SecondRound/minimum-spanning-treeintrojian-jie.html"&gt;Minimum Spanning Tree：Intro(簡介)&lt;/a&gt;介紹過MST的問題情境，這篇文章要接著介紹尋找MST的演算法之一：&lt;strong&gt;Kruskal's Algorithm&lt;/strong&gt;。&lt;/p&gt;
 &lt;p&gt;說明演算法時將會用上專有名詞如「light edge」、「cross」，如果不太熟悉，可以參考&lt;a href="http://alrightchiu.github.io/SecondRound/minimum-spanning-treeintrojian-jie.html"&gt;上一篇文章&lt;/a&gt;。&lt;/p&gt;
@@ -704,7 +432,279 @@
         "}";
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
-&lt;/script&gt;</summary><category term="C++"></category><category term="Graph"></category><category term="MST"></category><category term="Greedy Algorithm"></category><category term="Cut(partition)"></category></entry><entry><title>Grpah: 利用DFS尋找DAG的Topological Sort(拓撲排序)</title><link href="http://alrightchiu.github.io/SecondRound/grpah-li-yong-dfsxun-zhao-dagde-topological-sorttuo-pu-pai-xu.html" rel="alternate"></link><updated>2016-02-18T18:01:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-02-18:SecondRound/grpah-li-yong-dfsxun-zhao-dagde-topological-sorttuo-pu-pai-xu.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;/script&gt;</summary><category term="C++"></category><category term="Graph"></category><category term="MST"></category><category term="Greedy Algorithm"></category><category term="Cut(partition)"></category></entry><entry><title>Minimum Spanning Tree：Intro(簡介)</title><link href="http://alrightchiu.github.io/SecondRound/minimum-spanning-treeintrojian-jie.html" rel="alternate"></link><updated>2016-02-23T12:36:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-02-23:SecondRound/minimum-spanning-treeintrojian-jie.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;h3&gt;先備知識與注意事項&lt;/h3&gt;
+&lt;p&gt;本篇文章旨在介紹Graph中常見的應用：Minimum Spanning Tree(MST，最小生成樹)。&lt;/p&gt;
+&lt;p&gt;在介紹演算法時，繼續會用上Set(集合)的概念，如果對Set有基本概念，相信讀者一定可以躺著讀完這篇。&lt;/p&gt;
+&lt;hr /&gt;
+&lt;h2&gt;目錄&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="#mst"&gt;Minimum Spanning Tree(MST，最小生成樹)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#algorithm"&gt;演算法概念(Generic Algorithm)&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href="#theorem"&gt;Theorom1&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#proof"&gt;證明：Theorem1&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#corollary"&gt;Corollary2&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href="#ref"&gt;參考資料&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#series"&gt;MST系列文章&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a name="mst"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;Minimum Spanning Tree(MST，最小生成樹)&lt;/h2&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro_fig/f1.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖一(a)。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;考慮一個connected、weighted的undirected graph，如圖一(a)，在Graph上能夠定義&lt;strong&gt;Spanning Tree&lt;/strong&gt;為：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;連結所有Graph中的vertex的樹，見圖一(b)。&lt;/li&gt;
+&lt;li&gt;因為是樹，所以&lt;strong&gt;沒有cycle&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;因為是樹，若Graph有&lt;span class="math"&gt;\(V\)&lt;/span&gt;個vertex，Spanning Tree只有&lt;span class="math"&gt;\(|V|-1\)&lt;/span&gt;條edge。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro_fig/f2.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖一(b)。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;由於Graph具有weight，因此，不同的Spanning Tree，可能有不同的&lt;strong&gt;weight總和&lt;/strong&gt;，而其中，具有&lt;strong&gt;最小weight總和&lt;/strong&gt;的樹，稱為&lt;strong&gt;Minimum Spanning Tree(MST)&lt;/strong&gt;，如圖一(c)。&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro_fig/f3.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖一(c)。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;小小提醒：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;由於Graph的weight只要求要是實數(real value)，而且不要求每一條edge的weight必須唯一，因此，Graph中的MST可能不唯一。&lt;/li&gt;
+&lt;li&gt;由於MST的定義只要求「最小weight總和」，因此&lt;code&gt;root&lt;/code&gt;是哪個vertex、樹是否平衡、height(樹高)是否夠小等等問題，皆不在必要的考慮範圍內。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a name="algorithm"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;演算法概念(Generic Algorithm)&lt;/h2&gt;
+&lt;p&gt;根據MST的定義，MST一定要包含Graph中的所有vertex，而且要使得連結所有vertex的edge之&lt;strong&gt;weight總和最小&lt;/strong&gt;，所以，關鍵便是「如何挑選edge」。&lt;/p&gt;
+&lt;p&gt;尋找MST的演算法之大方向如下：&lt;br /&gt;
+(此即為下兩篇文章將介紹的&lt;strong&gt;Kruskal's Algorithm&lt;/strong&gt;與&lt;strong&gt;Prim's Algorithm&lt;/strong&gt;的心法口訣)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;建立一個用來收集/表示「所有MST中的edge」之集合，稱為Set A。見圖二(a)。&lt;/li&gt;
+&lt;li&gt;Set A起初是空集合，演算法將逐一挑選出「滿足MST」之edge，並利用Union(聯集)把edge視為element放進Set A中。見圖二(b)。&lt;/li&gt;
+&lt;li&gt;因此，Set A會是一個逐漸長大的MST之edge的subset(子集合)，&lt;span class="math"&gt;\(A\subseteq E(MST)\)&lt;/span&gt;。&lt;/li&gt;
+&lt;li&gt;演算法完成後，Set A就包含了所有MST的edge。見圖二(c)。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro_fig/f4.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖二(a)。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro_fig/f5.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖二(b)。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro_fig/f6.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖二(c)。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;接著將介紹一個定理(theorem)與其等價的推論(corollary)，來說明怎麼樣的edge對Set A來說是&lt;strong&gt;安全的(safe)&lt;/strong&gt;，使得「該edge加入Set A後，Set A仍然滿足&lt;span class="math"&gt;\(A\subseteq E(MST)\)&lt;/span&gt;」。&lt;/p&gt;
+&lt;p&gt;先定義四個名詞概念：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Cut&lt;/strong&gt;：Cut是一種將Graph(&lt;span class="math"&gt;\(G=(V,E)\)&lt;/span&gt;)的V(vertex set)分成兩部分(以&lt;span class="math"&gt;\((S,V-S)\)&lt;/span&gt;表示)的&lt;strong&gt;partition(分割)&lt;/strong&gt;。&lt;ul&gt;
+&lt;li&gt;圖三(a)左，Cut &lt;span class="math"&gt;\((S,V-S)\)&lt;/span&gt;將Graph中的vertex分割出兩個Set，&lt;span class="math"&gt;\(S=\)&lt;/span&gt;{&lt;span class="math"&gt;\(1,4\)&lt;/span&gt;}，&lt;span class="math"&gt;\(V-S=\)&lt;/span&gt;{&lt;span class="math"&gt;\(0,2,3,5,6\)&lt;/span&gt;}。&lt;/li&gt;
+&lt;li&gt;圖三(a)右，Cut &lt;span class="math"&gt;\((S,V-S)\)&lt;/span&gt;將Graph中的vertex分割出兩個Set，&lt;span class="math"&gt;\(S=\)&lt;/span&gt;{&lt;span class="math"&gt;\(1,4,6,0,5\)&lt;/span&gt;}，&lt;span class="math"&gt;\(V-S=\)&lt;/span&gt;{&lt;span class="math"&gt;\(2,3\)&lt;/span&gt;}。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro_fig/f7.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖三(a)。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;cross&lt;/strong&gt;：若存在一條edge(X,Y)，其中&lt;span class="math"&gt;\(X\subseteq S\)&lt;/span&gt;，&lt;span class="math"&gt;\(Y\subseteq V-S\)&lt;/span&gt;，則稱這條edge「&lt;strong&gt;crosses&lt;/strong&gt;」Cut &lt;span class="math"&gt;\((S,V-S)\)&lt;/span&gt;。&lt;ul&gt;
+&lt;li&gt;把圖三(a)左圖調整成圖三(b)，觀察出edge(1,0)、edge(1,2)、edge(1,6)、edge(4,3)、edge(4,5)、edge(4,6)對Cut而言，都是crossing edge。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro_fig/f8.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖三(b)。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;respect&lt;/strong&gt;：若Set A中沒有任何一條edge是Cut的crossing edge，則稱這個Cut「&lt;strong&gt;respect&lt;/strong&gt;」Set A。(因為尊敬，所以不切開。)&lt;ul&gt;
+&lt;li&gt;以圖三(b)為例，Set A&lt;span class="math"&gt;\(=\)&lt;/span&gt;{&lt;span class="math"&gt;\(edge(1,4)\)&lt;/span&gt;}，vertex(1)與vertex(4)都在&lt;span class="math"&gt;\(S=\)&lt;/span&gt;{&lt;span class="math"&gt;\(1,4\)&lt;/span&gt;}裡，因此edge(1,4)不是Cut &lt;span class="math"&gt;\((S,V-S)\)&lt;/span&gt;的crossing edge，則稱Cut &lt;span class="math"&gt;\((S,V-S)\)&lt;/span&gt;「&lt;strong&gt;respect&lt;/strong&gt;」Set A。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;light edge&lt;/strong&gt;：在考慮範圍內，「weight最小」的edge稱為&lt;strong&gt;light edge&lt;/strong&gt;。&lt;ul&gt;
+&lt;li&gt;以圖三(b)為例，若考慮所有的crossing edge，則edge(4,6)即為light edge。&lt;/li&gt;
+&lt;li&gt;如果有多條edge的weight都相同，並且為極小值，那麼light edge將不止一條。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;以上專有名詞有點多，最重要的是釐清：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Set A是&lt;strong&gt;edge的集合&lt;/strong&gt;；&lt;/li&gt;
+&lt;li&gt;Cut的兩個Set：&lt;span class="math"&gt;\((S,V-S)\)&lt;/span&gt;是&lt;strong&gt;vertex的集合&lt;/strong&gt;。&lt;br /&gt;
+&lt;/br&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a name="theorem"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;Theorom1&lt;/h3&gt;
+&lt;p&gt;(對應&lt;a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844"&gt;Introduction to Algorithms第23章，Theorem 23.1&lt;/a&gt;)&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Theorem1&lt;/strong&gt;要說的是，給定：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Graph &lt;span class="math"&gt;\(G=(V,E)\)&lt;/span&gt;是一個connected、weighted、undirected graph；&lt;/li&gt;
+&lt;li&gt;Set A是MST之edge的subset，&lt;span class="math"&gt;\(A\subseteq E(MST)\)&lt;/span&gt;；&lt;/li&gt;
+&lt;li&gt;Cut &lt;span class="math"&gt;\((S,V-S)\)&lt;/span&gt; 必須「respect」Set A；&lt;/li&gt;
+&lt;li&gt;edge(X,Y)是crossing edge，也是light edge；&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;那麼，edge(X,Y)對Set A即為&lt;strong&gt;安全的(safe)&lt;/strong&gt;，將edge(X,Y)加入Set A後，Set A必定能夠滿足&lt;span class="math"&gt;\(A\subseteq E(MST)\)&lt;/span&gt;。&lt;br /&gt;
+換句話說，edge(X,Y)一定會是MST的edge。&lt;/p&gt;
+&lt;p&gt;以圖四(a)為例，確認&lt;strong&gt;前三項條件皆滿足&lt;/strong&gt;，並且找到所有crossing edge中weight最小的edge為edge(4,6)，則edge(4,6)必定是MST的edge。&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro_fig/f9.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖四(a)。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a name="proof"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;證明：Theorem1&lt;/h3&gt;
+&lt;p&gt;如圖五(a)，考慮一個connected、weighted、undirected graph上的MST：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;MST以T表示，&lt;span class="math"&gt;\(T=(V(T),E(T))\)&lt;/span&gt;；&lt;ul&gt;
+&lt;li&gt;以圖五(a)為例，&lt;span class="math"&gt;\(E(T)=A\cup edge(Z,W)\cup edge(A,C)\)&lt;/span&gt;；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Set A為T的edge之subset；&lt;ul&gt;
+&lt;li&gt;以圖五(a)為例，&lt;span class="math"&gt;\(A=\)&lt;/span&gt;{&lt;span class="math"&gt;\(edge(X,Z),edge(Y,W),edge(W,B),edge(W,C)\)&lt;/span&gt;}；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Cut &lt;span class="math"&gt;\((S,V-S)\)&lt;/span&gt;可以是任意「respect」Set A的Cut，並假設edge(X,Y)是Cut上所有crossing edge中的light edge，而且&lt;strong&gt;edge(X,Y)不屬於T&lt;/strong&gt;；&lt;ul&gt;
+&lt;li&gt;圖五(a)中，找到Cut &lt;span class="math"&gt;\((S,V-S)\)&lt;/span&gt;，其中 &lt;span class="math"&gt;\(S=\)&lt;/span&gt;{&lt;span class="math"&gt;\(X,Z\)&lt;/span&gt;}，&lt;span class="math"&gt;\(V-S=\)&lt;/span&gt;{&lt;span class="math"&gt;\(Y,W,B,C,A\)&lt;/span&gt;}，edge(X,Y)為light edge；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;由於Cut「respect」Set A，因此&lt;strong&gt;edge(X,Y)不在Set A裡面&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro_fig/f11.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖五(a)。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;因為MST是一個Tree，所以T上的各個vertex之間&lt;strong&gt;只存在唯一的path&lt;/strong&gt;，因此，vertex(Y)到vertex(X)之間，必定在T上存在一條path，而且這條path中，&lt;strong&gt;將有一條edge會是Cut的crossing edge&lt;/strong&gt;，令這條crossing edge為edge(Z,W)。&lt;br /&gt;
+同樣地，由於Cut「respect」Set A，&lt;strong&gt;edge(Z,W)也不會在Set A裡面&lt;/strong&gt;。 &lt;/p&gt;
+&lt;p&gt;又因為edge(X,Y)是所有crossing edge中的light edge，所以：&lt;span class="math"&gt;\(weight(X,Y)\leq weight(Z,W)\)&lt;/span&gt;。&lt;/p&gt;
+&lt;p&gt;此時，如果把edge(Z,W)從T中移除，T將分成兩個connected component，見圖五(b)。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;因為edge(Z,W)不在Set A裡面，這兩個connected component的全部edge所形成之集合必定包含Set A。  &lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;再將這兩個connected component接上edge(X,Y)，形成一棵新的Tree，稱為T'，其中 &lt;span class="math"&gt;\(E(T')=E(T)-edge(Z,W)+edge(X,Y)\)&lt;/span&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro_fig/f12.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖五(b)。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;因為&lt;span class="math"&gt;\(weight(X,Y)\leq weight(Z,W)\)&lt;/span&gt;，便得到：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(weight(T')\leq weight(T)-weight(Z,W)+weight(X,Y)\)&lt;/span&gt;；&lt;br /&gt;
+&lt;span class="math"&gt;\(weight(T')\leq weight(T)\)&lt;/span&gt;；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;因此，若T是MST，那麼T'也會是一棵MST。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;以圖五(b)為例，經過&lt;span class="math"&gt;\(E(T')=E(T)-edge(Z,W)+edge(X,Y)\)&lt;/span&gt;後，新的&lt;span class="math"&gt;\(E(T')=\)&lt;/span&gt;{&lt;span class="math"&gt;\(A+edge(X,Y)+edge(A,C)\)&lt;/span&gt;}。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;因為Set A與edge(X,Y)同屬於MST的edge之集合，因此edge(X,Y)對Set A會是&lt;strong&gt;安全的(safe)&lt;/strong&gt;，使得edge(X,Y)加入Set A後，Set A仍然能夠滿足&lt;span class="math"&gt;\(A\subseteq E(MST)\)&lt;/span&gt;。(證明完畢)&lt;br /&gt;
+&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a name="corollary"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;Corollary2&lt;/h3&gt;
+&lt;p&gt;(對應&lt;a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844"&gt;Introduction to Algorithms第23章，Corollary 23.2&lt;/a&gt;)&lt;/p&gt;
+&lt;p&gt;與&lt;strong&gt;Theorem1&lt;/strong&gt;等價的&lt;strong&gt;Corollary2&lt;/strong&gt;要說的是，給定：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Graph &lt;span class="math"&gt;\(G=(V,E)\)&lt;/span&gt;是一個connected、weighted、undirected graph；&lt;/li&gt;
+&lt;li&gt;Set A是MST之edge的subset，&lt;span class="math"&gt;\(A\subseteq E(MST)\)&lt;/span&gt;；&lt;/li&gt;
+&lt;li&gt;subgraph &lt;span class="math"&gt;\(C=(V_C,E_C)\)&lt;/span&gt;為「Forest &lt;span class="math"&gt;\(G_A=(V,A)\)&lt;/span&gt;」中的connected component，C可以視為一棵Tree；&lt;/li&gt;
+&lt;li&gt;edge(X,Y)是所有在「Forest &lt;span class="math"&gt;\(G_A=(V,A)\)&lt;/span&gt;」中，連結各個connected component的light edge；&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;那麼，edge(X,Y)對Set A也會是&lt;strong&gt;安全的(safe)&lt;/strong&gt;，將edge(X,Y)加入Set A後，Set A必定能夠滿足&lt;span class="math"&gt;\(A\subseteq E(MST)\)&lt;/span&gt;。    &lt;/p&gt;
+&lt;p&gt;以圖四(b)為例，&lt;span class="math"&gt;\(G_A=(V,A)\)&lt;/span&gt;裡有兩個connected component，分別為：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(C_1=(V_1,E_1)\)&lt;/span&gt;，其中&lt;span class="math"&gt;\(V_1=\)&lt;/span&gt;{&lt;span class="math"&gt;\(0,5\)&lt;/span&gt;}，&lt;span class="math"&gt;\(E_1=\)&lt;/span&gt;{&lt;span class="math"&gt;\(edge(0,5)\)&lt;/span&gt;}；&lt;/li&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(C_2=(V_2,E_2)\)&lt;/span&gt;，其中&lt;span class="math"&gt;\(V_2=\)&lt;/span&gt;{&lt;span class="math"&gt;\(1,4,6\)&lt;/span&gt;}，&lt;span class="math"&gt;\(E_2=\)&lt;/span&gt;{&lt;span class="math"&gt;\(edge(1,4), edge(4,6)\)&lt;/span&gt;}。  &lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;根據&lt;strong&gt;Theorem1&lt;/strong&gt;，若Cut &lt;span class="math"&gt;\((C_1,V-C_1)\)&lt;/span&gt;「respect」Set A，那麼Cut上的「crossing light edge」，一定也是MST的edge。&lt;/p&gt;
+&lt;p&gt;觀察圖四(b)，顯然，Set A中的edge都沒有「cross」Cut &lt;span class="math"&gt;\((C_1,V-C_1)\)&lt;/span&gt;，而所有crossing edge中的light edge為edge(0,1)，因此，能夠將edge(0,1)加入Set A。&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_intro_fig/f10.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖四(b)。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;br /&gt;
+關於MST的應用，筆者也還在摸索，這裡就放上兩個連結供讀者參考：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://www.geeksforgeeks.org/applications-of-minimum-spanning-tree/"&gt;GeeksforGeeks：Applications of Minimum Spanning Tree Problem&lt;/a&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://courses.cs.vt.edu/cs5114/spring2009/lectures/lecture08-mst-applications.pdf"&gt;T. M. Murali：Applications of Minimum Spanning Tree Problem&lt;/a&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;接下來，將以兩篇文章的篇幅介紹尋找MST的演算法：&lt;strong&gt;Kruskal's Algorithm&lt;/strong&gt;與&lt;strong&gt;Prim's Algorithm&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Kruskal's Algorithm&lt;/strong&gt;與&lt;strong&gt;Prim's Algorithm&lt;/strong&gt;都屬於&lt;strong&gt;Greedy Algorithm&lt;/strong&gt;，簡單來說，就是「追求當前的最佳情況，並期望所有最佳的當前情況，能夠歸結出最終的最佳情況」。&lt;br /&gt;
+在尋找MST的問題中，最佳情況就是「挑選weight最小的edge」，並期望透過每一次都挑選weight最小之edge，最後能得到總和weight最小的MST。&lt;br /&gt;
+這兩個演算法將以皆滿足&lt;strong&gt;Theorem1&lt;/strong&gt;與&lt;strong&gt;Corollary2&lt;/strong&gt;但不同的策略挑選edge，並且最後都能得到Graph上的MST。&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;&lt;a name="ref"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;參考資料：&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844"&gt;Introduction to Algorithms, Ch23&lt;/a&gt; &lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376"&gt;Fundamentals of Data Structures in C++, Ch6&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.personal.kent.edu/~rmuhamma/Algorithms/MyAlgorithms/GraphAlgor/genericMST.htm"&gt;Rashid Bin Muhammad：Generic-Minimum Spanning Tree&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.geeksforgeeks.org/applications-of-minimum-spanning-tree/"&gt;GeeksforGeeks：Applications of Minimum Spanning Tree Problem&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://courses.cs.vt.edu/cs5114/spring2009/lectures/lecture08-mst-applications.pdf"&gt;T. M. Murali：Applications of Minimum Spanning Tree Problem&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a name="series"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;h3&gt;MST系列文章&lt;/h3&gt;
+&lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/minimum-spanning-treeintrojian-jie.html"&gt;Minimum Spanning Tree：Intro(簡介)&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;回到目錄：&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html"&gt;目錄：演算法與資料結構&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;script type="text/javascript"&gt;if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width &lt; 768) ? "left" : align;
+        indent = (screen.width &lt; 768) ? "0em" : indent;
+        linebreak = (screen.width &lt; 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' &amp;&amp; location_protocol !== 'https') location_protocol = 'https:';
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+&lt;/script&gt;</summary><category term="C++"></category><category term="Graph"></category><category term="MST"></category><category term="Intro"></category><category term="Cut(partition)"></category></entry><entry><title>Grpah: 利用DFS尋找DAG的Topological Sort(拓撲排序)</title><link href="http://alrightchiu.github.io/SecondRound/grpah-li-yong-dfsxun-zhao-dagde-topological-sorttuo-pu-pai-xu.html" rel="alternate"></link><updated>2016-02-18T18:01:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-02-18:SecondRound/grpah-li-yong-dfsxun-zhao-dagde-topological-sorttuo-pu-pai-xu.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h3&gt;先備知識與注意事項&lt;/h3&gt;
 &lt;p&gt;有些事件具有絕對的「先後關係」，例如，襪子要在鞋子之前穿上，否則穿上鞋子後要再穿襪子需要一點奇蹟。&lt;/p&gt;
 &lt;p&gt;若以Graph來表示，vertex(穿襪子)、vertex(穿鞋子)與edge(先後關係)如圖一(a)：&lt;/p&gt;
