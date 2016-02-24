@@ -394,7 +394,7 @@
             <span class="n">UnionSet</span><span class="p">(</span><span class="n">subset</span><span class="p">,</span> <span class="n">increaseWeight</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">from</span><span class="p">,</span> <span class="n">increaseWeight</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">to</span><span class="p">);</span>
         <span class="p">}</span>
     <span class="p">}</span>
-
+    <span class="c1">// 以下僅僅是印出vertex與vertex之predecessor</span>
     <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">num_vertex</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">edgesetMST</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">from</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; - &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">edgesetMST</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">to</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; : &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">edgesetMST</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">weight</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
     <span class="p">}</span>
@@ -433,7 +433,7 @@
 </pre></div>
 
 
-<p>結果如同圖二(k)。</p>
+<p>結果如同圖二(k)：</p>
 <p><center>
 <img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_Kruskal_fig/f14.png?raw=true" /></p>
 <p><strong>圖二(k)。</strong>
