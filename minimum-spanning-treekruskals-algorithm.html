@@ -298,7 +298,8 @@
 <p><code>class Graph</code>：與<a href="">BFS/DFS系列</a>中的<code>class Graph</code>不同的是，這裡使用了<code>Adjacency Matrix</code>而不是<code>Adjacency List</code>。<br />
 (為節省篇幅長度，與BFS/DFS相關的member(包含data和funtion)暫時隱藏。)  </p>
 <p><code>KruskalMST()</code>為主要演算法，內容如前一節所介紹。  </p>
-<p><code>GetSortedEdge</code>是為了得到<code>increaseWeight[]</code>，其中利用了C++標準函式庫(STL)的<code>sort</code>，因此有個自行定義的<code>WeightComp</code>，用來比較兩條edge之weight大小。</p>
+<p><code>GetSortedEdge()</code>是為了得到<code>increaseWeight[]</code>，其中利用了C++標準函式庫(STL)的<code>sort()</code>，因此有個自行定義的<code>WeightComp()</code>，用來比較兩條edge之weight大小。<br />
+(關於STL的<code>sort()</code>，請參考：<a href="http://www.cplusplus.com/reference/algorithm/sort/?kw=sort">Cplusplus：std::sort()</a>)</p>
 <p>與Set有關的兩個函式<code>FindSetCollapsing()</code>與<code>UnionSet()</code>內如也如本篇文章第一小節所介紹。</p>
 <p>最後，<code>main()</code>利用<code>AddEdge()</code>建立出Graph的<code>AdjMatrix</code>，再執行一次<code>KruskalMST()</code>。</p>
 <div class="highlight"><pre><span class="c1">// C++ code</span>

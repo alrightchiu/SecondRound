@@ -215,7 +215,8 @@
 &lt;p&gt;&lt;code&gt;class Graph&lt;/code&gt;：與&lt;a href=""&gt;BFS/DFS系列&lt;/a&gt;中的&lt;code&gt;class Graph&lt;/code&gt;不同的是，這裡使用了&lt;code&gt;Adjacency Matrix&lt;/code&gt;而不是&lt;code&gt;Adjacency List&lt;/code&gt;。&lt;br /&gt;
 (為節省篇幅長度，與BFS/DFS相關的member(包含data和funtion)暫時隱藏。)  &lt;/p&gt;
 &lt;p&gt;&lt;code&gt;KruskalMST()&lt;/code&gt;為主要演算法，內容如前一節所介紹。  &lt;/p&gt;
-&lt;p&gt;&lt;code&gt;GetSortedEdge&lt;/code&gt;是為了得到&lt;code&gt;increaseWeight[]&lt;/code&gt;，其中利用了C++標準函式庫(STL)的&lt;code&gt;sort&lt;/code&gt;，因此有個自行定義的&lt;code&gt;WeightComp&lt;/code&gt;，用來比較兩條edge之weight大小。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;GetSortedEdge()&lt;/code&gt;是為了得到&lt;code&gt;increaseWeight[]&lt;/code&gt;，其中利用了C++標準函式庫(STL)的&lt;code&gt;sort()&lt;/code&gt;，因此有個自行定義的&lt;code&gt;WeightComp()&lt;/code&gt;，用來比較兩條edge之weight大小。&lt;br /&gt;
+(關於STL的&lt;code&gt;sort()&lt;/code&gt;，請參考：&lt;a href="http://www.cplusplus.com/reference/algorithm/sort/?kw=sort"&gt;Cplusplus：std::sort()&lt;/a&gt;)&lt;/p&gt;
 &lt;p&gt;與Set有關的兩個函式&lt;code&gt;FindSetCollapsing()&lt;/code&gt;與&lt;code&gt;UnionSet()&lt;/code&gt;內如也如本篇文章第一小節所介紹。&lt;/p&gt;
 &lt;p&gt;最後，&lt;code&gt;main()&lt;/code&gt;利用&lt;code&gt;AddEdge()&lt;/code&gt;建立出Graph的&lt;code&gt;AdjMatrix&lt;/code&gt;，再執行一次&lt;code&gt;KruskalMST()&lt;/code&gt;。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// C++ code&lt;/span&gt;
