@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="zh-hant">
+
+<head>
+            <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+
+        <title>Minimum Spanning Tree：Prim's Algorithm</title>
+
+            <link href="http://alrightchiu.github.io/SecondRound/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Second Round Full Atom Feed" />
+            <link href="http://alrightchiu.github.io/SecondRound/feeds/yan-suan-fa-yu-zi-liao-jie-gou.atom.xml" type="application/atom+xml" rel="alternate" title="Second Round Categories Atom Feed" />
+
+        <!-- Bootstrap Core CSS -->
+        <link href="http://alrightchiu.github.io/SecondRound/theme/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="http://alrightchiu.github.io/SecondRound/theme/css/clean-blog.min.css" rel="stylesheet">
+
+        <!-- Code highlight color scheme -->
+            <link href="http://alrightchiu.github.io/SecondRound/theme/css/code_blocks/darkly.css" rel="stylesheet">
+
+
+        <!-- Custom Fonts -->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+
+
+
+        <meta name="tags" contents="C++" />
+        <meta name="tags" contents="Graph" />
+        <meta name="tags" contents="MST" />
+        <meta name="tags" contents="Greedy Algorithm" />
+        <meta name="tags" contents="Cut(partition)" />
+
+
+	                <meta property="og:locale" content="">
+		<meta property="og:site_name" content="Second Round">
+
+	<meta property="og:type" content="article">
+	<meta property="article:author" content="">
+	<meta property="og:url" content="http://alrightchiu.github.io/SecondRound/minimum-spanning-treeprims-algorithm.html">
+	<meta property="og:title" content="Minimum Spanning Tree：Prim's Algorithm">
+	<meta property="og:description" content="">
+	<meta property="og:image" content="http://alrightchiu.github.io/SecondRound/">
+	<meta property="article:published_time" content="2016-02-25 20:30:00+08:00">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://alrightchiu.github.io/SecondRound/">Second Round</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a href="http://alrightchiu.github.io/SecondRound/archives.html">Archives</a></li>
+                        <li><a href="http://alrightchiu.github.io/SecondRound/tags.html">Tags</a></li>
+
+                            <li><a href="http://alrightchiu.github.io/SecondRound/pages/about.html">About</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+        <header class="intro-header" style="background-image: url('http://alrightchiu.github.io/SecondRound/theme/images/post-bg.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>Minimum Spanning Tree：Prim's Algorithm</h1>
+                        <span class="meta">Posted by
+                                <a href="http://alrightchiu.github.io/SecondRound/author/chiu-cc.html">Chiu CC</a>
+                             on  2 25, 2016
+                        </span>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    <!-- Post Content -->
+    <article>
+        <p></br></p>
+<h3>先備知識與注意事項</h3>
+<p>本篇文章要接著介紹另一個尋找MST的演算法：<strong>Prim's Algorithm</strong>。</p>
+<p>建議讀者可以先閱讀在<a href="http://alrightchiu.github.io/SecondRound/minimum-spanning-treeintrojian-jie.html">Minimum Spanning Tree：Intro(簡介)</a>介紹過的「演算法概念」與<strong>Theorem1</strong>與<strong>Corollary2</strong>，對理解接下來的內容會有些幫助。</p>
+<hr />
+<h2>目錄</h2>
+<ul>
+<li><a href="#algorithm">Prim's Algorithm</a></li>
+<li><a href="#code">程式碼</a></li>
+<li><a href="#ref">參考資料</a></li>
+<li><a href="#series">MST系列文章</a></li>
+</ul>
+<p></br></p>
+<p><a name="algorithm"></a></p>
+<h2>Prim's Algorithm</h2>
+<p>考慮圖一(a)的Graph，目標是要在此Graph上找到MST。</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_Prim_fig/f1.png?raw=true" /></p>
+<p><strong>圖一(a)。</strong>
+</center></p>
+<p><strong>Prim's Algorithm</strong>之演算法將使用三個資料項目：</p>
+<ul>
+<li><code>predecessor[]</code>：記錄最後在MST中，各個vertex之間的「parent-child」關係。</li>
+<li><code>key[]</code>：此為「挑選edge」的關鍵，<code>key[]</code>記錄的會是edge的weight，但是會將weight「暫存在vertex上」，表示「到達該vertex的成本」，演算法的最後將挑選出能夠以「最低成本」抵達該vertex的edge，此edge上的兩個vertex即形成「parent-child」關係，能夠記錄進<code>predecessor[]</code>。</li>
+<li><code>visited[]</code>：用來標記出，哪些vertex已經在MST裡面，哪些還沒有。已經是MST之vertex標記為<span class="math">\(1\)</span>，其餘為<span class="math">\(0\)</span>。</li>
+</ul>
+<p>有了<code>key[]</code>與<code>visited[]</code>，就能正確挑選出edge，形成最後的MST。</p>
+<p>演算法步驟如下：</p>
+<p>首先，初始化所有vertex的資料項目，見圖一(b)：</p>
+<ul>
+<li><code>predecessor[]</code>設成<span class="math">\(-1\)</span>，表示vertex沒有predecessor。</li>
+<li><code>key[]</code>設成「無限大」，表示所有vertex都沒有辦法經由與其餘vertex相連之edge抵達。</li>
+<li><code>visited[]</code>設成<span class="math">\(0\)</span>，表示MST裡面還沒有vertex。<br />
+(程式範例中，<code>visited[]</code>的資料型態是用<code>bool</code>，因此設為<code>false</code>)</li>
+</ul>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_Prim_fig/f2.png?raw=true" /></p>
+<p><strong>圖一(b)。</strong>
+</center></p>
+<p>初始化之後，選定其中一個vertex作為起點。<br />
+這個起點會是MST的root，如果不要求MST之起點為何，那麼起點可以任意挑選。<br />
+在此選定vertex(2)作為起點，便將<code>key[2]</code>設成<span class="math">\(0\)</span>。</p>
+<ul>
+<li>更新<code>key[]</code>是關鍵，原因在於，演算法會根據<code>key[]</code>的大小，每次挑選出<code>key[]</code>值最小的vertex放進MST。</li>
+</ul>
+<p>接著便開始演算法的主要迴圈。  </p>
+<ul>
+<li>先從<code>key[]</code>中挑選出數值最小(可以想成「抵達成本」最小)的vertex，放進MST。<br />
+在此挑選到的是vertex(2)，見圖一(c)。</li>
+<li>由於vertex(2)已經屬於MST，便更新<code>visited[2]=1</code>。</li>
+</ul>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_Prim_fig/f3.png?raw=true" /></p>
+<p><strong>圖一(c)。</strong>
+</center></p>
+<p>接著，找到所有與vertex(2)具有edge相連的vertex(X)，比較所有edge(2,X)之weight與vertex(X)的<code>key[]</code>，如果weight比<code>key[X]</code>小，便更新<code>predecessor[X]</code>成vertex(2)，並且把<code>key[X]</code>更新成weight(2,X)：</p>
+<ul>
+<li>表示從vertex(2)經由edge(2,X)抵達vertex(X)，只要花費weight(2,X)的成本，而到最後，若Graph上沒有從其他vertex經由「成本更小的edge」能夠抵達vertex(X)，那麼MST中，就會存在edge(2,X)，因為在所有連結vertex(2)與vertex(X)的edge中，edge(2,X)的成本最低。</li>
+<li>另外一種情況，若weight(2,X)比<code>key[X]</code>大，那就不更新<code>key[X]</code>，表示從Graph中某個vertex(Y)到達vertex(X)，會比從vertex(2)到達vertex(X)的成本更低。也不更新<code>predecessor[X]</code>，維持vertex(Y)作為vertex(X)的predecessor。</li>
+</ul>
+<p>根據圖一(c)，與vertex(2)相連的vertex分別是vertex(1)、vertex(3)、vertex(6)，經比較後發現： </p>
+<ul>
+<li><span class="math">\(weight(2,1)&lt;\)</span><code>key[1]</code>；</li>
+<li><span class="math">\(weight(2,3)&lt;\)</span><code>key[3]</code>；</li>
+<li><span class="math">\(weight(2,6)&lt;\)</span><code>key[6]</code>；  </li>
+</ul>
+<p>此時便更新<code>key[]</code>與<code>predecessor[]</code>，見圖一(d)：</p>
+<ul>
+<li><code>key[1]=weight(2,1)=10</code>，<code>predecessor[1]=2</code>；</li>
+<li><code>key[3]=weight(2,3)=5</code>，<code>predecessor[3]=2</code>；</li>
+<li><code>key[6]=weight(2,6)=3</code>，<code>predecessor[6]=2</code>。</li>
+</ul>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_Prim_fig/f4.png?raw=true" /></p>
+<p><strong>圖一(d)。</strong>
+</center></p>
+<p>總結圖一(c)與圖一(d)的步驟：</p>
+<ol>
+<li>選取<code>key[]</code>值最小的vertex放進MST，假設為vertex(X)；</li>
+<li>將vertex(X)之<code>visited[]</code>標記為<span class="math">\(1\)</span>(或是<code>true</code>)；</li>
+<li>比較weight與<code>key[]</code>，判斷是否需要更新所有與vertex(X)具有edge相連之vertex的<code>key[]</code>與<code>predecessor[]</code>。</li>
+</ol>
+<p>以上便完成一次<strong>Prim's Algorithm</strong>的主要迴圈。<br />
+若Graph上有<span class="math">\(V\)</span>個vertex，接下來只要繼續上述步驟「<span class="math">\(V-1\)</span>」次，就能得到Graph上的MST。</p>
+<p>接著，繼續從<code>key[]</code>挑選出數值最小的vertex(3)放進MST，更新<code>visited[3]=1</code>，見圖一(e)。</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_Prim_fig/f5.png?raw=true" /></p>
+<p><strong>圖一(e)。</strong>
+</center></p>
+<p>再比較所有與vertex(3)具有edge相連之vertex的<code>key[]</code>，根據圖一(e)：</p>
+<ul>
+<li>vertex(2)已經進入MST中(<code>visited[2]=1</code>)，忽略不計；</li>
+<li>vertex(6)與vertex(3)相連，不過weight(6,3)比<code>key[6]=8</code>還要大，表示從vertex(3)走到vertex(6)之成本高於從vertex(2)走到vertex(6)，因此不更新<code>key[6]</code>與<code>predecessor[6]</code>；</li>
+<li>vertex(4)與vertex(3)相連，並且weight(4,3)<span class="math">\(&lt;\)</span><code>key[4]=infinity</code>，於是更新<code>key[4]=weight(4,3)</code>，<code>predecessor[4]=3</code>，見圖一(f)。</li>
+</ul>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_Prim_fig/f6.png?raw=true" /></p>
+<p><strong>圖一(f)。</strong>
+</center></p>
+<p>接著重複上述步驟，直到Graph上所有vertex都被放進MST中(<code>visited[]</code>全部變成<span class="math">\(1\)</span>)，即可找到MST，見圖一(g)至圖一(n)。</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_Prim_fig/f7.png?raw=true" /></p>
+<p><strong>圖一(g)：將vertex(4)放進MST中</strong>，<code>visited[4]=1</code><strong>。</strong>
+</center></p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_Prim_fig/f8.png?raw=true" /></p>
+<p><strong>圖一(h)：從vertex(4)探索vertex(1)、vertex(5)、vertex(6)。</strong>
+</center></p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_Prim_fig/f9.png?raw=true" /></p>
+<p><strong>圖一(i)：將vertex(1)放進MST中</strong>，<code>visited[1]=1</code><strong>。</strong>
+</center></p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_Prim_fig/f10.png?raw=true" /></p>
+<p><strong>圖一(j)：從vertex(1)探索vertex(0)、vertex(2)、vertex(4)、vertex(6)。</strong>
+</center></p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_Prim_fig/f11.png?raw=true" /></p>
+<p><strong>圖一(k)：將vertex(6)放進MST中</strong>，<code>visited[6]=1</code><strong>。</strong>
+</center></p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_Prim_fig/f12.png?raw=true" /></p>
+<p><strong>圖一(l)：將vertex(0)放進MST中</strong>，<code>visited[0]=1</code><strong>。</strong>
+</center></p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_Prim_fig/f13.png?raw=true" /></p>
+<p><strong>圖一(m)：從vertex(0)探索vertex(1)、vertex(5)。</strong>
+</center></p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_Prim_fig/f14.png?raw=true" /></p>
+<p><strong>圖一(n)：將vertex(5)放進MST中</strong>，<code>visited[5]=1</code>，<strong>MST建立完畢。</strong>
+</center></p>
+<p>見圖一(n)，當Graph上所有vertex的<code>visited[]</code>都被設為<span class="math">\(1\)</span>(或是<code>true</code>)後，MST便建立完畢。</p>
+<p>那麼<strong>Prim's Algorithm</strong>的運作原則是什麼？</p>
+<p>觀察圖一(d)至圖一(j)，被放進MST的vertex恰好都與vertex(6)有edge相連，因此，vertex(6)總共被「檢查了四次」(比較weight與<code>key[6]</code>四次)，並且「更新了兩次」(<code>key[6]</code>從<span class="math">\(\infty\)</span>更新成<span class="math">\(8\)</span>，最後更新成<span class="math">\(2\)</span>)，可以肯定的是，若vertex(6)一定要與Graph中的其中一個vertex相連(這是MST的要求)，那麼<strong>Prim's Algorithm</strong>一定能夠替vertex(6)挑選出最小weight的edge：</p>
+<ul>
+<li>以圖一(n)為例，vertex(6)共有四條edge連結至其他vertex，而最後是透過weight為<span class="math">\(2\)</span>的edge(4,6)與vertex(4)相連。</li>
+</ul>
+<p>再看圖二，當vertex(3)被放進MST時，vertex(2)已經被放進MST，因此可以把這兩個vertex視為一個connected component，並且找到一個Cut <span class="math">\((C,V-C)\)</span>，其中<span class="math">\(C=\)</span>{<span class="math">\(2,3\)</span>}，<span class="math">\(V-C=\)</span>{<span class="math">\(0,1,4,5,6\)</span>}，而在Cut上的crossing edge總共有：</p>
+<ul>
+<li>edge(1,2)，weight<span class="math">\(=10\)</span>；</li>
+<li>edge(2,6)，weight<span class="math">\(=8\)</span>；</li>
+<li>edge(3,6)，weight<span class="math">\(=9\)</span>；</li>
+<li>edge(3,4)，weight<span class="math">\(=7\)</span>；</li>
+</ul>
+<p>顯然，light edge為edge(3,4)，因此edge(3,4)必定會是MST中的edge。</p>
+<p>這便是<strong>Theorem1</strong>所證明的事。</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_Prim_fig/f15.png?raw=true" /></p>
+<p><strong>圖二。</strong>
+</center></p>
+<p></br></p>
+<p><a name="code"></a></p>
+<h2>程式碼</h2>
+<p>以下的程式範例包含了<code>class Graph</code>與<code>main()</code>。</p>
+<p><code>class Graph</code>：使用<code>Adjacency Matrix</code>而不是<code>Adjacency List</code>。   </p>
+<p><code>PrimMST()</code>為主要演算法，內容如前一節所介紹。  </p>
+<p><code>MinKeyExtract()</code>根據<code>visited</code>找到，所有尚未放進MST的vertex中，<code>key[]</code>最小值的vertex。</p>
+<p>最後，<code>main()</code>利用<code>AddEdge()</code>建立出Graph的<code>AdjMatrix</code>，並執行<code>PrimMST()</code>。</p>
+<div class="highlight"><pre><span class="c1">// C++ code</span>
+<span class="cp">#include &lt;iostream&gt;</span>
+<span class="cp">#include &lt;vector&gt;</span>
+<span class="cp">#include &lt;list&gt;</span>
+<span class="cp">#include &lt;iomanip&gt;      </span><span class="c1">// for setw()</span>
+
+<span class="k">const</span> <span class="kt">int</span> <span class="n">Max_Weight</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">;</span>
+<span class="k">struct</span> <span class="n">Edge</span><span class="p">{</span>
+    <span class="kt">int</span> <span class="n">from</span><span class="p">,</span> <span class="n">to</span><span class="p">,</span> <span class="n">weight</span><span class="p">;</span>
+    <span class="n">Edge</span><span class="p">(){};</span>
+    <span class="n">Edge</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="kt">int</span> <span class="n">v</span><span class="p">,</span> <span class="kt">int</span> <span class="n">w</span><span class="p">)</span><span class="o">:</span><span class="n">from</span><span class="p">(</span><span class="n">u</span><span class="p">),</span> <span class="n">to</span><span class="p">(</span><span class="n">v</span><span class="p">),</span> <span class="n">weight</span><span class="p">(</span><span class="n">w</span><span class="p">){};</span>
+<span class="p">};</span>
+
+<span class="k">class</span> <span class="nc">GraphMST</span><span class="p">{</span>
+<span class="k">private</span><span class="o">:</span>
+    <span class="kt">int</span> <span class="n">num_vertex</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">AdjMatrix</span><span class="p">;</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">GraphMST</span><span class="p">()</span><span class="o">:</span><span class="n">num_vertex</span><span class="p">(</span><span class="mi">0</span><span class="p">){};</span>
+    <span class="n">GraphMST</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span><span class="o">:</span><span class="n">num_vertex</span><span class="p">(</span><span class="n">n</span><span class="p">){</span>
+        <span class="n">AdjMatrix</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">num_vertex</span><span class="p">);</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">num_vertex</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">AdjMatrix</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">resize</span><span class="p">(</span><span class="n">num_vertex</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="kt">void</span> <span class="n">AddEdge</span><span class="p">(</span><span class="kt">int</span> <span class="n">from</span><span class="p">,</span> <span class="kt">int</span> <span class="n">to</span><span class="p">,</span> <span class="kt">int</span> <span class="n">weight</span><span class="p">);</span>
+
+    <span class="kt">void</span> <span class="nf">PrimMST</span><span class="p">(</span><span class="kt">int</span> <span class="n">Start</span> <span class="o">=</span> <span class="mi">0</span><span class="p">);</span>        <span class="c1">// 可以指定起點Start, 若沒有指定, 則從vertex(0)作為MST的root</span>
+    <span class="k">friend</span> <span class="kt">int</span> <span class="nf">MinKeyExtract</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">key</span><span class="p">,</span> <span class="kt">bool</span> <span class="o">*</span><span class="n">visited</span><span class="p">,</span> <span class="kt">int</span> <span class="n">size</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="kt">int</span> <span class="nf">MinKeyExtract</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">key</span><span class="p">,</span> <span class="kt">bool</span> <span class="o">*</span><span class="n">visited</span><span class="p">,</span> <span class="kt">int</span> <span class="n">size</span><span class="p">){</span>
+
+    <span class="kt">int</span> <span class="n">min</span> <span class="o">=</span> <span class="n">Max_Weight</span><span class="p">,</span> <span class="n">min_idx</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">size</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">visited</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">==</span><span class="nb">false</span> <span class="o">&amp;&amp;</span> <span class="n">key</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">&lt;</span><span class="n">min</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">min</span> <span class="o">=</span> <span class="n">key</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+            <span class="n">min_idx</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">min_idx</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="n">GraphMST</span><span class="o">::</span><span class="n">PrimMST</span><span class="p">(</span><span class="kt">int</span> <span class="n">Start</span><span class="p">){</span>
+
+    <span class="kt">int</span> <span class="n">key</span><span class="p">[</span><span class="n">num_vertex</span><span class="p">],</span> <span class="n">predecessor</span><span class="p">[</span><span class="n">num_vertex</span><span class="p">];</span>
+    <span class="kt">bool</span> <span class="n">visited</span><span class="p">[</span><span class="n">num_vertex</span><span class="p">];</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">num_vertex</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">key</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">Max_Weight</span><span class="p">;</span>
+        <span class="n">predecessor</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+        <span class="n">visited</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>     <span class="c1">// false表示vertex還沒有被visited</span>
+    <span class="p">}</span>
+
+    <span class="n">key</span><span class="p">[</span><span class="n">Start</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">num_vertex</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">u</span> <span class="o">=</span> <span class="n">MinKeyExtract</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">visited</span><span class="p">,</span> <span class="n">num_vertex</span><span class="p">);</span>
+        <span class="n">visited</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">num_vertex</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span> <span class="n">visited</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">==</span><span class="nb">false</span> <span class="o">&amp;&amp;</span> <span class="n">AdjMatrix</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="n">i</span><span class="p">]</span><span class="o">!=</span><span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">AdjMatrix</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="n">i</span><span class="p">]</span><span class="o">&lt;</span><span class="n">key</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="p">{</span>
+                <span class="n">predecessor</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">u</span><span class="p">;</span>
+                <span class="n">key</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">AdjMatrix</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="n">i</span><span class="p">];</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="c1">// print MST</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setw</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;v1&quot;</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; - &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setw</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;v2&quot;</span><span class="o">&lt;&lt;</span> <span class="s">&quot; : weight</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="p">(</span><span class="n">Start</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="n">num_vertex</span><span class="p">;</span>   <span class="c1">// 若從4開始, i依序為5,6,0,1,2,3</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="o">!=</span> <span class="n">Start</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setw</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">predecessor</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; - &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setw</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">i</span>
+                  <span class="o">&lt;&lt;</span> <span class="s">&quot; : &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setw</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">AdjMatrix</span><span class="p">[</span><span class="n">predecessor</span><span class="p">[</span><span class="n">i</span><span class="p">]][</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;&lt;</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="p">(</span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="o">%</span><span class="n">num_vertex</span><span class="p">;</span>       <span class="c1">// 到了6之後, 6+1 = 7, error:bad_access, 透過mod把7喬回0</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="n">GraphMST</span><span class="o">::</span><span class="n">AddEdge</span><span class="p">(</span><span class="kt">int</span> <span class="n">from</span><span class="p">,</span> <span class="kt">int</span> <span class="n">to</span><span class="p">,</span> <span class="kt">int</span> <span class="n">weight</span><span class="p">){</span>
+    <span class="n">AdjMatrix</span><span class="p">[</span><span class="n">from</span><span class="p">][</span><span class="n">to</span><span class="p">]</span> <span class="o">=</span> <span class="n">weight</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+
+    <span class="n">GraphMST</span> <span class="n">g6</span><span class="p">(</span><span class="mi">7</span><span class="p">);</span>
+    <span class="n">g6</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span><span class="n">g6</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+    <span class="n">g6</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span><span class="n">g6</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span><span class="n">g6</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span><span class="n">g6</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
+    <span class="n">g6</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span><span class="n">g6</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span><span class="n">g6</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">);</span>
+    <span class="n">g6</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span><span class="n">g6</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">);</span><span class="n">g6</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">);</span>
+    <span class="n">g6</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span><span class="n">g6</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">);</span><span class="n">g6</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">);</span><span class="n">g6</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+    <span class="n">g6</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span><span class="n">g6</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">);</span>
+    <span class="n">g6</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span><span class="n">g6</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">);</span><span class="n">g6</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">9</span><span class="p">);</span><span class="n">g6</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;MST found by Prim:</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">g6</span><span class="p">.</span><span class="n">PrimMST</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>output:</p>
+<div class="highlight"><pre><span class="n">MST</span> <span class="n">found</span> <span class="n">by</span> <span class="nl">Prim</span><span class="p">:</span>
+ <span class="n">v1</span> <span class="o">-</span>  <span class="nl">v2</span> <span class="p">:</span> <span class="n">weight</span>
+  <span class="mi">2</span> <span class="o">-</span>   <span class="mi">3</span> <span class="o">:</span>    <span class="mi">5</span>
+  <span class="mi">3</span> <span class="o">-</span>   <span class="mi">4</span> <span class="o">:</span>    <span class="mi">7</span>
+  <span class="mi">0</span> <span class="o">-</span>   <span class="mi">5</span> <span class="o">:</span>    <span class="mi">3</span>
+  <span class="mi">4</span> <span class="o">-</span>   <span class="mi">6</span> <span class="o">:</span>    <span class="mi">2</span>
+  <span class="mi">1</span> <span class="o">-</span>   <span class="mi">0</span> <span class="o">:</span>    <span class="mi">5</span>
+  <span class="mi">4</span> <span class="o">-</span>   <span class="mi">1</span> <span class="o">:</span>    <span class="mi">1</span>
+</pre></div>
+
+
+<p>結果如同圖一(n)：</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_Prim_fig/f14.png?raw=true" /></p>
+<p><strong>圖一(n)。</strong>
+</center></p>
+<p></br>  </p>
+<p>若參考<a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844">Introduction to Algorithms, Ch23</a>所提供的Prim's Algorithm之虛擬碼(pseudo code)，將會發現其中有個「Min-Priority Queue」的資料結構，如果讀者有興趣，可以參考以下連結(筆者還在磨劍，請見諒)：</p>
+<ul>
+<li><a href="http://theoryofprogramming.com/2015/03/27/prims-algorithm/">Theory of Programming：Prim's Algorithm</a></li>
+<li><a href="http://www.personal.kent.edu/~rmuhamma/Algorithms/MyAlgorithms/GraphAlgor/primAlgor.htm">Rashid Bin Muhammad：Jarnik's (Prim's) Algorithm</a></li>
+</ul>
+<p>以上便是利用<strong>Prim's Algorithm</strong>尋找MST之介紹。</p>
+<p>若讀者能夠花些時間比較這兩種種樹的策略，將會發現，兩邊都是天才啊。</p>
+<p></br></p>
+<hr />
+<p><a name="ref"></a></p>
+<h3>參考資料：</h3>
+<ul>
+<li><a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844">Introduction to Algorithms, Ch23</a> </li>
+<li><a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376">Fundamentals of Data Structures in C++, Ch6</a></li>
+<li><a href="http://www.personal.kent.edu/~rmuhamma/Algorithms/MyAlgorithms/GraphAlgor/primAlgor.htm">Rashid Bin Muhammad：Jarnik's (Prim's) Algorithm</a></li>
+<li><a href="http://theoryofprogramming.com/2015/03/27/prims-algorithm/">Theory of Programming：Prim's Algorithm</a></li>
+<li><a href="http://www.geeksforgeeks.org/greedy-algorithms-set-5-prims-minimum-spanning-tree-mst-2/">Greedy Algorithms | Set 5 (Prim’s Minimum Spanning Tree (MST))</a></li>
+</ul>
+<p><a name="series"></a></p>
+<p></br></p>
+<h3>MST系列文章</h3>
+<p><a href="http://alrightchiu.github.io/SecondRound/minimum-spanning-treeintrojian-jie.html">Minimum Spanning Tree：Intro(簡介)</a><br />
+<a href="http://alrightchiu.github.io/SecondRound/minimum-spanning-treekruskals-algorithm.html">Minimum Spanning Tree：Kruskal's Algorithm</a></p>
+<p>回到目錄：</p>
+<p><a href="http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html">目錄：演算法與資料結構</a></p>
+<p></br></p>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' && location_protocol !== 'https') location_protocol = 'https:';
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+    </article>
+
+        <div class="tags">
+            <p>tags: <a href="http://alrightchiu.github.io/SecondRound/tag/c.html">C++</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/graph.html">Graph</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/mst.html">MST</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/greedy-algorithm.html">Greedy Algorithm</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/cutpartition.html">Cut(partition)</a>, </p>
+        </div>
+
+<hr>
+<div class="sharing">
+</div>
+    <hr>
+
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                            <li>
+                                <a href="https://github.com/alrightchiu">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                    </ul>
+<p class="copyright text-muted">
+    Blog powered by <a href="http://getpelican.com">Pelican</a>,
+    which takes great advantage of <a href="http://python.org">Python</a>.
+</p>                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="http://alrightchiu.github.io/SecondRound/theme/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="http://alrightchiu.github.io/SecondRound/theme/js/bootstrap.min.js"></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script src="http://alrightchiu.github.io/SecondRound/theme/js/clean-blog.min.js"></script>
+
+</body>
+
+</html>
