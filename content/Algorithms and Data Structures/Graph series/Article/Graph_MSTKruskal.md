@@ -276,7 +276,6 @@ Set是不講求順序(order)的資料彙集(collection)，其資料結構可以�
 #include <vector>
 #include <list>
 
-const int Max_Weight = 1000;
 struct Edge{
     int from, to, weight;
     Edge(){};
