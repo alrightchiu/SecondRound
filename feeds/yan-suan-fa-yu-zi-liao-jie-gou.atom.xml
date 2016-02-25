@@ -504,7 +504,7 @@
 &lt;p&gt;接著將介紹一個定理(theorem)與其等價的推論(corollary)，來說明怎麼樣的edge對Set A來說是&lt;strong&gt;安全的(safe)&lt;/strong&gt;，使得「該edge加入Set A後，Set A仍然滿足&lt;span class="math"&gt;\(A\subseteq E(MST)\)&lt;/span&gt;」。&lt;/p&gt;
 &lt;p&gt;先定義四個名詞概念：&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Cut&lt;/strong&gt;：Cut是一種將Graph(&lt;span class="math"&gt;\(G=(V,E)\)&lt;/span&gt;)的V(vertex set)分成兩部分(以&lt;span class="math"&gt;\((S,V-S)\)&lt;/span&gt;表示)的&lt;strong&gt;partition(分割)&lt;/strong&gt;。&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Cut&lt;/strong&gt;：Cut &lt;span class="math"&gt;\((S,V-S)\)&lt;/span&gt;是一種將Graph(&lt;span class="math"&gt;\(G=(V,E)\)&lt;/span&gt;)的V(vertex set)分成兩部分的&lt;strong&gt;partition(分割)&lt;/strong&gt;。&lt;ul&gt;
 &lt;li&gt;圖三(a)左，Cut &lt;span class="math"&gt;\((S,V-S)\)&lt;/span&gt;將Graph中的vertex分割出兩個Set，&lt;span class="math"&gt;\(S=\)&lt;/span&gt;{&lt;span class="math"&gt;\(1,4\)&lt;/span&gt;}，&lt;span class="math"&gt;\(V-S=\)&lt;/span&gt;{&lt;span class="math"&gt;\(0,2,3,5,6\)&lt;/span&gt;}。&lt;/li&gt;
 &lt;li&gt;圖三(a)右，Cut &lt;span class="math"&gt;\((S,V-S)\)&lt;/span&gt;將Graph中的vertex分割出兩個Set，&lt;span class="math"&gt;\(S=\)&lt;/span&gt;{&lt;span class="math"&gt;\(1,4,6,0,5\)&lt;/span&gt;}，&lt;span class="math"&gt;\(V-S=\)&lt;/span&gt;{&lt;span class="math"&gt;\(2,3\)&lt;/span&gt;}。&lt;/li&gt;
 &lt;/ul&gt;
