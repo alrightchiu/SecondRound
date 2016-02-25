@@ -105,7 +105,7 @@ Summary: 介紹Graph中的Minimum Spanning Tree(MST，最小生成樹)。
 
 先定義四個名詞概念：
 
-* **Cut**：Cut是一種將Graph($G=(V,E)$)的V(vertex set)分成兩部分(以$(S,V-S)$表示)的**partition(分割)**。
+* **Cut**：Cut $(S,V-S)$是一種將Graph($G=(V,E)$)的V(vertex set)分成兩部分的**partition(分割)**。
     * 圖三(a)左，Cut $(S,V-S)$將Graph中的vertex分割出兩個Set，$S=${$1,4$}，$V-S=${$0,2,3,5,6$}。
     * 圖三(a)右，Cut $(S,V-S)$將Graph中的vertex分割出兩個Set，$S=${$1,4,6,0,5$}，$V-S=${$2,3$}。
 
