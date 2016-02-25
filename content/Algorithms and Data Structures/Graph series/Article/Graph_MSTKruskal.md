@@ -275,6 +275,7 @@ Set是不講求順序(order)的資料彙集(collection)，其資料結構可以�
 #include <iostream>
 #include <vector>
 #include <list>
+#include <iomanip>      // for setw()
 
 struct Edge{
     int from, to, weight;
@@ -364,8 +365,10 @@ void GraphMST::KruskalMST(){
         }
     }
     // 以下僅僅是印出vertex與vertex之predecessor
+    std::cout << std::setw(3) << "v1" << " - " << std::setw(3) << "v2"<< " : " <<  "weight" << "\n";
     for (int i = 0; i < num_vertex-1; i++) {
-        std::cout << edgesetMST[i].from << " - " << edgesetMST[i].to << " : " << edgesetMST[i].weight << "\n";
+        std::cout << std::setw(3) << edgesetMST[i].from << " - " << std::setw(3) << edgesetMST[i].to 
+                  << " : " << std::setw(4) << edgesetMST[i].weight << "\n";
     }
 }
 void GraphMST::AddEdge(int from, int to, int weight){
@@ -393,12 +396,13 @@ output:
 
 ```cpp
 MST found by Kruskal:
-1 - 4 : 1
-4 - 6 : 2
-0 - 5 : 3
-0 - 1 : 5
-2 - 3 : 5
-3 - 4 : 7
+ v1 -  v2 : weight
+  1 -   4 :    1
+  4 -   6 :    2
+  0 -   5 :    3
+  0 -   1 :    5
+  2 -   3 :    5
+  3 -   4 :    7
 ```
 
 結果如同圖二(k)：
