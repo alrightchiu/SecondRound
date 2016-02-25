@@ -412,13 +412,13 @@ A B C D E F G H I
 <a name="in_parent"></a>
 
 ##In-Order Traversal by Parent Field
-在[Binary Tree：Intro](http://alrightchiu.github.io/SecondRound/binary-tree-intro.html#code)提到，若在`class TreeNode`加入pointer指向其parent node會非常有幫助，其中一項理由正是接下來要介紹的兩個函式：InorderSuccessor()與InorderPredecessor()。  
+在[Binary Tree：Intro](http://alrightchiu.github.io/SecondRound/binary-tree-intro.html#code)提到，若在`class TreeNode`加入pointer指向其parent node會非常有幫助，其中一項理由正是接下來要介紹的兩個函式：`InorderSuccessor()`與`InorderPredecessor()`。  
 說文解字時間：  
 
 * 字首Inorder-，即是按照inorder之順序規則並應用於inorder traversal；
 * 字尾Successor/ Predecessor，即是「下一個」與「前一個」。
 
-因此，InorderSuccessor()與InorderPredecessor()便是用來尋找「以inorder順序」進行traversal之下一個與前一個node。  
+因此，`InorderSuccessor()`與`InorderPredecessor()`便是用來尋找「**以inorder順序**」進行traversal之下一個與前一個node。  
 以圖四(c)為例，若CurrentNode站在H(`CurrentNode = H`)，則
 
 * `CurrentNode = InorderSuccessor(CurrentNode)`會將CurrentNode移動至A；
@@ -469,7 +469,11 @@ A B C D E F G H I
 
 ###Successor、leftmost
 
-函式`TreeNode* leftmost(TreeNode *current)`的功能為：尋找以`current`為root之subtree中，最左邊的node，最左邊的意思是從`current`開始一路往left child做類似[Linked list之單向traversal](http://alrightchiu.github.io/SecondRound/linked-list-traversal.html)的「一路向左」，而以inorder的順序來說，會找到該subtree中第一個進行Visiting的node。以圖四(c)為例，進入以A為root的Binary Tree，`leftmost()`將回傳D。
+函式`TreeNode* leftmost(TreeNode *current)`的功能為：尋找以`current`為root之subtree中，最左邊的node，最左邊的意思是從`current`開始一路往left child做類似[Linked list之單向traversal](http://alrightchiu.github.io/SecondRound/linked-list-traversal.html)的「一路向左」，而以inorder的順序來說，會找到該subtree中第一個進行Visiting的node。
+
+* 以圖四(c)為例，進入以A為root的Binary Tree，`leftmost()`將回傳D。
+
+以下為`leftmost()`的範例程式碼：
 
 ```cpp
 // C++ code
@@ -479,8 +483,8 @@ TreeNode* BinaryTree::leftmost(TreeNode *current){
     return current;
 }
 ```
-
-接著觀察在inorder規則下，某一node的下一個node的所在位置有兩種可能：
+</br>  
+接著，觀察在inorder規則下，某一node的「**Successor**」之所在位置有兩種可能：
 
 1. 若CurrentNode的right child不是NULL，則CurrentNode之下一個順序的node即為以「Current->rightchild為root」之subtree中，最左的node。  
 如圖五(a)所示，若CurrentNode站在B上，B的下一個node即為「以B的right child(也就是E)」為root之subtree中的最左node，即為G。
@@ -494,6 +498,8 @@ TreeNode* BinaryTree::leftmost(TreeNode *current){
 **圖五(a)：。**  
 </center>
 [successor]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/successor.png?raw=true
+
+以下為`InorderSuccessor()`的範例程式碼：
 
 ```cpp
 // C++ code
@@ -556,6 +562,8 @@ D B G E H A F I C
 </center>
 
 [predecessor]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/predecessor.png?raw=true
+
+以下為`rightmost()`與`InorderPredecessor()`的範例程式碼：
 
 ```cpp
 // C++ code
