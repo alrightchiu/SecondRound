@@ -226,7 +226,6 @@
 &lt;span class="cp"&gt;#include &amp;lt;vector&amp;gt;&lt;/span&gt;
 &lt;span class="cp"&gt;#include &amp;lt;list&amp;gt;&lt;/span&gt;
 
-&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;Max_Weight&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;1000&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;Edge&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;from&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;weight&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
     &lt;span class="n"&gt;Edge&lt;/span&gt;&lt;span class="p"&gt;(){};&lt;/span&gt;
