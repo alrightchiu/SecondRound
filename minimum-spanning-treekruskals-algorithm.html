@@ -164,8 +164,10 @@
 </ul>
 <p>若利用上述的Set表示法，當進行<code>FindSet(vertex)</code>時，只要在矩陣中一路回溯，直到root即可。</p>
 <ul>
-<li>若同時進行<strong>SetCollapsing</strong>，則把所有element的predecessor都調整成該Set的root，見圖一(b)。(參考<a href="http://alrightchiu.github.io/SecondRound/graph-li-yong-dfshe-bfsxun-zhao-connected-component.html#algorithm">Graph: 利用DFS和BFS尋找Connected Component</a>對<code>SetCollapsing()</code>的介紹)</li>
+<li>若同時進行<strong>SetCollapsing</strong>，即可把剛才找過的vertex的predecessor都調整成該Set的root，使得之後要再<code>FindSet()</code>時，能夠以時間複雜度：<span class="math">\(O(1)\)</span>完成。<br />
+(參考<a href="http://alrightchiu.github.io/SecondRound/graph-li-yong-dfshe-bfsxun-zhao-connected-component.html#algorithm">Graph: 利用DFS和BFS尋找Connected Component</a>對<code>SetCollapsing()</code>的介紹)</li>
 <li>本篇文章的<a href="#code">範例程式</a>中，將此函式定義成<code>FindSetCollapsing()</code>。  </li>
+<li>如圖一(b)，<code>FindSetCollapsing(5)</code>會將vertex(5)的predecessor調整成vertex(1)。</li>
 </ul>
 <p><center>
 <img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_Kruskal_fig/f3.png?raw=true" /></p>

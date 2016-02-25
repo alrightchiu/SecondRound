@@ -81,8 +81,10 @@
 &lt;/ul&gt;
 &lt;p&gt;若利用上述的Set表示法，當進行&lt;code&gt;FindSet(vertex)&lt;/code&gt;時，只要在矩陣中一路回溯，直到root即可。&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;若同時進行&lt;strong&gt;SetCollapsing&lt;/strong&gt;，則把所有element的predecessor都調整成該Set的root，見圖一(b)。(參考&lt;a href="http://alrightchiu.github.io/SecondRound/graph-li-yong-dfshe-bfsxun-zhao-connected-component.html#algorithm"&gt;Graph: 利用DFS和BFS尋找Connected Component&lt;/a&gt;對&lt;code&gt;SetCollapsing()&lt;/code&gt;的介紹)&lt;/li&gt;
+&lt;li&gt;若同時進行&lt;strong&gt;SetCollapsing&lt;/strong&gt;，即可把剛才找過的vertex的predecessor都調整成該Set的root，使得之後要再&lt;code&gt;FindSet()&lt;/code&gt;時，能夠以時間複雜度：&lt;span class="math"&gt;\(O(1)\)&lt;/span&gt;完成。&lt;br /&gt;
+(參考&lt;a href="http://alrightchiu.github.io/SecondRound/graph-li-yong-dfshe-bfsxun-zhao-connected-component.html#algorithm"&gt;Graph: 利用DFS和BFS尋找Connected Component&lt;/a&gt;對&lt;code&gt;SetCollapsing()&lt;/code&gt;的介紹)&lt;/li&gt;
 &lt;li&gt;本篇文章的&lt;a href="#code"&gt;範例程式&lt;/a&gt;中，將此函式定義成&lt;code&gt;FindSetCollapsing()&lt;/code&gt;。  &lt;/li&gt;
+&lt;li&gt;如圖一(b)，&lt;code&gt;FindSetCollapsing(5)&lt;/code&gt;會將vertex(5)的predecessor調整成vertex(1)。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_Kruskal_fig/f3.png?raw=true" /&gt;&lt;/p&gt;
