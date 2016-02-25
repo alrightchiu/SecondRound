@@ -223,7 +223,7 @@ Set是不講求順序(order)的資料彙集(collection)，其資料結構可以�
 **圖二(k)。**
 </center>
 
-如圖二(k)，當`edgesetMST[]`加入edge(4,3)後，MST便完成了。
+如圖二(k)，當`edgesetMST[]`加入edge(4,3)後，MST便尋找完畢。
 
 用肉眼看起來，除了weight$=4$的edge(1,6)，與weight$=6$的edge(5,4)之外，確實是Graph上具有較小weight之edge都被挑進MST了。
 
@@ -350,6 +350,7 @@ void GraphMST::KruskalMST(){
     
     struct Edge *edgesetMST = new struct Edge[num_vertex-1];
     int edgesetcount = 0;
+    
     int subset[num_vertex];
     for (int i = 0; i < num_vertex; i++) {
         subset[i] = -1;
