@@ -308,6 +308,7 @@
 <span class="cp">#include &lt;iostream&gt;</span>
 <span class="cp">#include &lt;vector&gt;</span>
 <span class="cp">#include &lt;list&gt;</span>
+<span class="cp">#include &lt;iomanip&gt;      </span><span class="c1">// for setw()</span>
 
 <span class="k">struct</span> <span class="n">Edge</span><span class="p">{</span>
     <span class="kt">int</span> <span class="n">from</span><span class="p">,</span> <span class="n">to</span><span class="p">,</span> <span class="n">weight</span><span class="p">;</span>
@@ -397,8 +398,10 @@
         <span class="p">}</span>
     <span class="p">}</span>
     <span class="c1">// 以下僅僅是印出vertex與vertex之predecessor</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setw</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;v1&quot;</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; - &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setw</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;v2&quot;</span><span class="o">&lt;&lt;</span> <span class="s">&quot; : &quot;</span> <span class="o">&lt;&lt;</span>  <span class="s">&quot;weight&quot;</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
     <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">num_vertex</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">edgesetMST</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">from</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; - &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">edgesetMST</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">to</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; : &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">edgesetMST</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">weight</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setw</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">edgesetMST</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">from</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; - &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setw</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">edgesetMST</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">to</span> 
+                  <span class="o">&lt;&lt;</span> <span class="s">&quot; : &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setw</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">edgesetMST</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">weight</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
     <span class="p">}</span>
 <span class="p">}</span>
 <span class="kt">void</span> <span class="n">GraphMST</span><span class="o">::</span><span class="n">AddEdge</span><span class="p">(</span><span class="kt">int</span> <span class="n">from</span><span class="p">,</span> <span class="kt">int</span> <span class="n">to</span><span class="p">,</span> <span class="kt">int</span> <span class="n">weight</span><span class="p">){</span>
@@ -426,12 +429,13 @@
 
 <p>output:</p>
 <div class="highlight"><pre><span class="n">MST</span> <span class="n">found</span> <span class="n">by</span> <span class="nl">Kruskal</span><span class="p">:</span>
-<span class="mi">1</span> <span class="o">-</span> <span class="mi">4</span> <span class="o">:</span> <span class="mi">1</span>
-<span class="mi">4</span> <span class="o">-</span> <span class="mi">6</span> <span class="o">:</span> <span class="mi">2</span>
-<span class="mi">0</span> <span class="o">-</span> <span class="mi">5</span> <span class="o">:</span> <span class="mi">3</span>
-<span class="mi">0</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">:</span> <span class="mi">5</span>
-<span class="mi">2</span> <span class="o">-</span> <span class="mi">3</span> <span class="o">:</span> <span class="mi">5</span>
-<span class="mi">3</span> <span class="o">-</span> <span class="mi">4</span> <span class="o">:</span> <span class="mi">7</span>
+ <span class="n">v1</span> <span class="o">-</span>  <span class="nl">v2</span> <span class="p">:</span> <span class="n">weight</span>
+  <span class="mi">1</span> <span class="o">-</span>   <span class="mi">4</span> <span class="o">:</span>    <span class="mi">1</span>
+  <span class="mi">4</span> <span class="o">-</span>   <span class="mi">6</span> <span class="o">:</span>    <span class="mi">2</span>
+  <span class="mi">0</span> <span class="o">-</span>   <span class="mi">5</span> <span class="o">:</span>    <span class="mi">3</span>
+  <span class="mi">0</span> <span class="o">-</span>   <span class="mi">1</span> <span class="o">:</span>    <span class="mi">5</span>
+  <span class="mi">2</span> <span class="o">-</span>   <span class="mi">3</span> <span class="o">:</span>    <span class="mi">5</span>
+  <span class="mi">3</span> <span class="o">-</span>   <span class="mi">4</span> <span class="o">:</span>    <span class="mi">7</span>
 </pre></div>
 
 
