@@ -277,12 +277,7 @@
 <span class="cp">#include &lt;list&gt;</span>
 <span class="cp">#include &lt;iomanip&gt;      </span><span class="c1">// for setw()</span>
 
-<span class="k">const</span> <span class="kt">int</span> <span class="n">Max_Weight</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">;</span>
-<span class="k">struct</span> <span class="n">Edge</span><span class="p">{</span>
-    <span class="kt">int</span> <span class="n">from</span><span class="p">,</span> <span class="n">to</span><span class="p">,</span> <span class="n">weight</span><span class="p">;</span>
-    <span class="n">Edge</span><span class="p">(){};</span>
-    <span class="n">Edge</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="kt">int</span> <span class="n">v</span><span class="p">,</span> <span class="kt">int</span> <span class="n">w</span><span class="p">)</span><span class="o">:</span><span class="n">from</span><span class="p">(</span><span class="n">u</span><span class="p">),</span> <span class="n">to</span><span class="p">(</span><span class="n">v</span><span class="p">),</span> <span class="n">weight</span><span class="p">(</span><span class="n">w</span><span class="p">){};</span>
-<span class="p">};</span>
+<span class="k">const</span> <span class="kt">int</span> <span class="n">Max_Weight</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">;</span>    <span class="c1">// 初始化key[]時需要infinity, 以Max_Weight代替</span>
 
 <span class="k">class</span> <span class="nc">GraphMST</span><span class="p">{</span>
 <span class="k">private</span><span class="o">:</span>
@@ -335,7 +330,7 @@
             <span class="p">}</span>
         <span class="p">}</span>
     <span class="p">}</span>
-    <span class="c1">// print MST</span>
+    <span class="c1">// print MST, 與MST演算法主體無關</span>
     <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setw</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;v1&quot;</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; - &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setw</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;v2&quot;</span><span class="o">&lt;&lt;</span> <span class="s">&quot; : weight</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
     <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="p">(</span><span class="n">Start</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="n">num_vertex</span><span class="p">;</span>   <span class="c1">// 若從4開始, i依序為5,6,0,1,2,3</span>
     <span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="o">!=</span> <span class="n">Start</span><span class="p">)</span> <span class="p">{</span>
@@ -390,8 +385,8 @@
 <li><a href="http://theoryofprogramming.com/2015/03/27/prims-algorithm/">Theory of Programming：Prim's Algorithm</a></li>
 <li><a href="http://www.personal.kent.edu/~rmuhamma/Algorithms/MyAlgorithms/GraphAlgor/primAlgor.htm">Rashid Bin Muhammad：Jarnik's (Prim's) Algorithm</a></li>
 </ul>
-<p>以上便是利用<strong>Prim's Algorithm</strong>尋找MST之介紹。</p>
-<p>若讀者能夠花些時間比較這兩種種樹的策略，將會發現，兩邊都是天才啊。</p>
+<p>以上便是利用<strong>Prim's Algorithm</strong>尋找MST之介紹。<br />
+若讀者能夠花些時間比較這兩種種樹的策略，將會發現，兩邊都是天才啊。</p>
 <p></br></p>
 <hr />
 <p><a name="ref"></a></p>
