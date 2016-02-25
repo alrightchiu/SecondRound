@@ -253,7 +253,6 @@ Summary: 介紹於Graph中，利用Prim's Algorithm求得Minimum Spanning Tree(M
 // C++ code
 #include <iostream>
 #include <vector>
-#include <list>
 #include <iomanip>      // for setw()
 
 const int Max_Weight = 1000;    // 初始化key[]時需要infinity, 以Max_Weight代替
