@@ -256,12 +256,7 @@ Summary: 介紹於Graph中，利用Prim's Algorithm求得Minimum Spanning Tree(M
 #include <list>
 #include <iomanip>      // for setw()
 
-const int Max_Weight = 1000;
-struct Edge{
-    int from, to, weight;
-    Edge(){};
-    Edge(int u, int v, int w):from(u), to(v), weight(w){};
-};
+const int Max_Weight = 1000;    // 初始化key[]時需要infinity, 以Max_Weight代替
 
 class GraphMST{
 private:
@@ -314,7 +309,7 @@ void GraphMST::PrimMST(int Start){
             }
         }
     }
-    // print MST
+    // print MST, 與MST演算法主體無關
     std::cout << std::setw(3) << "v1" << " - " << std::setw(3) << "v2"<< " : weight\n";
     int i = (Start+1)%num_vertex;   // 若從4開始, i依序為5,6,0,1,2,3
     while (i != Start) {
@@ -393,8 +388,7 @@ MST found by Prim:
 
 
  
-以上便是利用**Prim's Algorithm**尋找MST之介紹。
-
+以上便是利用**Prim's Algorithm**尋找MST之介紹。  
 若讀者能夠花些時間比較這兩種種樹的策略，將會發現，兩邊都是天才啊。
 
 
