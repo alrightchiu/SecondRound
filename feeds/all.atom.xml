@@ -195,7 +195,7 @@
 &lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_Kruskal_fig/f14.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖二(k)。&lt;/strong&gt;
 &lt;/center&gt;&lt;/p&gt;
-&lt;p&gt;如圖二(k)，當&lt;code&gt;edgesetMST[]&lt;/code&gt;加入edge(4,3)後，MST便完成了。&lt;/p&gt;
+&lt;p&gt;如圖二(k)，當&lt;code&gt;edgesetMST[]&lt;/code&gt;加入edge(4,3)後，MST便尋找完畢。&lt;/p&gt;
 &lt;p&gt;用肉眼看起來，除了weight&lt;span class="math"&gt;\(=4\)&lt;/span&gt;的edge(1,6)，與weight&lt;span class="math"&gt;\(=6\)&lt;/span&gt;的edge(5,4)之外，確實是Graph上具有較小weight之edge都被挑進MST了。&lt;/p&gt;
 &lt;p&gt;但是要怎麼驗證Kruskal's Algorithm不是運氣好呢？&lt;br /&gt;
 答案就在上一篇文章提到的&lt;strong&gt;Theorem1&lt;/strong&gt;與&lt;strong&gt;Corollary2&lt;/strong&gt;裡面。&lt;/p&gt;
@@ -300,6 +300,7 @@
 
     &lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;Edge&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;edgesetMST&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;Edge&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;num_vertex&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
     &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;edgesetcount&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
     &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;subset&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;num_vertex&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
     &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;num_vertex&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
         &lt;span class="n"&gt;subset&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
