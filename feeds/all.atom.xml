@@ -192,7 +192,6 @@
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// C++ code&lt;/span&gt;
 &lt;span class="cp"&gt;#include &amp;lt;iostream&amp;gt;&lt;/span&gt;
 &lt;span class="cp"&gt;#include &amp;lt;vector&amp;gt;&lt;/span&gt;
-&lt;span class="cp"&gt;#include &amp;lt;list&amp;gt;&lt;/span&gt;
 &lt;span class="cp"&gt;#include &amp;lt;iomanip&amp;gt;      &lt;/span&gt;&lt;span class="c1"&gt;// for setw()&lt;/span&gt;
 
 &lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;Max_Weight&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;1000&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;    &lt;span class="c1"&gt;// 初始化key[]時需要infinity, 以Max_Weight代替&lt;/span&gt;
