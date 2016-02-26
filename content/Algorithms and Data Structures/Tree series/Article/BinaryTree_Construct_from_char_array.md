@@ -358,7 +358,7 @@ void BinaryTree::LevelorderConstruct(std::stringstream &ss){
             TreeNode *new_node = new TreeNode;        // call constructor TreeNode()
             new_node->parent = current;
             current->rightchild = new_node;
-            new_node->data = data;
+            new_node->data = data;                    // assign data to new_node
             q.push(new_node);
         }
         current = q.front();
