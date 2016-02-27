@@ -1292,7 +1292,7 @@
 &lt;hr /&gt;
 &lt;h2&gt;目錄&lt;/h2&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href="#if_dfs_only"&gt;如果只有一次DFS()不行嗎？&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#if_dfs_only"&gt;如果只有一次DFS不行嗎？&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="#algorithm"&gt;演算法&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="#code"&gt;程式碼&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="#ref"&gt;參考資料&lt;/a&gt;&lt;/li&gt;
@@ -1300,7 +1300,7 @@
 &lt;/ul&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a name="if_dfs_only"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;如果只有一次DFS()不行嗎？&lt;/h2&gt;
+&lt;h2&gt;如果只有一次DFS不行嗎？&lt;/h2&gt;
 &lt;p&gt;在&lt;a href="http://alrightchiu.github.io/SecondRound/graph-li-yong-dfshe-bfsxun-zhao-connected-component.html"&gt;上一篇文章&lt;/a&gt;提到，只用一次&lt;code&gt;DFS()&lt;/code&gt;或&lt;code&gt;BFS()&lt;/code&gt;得到&lt;code&gt;predecessor&lt;/code&gt;後，便能夠找到undirected graph中的connected component。&lt;/p&gt;
 &lt;p&gt;那如果用來找SCC？&lt;/p&gt;
 &lt;p&gt;以下示範兩次&lt;code&gt;DFS()&lt;/code&gt;來說明，一次是按照「&lt;span class="math"&gt;\(8、7、...、2、1\)&lt;/span&gt;」之順序把vertex設為搜尋起點，另一次則是按照「&lt;span class="math"&gt;\(1、2、...、7、8\)&lt;/span&gt;」之順序。&lt;/p&gt;
@@ -5561,8 +5561,8 @@
 &lt;li&gt;&lt;a href="#code"&gt;程式碼&lt;/a&gt;   &lt;ul&gt;
 &lt;li&gt;&lt;a href="#def"&gt;定義class TreeNode、class BinaryTree&lt;/a&gt; &lt;/li&gt;
 &lt;li&gt;&lt;a href="#constructor"&gt;Constructor of BinaryTree&lt;/a&gt; &lt;/li&gt;
-&lt;li&gt;&lt;a href="#func1"&gt;Function：LevelorderConstruct()&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="#func2"&gt;Function：insertLevelorder()&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#func1"&gt;Function：LevelorderConstruct&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#func2"&gt;Function：insertLevelorder&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;&lt;a href="#ref"&gt;參考資料&lt;/a&gt;&lt;/li&gt;
@@ -5693,7 +5693,7 @@
 
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a name="func1"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h3&gt;Function：LevelorderConstruct()&lt;/h3&gt;
+&lt;h3&gt;Function：LevelorderConstruct&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;在看&lt;code&gt;LevelorderConstruct()&lt;/code&gt;的函式主體之前，再看一眼&lt;a href="http://alrightchiu.github.io/SecondRound/binary-tree-traversal.html#level"&gt;level-order traversal&lt;/a&gt;，概念上即是藉著&lt;code&gt;queue&lt;/code&gt;的「先排隊就先購票」的特性，在同一個level中，只要確保由左至右將node放進&lt;code&gt;queue&lt;/code&gt;中，便能確保在進入下一個level後，以先前放入node之順序進行visiting。  &lt;/li&gt;
 &lt;li&gt;在&lt;code&gt;while&lt;/code&gt;內，新增條件用來判斷從&lt;code&gt;stringstream&lt;/code&gt;中輸出的字母是「大寫字母」(ASCII：65~90)還是「x」，前者要放入樹中建成node，後者則忽略不計。  &lt;/li&gt;
@@ -5838,7 +5838,7 @@
 
 &lt;p&gt;&lt;/br&gt;
 &lt;a name="func2"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h3&gt;Function：insertLevelorder()&lt;/h3&gt;
+&lt;h3&gt;Function：insertLevelorder&lt;/h3&gt;
 &lt;p&gt;函式&lt;code&gt;insertLevelorder()&lt;/code&gt;的功能是，能夠按照Complete Binary Tree的位置順序放置新增的node，例如，若要在圖三之樹上新增帶有字母&lt;strong&gt;'K'&lt;/strong&gt;的node，則&lt;code&gt;T.insertLevelorder('K')&lt;/code&gt;便會將&lt;strong&gt;'K'&lt;/strong&gt;建成C的right child，如圖四(a)：&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="insertK" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/insertK.png?raw=true" /&gt;  &lt;/p&gt;

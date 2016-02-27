@@ -122,8 +122,8 @@
 <li><a href="#code">程式碼</a>   <ul>
 <li><a href="#def">定義class TreeNode、class BinaryTree</a> </li>
 <li><a href="#constructor">Constructor of BinaryTree</a> </li>
-<li><a href="#func1">Function：LevelorderConstruct()</a></li>
-<li><a href="#func2">Function：insertLevelorder()</a></li>
+<li><a href="#func1">Function：LevelorderConstruct</a></li>
+<li><a href="#func2">Function：insertLevelorder</a></li>
 </ul>
 </li>
 <li><a href="#ref">參考資料</a></li>
@@ -254,7 +254,7 @@
 
 <p></br></p>
 <p><a name="func1"></a></p>
-<h3>Function：LevelorderConstruct()</h3>
+<h3>Function：LevelorderConstruct</h3>
 <ul>
 <li>在看<code>LevelorderConstruct()</code>的函式主體之前，再看一眼<a href="http://alrightchiu.github.io/SecondRound/binary-tree-traversal.html#level">level-order traversal</a>，概念上即是藉著<code>queue</code>的「先排隊就先購票」的特性，在同一個level中，只要確保由左至右將node放進<code>queue</code>中，便能確保在進入下一個level後，以先前放入node之順序進行visiting。  </li>
 <li>在<code>while</code>內，新增條件用來判斷從<code>stringstream</code>中輸出的字母是「大寫字母」(ASCII：65~90)還是「x」，前者要放入樹中建成node，後者則忽略不計。  </li>
@@ -399,7 +399,7 @@
 
 <p></br>
 <a name="func2"></a></p>
-<h3>Function：insertLevelorder()</h3>
+<h3>Function：insertLevelorder</h3>
 <p>函式<code>insertLevelorder()</code>的功能是，能夠按照Complete Binary Tree的位置順序放置新增的node，例如，若要在圖三之樹上新增帶有字母<strong>'K'</strong>的node，則<code>T.insertLevelorder('K')</code>便會將<strong>'K'</strong>建成C的right child，如圖四(a)：</p>
 <p><center>
 <img alt="insertK" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/insertK.png?raw=true" />  </p>
