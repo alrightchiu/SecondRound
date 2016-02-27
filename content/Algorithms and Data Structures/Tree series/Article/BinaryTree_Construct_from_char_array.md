@@ -23,8 +23,8 @@ Summary: 介紹如何以字元陣列(char array)獲得資料(data)後，建立�
 * [程式碼](#code)   
     * [定義class TreeNode、class BinaryTree](#def) 
     * [Constructor of BinaryTree](#constructor) 
-    * [Function：LevelorderConstruct()](#func1)
-    * [Function：insertLevelorder()](#func2)
+    * [Function：LevelorderConstruct](#func1)
+    * [Function：insertLevelorder](#func2)
 * [參考資料](#ref)
 * [Binary Tree系列文章](#tree_series)
 
@@ -176,7 +176,7 @@ BinaryTree::BinaryTree(const char* str){
 
 <a name="func1"></a>
 
-###Function：LevelorderConstruct()
+###Function：LevelorderConstruct
 
 * 在看`LevelorderConstruct()`的函式主體之前，再看一眼[level-order traversal](http://alrightchiu.github.io/SecondRound/binary-tree-traversal.html#level)，概念上即是藉著`queue`的「先排隊就先購票」的特性，在同一個level中，只要確保由左至右將node放進`queue`中，便能確保在進入下一個level後，以先前放入node之順序進行visiting。  
 * 在`while`內，新增條件用來判斷從`stringstream`中輸出的字母是「大寫字母」(ASCII：65~90)還是「x」，前者要放入樹中建成node，後者則忽略不計。  
@@ -369,7 +369,7 @@ void BinaryTree::LevelorderConstruct(std::stringstream &ss){
 </br>
 <a name="func2"></a>
 
-###Function：insertLevelorder()
+###Function：insertLevelorder
 
 函式`insertLevelorder()`的功能是，能夠按照Complete Binary Tree的位置順序放置新增的node，例如，若要在圖三之樹上新增帶有字母**'K'**的node，則`T.insertLevelorder('K')`便會將**'K'**建成C的right child，如圖四(a)：
 

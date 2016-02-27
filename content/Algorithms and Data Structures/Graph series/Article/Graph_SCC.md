@@ -45,7 +45,7 @@ Summary: 利用DFS尋找diredted graph中的strongly connected component(SCC)。
 
 ##目錄
 
-* [如果只有一次DFS()不行嗎？](#if_dfs_only)
+* [如果只有一次DFS不行嗎？](#if_dfs_only)
 * [演算法](#algorithm)
 * [程式碼](#code)
 * [參考資料](#ref)
@@ -55,7 +55,7 @@ Summary: 利用DFS尋找diredted graph中的strongly connected component(SCC)。
 
 <a name="if_dfs_only"></a>
 
-##如果只有一次DFS()不行嗎？
+##如果只有一次DFS不行嗎？
 
 在[上一篇文章](http://alrightchiu.github.io/SecondRound/graph-li-yong-dfshe-bfsxun-zhao-connected-component.html)提到，只用一次`DFS()`或`BFS()`得到`predecessor`後，便能夠找到undirected graph中的connected component。
 
