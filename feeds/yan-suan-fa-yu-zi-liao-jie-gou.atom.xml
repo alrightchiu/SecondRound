@@ -794,7 +794,7 @@
         "}";
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
-&lt;/script&gt;</summary><category term="C++"></category><category term="Graph"></category><category term="MST"></category><category term="Greedy Algorithm"></category><category term="Cut(partition)"></category></entry><entry><title>Minimum Spanning Tree：Intro(簡介)</title><link href="http://alrightchiu.github.io/SecondRound/minimum-spanning-treeintrojian-jie.html" rel="alternate"></link><updated>2016-02-23T12:36:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-02-23:SecondRound/minimum-spanning-treeintrojian-jie.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;/script&gt;</summary><category term="C++"></category><category term="Graph"></category><category term="MST"></category><category term="Greedy Algorithm"></category><category term="Cut(partition)"></category><category term="Set(Find and Union)"></category></entry><entry><title>Minimum Spanning Tree：Intro(簡介)</title><link href="http://alrightchiu.github.io/SecondRound/minimum-spanning-treeintrojian-jie.html" rel="alternate"></link><updated>2016-02-23T12:36:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-02-23:SecondRound/minimum-spanning-treeintrojian-jie.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h3&gt;先備知識與注意事項&lt;/h3&gt;
 &lt;p&gt;本篇文章旨在介紹Graph中常見的應用：Minimum Spanning Tree(MST，最小生成樹)。&lt;/p&gt;
 &lt;p&gt;在介紹演算法時，繼續會用上Set(集合)的概念，如果對Set有基本概念，相信讀者一定可以躺著讀完這篇。&lt;/p&gt;
