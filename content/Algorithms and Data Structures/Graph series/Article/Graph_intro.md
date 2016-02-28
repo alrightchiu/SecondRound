@@ -263,7 +263,7 @@ Graph比Tree更加廣義，其定義僅僅使用了集合(Set)，並且不限制
 
 1. **Minimum Spanning Tree(MST，最小生成樹)**：給定一個connected、weighted的undirected graph，要在這個graph中，找到(1)連結所有vertex，而且(2)edge上的weight總和最小的「Tree」。  
 例如，鄉公所要鋪路，先以鄉公所為中心(`root`)，把所有馬路必須到達的地區視為vertex，則路就是edge，那麼，鋪路的目標便是利用最低成本(weight總和最小)將馬路延伸到所有必須抵達的地區，這就是MST的問題。
-2. **Shortest Path(最短路徑)**：顧名思義，最短路徑即是找到vertex(A)與vertex(B)之間lenght最小的path，例如Google Map。  
+2. **Shortest Path(最短路徑)**：顧名思義，最短路徑即是找到vertex(A)與vertex(B)之間「成本」最小的path，例如以Google Map規劃時間成本最小的路線。  
 其中又可以分為：
     * **Single Source Single Destination**：從一個vertex，抵達特定的另一個vertex之最短路徑；
     * **Single Source All Destination**：從一個vertex，抵達graph中其餘所有vertex之最短路徑；
