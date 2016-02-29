@@ -49,7 +49,7 @@ Set是不講求順序(order)的資料彙集(collection)，其資料結構可以�
 而此處使用的表示法如下，配合圖一(a)：
 
 * 以矩陣來表示所有subset。
-* 若vertex(X)之矩陣值為負值(nagetive value)，即表示vertex(X)「沒有predecessor」，vertex(X)就是Set的root，用以代表一個獨立的Set。
+* 若vertex(X)之矩陣值為負值(negative value)，即表示vertex(X)「沒有predecessor」，vertex(X)就是Set的root，用以代表一個獨立的Set。
     * 見圖一(a)，vertex(1)、vertex(4)、vertex(7)皆為各自所代表的Set之root。
 * 若vertex(Y)之矩陣值為正值(positive value)，該數值即為vertex(Y)的predecessor。
     * 見圖一(a)，vertex(0)之predecessor為vertex(7)，而vertex(7)正好是此Set的root，即表示vertex(0)與vertex(7)屬於同一個Set。
