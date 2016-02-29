@@ -274,7 +274,7 @@
 <li><code>predecessor[Y]=X</code>。</li>
 </ul>
 </li>
-<li>反之，若<code>distance[Y]</code><span class="math">\(&lt;\)</span><code>distance[X]+w(X,Y)</code>，表示<span class="math">\(P=S-Y\)</span>之成本小於<span class="math">\(P=S-X-Y\)</span>，則不需要更新兩個資料項目，目前的路徑已經是最短路徑。</li>
+<li>反之，若<code>distance[Y]</code><span class="math">\(&lt;\)</span><code>distance[X]+w(X,Y)</code>，表示<span class="math">\(P:S-Y\)</span>之成本小於<span class="math">\(P:S-X-Y\)</span>，則不需要更新兩個資料項目，目前的路徑已經是最短路徑。</li>
 </ul>
 <p>以上的「比較<code>distance</code>後決定是否更新<code>distance</code>(與<code>predecessor</code>)」步驟，就是<strong>Relaxation</strong>。</p>
 <p><code>Relax()</code>之範例程式碼如下：</p>
@@ -329,11 +329,11 @@
 </ul>
 <p></br>  </p>
 <p>以上便是稍微繁瑣的<strong>Single-Source最短路徑</strong>之問題情境的介紹。  </p>
-<p>接下來將依序介紹三個演算法來找到最短路徑：</p>
+<p>接下來將依序介紹三個演算法來找到Single-Source問題的最短路徑：</p>
 <ol>
-<li><strong>Bellmem-Ford Algorithm</strong>；</li>
-<li><strong>Shortest Path in DAG</strong>；</li>
-<li><strong>Dijkstra's Algorithm</strong>。</li>
+<li><strong>Bellmem-Ford Algorithm</strong></li>
+<li><strong>Shortest Path in DAG</strong></li>
+<li><strong>Dijkstra's Algorithm</strong></li>
 </ol>
 <p>只要掌握<strong>Relaxation</strong>、<strong>Convergence property</strong>與<strong>Path-relaxation property</strong>之概念就沒問題了。</p>
 <p></br></p>

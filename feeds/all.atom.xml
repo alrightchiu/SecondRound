@@ -194,7 +194,7 @@
 &lt;li&gt;&lt;code&gt;predecessor[Y]=X&lt;/code&gt;。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;反之，若&lt;code&gt;distance[Y]&lt;/code&gt;&lt;span class="math"&gt;\(&amp;lt;\)&lt;/span&gt;&lt;code&gt;distance[X]+w(X,Y)&lt;/code&gt;，表示&lt;span class="math"&gt;\(P=S-Y\)&lt;/span&gt;之成本小於&lt;span class="math"&gt;\(P=S-X-Y\)&lt;/span&gt;，則不需要更新兩個資料項目，目前的路徑已經是最短路徑。&lt;/li&gt;
+&lt;li&gt;反之，若&lt;code&gt;distance[Y]&lt;/code&gt;&lt;span class="math"&gt;\(&amp;lt;\)&lt;/span&gt;&lt;code&gt;distance[X]+w(X,Y)&lt;/code&gt;，表示&lt;span class="math"&gt;\(P:S-Y\)&lt;/span&gt;之成本小於&lt;span class="math"&gt;\(P:S-X-Y\)&lt;/span&gt;，則不需要更新兩個資料項目，目前的路徑已經是最短路徑。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;以上的「比較&lt;code&gt;distance&lt;/code&gt;後決定是否更新&lt;code&gt;distance&lt;/code&gt;(與&lt;code&gt;predecessor&lt;/code&gt;)」步驟，就是&lt;strong&gt;Relaxation&lt;/strong&gt;。&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;Relax()&lt;/code&gt;之範例程式碼如下：&lt;/p&gt;
@@ -249,11 +249,11 @@
 &lt;/ul&gt;
 &lt;p&gt;&lt;/br&gt;  &lt;/p&gt;
 &lt;p&gt;以上便是稍微繁瑣的&lt;strong&gt;Single-Source最短路徑&lt;/strong&gt;之問題情境的介紹。  &lt;/p&gt;
-&lt;p&gt;接下來將依序介紹三個演算法來找到最短路徑：&lt;/p&gt;
+&lt;p&gt;接下來將依序介紹三個演算法來找到Single-Source問題的最短路徑：&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;Bellmem-Ford Algorithm&lt;/strong&gt;；&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Shortest Path in DAG&lt;/strong&gt;；&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Dijkstra's Algorithm&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Bellmem-Ford Algorithm&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Shortest Path in DAG&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Dijkstra's Algorithm&lt;/strong&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;只要掌握&lt;strong&gt;Relaxation&lt;/strong&gt;、&lt;strong&gt;Convergence property&lt;/strong&gt;與&lt;strong&gt;Path-relaxation property&lt;/strong&gt;之概念就沒問題了。&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
