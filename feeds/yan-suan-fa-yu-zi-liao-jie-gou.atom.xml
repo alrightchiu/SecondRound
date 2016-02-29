@@ -30,6 +30,8 @@
 &lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/minimum-spanning-treeintrojian-jie.html"&gt;Minimum Spanning Tree：Intro(簡介)&lt;/a&gt;&lt;br /&gt;
 &lt;a href="http://alrightchiu.github.io/SecondRound/minimum-spanning-treekruskals-algorithm.html"&gt;Minimum Spanning Tree：Kruskal's Algorithm&lt;/a&gt;&lt;br /&gt;
 &lt;a href="http://alrightchiu.github.io/SecondRound/minimum-spanning-treeprims-algorithm.html"&gt;Minimum Spanning Tree：Prim's Algorithm&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;Shortest Path：&lt;/h3&gt;
+&lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathintrojian-jie.html"&gt;Single-Source Shortest Path：Intro(簡介)&lt;/a&gt;  &lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;</summary><category term="C++"></category></entry><entry><title>Single-Source Shortest Path：Intro(簡介)</title><link href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathintrojian-jie.html" rel="alternate"></link><updated>2016-02-29T20:12:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-02-29:SecondRound/single-source-shortest-pathintrojian-jie.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h3&gt;先備知識與注意事項&lt;/h3&gt;
 &lt;p&gt;如果非要在這個章節加上一份先備知識，我會說是&lt;a href="https://www.google.com.tw/maps"&gt;Google Map&lt;/a&gt;。&lt;/p&gt;
@@ -267,6 +269,7 @@
 &lt;p&gt;&lt;a name="series"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h3&gt;Shortest Path系列文章&lt;/h3&gt;
+&lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathintrojian-jie.html"&gt;Single-Source Shortest Path：Intro(簡介)&lt;/a&gt;  &lt;/p&gt;
 &lt;p&gt;回到目錄：&lt;/p&gt;
 &lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html"&gt;目錄：演算法與資料結構&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
@@ -3669,7 +3672,8 @@
 &lt;a href="http://alrightchiu.github.io/SecondRound/grpah-li-yong-dfsxun-zhao-dagde-topological-sorttuo-pu-pai-xu.html"&gt;Grpah: 利用DFS尋找DAG的Topological Sort(拓撲排序)&lt;/a&gt;&lt;br /&gt;
 &lt;a href="http://alrightchiu.github.io/SecondRound/minimum-spanning-treeintrojian-jie.html"&gt;Minimum Spanning Tree：Intro(簡介)&lt;/a&gt;&lt;br /&gt;
 &lt;a href="http://alrightchiu.github.io/SecondRound/minimum-spanning-treekruskals-algorithm.html"&gt;Minimum Spanning Tree：Kruskal's Algorithm&lt;/a&gt;&lt;br /&gt;
-&lt;a href="http://alrightchiu.github.io/SecondRound/minimum-spanning-treeprims-algorithm.html"&gt;Minimum Spanning Tree：Prim's Algorithm&lt;/a&gt;  &lt;/p&gt;
+&lt;a href="http://alrightchiu.github.io/SecondRound/minimum-spanning-treeprims-algorithm.html"&gt;Minimum Spanning Tree：Prim's Algorithm&lt;/a&gt;&lt;br /&gt;
+&lt;a href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathintrojian-jie.html"&gt;Single-Source Shortest Path：Intro(簡介)&lt;/a&gt;  &lt;/p&gt;
 &lt;p&gt;回到目錄：&lt;/p&gt;
 &lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html"&gt;目錄：演算法與資料結構&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
