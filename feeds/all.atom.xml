@@ -30,7 +30,303 @@
 &lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/minimum-spanning-treeintrojian-jie.html"&gt;Minimum Spanning Tree：Intro(簡介)&lt;/a&gt;&lt;br /&gt;
 &lt;a href="http://alrightchiu.github.io/SecondRound/minimum-spanning-treekruskals-algorithm.html"&gt;Minimum Spanning Tree：Kruskal's Algorithm&lt;/a&gt;&lt;br /&gt;
 &lt;a href="http://alrightchiu.github.io/SecondRound/minimum-spanning-treeprims-algorithm.html"&gt;Minimum Spanning Tree：Prim's Algorithm&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;/br&gt;&lt;/p&gt;</summary><category term="C++"></category></entry><entry><title>Minimum Spanning Tree：Prim's Algorithm</title><link href="http://alrightchiu.github.io/SecondRound/minimum-spanning-treeprims-algorithm.html" rel="alternate"></link><updated>2016-02-25T20:30:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-02-25:SecondRound/minimum-spanning-treeprims-algorithm.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;</summary><category term="C++"></category></entry><entry><title>Single-Source Shortest Path：Intro(簡介)</title><link href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathintrojian-jie.html" rel="alternate"></link><updated>2016-02-29T20:12:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-02-29:SecondRound/single-source-shortest-pathintrojian-jie.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;h3&gt;先備知識與注意事項&lt;/h3&gt;
+&lt;p&gt;如果非要在這個章節加上一份先備知識，我會說是&lt;a href="https://www.google.com.tw/maps"&gt;Google Map&lt;/a&gt;。&lt;/p&gt;
+&lt;hr /&gt;
+&lt;h2&gt;目錄&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="#sp"&gt;最短路徑問題(Shortest Path)&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href="#limit"&gt;限制&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#property"&gt;特徵&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href="#relax"&gt;觀念：Relaxation&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href="#triangle"&gt;Triangle inequality&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#upper-bound"&gt;Upper-Bound property&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#convergence"&gt;Convergence property&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#path-relaxation"&gt;Path-relaxation property&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href="#ref"&gt;參考資料&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#series"&gt;Shortest Path系列文章&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a name="sp"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;最短路徑問題(Shortest Path)&lt;/h2&gt;
+&lt;p&gt;為了解決較為廣義的情境，接下來討論的最短路徑問題將考慮的是一個&lt;strong&gt;weighted directed graph&lt;/strong&gt;，以weight總和表示path之成本，並以具有方向性之edge表示兩個vertex之間的關係。  &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;undirected graph的問題能夠以directed graph的模型解決，反之則無法。&lt;/li&gt;
+&lt;li&gt;不具weight的edge也能夠以weighted edge模擬(將全部weight設為相同數值即可)，反之則無法。&lt;/li&gt;
+&lt;li&gt;因此可以視為只能處理unweighted graph之BFS/DFS的擴充包。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;定義名詞：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;path之weight：若有一條&lt;span class="math"&gt;\(Path:0-1-2-...-K\)&lt;/span&gt;，定義其weight為所有edge之weight總和，&lt;span class="math"&gt;\(w(path)=\sum_{i=1}^{K}w(i-1,i)\)&lt;/span&gt;，如圖一。&lt;/li&gt;
+&lt;li&gt;最短路徑&lt;span class="math"&gt;\(w(path)=\delta(X,Y)\)&lt;/span&gt;：在Graph上，所有從vertex(X)出發抵達vertex(Y)的path中，具有最小weight之path，稱為最短路徑，其weight滿足：&lt;ul&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(\delta(X,Y)=\min{w(path)|path from X to Y}\)&lt;/span&gt;。&lt;br /&gt;
+(可能有多條path之weight皆為極小值，那麼這些path都是最短路徑。)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;若&lt;span class="math"&gt;\(\delta(X,Y)=\infty\)&lt;/span&gt;，則表示無法從vertex(X)走到vertex(Y)。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_intro/f1.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖一。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;根據出發的vertex(稱為source)與終點vertex(稱為destination)之數量選擇，可以將最短路徑問題分成四類：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Single-Pair Shortest Path&lt;/strong&gt;：從單一vertex，抵達某個特定vertex之最短路徑，此為第二種問題的子問題；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Single-Source Shortest Path&lt;/strong&gt;：從單一vertex，抵達Graph中其餘所有vertex之最短路徑；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Single-Destination Shortest Path&lt;/strong&gt;：從Graph中的每一個vertex抵達某個特定vertex之最短路徑：&lt;ul&gt;
+&lt;li&gt;此為第二種問題之變形，只要把edge的方向相反，也就是在&lt;strong&gt;G&lt;sup&gt;T&lt;/sup&gt;&lt;/strong&gt;上執行第二種問題之演算法，再將結果。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;All-Pairs Shortest Path&lt;/strong&gt;：Graph中的所有vertex抵達其餘所有vertex之最短路徑。&lt;ul&gt;
+&lt;li&gt;若把每一個vertex都當作起點，即可利用第二種問題之方法解決。&lt;/li&gt;
+&lt;li&gt;不過之後將介紹的&lt;strong&gt;Floyd-Warshall Algorithm&lt;/strong&gt;有更好的答案。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;綜合以上，先學第二種問題的演算法：以單一vertex為起點，抵達Graph中的其餘所有vertex之最短路徑，就是最明智的選擇。(推銷成功)&lt;/p&gt;
+&lt;p&gt;先來看個簡單的範例：&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_intro/f2.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖二(a)。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;如圖二(a)，考慮一個weighted directed graph，若以vertex(0)為起點，要找到從vertex(0)抵達Graph中其餘vertex的最短路徑，結果便如圖二(b)。  &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;考慮從vertex(0)走到vertex(2)：path&lt;span class="math"&gt;\(:0-1-2\)&lt;/span&gt;的edge數最少，但是weight總和是&lt;span class="math"&gt;\(11\)&lt;/span&gt;，而edge數較多的&lt;span class="math"&gt;\(Path:0-1-4-3-2\)&lt;/span&gt;的weight總和只有&lt;span class="math"&gt;\(6\)&lt;/span&gt;，才是從vertex(0)走到vertex(2)的最短路徑。&lt;/li&gt;
+&lt;li&gt;原因在於weight有負值(negative value)，所以edge越多的path，weight總和不見得越大(經過某些路徑使得整體成本降低)。  &lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_intro/f3.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖二(b)：path上之edge越少，不見得weight總和越小。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;在處理最短路徑問題時，最基本需要用到兩個資料項目：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;distance[]&lt;/code&gt;：記錄從起點vertex，經過具有weight之edge，走到其餘vertex之「距離」，也就是該條path之weight。若有一條&lt;span class="math"&gt;\(Path:0-1-2\)&lt;/span&gt;，則path之weight總和即記錄在&lt;code&gt;distance[2]&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;predecessor[]&lt;/code&gt;：除了距離之外，還希望能夠回溯路徑，因此需要記錄vertex之&lt;code&gt;predecessor&lt;/code&gt;，並以此得到&lt;strong&gt;Predecessor Subgraph&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;由於最短路徑一定&lt;strong&gt;不包含cycle&lt;/strong&gt;，&lt;strong&gt;Predecessor Subgraph&lt;/strong&gt;會是一棵&lt;strong&gt;Shortest-Path Tree&lt;/strong&gt;。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;起點vertex即為&lt;strong&gt;root&lt;/strong&gt;；&lt;/li&gt;
+&lt;li&gt;從&lt;strong&gt;root&lt;/strong&gt;到其餘vertex的path必定是唯一的最短路徑。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;(若Graph上出現&lt;span class="math"&gt;\(\delta(X,Y)=\infty\)&lt;/span&gt;的情況，&lt;strong&gt;Predecessor Subgraph&lt;/strong&gt;會是&lt;strong&gt;Shortest-Path Forest&lt;/strong&gt;。)&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;
+&lt;a name="limit"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;限制&lt;/h3&gt;
+&lt;p&gt;為什麼最短路徑一定&lt;strong&gt;不包含cycle&lt;/strong&gt;？  &lt;/p&gt;
+&lt;p&gt;由於weight只要求是實數(real number)，weight可正可負，因此Graph中可能出現&lt;strong&gt;weight總和為正&lt;/strong&gt;的cycle與&lt;strong&gt;weight總和為負&lt;/strong&gt;的cycle。&lt;/p&gt;
+&lt;p&gt;考慮圖三(a)，cycle&lt;span class="math"&gt;\(:1-2-3\)&lt;/span&gt;之weight為&lt;span class="math"&gt;\(10\)&lt;/span&gt;，若path經過此cycle，weight之總和必定會增加，此path不會是最短路徑。考慮從vertex(0)走到vertex(4)：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(Path:0-1-2-3-4\)&lt;/span&gt;之weight為&lt;span class="math"&gt;\(10\)&lt;/span&gt;；&lt;/li&gt;
+&lt;li&gt;經過一次cycle，&lt;span class="math"&gt;\(Path:0-1-2-3-1-2-3-4\)&lt;/span&gt;之weight為&lt;span class="math"&gt;\(20\)&lt;/span&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_intro/f4.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖三(a)。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;考慮圖三(b)，cycle&lt;span class="math"&gt;\(:1-2-3\)&lt;/span&gt;之weight為&lt;span class="math"&gt;\(-6\)&lt;/span&gt;，表示path經過此cycle，weight之總和就會減少，而且經過越多次，weight總和越少，所以永遠不會有最短路徑，&lt;span class="math"&gt;\(\delta(X,Y)=-\infty\)&lt;/span&gt;。考慮從vertex(0)走到vertex(4)：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(Path:0-1-2-3-4\)&lt;/span&gt;之weight為&lt;span class="math"&gt;\(4\)&lt;/span&gt;；&lt;/li&gt;
+&lt;li&gt;經過一次cycle，&lt;span class="math"&gt;\(Path:0-1-2-3-1-2-3-4\)&lt;/span&gt;之weight為&lt;span class="math"&gt;\(-2\)&lt;/span&gt;；&lt;/li&gt;
+&lt;li&gt;經過兩次cycle，&lt;span class="math"&gt;\(Path:0-1-2-3-1-2-3-1-2-3-4\)&lt;/span&gt;之weight為&lt;span class="math"&gt;\(-8\)&lt;/span&gt;；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;因此，在考慮最短路徑問題時，Graph可以有總和為正值的cycle，但是不能有&lt;strong&gt;總和為負值的cycle&lt;/strong&gt;。  &lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_intro/f5.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖三(b)。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a name="property"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;特徵&lt;/h3&gt;
+&lt;p&gt;最短路徑除了&lt;strong&gt;不會有cycle&lt;/strong&gt;外，還有兩點特徵值得一提。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;特徵一&lt;/strong&gt;：因為最短路徑不存在cycle，在共有&lt;span class="math"&gt;\(V\)&lt;/span&gt;個vertex之Graph中，從vertex(X)走到vertex(Y)的最短路徑，至多只會包含&lt;span class="math"&gt;\(|V|-1\)&lt;/span&gt;條edge。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;如圖二(b)，從vertex(0)走到vertex(5)的paht上，共有&lt;span class="math"&gt;\(5\)&lt;/span&gt;條edge。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;此種情形發生在&lt;strong&gt;Shortest-Path Tree&lt;/strong&gt;退化成Linked list的時候。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;特徵二&lt;/strong&gt;：。若在Graph上，存在一條從vertex(0)走到vertex(K)的最短路徑，&lt;span class="math"&gt;\(P:v_0-v_1-v_2-...-v_K\)&lt;/span&gt;，並定義所有path上的vertex所形成的&lt;strong&gt;subpath&lt;/strong&gt;為&lt;span class="math"&gt;\(P_{ij}:v_i-v_{i+1}-...-v_j\)&lt;/span&gt;，其中&lt;span class="math"&gt;\(1\leq i\leq j\leq K\)&lt;/span&gt;，那麼每一條&lt;strong&gt;subpath&lt;/strong&gt;都會是最短路徑。&lt;br /&gt;
+白話文：最短路徑必定是由較小段的最短路徑所連結起來的。換句話說，每個最短路徑接起來的路徑必定仍然是最短路徑。&lt;/p&gt;
+&lt;p&gt;圖二(b)中，從vertex(0)走到vertex(5)之最短路徑為：&lt;span class="math"&gt;\(P:v_0-v_1-v_4-v_3-v_2-v_5\)&lt;/span&gt;，那麼其中的任何一條path，都是兩個vertex之間的最短距離：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;從vertex(1)走到vertex(2)之最短路徑：&lt;span class="math"&gt;\(P:v_1-v_4-v_3-v_2\)&lt;/span&gt;，weight總和為&lt;span class="math"&gt;\(1\)&lt;/span&gt;。&lt;/li&gt;
+&lt;li&gt;從vertex(4)走到vertex(5)之最短路徑：&lt;span class="math"&gt;\(P:v_4-v_3-v_2-v_5\)&lt;/span&gt;，weight總和為&lt;span class="math"&gt;\(3\)&lt;/span&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_intro/f3.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖二(b)。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;以上將「能夠考慮最短路徑問題」的Graph形式，以及「最短路徑之&lt;strong&gt;Predecessor Subgraph&lt;/strong&gt;」的特徵介紹完畢。&lt;/p&gt;
+&lt;p&gt;接著要介紹尋找最短路徑之演算法核心概念：&lt;strong&gt;Relaxation&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a name="relax"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;觀念：Relaxation&lt;/h2&gt;
+&lt;p&gt;見圖四(a)，現從vertex(S)作為起點，欲尋找抵達vertex(X)與vertex(Y)之最短路徑。&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_intro/f6.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖四(a)。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;其中，vertex(X)之最短路徑只有一種可能，&lt;code&gt;\delta(S,X)=w(S,X)&lt;/code&gt;。&lt;br /&gt;
+而vertex(Y)可以從vertex(S)或者vertex(X)抵達，因此最短路徑&lt;code&gt;\delta(S,Y)&lt;/code&gt;有兩種可能：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;\delta(S,Y)=w(S,Y)&lt;/code&gt;：vertex(Y)經由vertex(S)直接抵達。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;\delta(S,Y)=w(S,X)+w(X,Y)&lt;/code&gt;：vertex(S)先經過vertex(X)，再到vertex(Y)。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;這兩條path中，weight最小的path即是最短路徑。&lt;br /&gt;
+找到最短路徑的方法很直觀，只要比較這兩條路徑的weight，挑weight小的path即可。&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_intro/f7.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖四(b)。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;以圖四(b)為例，首先從vertex(S)出發，發現其與vertex(X)、vertex(Y)皆有edge相連，便更新兩個vertex的&lt;code&gt;distance&lt;/code&gt;為兩條相連edge之weight：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;distance[Y]=w(S,Y)&lt;/code&gt;；&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;distance[X]=w(S,X)&lt;/code&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;接著考慮經過vertex(X)再到vertex(Y)之path有沒有可能成本較低，便比較&lt;code&gt;distance[Y]&lt;/code&gt;與&lt;code&gt;distance[X]+w(X,Y)&lt;/code&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;若&lt;code&gt;distance[Y]&lt;/code&gt;&lt;span class="math"&gt;\(&amp;gt;\)&lt;/span&gt;&lt;code&gt;distance[X]+w(X,Y)&lt;/code&gt;，則表示&lt;span class="math"&gt;\(P:S-X-Y\)&lt;/span&gt;之成本小於&lt;span class="math"&gt;\(P:S-Y\)&lt;/span&gt;，因此從vertex(S)經過vertex(X)再到vertex(Y)才是最短路徑，便更新&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;distance[Y]=distance[X]+w(X,Y)&lt;/code&gt;；&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;predecessor[Y]=X&lt;/code&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;反之，若&lt;code&gt;distance[Y]&lt;/code&gt;&lt;span class="math"&gt;\(&amp;lt;\)&lt;/span&gt;&lt;code&gt;distance[X]+w(X,Y)&lt;/code&gt;，表示&lt;span class="math"&gt;\(P=S-Y\)&lt;/span&gt;之成本小於&lt;span class="math"&gt;\(P=S-X-Y\)&lt;/span&gt;，則不需要更新兩個資料項目，目前的路徑已經是最短路徑。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;以上的「比較&lt;code&gt;distance&lt;/code&gt;後決定是否更新&lt;code&gt;distance&lt;/code&gt;(與&lt;code&gt;predecessor&lt;/code&gt;)」步驟，就是&lt;strong&gt;Relaxation&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Relax()&lt;/code&gt;之範例程式碼如下：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// C++ code&lt;/span&gt;
+&lt;span class="c1"&gt;// Relax() as a member function of class Graph_SP&lt;/span&gt;
+
+&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;Graph_SP&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;Relax&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;from&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;weight&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
+
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;distance&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;distance&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;from&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;weight&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="n"&gt;distance&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;distance&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;from&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;weight&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="n"&gt;predecessor&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;from&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;根據&lt;strong&gt;Relaxation&lt;/strong&gt;可以衍生出幾個性質：&lt;/p&gt;
+&lt;p&gt;&lt;a name="triangle"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;Triangle inequality&lt;/h3&gt;
+&lt;p&gt;經過&lt;strong&gt;Relaxation&lt;/strong&gt;，並得到最短路徑後，任意兩個在Grpah上之vertex(X)與vertex(Y)，若存在edge(X,Y)從vertex(X)指向vertex(Y)，必定滿足以下關係(假設vertex(S)為起點)：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(\delta(S,Y)\leq \delta(S,X)+w(X,Y)\)&lt;/span&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a name="upper-bound"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;Upper-Bound property&lt;/h3&gt;
+&lt;p&gt;一旦從vertex(S)抵達vertex(X)之path已經更新至最短路徑&lt;span class="math"&gt;\(\delta(S,X)\)&lt;/span&gt;，那麼&lt;code&gt;distance[X]&lt;/code&gt;就不會再更新了。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;觀察&lt;code&gt;Relax()&lt;/code&gt;的&lt;code&gt;if&lt;/code&gt;條件式，若新的path之weight比原有的path之weight還大，就不更新&lt;code&gt;distance&lt;/code&gt;與&lt;code&gt;predecessor&lt;/code&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a name="convergence"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;Convergence property&lt;/h3&gt;
+&lt;p&gt;假定Graph上存在edge(X,Y)從vertex(X)指向vertex(Y)，若在對edge(X,Y)進行&lt;code&gt;Relax()&lt;/code&gt;之前，從vertex(S)到達vertex(X)的path就已經滿足最短路徑，&lt;code&gt;distance[X]&lt;/code&gt;&lt;span class="math"&gt;\(=\delta(S,X)\)&lt;/span&gt;，那麼在對edge(X,Y)進行&lt;code&gt;Relax()&lt;/code&gt;後，必定得到從vertex(S)走到vertex(Y)之最短路徑，並更新&lt;code&gt;distance[Y]&lt;/code&gt;&lt;span class="math"&gt;\(=\delta(S,Y)\)&lt;/span&gt;，而且至此之後，&lt;code&gt;distance[Y]&lt;/code&gt;將不會再被更新。&lt;/p&gt;
+&lt;p&gt;有兩種情況：&lt;code&gt;distance[Y]&lt;/code&gt;可能更新，也可能不更新。&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_intro/f8.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖五(a)。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;如圖五(a)，從vertex(S)走到vertex(X)之path已經是最短路徑，&lt;code&gt;distance[X]&lt;/code&gt;&lt;span class="math"&gt;\(=\delta(S,X)\)&lt;/span&gt;，並且&lt;code&gt;distance[Y]&lt;/code&gt;&lt;span class="math"&gt;\(&amp;gt;\)&lt;/span&gt;&lt;code&gt;distance[X]+w(X,Y)&lt;/code&gt;，所以將&lt;code&gt;distance[Y]&lt;/code&gt;更新成&lt;code&gt;distance[X]+w(X,Y)&lt;/code&gt;，此時的&lt;span class="math"&gt;\(Path=S-X-Y\)&lt;/span&gt;必定是最短路徑。&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_intro/f9.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖五(b)。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;如圖五(b)，從vertex(S)走到vertex(X)之path已經是最短路徑，&lt;code&gt;distance[X]&lt;/code&gt;&lt;span class="math"&gt;\(=\delta(S,X)\)&lt;/span&gt;，並且&lt;code&gt;distance[Y]&lt;/code&gt;小於&lt;code&gt;distance[X]+w(X,Y)&lt;/code&gt;，所以&lt;code&gt;distance[Y]&lt;/code&gt;不用更新，因為&lt;span class="math"&gt;\(Path=S-Y\)&lt;/span&gt;已經是此Graph中，從vertex(S)走到vertex(Y)的最短路徑。&lt;/p&gt;
+&lt;p&gt;綜合以上討論，最短路徑&lt;span class="math"&gt;\(Path:S-X\)&lt;/span&gt;(滿足&lt;code&gt;distance[X]&lt;/code&gt;&lt;span class="math"&gt;\(=\delta(S,X)\)&lt;/span&gt;)對vertex(Y)來說就像照妖鏡，只要&lt;code&gt;distance[Y]&lt;/code&gt;比「當前能夠走到vertex(Y)之最低能本path」之weight還小，那麼目前走到vertex(Y)之&lt;span class="math"&gt;\(Path:S-Y\)&lt;/span&gt;就是最短路徑，反之，則被更新成最短路徑&lt;span class="math"&gt;\(Path:S-X-Y\)&lt;/span&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;a name="path-relaxation"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;Path-relaxation property&lt;/h3&gt;
+&lt;p&gt;考慮一條從vertex(0)到vertex(K)之路徑&lt;span class="math"&gt;\(P:v_0-v_1-...-v_K\)&lt;/span&gt;，如果在對path中之edge進行&lt;code&gt;Relax()&lt;/code&gt;的過程中，&lt;strong&gt;曾經出現&lt;/strong&gt;edge(v&lt;sub&gt;0&lt;/sub&gt;,v&lt;sub&gt;1&lt;/sub&gt;)、edge(v&lt;sub&gt;1&lt;/sub&gt;,v&lt;sub&gt;2&lt;/sub&gt;)、...、edge(v&lt;sub&gt;K-1&lt;/sub&gt;,v&lt;sub&gt;K&lt;/sub&gt;)的順序，那麼這條path一定是最短路徑，滿足&lt;code&gt;distance[K]&lt;/code&gt;&lt;span class="math"&gt;\(=\delta(v_0,v_K)\)&lt;/span&gt;。&lt;/p&gt;
+&lt;p&gt;考慮一條&lt;span class="math"&gt;\(Path:0-1-2-3\)&lt;/span&gt;，vertex(0)是起點，根據&lt;strong&gt;Convergence property&lt;/strong&gt;，只要在對edge(1,2)進行&lt;code&gt;Relax()&lt;/code&gt;之前，已經對edge(0,1)進行&lt;code&gt;Relax()&lt;/code&gt;，如此便保證&lt;span class="math"&gt;\(Path:0-1-2\)&lt;/span&gt;一定是最短路徑，此時再對edge(2,3)進行&lt;code&gt;Relax()&lt;/code&gt;，便能保證&lt;span class="math"&gt;\(Path:0-1-2-3\)&lt;/span&gt;會是最短路徑。&lt;br /&gt;
+也就是說，只要確保&lt;code&gt;Relax()&lt;/code&gt;的過程曾經出現「edge(0,1)-&amp;gt;edge(1,2)-&amp;gt;edge(2,3)」的順序，不需理會中間是否有其他edge進行&lt;code&gt;Relax()&lt;/code&gt;，即使有也不影響最後結果。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;例如，&lt;code&gt;Relax()&lt;/code&gt;順序：「edge(2,3)-&amp;gt;&lt;strong&gt;edge(0,1)&lt;/strong&gt;-&amp;gt;edge(2,3)-&amp;gt;&lt;strong&gt;edge(1,2)&lt;/strong&gt;-&amp;gt;&lt;strong&gt;edge(2,3)&lt;/strong&gt;」仍可以得到最短路徑，&lt;code&gt;distance[3]&lt;/code&gt;&lt;span class="math"&gt;\(=\delta(0,3)\)&lt;/span&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;/br&gt;  &lt;/p&gt;
+&lt;p&gt;以上便是稍微繁瑣的&lt;strong&gt;Single-Source最短路徑&lt;/strong&gt;之問題情境的介紹。  &lt;/p&gt;
+&lt;p&gt;接下來將依序介紹三個演算法來找到最短路徑：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Bellmem-Ford Algorithm&lt;/strong&gt;；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Shortest Path in DAG&lt;/strong&gt;；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Dijkstra's Algorithm&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;只要掌握&lt;strong&gt;Relaxation&lt;/strong&gt;、&lt;strong&gt;Convergence property&lt;/strong&gt;與&lt;strong&gt;Path-relaxation property&lt;/strong&gt;之概念就沒問題了。&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;&lt;a name="ref"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;參考資料：&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844"&gt;Introduction to Algorithms, Ch24&lt;/a&gt; &lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376"&gt;Fundamentals of Data Structures in C++, Ch6&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://en.wikipedia.org/wiki/Shortest_path_problem"&gt;Wikipedia：Shortest path problem&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://www.youtube.com/watch?v=UHd1jHjPL7E"&gt;大話西遊之仙履奇緣&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a name="series"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;h3&gt;Shortest Path系列文章&lt;/h3&gt;
+&lt;p&gt;回到目錄：&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html"&gt;目錄：演算法與資料結構&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;script type="text/javascript"&gt;if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width &lt; 768) ? "left" : align;
+        indent = (screen.width &lt; 768) ? "0em" : indent;
+        linebreak = (screen.width &lt; 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' &amp;&amp; location_protocol !== 'https') location_protocol = 'https:';
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+&lt;/script&gt;</summary><category term="C++"></category><category term="Graph"></category><category term="Intro"></category><category term="Shortest Path"></category><category term="Relaxation"></category></entry><entry><title>Minimum Spanning Tree：Prim's Algorithm</title><link href="http://alrightchiu.github.io/SecondRound/minimum-spanning-treeprims-algorithm.html" rel="alternate"></link><updated>2016-02-25T20:30:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-02-25:SecondRound/minimum-spanning-treeprims-algorithm.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h3&gt;先備知識與注意事項&lt;/h3&gt;
 &lt;p&gt;本篇文章要接著介紹另一個尋找MST的演算法：&lt;strong&gt;Prim's Algorithm&lt;/strong&gt;。&lt;/p&gt;
 &lt;p&gt;建議讀者可以先閱讀在&lt;a href="http://alrightchiu.github.io/SecondRound/minimum-spanning-treeintrojian-jie.html"&gt;Minimum Spanning Tree：Intro(簡介)&lt;/a&gt;介紹過的「演算法概念」與&lt;strong&gt;Theorem1&lt;/strong&gt;與&lt;strong&gt;Corollary2&lt;/strong&gt;，對理解接下來的內容會有些幫助。&lt;/p&gt;

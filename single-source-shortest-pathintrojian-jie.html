@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="zh-hant">
+
+<head>
+            <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+
+        <title>Single-Source Shortest Path：Intro(簡介)</title>
+
+            <link href="http://alrightchiu.github.io/SecondRound/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Second Round Full Atom Feed" />
+            <link href="http://alrightchiu.github.io/SecondRound/feeds/yan-suan-fa-yu-zi-liao-jie-gou.atom.xml" type="application/atom+xml" rel="alternate" title="Second Round Categories Atom Feed" />
+
+        <!-- Bootstrap Core CSS -->
+        <link href="http://alrightchiu.github.io/SecondRound/theme/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="http://alrightchiu.github.io/SecondRound/theme/css/clean-blog.min.css" rel="stylesheet">
+
+        <!-- Code highlight color scheme -->
+            <link href="http://alrightchiu.github.io/SecondRound/theme/css/code_blocks/darkly.css" rel="stylesheet">
+
+
+        <!-- Custom Fonts -->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+
+
+
+        <meta name="tags" contents="C++" />
+        <meta name="tags" contents="Graph" />
+        <meta name="tags" contents="Intro" />
+        <meta name="tags" contents="Shortest Path" />
+        <meta name="tags" contents="Relaxation" />
+
+
+	                <meta property="og:locale" content="">
+		<meta property="og:site_name" content="Second Round">
+
+	<meta property="og:type" content="article">
+	<meta property="article:author" content="">
+	<meta property="og:url" content="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathintrojian-jie.html">
+	<meta property="og:title" content="Single-Source Shortest Path：Intro(簡介)">
+	<meta property="og:description" content="">
+	<meta property="og:image" content="http://alrightchiu.github.io/SecondRound/">
+	<meta property="article:published_time" content="2016-02-29 20:12:00+08:00">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://alrightchiu.github.io/SecondRound/">Second Round</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a href="http://alrightchiu.github.io/SecondRound/archives.html">Archives</a></li>
+                        <li><a href="http://alrightchiu.github.io/SecondRound/tags.html">Tags</a></li>
+
+                            <li><a href="http://alrightchiu.github.io/SecondRound/pages/about.html">About</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+        <header class="intro-header" style="background-image: url('http://alrightchiu.github.io/SecondRound/theme/images/post-bg.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>Single-Source Shortest Path：Intro(簡介)</h1>
+                        <span class="meta">Posted by
+                                <a href="http://alrightchiu.github.io/SecondRound/author/chiu-cc.html">Chiu CC</a>
+                             on  2 29, 2016
+                        </span>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    <!-- Post Content -->
+    <article>
+        <p></br></p>
+<h3>先備知識與注意事項</h3>
+<p>如果非要在這個章節加上一份先備知識，我會說是<a href="https://www.google.com.tw/maps">Google Map</a>。</p>
+<hr />
+<h2>目錄</h2>
+<ul>
+<li><a href="#sp">最短路徑問題(Shortest Path)</a><ul>
+<li><a href="#limit">限制</a></li>
+<li><a href="#property">特徵</a></li>
+</ul>
+</li>
+<li><a href="#relax">觀念：Relaxation</a><ul>
+<li><a href="#triangle">Triangle inequality</a></li>
+<li><a href="#upper-bound">Upper-Bound property</a></li>
+<li><a href="#convergence">Convergence property</a></li>
+<li><a href="#path-relaxation">Path-relaxation property</a></li>
+</ul>
+</li>
+<li><a href="#ref">參考資料</a></li>
+<li><a href="#series">Shortest Path系列文章</a></li>
+</ul>
+<p></br></p>
+<p><a name="sp"></a></p>
+<h2>最短路徑問題(Shortest Path)</h2>
+<p>為了解決較為廣義的情境，接下來討論的最短路徑問題將考慮的是一個<strong>weighted directed graph</strong>，以weight總和表示path之成本，並以具有方向性之edge表示兩個vertex之間的關係。  </p>
+<ul>
+<li>undirected graph的問題能夠以directed graph的模型解決，反之則無法。</li>
+<li>不具weight的edge也能夠以weighted edge模擬(將全部weight設為相同數值即可)，反之則無法。</li>
+<li>因此可以視為只能處理unweighted graph之BFS/DFS的擴充包。</li>
+</ul>
+<p>定義名詞：</p>
+<ul>
+<li>path之weight：若有一條<span class="math">\(Path:0-1-2-...-K\)</span>，定義其weight為所有edge之weight總和，<span class="math">\(w(path)=\sum_{i=1}^{K}w(i-1,i)\)</span>，如圖一。</li>
+<li>最短路徑<span class="math">\(w(path)=\delta(X,Y)\)</span>：在Graph上，所有從vertex(X)出發抵達vertex(Y)的path中，具有最小weight之path，稱為最短路徑，其weight滿足：<ul>
+<li><span class="math">\(\delta(X,Y)=\min{w(path)|path from X to Y}\)</span>。<br />
+(可能有多條path之weight皆為極小值，那麼這些path都是最短路徑。)</li>
+</ul>
+</li>
+<li>若<span class="math">\(\delta(X,Y)=\infty\)</span>，則表示無法從vertex(X)走到vertex(Y)。</li>
+</ul>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_intro/f1.png?raw=true" /></p>
+<p><strong>圖一。</strong>
+</center></p>
+<p>根據出發的vertex(稱為source)與終點vertex(稱為destination)之數量選擇，可以將最短路徑問題分成四類：</p>
+<ol>
+<li><strong>Single-Pair Shortest Path</strong>：從單一vertex，抵達某個特定vertex之最短路徑，此為第二種問題的子問題；</li>
+<li><strong>Single-Source Shortest Path</strong>：從單一vertex，抵達Graph中其餘所有vertex之最短路徑；</li>
+<li><strong>Single-Destination Shortest Path</strong>：從Graph中的每一個vertex抵達某個特定vertex之最短路徑：<ul>
+<li>此為第二種問題之變形，只要把edge的方向相反，也就是在<strong>G<sup>T</sup></strong>上執行第二種問題之演算法，再將結果。</li>
+</ul>
+</li>
+<li><strong>All-Pairs Shortest Path</strong>：Graph中的所有vertex抵達其餘所有vertex之最短路徑。<ul>
+<li>若把每一個vertex都當作起點，即可利用第二種問題之方法解決。</li>
+<li>不過之後將介紹的<strong>Floyd-Warshall Algorithm</strong>有更好的答案。</li>
+</ul>
+</li>
+</ol>
+<p>綜合以上，先學第二種問題的演算法：以單一vertex為起點，抵達Graph中的其餘所有vertex之最短路徑，就是最明智的選擇。(推銷成功)</p>
+<p>先來看個簡單的範例：</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_intro/f2.png?raw=true" /></p>
+<p><strong>圖二(a)。</strong>
+</center></p>
+<p>如圖二(a)，考慮一個weighted directed graph，若以vertex(0)為起點，要找到從vertex(0)抵達Graph中其餘vertex的最短路徑，結果便如圖二(b)。  </p>
+<ul>
+<li>考慮從vertex(0)走到vertex(2)：path<span class="math">\(:0-1-2\)</span>的edge數最少，但是weight總和是<span class="math">\(11\)</span>，而edge數較多的<span class="math">\(Path:0-1-4-3-2\)</span>的weight總和只有<span class="math">\(6\)</span>，才是從vertex(0)走到vertex(2)的最短路徑。</li>
+<li>原因在於weight有負值(negative value)，所以edge越多的path，weight總和不見得越大(經過某些路徑使得整體成本降低)。  </li>
+</ul>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_intro/f3.png?raw=true" /></p>
+<p><strong>圖二(b)：path上之edge越少，不見得weight總和越小。</strong>
+</center></p>
+<p>在處理最短路徑問題時，最基本需要用到兩個資料項目：</p>
+<ul>
+<li><code>distance[]</code>：記錄從起點vertex，經過具有weight之edge，走到其餘vertex之「距離」，也就是該條path之weight。若有一條<span class="math">\(Path:0-1-2\)</span>，則path之weight總和即記錄在<code>distance[2]</code>。</li>
+<li><code>predecessor[]</code>：除了距離之外，還希望能夠回溯路徑，因此需要記錄vertex之<code>predecessor</code>，並以此得到<strong>Predecessor Subgraph</strong>。</li>
+</ul>
+<p>由於最短路徑一定<strong>不包含cycle</strong>，<strong>Predecessor Subgraph</strong>會是一棵<strong>Shortest-Path Tree</strong>。</p>
+<ul>
+<li>起點vertex即為<strong>root</strong>；</li>
+<li>從<strong>root</strong>到其餘vertex的path必定是唯一的最短路徑。</li>
+</ul>
+<p>(若Graph上出現<span class="math">\(\delta(X,Y)=\infty\)</span>的情況，<strong>Predecessor Subgraph</strong>會是<strong>Shortest-Path Forest</strong>。)</p>
+<p></br>
+<a name="limit"></a></p>
+<h3>限制</h3>
+<p>為什麼最短路徑一定<strong>不包含cycle</strong>？  </p>
+<p>由於weight只要求是實數(real number)，weight可正可負，因此Graph中可能出現<strong>weight總和為正</strong>的cycle與<strong>weight總和為負</strong>的cycle。</p>
+<p>考慮圖三(a)，cycle<span class="math">\(:1-2-3\)</span>之weight為<span class="math">\(10\)</span>，若path經過此cycle，weight之總和必定會增加，此path不會是最短路徑。考慮從vertex(0)走到vertex(4)：</p>
+<ul>
+<li><span class="math">\(Path:0-1-2-3-4\)</span>之weight為<span class="math">\(10\)</span>；</li>
+<li>經過一次cycle，<span class="math">\(Path:0-1-2-3-1-2-3-4\)</span>之weight為<span class="math">\(20\)</span>。</li>
+</ul>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_intro/f4.png?raw=true" /></p>
+<p><strong>圖三(a)。</strong>
+</center></p>
+<p>考慮圖三(b)，cycle<span class="math">\(:1-2-3\)</span>之weight為<span class="math">\(-6\)</span>，表示path經過此cycle，weight之總和就會減少，而且經過越多次，weight總和越少，所以永遠不會有最短路徑，<span class="math">\(\delta(X,Y)=-\infty\)</span>。考慮從vertex(0)走到vertex(4)：</p>
+<ul>
+<li><span class="math">\(Path:0-1-2-3-4\)</span>之weight為<span class="math">\(4\)</span>；</li>
+<li>經過一次cycle，<span class="math">\(Path:0-1-2-3-1-2-3-4\)</span>之weight為<span class="math">\(-2\)</span>；</li>
+<li>經過兩次cycle，<span class="math">\(Path:0-1-2-3-1-2-3-1-2-3-4\)</span>之weight為<span class="math">\(-8\)</span>；</li>
+</ul>
+<p>因此，在考慮最短路徑問題時，Graph可以有總和為正值的cycle，但是不能有<strong>總和為負值的cycle</strong>。  </p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_intro/f5.png?raw=true" /></p>
+<p><strong>圖三(b)。</strong>
+</center></p>
+<p><a name="property"></a></p>
+<h3>特徵</h3>
+<p>最短路徑除了<strong>不會有cycle</strong>外，還有兩點特徵值得一提。</p>
+<p><strong>特徵一</strong>：因為最短路徑不存在cycle，在共有<span class="math">\(V\)</span>個vertex之Graph中，從vertex(X)走到vertex(Y)的最短路徑，至多只會包含<span class="math">\(|V|-1\)</span>條edge。</p>
+<ul>
+<li>如圖二(b)，從vertex(0)走到vertex(5)的paht上，共有<span class="math">\(5\)</span>條edge。</li>
+</ul>
+<p>此種情形發生在<strong>Shortest-Path Tree</strong>退化成Linked list的時候。</p>
+<p><strong>特徵二</strong>：。若在Graph上，存在一條從vertex(0)走到vertex(K)的最短路徑，<span class="math">\(P:v_0-v_1-v_2-...-v_K\)</span>，並定義所有path上的vertex所形成的<strong>subpath</strong>為<span class="math">\(P_{ij}:v_i-v_{i+1}-...-v_j\)</span>，其中<span class="math">\(1\leq i\leq j\leq K\)</span>，那麼每一條<strong>subpath</strong>都會是最短路徑。<br />
+白話文：最短路徑必定是由較小段的最短路徑所連結起來的。換句話說，每個最短路徑接起來的路徑必定仍然是最短路徑。</p>
+<p>圖二(b)中，從vertex(0)走到vertex(5)之最短路徑為：<span class="math">\(P:v_0-v_1-v_4-v_3-v_2-v_5\)</span>，那麼其中的任何一條path，都是兩個vertex之間的最短距離：</p>
+<ul>
+<li>從vertex(1)走到vertex(2)之最短路徑：<span class="math">\(P:v_1-v_4-v_3-v_2\)</span>，weight總和為<span class="math">\(1\)</span>。</li>
+<li>從vertex(4)走到vertex(5)之最短路徑：<span class="math">\(P:v_4-v_3-v_2-v_5\)</span>，weight總和為<span class="math">\(3\)</span>。</li>
+</ul>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_intro/f3.png?raw=true" /></p>
+<p><strong>圖二(b)。</strong>
+</center></p>
+<p>以上將「能夠考慮最短路徑問題」的Graph形式，以及「最短路徑之<strong>Predecessor Subgraph</strong>」的特徵介紹完畢。</p>
+<p>接著要介紹尋找最短路徑之演算法核心概念：<strong>Relaxation</strong>。</p>
+<p></br></p>
+<p><a name="relax"></a></p>
+<h2>觀念：Relaxation</h2>
+<p>見圖四(a)，現從vertex(S)作為起點，欲尋找抵達vertex(X)與vertex(Y)之最短路徑。</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_intro/f6.png?raw=true" /></p>
+<p><strong>圖四(a)。</strong>
+</center></p>
+<p>其中，vertex(X)之最短路徑只有一種可能，<code>\delta(S,X)=w(S,X)</code>。<br />
+而vertex(Y)可以從vertex(S)或者vertex(X)抵達，因此最短路徑<code>\delta(S,Y)</code>有兩種可能：</p>
+<ul>
+<li><code>\delta(S,Y)=w(S,Y)</code>：vertex(Y)經由vertex(S)直接抵達。</li>
+<li><code>\delta(S,Y)=w(S,X)+w(X,Y)</code>：vertex(S)先經過vertex(X)，再到vertex(Y)。</li>
+</ul>
+<p>這兩條path中，weight最小的path即是最短路徑。<br />
+找到最短路徑的方法很直觀，只要比較這兩條路徑的weight，挑weight小的path即可。</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_intro/f7.png?raw=true" /></p>
+<p><strong>圖四(b)。</strong>
+</center></p>
+<p>以圖四(b)為例，首先從vertex(S)出發，發現其與vertex(X)、vertex(Y)皆有edge相連，便更新兩個vertex的<code>distance</code>為兩條相連edge之weight：</p>
+<ul>
+<li><code>distance[Y]=w(S,Y)</code>；</li>
+<li><code>distance[X]=w(S,X)</code>。</li>
+</ul>
+<p>接著考慮經過vertex(X)再到vertex(Y)之path有沒有可能成本較低，便比較<code>distance[Y]</code>與<code>distance[X]+w(X,Y)</code>：</p>
+<ul>
+<li>若<code>distance[Y]</code><span class="math">\(&gt;\)</span><code>distance[X]+w(X,Y)</code>，則表示<span class="math">\(P:S-X-Y\)</span>之成本小於<span class="math">\(P:S-Y\)</span>，因此從vertex(S)經過vertex(X)再到vertex(Y)才是最短路徑，便更新<ul>
+<li><code>distance[Y]=distance[X]+w(X,Y)</code>；</li>
+<li><code>predecessor[Y]=X</code>。</li>
+</ul>
+</li>
+<li>反之，若<code>distance[Y]</code><span class="math">\(&lt;\)</span><code>distance[X]+w(X,Y)</code>，表示<span class="math">\(P=S-Y\)</span>之成本小於<span class="math">\(P=S-X-Y\)</span>，則不需要更新兩個資料項目，目前的路徑已經是最短路徑。</li>
+</ul>
+<p>以上的「比較<code>distance</code>後決定是否更新<code>distance</code>(與<code>predecessor</code>)」步驟，就是<strong>Relaxation</strong>。</p>
+<p><code>Relax()</code>之範例程式碼如下：</p>
+<div class="highlight"><pre><span class="c1">// C++ code</span>
+<span class="c1">// Relax() as a member function of class Graph_SP</span>
+
+<span class="kt">void</span> <span class="n">Graph_SP</span><span class="o">::</span><span class="n">Relax</span><span class="p">(</span><span class="kt">int</span> <span class="n">from</span><span class="p">,</span> <span class="kt">int</span> <span class="n">to</span><span class="p">,</span> <span class="kt">int</span> <span class="n">weight</span><span class="p">){</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">distance</span><span class="p">[</span><span class="n">to</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">distance</span><span class="p">[</span><span class="n">from</span><span class="p">]</span> <span class="o">+</span> <span class="n">weight</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">distance</span><span class="p">[</span><span class="n">to</span><span class="p">]</span> <span class="o">=</span> <span class="n">distance</span><span class="p">[</span><span class="n">from</span><span class="p">]</span> <span class="o">+</span> <span class="n">weight</span><span class="p">;</span>
+        <span class="n">predecessor</span><span class="p">[</span><span class="n">to</span><span class="p">]</span> <span class="o">=</span> <span class="n">from</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>根據<strong>Relaxation</strong>可以衍生出幾個性質：</p>
+<p><a name="triangle"></a></p>
+<h3>Triangle inequality</h3>
+<p>經過<strong>Relaxation</strong>，並得到最短路徑後，任意兩個在Grpah上之vertex(X)與vertex(Y)，若存在edge(X,Y)從vertex(X)指向vertex(Y)，必定滿足以下關係(假設vertex(S)為起點)：</p>
+<ul>
+<li><span class="math">\(\delta(S,Y)\leq \delta(S,X)+w(X,Y)\)</span>。</li>
+</ul>
+<p><a name="upper-bound"></a></p>
+<h3>Upper-Bound property</h3>
+<p>一旦從vertex(S)抵達vertex(X)之path已經更新至最短路徑<span class="math">\(\delta(S,X)\)</span>，那麼<code>distance[X]</code>就不會再更新了。</p>
+<ul>
+<li>觀察<code>Relax()</code>的<code>if</code>條件式，若新的path之weight比原有的path之weight還大，就不更新<code>distance</code>與<code>predecessor</code>。</li>
+</ul>
+<p><a name="convergence"></a></p>
+<h3>Convergence property</h3>
+<p>假定Graph上存在edge(X,Y)從vertex(X)指向vertex(Y)，若在對edge(X,Y)進行<code>Relax()</code>之前，從vertex(S)到達vertex(X)的path就已經滿足最短路徑，<code>distance[X]</code><span class="math">\(=\delta(S,X)\)</span>，那麼在對edge(X,Y)進行<code>Relax()</code>後，必定得到從vertex(S)走到vertex(Y)之最短路徑，並更新<code>distance[Y]</code><span class="math">\(=\delta(S,Y)\)</span>，而且至此之後，<code>distance[Y]</code>將不會再被更新。</p>
+<p>有兩種情況：<code>distance[Y]</code>可能更新，也可能不更新。</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_intro/f8.png?raw=true" /></p>
+<p><strong>圖五(a)。</strong>
+</center></p>
+<p>如圖五(a)，從vertex(S)走到vertex(X)之path已經是最短路徑，<code>distance[X]</code><span class="math">\(=\delta(S,X)\)</span>，並且<code>distance[Y]</code><span class="math">\(&gt;\)</span><code>distance[X]+w(X,Y)</code>，所以將<code>distance[Y]</code>更新成<code>distance[X]+w(X,Y)</code>，此時的<span class="math">\(Path=S-X-Y\)</span>必定是最短路徑。</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_intro/f9.png?raw=true" /></p>
+<p><strong>圖五(b)。</strong>
+</center></p>
+<p>如圖五(b)，從vertex(S)走到vertex(X)之path已經是最短路徑，<code>distance[X]</code><span class="math">\(=\delta(S,X)\)</span>，並且<code>distance[Y]</code>小於<code>distance[X]+w(X,Y)</code>，所以<code>distance[Y]</code>不用更新，因為<span class="math">\(Path=S-Y\)</span>已經是此Graph中，從vertex(S)走到vertex(Y)的最短路徑。</p>
+<p>綜合以上討論，最短路徑<span class="math">\(Path:S-X\)</span>(滿足<code>distance[X]</code><span class="math">\(=\delta(S,X)\)</span>)對vertex(Y)來說就像照妖鏡，只要<code>distance[Y]</code>比「當前能夠走到vertex(Y)之最低能本path」之weight還小，那麼目前走到vertex(Y)之<span class="math">\(Path:S-Y\)</span>就是最短路徑，反之，則被更新成最短路徑<span class="math">\(Path:S-X-Y\)</span>。</p>
+<p><a name="path-relaxation"></a></p>
+<h3>Path-relaxation property</h3>
+<p>考慮一條從vertex(0)到vertex(K)之路徑<span class="math">\(P:v_0-v_1-...-v_K\)</span>，如果在對path中之edge進行<code>Relax()</code>的過程中，<strong>曾經出現</strong>edge(v<sub>0</sub>,v<sub>1</sub>)、edge(v<sub>1</sub>,v<sub>2</sub>)、...、edge(v<sub>K-1</sub>,v<sub>K</sub>)的順序，那麼這條path一定是最短路徑，滿足<code>distance[K]</code><span class="math">\(=\delta(v_0,v_K)\)</span>。</p>
+<p>考慮一條<span class="math">\(Path:0-1-2-3\)</span>，vertex(0)是起點，根據<strong>Convergence property</strong>，只要在對edge(1,2)進行<code>Relax()</code>之前，已經對edge(0,1)進行<code>Relax()</code>，如此便保證<span class="math">\(Path:0-1-2\)</span>一定是最短路徑，此時再對edge(2,3)進行<code>Relax()</code>，便能保證<span class="math">\(Path:0-1-2-3\)</span>會是最短路徑。<br />
+也就是說，只要確保<code>Relax()</code>的過程曾經出現「edge(0,1)-&gt;edge(1,2)-&gt;edge(2,3)」的順序，不需理會中間是否有其他edge進行<code>Relax()</code>，即使有也不影響最後結果。</p>
+<ul>
+<li>例如，<code>Relax()</code>順序：「edge(2,3)-&gt;<strong>edge(0,1)</strong>-&gt;edge(2,3)-&gt;<strong>edge(1,2)</strong>-&gt;<strong>edge(2,3)</strong>」仍可以得到最短路徑，<code>distance[3]</code><span class="math">\(=\delta(0,3)\)</span>。</li>
+</ul>
+<p></br>  </p>
+<p>以上便是稍微繁瑣的<strong>Single-Source最短路徑</strong>之問題情境的介紹。  </p>
+<p>接下來將依序介紹三個演算法來找到最短路徑：</p>
+<ol>
+<li><strong>Bellmem-Ford Algorithm</strong>；</li>
+<li><strong>Shortest Path in DAG</strong>；</li>
+<li><strong>Dijkstra's Algorithm</strong>。</li>
+</ol>
+<p>只要掌握<strong>Relaxation</strong>、<strong>Convergence property</strong>與<strong>Path-relaxation property</strong>之概念就沒問題了。</p>
+<p></br></p>
+<hr />
+<p><a name="ref"></a></p>
+<h3>參考資料：</h3>
+<ul>
+<li><a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844">Introduction to Algorithms, Ch24</a> </li>
+<li><a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376">Fundamentals of Data Structures in C++, Ch6</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Shortest_path_problem">Wikipedia：Shortest path problem</a></li>
+<li><a href="https://www.youtube.com/watch?v=UHd1jHjPL7E">大話西遊之仙履奇緣</a></li>
+</ul>
+<p><a name="series"></a></p>
+<p></br></p>
+<h3>Shortest Path系列文章</h3>
+<p>回到目錄：</p>
+<p><a href="http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html">目錄：演算法與資料結構</a></p>
+<p></br></p>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' && location_protocol !== 'https') location_protocol = 'https:';
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+    </article>
+
+        <div class="tags">
+            <p>tags: <a href="http://alrightchiu.github.io/SecondRound/tag/c.html">C++</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/graph.html">Graph</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/intro.html">Intro</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/shortest-path.html">Shortest Path</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/relaxation.html">Relaxation</a>, </p>
+        </div>
+
+<hr>
+<div class="sharing">
+</div>
+    <hr>
+
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                            <li>
+                                <a href="https://github.com/alrightchiu">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                    </ul>
+<p class="copyright text-muted">
+    Blog powered by <a href="http://getpelican.com">Pelican</a>,
+    which takes great advantage of <a href="http://python.org">Python</a>.
+</p>                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="http://alrightchiu.github.io/SecondRound/theme/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="http://alrightchiu.github.io/SecondRound/theme/js/bootstrap.min.js"></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script src="http://alrightchiu.github.io/SecondRound/theme/js/clean-blog.min.js"></script>
+
+</body>
+
+</html>
