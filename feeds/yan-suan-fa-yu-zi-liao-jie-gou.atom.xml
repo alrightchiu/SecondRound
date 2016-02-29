@@ -430,7 +430,7 @@
 &lt;li&gt;&lt;code&gt;FindSet(vertex)&lt;/code&gt;：確認某個vertex所隸屬的Set為何。&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;UnionSet(X,Y)&lt;/code&gt;：將vertex(X)與vertex(Y)合併進同一個Set。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;若利用上述的Set表示法，當進行&lt;code&gt;FindSet(vertex)&lt;/code&gt;時，只要在矩陣中一路回溯，直到root即可。&lt;/p&gt;
+&lt;p&gt;若利用上述的Set表示法，當進行&lt;code&gt;FindSet(vertex)&lt;/code&gt;時，只要在矩陣中一路回溯&lt;code&gt;predecessor&lt;/code&gt;，直到root(矩陣值為負值)即可。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;若同時進行&lt;strong&gt;SetCollapsing&lt;/strong&gt;，即可把剛才找過的vertex的predecessor都調整成該Set的root，使得之後要再&lt;code&gt;FindSet()&lt;/code&gt;時，能夠以時間複雜度：&lt;span class="math"&gt;\(O(1)\)&lt;/span&gt;完成。&lt;br /&gt;
 (參考&lt;a href="http://alrightchiu.github.io/SecondRound/graph-li-yong-dfshe-bfsxun-zhao-connected-component.html#algorithm"&gt;Graph: 利用DFS和BFS尋找Connected Component&lt;/a&gt;對&lt;code&gt;SetCollapsing()&lt;/code&gt;的介紹)&lt;/li&gt;

@@ -163,7 +163,7 @@
 <li><code>FindSet(vertex)</code>：確認某個vertex所隸屬的Set為何。</li>
 <li><code>UnionSet(X,Y)</code>：將vertex(X)與vertex(Y)合併進同一個Set。</li>
 </ul>
-<p>若利用上述的Set表示法，當進行<code>FindSet(vertex)</code>時，只要在矩陣中一路回溯，直到root即可。</p>
+<p>若利用上述的Set表示法，當進行<code>FindSet(vertex)</code>時，只要在矩陣中一路回溯<code>predecessor</code>，直到root(矩陣值為負值)即可。</p>
 <ul>
 <li>若同時進行<strong>SetCollapsing</strong>，即可把剛才找過的vertex的predecessor都調整成該Set的root，使得之後要再<code>FindSet()</code>時，能夠以時間複雜度：<span class="math">\(O(1)\)</span>完成。<br />
 (參考<a href="http://alrightchiu.github.io/SecondRound/graph-li-yong-dfshe-bfsxun-zhao-connected-component.html#algorithm">Graph: 利用DFS和BFS尋找Connected Component</a>對<code>SetCollapsing()</code>的介紹)</li>
