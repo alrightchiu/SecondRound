@@ -206,7 +206,7 @@ Summary: 介紹於Graph中，以單一Vertex作為起點，抵達其餘Vertex之
 * 若`distance[Y]`$>$`distance[X]+w(X,Y)`，則表示$P:S-X-Y$之成本小於$P:S-Y$，因此從vertex(S)經過vertex(X)再到vertex(Y)才是最短路徑，便更新
     * `distance[Y]=distance[X]+w(X,Y)`；
     * `predecessor[Y]=X`。
-* 反之，若`distance[Y]`$<$`distance[X]+w(X,Y)`，表示$P=S-Y$之成本小於$P=S-X-Y$，則不需要更新兩個資料項目，目前的路徑已經是最短路徑。
+* 反之，若`distance[Y]`$<$`distance[X]+w(X,Y)`，表示$P:S-Y$之成本小於$P:S-X-Y$，則不需要更新兩個資料項目，目前的路徑已經是最短路徑。
 
 以上的「比較`distance`後決定是否更新`distance`(與`predecessor`)」步驟，就是**Relaxation**。
 
@@ -307,11 +307,11 @@ void Graph_SP::Relax(int from, int to, int weight){
 
 以上便是稍微繁瑣的**Single-Source最短路徑**之問題情境的介紹。  
 
-接下來將依序介紹三個演算法來找到最短路徑：
+接下來將依序介紹三個演算法來找到Single-Source問題的最短路徑：
 
-1. **Bellmem-Ford Algorithm**；
-2. **Shortest Path in DAG**；
-3. **Dijkstra's Algorithm**。
+1. **Bellmem-Ford Algorithm**
+2. **Shortest Path in DAG**
+3. **Dijkstra's Algorithm**
 
 只要掌握**Relaxation**、**Convergence property**與**Path-relaxation property**之概念就沒問題了。
 
