@@ -265,10 +265,10 @@ Graph比Tree更加廣義，其定義僅僅使用了集合(Set)，並且不限制
 例如，鄉公所要鋪路，先以鄉公所為中心(`root`)，把所有馬路必須到達的地區視為vertex，則路就是edge，那麼，鋪路的目標便是利用最低成本(weight總和最小)將馬路延伸到所有必須抵達的地區，這就是MST的問題。
 2. **Shortest Path(最短路徑)**：顧名思義，最短路徑即是找到vertex(A)與vertex(B)之間「成本」最小的path，例如以Google Map規劃時間成本最小的路線。  
 其中又可以分為：
-    * **Single Source Single Destination**：從一個vertex，抵達特定的另一個vertex之最短路徑；
-    * **Single Source All Destination**：從一個vertex，抵達graph中其餘所有vertex之最短路徑；
-    * **All Source Single Destination**：從每一個graph中的vertex抵達特定的vertex之最短路徑；
-    * **All Source All Destination**：graph中的所有vertex抵達其餘所有vertex之最短路徑。
+    * **Single-Pair Shortest Path**：從一個vertex，抵達特定的另一個vertex之最短路徑；
+    * **Single-Source Shortest Path**：從一個vertex，抵達graph中其餘所有vertex之最短路徑；
+    * **Single-Destination Shortest Path**：從每一個graph中的vertex抵達特定的vertex之最短路徑；
+    * **All-Pairs Shortest Path**：graph中的所有vertex抵達其餘所有vertex之最短路徑。
 3. **Network Flow(網路流)**：若現在有一個複雜的水管系統，水從入水口流入，經過許多互相連結、且孔徑不一的水管後，從出水口流出，目標是一次流入最大量的水。  
 其中可能遇到的問題如：由於水管的孔徑各不相同，若先流過一條半徑只有2公分的水管，則接在其後的水管的半徑即使再大，水流量仍會被半徑2公分的水管所限制，因此整體流量也就受限制。  
 如何分配水流在水管之間的流法，即是Network Flow要處理的問題。
@@ -304,6 +304,7 @@ Graph比Tree更加廣義，其定義僅僅使用了集合(Set)，並且不限制
 * [Hacker Earth：Graph Theory - Part I ](https://www.hackerearth.com/notes/graph-theory-part-i/)
 * [Theory of Programming：Graph Theory Basics](http://theoryofprogramming.com/2014/12/24/graph-theory-basics/)
 * [Wikipedia：Tree(graph theory)](https://en.wikipedia.org/wiki/Tree_%28graph_theory%29)
+* [Wikipedia：Shortest path problem](https://en.wikipedia.org/wiki/Shortest_path_problem)
 * [Google Map：從玉山國家公園到太魯閣國家公園](https://www.google.com.tw/maps/dir/%E7%8E%89%E5%B1%B1%E5%9C%8B%E5%AE%B6%E5%85%AC%E5%9C%92%E7%AE%A1%E7%90%86%E8%99%95+553%E5%8D%97%E6%8A%95%E7%B8%A3%E6%B0%B4%E9%87%8C%E9%84%89%E4%B8%AD%E5%B1%B1%E8%B7%AF%E4%B8%80%E6%AE%B5300%E8%99%9F/%E8%8A%B1%E8%93%AE%E7%B8%A3%E5%A4%AA%E9%AD%AF%E9%96%A3%E5%9C%8B%E5%AE%B6%E5%85%AC%E5%9C%92%E7%AE%A1%E7%90%86%E8%99%95/@23.9945162,121.0278493,10.35z/data=!4m13!4m12!1m5!1m1!1s0x34692ae27ea40fff:0xab9c90d0fc985ac5!2m2!1d120.8504096!2d23.8128448!1m5!1m1!1s0x34688286a79bc241:0x9c0222099dc32245!2m2!1d121.621627!2d24.158708?hl=zh-TW)
 
 <a name="series"></a>
