@@ -334,7 +334,7 @@ void Graph_SP::Relax(int from, int to, int weight){
 
 ###Shortest Path系列文章
 
-
+[Single-Source Shortest Path：Intro(簡介)](http://alrightchiu.github.io/SecondRound/single-source-shortest-pathintrojian-jie.html)  
 
 
 
