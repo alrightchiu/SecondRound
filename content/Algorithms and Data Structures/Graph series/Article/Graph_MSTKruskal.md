@@ -69,7 +69,7 @@ Set是不講求順序(order)的資料彙集(collection)，其資料結構可以�
 * `FindSet(vertex)`：確認某個vertex所隸屬的Set為何。
 * `UnionSet(X,Y)`：將vertex(X)與vertex(Y)合併進同一個Set。
 
-若利用上述的Set表示法，當進行`FindSet(vertex)`時，只要在矩陣中一路回溯，直到root即可。
+若利用上述的Set表示法，當進行`FindSet(vertex)`時，只要在矩陣中一路回溯`predecessor`，直到root(矩陣值為負值)即可。
 
 * 若同時進行**SetCollapsing**，即可把剛才找過的vertex的predecessor都調整成該Set的root，使得之後要再`FindSet()`時，能夠以時間複雜度：$O(1)$完成。  
 (參考[Graph: 利用DFS和BFS尋找Connected Component](http://alrightchiu.github.io/SecondRound/graph-li-yong-dfshe-bfsxun-zhao-connected-component.html#algorithm)對`SetCollapsing()`的介紹)
