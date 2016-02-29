@@ -392,10 +392,10 @@
 例如，鄉公所要鋪路，先以鄉公所為中心(<code>root</code>)，把所有馬路必須到達的地區視為vertex，則路就是edge，那麼，鋪路的目標便是利用最低成本(weight總和最小)將馬路延伸到所有必須抵達的地區，這就是MST的問題。</li>
 <li><strong>Shortest Path(最短路徑)</strong>：顧名思義，最短路徑即是找到vertex(A)與vertex(B)之間「成本」最小的path，例如以Google Map規劃時間成本最小的路線。<br />
 其中又可以分為：<ul>
-<li><strong>Single Source Single Destination</strong>：從一個vertex，抵達特定的另一個vertex之最短路徑；</li>
-<li><strong>Single Source All Destination</strong>：從一個vertex，抵達graph中其餘所有vertex之最短路徑；</li>
-<li><strong>All Source Single Destination</strong>：從每一個graph中的vertex抵達特定的vertex之最短路徑；</li>
-<li><strong>All Source All Destination</strong>：graph中的所有vertex抵達其餘所有vertex之最短路徑。</li>
+<li><strong>Single-Pair Shortest Path</strong>：從一個vertex，抵達特定的另一個vertex之最短路徑；</li>
+<li><strong>Single-Source Shortest Path</strong>：從一個vertex，抵達graph中其餘所有vertex之最短路徑；</li>
+<li><strong>Single-Destination Shortest Path</strong>：從每一個graph中的vertex抵達特定的vertex之最短路徑；</li>
+<li><strong>All-Pairs Shortest Path</strong>：graph中的所有vertex抵達其餘所有vertex之最短路徑。</li>
 </ul>
 </li>
 <li><strong>Network Flow(網路流)</strong>：若現在有一個複雜的水管系統，水從入水口流入，經過許多互相連結、且孔徑不一的水管後，從出水口流出，目標是一次流入最大量的水。<br />
@@ -413,6 +413,7 @@
 <li><a href="https://www.hackerearth.com/notes/graph-theory-part-i/">Hacker Earth：Graph Theory - Part I </a></li>
 <li><a href="http://theoryofprogramming.com/2014/12/24/graph-theory-basics/">Theory of Programming：Graph Theory Basics</a></li>
 <li><a href="https://en.wikipedia.org/wiki/Tree_%28graph_theory%29">Wikipedia：Tree(graph theory)</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Shortest_path_problem">Wikipedia：Shortest path problem</a></li>
 <li><a href="https://www.google.com.tw/maps/dir/%E7%8E%89%E5%B1%B1%E5%9C%8B%E5%AE%B6%E5%85%AC%E5%9C%92%E7%AE%A1%E7%90%86%E8%99%95+553%E5%8D%97%E6%8A%95%E7%B8%A3%E6%B0%B4%E9%87%8C%E9%84%89%E4%B8%AD%E5%B1%B1%E8%B7%AF%E4%B8%80%E6%AE%B5300%E8%99%9F/%E8%8A%B1%E8%93%AE%E7%B8%A3%E5%A4%AA%E9%AD%AF%E9%96%A3%E5%9C%8B%E5%AE%B6%E5%85%AC%E5%9C%92%E7%AE%A1%E7%90%86%E8%99%95/@23.9945162,121.0278493,10.35z/data=!4m13!4m12!1m5!1m1!1s0x34692ae27ea40fff:0xab9c90d0fc985ac5!2m2!1d120.8504096!2d23.8128448!1m5!1m1!1s0x34688286a79bc241:0x9c0222099dc32245!2m2!1d121.621627!2d24.158708?hl=zh-TW">Google Map：從玉山國家公園到太魯閣國家公園</a></li>
 </ul>
 <p><a name="series"></a></p>
