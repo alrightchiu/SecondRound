@@ -32,7 +32,7 @@
 &lt;a href="http://alrightchiu.github.io/SecondRound/minimum-spanning-treeprims-algorithm.html"&gt;Minimum Spanning Tree：Prim's Algorithm&lt;/a&gt;&lt;/p&gt;
 &lt;h3&gt;Shortest Path：&lt;/h3&gt;
 &lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathintrojian-jie.html"&gt;Single-Source Shortest Path：Intro(簡介)&lt;/a&gt;&lt;br /&gt;
-&lt;a href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathbellmem-ford-algorithm.html"&gt;Single-Source Shortest Path：Bellmem-Ford Algorithm&lt;/a&gt;  &lt;/p&gt;
+&lt;a href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathbellman-ford-algorithm.html"&gt;Single-Source Shortest Path：Bellman-Ford Algorithm&lt;/a&gt;    &lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;</summary><category term="C++"></category></entry><entry><title>Single-Source Shortest Path：Bellman-Ford Algorithm</title><link href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathbellman-ford-algorithm.html" rel="alternate"></link><updated>2016-03-01T20:12:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-03-01:SecondRound/single-source-shortest-pathbellman-ford-algorithm.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h3&gt;先備知識與注意事項&lt;/h3&gt;
 &lt;p&gt;本篇文章將介紹&lt;strong&gt;Bellman-Ford Algorithm&lt;/strong&gt;來回應上一篇&lt;a href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathintrojian-jie.html"&gt;Single-Source Shortest Path：Intro(簡介)&lt;/a&gt;的問題，演算法的概念主要圍繞在：&lt;/p&gt;
@@ -682,7 +682,7 @@
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h3&gt;Shortest Path系列文章&lt;/h3&gt;
 &lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathintrojian-jie.html"&gt;Single-Source Shortest Path：Intro(簡介)&lt;/a&gt;&lt;br /&gt;
-&lt;a href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathbellmem-ford-algorithm.html"&gt;Single-Source Shortest Path：Bellmem-Ford Algorithm&lt;/a&gt;  &lt;/p&gt;
+&lt;a href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathbellman-ford-algorithm.html"&gt;Single-Source Shortest Path：Bellman-Ford Algorithm&lt;/a&gt;  &lt;/p&gt;
 &lt;p&gt;回到目錄：&lt;/p&gt;
 &lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html"&gt;目錄：演算法與資料結構&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
@@ -4087,7 +4087,7 @@
 &lt;a href="http://alrightchiu.github.io/SecondRound/minimum-spanning-treekruskals-algorithm.html"&gt;Minimum Spanning Tree：Kruskal's Algorithm&lt;/a&gt;&lt;br /&gt;
 &lt;a href="http://alrightchiu.github.io/SecondRound/minimum-spanning-treeprims-algorithm.html"&gt;Minimum Spanning Tree：Prim's Algorithm&lt;/a&gt;&lt;br /&gt;
 &lt;a href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathintrojian-jie.html"&gt;Single-Source Shortest Path：Intro(簡介)&lt;/a&gt;&lt;br /&gt;
-&lt;a href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathbellmem-ford-algorithm.html"&gt;Single-Source Shortest Path：Bellmem-Ford Algorithm&lt;/a&gt;  &lt;/p&gt;
+&lt;a href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathbellman-ford-algorithm.html"&gt;Single-Source Shortest Path：Bellman-Ford Algorithm&lt;/a&gt;    &lt;/p&gt;
 &lt;p&gt;回到目錄：&lt;/p&gt;
 &lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html"&gt;目錄：演算法與資料結構&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
