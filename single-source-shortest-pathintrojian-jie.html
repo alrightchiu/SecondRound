@@ -322,9 +322,12 @@
 <p>綜合以上討論，最短路徑<span class="math">\(Path:S-X\)</span>(滿足<code>distance[X]</code><span class="math">\(=\delta(S,X)\)</span>)對vertex(Y)來說就像照妖鏡，只要<code>distance[Y]</code>比「當前能夠走到vertex(Y)之最低能本path」之weight還小，那麼目前走到vertex(Y)之<span class="math">\(Path:S-Y\)</span>就是最短路徑，反之，則被更新成最短路徑<span class="math">\(Path:S-X-Y\)</span>。</p>
 <p><a name="path-relaxation"></a></p>
 <h3>Path-relaxation property</h3>
-<p>考慮一條從vertex(0)到vertex(K)之路徑<span class="math">\(P:v_0-v_1-...-v_K\)</span>，如果在對path中之edge進行<code>Relax()</code>的過程中，<strong>曾經出現</strong>edge(v<sub>0</sub>,v<sub>1</sub>)、edge(v<sub>1</sub>,v<sub>2</sub>)、...、edge(v<sub>K-1</sub>,v<sub>K</sub>)的順序，那麼這條path一定是最短路徑，滿足<code>distance[K]</code><span class="math">\(=\delta(v_0,v_K)\)</span>。</p>
-<p>現有一條<span class="math">\(Path:0-1-2-3\)</span>，vertex(0)是起點，根據<strong>Convergence property</strong>，只要在對edge(1,2)進行<code>Relax()</code>之前，已經對edge(0,1)進行<code>Relax()</code>，如此便保證<span class="math">\(Path:0-1-2\)</span>一定是最短路徑，此時再對edge(2,3)進行<code>Relax()</code>，便能保證<span class="math">\(Path:0-1-2-3\)</span>會是最短路徑。<br />
-也就是說，只要確保<code>Relax()</code>的過程曾經出現「edge(0,1)-&gt;edge(1,2)-&gt;edge(2,3)」的順序，不需理會中間是否有其他edge進行<code>Relax()</code>，即使有也不影響最後結果。</p>
+<p>考慮一條從vertex(0)到vertex(K)之路徑<span class="math">\(P:v_0-v_1-...-v_K\)</span>，如果在對path之edge進行<code>Relax()</code>的順序中，<strong>曾經出現</strong>edge(v<sub>0</sub>,v<sub>1</sub>)、edge(v<sub>1</sub>,v<sub>2</sub>)、...、edge(v<sub>K-1</sub>,v<sub>K</sub>)的順序，那麼這條path一定是最短路徑，滿足<code>distance[K]</code><span class="math">\(=\delta(v_0,v_K)\)</span>。</p>
+<ul>
+<li>換句話說，在對edge(v<sub>1</sub>,v<sub>2</sub>)進行<code>Relax()</code>之前，只要已經對edge(v<sub>0</sub>,v<sub>1</sub>)進行過<code>Relax()</code>，那麼，不管還有對其餘哪一條edge進行<code>Relax()</code>，<code>distance[2]</code>必定會等於<span class="math">\(\delta(0,2)\)</span>。因為<strong>Convergence property</strong>。</li>
+</ul>
+<p>例如，現有一條<span class="math">\(Path:0-1-2-3\)</span>，vertex(0)是起點，根據<strong>Convergence property</strong>，只要在對edge(1,2)進行<code>Relax()</code>之前，已經對edge(0,1)進行<code>Relax()</code>，如此便保證<span class="math">\(Path:0-1-2\)</span>一定是最短路徑，此時再對edge(2,3)進行<code>Relax()</code>，便能保證<span class="math">\(Path:0-1-2-3\)</span>會是最短路徑。<br />
+換言之，只要確保<code>Relax()</code>的過程曾經出現「edge(0,1)-&gt;edge(1,2)-&gt;edge(2,3)」的順序，不需理會中間是否有其他edge進行<code>Relax()</code>，即使有也不影響最後結果。</p>
 <ul>
 <li>例如，<code>Relax()</code>順序：「edge(2,3)-&gt;<strong>edge(0,1)</strong>-&gt;edge(2,3)-&gt;<strong>edge(1,2)</strong>-&gt;<strong>edge(2,3)</strong>」仍可以得到最短路徑，<code>distance[3]</code><span class="math">\(=\delta(0,3)\)</span>。</li>
 </ul>
