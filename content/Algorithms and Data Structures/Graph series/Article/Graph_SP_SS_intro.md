@@ -279,10 +279,12 @@ void Graph_SP::Relax(int from, int to, int weight){
 
 ###Path-relaxation property
 
-考慮一條從vertex(0)到vertex(K)之路徑$P:v_0-v_1-...-v_K$，如果在對path中之edge進行`Relax()`的過程中，**曾經出現**edge(v<sub>0</sub>,v<sub>1</sub>)、edge(v<sub>1</sub>,v<sub>2</sub>)、...、edge(v<sub>K-1</sub>,v<sub>K</sub>)的順序，那麼這條path一定是最短路徑，滿足`distance[K]`$=\delta(v_0,v_K)$。
+考慮一條從vertex(0)到vertex(K)之路徑$P:v_0-v_1-...-v_K$，如果在對path之edge進行`Relax()`的順序中，**曾經出現**edge(v<sub>0</sub>,v<sub>1</sub>)、edge(v<sub>1</sub>,v<sub>2</sub>)、...、edge(v<sub>K-1</sub>,v<sub>K</sub>)的順序，那麼這條path一定是最短路徑，滿足`distance[K]`$=\delta(v_0,v_K)$。
 
-現有一條$Path:0-1-2-3$，vertex(0)是起點，根據**Convergence property**，只要在對edge(1,2)進行`Relax()`之前，已經對edge(0,1)進行`Relax()`，如此便保證$Path:0-1-2$一定是最短路徑，此時再對edge(2,3)進行`Relax()`，便能保證$Path:0-1-2-3$會是最短路徑。  
-也就是說，只要確保`Relax()`的過程曾經出現「edge(0,1)->edge(1,2)->edge(2,3)」的順序，不需理會中間是否有其他edge進行`Relax()`，即使有也不影響最後結果。
+* 換句話說，在對edge(v<sub>1</sub>,v<sub>2</sub>)進行`Relax()`之前，只要已經對edge(v<sub>0</sub>,v<sub>1</sub>)進行過`Relax()`，那麼，不管還有對其餘哪一條edge進行`Relax()`，`distance[2]`必定會等於$\delta(0,2)$。因為**Convergence property**。
+
+例如，現有一條$Path:0-1-2-3$，vertex(0)是起點，根據**Convergence property**，只要在對edge(1,2)進行`Relax()`之前，已經對edge(0,1)進行`Relax()`，如此便保證$Path:0-1-2$一定是最短路徑，此時再對edge(2,3)進行`Relax()`，便能保證$Path:0-1-2-3$會是最短路徑。  
+換言之，只要確保`Relax()`的過程曾經出現「edge(0,1)->edge(1,2)->edge(2,3)」的順序，不需理會中間是否有其他edge進行`Relax()`，即使有也不影響最後結果。
 
 * 例如，`Relax()`順序：「edge(2,3)->**edge(0,1)**->edge(2,3)->**edge(1,2)**->**edge(2,3)**」仍可以得到最短路徑，`distance[3]`$=\delta(0,3)$。
 
