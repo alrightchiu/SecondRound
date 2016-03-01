@@ -1,7 +1,7 @@
 Title: Single-Source Shortest Path：Bellman-Ford Algorithm    
 Date: 2016-3-1 20:12  
 Category: 演算法與資料結構  
-Tags: C++, Graph, Intro, Shortest Path, Relaxation 
+Tags: C++, Graph, Shortest Path, Relaxation 
 Summary: 介紹Bellman-Ford Algorithm。
 
 
