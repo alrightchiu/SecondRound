@@ -39,13 +39,13 @@ Summary: 介紹於Graph中，以單一Vertex作為起點，抵達其餘Vertex之
 
 * undirected graph的問題能夠以directed graph的模型解決，反之則無法。
 * 不具weight的edge也能夠以weighted edge模擬(將全部weight設為相同數值即可)，反之則無法。
-* 因此可以視為只能處理unweighted graph之BFS/DFS的擴充包。
+* 可以視為只能處理unweighted graph之BFS/DFS的擴充包。
 
 定義名詞：
 
 * path之weight：若有一條$Path:0-1-2-...-K$，定義其weight為所有edge之weight總和，$w(path)=\sum_{i=1}^{K}w(i-1,i)$，如圖一。
 * 最短路徑$w(path)=\delta(X,Y)$：在Graph上，所有從vertex(X)出發抵達vertex(Y)的path中，具有最小weight之path，稱為最短路徑，其weight滿足：
-    * $\delta(X,Y)=\min{w(path)|path from X to Y}$。  
+    * $\delta(X,Y)=\min${$w(path)|path from X to Y$}。  
     (可能有多條path之weight皆為極小值，那麼這些path都是最短路徑。)
 * 若$\delta(X,Y)=\infty$，則表示無法從vertex(X)走到vertex(Y)。
 
