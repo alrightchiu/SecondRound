@@ -1,19 +1,14 @@
-Title: Single-Source Shortest Path：Bellmem-Ford Algorithm    
+Title: Single-Source Shortest Path：Bellman-Ford Algorithm    
 Date: 2016-3-1 20:12  
 Category: 演算法與資料結構  
 Tags: C++, Graph, Intro, Shortest Path, Relaxation 
-Summary: 介紹於Graph中，以單一Vertex作為起點，抵達其餘Vertex之最短路徑(Single-Source Shortest Path)之問題情境與基本性質。
-
-
-// 回憶path-relaxation property, 演算法介紹, 作圖    
-// code介紹  
-// 檢查negative cycle  
+Summary: 介紹Bellman-Ford Algorithm。
 
 
 </br>
 ###先備知識與注意事項
 
-本篇文章將介紹**Bellmem-Ford Algorithm**來回應上一篇[Single-Source Shortest Path：Intro(簡介)](http://alrightchiu.github.io/SecondRound/single-source-shortest-pathintrojian-jie.html)的問題，演算法的概念主要圍繞在：
+本篇文章將介紹**Bellman-Ford Algorithm**來回應上一篇[Single-Source Shortest Path：Intro(簡介)](http://alrightchiu.github.io/SecondRound/single-source-shortest-pathintrojian-jie.html)的問題，演算法的概念主要圍繞在：
 
 * **Relaxation** 
 * **Convergence property**
@@ -28,7 +23,7 @@ Summary: 介紹於Graph中，以單一Vertex作為起點，抵達其餘Vertex之
 ##目錄
 
 * [Graph之表示法(representation)](#representation)
-* [Bellmem-Ford Algorithm](#bf)
+* [Bellman-Ford Algorithm](#bf)
 * [程式碼](#code)
     * [檢查Graph中是否存在negative cycle](#nc)
 * [參考資料](#ref)
@@ -74,14 +69,14 @@ Summary: 介紹於Graph中，以單一Vertex作為起點，抵達其餘Vertex之
 
 <a name="bf"></a>
 
-##Bellmem-Ford Algorithm
+##Bellman-Ford Algorithm
 
 根據**Path-Relaxation Property**，考慮一條從vertex(0)到vertex(K)之路徑$P:v_0-v_1-...-v_K$，如果在對path之edge進行`Relax()`的順序中，**曾經出現**edge(v<sub>0</sub>,v<sub>1</sub>)、edge(v<sub>1</sub>,v<sub>2</sub>)、...、edge(v<sub>K-1</sub>,v<sub>K</sub>)的順序，那麼這條path一定是最短路徑，滿足`distance[K]`$=\delta(v_0,v_K)$。
 
 * 在對edge(v<sub>1</sub>,v<sub>2</sub>)進行`Relax()`之前，只要已經對edge(v<sub>0</sub>,v<sub>1</sub>)進行過`Relax()`，那麼，不管還有其餘哪一條edge已經進行過`Relax()`，`distance[2]`必定會等於$\delta(0,2)$，因為**Convergence property**。
 
 
-**Bellmem-Ford Algorihm**就用最直覺的方式滿足**Path-Relaxation Property**：
+**Bellman-Ford Algorihm**就用最直覺的方式滿足**Path-Relaxation Property**：
 
 * 一共執行$|V|-1$次迴圈。
 * 在每一次迴圈裡，對「**所有的edge**」進行`Relax()`。
@@ -91,7 +86,7 @@ Summary: 介紹於Graph中，以單一Vertex作為起點，抵達其餘Vertex之
 
 </br>
 考慮如圖二(a)之Graph，以vertex(0)作為起點。  
-並且根據圖二(a)之**Adjacency List**，得到在**Bellmem-Ford Algorihm**中對所有edge進行`Relax()`之順序如圖二(b)。
+並且根據圖二(a)之**Adjacency List**，得到在**Bellman-Ford Algorihm**中對所有edge進行`Relax()`之順序如圖二(b)。
 
 <center>
 ![cc][f2]
@@ -219,8 +214,8 @@ Summary: 介紹於Graph中，以單一Vertex作為起點，抵達其餘Vertex之
 **圖三(g)。**
 </center>
 
-根據圖三(g)，從vertex(0)走到Graph中其餘vertex之最短路徑為$Path:0-1-4-3-2-5$，若把**Bellmem-Ford Algorithm**中，每一次迴圈對所有edge進行`Relax()`之順序攤開，如圖三(h)，可以驗證**Bellmem-Ford Algorithm**確實滿足**Path-Relaxation Property**，按照最短路徑之順序對edge進行`Relax()`。  
-(**Bellmem-Ford Algorithm**就是暴力解決，當然會滿足。)
+根據圖三(g)，從vertex(0)走到Graph中其餘vertex之最短路徑為$Path:0-1-4-3-2-5$，若把**Bellman-Ford Algorithm**中，每一次迴圈對所有edge進行`Relax()`之順序攤開，如圖三(h)，可以驗證**Bellman-Ford Algorithm**確實滿足**Path-Relaxation Property**，按照最短路徑之順序對edge進行`Relax()`。  
+(**Bellman-Ford Algorithm**就是暴力解決，當然會滿足。)
 
 
 <center>
@@ -244,7 +239,7 @@ Summary: 介紹於Graph中，以單一Vertex作為起點，抵達其餘Vertex之
 * 使用`AdjList`，並利用`std::pair<int,int>`儲存edge的weight。
 * `InitializeSingleSource(int Start)`：對資料項目`distance`與`predecessor`進行初始化，並以`int Start`作為最短路徑之起點。
 * `Relax()`：對edge進行Relaxation的主要函式。
-* `BellmenFord()`：進行**Bellmem-Ford Algorithm**的主要函式，內容如前一小節所述。
+* `BellmanFord()`：進行**Bellman-Ford Algorithm**的主要函式，內容如前一小節所述。
 * `main()`：建立如圖二(a)之`AdjList`，並進行`BellmenFord()`。
 
 
@@ -271,12 +266,12 @@ public:
     void PrintDataArray(std::vector<int> array);
     
     void InitializeSingleSource(int Start);     // 以Start作為起點
-    void Relax(int X, int Y, int weight);       // from X to Y
-    bool BellmenFord(int Start = 0);         // if there is negative cycle, return false
-    
+    void Relax(int X, int Y, int weight);       // 對edge(X,Y)進行Relax
+    bool BellmanFord(int Start = 0);            // 以Start作為起點
+                                                // if there is negative cycle, return false
 };
 
-bool Graph_SP::BellmenFord(int Start){
+bool Graph_SP::BellmanFord(int Start){
     
     InitializeSingleSource(Start);
     
@@ -348,7 +343,7 @@ int main(){
     g7.AddEdge(4, 3, 1);g7.AddEdge(4, 5, 6);
     g7.AddEdge(5, 0, 3);g7.AddEdge(5, 1, 7);
     
-    if (g7.BellmenFord(0))
+    if (g7.BellmanFord(0))
         std::cout << "There is no negative cycle.\n";
     else
         std::cout << "There is negative cycle.\n";
@@ -376,7 +371,7 @@ There is no negative cycle.
 
 ###檢查Graph中是否存在negative cycle
 
-聰明的讀者一定已經發現了，`BellmenFord()`還有個功能，可以檢查Graph中是否存在**negative cycle**。  
+聰明的讀者一定已經發現了，`BellmanFord()`還有個功能，可以檢查Graph中是否存在**negative cycle**。  
 上一篇文章[Single-Source Shortest Path：Intro(簡介)](http://alrightchiu.github.io/SecondRound/single-source-shortest-pathintrojian-jie.html#limit)曾經提到，塵世間最痛苦的事情莫過於在處理Single-Source Shortest Path問題時碰上**negative cycle**，因為**negative cycle**存在會使得最短路徑出現$-\infty$。
 
 
@@ -388,35 +383,35 @@ There is no negative cycle.
 
 * `distance[to]`$\leq$`distance[from]+weight`
 
-而`BellmenFord()`的檢查方法，便是在$|V|-1$次「對所有edge進行`Relax()`」後，檢查，若存在任何一條edge(from,to)所連結的兩個vertex之`distance`關係為：
+而`BellmanFord()`的檢查方法，便是在$|V|-1$次「對所有edge進行`Relax()`」後，檢查，若存在任何一條edge(from,to)所連結的兩個vertex之`distance`關係為：
 
 * `distance[to]`$>$`distance[from]+weight`
 
 就表示存在某一條edge之weight永遠可以讓該edge連結之vertex的`distance`下降，因此Graph中必定存在negative cycle。
 
 
-[f1]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_BellmenFord/f1.png?raw=true
-[f2]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_BellmenFord/f2.png?raw=true
-[f3]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_BellmenFord/f3.png?raw=true
-[f4]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_BellmenFord/f4.png?raw=true
-[f5]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_BellmenFord/f5.png?raw=true
-[f6]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_BellmenFord/f6.png?raw=true
-[f7]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_BellmenFord/f7.png?raw=true
-[f8]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_BellmenFord/f8.png?raw=true
-[f9]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_BellmenFord/f9.png?raw=true
-[f10]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_BellmenFord/f10.png?raw=true
-[f11]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_BellmenFord/f11.png?raw=true
-[f12]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_BellmenFord/f12.png?raw=true
+[f1]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_BellmanFord/f1.png?raw=true
+[f2]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_BellmanFord/f2.png?raw=true
+[f3]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_BellmanFord/f3.png?raw=true
+[f4]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_BellmanFord/f4.png?raw=true
+[f5]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_BellmanFord/f5.png?raw=true
+[f6]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_BellmanFord/f6.png?raw=true
+[f7]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_BellmanFord/f7.png?raw=true
+[f8]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_BellmanFord/f8.png?raw=true
+[f9]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_BellmanFord/f9.png?raw=true
+[f10]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_BellmanFord/f10.png?raw=true
+[f11]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_BellmanFord/f11.png?raw=true
+[f12]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_BellmanFord/f12.png?raw=true
 
 
 
 
 </br>  
 
-以上便是**Bellmem-Ford Algorithm**之介紹。  
-只要掌握**Relaxation**、**Convergence property**與**Path-relaxation property**之概念，便能了解**Bellmem-Ford Algorithm**的運作邏輯。
+以上便是**Bellman-Ford Algorithm**之介紹。  
+只要掌握**Relaxation**、**Convergence property**與**Path-relaxation property**之概念，便能了解**Bellman-Ford Algorithm**的運作邏輯。
 
-接下來將介紹的是**在DAG(directed acyclic graph)**中處理Single-Source Shortest Path之演算法。
+下一篇文章將介紹的是，**在DAG(directed acyclic graph)中**處理Single-Source Shortest Path之演算法。
 
 </br>
 
@@ -439,7 +434,7 @@ There is no negative cycle.
 ###Shortest Path系列文章
 
 [Single-Source Shortest Path：Intro(簡介)](http://alrightchiu.github.io/SecondRound/single-source-shortest-pathintrojian-jie.html)  
-
+[Single-Source Shortest Path：Bellman-Ford Algorithm](http://alrightchiu.github.io/SecondRound/single-source-shortest-pathbellman-ford-algorithm.html)  
 
 
 回到目錄：
