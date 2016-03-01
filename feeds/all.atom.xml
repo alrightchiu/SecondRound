@@ -345,7 +345,8 @@
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;&lt;a name="nc"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt; 
+&lt;a name="nc"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h3&gt;檢查Graph中是否存在negative cycle&lt;/h3&gt;
 &lt;p&gt;聰明的讀者一定已經發現了，&lt;code&gt;BellmanFord()&lt;/code&gt;還有個功能，可以檢查Graph中是否存在&lt;strong&gt;negative cycle&lt;/strong&gt;。&lt;br /&gt;
 上一篇文章&lt;a href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathintrojian-jie.html#limit"&gt;Single-Source Shortest Path：Intro(簡介)&lt;/a&gt;曾經提到，塵世間最痛苦的事情莫過於在處理Single-Source Shortest Path問題時碰上&lt;strong&gt;negative cycle&lt;/strong&gt;，因為&lt;strong&gt;negative cycle&lt;/strong&gt;存在會使得最短路徑出現&lt;span class="math"&gt;\(-\infty\)&lt;/span&gt;。&lt;/p&gt;
