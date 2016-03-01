@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="zh-hant">
+
+<head>
+            <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+
+        <title>Single-Source Shortest Path：Bellmem-Ford Algorithm</title>
+
+            <link href="http://alrightchiu.github.io/SecondRound/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Second Round Full Atom Feed" />
+            <link href="http://alrightchiu.github.io/SecondRound/feeds/yan-suan-fa-yu-zi-liao-jie-gou.atom.xml" type="application/atom+xml" rel="alternate" title="Second Round Categories Atom Feed" />
+
+        <!-- Bootstrap Core CSS -->
+        <link href="http://alrightchiu.github.io/SecondRound/theme/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="http://alrightchiu.github.io/SecondRound/theme/css/clean-blog.min.css" rel="stylesheet">
+
+        <!-- Code highlight color scheme -->
+            <link href="http://alrightchiu.github.io/SecondRound/theme/css/code_blocks/darkly.css" rel="stylesheet">
+
+
+        <!-- Custom Fonts -->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+
+
+
+        <meta name="tags" contents="C++" />
+        <meta name="tags" contents="Graph" />
+        <meta name="tags" contents="Intro" />
+        <meta name="tags" contents="Shortest Path" />
+        <meta name="tags" contents="Relaxation" />
+
+
+	                <meta property="og:locale" content="">
+		<meta property="og:site_name" content="Second Round">
+
+	<meta property="og:type" content="article">
+	<meta property="article:author" content="">
+	<meta property="og:url" content="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathbellmem-ford-algorithm.html">
+	<meta property="og:title" content="Single-Source Shortest Path：Bellmem-Ford Algorithm">
+	<meta property="og:description" content="">
+	<meta property="og:image" content="http://alrightchiu.github.io/SecondRound/">
+	<meta property="article:published_time" content="2016-03-01 20:12:00+08:00">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://alrightchiu.github.io/SecondRound/">Second Round</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a href="http://alrightchiu.github.io/SecondRound/archives.html">Archives</a></li>
+                        <li><a href="http://alrightchiu.github.io/SecondRound/tags.html">Tags</a></li>
+
+                            <li><a href="http://alrightchiu.github.io/SecondRound/pages/about.html">About</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+        <header class="intro-header" style="background-image: url('http://alrightchiu.github.io/SecondRound/theme/images/post-bg.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>Single-Source Shortest Path：Bellmem-Ford Algorithm</h1>
+                        <span class="meta">Posted by
+                                <a href="http://alrightchiu.github.io/SecondRound/author/chiu-cc.html">Chiu CC</a>
+                             on  3 01, 2016
+                        </span>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    <!-- Post Content -->
+    <article>
+        <p>// 回憶path-relaxation property, 演算法介紹, 作圖  <br />
+// code介紹<br />
+// 檢查negative cycle  </p>
+<p></br></p>
+<h3>先備知識與注意事項</h3>
+<p>本篇文章將介紹<strong>Bellmem-Ford Algorithm</strong>來回應上一篇<a href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathintrojian-jie.html">Single-Source Shortest Path：Intro(簡介)</a>的問題，演算法的概念主要圍繞在：</p>
+<ul>
+<li><strong>Relaxation</strong> </li>
+<li><strong>Convergence property</strong></li>
+<li><strong>Path-relaxation property</strong></li>
+</ul>
+<p>建議讀者可以先進<a href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathintrojian-jie.html#relax">傳送門</a>精彩回顧一下。</p>
+<hr />
+<h2>目錄</h2>
+<ul>
+<li><a href="#representation">Graph之表示法(representation)</a></li>
+<li><a href="#bf">Bellmem-Ford Algorithm</a></li>
+<li><a href="#code">程式碼</a><ul>
+<li><a href="#nc">檢查Graph中是否存在negative cycle</a></li>
+</ul>
+</li>
+<li><a href="#ref">參考資料</a></li>
+<li><a href="#series">Shortest Path系列文章</a></li>
+</ul>
+<p></br></p>
+<p><a name="representation"></a></p>
+<h2>Graph之表示法(representation)</h2>
+<p>在<a href="">BFS/DFS系列文章</a>使用<strong>Adjacency List</strong>代表Graph，不過edge上沒有weight，可以使用如下資料結構：</p>
+<ul>
+<li><code>std::vector&lt;std::list&lt;int&gt;&gt; AdjList;</code></li>
+</ul>
+<p><a href="">MST系列文章</a>的Graph利用<strong>Adjacency Matrix</strong>，因此可以使用如下資料結構，把weight放進矩陣之元素：</p>
+<ul>
+<li><code>std::vector&lt;std::vector&lt;int&gt;&gt; AdjMatrix;</code></li>
+</ul>
+<p>本篇文章將利用<strong>Adjacency List</strong>來代表weighted edge，方法是使用C++標準函式庫(STL)的<code>std::pair&lt;int,int&gt;</code>，使得<code>AdjList</code>的資料結構更新為：</p>
+<ul>
+<li><code>std::vector&lt;std::list&lt;std::pair&lt;int,int&gt;&gt;&gt; AdjList;</code></li>
+</ul>
+<p>若有一條從vertex(0)(<code>from</code>)指向vertex(1)(<code>to</code>)的edge(0,1)之weight為<span class="math">\(5\)</span>，若利用新的<code>AdjList</code>表示，如圖一：</p>
+<ul>
+<li>將<code>from</code>以<code>std::vector</code>的<strong>index</strong>表示；</li>
+<li>每一個<code>std::pair&lt;int,int&gt;</code>都是一個<code>std::list</code>的node；</li>
+<li>將<code>to</code>放在<code>std::pair&lt;int,int&gt;</code>的第一個<code>int</code>資料項；</li>
+<li>將<strong>weight</strong>放在<code>std::pair&lt;int,int&gt;</code>的第二個<code>int</code>資料項，</li>
+</ul>
+<p>關於<code>std::pair&lt;int,int&gt;</code>的用法，可以參考：<a href="http://www.cplusplus.com/reference/utility/pair/?kw=pair">Cplusplus：std::pair</a>。</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_BellmenFord/f1.png?raw=true" /></p>
+<p><strong>圖一。</strong>
+</center></p>
+<p></br></p>
+<p><a name="bf"></a></p>
+<h2>Bellmem-Ford Algorithm</h2>
+<p>根據<strong>Path-Relaxation Property</strong>，考慮一條從vertex(0)到vertex(K)之路徑<span class="math">\(P:v_0-v_1-...-v_K\)</span>，如果在對path之edge進行<code>Relax()</code>的順序中，<strong>曾經出現</strong>edge(v<sub>0</sub>,v<sub>1</sub>)、edge(v<sub>1</sub>,v<sub>2</sub>)、...、edge(v<sub>K-1</sub>,v<sub>K</sub>)的順序，那麼這條path一定是最短路徑，滿足<code>distance[K]</code><span class="math">\(=\delta(v_0,v_K)\)</span>。</p>
+<ul>
+<li>在對edge(v<sub>1</sub>,v<sub>2</sub>)進行<code>Relax()</code>之前，只要已經對edge(v<sub>0</sub>,v<sub>1</sub>)進行過<code>Relax()</code>，那麼，不管還有其餘哪一條edge已經進行過<code>Relax()</code>，<code>distance[2]</code>必定會等於<span class="math">\(\delta(0,2)\)</span>，因為<strong>Convergence property</strong>。</li>
+</ul>
+<p><strong>Bellmem-Ford Algorihm</strong>就用最直覺的方式滿足<strong>Path-Relaxation Property</strong>：</p>
+<ul>
+<li>一共執行<span class="math">\(|V|-1\)</span>次迴圈。</li>
+<li>在每一次迴圈裡，對「<strong>所有的edge</strong>」進行<code>Relax()</code>。</li>
+<li>經過<span class="math">\(|V|-1\)</span>次的「所有edge之<code>Relax()</code>」後，必定能夠產生「按照最短路徑上之edge順序的<code>Relax()</code>順序」，也就能夠得到最短路徑。<ul>
+<li>由於從起點走到任一vertex之最短路徑，最多只會有<span class="math">\(|V|-1\)</span>條edge，因此，執行<span class="math">\(|V|-1\)</span>次迴圈必定能夠滿足「最壞情況」(worst case)。</li>
+</ul>
+</li>
+</ul>
+<p></br>
+考慮如圖二(a)之Graph，以vertex(0)作為起點。<br />
+並且根據圖二(a)之<strong>Adjacency List</strong>，得到在<strong>Bellmem-Ford Algorihm</strong>中對所有edge進行<code>Relax()</code>之順序如圖二(b)。</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_BellmenFord/f2.png?raw=true" /></p>
+<p><strong>圖二(a)。</strong></p>
+<p><img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_BellmenFord/f3.png?raw=true" /></p>
+<p><strong>圖二(b)：根據圖二(a)之</strong><code>AdjList</code><strong>，對所有edge進行</strong><code>Relax()</code><strong>之順序。</strong>
+</center></p>
+<p></br>
+首先，對Graph的資料項目<code>distance</code>與<code>predecessor</code>進行初始化，見圖二(c)：</p>
+<ul>
+<li><code>distance</code>：將起點vertex之<code>distance</code>設為<span class="math">\(0\)</span>，並將其餘vertex之<code>distance</code>設為無限大(<span class="math">\(\infty\)</span>)。<ul>
+<li>如果在演算法結束後，某個vertex之<code>distance</code>仍然無限大(<span class="math">\(\infty\)</span>)，則表示Graph中沒有一條path能夠從起點vertex走到該vertex。</li>
+<li>回顧<code>Relax()</code>，因為只有起點vertex(0)之<code>distance</code>設為<span class="math">\(0\)</span>，其餘<code>distance</code>都是無限大，因此，在進行「所有edge之<code>Relax()</code>」時，一定是從與起點vertex(0)相連之edge先開始。</li>
+</ul>
+</li>
+<li><code>predecessor</code>：將所有vertex之<code>predecessor</code>設為<span class="math">\(-1\)</span>，表示目前還沒有<code>predecessor</code>。對其餘vertex來說，可以想成還沒有被起點vertex找到。</li>
+</ul>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_BellmenFord/f4.png?raw=true" /></p>
+<p><strong>圖二(c)。</strong>
+</center></p>
+<p></br>
+接著開始<span class="math">\(|V|-1\)</span>次的迴圈，並在每次迴圈，都對「所有edge」進行<code>Relax()</code>。<br />
+(此例，共<span class="math">\(5\)</span>次迴圈，每次按照圖二(b)之順序處理<span class="math">\(10\)</span>條edge)。</p>
+<h3>第一次迴圈(iteration#1)</h3>
+<p>對第一條edge(0,1)進行<code>Relax()</code>，見圖三(a)：</p>
+<ul>
+<li>比較<code>distance[1]</code>與<code>distance[0]+w(0,1)</code>，發現」從vertex(0)走到vertex(1)」之成本較原先的成本低(原先的成本即為<code>distance[1]</code>)，因此更新<code>distance[1]</code>為<code>distance[0]+w(0,1)</code>。</li>
+<li>同時更新<code>predecessor[1]=0</code>，表示vertex(1)是從vertex(0)走過去的。</li>
+</ul>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_BellmenFord/f5.png?raw=true" /></p>
+<p><strong>圖三(a)。</strong>
+</center></p>
+<p>對第二、三條edge(1,2)、edge(1,4)進行<code>Relax()</code>，見圖三(b)：</p>
+<ul>
+<li>由於<code>distance[2]</code>與<code>distance[4]</code>皆大於從vertex(1)走過去的成本，因此更新：<ul>
+<li><code>distance[2]=distance[1]+w(1,2)</code>；</li>
+<li><code>distance[4]=distance[1]+w(1,4)</code>；</li>
+</ul>
+</li>
+</ul>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_BellmenFord/f6.png?raw=true" /></p>
+<p><strong>圖三(b)。</strong>
+</center></p>
+<p>對第四、五條edge(2,4)、edge(2,5)進行<code>Relax()</code>，見圖三(c)：</p>
+<ul>
+<li>由於<code>distance[4]</code>小於「從vertex()走過去的成本(<code>distance[2]+w(2,4)</code>)，因此，仍維持從vertex(1)走到vertex(4)之路徑。</li>
+<li>而<code>distance[5]</code>大於<code>distance[2]+w(2,5)</code>，因此更新：<ul>
+<li><code>distance[5]=distance[2]+w(2,5)</code>；</li>
+<li><code>predecessor[5]=2</code>；</li>
+</ul>
+</li>
+</ul>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_BellmenFord/f7.png?raw=true" /></p>
+<p><strong>圖三(c)。</strong>
+</center></p>
+<p>對第六條edge(3,2)進行<code>Relax()</code>，見圖三(d)：</p>
+<ul>
+<li>顯然，「從vertex(1)走到vertex(2)」之成本<code>distance[2]</code>遠小於「從vertex(3)走到vertex(2)」之成本<code>distance[3]+w(2,3)</code>，因此，不更新抵達vertex(2)之路徑。</li>
+</ul>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_BellmenFord/f8.png?raw=true" /></p>
+<p><strong>圖三(d)。</strong>
+</center></p>
+<p>對第七、八條edge(4,3)、edge(4,5)進行<code>Relax()</code>，見圖三(e)：</p>
+<ul>
+<li>由於<code>distance[3]</code>大於從vertex(4)走到vertex(3)的成本(<code>distance[4]+w(4,3)</code>)，因此更新：<ul>
+<li><code>distance[3]=distance[4]+w(4,3)</code>；</li>
+<li><code>predecessor[3]=4</code>；</li>
+</ul>
+</li>
+<li>而且<code>distance[5]</code>也大於<code>distance[4]+w(4,5)</code>，表示「從vertex(4)走到vertex(5)」會比「從vertex(2)走到vertex(5)」還近，便更新：<ul>
+<li><code>distance[5]=distance[4]+w(4,5)</code>；</li>
+<li><code>predecessor[5]=4</code>；</li>
+</ul>
+</li>
+</ul>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_BellmenFord/f9.png?raw=true" /></p>
+<p><strong>圖三(e)。</strong>
+</center></p>
+<p>對第九、十條edge(5,0)、edge(5,1)進行<code>Relax()</code>，見圖三(f)：</p>
+<ul>
+<li>比較<code>distance</code>及edge之<strong>weight</strong>後發現，從vertex(5)走到vertex(0)與vertex(1)之成本皆高於當前走到此二vertex之路徑，因此不更新。</li>
+</ul>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_BellmenFord/f10.png?raw=true" /></p>
+<p><strong>圖三(f)。</strong>
+</center></p>
+<p>經過了第一次迴圈的洗禮，大致能夠掌握<code>Relax()</code>的精髓：如果有比目前的成本更低的路徑，就選擇那條路徑。<br />
+例如，圖三(c)中，原本從vertex(0)走到vertex(5)的路徑是<span class="math">\(Path:0-1-2-5\)</span>，但是在圖三(e)時，發現了更短的路徑<span class="math">\(Path:0-1-4-5\)</span>，便更新其成為目前「從vertex(0)走到vertex(5)」的最短路徑。</p>
+<p>還有沒有可能更新出成本更低的路徑？  </p>
+<p>當然有，因為第一次迴圈的<code>Relax()</code>明顯沒有更新到和edge(3,2)有關路徑，其原因在於，<code>Relax()</code><strong>進行的edge順序</strong>。<br />
+在第一次迴圈中，是先對edge(3,2)進行<code>Relax()</code>，不過此時的<code>distance[3]</code>還是無限大，因此沒有作用，之後才更新出「從vertex(4)走到vertex(3)」的路徑。<br />
+就圖三(f)看來，<code>distance[2]</code>為<span class="math">\(11\)</span>，而<span class="math">\(Path:0-1-4-3-2\)</span>之成本只有<span class="math">\(6\)</span>，顯然是低於當前的路徑<span class="math">\(Path:0-1-2\)</span>。</p>
+<p>因此需要<span class="math">\(|V|-1\)</span>次迴圈，以確保演算法一定能找到最短路徑。</p>
+<p></br>
+第二次直到第五次迴圈的邏輯同上，在此就不再贅述。</p>
+<p>最後得到的最短路徑之<strong>Predecessor Subgraph</strong>如圖三(g)：</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_BellmenFord/f11.png?raw=true" /></p>
+<p><strong>圖三(g)。</strong>
+</center></p>
+<p>根據圖三(g)，從vertex(0)走到Graph中其餘vertex之最短路徑為<span class="math">\(Path:0-1-4-3-2-5\)</span>，若把<strong>Bellmem-Ford Algorithm</strong>中，每一次迴圈對所有edge進行<code>Relax()</code>之順序攤開，如圖三(h)，可以驗證<strong>Bellmem-Ford Algorithm</strong>確實滿足<strong>Path-Relaxation Property</strong>，按照最短路徑之順序對edge進行<code>Relax()</code>。<br />
+(<strong>Bellmem-Ford Algorithm</strong>就是暴力解決，當然會滿足。)</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_BellmenFord/f12.png?raw=true" /></p>
+<p><strong>圖三(h)。</strong>
+</center></p>
+<p></br></p>
+<p><a name="code"></a></p>
+<h2>程式碼</h2>
+<p>程式碼包含幾個部分：</p>
+<p><code>class Graph</code>：</p>
+<ul>
+<li>使用<code>AdjList</code>，並利用<code>std::pair&lt;int,int&gt;</code>儲存edge的weight。</li>
+<li><code>InitializeSingleSource(int Start)</code>：對資料項目<code>distance</code>與<code>predecessor</code>進行初始化，並以<code>int Start</code>作為最短路徑之起點。</li>
+<li><code>Relax()</code>：對edge進行Relaxation的主要函式。</li>
+<li><code>BellmenFord()</code>：進行<strong>Bellmem-Ford Algorithm</strong>的主要函式，內容如前一小節所述。</li>
+<li><code>main()</code>：建立如圖二(a)之<code>AdjList</code>，並進行<code>BellmenFord()</code>。</li>
+</ul>
+<div class="highlight"><pre><span class="c1">// C++ code</span>
+<span class="cp">#include &lt;iostream&gt;</span>
+<span class="cp">#include &lt;vector&gt;</span>
+<span class="cp">#include &lt;list&gt;</span>
+<span class="cp">#include &lt;utility&gt;          </span><span class="c1">// for std::pair&lt;&gt;</span>
+<span class="cp">#include &lt;iomanip&gt;          </span><span class="c1">// for std::setw()</span>
+
+<span class="k">const</span> <span class="kt">int</span> <span class="n">Max_Distance</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
+<span class="k">class</span> <span class="nc">Graph_SP</span><span class="p">{</span>             <span class="c1">// SP for shortest path</span>
+<span class="k">private</span><span class="o">:</span>
+    <span class="kt">int</span> <span class="n">num_vertex</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">list</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;&gt;&gt;</span> <span class="n">AdjList</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">predecessor</span><span class="p">,</span> <span class="n">distance</span><span class="p">;</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">Graph_SP</span><span class="p">()</span><span class="o">:</span><span class="n">num_vertex</span><span class="p">(</span><span class="mi">0</span><span class="p">){};</span>
+    <span class="n">Graph_SP</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span><span class="o">:</span><span class="n">num_vertex</span><span class="p">(</span><span class="n">n</span><span class="p">){</span>
+        <span class="n">AdjList</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">num_vertex</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="kt">void</span> <span class="n">AddEdge</span><span class="p">(</span><span class="kt">int</span> <span class="n">from</span><span class="p">,</span> <span class="kt">int</span> <span class="n">to</span><span class="p">,</span> <span class="kt">int</span> <span class="n">weight</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="nf">PrintDataArray</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">array</span><span class="p">);</span>
+
+    <span class="kt">void</span> <span class="nf">InitializeSingleSource</span><span class="p">(</span><span class="kt">int</span> <span class="n">Start</span><span class="p">);</span>     <span class="c1">// 以Start作為起點</span>
+    <span class="kt">void</span> <span class="nf">Relax</span><span class="p">(</span><span class="kt">int</span> <span class="n">X</span><span class="p">,</span> <span class="kt">int</span> <span class="n">Y</span><span class="p">,</span> <span class="kt">int</span> <span class="n">weight</span><span class="p">);</span>       <span class="c1">// from X to Y</span>
+    <span class="kt">bool</span> <span class="nf">BellmenFord</span><span class="p">(</span><span class="kt">int</span> <span class="n">Start</span> <span class="o">=</span> <span class="mi">0</span><span class="p">);</span>         <span class="c1">// if there is negative cycle, return false</span>
+
+<span class="p">};</span>
+
+<span class="kt">bool</span> <span class="n">Graph_SP</span><span class="o">::</span><span class="n">BellmenFord</span><span class="p">(</span><span class="kt">int</span> <span class="n">Start</span><span class="p">){</span>
+
+    <span class="n">InitializeSingleSource</span><span class="p">(</span><span class="n">Start</span><span class="p">);</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">num_vertex</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>                <span class="c1">// |V-1|次的iteration</span>
+        <span class="c1">// for each edge belonging to E(G)</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">num_vertex</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>             <span class="c1">// 把AdjList最外層的vector走一遍</span>
+            <span class="k">for</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">list</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&gt;::</span><span class="n">iterator</span> <span class="n">itr</span> <span class="o">=</span> <span class="n">AdjList</span><span class="p">[</span><span class="n">j</span><span class="p">].</span><span class="n">begin</span><span class="p">();</span>
+                 <span class="n">itr</span> <span class="o">!=</span> <span class="n">AdjList</span><span class="p">[</span><span class="n">j</span><span class="p">].</span><span class="n">end</span><span class="p">();</span> <span class="n">itr</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>          <span class="c1">// 各個vector中, 所有edge走一遍</span>
+                <span class="n">Relax</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="p">(</span><span class="o">*</span><span class="n">itr</span><span class="p">).</span><span class="n">first</span><span class="p">,</span> <span class="p">(</span><span class="o">*</span><span class="n">itr</span><span class="p">).</span><span class="n">second</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="c1">// check if there is negative cycle</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">num_vertex</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">list</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&gt;::</span><span class="n">iterator</span> <span class="n">itr</span> <span class="o">=</span> <span class="n">AdjList</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">begin</span><span class="p">();</span>
+             <span class="n">itr</span> <span class="o">!=</span> <span class="n">AdjList</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">end</span><span class="p">();</span> <span class="n">itr</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">distance</span><span class="p">[(</span><span class="o">*</span><span class="n">itr</span><span class="p">).</span><span class="n">first</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">distance</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="p">(</span><span class="o">*</span><span class="n">itr</span><span class="p">).</span><span class="n">second</span><span class="p">)</span> <span class="p">{</span>   <span class="c1">// i是from, *itr是to</span>
+                <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="c1">// print predecessor[] &amp; distance[]</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;predecessor[]:</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">PrintDataArray</span><span class="p">(</span><span class="n">predecessor</span><span class="p">);</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;distance[]:</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">PrintDataArray</span><span class="p">(</span><span class="n">distance</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="n">Graph_SP</span><span class="o">::</span><span class="n">PrintDataArray</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">array</span><span class="p">){</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">num_vertex</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setw</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">i</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">num_vertex</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setw</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="n">Graph_SP</span><span class="o">::</span><span class="n">InitializeSingleSource</span><span class="p">(</span><span class="kt">int</span> <span class="n">Start</span><span class="p">){</span>
+
+    <span class="n">distance</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">num_vertex</span><span class="p">);</span>
+    <span class="n">predecessor</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">num_vertex</span><span class="p">);</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">num_vertex</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">distance</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">Max_Distance</span><span class="p">;</span>
+        <span class="n">predecessor</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">distance</span><span class="p">[</span><span class="n">Start</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="n">Graph_SP</span><span class="o">::</span><span class="n">Relax</span><span class="p">(</span><span class="kt">int</span> <span class="n">from</span><span class="p">,</span> <span class="kt">int</span> <span class="n">to</span><span class="p">,</span> <span class="kt">int</span> <span class="n">weight</span><span class="p">){</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">distance</span><span class="p">[</span><span class="n">to</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">distance</span><span class="p">[</span><span class="n">from</span><span class="p">]</span> <span class="o">+</span> <span class="n">weight</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">distance</span><span class="p">[</span><span class="n">to</span><span class="p">]</span> <span class="o">=</span> <span class="n">distance</span><span class="p">[</span><span class="n">from</span><span class="p">]</span> <span class="o">+</span> <span class="n">weight</span><span class="p">;</span>
+        <span class="n">predecessor</span><span class="p">[</span><span class="n">to</span><span class="p">]</span> <span class="o">=</span> <span class="n">from</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="n">Graph_SP</span><span class="o">::</span><span class="n">AddEdge</span><span class="p">(</span><span class="kt">int</span> <span class="n">from</span><span class="p">,</span> <span class="kt">int</span> <span class="n">to</span><span class="p">,</span> <span class="kt">int</span> <span class="n">weight</span><span class="p">){</span>
+    <span class="n">AdjList</span><span class="p">[</span><span class="n">from</span><span class="p">].</span><span class="n">push_back</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">make_pair</span><span class="p">(</span><span class="n">to</span><span class="p">,</span><span class="n">weight</span><span class="p">));</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+
+    <span class="n">Graph_SP</span> <span class="n">g7</span><span class="p">(</span><span class="mi">6</span><span class="p">);</span>
+    <span class="n">g7</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span>
+    <span class="n">g7</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">);</span><span class="n">g7</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">);</span>
+    <span class="n">g7</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">);</span><span class="n">g7</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">);</span>
+    <span class="n">g7</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
+    <span class="n">g7</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span><span class="n">g7</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">);</span>
+    <span class="n">g7</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span><span class="n">g7</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">);</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">g7</span><span class="p">.</span><span class="n">BellmenFord</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;There is no negative cycle.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="k">else</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;There is negative cycle.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>output:</p>
+<div class="highlight"><pre><span class="n">predecessor</span><span class="p">[]</span><span class="o">:</span>
+   <span class="mi">0</span>   <span class="mi">1</span>   <span class="mi">2</span>   <span class="mi">3</span>   <span class="mi">4</span>   <span class="mi">5</span>
+  <span class="o">-</span><span class="mi">1</span>   <span class="mi">0</span>   <span class="mi">3</span>   <span class="mi">4</span>   <span class="mi">1</span>   <span class="mi">2</span>
+
+<span class="n">distance</span><span class="p">[]</span><span class="o">:</span>
+   <span class="mi">0</span>   <span class="mi">1</span>   <span class="mi">2</span>   <span class="mi">3</span>   <span class="mi">4</span>   <span class="mi">5</span>
+   <span class="mi">0</span>   <span class="mi">5</span>   <span class="mi">6</span>   <span class="mi">2</span>   <span class="mi">1</span>   <span class="mi">4</span>
+
+<span class="n">There</span> <span class="n">is</span> <span class="n">no</span> <span class="n">negative</span> <span class="n">cycle</span><span class="p">.</span>
+</pre></div>
+
+
+<p><a name="nc"></a></p>
+<h3>檢查Graph中是否存在negative cycle</h3>
+<p>聰明的讀者一定已經發現了，<code>BellmenFord()</code>還有個功能，可以檢查Graph中是否存在<strong>negative cycle</strong>。<br />
+上一篇文章<a href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathintrojian-jie.html#limit">Single-Source Shortest Path：Intro(簡介)</a>曾經提到，塵世間最痛苦的事情莫過於在處理Single-Source Shortest Path問題時碰上<strong>negative cycle</strong>，因為<strong>negative cycle</strong>存在會使得最短路徑出現<span class="math">\(-\infty\)</span>。</p>
+<p>若存在從vertex(from)指向vertex(to)的edge(from,to)，並具有weight，根據<code>Relax()</code>的運作原則，：</p>
+<ul>
+<li>若<code>distance[to]</code><span class="math">\(&gt;\)</span><code>distance[from]+weight</code>，便更新<code>distance[to]=distance[from]+weight</code>」。</li>
+</ul>
+<p>因此，在對Graph中所有edge進行<code>Relax()</code>後，所有edge(from,to)所連結的兩個vertex之<code>distance</code>必定滿足：</p>
+<ul>
+<li><code>distance[to]</code><span class="math">\(\leq\)</span><code>distance[from]+weight</code></li>
+</ul>
+<p>而<code>BellmenFord()</code>的檢查方法，便是在<span class="math">\(|V|-1\)</span>次「對所有edge進行<code>Relax()</code>」後，檢查，若存在任何一條edge(from,to)所連結的兩個vertex之<code>distance</code>關係為：</p>
+<ul>
+<li><code>distance[to]</code><span class="math">\(&gt;\)</span><code>distance[from]+weight</code></li>
+</ul>
+<p>就表示存在某一條edge之weight永遠可以讓該edge連結之vertex的<code>distance</code>下降，因此Graph中必定存在negative cycle。</p>
+<p></br>  </p>
+<p>以上便是<strong>Bellmem-Ford Algorithm</strong>之介紹。<br />
+只要掌握<strong>Relaxation</strong>、<strong>Convergence property</strong>與<strong>Path-relaxation property</strong>之概念，便能了解<strong>Bellmem-Ford Algorithm</strong>的運作邏輯。</p>
+<p>接下來將介紹的是<strong>在DAG(directed acyclic graph)</strong>中處理Single-Source Shortest Path之演算法。</p>
+<p></br></p>
+<hr />
+<p><a name="ref"></a></p>
+<h3>參考資料：</h3>
+<ul>
+<li><a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844">Introduction to Algorithms, Ch24</a> </li>
+<li><a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376">Fundamentals of Data Structures in C++, Ch6</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Shortest_path_problem">Wikipedia：Shortest path problem</a></li>
+<li><a href="http://www.cplusplus.com/reference/utility/pair/?kw=pair">Cplusplus：std::pair</a></li>
+</ul>
+<p><a name="series"></a></p>
+<p></br></p>
+<h3>Shortest Path系列文章</h3>
+<p><a href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathintrojian-jie.html">Single-Source Shortest Path：Intro(簡介)</a>  </p>
+<p>回到目錄：</p>
+<p><a href="http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html">目錄：演算法與資料結構</a></p>
+<p></br></p>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' && location_protocol !== 'https') location_protocol = 'https:';
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+    </article>
+
+        <div class="tags">
+            <p>tags: <a href="http://alrightchiu.github.io/SecondRound/tag/c.html">C++</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/graph.html">Graph</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/intro.html">Intro</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/shortest-path.html">Shortest Path</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/relaxation.html">Relaxation</a>, </p>
+        </div>
+
+<hr>
+<div class="sharing">
+</div>
+    <hr>
+
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                            <li>
+                                <a href="https://github.com/alrightchiu">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                    </ul>
+<p class="copyright text-muted">
+    Blog powered by <a href="http://getpelican.com">Pelican</a>,
+    which takes great advantage of <a href="http://python.org">Python</a>.
+</p>                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="http://alrightchiu.github.io/SecondRound/theme/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="http://alrightchiu.github.io/SecondRound/theme/js/bootstrap.min.js"></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script src="http://alrightchiu.github.io/SecondRound/theme/js/clean-blog.min.js"></script>
+
+</body>
+
+</html>
