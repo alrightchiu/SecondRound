@@ -60,7 +60,7 @@ Summary: 介紹於Graph中，以單一Vertex作為起點，抵達其餘Vertex之
 1. **Single-Pair Shortest Path**：從單一vertex，抵達某個特定vertex之最短路徑，此為第二種問題的子問題；
 2. **Single-Source Shortest Path**：從單一vertex，抵達Graph中其餘所有vertex之最短路徑；
 3. **Single-Destination Shortest Path**：從Graph中的每一個vertex抵達某個特定vertex之最短路徑：
-    * 此為第二種問題之變形，只要把edge的方向相反，也就是在**G<sup>T</sup>**上執行第二種問題之演算法，再將結果。
+    * 此為第二種問題之變形，只要把edge的方向相反，也就是在**G<sup>T</sup>**上，執行第二種問題之演算法即可。
 4. **All-Pairs Shortest Path**：Graph中的所有vertex抵達其餘所有vertex之最短路徑。
     * 若把每一個vertex都當作起點，即可利用第二種問題之方法解決。
     * 不過之後將介紹的**Floyd-Warshall Algorithm**有更好的答案。
@@ -125,7 +125,6 @@ Summary: 介紹於Graph中，以單一Vertex作為起點，抵達其餘Vertex之
 * 經過一次cycle，$Path:0-1-2-3-1-2-3-4$之weight為$-2$；
 * 經過兩次cycle，$Path:0-1-2-3-1-2-3-1-2-3-4$之weight為$-8$；
 
-因此，在考慮最短路徑問題時，Graph可以有總和為正值的cycle，但是不能有**總和為負值的cycle**。  
 
 
 <center>
@@ -134,7 +133,9 @@ Summary: 介紹於Graph中，以單一Vertex作為起點，抵達其餘Vertex之
 **圖三(b)。**
 </center>
 
+因此，在考慮最短路徑問題時，問題之Graph可以有總和為正值的cycle，但是不能有總和為負值的cycle。  
 
+而演算法所挑選出來的最短路徑之Predecessor Subgraph，一定不包含cycle。
 
 <a name="property"></a>
 
@@ -181,11 +182,11 @@ Summary: 介紹於Graph中，以單一Vertex作為起點，抵達其餘Vertex之
 **圖四(a)。**
 </center>
 
-其中，vertex(X)之最短路徑只有一種可能，`\delta(S,X)=w(S,X)`。  
-而vertex(Y)可以從vertex(S)或者vertex(X)抵達，因此最短路徑`\delta(S,Y)`有兩種可能：
+其中，vertex(X)之最短路徑只有一種可能，$\delta(S,X)=w(S,X)$。  
+而vertex(Y)可以從vertex(S)或者vertex(X)抵達，因此最短路徑$\delta(S,Y)$有兩種可能：
 
-* `\delta(S,Y)=w(S,Y)`：vertex(Y)經由vertex(S)直接抵達。
-* `\delta(S,Y)=w(S,X)+w(X,Y)`：vertex(S)先經過vertex(X)，再到vertex(Y)。
+* $\delta(S,Y)=w(S,Y)$：vertex(Y)經由vertex(S)直接抵達。
+* $\delta(S,Y)=w(S,X)+w(X,Y)$：vertex(S)先經過vertex(X)，再到vertex(Y)。
 
 這兩條path中，weight最小的path即是最短路徑。  
 找到最短路徑的方法很直觀，只要比較這兩條路徑的weight，挑weight小的path即可。
