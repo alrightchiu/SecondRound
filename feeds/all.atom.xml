@@ -440,7 +440,7 @@
         "}";
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
-&lt;/script&gt;</summary><category term="C++"></category><category term="Graph"></category><category term="Intro"></category><category term="Shortest Path"></category><category term="Relaxation"></category></entry><entry><title>Single-Source Shortest Path：Intro(簡介)</title><link href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathintrojian-jie.html" rel="alternate"></link><updated>2016-02-29T20:12:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-02-29:SecondRound/single-source-shortest-pathintrojian-jie.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;/script&gt;</summary><category term="C++"></category><category term="Graph"></category><category term="Shortest Path"></category><category term="Relaxation"></category></entry><entry><title>Single-Source Shortest Path：Intro(簡介)</title><link href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathintrojian-jie.html" rel="alternate"></link><updated>2016-02-29T20:12:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-02-29:SecondRound/single-source-shortest-pathintrojian-jie.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h3&gt;先備知識與注意事項&lt;/h3&gt;
 &lt;p&gt;如果非要在這個章節加上一份先備知識，我會說是&lt;a href="https://www.google.com.tw/maps"&gt;Google Map&lt;/a&gt;。&lt;/p&gt;
 &lt;hr /&gt;
