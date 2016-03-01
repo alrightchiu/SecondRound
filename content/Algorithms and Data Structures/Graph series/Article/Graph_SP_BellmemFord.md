@@ -366,7 +366,7 @@ There is no negative cycle.
 ```
 
 
-
+</br> 
 <a name="nc"></a>
 
 ###檢查Graph中是否存在negative cycle
