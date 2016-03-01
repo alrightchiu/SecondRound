@@ -31,13 +31,11 @@
 &lt;a href="http://alrightchiu.github.io/SecondRound/minimum-spanning-treekruskals-algorithm.html"&gt;Minimum Spanning Tree：Kruskal's Algorithm&lt;/a&gt;&lt;br /&gt;
 &lt;a href="http://alrightchiu.github.io/SecondRound/minimum-spanning-treeprims-algorithm.html"&gt;Minimum Spanning Tree：Prim's Algorithm&lt;/a&gt;&lt;/p&gt;
 &lt;h3&gt;Shortest Path：&lt;/h3&gt;
-&lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathintrojian-jie.html"&gt;Single-Source Shortest Path：Intro(簡介)&lt;/a&gt;  &lt;/p&gt;
-&lt;p&gt;&lt;/br&gt;&lt;/p&gt;</summary><category term="C++"></category></entry><entry><title>Single-Source Shortest Path：Bellmem-Ford Algorithm</title><link href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathbellmem-ford-algorithm.html" rel="alternate"></link><updated>2016-03-01T20:12:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-03-01:SecondRound/single-source-shortest-pathbellmem-ford-algorithm.html</id><summary type="html">&lt;p&gt;// 回憶path-relaxation property, 演算法介紹, 作圖  &lt;br /&gt;
-// code介紹&lt;br /&gt;
-// 檢查negative cycle  &lt;/p&gt;
-&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathintrojian-jie.html"&gt;Single-Source Shortest Path：Intro(簡介)&lt;/a&gt;&lt;br /&gt;
+&lt;a href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathbellmem-ford-algorithm.html"&gt;Single-Source Shortest Path：Bellmem-Ford Algorithm&lt;/a&gt;  &lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;</summary><category term="C++"></category></entry><entry><title>Single-Source Shortest Path：Bellman-Ford Algorithm</title><link href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathbellman-ford-algorithm.html" rel="alternate"></link><updated>2016-03-01T20:12:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-03-01:SecondRound/single-source-shortest-pathbellman-ford-algorithm.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h3&gt;先備知識與注意事項&lt;/h3&gt;
-&lt;p&gt;本篇文章將介紹&lt;strong&gt;Bellmem-Ford Algorithm&lt;/strong&gt;來回應上一篇&lt;a href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathintrojian-jie.html"&gt;Single-Source Shortest Path：Intro(簡介)&lt;/a&gt;的問題，演算法的概念主要圍繞在：&lt;/p&gt;
+&lt;p&gt;本篇文章將介紹&lt;strong&gt;Bellman-Ford Algorithm&lt;/strong&gt;來回應上一篇&lt;a href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathintrojian-jie.html"&gt;Single-Source Shortest Path：Intro(簡介)&lt;/a&gt;的問題，演算法的概念主要圍繞在：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;Relaxation&lt;/strong&gt; &lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Convergence property&lt;/strong&gt;&lt;/li&gt;
@@ -48,7 +46,7 @@
 &lt;h2&gt;目錄&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="#representation"&gt;Graph之表示法(representation)&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="#bf"&gt;Bellmem-Ford Algorithm&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#bf"&gt;Bellman-Ford Algorithm&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="#code"&gt;程式碼&lt;/a&gt;&lt;ul&gt;
 &lt;li&gt;&lt;a href="#nc"&gt;檢查Graph中是否存在negative cycle&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
@@ -80,17 +78,17 @@
 &lt;/ul&gt;
 &lt;p&gt;關於&lt;code&gt;std::pair&amp;lt;int,int&amp;gt;&lt;/code&gt;的用法，可以參考：&lt;a href="http://www.cplusplus.com/reference/utility/pair/?kw=pair"&gt;Cplusplus：std::pair&lt;/a&gt;。&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
-&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_BellmenFord/f1.png?raw=true" /&gt;&lt;/p&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_BellmanFord/f1.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖一。&lt;/strong&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a name="bf"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;Bellmem-Ford Algorithm&lt;/h2&gt;
+&lt;h2&gt;Bellman-Ford Algorithm&lt;/h2&gt;
 &lt;p&gt;根據&lt;strong&gt;Path-Relaxation Property&lt;/strong&gt;，考慮一條從vertex(0)到vertex(K)之路徑&lt;span class="math"&gt;\(P:v_0-v_1-...-v_K\)&lt;/span&gt;，如果在對path之edge進行&lt;code&gt;Relax()&lt;/code&gt;的順序中，&lt;strong&gt;曾經出現&lt;/strong&gt;edge(v&lt;sub&gt;0&lt;/sub&gt;,v&lt;sub&gt;1&lt;/sub&gt;)、edge(v&lt;sub&gt;1&lt;/sub&gt;,v&lt;sub&gt;2&lt;/sub&gt;)、...、edge(v&lt;sub&gt;K-1&lt;/sub&gt;,v&lt;sub&gt;K&lt;/sub&gt;)的順序，那麼這條path一定是最短路徑，滿足&lt;code&gt;distance[K]&lt;/code&gt;&lt;span class="math"&gt;\(=\delta(v_0,v_K)\)&lt;/span&gt;。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;在對edge(v&lt;sub&gt;1&lt;/sub&gt;,v&lt;sub&gt;2&lt;/sub&gt;)進行&lt;code&gt;Relax()&lt;/code&gt;之前，只要已經對edge(v&lt;sub&gt;0&lt;/sub&gt;,v&lt;sub&gt;1&lt;/sub&gt;)進行過&lt;code&gt;Relax()&lt;/code&gt;，那麼，不管還有其餘哪一條edge已經進行過&lt;code&gt;Relax()&lt;/code&gt;，&lt;code&gt;distance[2]&lt;/code&gt;必定會等於&lt;span class="math"&gt;\(\delta(0,2)\)&lt;/span&gt;，因為&lt;strong&gt;Convergence property&lt;/strong&gt;。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;Bellmem-Ford Algorihm&lt;/strong&gt;就用最直覺的方式滿足&lt;strong&gt;Path-Relaxation Property&lt;/strong&gt;：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Bellman-Ford Algorihm&lt;/strong&gt;就用最直覺的方式滿足&lt;strong&gt;Path-Relaxation Property&lt;/strong&gt;：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;一共執行&lt;span class="math"&gt;\(|V|-1\)&lt;/span&gt;次迴圈。&lt;/li&gt;
 &lt;li&gt;在每一次迴圈裡，對「&lt;strong&gt;所有的edge&lt;/strong&gt;」進行&lt;code&gt;Relax()&lt;/code&gt;。&lt;/li&gt;
@@ -101,11 +99,11 @@
 &lt;/ul&gt;
 &lt;p&gt;&lt;/br&gt;
 考慮如圖二(a)之Graph，以vertex(0)作為起點。&lt;br /&gt;
-並且根據圖二(a)之&lt;strong&gt;Adjacency List&lt;/strong&gt;，得到在&lt;strong&gt;Bellmem-Ford Algorihm&lt;/strong&gt;中對所有edge進行&lt;code&gt;Relax()&lt;/code&gt;之順序如圖二(b)。&lt;/p&gt;
+並且根據圖二(a)之&lt;strong&gt;Adjacency List&lt;/strong&gt;，得到在&lt;strong&gt;Bellman-Ford Algorihm&lt;/strong&gt;中對所有edge進行&lt;code&gt;Relax()&lt;/code&gt;之順序如圖二(b)。&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
-&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_BellmenFord/f2.png?raw=true" /&gt;&lt;/p&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_BellmanFord/f2.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖二(a)。&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_BellmenFord/f3.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_BellmanFord/f3.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖二(b)：根據圖二(a)之&lt;/strong&gt;&lt;code&gt;AdjList&lt;/code&gt;&lt;strong&gt;，對所有edge進行&lt;/strong&gt;&lt;code&gt;Relax()&lt;/code&gt;&lt;strong&gt;之順序。&lt;/strong&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;
@@ -119,7 +117,7 @@
 &lt;li&gt;&lt;code&gt;predecessor&lt;/code&gt;：將所有vertex之&lt;code&gt;predecessor&lt;/code&gt;設為&lt;span class="math"&gt;\(-1\)&lt;/span&gt;，表示目前還沒有&lt;code&gt;predecessor&lt;/code&gt;。對其餘vertex來說，可以想成還沒有被起點vertex找到。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;center&gt;
-&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_BellmenFord/f4.png?raw=true" /&gt;&lt;/p&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_BellmanFord/f4.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖二(c)。&lt;/strong&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;
@@ -132,7 +130,7 @@
 &lt;li&gt;同時更新&lt;code&gt;predecessor[1]=0&lt;/code&gt;，表示vertex(1)是從vertex(0)走過去的。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;center&gt;
-&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_BellmenFord/f5.png?raw=true" /&gt;&lt;/p&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_BellmanFord/f5.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖三(a)。&lt;/strong&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;對第二、三條edge(1,2)、edge(1,4)進行&lt;code&gt;Relax()&lt;/code&gt;，見圖三(b)：&lt;/p&gt;
@@ -144,7 +142,7 @@
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;center&gt;
-&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_BellmenFord/f6.png?raw=true" /&gt;&lt;/p&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_BellmanFord/f6.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖三(b)。&lt;/strong&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;對第四、五條edge(2,4)、edge(2,5)進行&lt;code&gt;Relax()&lt;/code&gt;，見圖三(c)：&lt;/p&gt;
@@ -157,7 +155,7 @@
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;center&gt;
-&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_BellmenFord/f7.png?raw=true" /&gt;&lt;/p&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_BellmanFord/f7.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖三(c)。&lt;/strong&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;對第六條edge(3,2)進行&lt;code&gt;Relax()&lt;/code&gt;，見圖三(d)：&lt;/p&gt;
@@ -165,7 +163,7 @@
 &lt;li&gt;顯然，「從vertex(1)走到vertex(2)」之成本&lt;code&gt;distance[2]&lt;/code&gt;遠小於「從vertex(3)走到vertex(2)」之成本&lt;code&gt;distance[3]+w(2,3)&lt;/code&gt;，因此，不更新抵達vertex(2)之路徑。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;center&gt;
-&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_BellmenFord/f8.png?raw=true" /&gt;&lt;/p&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_BellmanFord/f8.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖三(d)。&lt;/strong&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;對第七、八條edge(4,3)、edge(4,5)進行&lt;code&gt;Relax()&lt;/code&gt;，見圖三(e)：&lt;/p&gt;
@@ -182,7 +180,7 @@
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;center&gt;
-&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_BellmenFord/f9.png?raw=true" /&gt;&lt;/p&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_BellmanFord/f9.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖三(e)。&lt;/strong&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;對第九、十條edge(5,0)、edge(5,1)進行&lt;code&gt;Relax()&lt;/code&gt;，見圖三(f)：&lt;/p&gt;
@@ -190,7 +188,7 @@
 &lt;li&gt;比較&lt;code&gt;distance&lt;/code&gt;及edge之&lt;strong&gt;weight&lt;/strong&gt;後發現，從vertex(5)走到vertex(0)與vertex(1)之成本皆高於當前走到此二vertex之路徑，因此不更新。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;center&gt;
-&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_BellmenFord/f10.png?raw=true" /&gt;&lt;/p&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_BellmanFord/f10.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖三(f)。&lt;/strong&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;經過了第一次迴圈的洗禮，大致能夠掌握&lt;code&gt;Relax()&lt;/code&gt;的精髓：如果有比目前的成本更低的路徑，就選擇那條路徑。&lt;br /&gt;
@@ -204,13 +202,13 @@
 第二次直到第五次迴圈的邏輯同上，在此就不再贅述。&lt;/p&gt;
 &lt;p&gt;最後得到的最短路徑之&lt;strong&gt;Predecessor Subgraph&lt;/strong&gt;如圖三(g)：&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
-&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_BellmenFord/f11.png?raw=true" /&gt;&lt;/p&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_BellmanFord/f11.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖三(g)。&lt;/strong&gt;
 &lt;/center&gt;&lt;/p&gt;
-&lt;p&gt;根據圖三(g)，從vertex(0)走到Graph中其餘vertex之最短路徑為&lt;span class="math"&gt;\(Path:0-1-4-3-2-5\)&lt;/span&gt;，若把&lt;strong&gt;Bellmem-Ford Algorithm&lt;/strong&gt;中，每一次迴圈對所有edge進行&lt;code&gt;Relax()&lt;/code&gt;之順序攤開，如圖三(h)，可以驗證&lt;strong&gt;Bellmem-Ford Algorithm&lt;/strong&gt;確實滿足&lt;strong&gt;Path-Relaxation Property&lt;/strong&gt;，按照最短路徑之順序對edge進行&lt;code&gt;Relax()&lt;/code&gt;。&lt;br /&gt;
-(&lt;strong&gt;Bellmem-Ford Algorithm&lt;/strong&gt;就是暴力解決，當然會滿足。)&lt;/p&gt;
+&lt;p&gt;根據圖三(g)，從vertex(0)走到Graph中其餘vertex之最短路徑為&lt;span class="math"&gt;\(Path:0-1-4-3-2-5\)&lt;/span&gt;，若把&lt;strong&gt;Bellman-Ford Algorithm&lt;/strong&gt;中，每一次迴圈對所有edge進行&lt;code&gt;Relax()&lt;/code&gt;之順序攤開，如圖三(h)，可以驗證&lt;strong&gt;Bellman-Ford Algorithm&lt;/strong&gt;確實滿足&lt;strong&gt;Path-Relaxation Property&lt;/strong&gt;，按照最短路徑之順序對edge進行&lt;code&gt;Relax()&lt;/code&gt;。&lt;br /&gt;
+(&lt;strong&gt;Bellman-Ford Algorithm&lt;/strong&gt;就是暴力解決，當然會滿足。)&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
-&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_BellmenFord/f12.png?raw=true" /&gt;&lt;/p&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_BellmanFord/f12.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖三(h)。&lt;/strong&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
@@ -222,7 +220,7 @@
 &lt;li&gt;使用&lt;code&gt;AdjList&lt;/code&gt;，並利用&lt;code&gt;std::pair&amp;lt;int,int&amp;gt;&lt;/code&gt;儲存edge的weight。&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;InitializeSingleSource(int Start)&lt;/code&gt;：對資料項目&lt;code&gt;distance&lt;/code&gt;與&lt;code&gt;predecessor&lt;/code&gt;進行初始化，並以&lt;code&gt;int Start&lt;/code&gt;作為最短路徑之起點。&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;Relax()&lt;/code&gt;：對edge進行Relaxation的主要函式。&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;BellmenFord()&lt;/code&gt;：進行&lt;strong&gt;Bellmem-Ford Algorithm&lt;/strong&gt;的主要函式，內容如前一小節所述。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;BellmanFord()&lt;/code&gt;：進行&lt;strong&gt;Bellman-Ford Algorithm&lt;/strong&gt;的主要函式，內容如前一小節所述。&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;main()&lt;/code&gt;：建立如圖二(a)之&lt;code&gt;AdjList&lt;/code&gt;，並進行&lt;code&gt;BellmenFord()&lt;/code&gt;。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// C++ code&lt;/span&gt;
@@ -247,12 +245,12 @@
     &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;PrintDataArray&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;vector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;array&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 
     &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;InitializeSingleSource&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;Start&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;     &lt;span class="c1"&gt;// 以Start作為起點&lt;/span&gt;
-    &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;Relax&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;X&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;Y&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;weight&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;       &lt;span class="c1"&gt;// from X to Y&lt;/span&gt;
-    &lt;span class="kt"&gt;bool&lt;/span&gt; &lt;span class="nf"&gt;BellmenFord&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;Start&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;         &lt;span class="c1"&gt;// if there is negative cycle, return false&lt;/span&gt;
-
+    &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;Relax&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;X&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;Y&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;weight&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;       &lt;span class="c1"&gt;// 對edge(X,Y)進行Relax&lt;/span&gt;
+    &lt;span class="kt"&gt;bool&lt;/span&gt; &lt;span class="nf"&gt;BellmanFord&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;Start&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;            &lt;span class="c1"&gt;// 以Start作為起點&lt;/span&gt;
+                                                &lt;span class="c1"&gt;// if there is negative cycle, return false&lt;/span&gt;
 &lt;span class="p"&gt;};&lt;/span&gt;
 
-&lt;span class="kt"&gt;bool&lt;/span&gt; &lt;span class="n"&gt;Graph_SP&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;BellmenFord&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;Start&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
+&lt;span class="kt"&gt;bool&lt;/span&gt; &lt;span class="n"&gt;Graph_SP&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;BellmanFord&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;Start&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
 
     &lt;span class="n"&gt;InitializeSingleSource&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Start&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 
@@ -324,7 +322,7 @@
     &lt;span class="n"&gt;g7&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;AddEdge&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;span class="n"&gt;g7&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;AddEdge&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;6&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
     &lt;span class="n"&gt;g7&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;AddEdge&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;span class="n"&gt;g7&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;AddEdge&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;7&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 
-    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;g7&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;BellmenFord&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;g7&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;BellmanFord&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
         &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;There is no negative cycle.&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
     &lt;span class="k"&gt;else&lt;/span&gt;
         &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;There is negative cycle.&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
@@ -349,7 +347,7 @@
 
 &lt;p&gt;&lt;a name="nc"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h3&gt;檢查Graph中是否存在negative cycle&lt;/h3&gt;
-&lt;p&gt;聰明的讀者一定已經發現了，&lt;code&gt;BellmenFord()&lt;/code&gt;還有個功能，可以檢查Graph中是否存在&lt;strong&gt;negative cycle&lt;/strong&gt;。&lt;br /&gt;
+&lt;p&gt;聰明的讀者一定已經發現了，&lt;code&gt;BellmanFord()&lt;/code&gt;還有個功能，可以檢查Graph中是否存在&lt;strong&gt;negative cycle&lt;/strong&gt;。&lt;br /&gt;
 上一篇文章&lt;a href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathintrojian-jie.html#limit"&gt;Single-Source Shortest Path：Intro(簡介)&lt;/a&gt;曾經提到，塵世間最痛苦的事情莫過於在處理Single-Source Shortest Path問題時碰上&lt;strong&gt;negative cycle&lt;/strong&gt;，因為&lt;strong&gt;negative cycle&lt;/strong&gt;存在會使得最短路徑出現&lt;span class="math"&gt;\(-\infty\)&lt;/span&gt;。&lt;/p&gt;
 &lt;p&gt;若存在從vertex(from)指向vertex(to)的edge(from,to)，並具有weight，根據&lt;code&gt;Relax()&lt;/code&gt;的運作原則，：&lt;/p&gt;
 &lt;ul&gt;
@@ -359,15 +357,15 @@
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;distance[to]&lt;/code&gt;&lt;span class="math"&gt;\(\leq\)&lt;/span&gt;&lt;code&gt;distance[from]+weight&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;而&lt;code&gt;BellmenFord()&lt;/code&gt;的檢查方法，便是在&lt;span class="math"&gt;\(|V|-1\)&lt;/span&gt;次「對所有edge進行&lt;code&gt;Relax()&lt;/code&gt;」後，檢查，若存在任何一條edge(from,to)所連結的兩個vertex之&lt;code&gt;distance&lt;/code&gt;關係為：&lt;/p&gt;
+&lt;p&gt;而&lt;code&gt;BellmanFord()&lt;/code&gt;的檢查方法，便是在&lt;span class="math"&gt;\(|V|-1\)&lt;/span&gt;次「對所有edge進行&lt;code&gt;Relax()&lt;/code&gt;」後，檢查，若存在任何一條edge(from,to)所連結的兩個vertex之&lt;code&gt;distance&lt;/code&gt;關係為：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;distance[to]&lt;/code&gt;&lt;span class="math"&gt;\(&amp;gt;\)&lt;/span&gt;&lt;code&gt;distance[from]+weight&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;就表示存在某一條edge之weight永遠可以讓該edge連結之vertex的&lt;code&gt;distance&lt;/code&gt;下降，因此Graph中必定存在negative cycle。&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;  &lt;/p&gt;
-&lt;p&gt;以上便是&lt;strong&gt;Bellmem-Ford Algorithm&lt;/strong&gt;之介紹。&lt;br /&gt;
-只要掌握&lt;strong&gt;Relaxation&lt;/strong&gt;、&lt;strong&gt;Convergence property&lt;/strong&gt;與&lt;strong&gt;Path-relaxation property&lt;/strong&gt;之概念，便能了解&lt;strong&gt;Bellmem-Ford Algorithm&lt;/strong&gt;的運作邏輯。&lt;/p&gt;
-&lt;p&gt;接下來將介紹的是&lt;strong&gt;在DAG(directed acyclic graph)&lt;/strong&gt;中處理Single-Source Shortest Path之演算法。&lt;/p&gt;
+&lt;p&gt;以上便是&lt;strong&gt;Bellman-Ford Algorithm&lt;/strong&gt;之介紹。&lt;br /&gt;
+只要掌握&lt;strong&gt;Relaxation&lt;/strong&gt;、&lt;strong&gt;Convergence property&lt;/strong&gt;與&lt;strong&gt;Path-relaxation property&lt;/strong&gt;之概念，便能了解&lt;strong&gt;Bellman-Ford Algorithm&lt;/strong&gt;的運作邏輯。&lt;/p&gt;
+&lt;p&gt;下一篇文章將介紹的是，&lt;strong&gt;在DAG(directed acyclic graph)中&lt;/strong&gt;處理Single-Source Shortest Path之演算法。&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;hr /&gt;
 &lt;p&gt;&lt;a name="ref"&gt;&lt;/a&gt;&lt;/p&gt;
@@ -381,7 +379,8 @@
 &lt;p&gt;&lt;a name="series"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h3&gt;Shortest Path系列文章&lt;/h3&gt;
-&lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathintrojian-jie.html"&gt;Single-Source Shortest Path：Intro(簡介)&lt;/a&gt;  &lt;/p&gt;
+&lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathintrojian-jie.html"&gt;Single-Source Shortest Path：Intro(簡介)&lt;/a&gt;&lt;br /&gt;
+&lt;a href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathbellman-ford-algorithm.html"&gt;Single-Source Shortest Path：Bellman-Ford Algorithm&lt;/a&gt;  &lt;/p&gt;
 &lt;p&gt;回到目錄：&lt;/p&gt;
 &lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html"&gt;目錄：演算法與資料結構&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
@@ -682,7 +681,8 @@
 &lt;p&gt;&lt;a name="series"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h3&gt;Shortest Path系列文章&lt;/h3&gt;
-&lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathintrojian-jie.html"&gt;Single-Source Shortest Path：Intro(簡介)&lt;/a&gt;  &lt;/p&gt;
+&lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathintrojian-jie.html"&gt;Single-Source Shortest Path：Intro(簡介)&lt;/a&gt;&lt;br /&gt;
+&lt;a href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathbellmem-ford-algorithm.html"&gt;Single-Source Shortest Path：Bellmem-Ford Algorithm&lt;/a&gt;  &lt;/p&gt;
 &lt;p&gt;回到目錄：&lt;/p&gt;
 &lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html"&gt;目錄：演算法與資料結構&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
@@ -4086,7 +4086,8 @@
 &lt;a href="http://alrightchiu.github.io/SecondRound/minimum-spanning-treeintrojian-jie.html"&gt;Minimum Spanning Tree：Intro(簡介)&lt;/a&gt;&lt;br /&gt;
 &lt;a href="http://alrightchiu.github.io/SecondRound/minimum-spanning-treekruskals-algorithm.html"&gt;Minimum Spanning Tree：Kruskal's Algorithm&lt;/a&gt;&lt;br /&gt;
 &lt;a href="http://alrightchiu.github.io/SecondRound/minimum-spanning-treeprims-algorithm.html"&gt;Minimum Spanning Tree：Prim's Algorithm&lt;/a&gt;&lt;br /&gt;
-&lt;a href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathintrojian-jie.html"&gt;Single-Source Shortest Path：Intro(簡介)&lt;/a&gt;  &lt;/p&gt;
+&lt;a href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathintrojian-jie.html"&gt;Single-Source Shortest Path：Intro(簡介)&lt;/a&gt;&lt;br /&gt;
+&lt;a href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathbellmem-ford-algorithm.html"&gt;Single-Source Shortest Path：Bellmem-Ford Algorithm&lt;/a&gt;  &lt;/p&gt;
 &lt;p&gt;回到目錄：&lt;/p&gt;
 &lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html"&gt;目錄：演算法與資料結構&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
