@@ -365,7 +365,13 @@
 &lt;p&gt;就表示存在某一條edge之weight永遠可以讓該edge連結之vertex的&lt;code&gt;distance&lt;/code&gt;下降，因此Graph中必定存在negative cycle。&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;  &lt;/p&gt;
 &lt;p&gt;以上便是&lt;strong&gt;Bellman-Ford Algorithm&lt;/strong&gt;之介紹。&lt;br /&gt;
-只要掌握&lt;strong&gt;Relaxation&lt;/strong&gt;、&lt;strong&gt;Convergence property&lt;/strong&gt;與&lt;strong&gt;Path-relaxation property&lt;/strong&gt;之概念，便能了解&lt;strong&gt;Bellman-Ford Algorithm&lt;/strong&gt;的運作邏輯。&lt;/p&gt;
+只要了解：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Relaxation&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Convergence property&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Path-relaxation property&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;之概念，即可掌握&lt;strong&gt;Bellman-Ford Algorithm&lt;/strong&gt;的運作邏輯。&lt;/p&gt;
 &lt;p&gt;下一篇文章將介紹的是，&lt;strong&gt;在DAG(directed acyclic graph)中&lt;/strong&gt;處理Single-Source Shortest Path之演算法。&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;hr /&gt;
