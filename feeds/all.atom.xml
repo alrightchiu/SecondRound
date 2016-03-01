@@ -81,7 +81,7 @@
 &lt;li&gt;&lt;strong&gt;Single-Pair Shortest Path&lt;/strong&gt;：從單一vertex，抵達某個特定vertex之最短路徑，此為第二種問題的子問題；&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Single-Source Shortest Path&lt;/strong&gt;：從單一vertex，抵達Graph中其餘所有vertex之最短路徑；&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Single-Destination Shortest Path&lt;/strong&gt;：從Graph中的每一個vertex抵達某個特定vertex之最短路徑：&lt;ul&gt;
-&lt;li&gt;此為第二種問題之變形，只要把edge的方向相反，也就是在&lt;strong&gt;G&lt;sup&gt;T&lt;/sup&gt;&lt;/strong&gt;上執行第二種問題之演算法，再將結果。&lt;/li&gt;
+&lt;li&gt;此為第二種問題之變形，只要把edge的方向相反，也就是在&lt;strong&gt;G&lt;sup&gt;T&lt;/sup&gt;&lt;/strong&gt;上，執行第二種問題之演算法即可。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;All-Pairs Shortest Path&lt;/strong&gt;：Graph中的所有vertex抵達其餘所有vertex之最短路徑。&lt;ul&gt;
@@ -136,11 +136,12 @@
 &lt;li&gt;經過一次cycle，&lt;span class="math"&gt;\(Path:0-1-2-3-1-2-3-4\)&lt;/span&gt;之weight為&lt;span class="math"&gt;\(-2\)&lt;/span&gt;；&lt;/li&gt;
 &lt;li&gt;經過兩次cycle，&lt;span class="math"&gt;\(Path:0-1-2-3-1-2-3-1-2-3-4\)&lt;/span&gt;之weight為&lt;span class="math"&gt;\(-8\)&lt;/span&gt;；&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;因此，在考慮最短路徑問題時，Graph可以有總和為正值的cycle，但是不能有&lt;strong&gt;總和為負值的cycle&lt;/strong&gt;。  &lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_intro/f5.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖三(b)。&lt;/strong&gt;
 &lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;因此，在考慮最短路徑問題時，問題之Graph可以有總和為正值的cycle，但是不能有總和為負值的cycle。  &lt;/p&gt;
+&lt;p&gt;而演算法所挑選出來的最短路徑之Predecessor Subgraph，一定不包含cycle。&lt;/p&gt;
 &lt;p&gt;&lt;a name="property"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h3&gt;特徵&lt;/h3&gt;
 &lt;p&gt;最短路徑除了&lt;strong&gt;不會有cycle&lt;/strong&gt;外，還有兩點特徵值得一提。&lt;/p&gt;
@@ -170,11 +171,11 @@
 &lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_intro/f6.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖四(a)。&lt;/strong&gt;
 &lt;/center&gt;&lt;/p&gt;
-&lt;p&gt;其中，vertex(X)之最短路徑只有一種可能，&lt;code&gt;\delta(S,X)=w(S,X)&lt;/code&gt;。&lt;br /&gt;
-而vertex(Y)可以從vertex(S)或者vertex(X)抵達，因此最短路徑&lt;code&gt;\delta(S,Y)&lt;/code&gt;有兩種可能：&lt;/p&gt;
+&lt;p&gt;其中，vertex(X)之最短路徑只有一種可能，&lt;span class="math"&gt;\(\delta(S,X)=w(S,X)\)&lt;/span&gt;。&lt;br /&gt;
+而vertex(Y)可以從vertex(S)或者vertex(X)抵達，因此最短路徑&lt;span class="math"&gt;\(\delta(S,Y)\)&lt;/span&gt;有兩種可能：&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;code&gt;\delta(S,Y)=w(S,Y)&lt;/code&gt;：vertex(Y)經由vertex(S)直接抵達。&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;\delta(S,Y)=w(S,X)+w(X,Y)&lt;/code&gt;：vertex(S)先經過vertex(X)，再到vertex(Y)。&lt;/li&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(\delta(S,Y)=w(S,Y)\)&lt;/span&gt;：vertex(Y)經由vertex(S)直接抵達。&lt;/li&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(\delta(S,Y)=w(S,X)+w(X,Y)\)&lt;/span&gt;：vertex(S)先經過vertex(X)，再到vertex(Y)。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;這兩條path中，weight最小的path即是最短路徑。&lt;br /&gt;
 找到最短路徑的方法很直觀，只要比較這兩條路徑的weight，挑weight小的path即可。&lt;/p&gt;

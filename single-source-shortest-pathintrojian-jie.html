@@ -161,7 +161,7 @@
 <li><strong>Single-Pair Shortest Path</strong>：從單一vertex，抵達某個特定vertex之最短路徑，此為第二種問題的子問題；</li>
 <li><strong>Single-Source Shortest Path</strong>：從單一vertex，抵達Graph中其餘所有vertex之最短路徑；</li>
 <li><strong>Single-Destination Shortest Path</strong>：從Graph中的每一個vertex抵達某個特定vertex之最短路徑：<ul>
-<li>此為第二種問題之變形，只要把edge的方向相反，也就是在<strong>G<sup>T</sup></strong>上執行第二種問題之演算法，再將結果。</li>
+<li>此為第二種問題之變形，只要把edge的方向相反，也就是在<strong>G<sup>T</sup></strong>上，執行第二種問題之演算法即可。</li>
 </ul>
 </li>
 <li><strong>All-Pairs Shortest Path</strong>：Graph中的所有vertex抵達其餘所有vertex之最短路徑。<ul>
@@ -216,11 +216,12 @@
 <li>經過一次cycle，<span class="math">\(Path:0-1-2-3-1-2-3-4\)</span>之weight為<span class="math">\(-2\)</span>；</li>
 <li>經過兩次cycle，<span class="math">\(Path:0-1-2-3-1-2-3-1-2-3-4\)</span>之weight為<span class="math">\(-8\)</span>；</li>
 </ul>
-<p>因此，在考慮最短路徑問題時，Graph可以有總和為正值的cycle，但是不能有<strong>總和為負值的cycle</strong>。  </p>
 <p><center>
 <img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_intro/f5.png?raw=true" /></p>
 <p><strong>圖三(b)。</strong>
 </center></p>
+<p>因此，在考慮最短路徑問題時，問題之Graph可以有總和為正值的cycle，但是不能有總和為負值的cycle。  </p>
+<p>而演算法所挑選出來的最短路徑之Predecessor Subgraph，一定不包含cycle。</p>
 <p><a name="property"></a></p>
 <h3>特徵</h3>
 <p>最短路徑除了<strong>不會有cycle</strong>外，還有兩點特徵值得一提。</p>
@@ -250,11 +251,11 @@
 <img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_intro/f6.png?raw=true" /></p>
 <p><strong>圖四(a)。</strong>
 </center></p>
-<p>其中，vertex(X)之最短路徑只有一種可能，<code>\delta(S,X)=w(S,X)</code>。<br />
-而vertex(Y)可以從vertex(S)或者vertex(X)抵達，因此最短路徑<code>\delta(S,Y)</code>有兩種可能：</p>
+<p>其中，vertex(X)之最短路徑只有一種可能，<span class="math">\(\delta(S,X)=w(S,X)\)</span>。<br />
+而vertex(Y)可以從vertex(S)或者vertex(X)抵達，因此最短路徑<span class="math">\(\delta(S,Y)\)</span>有兩種可能：</p>
 <ul>
-<li><code>\delta(S,Y)=w(S,Y)</code>：vertex(Y)經由vertex(S)直接抵達。</li>
-<li><code>\delta(S,Y)=w(S,X)+w(X,Y)</code>：vertex(S)先經過vertex(X)，再到vertex(Y)。</li>
+<li><span class="math">\(\delta(S,Y)=w(S,Y)\)</span>：vertex(Y)經由vertex(S)直接抵達。</li>
+<li><span class="math">\(\delta(S,Y)=w(S,X)+w(X,Y)\)</span>：vertex(S)先經過vertex(X)，再到vertex(Y)。</li>
 </ul>
 <p>這兩條path中，weight最小的path即是最短路徑。<br />
 找到最短路徑的方法很直觀，只要比較這兩條路徑的weight，挑weight小的path即可。</p>
