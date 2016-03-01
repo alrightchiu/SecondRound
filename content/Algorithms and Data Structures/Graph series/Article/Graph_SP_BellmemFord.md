@@ -409,7 +409,13 @@ There is no negative cycle.
 </br>  
 
 以上便是**Bellman-Ford Algorithm**之介紹。  
-只要掌握**Relaxation**、**Convergence property**與**Path-relaxation property**之概念，便能了解**Bellman-Ford Algorithm**的運作邏輯。
+只要了解：
+
+* **Relaxation**
+* **Convergence property**
+* **Path-relaxation property**
+
+之概念，即可掌握**Bellman-Ford Algorithm**的運作邏輯。
 
 下一篇文章將介紹的是，**在DAG(directed acyclic graph)中**處理Single-Source Shortest Path之演算法。
 
