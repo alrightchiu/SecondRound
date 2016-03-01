@@ -309,16 +309,16 @@
 <h3>Convergence property</h3>
 <p>假定Graph上存在edge(X,Y)從vertex(X)指向vertex(Y)，若在對edge(X,Y)進行<code>Relax()</code>之前，從vertex(S)到達vertex(X)的path就已經滿足最短路徑，<code>distance[X]</code><span class="math">\(=\delta(S,X)\)</span>，那麼在對edge(X,Y)進行<code>Relax()</code>後，必定得到從vertex(S)走到vertex(Y)之最短路徑，並更新<code>distance[Y]</code><span class="math">\(=\delta(S,Y)\)</span>，而且至此之後，<code>distance[Y]</code>將不會再被更新。</p>
 <p>有兩種情況：<code>distance[Y]</code>可能更新，也可能不更新。</p>
+<p>如圖五(a)，從vertex(S)走到vertex(X)之path已經是最短路徑，<code>distance[X]</code><span class="math">\(=\delta(S,X)\)</span>，並且<code>distance[Y]</code><span class="math">\(&gt;\)</span><code>distance[X]+w(X,Y)</code>，所以將<code>distance[Y]</code>更新成<code>distance[X]+w(X,Y)</code>，此時的<span class="math">\(Path=S-X-Y\)</span>必定是最短路徑，<code>distance[Y]</code><span class="math">\(=\delta(S,Y)\)</span>。</p>
 <p><center>
 <img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_intro/f8.png?raw=true" /></p>
 <p><strong>圖五(a)。</strong>
 </center></p>
-<p>如圖五(a)，從vertex(S)走到vertex(X)之path已經是最短路徑，<code>distance[X]</code><span class="math">\(=\delta(S,X)\)</span>，並且<code>distance[Y]</code><span class="math">\(&gt;\)</span><code>distance[X]+w(X,Y)</code>，所以將<code>distance[Y]</code>更新成<code>distance[X]+w(X,Y)</code>，此時的<span class="math">\(Path=S-X-Y\)</span>必定是最短路徑。</p>
+<p>如圖五(b)，從vertex(S)走到vertex(X)之path已經是最短路徑，<code>distance[X]</code><span class="math">\(=\delta(S,X)\)</span>，並且<code>distance[Y]</code>小於<code>distance[X]+w(X,Y)</code>，所以<code>distance[Y]</code>不用更新，因為<span class="math">\(Path=S-Y\)</span>已經是此Graph中，從vertex(S)走到vertex(Y)的最短路徑。</p>
 <p><center>
 <img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_intro/f9.png?raw=true" /></p>
 <p><strong>圖五(b)。</strong>
 </center></p>
-<p>如圖五(b)，從vertex(S)走到vertex(X)之path已經是最短路徑，<code>distance[X]</code><span class="math">\(=\delta(S,X)\)</span>，並且<code>distance[Y]</code>小於<code>distance[X]+w(X,Y)</code>，所以<code>distance[Y]</code>不用更新，因為<span class="math">\(Path=S-Y\)</span>已經是此Graph中，從vertex(S)走到vertex(Y)的最短路徑。</p>
 <p>綜合以上討論，最短路徑<span class="math">\(Path:S-X\)</span>(滿足<code>distance[X]</code><span class="math">\(=\delta(S,X)\)</span>)對vertex(Y)來說就像照妖鏡，只要<code>distance[Y]</code>比「當前能夠走到vertex(Y)之最低能本path」之weight還小，那麼目前走到vertex(Y)之<span class="math">\(Path:S-Y\)</span>就是最短路徑，反之，則被更新成最短路徑<span class="math">\(Path:S-X-Y\)</span>。</p>
 <p><a name="path-relaxation"></a></p>
 <h3>Path-relaxation property</h3>

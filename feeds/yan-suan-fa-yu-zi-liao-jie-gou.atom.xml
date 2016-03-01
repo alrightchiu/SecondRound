@@ -229,16 +229,16 @@
 &lt;h3&gt;Convergence property&lt;/h3&gt;
 &lt;p&gt;假定Graph上存在edge(X,Y)從vertex(X)指向vertex(Y)，若在對edge(X,Y)進行&lt;code&gt;Relax()&lt;/code&gt;之前，從vertex(S)到達vertex(X)的path就已經滿足最短路徑，&lt;code&gt;distance[X]&lt;/code&gt;&lt;span class="math"&gt;\(=\delta(S,X)\)&lt;/span&gt;，那麼在對edge(X,Y)進行&lt;code&gt;Relax()&lt;/code&gt;後，必定得到從vertex(S)走到vertex(Y)之最短路徑，並更新&lt;code&gt;distance[Y]&lt;/code&gt;&lt;span class="math"&gt;\(=\delta(S,Y)\)&lt;/span&gt;，而且至此之後，&lt;code&gt;distance[Y]&lt;/code&gt;將不會再被更新。&lt;/p&gt;
 &lt;p&gt;有兩種情況：&lt;code&gt;distance[Y]&lt;/code&gt;可能更新，也可能不更新。&lt;/p&gt;
+&lt;p&gt;如圖五(a)，從vertex(S)走到vertex(X)之path已經是最短路徑，&lt;code&gt;distance[X]&lt;/code&gt;&lt;span class="math"&gt;\(=\delta(S,X)\)&lt;/span&gt;，並且&lt;code&gt;distance[Y]&lt;/code&gt;&lt;span class="math"&gt;\(&amp;gt;\)&lt;/span&gt;&lt;code&gt;distance[X]+w(X,Y)&lt;/code&gt;，所以將&lt;code&gt;distance[Y]&lt;/code&gt;更新成&lt;code&gt;distance[X]+w(X,Y)&lt;/code&gt;，此時的&lt;span class="math"&gt;\(Path=S-X-Y\)&lt;/span&gt;必定是最短路徑，&lt;code&gt;distance[Y]&lt;/code&gt;&lt;span class="math"&gt;\(=\delta(S,Y)\)&lt;/span&gt;。&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_intro/f8.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖五(a)。&lt;/strong&gt;
 &lt;/center&gt;&lt;/p&gt;
-&lt;p&gt;如圖五(a)，從vertex(S)走到vertex(X)之path已經是最短路徑，&lt;code&gt;distance[X]&lt;/code&gt;&lt;span class="math"&gt;\(=\delta(S,X)\)&lt;/span&gt;，並且&lt;code&gt;distance[Y]&lt;/code&gt;&lt;span class="math"&gt;\(&amp;gt;\)&lt;/span&gt;&lt;code&gt;distance[X]+w(X,Y)&lt;/code&gt;，所以將&lt;code&gt;distance[Y]&lt;/code&gt;更新成&lt;code&gt;distance[X]+w(X,Y)&lt;/code&gt;，此時的&lt;span class="math"&gt;\(Path=S-X-Y\)&lt;/span&gt;必定是最短路徑。&lt;/p&gt;
+&lt;p&gt;如圖五(b)，從vertex(S)走到vertex(X)之path已經是最短路徑，&lt;code&gt;distance[X]&lt;/code&gt;&lt;span class="math"&gt;\(=\delta(S,X)\)&lt;/span&gt;，並且&lt;code&gt;distance[Y]&lt;/code&gt;小於&lt;code&gt;distance[X]+w(X,Y)&lt;/code&gt;，所以&lt;code&gt;distance[Y]&lt;/code&gt;不用更新，因為&lt;span class="math"&gt;\(Path=S-Y\)&lt;/span&gt;已經是此Graph中，從vertex(S)走到vertex(Y)的最短路徑。&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_intro/f9.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖五(b)。&lt;/strong&gt;
 &lt;/center&gt;&lt;/p&gt;
-&lt;p&gt;如圖五(b)，從vertex(S)走到vertex(X)之path已經是最短路徑，&lt;code&gt;distance[X]&lt;/code&gt;&lt;span class="math"&gt;\(=\delta(S,X)\)&lt;/span&gt;，並且&lt;code&gt;distance[Y]&lt;/code&gt;小於&lt;code&gt;distance[X]+w(X,Y)&lt;/code&gt;，所以&lt;code&gt;distance[Y]&lt;/code&gt;不用更新，因為&lt;span class="math"&gt;\(Path=S-Y\)&lt;/span&gt;已經是此Graph中，從vertex(S)走到vertex(Y)的最短路徑。&lt;/p&gt;
 &lt;p&gt;綜合以上討論，最短路徑&lt;span class="math"&gt;\(Path:S-X\)&lt;/span&gt;(滿足&lt;code&gt;distance[X]&lt;/code&gt;&lt;span class="math"&gt;\(=\delta(S,X)\)&lt;/span&gt;)對vertex(Y)來說就像照妖鏡，只要&lt;code&gt;distance[Y]&lt;/code&gt;比「當前能夠走到vertex(Y)之最低能本path」之weight還小，那麼目前走到vertex(Y)之&lt;span class="math"&gt;\(Path:S-Y\)&lt;/span&gt;就是最短路徑，反之，則被更新成最短路徑&lt;span class="math"&gt;\(Path:S-X-Y\)&lt;/span&gt;。&lt;/p&gt;
 &lt;p&gt;&lt;a name="path-relaxation"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h3&gt;Path-relaxation property&lt;/h3&gt;
