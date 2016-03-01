@@ -255,7 +255,7 @@ void Graph_SP::Relax(int from, int to, int weight){
 
 有兩種情況：`distance[Y]`可能更新，也可能不更新。
 
-
+如圖五(a)，從vertex(S)走到vertex(X)之path已經是最短路徑，`distance[X]`$=\delta(S,X)$，並且`distance[Y]`$>$`distance[X]+w(X,Y)`，所以將`distance[Y]`更新成`distance[X]+w(X,Y)`，此時的$Path=S-X-Y$必定是最短路徑，`distance[Y]`$=\delta(S,Y)$。
 
 <center>
 ![cc][f8]
@@ -263,8 +263,7 @@ void Graph_SP::Relax(int from, int to, int weight){
 **圖五(a)。**
 </center>
 
-如圖五(a)，從vertex(S)走到vertex(X)之path已經是最短路徑，`distance[X]`$=\delta(S,X)$，並且`distance[Y]`$>$`distance[X]+w(X,Y)`，所以將`distance[Y]`更新成`distance[X]+w(X,Y)`，此時的$Path=S-X-Y$必定是最短路徑。
-
+如圖五(b)，從vertex(S)走到vertex(X)之path已經是最短路徑，`distance[X]`$=\delta(S,X)$，並且`distance[Y]`小於`distance[X]+w(X,Y)`，所以`distance[Y]`不用更新，因為$Path=S-Y$已經是此Graph中，從vertex(S)走到vertex(Y)的最短路徑。
 
 <center>
 ![cc][f9]
@@ -272,7 +271,6 @@ void Graph_SP::Relax(int from, int to, int weight){
 **圖五(b)。**
 </center>
 
-如圖五(b)，從vertex(S)走到vertex(X)之path已經是最短路徑，`distance[X]`$=\delta(S,X)$，並且`distance[Y]`小於`distance[X]+w(X,Y)`，所以`distance[Y]`不用更新，因為$Path=S-Y$已經是此Graph中，從vertex(S)走到vertex(Y)的最短路徑。
 
 綜合以上討論，最短路徑$Path:S-X$(滿足`distance[X]`$=\delta(S,X)$)對vertex(Y)來說就像照妖鏡，只要`distance[Y]`比「當前能夠走到vertex(Y)之最低能本path」之weight還小，那麼目前走到vertex(Y)之$Path:S-Y$就是最短路徑，反之，則被更新成最短路徑$Path:S-X-Y$。
 
