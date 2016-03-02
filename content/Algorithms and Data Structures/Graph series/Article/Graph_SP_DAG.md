@@ -120,7 +120,7 @@ Summary: 介紹在DAG(directed acyclic graph)上處理Single-Source Shortest Pat
 **圖四(a)。**
 </center>
 
-以下便按照上述演算法，在圖四(a)之DAG上找到Single-Source問題之最短路徑，見圖四(b)-()。
+以下便按照上述演算法，在圖四(a)之DAG上找到Single-Source問題之最短路徑，見圖四(b)-(g)。
 
 <center>
 ![cc][f7]
@@ -204,15 +204,16 @@ public:
     void InitializeSingleSource(int Start);     // 以Start作為起點
     void Relax(int X, int Y, int weight);       // 對edge(X,Y)進行Relax
     
-    void DAG_SP(int Start);                     
-    void GetTopologicalSort(int *array);
+    void DAG_SP(int Start = 0);                     // 需要 DFS, 加一個額外的Linked list
+    void GetTopologicalSort(int *array, int Start);
     void DFSVisit_TS(int *array, int *color, int *discover, int *finish, int vertex, int &time, int &count);
+ 
 };
 
-void Graph_SP::GetTopologicalSort(int *array){
+void Graph_SP::GetTopologicalSort(int *array, int Start){
     
     int color[num_vertex], discover[num_vertex], finish[num_vertex];
-
+    
     for (int i = 0; i < num_vertex; i++) {
         color[i] = 0;
         discover[i] = 0;
@@ -220,18 +221,22 @@ void Graph_SP::GetTopologicalSort(int *array){
         predecessor[i] = -1;
     }
     
-    int time = 0, 
-        count = num_vertex-1;        // count 為 topologicalsort[] 的 index
+    int time = 0,
+        count = num_vertex-1,        // count 為 topologicalsort[] 的 index
+        i = Start;
+    
     for (int j = 0; j < num_vertex; j++) {
-        if (color[j] == 0) {
-            DFSVisit_TS(array, color, discover, finish, j, time, count);
+        if (color[i] == 0) {
+            DFSVisit_TS(array, color, discover, finish, i, time, count);
         }
+        i = j;
     }
     std::cout << "\nprint discover time:\n";
     PrintIntArray(discover);
     std::cout << "\nprint finish time:\n";
     PrintIntArray(finish);
 }
+
 void Graph_SP::DFSVisit_TS(int *array, int *color, int *discover, int *finish, int vertex, int &time, int &count){
     
     color[vertex] = 1;  // set gray
@@ -247,13 +252,13 @@ void Graph_SP::DFSVisit_TS(int *array, int *color, int *discover, int *finish, i
     array[count--] = vertex;            // 產生Topological Sort
 }
 
+
 void Graph_SP::DAG_SP(int Start){
     
     InitializeSingleSource(Start);      // distance[],predecessor[]的initialization
     
     int topologicalsort[num_vertex];
-    GetTopologicalSort(topologicalsort);
-    PrintIntArray(topologicalsort);
+    GetTopologicalSort(topologicalsort, Start);
     
     for (int i = 0; i < num_vertex; i++) {
         int v = topologicalsort[i];
