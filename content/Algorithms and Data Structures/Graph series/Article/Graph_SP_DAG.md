@@ -1,4 +1,4 @@
-Title: Single-Source Shortest Path：in DAG(directed acyclic graph)    
+Title: Single-Source Shortest Path：on DAG(directed acyclic graph)    
 Date: 2016-3-2 16:12  
 Category: 演算法與資料結構  
 Tags: C++, Graph, Shortest Path, Relaxation, DAG 
