@@ -234,13 +234,14 @@ Summary: 介紹Bellman-Ford Algorithm。
 
 程式碼包含幾個部分：
 
-`class Graph`：
+`class Graph_SP`：
 
 * 使用`AdjList`，並利用`std::pair<int,int>`儲存edge的weight。
 * `InitializeSingleSource(int Start)`：對資料項目`distance`與`predecessor`進行初始化，並以`int Start`作為最短路徑之起點。
 * `Relax()`：對edge進行Relaxation的主要函式。
 * `BellmanFord()`：進行**Bellman-Ford Algorithm**的主要函式，內容如前一小節所述。
-* `main()`：建立如圖二(a)之`AdjList`，並進行`BellmenFord()`。
+
+以及`main()`：建立如圖二(a)之`AdjList`，並進行`BellmenFord()`。
 
 
 ```cpp
