@@ -253,7 +253,7 @@ Summary: 介紹Bellman-Ford Algorithm。
 #include <iomanip>          // for std::setw()
 
 const int Max_Distance = 100;
-class Graph_SP{             // SP for shortest path
+class Graph_SP{             // SP serves as Shortest Path
 private:
     int num_vertex;
     std::vector<std::list<std::pair<int,int>>> AdjList;
