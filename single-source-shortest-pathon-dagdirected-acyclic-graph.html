@@ -184,7 +184,7 @@
 <img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_DAG/f6.png?raw=true" /></p>
 <p><strong>圖四(a)。</strong>
 </center></p>
-<p>以下便按照上述演算法，在圖四(a)之DAG上找到Single-Source問題之最短路徑，見圖四(b)-()。</p>
+<p>以下便按照上述演算法，在圖四(a)之DAG上找到Single-Source問題之最短路徑，見圖四(b)-(g)。</p>
 <p><center>
 <img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_DAG/f7.png?raw=true" /></p>
 <p><strong>圖四(b)。</strong></p>
@@ -244,12 +244,13 @@
     <span class="kt">void</span> <span class="nf">InitializeSingleSource</span><span class="p">(</span><span class="kt">int</span> <span class="n">Start</span><span class="p">);</span>     <span class="c1">// 以Start作為起點</span>
     <span class="kt">void</span> <span class="nf">Relax</span><span class="p">(</span><span class="kt">int</span> <span class="n">X</span><span class="p">,</span> <span class="kt">int</span> <span class="n">Y</span><span class="p">,</span> <span class="kt">int</span> <span class="n">weight</span><span class="p">);</span>       <span class="c1">// 對edge(X,Y)進行Relax</span>
 
-    <span class="kt">void</span> <span class="nf">DAG_SP</span><span class="p">(</span><span class="kt">int</span> <span class="n">Start</span><span class="p">);</span>                     
-    <span class="kt">void</span> <span class="nf">GetTopologicalSort</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">array</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="nf">DAG_SP</span><span class="p">(</span><span class="kt">int</span> <span class="n">Start</span> <span class="o">=</span> <span class="mi">0</span><span class="p">);</span>                     <span class="c1">// 需要 DFS, 加一個額外的Linked list</span>
+    <span class="kt">void</span> <span class="nf">GetTopologicalSort</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">array</span><span class="p">,</span> <span class="kt">int</span> <span class="n">Start</span><span class="p">);</span>
     <span class="kt">void</span> <span class="nf">DFSVisit_TS</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">array</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">color</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">discover</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">finish</span><span class="p">,</span> <span class="kt">int</span> <span class="n">vertex</span><span class="p">,</span> <span class="kt">int</span> <span class="o">&amp;</span><span class="n">time</span><span class="p">,</span> <span class="kt">int</span> <span class="o">&amp;</span><span class="n">count</span><span class="p">);</span>
+
 <span class="p">};</span>
 
-<span class="kt">void</span> <span class="n">Graph_SP</span><span class="o">::</span><span class="n">GetTopologicalSort</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">array</span><span class="p">){</span>
+<span class="kt">void</span> <span class="n">Graph_SP</span><span class="o">::</span><span class="n">GetTopologicalSort</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">array</span><span class="p">,</span> <span class="kt">int</span> <span class="n">Start</span><span class="p">){</span>
 
     <span class="kt">int</span> <span class="n">color</span><span class="p">[</span><span class="n">num_vertex</span><span class="p">],</span> <span class="n">discover</span><span class="p">[</span><span class="n">num_vertex</span><span class="p">],</span> <span class="n">finish</span><span class="p">[</span><span class="n">num_vertex</span><span class="p">];</span>
 
@@ -260,18 +261,22 @@
         <span class="n">predecessor</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
     <span class="p">}</span>
 
-    <span class="kt">int</span> <span class="n">time</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> 
-        <span class="n">count</span> <span class="o">=</span> <span class="n">num_vertex</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>        <span class="c1">// count 為 topologicalsort[] 的 index</span>
+    <span class="kt">int</span> <span class="n">time</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="n">count</span> <span class="o">=</span> <span class="n">num_vertex</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span>        <span class="c1">// count 為 topologicalsort[] 的 index</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="n">Start</span><span class="p">;</span>
+
     <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">num_vertex</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">color</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-            <span class="n">DFSVisit_TS</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">discover</span><span class="p">,</span> <span class="n">finish</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">count</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">color</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">DFSVisit_TS</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">discover</span><span class="p">,</span> <span class="n">finish</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">count</span><span class="p">);</span>
         <span class="p">}</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="n">j</span><span class="p">;</span>
     <span class="p">}</span>
     <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">print discover time:</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
     <span class="n">PrintIntArray</span><span class="p">(</span><span class="n">discover</span><span class="p">);</span>
     <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">print finish time:</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
     <span class="n">PrintIntArray</span><span class="p">(</span><span class="n">finish</span><span class="p">);</span>
 <span class="p">}</span>
+
 <span class="kt">void</span> <span class="n">Graph_SP</span><span class="o">::</span><span class="n">DFSVisit_TS</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">array</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">color</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">discover</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">finish</span><span class="p">,</span> <span class="kt">int</span> <span class="n">vertex</span><span class="p">,</span> <span class="kt">int</span> <span class="o">&amp;</span><span class="n">time</span><span class="p">,</span> <span class="kt">int</span> <span class="o">&amp;</span><span class="n">count</span><span class="p">){</span>
 
     <span class="n">color</span><span class="p">[</span><span class="n">vertex</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>  <span class="c1">// set gray</span>
@@ -287,13 +292,13 @@
     <span class="n">array</span><span class="p">[</span><span class="n">count</span><span class="o">--</span><span class="p">]</span> <span class="o">=</span> <span class="n">vertex</span><span class="p">;</span>            <span class="c1">// 產生Topological Sort</span>
 <span class="p">}</span>
 
+
 <span class="kt">void</span> <span class="n">Graph_SP</span><span class="o">::</span><span class="n">DAG_SP</span><span class="p">(</span><span class="kt">int</span> <span class="n">Start</span><span class="p">){</span>
 
     <span class="n">InitializeSingleSource</span><span class="p">(</span><span class="n">Start</span><span class="p">);</span>      <span class="c1">// distance[],predecessor[]的initialization</span>
 
     <span class="kt">int</span> <span class="n">topologicalsort</span><span class="p">[</span><span class="n">num_vertex</span><span class="p">];</span>
-    <span class="n">GetTopologicalSort</span><span class="p">(</span><span class="n">topologicalsort</span><span class="p">);</span>
-    <span class="n">PrintIntArray</span><span class="p">(</span><span class="n">topologicalsort</span><span class="p">);</span>
+    <span class="n">GetTopologicalSort</span><span class="p">(</span><span class="n">topologicalsort</span><span class="p">,</span> <span class="n">Start</span><span class="p">);</span>
 
     <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">num_vertex</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
         <span class="kt">int</span> <span class="n">v</span> <span class="o">=</span> <span class="n">topologicalsort</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
