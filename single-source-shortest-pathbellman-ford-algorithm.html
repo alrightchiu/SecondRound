@@ -293,14 +293,14 @@
 <p><a name="code"></a></p>
 <h2>程式碼</h2>
 <p>程式碼包含幾個部分：</p>
-<p><code>class Graph</code>：</p>
+<p><code>class Graph_SP</code>：</p>
 <ul>
 <li>使用<code>AdjList</code>，並利用<code>std::pair&lt;int,int&gt;</code>儲存edge的weight。</li>
 <li><code>InitializeSingleSource(int Start)</code>：對資料項目<code>distance</code>與<code>predecessor</code>進行初始化，並以<code>int Start</code>作為最短路徑之起點。</li>
 <li><code>Relax()</code>：對edge進行Relaxation的主要函式。</li>
 <li><code>BellmanFord()</code>：進行<strong>Bellman-Ford Algorithm</strong>的主要函式，內容如前一小節所述。</li>
-<li><code>main()</code>：建立如圖二(a)之<code>AdjList</code>，並進行<code>BellmenFord()</code>。</li>
 </ul>
+<p>以及<code>main()</code>：建立如圖二(a)之<code>AdjList</code>，並進行<code>BellmenFord()</code>。</p>
 <div class="highlight"><pre><span class="c1">// C++ code</span>
 <span class="cp">#include &lt;iostream&gt;</span>
 <span class="cp">#include &lt;vector&gt;</span>

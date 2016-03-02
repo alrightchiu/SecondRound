@@ -215,14 +215,14 @@
 &lt;p&gt;&lt;a name="code"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;程式碼&lt;/h2&gt;
 &lt;p&gt;程式碼包含幾個部分：&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;class Graph&lt;/code&gt;：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;class Graph_SP&lt;/code&gt;：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;使用&lt;code&gt;AdjList&lt;/code&gt;，並利用&lt;code&gt;std::pair&amp;lt;int,int&amp;gt;&lt;/code&gt;儲存edge的weight。&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;InitializeSingleSource(int Start)&lt;/code&gt;：對資料項目&lt;code&gt;distance&lt;/code&gt;與&lt;code&gt;predecessor&lt;/code&gt;進行初始化，並以&lt;code&gt;int Start&lt;/code&gt;作為最短路徑之起點。&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;Relax()&lt;/code&gt;：對edge進行Relaxation的主要函式。&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;BellmanFord()&lt;/code&gt;：進行&lt;strong&gt;Bellman-Ford Algorithm&lt;/strong&gt;的主要函式，內容如前一小節所述。&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;main()&lt;/code&gt;：建立如圖二(a)之&lt;code&gt;AdjList&lt;/code&gt;，並進行&lt;code&gt;BellmenFord()&lt;/code&gt;。&lt;/li&gt;
 &lt;/ul&gt;
+&lt;p&gt;以及&lt;code&gt;main()&lt;/code&gt;：建立如圖二(a)之&lt;code&gt;AdjList&lt;/code&gt;，並進行&lt;code&gt;BellmenFord()&lt;/code&gt;。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// C++ code&lt;/span&gt;
 &lt;span class="cp"&gt;#include &amp;lt;iostream&amp;gt;&lt;/span&gt;
 &lt;span class="cp"&gt;#include &amp;lt;vector&amp;gt;&lt;/span&gt;
