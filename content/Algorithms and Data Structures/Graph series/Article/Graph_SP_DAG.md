@@ -206,7 +206,8 @@ public:
     
     void DAG_SP(int Start = 0);                     // 需要 DFS, 加一個額外的Linked list
     void GetTopologicalSort(int *array, int Start);
-    void DFSVisit_TS(int *array, int *color, int *discover, int *finish, int vertex, int &time, int &count);
+    void DFSVisit_TS(int *array, int *color, int *discover, 
+                     int *finish, int vertex, int &time, int &count);
  
 };
 
@@ -241,7 +242,8 @@ void Graph_SP::DFSVisit_TS(int *array, int *color, int *discover, int *finish, i
     
     color[vertex] = 1;  // set gray
     discover[vertex] = ++time;
-    for (std::list<std::pair<int,int>>::iterator itr = AdjList[vertex].begin(); itr != AdjList[vertex].end(); itr++) {
+    for (std::list<std::pair<int,int>>::iterator itr = AdjList[vertex].begin(); 
+         itr != AdjList[vertex].end(); itr++) {
         if (color[(*itr).first] == 0) {
             predecessor[(*itr).first] = vertex;
             DFSVisit_TS(array, color, discover, finish, (*itr).first, time, count);
