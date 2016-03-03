@@ -238,7 +238,8 @@ void Graph_SP::GetTopologicalSort(int *array, int Start){
     PrintIntArray(finish);
 }
 
-void Graph_SP::DFSVisit_TS(int *array, int *color, int *discover, int *finish, int vertex, int &time, int &count){
+void Graph_SP::DFSVisit_TS(int *array, int *color, int *discover, 
+                           int *finish, int vertex, int &time, int &count){
     
     color[vertex] = 1;  // set gray
     discover[vertex] = ++time;
