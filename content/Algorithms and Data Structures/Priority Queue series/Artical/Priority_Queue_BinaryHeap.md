@@ -134,8 +134,8 @@ Binary Heap有兩項基本特徵：
 
 特徵二，若將位於index($i$)之node視為subtree之**root**，那麼，可將此Binary Heap分為兩類：
 
-* **Max Heap**：在每一個subtree中，**root**之「key」要比兩個**child**之「key」還要大，$Key(i)>Key(2i)&Key(i)>Key(2i+1)$。
-* **Min Heap**：在每一個subtree中，**root**之「key」要比兩個**child**之「key」還要小，$Key(i)<Key(2i)&Key(i)<Key(2i+1)$。
+* **Max Heap**：在每一個subtree中，**root**之「key」要比兩個**child**之「key」還要大，$Key(i)>Key(2i) & Key(i)>Key(2i+1)$。
+* **Min Heap**：在每一個subtree中，**root**之「key」要比兩個**child**之「key」還要小，$Key(i)<Key(2i) & Key(i)<Key(2i+1)$。
 
 以圖一(b)之Min Heap為例，每個node下方的藍色數字表示其**Key**值，檢查Min-Heap中任何一個subtree，皆滿足$Key(i)<Key(2i)&Key(i)<Key(2i+1)$。
 
