@@ -1,7 +1,7 @@
 Title: Binary Tree: Traversal(尋訪)    
 Date: 2015-12-24 22:41  
 Category: 演算法與資料結構  
-Tags: C++, Binary Tree(二元樹)  
+Tags: C++, Binary Tree  
 Summary: 介紹Binary Tree(二元樹)中的Traversal(尋訪)。
  
 
