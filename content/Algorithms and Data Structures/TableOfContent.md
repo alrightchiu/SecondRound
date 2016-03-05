@@ -61,6 +61,12 @@ Summary: 請先閱讀本篇目錄。
 [Single-Source Shortest Path：on DAG(directed acyclic graph)](http://alrightchiu.github.io/SecondRound/single-source-shortest-pathon-dagdirected-acyclic-graph.html)  
 
 
+
+##Priority Queue系列文章
+
+[Priority Queue：Intro(簡介) & Binary Heap](http://alrightchiu.github.io/SecondRound/priority-queueintrojian-jie-binary-heap.html)  
+
+
 </br>
 
 
