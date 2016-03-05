@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="zh-hant">
+
+<head>
+            <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+
+        <title>Priority Queue：Intro(簡介) & Binary Heap</title>
+
+            <link href="http://alrightchiu.github.io/SecondRound/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Second Round Full Atom Feed" />
+            <link href="http://alrightchiu.github.io/SecondRound/feeds/yan-suan-fa-yu-zi-liao-jie-gou.atom.xml" type="application/atom+xml" rel="alternate" title="Second Round Categories Atom Feed" />
+
+        <!-- Bootstrap Core CSS -->
+        <link href="http://alrightchiu.github.io/SecondRound/theme/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="http://alrightchiu.github.io/SecondRound/theme/css/clean-blog.min.css" rel="stylesheet">
+
+        <!-- Code highlight color scheme -->
+            <link href="http://alrightchiu.github.io/SecondRound/theme/css/code_blocks/darkly.css" rel="stylesheet">
+
+
+        <!-- Custom Fonts -->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+
+
+
+        <meta name="tags" contents="C++" />
+        <meta name="tags" contents="Intro" />
+        <meta name="tags" contents="Priority Queue" />
+        <meta name="tags" contents="Heap" />
+        <meta name="tags" contents="Binary Tree" />
+
+
+	                <meta property="og:locale" content="">
+		<meta property="og:site_name" content="Second Round">
+
+	<meta property="og:type" content="article">
+	<meta property="article:author" content="">
+	<meta property="og:url" content="http://alrightchiu.github.io/SecondRound/priority-queueintrojian-jie-binary-heap.html">
+	<meta property="og:title" content="Priority Queue：Intro(簡介) & Binary Heap">
+	<meta property="og:description" content="">
+	<meta property="og:image" content="http://alrightchiu.github.io/SecondRound/">
+	<meta property="article:published_time" content="2016-03-05 21:25:00+08:00">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://alrightchiu.github.io/SecondRound/">Second Round</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a href="http://alrightchiu.github.io/SecondRound/archives.html">Archives</a></li>
+                        <li><a href="http://alrightchiu.github.io/SecondRound/tags.html">Tags</a></li>
+
+                            <li><a href="http://alrightchiu.github.io/SecondRound/pages/about.html">About</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+        <header class="intro-header" style="background-image: url('http://alrightchiu.github.io/SecondRound/theme/images/post-bg.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>Priority Queue：Intro(簡介) & Binary Heap</h1>
+                        <span class="meta">Posted by
+                                <a href="http://alrightchiu.github.io/SecondRound/author/chiu-cc.html">Chiu CC</a>
+                             on  3 05, 2016
+                        </span>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    <!-- Post Content -->
+    <article>
+        <p></br></p>
+<h3>先備知識與注意事項</h3>
+<p>本篇文章將介紹抽象的資料結構：Priority Queue(優先權佇列)，並且以Binary Heap(二元堆積)來實現Min-Priority Queue。  </p>
+<p>Binary Heap的概念源自Binary Tree，若讀者有興趣，不妨回顧一下何謂<strong>Complete Binary Tree</strong>暖暖身。<br />
+(請參考：<a href="http://alrightchiu.github.io/SecondRound/binary-tree-introjian-jie.html">Binary Tree: Intro(簡介)</a>)</p>
+<hr />
+<h2>目錄</h2>
+<ul>
+<li><a href="#pq">簡介：Priority Queue(優先權佇列)</a></li>
+<li><a href="#bh">Binary Heap(二元堆積)</a></li>
+<li><a href="#operation">Binary Heap之Operation(函式)</a> <ul>
+<li><a href="#MinHeapify">函式：MinHeapify</a></li>
+<li><a href="#BuildMinHeap">函式：BuildMinHeap</a></li>
+<li><a href="#other">函式：其他</a></li>
+<li><a href="#Minimum">函式：Minimum</a></li>
+<li><a href="#ExtractMin">函式：ExtractMin</a></li>
+<li><a href="#DecreaseKey">函式：DecreaseKey</a></li>
+<li><a href="#MinHeapInsert">函式：MinHeapInsert</a></li>
+</ul>
+</li>
+<li><a href="#ref">參考資料</a></li>
+<li><a href="#series">Priority Queue系列文章</a></li>
+</ul>
+<p></br></p>
+<p><a name="pq"></a></p>
+<h2>簡介：Priority Queue(優先權佇列)</h2>
+<p>「待辦事項」通常是表面上看起來沒有順序、但其實具有「執行時的優先順序」的一堆事情。</p>
+<p>Priority Queue(優先權佇列)就像在處理「待辦事項」，能夠在眾多各自具有優先順序之資料堆中，取出「最重要/最不重要」的項目：</p>
+<p><strong>Priority</strong>：對資料項目賦予「權重/優先權」，用以表示資料的重要程度。<br />
+<strong>Queue</strong>：隊伍、佇列、順序，意味著把資料整理成「某種順序」的資料結構。</p>
+<ul>
+<li>所謂的「某種順序」，可能是「先進先出(First-In-First-Out)」順序：每次要從此資料結構讀取資料時，必定是拿到「先進入」的資料。<br />
+    (請參考：<a href="https://en.wikipedia.org/wiki/Queue_%28abstract_data_type%29">Wikipedia：Queue</a>)</li>
+<li>也有可能是額外賦予資料的「權重/優先權」順序：每次要從此資料結構讀取資料時，必定會拿到具有「最大值/最小值權重」的資料。</li>
+</ul>
+<p>如果每次要從Priority Queue讀取資料時，都拿到「權重最大」的資料，則稱此為<strong>Max-Priority Queue</strong>。<br />
+反之，若每次讀取資料，都拿到「權重最小」的資料，則稱此為<strong>Min-Priority Queue</strong>。</p>
+<p>舉例來說，如果每天起床固定要：</p>
+<ul>
+<li>削鉛筆，重要性<span class="math">\(2\)</span>分；</li>
+<li>梳洗，重要性<span class="math">\(10\)</span>分；</li>
+<li>剪指甲，重要性<span class="math">\(4\)</span>分；</li>
+</ul>
+<p>那麼，以一個Max-Priority Queue來管理「每天起床的待辦事項」，第一件事情要先刷牙上廁所，然後是剪指甲，最後再削一些無關緊要的鉛筆。<br />
+反之，若以一個Min-Priority Queue來管理「每天起床的待辦事項」，第一件事情要先削鉛筆，然後是剪指甲，最後才能去刷牙。</p>
+<p>一個Max-Priority Queue，最基本會有三種操作：</p>
+<ol>
+<li><strong>Insert</strong>：將資料加入Queue中。<ul>
+<li>例如，把「削鉛筆」、「梳洗」、「剪指甲」三件事情寫進Queue裡。 </li>
+</ul>
+</li>
+<li><strong>IncreaseKey</strong>：當某項資料的「重要性提高」時，需要在Queue中改變資料的權重，以下將以Key代表權重。<ul>
+<li>例如，最近突變出某種藉由指甲垢傳遞的流感病毒，使得「剪指甲」的重要性提高，便需要增加「剪指甲」的Key，假設Key提高到<span class="math">\(11\)</span>分，那麼每天起床的工作順序就變成：「剪指甲」、「梳洗」、「削鉛筆」。 </li>
+</ul>
+</li>
+<li><strong>ExtractMax</strong>：取得最重要(Key最大)的資料，並將其從Queue中移除。<ul>
+<li>每天起床後，先從「待辦事項」得知，最重要的事情是「梳洗」，並在完成之後，將其從「待辦事項」移除，避免重複執行。 </li>
+</ul>
+</li>
+</ol>
+<p>與之對應的Min-Priority Queue之基本操作則是：</p>
+<ol>
+<li><strong>Insert</strong>：將資料加入Queue中。 </li>
+<li><strong>DecreaseKey</strong>：當某項資料的「重要性降低」時，需要改變在Queue中資料的Key。</li>
+<li><strong>ExtractMin</strong>：取得重要性最低(Key最小)的資料，並將其從Queue中移除。</li>
+</ol>
+<p></br>
+為了替<strong>Prim's Algorithm</strong>以及<strong>Dijkstra's Algorithm</strong>鋪路，以下將介紹Min-Priority Queue做代表。<br />
+不過只要掌握Priority Queue的概念，Max-Priority Queue就只是桌上的一塊小蛋糕。</p>
+<p>稍微困難的是實現方法。<br />
+<a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376">Fundamentals of Data Structures in C++, Ch9</a>一共列出了六種實現方法(可能還有更多)：</p>
+<ol>
+<li>Leftist Tree(左傾樹)</li>
+<li>Binomial Heap(二項式堆積)</li>
+<li>Fibonacci Heap(費式堆積)</li>
+<li>Pairing Heap(成對堆積)</li>
+<li>Symmetric Min-Max Heap(對稱式最小-最大堆積)</li>
+<li>Interval Heap(區間堆積)</li>
+</ol>
+<p>前四種資料結構稱為<strong>Single-End Priority Queue(SEPQ)</strong>，亦即，該資料結構只能取得「最大」或是「最小」權重的資料。<br />
+後兩種資料結構稱為<strong>Double-End Priority Queue(DEPQ)</strong>，可以同時取得「權重最大」以及「權重最小」的資料。</p>
+<p>而下ㄧ小節，將介紹比上述六種資料結構更初級的<strong>Binary Heap</strong>來實現Min-Priority Queue。</p>
+<p></br></p>
+<p><a name="bh"></a></p>
+<h2>Binary Heap(二元堆積)</h2>
+<p>為處理廣義情形，建議將Binary Heap中的元素定義為<strong>Dictionary</strong>，每個資料項目皆有其對應的<strong>Key</strong>值，也就是Priority Queue將使用的<strong>Key</strong>。<br />
+(關於Dictionary，請參考：<a href="http://alrightchiu.github.io/SecondRound/binary-search-tree-introjian-jie.html#dictionary">Binary Search Tree: Intro(簡介)</a>)</p>
+<p>Binary Heap有兩項基本特徵：</p>
+<p>特徵一：Binary Heap之結構可以視作<strong>Complete Binary Tree</strong>。</p>
+<ul>
+<li>如圖一(a)，A<span class="math">\(~\)</span>I共9個元素，便按照<strong>Complete Binary Tree</strong>之順序規則，填滿位置<span class="math">\(1~9\)</span>，以index(<span class="math">\(1\)</span>)<span class="math">\(~\)</span>index(<span class="math">\(9\)</span>)表示。</li>
+</ul>
+<p>這樣的優點是易於尋找「parent-child」之關係，以index(<span class="math">\(i\)</span>)的node為例：</p>
+<ul>
+<li>其<strong>left child</strong>必定位在<strong>index(<span class="math">\(2i\)</span>)</strong>；</li>
+<li>其<strong>right child</strong>必定位在<strong>index(<span class="math">\(2i+1\)</span>)</strong>；</li>
+<li>其<strong>parent</strong>必定位在<strong>index(<span class="math">\(\lfloor i/2 \rfloor\)</span>)</strong>。</li>
+</ul>
+<p>以圖一(a)中位於index(<span class="math">\(3\)</span>)之node(F)為例：</p>
+<ul>
+<li>其<strong>left child</strong>為index(<span class="math">\(6\)</span>)之node(E)；</li>
+<li>其<strong>right child</strong>為index(<span class="math">\(7\)</span>)之node(I)；</li>
+<li>其<strong>parent</strong>為index(<span class="math">\(1\)</span>)之node(D)。</li>
+</ul>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Priority%20Queue%20series/Binary%20Heap%20fig/f1.png?raw=true" /></p>
+<p><strong>圖一(a)。</strong>
+</center></p>
+<p>特徵二，若將位於index(<span class="math">\(i\)</span>)之node視為subtree之<strong>root</strong>，那麼，可將此Binary Heap分為兩類：</p>
+<ul>
+<li><strong>Max Heap</strong>：在每一個subtree中，<strong>root</strong>之「key」要比兩個<strong>child</strong>之「key」還要大，<span class="math">\(Key(i)&gt;Key(2i)&amp;Key(i)&gt;Key(2i+1)\)</span>。</li>
+<li><strong>Min Heap</strong>：在每一個subtree中，<strong>root</strong>之「key」要比兩個<strong>child</strong>之「key」還要小，<span class="math">\(Key(i)&lt;Key(2i)&amp;Key(i)&lt;Key(2i+1)\)</span>。</li>
+</ul>
+<p>以圖一(b)之Min Heap為例，每個node下方的藍色數字表示其<strong>Key</strong>值，檢查Min-Heap中任何一個subtree，皆滿足<span class="math">\(Key(i)&lt;Key(2i)&amp;Key(i)&lt;Key(2i+1)\)</span>。</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Priority%20Queue%20series/Binary%20Heap%20fig/f2.png?raw=true" /></p>
+<p><strong>圖一(b)。</strong>
+</center></p>
+<p>由於Binary Heap特有的「parent-child」之關係，只要讓矩陣中index(<span class="math">\(0\)</span>)的位置閒置，從index(<span class="math">\(1\)</span>)開始存放資料之Dictionary，便能夠使用矩陣(array)來表示Binary Heap，如圖一(b)。</p>
+<p>Binary Heap中的每個資料(node)之Dictionary將以<code>struct</code>實現：<br />
+(亦可使用<code>std::pair&lt;int,int&gt;</code>或其他)</p>
+<div class="highlight"><pre><span class="c1">// C++ code</span>
+<span class="k">struct</span> <span class="n">HeapNode</span><span class="p">{</span>
+    <span class="kt">int</span> <span class="n">element</span><span class="p">,</span> <span class="n">key</span><span class="p">;</span>
+    <span class="n">HeapNode</span><span class="p">()</span><span class="o">:</span><span class="n">element</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="n">key</span><span class="p">(</span><span class="mi">0</span><span class="p">){};</span>
+    <span class="n">HeapNode</span><span class="p">(</span><span class="kt">int</span> <span class="n">node</span><span class="p">,</span> <span class="kt">int</span> <span class="n">key</span><span class="p">)</span><span class="o">:</span><span class="n">element</span><span class="p">(</span><span class="n">node</span><span class="p">),</span> <span class="n">key</span><span class="p">(</span><span class="n">key</span><span class="p">){};</span>
+<span class="p">};</span>
+</pre></div>
+
+
+<p></br>
+<code>class BinaryHeap</code>之定義，以及所有成員函式(member function)之宣告如下：</p>
+<div class="highlight"><pre><span class="c1">// C++ code</span>
+<span class="k">class</span> <span class="nc">BinaryHeap</span><span class="p">{</span>
+<span class="k">private</span><span class="o">:</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">HeapNode</span><span class="o">&gt;</span> <span class="n">heap</span><span class="p">;</span>
+    <span class="kt">void</span> <span class="nf">swap</span><span class="p">(</span><span class="k">struct</span> <span class="n">HeapNode</span> <span class="o">&amp;</span><span class="n">p1</span><span class="p">,</span> <span class="k">struct</span> <span class="n">HeapNode</span> <span class="o">&amp;</span><span class="n">p2</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="nf">FindPosition</span><span class="p">(</span><span class="kt">int</span> <span class="n">node</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="nf">GetParentNode</span><span class="p">(</span><span class="kt">int</span> <span class="n">node</span><span class="p">){</span><span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">floor</span><span class="p">(</span><span class="n">node</span><span class="o">/</span><span class="mi">2</span><span class="p">);};</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">BinaryHeap</span><span class="p">(){</span>               <span class="c1">// default constructor會把heap[0]給預留 </span>
+        <span class="n">heap</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>   <span class="c1">// 之後若新增HeapNode, 會從heap[1]開始新增</span>
+    <span class="p">}</span>
+    <span class="n">BinaryHeap</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">){</span>
+        <span class="n">heap</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="kt">bool</span> <span class="n">IsHeapEmpty</span><span class="p">(){</span><span class="k">return</span> <span class="p">(</span><span class="n">heap</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">&lt;</span><span class="mi">1</span><span class="p">);};</span>
+
+    <span class="c1">// Min-Priority Queue</span>
+    <span class="kt">void</span> <span class="nf">MinHeapify</span><span class="p">(</span><span class="kt">int</span> <span class="n">node</span><span class="p">,</span> <span class="kt">int</span> <span class="n">length</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="nf">BuildMinHeap</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">array</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="nf">DecreaseKey</span><span class="p">(</span><span class="kt">int</span> <span class="n">node</span><span class="p">,</span> <span class="kt">int</span> <span class="n">newKey</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="nf">MinHeapInsert</span><span class="p">(</span><span class="kt">int</span> <span class="n">node</span><span class="p">,</span> <span class="kt">int</span> <span class="n">key</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="nf">Minimum</span><span class="p">();</span>                  <span class="c1">// 回傳vertex的位置index</span>
+    <span class="kt">int</span> <span class="nf">ExtractMin</span><span class="p">();</span>               <span class="c1">// 回傳vertex的位置index</span>
+
+<span class="c1">//    void HeapSortSmalltoLarge();</span>
+
+    <span class="c1">// Max-Priority Queue</span>
+    <span class="p">...</span>
+<span class="p">};</span>
+</pre></div>
+
+
+<p></br></p>
+<p><a name="operation"></a></p>
+<h2>Binary Heap之Operation(函式)</h2>
+<p>接著要介紹和Min Heap與Min-Priority Queue有關的函式。</p>
+<p><a name="MinHeapify"></a></p>
+<h3>函式：MinHeapify</h3>
+<p><code>MinHeapify()</code>是一種由上至下，按照Min Heap之規則逐一調整subtree的方法，步驟如下：</p>
+<ul>
+<li>選定某個index(<span class="math">\(i\)</span>)之node(<span class="math">\(i\)</span>)，視為subtree之<strong>root</strong>；</li>
+<li>比較<strong>root</strong>的Key與兩個<strong>child</strong>(node(<span class="math">\(2i\)</span>)與node(<span class="math">\(2i+1\)</span>))之Key；<ul>
+<li>如果<strong>left child</strong>之Key最小，則將node(<span class="math">\(i\)</span>)與node(<span class="math">\(2i\)</span>)對調位置，使原先的<strong>left child</strong>成為<strong>root</strong>；</li>
+<li>如果<strong>right child</strong>之Key最小，則將node(<span class="math">\(i\)</span>)與node(<span class="math">\(2i+1\)</span>)對調位置，使原先的<strong>right child</strong>成為<strong>root</strong>；</li>
+</ul>
+</li>
+<li>並在對調之後，繼續檢查「新的subtree」是否滿足Min Heap的規則。</li>
+</ul>
+<p>以圖二(a)為例，node(K)、node(Y)、node(Z)所形成的subtree不符合Min Heap的規則，因此：</p>
+<ul>
+<li>比較三者的Key，以變數<code>int smallest</code>記錄具有最小Key值的node。</li>
+<li><code>smallest</code>是Key為<span class="math">\(17\)</span>的node(Y)，則將node(K)與node(Y)互換位置，如圖二(b)。</li>
+</ul>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Priority%20Queue%20series/Binary%20Heap%20fig/f3.png?raw=true" /></p>
+<p><strong>圖二(a)。</strong></p>
+<p><img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Priority%20Queue%20series/Binary%20Heap%20fig/f4.png?raw=true" /></p>
+<p><strong>圖二(b)。</strong>
+</center></p>
+<p>在經過以上步驟之後，node(K)、node(Y)、node(Z)所形成的subtree已經滿足Min Heap的規則。  </p>
+<p>不過，由於node(K)之Key值比node(Y)之Key值大，因此，即使原先由node(Y)、node(B)、node(G)形成之subtree滿足Min Heap規則(以圖二(a)的情形為例，原先就是不滿足Min Heap的)，仍不能保證node(K)取代node(Y)後，node(K)、node(B)、node(G)所形成之subtree也滿足Min Heap規則，所以需要重複上述步驟，再次以node(K)作為subtree之<strong>root</strong>，檢查並調整subtree成Min Heap，如圖二(c)與圖二(d)。</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Priority%20Queue%20series/Binary%20Heap%20fig/f5.png?raw=true" /></p>
+<p><strong>圖二(c)。</strong></p>
+<p><img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Priority%20Queue%20series/Binary%20Heap%20fig/f6.png?raw=true" /></p>
+<p><strong>圖二(d)。</strong>
+</center></p>
+<p>因為<code>smallest</code>挑的是node(<span class="math">\(i\)</span>)、node(<span class="math">\(2i\)</span>)、node(<span class="math">\(2i+1\)</span>)中Key值最小的node，使之成為subtree之<code>root</code>，因此「所有被檢查過的」subtree，必定滿足Min Heap之規則，如圖二(d)中的「node(Y)、node(G)、node(Z)」與「node(G)、node(B)、node(K)」。</p>
+<p>但是，Binary Heap中仍然可能有某些subtree不符合Min Heap規則，如圖二(d)中的「node(E)、node(F)、node(I)」，因此，會需要一個迴圈對「所有具有<strong>child</strong>的node」進行檢查(利用<code>MinHeapify()</code>檢查)，這就是下一個函式<code>BuildMinHeap</code>的任務。</p>
+<p><code>MinHeapify()</code>之範例程式碼如下：</p>
+<div class="highlight"><pre><span class="c1">// C++ code</span>
+<span class="kt">void</span> <span class="n">BinaryHeap</span><span class="o">::</span><span class="n">MinHeapify</span><span class="p">(</span><span class="kt">int</span> <span class="n">node</span><span class="p">,</span> <span class="kt">int</span> <span class="n">length</span><span class="p">){</span>
+
+    <span class="kt">int</span> <span class="n">left</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">node</span><span class="p">,</span>          <span class="c1">// 取得left child</span>
+        <span class="n">right</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">node</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>     <span class="c1">// 取得right child</span>
+        <span class="n">smallest</span><span class="p">;</span>               <span class="c1">// smallest用來記錄包含root與child, 三者之中Key最小的node</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">left</span> <span class="o">&lt;=</span> <span class="n">length</span> <span class="o">&amp;&amp;</span> <span class="n">heap</span><span class="p">[</span><span class="n">left</span><span class="p">].</span><span class="n">key</span> <span class="o">&lt;</span> <span class="n">heap</span><span class="p">[</span><span class="n">node</span><span class="p">].</span><span class="n">key</span><span class="p">)</span>
+        <span class="n">smallest</span> <span class="o">=</span> <span class="n">left</span><span class="p">;</span>
+    <span class="k">else</span>
+        <span class="n">smallest</span> <span class="o">=</span> <span class="n">node</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">right</span> <span class="o">&lt;=</span> <span class="n">length</span> <span class="o">&amp;&amp;</span> <span class="n">heap</span><span class="p">[</span><span class="n">right</span><span class="p">].</span><span class="n">key</span> <span class="o">&lt;</span> <span class="n">heap</span><span class="p">[</span><span class="n">smallest</span><span class="p">].</span><span class="n">key</span><span class="p">)</span>
+        <span class="n">smallest</span> <span class="o">=</span> <span class="n">right</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">smallest</span> <span class="o">!=</span> <span class="n">node</span><span class="p">)</span> <span class="p">{</span>                 <span class="c1">// 如果目前node的Key不是三者中的最小</span>
+        <span class="n">swap</span><span class="p">(</span><span class="n">heap</span><span class="p">[</span><span class="n">smallest</span><span class="p">],</span> <span class="n">heap</span><span class="p">[</span><span class="n">node</span><span class="p">]);</span>   <span class="c1">// 就調換node與三者中Key最小的node之位置</span>
+        <span class="n">MinHeapify</span><span class="p">(</span><span class="n">smallest</span><span class="p">,</span> <span class="n">length</span><span class="p">);</span>       <span class="c1">// 調整新的subtree成Min Heap</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p><a name="BuildMinHeap"></a></p>
+<h3>函式：BuildMinHeap</h3>
+<p><code>BuildMinHeap()</code>的任務很簡單，把每一個「具有<strong>child</strong>」的node都進行過一次<code>MinHeapify()</code>，如此便能保證Binary Heap中的所有subtree皆滿足Min Heap規則，便能將一個由任意矩陣代表的Binary Heap轉換成Min Heap。</p>
+<p>根據Binary Heap的index(<span class="math">\(i\)</span>)特徵：</p>
+<ul>
+<li><strong>left child</strong>在index(<span class="math">\(2i\)</span>)；</li>
+<li><strong>right child</strong>在index(<span class="math">\(2i+1\)</span>)；</li>
+<li><strong>parent</strong>在index(<span class="math">\(\lfloor i/2 \rfloor\)</span>)；</li>
+</ul>
+<p>若Binary Heap共有<span class="math">\(N\)</span>個node，那麼所有「具有<strong>child</strong>」的node，必定位在index(<span class="math">\(i\)</span>)到index(<span class="math">\(\lfloor N/2 \rfloor\)</span>)。</p>
+<p>以圖三(a)中的任意Binary Heap(還不是Min Heap)為例，共有<span class="math">\(9\)</span>個node，因此，必定只有index(<span class="math">\(1\)</span>)到index(<span class="math">\(4\)</span>)的node具有<strong>child</strong>。  </p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Priority%20Queue%20series/Binary%20Heap%20fig/f7.png?raw=true" /></p>
+<p><strong>圖三(a)。</strong>
+</center></p>
+<p>因此，<code>BuildMinHeap()</code>只要從index(<span class="math">\(4\)</span>)之node，一路往index(<span class="math">\(1\)</span>)之node進行<code>MinHeapify()</code>，便能將此Binary Heap轉換成Min Heap，見圖三(b)。</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Priority%20Queue%20series/Binary%20Heap%20fig/BuildMinHeap_v2.gif?raw=true" /></p>
+<p><strong>圖三(b)。</strong>
+</center></p>
+<p><code>BuildMinHeap()</code>之範例程式碼如下：</p>
+<ul>
+<li>input：給定一個任意矩陣<code>array[]</code>。</li>
+<li><code>heap[]</code>初始化：先把<code>array[]</code>的資料放進<code>heap[]</code>，並將<code>heap[0]</code>閒置。</li>
+<li>接著對index(<span class="math">\(\lfloor N/2 \rfloor\)</span>)到index(<span class="math">\(1\)</span>)進行<code>MinHeapify()</code>。<br />
+</br></li>
+</ul>
+<div class="highlight"><pre><span class="c1">// C++ code</span>
+<span class="kt">void</span> <span class="n">BinaryHeap</span><span class="o">::</span><span class="n">BuildMinHeap</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">array</span><span class="p">){</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">array</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>     <span class="c1">// 將array[]的資料放進 heap之矩陣中</span>
+        <span class="n">heap</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">].</span><span class="n">element</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>                 <span class="c1">// 並預留 heap[0] 不做使用</span>
+        <span class="n">heap</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">].</span><span class="n">key</span> <span class="o">=</span> <span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+    <span class="p">}</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">heap</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">1</span> <span class="p">;</span> <span class="n">i</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">MinHeapify</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">heap</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>     <span class="c1">// length要減一, 因為heap從從1開始存放資料</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p><a name="other"></a></p>
+<h3>函式：其他</h3>
+<p>在進入與Min-Priority Queue有關的函式之前，先介紹些其他(雜項)放鬆心情。</p>
+<p>首先是在<code>MinHeapify()</code>出現過的<code>swap()</code>，單純地利用<strong>reference</strong>作為函式的參數，對Heap中的node進行位置調換：</p>
+<div class="highlight"><pre><span class="c1">// C++ code</span>
+<span class="kt">void</span> <span class="n">BinaryHeap</span><span class="o">::</span><span class="n">swap</span><span class="p">(</span><span class="k">struct</span> <span class="n">HeapNode</span> <span class="o">&amp;</span><span class="n">p1</span><span class="p">,</span> <span class="k">struct</span> <span class="n">HeapNode</span> <span class="o">&amp;</span><span class="n">p2</span><span class="p">){</span>
+
+    <span class="k">struct</span> <span class="n">HeapNode</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">p1</span><span class="p">;</span>
+    <span class="n">p1</span> <span class="o">=</span> <span class="n">p2</span><span class="p">;</span>
+    <span class="n">p2</span> <span class="o">=</span> <span class="n">temp</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p><code>FindPosition()</code>是為了確認特定元素所在的位置(index)，這會用在Min-Priority Queue中的<code>DecreaseKey()</code>，因為其需要先「找到資料在Heap中的位置」，再調整該資料之Key。</p>
+<p>不過由於<code>DecreaseKey()</code>的時間複雜度只有<span class="math">\(O(\log N)\)</span>，若使用以下的直覺寫法，缺點是會把時間複雜度提高到<span class="math">\(O(N)\)</span>(其中<span class="math">\(N\)</span>為node總數)。<br />
+還有一些替代方法，例如以空間換取時間，設立一個矩陣變數，記錄每一筆資料的位置，便能維持<code>DecreaseKey()</code>的效率。  </p>
+<p>這部分就留給讀者自行斟酌。</p>
+<div class="highlight"><pre><span class="c1">// C++ code</span>
+<span class="kt">int</span> <span class="n">BinaryHeap</span><span class="o">::</span><span class="n">FindPosition</span><span class="p">(</span><span class="kt">int</span> <span class="n">node</span><span class="p">){</span>
+
+    <span class="kt">int</span> <span class="n">idx</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">heap</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">heap</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">element</span> <span class="o">==</span> <span class="n">node</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">idx</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">idx</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>以及定義在<code>class BinaryHeap</code>裡面的<code>InHeapEmpty()</code>與<code>GetParentNode()</code>，分別檢查Heap是否有資料，和回傳node(i)之<strong>parent</strong>的index(<span class="math">\(\lfloor i/2 \rfloor\)</span>)：</p>
+<div class="highlight"><pre><span class="c1">// C++ code</span>
+
+<span class="k">class</span> <span class="nc">BinaryHeap</span><span class="p">{</span>
+    <span class="p">...</span>
+    <span class="kt">bool</span> <span class="n">IsHeapEmpty</span><span class="p">(){</span><span class="k">return</span> <span class="p">(</span><span class="n">heap</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">&lt;</span><span class="mi">1</span><span class="p">);};</span>
+    <span class="kt">int</span> <span class="nf">GetParentNode</span><span class="p">(</span><span class="kt">int</span> <span class="n">node</span><span class="p">){</span><span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">floor</span><span class="p">(</span><span class="n">node</span><span class="o">/</span><span class="mi">2</span><span class="p">);};</span>
+    <span class="p">...</span>
+<span class="p">};</span>
+</pre></div>
+
+
+<p><a name="Minimum"></a></p>
+<h3>函式：Minimum</h3>
+<p>因為Min Queue的規則，<strong>root</strong>一定是所有node中，具有最小Key值的node，因此，若要得到最小值，只要讀取<code>heap[1]</code>即可：</p>
+<div class="highlight"><pre><span class="c1">// C++ code</span>
+
+<span class="kt">int</span> <span class="n">BinaryHeap</span><span class="o">::</span><span class="n">Minimum</span><span class="p">(){</span>
+    <span class="k">return</span> <span class="n">heap</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">element</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p><a name="ExtractMin"></a></p>
+<h3>函式：ExtractMin</h3>
+<p><code>ExtractMin()</code>的目的是「回傳具有最小Key的node之index」，並且將其從Heap中移除，步驟如下：</p>
+<ul>
+<li>確認Heap是否有資料，若沒有的話，便回傳<strong>error：巧婦難為無米之炊</strong>。</li>
+<li>若Heap中有資料，先以變數<code>min</code>讀取Min Heap中的<strong>root</strong>之資料內容，<strong>root</strong>即為Heap中具有最小Key值之node；</li>
+<li>接著把Heap中「最後一個node」之資料放進「第一個index位置」裡面，如此便從Heap中移除原先的「最小Key值node」；</li>
+<li>由於在上個步驟已經把原先位於「最後位置index」之node放進<strong>root</strong>之位置，便能夠直接刪除最後一個位置的記憶體位置，調整存放資料的<code>heap</code>；<ul>
+<li>在此，因為使用了C++標準函式庫(STL)的<code>std::vector</code>，若要刪除<code>heap</code>的最後一個元素，只要只用成員函式(member function)<code>erase()</code>即可。<br />
+(關於<code>std::vector::erase</code>，請參考：<a href="http://www.cplusplus.com/reference/vector/vector/erase/">Cplusplus：std::vector::erase</a>)</li>
+</ul>
+</li>
+<li>此時，<strong>root</strong>位置的node之Key極有可能比其兩個<strong>child</strong>之Key值還要大，有可能違反Min Heap規則，因此需要對其執行<code>MinHeapify()</code>。</li>
+</ul>
+<p>以圖四(a)為例，要取出Min Heap的<strong>root</strong>，也就是Key值為2的node(D)，並且將Min Heap中，位在最後一個index之node(C)放進<strong>root</strong>，然後利用<code>MinHeapify()</code>重新將Heap調整成Min heap，如圖四(b)。</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Priority%20Queue%20series/Binary%20Heap%20fig/f8.png?raw=true" /></p>
+<p><strong>圖四(a)。</strong>
+</center></p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Priority%20Queue%20series/Binary%20Heap%20fig/ExtractMin_v2.gif?raw=true" /></p>
+<p><strong>圖四(b)。</strong>
+</center></p>
+<p><code>ExtractMin()</code>之範例程式碼如下：</p>
+<div class="highlight"><pre><span class="c1">// C++ code</span>
+<span class="kt">int</span> <span class="n">BinaryHeap</span><span class="o">::</span><span class="n">ExtractMin</span><span class="p">(){</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">IsHeapEmpty</span><span class="p">())</span> <span class="p">{</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;error: heap is empty</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+        <span class="n">exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="kt">int</span> <span class="n">min</span> <span class="o">=</span> <span class="n">heap</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">element</span><span class="p">;</span>
+    <span class="c1">// delete the first element/vertex</span>
+    <span class="n">heap</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">heap</span><span class="p">[</span><span class="n">heap</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span><span class="p">];</span>            <span class="c1">// 把最後一個element放到第一個位置,</span>
+    <span class="n">heap</span><span class="p">.</span><span class="n">erase</span><span class="p">(</span><span class="n">heap</span><span class="p">.</span><span class="n">begin</span><span class="p">()</span><span class="o">+</span><span class="n">heap</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>   <span class="c1">// 再刪除最後一個element</span>
+    <span class="n">MinHeapify</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">heap</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>          <span class="c1">// 目前, heap[1]具有最大Key, 需要進行調整</span>
+
+    <span class="k">return</span> <span class="n">min</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p><a name="DecreaseKey"></a></p>
+<h3>函式：DecreaseKey</h3>
+<p><code>DecreaseKey()</code>的目的是調整Min Heap中的node之Key值，因為Key值改變，極有可能違反Min Heap規則，因此也需要對Heap進行調整，步驟如下：</p>
+<ul>
+<li>由於函式的參數(argument)是<code>struct</code>結構中的<code>element</code>，若以圖五(a)為例，資料的<code>element</code>就是「英文字母」(A、B、C等等)，因此，先利用<code>FindPosition()</code>找到該資料在Heap中的位置index；</li>
+<li>再判斷，若參數中的<code>newKey</code>沒有比原先的Key還小，就直接結束函式(可以想成<code>DecreaseKey()</code>只有把資料之Key降低，沒有調高的功能)；</li>
+<li>若沒有在上個步驟結束函式，便把資料之Key更新成<code>newKey</code>；</li>
+<li>因為是把資料的Key「降低」，因此，有可能使得原先資料所位於的subtree違反Min Heap規則，需要調整：<ul>
+<li>假設被修改的資料是位於index(<span class="math">\(i\)</span>)的node(<span class="math">\(i\)</span>)，便比較node(<span class="math">\(i\)</span>)與其<strong>parent</strong>(也就是node(<span class="math">\(\lfloor i/2 \rfloor\)</span>))之Key值，</li>
+<li>如果node(<span class="math">\(i\)</span>)之Key值較小，便交換index(<span class="math">\(i\)</span>)與index(<span class="math">\(\lfloor i/2 \rfloor\)</span>)上的資料(如同在<code>Minheapify()</code>中的交換資料)。</li>
+<li>若node(<span class="math">\(i\)</span>)之Key值仍然比其<strong>parent</strong>之Key值大，表示，node(<span class="math">\(i\)</span>)所在之subtree仍滿足Min Heap規則，即可結束函式。</li>
+<li>還有，由於Heap的<strong>root</strong>是從index(<span class="math">\(1\)</span>)開始存放資料，若一路回溯<strong>parent</strong>直到index小於<span class="math">\(1\)</span>，表示Heap中所有與「被修改的資料」有關之subtree都被檢查過了，可以結束函式。</li>
+</ul>
+</li>
+</ul>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Priority%20Queue%20series/Binary%20Heap%20fig/f9.png?raw=true" /></p>
+<p><strong>圖五(a)。</strong>
+</center></p>
+<p>以圖五(a)為例，若將node(H)之Key值從原先的<span class="math">\(15\)</span>更改成<span class="math">\(3\)</span>，將使得subtree「node(A)、node(G)、node(H)」違反Min Heap規則，如圖五(b)，必須利用上述方法修正。<br />
+修正流程見圖五(c)。</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Priority%20Queue%20series/Binary%20Heap%20fig/f10.png?raw=true" /></p>
+<p><strong>圖五(b)。</strong>
+</center></p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Priority%20Queue%20series/Binary%20Heap%20fig/DecreaseKey.gif?raw=true" /></p>
+<p><strong>圖五(c)。</strong>
+</center></p>
+<p><code>DecreaseKey()</code>之範例程式碼如下：</p>
+<div class="highlight"><pre><span class="c1">// C++ code</span>
+<span class="kt">void</span> <span class="n">BinaryHeap</span><span class="o">::</span><span class="n">DecreaseKey</span><span class="p">(</span><span class="kt">int</span> <span class="n">node</span><span class="p">,</span> <span class="kt">int</span> <span class="n">newKey</span><span class="p">){</span>
+
+    <span class="kt">int</span> <span class="n">posi</span> <span class="o">=</span> <span class="n">FindPosition</span><span class="p">(</span><span class="n">node</span><span class="p">);</span>      <span class="c1">// 找到node所在的位置index</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">newKey</span> <span class="o">&gt;</span> <span class="n">heap</span><span class="p">[</span><span class="n">posi</span><span class="p">].</span><span class="n">key</span><span class="p">)</span> <span class="p">{</span>      <span class="c1">// 如果不是把node的Key下修, 便終止此函式</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;new key is larger than current key</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">heap</span><span class="p">[</span><span class="n">posi</span><span class="p">].</span><span class="n">key</span> <span class="o">=</span> <span class="n">newKey</span><span class="p">;</span>            <span class="c1">// 更新node之Key後, 需要檢查是否新的subtree滿足Min Heap</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">posi</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="n">heap</span><span class="p">[</span><span class="n">GetParentNode</span><span class="p">(</span><span class="n">posi</span><span class="p">)].</span><span class="n">key</span> <span class="o">&gt;</span> <span class="n">heap</span><span class="p">[</span><span class="n">posi</span><span class="p">].</span><span class="n">key</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">swap</span><span class="p">(</span><span class="n">heap</span><span class="p">[</span><span class="n">posi</span><span class="p">],</span> <span class="n">heap</span><span class="p">[</span><span class="n">GetParentNode</span><span class="p">(</span><span class="n">posi</span><span class="p">)]);</span>
+        <span class="n">posi</span> <span class="o">=</span> <span class="n">GetParentNode</span><span class="p">(</span><span class="n">posi</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p><a name="MinHeapInsert"></a></p>
+<h3>函式：MinHeapInsert</h3>
+<p>有了<code>DecreaseKey()</code>後，要在Min Heap中新增資料會容易許多容易：<br />
+(若恰好以<code>std::vector</code>建立<code>heap[]</code>，簡直只要兩行程式碼)</p>
+<ul>
+<li>在Heap中多配置一塊新的記憶體位置，也就是把用來儲存Heap之矩陣<code>heap[]</code>拉長，存放新的資料；</li>
+<li>現在新的資料已經位於Heap中的最後一個位置index，只要利用<code>DecreaseKey()</code>，即可將新的Heap調整成Min Heap。<ul>
+<li>因為<code>DecreaseKey()</code>並不會阻止「<code>newKey</code>等於node現有Key」的情形，所以，即使在<code>DecreaseKey()</code>的輸入參數(input argument)上，<code>newKey</code>若等於已經存在Heap中的node之Key也是可行的。</li>
+</ul>
+</li>
+</ul>
+<p>以圖六(a)為例，若要在Heap中新增Key為<span class="math">\(6\)</span>之node(J)，便將其加入<code>heap[]</code>的最後位置，再利用<code>DecreaseKey()</code>比較node(J)與其<strong>parent</strong>之Key值，檢查是否符合Min Heap規則，若不符合即進行修正，見圖六(a)-圖六(c)。</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Priority%20Queue%20series/Binary%20Heap%20fig/f11.png?raw=true" /></p>
+<p><strong>圖六(a)。</strong></p>
+<p><img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Priority%20Queue%20series/Binary%20Heap%20fig/f12.png?raw=true" /></p>
+<p><strong>圖六(b)。</strong></p>
+<p><img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Priority%20Queue%20series/Binary%20Heap%20fig/f13.png?raw=true" /></p>
+<p><strong>圖六(c)。</strong>
+</center></p>
+<p><code>MinHeapInsert()</code>之範例程式碼如下：</p>
+<div class="highlight"><pre><span class="c1">// C++ code</span>
+<span class="kt">void</span> <span class="n">BinaryHeap</span><span class="o">::</span><span class="n">MinHeapInsert</span><span class="p">(</span><span class="kt">int</span> <span class="n">node</span><span class="p">,</span> <span class="kt">int</span> <span class="n">key</span><span class="p">){</span>
+
+    <span class="n">heap</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">HeapNode</span><span class="p">(</span><span class="n">node</span><span class="p">,</span><span class="n">key</span><span class="p">));</span>    <span class="c1">// 在heap[]尾巴新增一個node</span>
+    <span class="n">DecreaseKey</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">key</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p></br></p>
+<p>由以上說明可以發現，在<code>MinHeapify()</code>中，是「由上往下」對subtree進行修正，有的寫法會將此操作獨立成函式：<strong>SiftDown</strong>；在<code>DecreaseKey()</code>中，則是「由下往上」進行修正，此則稱為<strong>SiftUp</strong>，範例請參考：<a href="http://codereview.stackexchange.com/questions/42999/implementation-of-binary-heap-in-c">Code Review：Implementation of binary heap in C++</a>。</p>
+<p></br>  </p>
+<p>以上便是以Binary Heap實現Min-Priority Queue之說明，後者將在許多應用出現，包括與Graph相關的<strong>Prim's Algorithm</strong>和<strong>Dijkstra's Algorithm</strong>。</p>
+<p></br></p>
+<hr />
+<p><a name="ref"></a></p>
+<h3>參考資料：</h3>
+<ul>
+<li><a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844">Introduction to Algorithms, Ch6</a> </li>
+<li><a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376">Fundamentals of Data Structures in C++, Ch5, Ch9</a></li>
+<li><a href="https://www.cs.bris.ac.uk/~montanar/teaching/dsa/dijkstra-handout.pdf">Ashley Montanaro：Priority queues and Dijkstra’s algorithm</a></li>
+<li><a href="http://blog.yam.com/rockmanray/article/44952434">禪心劍氣相思骨：Priority Queue 解析1 - 從binary heap開始</a></li>
+<li><a href="http://alrightchiu.github.io/SecondRound/binary-tree-introjian-jie.html">Binary Tree: Intro(簡介)</a></li>
+<li><a href="http://codereview.stackexchange.com/questions/42999/implementation-of-binary-heap-in-c">Code Review：Implementation of binary heap in C++</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Priority_queue">Wikipedia：Priority Queue</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Binary_heap">Wikipedia：Binary Heap</a></li>
+</ul>
+<p><a name="series"></a></p>
+<p></br></p>
+<h3>Priority Queue系列文章</h3>
+<p><a href="">Priority Queue：Binary Heap</a>  </p>
+<p>回到目錄：</p>
+<p><a href="http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html">目錄：演算法與資料結構</a></p>
+<p></br></p>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' && location_protocol !== 'https') location_protocol = 'https:';
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+    </article>
+
+        <div class="tags">
+            <p>tags: <a href="http://alrightchiu.github.io/SecondRound/tag/c.html">C++</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/intro.html">Intro</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/priority-queue.html">Priority Queue</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/heap.html">Heap</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/binary-tree.html">Binary Tree</a>, </p>
+        </div>
+
+<hr>
+<div class="sharing">
+</div>
+    <hr>
+
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                            <li>
+                                <a href="https://github.com/alrightchiu">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                    </ul>
+<p class="copyright text-muted">
+    Blog powered by <a href="http://getpelican.com">Pelican</a>,
+    which takes great advantage of <a href="http://python.org">Python</a>.
+</p>                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="http://alrightchiu.github.io/SecondRound/theme/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="http://alrightchiu.github.io/SecondRound/theme/js/bootstrap.min.js"></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script src="http://alrightchiu.github.io/SecondRound/theme/js/clean-blog.min.js"></script>
+
+</body>
+
+</html>
