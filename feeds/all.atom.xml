@@ -7560,7 +7560,7 @@ pointer連接完成後，結束迴圈。&lt;/li&gt;
 &lt;a href="http://alrightchiu.github.io/SecondRound/binary-tree-jian-li-yi-ke-binary-tree.html"&gt;Binary Tree: 建立一棵Binary Tree&lt;/a&gt;  &lt;/p&gt;
 &lt;p&gt;回到目錄：&lt;/p&gt;
 &lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html"&gt;目錄：演算法與資料結構&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;/br&gt;&lt;/p&gt;</summary><category term="C++"></category><category term="Binary Tree(二元樹)"></category></entry><entry><title>Binary Tree: Traversal(尋訪)</title><link href="http://alrightchiu.github.io/SecondRound/binary-tree-traversalxun-fang.html" rel="alternate"></link><updated>2015-12-24T22:41:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2015-12-24:SecondRound/binary-tree-traversalxun-fang.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;</summary><category term="C++"></category><category term="Binary Tree"></category></entry><entry><title>Binary Tree: Traversal(尋訪)</title><link href="http://alrightchiu.github.io/SecondRound/binary-tree-traversalxun-fang.html" rel="alternate"></link><updated>2015-12-24T22:41:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2015-12-24:SecondRound/binary-tree-traversalxun-fang.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h3&gt;先備知識與注意事項&lt;/h3&gt;
 &lt;p&gt;traversal(尋訪)有「站在A地，往所有與A地相連的地方移動」的意思：  &lt;/p&gt;
 &lt;ul&gt;
@@ -8085,7 +8085,7 @@ pointer連接完成後，結束迴圈。&lt;/li&gt;
 &lt;a href="http://alrightchiu.github.io/SecondRound/binary-tree-jian-li-yi-ke-binary-tree.html"&gt;Binary Tree: 建立一棵Binary Tree&lt;/a&gt;  &lt;/p&gt;
 &lt;p&gt;回到目錄：&lt;/p&gt;
 &lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html"&gt;目錄：演算法與資料結構&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;/br&gt;&lt;/p&gt;</summary><category term="C++"></category><category term="Binary Tree(二元樹)"></category></entry><entry><title>Linked List: Traversal(尋訪)</title><link href="http://alrightchiu.github.io/SecondRound/linked-list-traversalxun-fang.html" rel="alternate"></link><updated>2015-12-23T20:00:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2015-12-23:SecondRound/linked-list-traversalxun-fang.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;</summary><category term="C++"></category><category term="Binary Tree"></category></entry><entry><title>Linked List: Traversal(尋訪)</title><link href="http://alrightchiu.github.io/SecondRound/linked-list-traversalxun-fang.html" rel="alternate"></link><updated>2015-12-23T20:00:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2015-12-23:SecondRound/linked-list-traversalxun-fang.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h3&gt;先備知識與注意事項&lt;/h3&gt;
 &lt;p&gt;traversal(尋訪)有「站在A地，往所有與A地相連的地方移動」的意思：  &lt;/p&gt;
 &lt;ul&gt;
@@ -8394,7 +8394,7 @@ Binary Tree的node未必需要parent pointer(或稱為parent field)，然而加�
         "}";
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
-&lt;/script&gt;</summary><category term="C++"></category><category term="Binary Tree(二元樹)"></category><category term="Intro"></category></entry><entry><title>Tree(樹): Intro(簡介)</title><link href="http://alrightchiu.github.io/SecondRound/treeshu-introjian-jie.html" rel="alternate"></link><updated>2015-12-19T20:27:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2015-12-19:SecondRound/treeshu-introjian-jie.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;/script&gt;</summary><category term="C++"></category><category term="Binary Tree"></category><category term="Intro"></category></entry><entry><title>Tree(樹): Intro(簡介)</title><link href="http://alrightchiu.github.io/SecondRound/treeshu-introjian-jie.html" rel="alternate"></link><updated>2015-12-19T20:27:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2015-12-19:SecondRound/treeshu-introjian-jie.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h3&gt;先備知識與注意事項&lt;/h3&gt;
 &lt;p&gt;若熟悉Linked List(連結串列)將會更容易理解樹：Linked list是一維的線性結構(不是往前、就是往後)，而樹(與圖)則推廣成多維的結構。&lt;br /&gt;
 &lt;/br&gt;
