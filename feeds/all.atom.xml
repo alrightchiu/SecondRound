@@ -146,10 +146,10 @@
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;特徵二，若將位於index(&lt;span class="math"&gt;\(i\)&lt;/span&gt;)之node視為subtree之&lt;strong&gt;root&lt;/strong&gt;，那麼，可將此Binary Heap分為兩類：&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Max Heap&lt;/strong&gt;：在每一個subtree中，&lt;strong&gt;root&lt;/strong&gt;之「key」要比兩個&lt;strong&gt;child&lt;/strong&gt;之「key」還要大，&lt;span class="math"&gt;\(Key(i)&amp;gt;Key(2i) &amp;amp; Key(i)&amp;gt;Key(2i+1)\)&lt;/span&gt;。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Min Heap&lt;/strong&gt;：在每一個subtree中，&lt;strong&gt;root&lt;/strong&gt;之「key」要比兩個&lt;strong&gt;child&lt;/strong&gt;之「key」還要小，&lt;span class="math"&gt;\(Key(i)&amp;lt;Key(2i) &amp;amp; Key(i)&amp;lt;Key(2i+1)\)&lt;/span&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Max Heap&lt;/strong&gt;：在每一個subtree中，&lt;strong&gt;root&lt;/strong&gt;之「key」要比兩個&lt;strong&gt;child&lt;/strong&gt;之「key」還要大，滿足&lt;span class="math"&gt;\(Key(i)&amp;gt;Key(2i)\)&lt;/span&gt;以及&lt;span class="math"&gt;\(Key(i)&amp;gt;Key(2i+1)\)&lt;/span&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Min Heap&lt;/strong&gt;：在每一個subtree中，&lt;strong&gt;root&lt;/strong&gt;之「key」要比兩個&lt;strong&gt;child&lt;/strong&gt;之「key」還要小，滿足&lt;span class="math"&gt;\(Key(i)&amp;lt;Key(2i)\)&lt;/span&gt;以及&lt;span class="math"&gt;\(Key(i)&amp;lt;Key(2i+1)\)&lt;/span&gt;。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;以圖一(b)之Min Heap為例，每個node下方的藍色數字表示其&lt;strong&gt;Key&lt;/strong&gt;值，檢查Min-Heap中任何一個subtree，皆滿足&lt;span class="math"&gt;\(Key(i)&amp;lt;Key(2i)&amp;amp;Key(i)&amp;lt;Key(2i+1)\)&lt;/span&gt;。&lt;/p&gt;
+&lt;p&gt;以圖一(b)之Min Heap為例，每個node下方的藍色數字表示其&lt;strong&gt;Key&lt;/strong&gt;值，檢查Min-Heap中任何一個subtree，皆滿足&lt;span class="math"&gt;\(Key(i)&amp;lt;Key(2i)\)&lt;/span&gt;以及&lt;span class="math"&gt;\(Key(i)&amp;lt;Key(2i+1)\)&lt;/span&gt;。&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Priority%20Queue%20series/Binary%20Heap%20fig/f2.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖一(b)。&lt;/strong&gt;
