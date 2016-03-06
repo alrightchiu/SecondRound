@@ -111,7 +111,7 @@ Binary Heap有兩項基本特徵：
 
 特徵一：Binary Heap之結構可以視作**Complete Binary Tree**。
 
-* 如圖一(a)，A$~$I共9個元素，便按照**Complete Binary Tree**之順序規則，填滿位置$1~9$，以index($1$)$~$index($9$)表示。
+* 如圖一(a)，A$\sim$I共9個元素，便按照**Complete Binary Tree**之順序規則，填滿位置$1\sim9$，以index($1$)$\sim$index($9$)表示。
 
 這樣的優點是易於尋找「parent-child」之關係，以index($i$)的node為例：
 
