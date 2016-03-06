@@ -126,7 +126,7 @@
 &lt;p&gt;Binary Heap有兩項基本特徵：&lt;/p&gt;
 &lt;p&gt;特徵一：Binary Heap之結構可以視作&lt;strong&gt;Complete Binary Tree&lt;/strong&gt;。&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;如圖一(a)，A&lt;span class="math"&gt;\(~\)&lt;/span&gt;I共9個元素，便按照&lt;strong&gt;Complete Binary Tree&lt;/strong&gt;之順序規則，填滿位置&lt;span class="math"&gt;\(1~9\)&lt;/span&gt;，以index(&lt;span class="math"&gt;\(1\)&lt;/span&gt;)&lt;span class="math"&gt;\(~\)&lt;/span&gt;index(&lt;span class="math"&gt;\(9\)&lt;/span&gt;)表示。&lt;/li&gt;
+&lt;li&gt;如圖一(a)，A&lt;span class="math"&gt;\(\sim\)&lt;/span&gt;I共9個元素，便按照&lt;strong&gt;Complete Binary Tree&lt;/strong&gt;之順序規則，填滿位置&lt;span class="math"&gt;\(1\sim9\)&lt;/span&gt;，以index(&lt;span class="math"&gt;\(1\)&lt;/span&gt;)&lt;span class="math"&gt;\(\sim\)&lt;/span&gt;index(&lt;span class="math"&gt;\(9\)&lt;/span&gt;)表示。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;這樣的優點是易於尋找「parent-child」之關係，以index(&lt;span class="math"&gt;\(i\)&lt;/span&gt;)的node為例：&lt;/p&gt;
 &lt;ul&gt;
