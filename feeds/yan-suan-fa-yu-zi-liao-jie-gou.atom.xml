@@ -229,7 +229,7 @@
 &lt;p&gt;&lt;strong&gt;圖二(b)。&lt;/strong&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;在經過以上步驟之後，node(K)、node(Y)、node(Z)所形成的subtree已經滿足Min Heap的規則。  &lt;/p&gt;
-&lt;p&gt;不過，由於node(K)之Key值比node(Y)之Key值大，因此，即使原先由node(Y)、node(B)、node(G)形成之subtree滿足Min Heap規則(以圖二(a)的情形為例，原先就是不滿足Min Heap的)，仍不能保證node(K)取代node(Y)後，node(K)、node(B)、node(G)所形成之subtree也滿足Min Heap規則，所以需要重複上述步驟，再次以node(K)作為subtree之&lt;strong&gt;root&lt;/strong&gt;，檢查並調整subtree成Min Heap，如圖二(c)與圖二(d)。&lt;/p&gt;
+&lt;p&gt;不過，由於node(K)之Key值比node(Y)之Key值大，因此，即使原先由node(Y)、node(B)、node(G)形成之subtree滿足Min Heap規則(以圖二(a)的情形為例，原先已經不滿足Min Heap)，仍不能保證node(K)取代node(Y)後，node(K)、node(B)、node(G)所形成之subtree也滿足Min Heap規則，所以需要重複上述步驟，再次以node(K)作為subtree之&lt;strong&gt;root&lt;/strong&gt;，檢查並調整subtree成Min Heap，如圖二(c)與圖二(d)。&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Priority%20Queue%20series/Binary%20Heap%20fig/f5.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖二(c)。&lt;/strong&gt;&lt;/p&gt;
@@ -237,7 +237,7 @@
 &lt;p&gt;&lt;strong&gt;圖二(d)。&lt;/strong&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;因為&lt;code&gt;smallest&lt;/code&gt;挑的是node(&lt;span class="math"&gt;\(i\)&lt;/span&gt;)、node(&lt;span class="math"&gt;\(2i\)&lt;/span&gt;)、node(&lt;span class="math"&gt;\(2i+1\)&lt;/span&gt;)中Key值最小的node，使之成為subtree之&lt;code&gt;root&lt;/code&gt;，因此「所有被檢查過的」subtree，必定滿足Min Heap之規則，如圖二(d)中的「node(Y)、node(G)、node(Z)」與「node(G)、node(B)、node(K)」。&lt;/p&gt;
-&lt;p&gt;但是，Binary Heap中仍然可能有某些subtree不符合Min Heap規則，如圖二(d)中的「node(E)、node(F)、node(I)」，因此，會需要一個迴圈對「所有具有&lt;strong&gt;child&lt;/strong&gt;的node」進行檢查(利用&lt;code&gt;MinHeapify()&lt;/code&gt;檢查)，這就是下一個函式&lt;code&gt;BuildMinHeap&lt;/code&gt;的任務。&lt;/p&gt;
+&lt;p&gt;但是，Binary Heap中仍然可能有某些subtree不符合Min Heap規則，如圖二(d)中的「node(E)、node(F)、node(I)」，因此，會需要一個迴圈對「所有具有&lt;strong&gt;child&lt;/strong&gt;的node」進行檢查(利用&lt;code&gt;MinHeapify()&lt;/code&gt;檢查)，這就是下一個函式&lt;code&gt;BuildMinHeap()&lt;/code&gt;的任務。&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;MinHeapify()&lt;/code&gt;之範例程式碼如下：&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// C++ code&lt;/span&gt;
 &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;BinaryHeap&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;MinHeapify&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;node&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;length&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
@@ -337,7 +337,6 @@
 
 &lt;p&gt;以及定義在&lt;code&gt;class BinaryHeap&lt;/code&gt;裡面的&lt;code&gt;InHeapEmpty()&lt;/code&gt;與&lt;code&gt;GetParentNode()&lt;/code&gt;，分別檢查Heap是否有資料，和回傳node(i)之&lt;strong&gt;parent&lt;/strong&gt;的index(&lt;span class="math"&gt;\(\lfloor i/2 \rfloor\)&lt;/span&gt;)：&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// C++ code&lt;/span&gt;
-
 &lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;BinaryHeap&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="p"&gt;...&lt;/span&gt;
     &lt;span class="kt"&gt;bool&lt;/span&gt; &lt;span class="n"&gt;IsHeapEmpty&lt;/span&gt;&lt;span class="p"&gt;(){&lt;/span&gt;&lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;heap&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;);};&lt;/span&gt;
@@ -351,7 +350,6 @@
 &lt;h3&gt;函式：Minimum&lt;/h3&gt;
 &lt;p&gt;因為Min Queue的規則，&lt;strong&gt;root&lt;/strong&gt;一定是所有node中，具有最小Key值的node，因此，若要得到最小值，只要讀取&lt;code&gt;heap[1]&lt;/code&gt;即可：&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// C++ code&lt;/span&gt;
-
 &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;BinaryHeap&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;Minimum&lt;/span&gt;&lt;span class="p"&gt;(){&lt;/span&gt;
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;heap&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;].&lt;/span&gt;&lt;span class="n"&gt;element&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
@@ -366,7 +364,7 @@
 &lt;li&gt;若Heap中有資料，先以變數&lt;code&gt;min&lt;/code&gt;讀取Min Heap中的&lt;strong&gt;root&lt;/strong&gt;之資料內容，&lt;strong&gt;root&lt;/strong&gt;即為Heap中具有最小Key值之node；&lt;/li&gt;
 &lt;li&gt;接著把Heap中「最後一個node」之資料放進「第一個index位置」裡面，如此便從Heap中移除原先的「最小Key值node」；&lt;/li&gt;
 &lt;li&gt;由於在上個步驟已經把原先位於「最後位置index」之node放進&lt;strong&gt;root&lt;/strong&gt;之位置，便能夠直接刪除最後一個位置的記憶體位置，調整存放資料的&lt;code&gt;heap&lt;/code&gt;；&lt;ul&gt;
-&lt;li&gt;在此，因為使用了C++標準函式庫(STL)的&lt;code&gt;std::vector&lt;/code&gt;，若要刪除&lt;code&gt;heap&lt;/code&gt;的最後一個元素，只要只用成員函式(member function)&lt;code&gt;erase()&lt;/code&gt;即可。&lt;br /&gt;
+&lt;li&gt;在此，因為使用了C++標準函式庫(STL)的&lt;code&gt;std::vector&lt;/code&gt;，若要刪除&lt;code&gt;heap&lt;/code&gt;的最後一個元素，只要只用成員函式(member function)：&lt;code&gt;std::vector::erase()&lt;/code&gt;即可。&lt;br /&gt;
 (關於&lt;code&gt;std::vector::erase&lt;/code&gt;，請參考：&lt;a href="http://www.cplusplus.com/reference/vector/vector/erase/"&gt;Cplusplus：std::vector::erase&lt;/a&gt;)&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
@@ -406,10 +404,13 @@
 &lt;ul&gt;
 &lt;li&gt;由於函式的參數(argument)是&lt;code&gt;struct&lt;/code&gt;結構中的&lt;code&gt;element&lt;/code&gt;，若以圖五(a)為例，資料的&lt;code&gt;element&lt;/code&gt;就是「英文字母」(A、B、C等等)，因此，先利用&lt;code&gt;FindPosition()&lt;/code&gt;找到該資料在Heap中的位置index；&lt;/li&gt;
 &lt;li&gt;再判斷，若參數中的&lt;code&gt;newKey&lt;/code&gt;沒有比原先的Key還小，就直接結束函式(可以想成&lt;code&gt;DecreaseKey()&lt;/code&gt;只有把資料之Key降低，沒有調高的功能)；&lt;/li&gt;
-&lt;li&gt;若沒有在上個步驟結束函式，便把資料之Key更新成&lt;code&gt;newKey&lt;/code&gt;；&lt;/li&gt;
+&lt;li&gt;若沒有在上個步驟結束函式，便把資料之Key更新成&lt;code&gt;newKey&lt;/code&gt;；&lt;ul&gt;
+&lt;li&gt;因為使用矩陣存放資料，所以只要有資料在Heap中的index，即可靠index對資料進行存取。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
 &lt;li&gt;因為是把資料的Key「降低」，因此，有可能使得原先資料所位於的subtree違反Min Heap規則，需要調整：&lt;ul&gt;
 &lt;li&gt;假設被修改的資料是位於index(&lt;span class="math"&gt;\(i\)&lt;/span&gt;)的node(&lt;span class="math"&gt;\(i\)&lt;/span&gt;)，便比較node(&lt;span class="math"&gt;\(i\)&lt;/span&gt;)與其&lt;strong&gt;parent&lt;/strong&gt;(也就是node(&lt;span class="math"&gt;\(\lfloor i/2 \rfloor\)&lt;/span&gt;))之Key值，&lt;/li&gt;
-&lt;li&gt;如果node(&lt;span class="math"&gt;\(i\)&lt;/span&gt;)之Key值較小，便交換index(&lt;span class="math"&gt;\(i\)&lt;/span&gt;)與index(&lt;span class="math"&gt;\(\lfloor i/2 \rfloor\)&lt;/span&gt;)上的資料(如同在&lt;code&gt;Minheapify()&lt;/code&gt;中的交換資料)。&lt;/li&gt;
+&lt;li&gt;如果node(&lt;span class="math"&gt;\(i\)&lt;/span&gt;)之Key值較小，便交換index(&lt;span class="math"&gt;\(i\)&lt;/span&gt;)與index(&lt;span class="math"&gt;\(\lfloor i/2 \rfloor\)&lt;/span&gt;)上的資料(如同在&lt;code&gt;Minheapify()&lt;/code&gt;中的交換&lt;code&gt;swap()&lt;/code&gt;)。&lt;/li&gt;
 &lt;li&gt;若node(&lt;span class="math"&gt;\(i\)&lt;/span&gt;)之Key值仍然比其&lt;strong&gt;parent&lt;/strong&gt;之Key值大，表示，node(&lt;span class="math"&gt;\(i\)&lt;/span&gt;)所在之subtree仍滿足Min Heap規則，即可結束函式。&lt;/li&gt;
 &lt;li&gt;還有，由於Heap的&lt;strong&gt;root&lt;/strong&gt;是從index(&lt;span class="math"&gt;\(1\)&lt;/span&gt;)開始存放資料，若一路回溯&lt;strong&gt;parent&lt;/strong&gt;直到index小於&lt;span class="math"&gt;\(1\)&lt;/span&gt;，表示Heap中所有與「被修改的資料」有關之subtree都被檢查過了，可以結束函式。&lt;/li&gt;
 &lt;/ul&gt;
@@ -479,7 +480,8 @@
 
 
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
-&lt;p&gt;由以上說明可以發現，在&lt;code&gt;MinHeapify()&lt;/code&gt;中，是「由上往下」對subtree進行修正，有的寫法會將此操作獨立成函式：&lt;strong&gt;SiftDown&lt;/strong&gt;；在&lt;code&gt;DecreaseKey()&lt;/code&gt;中，則是「由下往上」進行修正，此則稱為&lt;strong&gt;SiftUp&lt;/strong&gt;，範例請參考：&lt;a href="http://codereview.stackexchange.com/questions/42999/implementation-of-binary-heap-in-c"&gt;Code Review：Implementation of binary heap in C++&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;由以上說明可以發現，在&lt;code&gt;MinHeapify()&lt;/code&gt;中，是「由上往下」對subtree進行修正，有的寫法會將此操作獨立成函式：&lt;strong&gt;SiftDown&lt;/strong&gt;；&lt;br /&gt;
+在&lt;code&gt;DecreaseKey()&lt;/code&gt;中，則是「由下往上」進行修正，此則稱為&lt;strong&gt;SiftUp&lt;/strong&gt;，範例請參考：&lt;a href="http://codereview.stackexchange.com/questions/42999/implementation-of-binary-heap-in-c"&gt;Code Review：Implementation of binary heap in C++&lt;/a&gt;。&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;  &lt;/p&gt;
 &lt;p&gt;以上便是以Binary Heap實現Min-Priority Queue之說明，後者將在許多應用出現，包括與Graph相關的&lt;strong&gt;Prim's Algorithm&lt;/strong&gt;和&lt;strong&gt;Dijkstra's Algorithm&lt;/strong&gt;。&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;

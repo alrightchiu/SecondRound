@@ -305,7 +305,7 @@
 <p><strong>圖二(b)。</strong>
 </center></p>
 <p>在經過以上步驟之後，node(K)、node(Y)、node(Z)所形成的subtree已經滿足Min Heap的規則。  </p>
-<p>不過，由於node(K)之Key值比node(Y)之Key值大，因此，即使原先由node(Y)、node(B)、node(G)形成之subtree滿足Min Heap規則(以圖二(a)的情形為例，原先就是不滿足Min Heap的)，仍不能保證node(K)取代node(Y)後，node(K)、node(B)、node(G)所形成之subtree也滿足Min Heap規則，所以需要重複上述步驟，再次以node(K)作為subtree之<strong>root</strong>，檢查並調整subtree成Min Heap，如圖二(c)與圖二(d)。</p>
+<p>不過，由於node(K)之Key值比node(Y)之Key值大，因此，即使原先由node(Y)、node(B)、node(G)形成之subtree滿足Min Heap規則(以圖二(a)的情形為例，原先已經不滿足Min Heap)，仍不能保證node(K)取代node(Y)後，node(K)、node(B)、node(G)所形成之subtree也滿足Min Heap規則，所以需要重複上述步驟，再次以node(K)作為subtree之<strong>root</strong>，檢查並調整subtree成Min Heap，如圖二(c)與圖二(d)。</p>
 <p><center>
 <img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Priority%20Queue%20series/Binary%20Heap%20fig/f5.png?raw=true" /></p>
 <p><strong>圖二(c)。</strong></p>
@@ -313,7 +313,7 @@
 <p><strong>圖二(d)。</strong>
 </center></p>
 <p>因為<code>smallest</code>挑的是node(<span class="math">\(i\)</span>)、node(<span class="math">\(2i\)</span>)、node(<span class="math">\(2i+1\)</span>)中Key值最小的node，使之成為subtree之<code>root</code>，因此「所有被檢查過的」subtree，必定滿足Min Heap之規則，如圖二(d)中的「node(Y)、node(G)、node(Z)」與「node(G)、node(B)、node(K)」。</p>
-<p>但是，Binary Heap中仍然可能有某些subtree不符合Min Heap規則，如圖二(d)中的「node(E)、node(F)、node(I)」，因此，會需要一個迴圈對「所有具有<strong>child</strong>的node」進行檢查(利用<code>MinHeapify()</code>檢查)，這就是下一個函式<code>BuildMinHeap</code>的任務。</p>
+<p>但是，Binary Heap中仍然可能有某些subtree不符合Min Heap規則，如圖二(d)中的「node(E)、node(F)、node(I)」，因此，會需要一個迴圈對「所有具有<strong>child</strong>的node」進行檢查(利用<code>MinHeapify()</code>檢查)，這就是下一個函式<code>BuildMinHeap()</code>的任務。</p>
 <p><code>MinHeapify()</code>之範例程式碼如下：</p>
 <div class="highlight"><pre><span class="c1">// C++ code</span>
 <span class="kt">void</span> <span class="n">BinaryHeap</span><span class="o">::</span><span class="n">MinHeapify</span><span class="p">(</span><span class="kt">int</span> <span class="n">node</span><span class="p">,</span> <span class="kt">int</span> <span class="n">length</span><span class="p">){</span>
@@ -413,7 +413,6 @@
 
 <p>以及定義在<code>class BinaryHeap</code>裡面的<code>InHeapEmpty()</code>與<code>GetParentNode()</code>，分別檢查Heap是否有資料，和回傳node(i)之<strong>parent</strong>的index(<span class="math">\(\lfloor i/2 \rfloor\)</span>)：</p>
 <div class="highlight"><pre><span class="c1">// C++ code</span>
-
 <span class="k">class</span> <span class="nc">BinaryHeap</span><span class="p">{</span>
     <span class="p">...</span>
     <span class="kt">bool</span> <span class="n">IsHeapEmpty</span><span class="p">(){</span><span class="k">return</span> <span class="p">(</span><span class="n">heap</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">&lt;</span><span class="mi">1</span><span class="p">);};</span>
@@ -427,7 +426,6 @@
 <h3>函式：Minimum</h3>
 <p>因為Min Queue的規則，<strong>root</strong>一定是所有node中，具有最小Key值的node，因此，若要得到最小值，只要讀取<code>heap[1]</code>即可：</p>
 <div class="highlight"><pre><span class="c1">// C++ code</span>
-
 <span class="kt">int</span> <span class="n">BinaryHeap</span><span class="o">::</span><span class="n">Minimum</span><span class="p">(){</span>
     <span class="k">return</span> <span class="n">heap</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">element</span><span class="p">;</span>
 <span class="p">}</span>
@@ -442,7 +440,7 @@
 <li>若Heap中有資料，先以變數<code>min</code>讀取Min Heap中的<strong>root</strong>之資料內容，<strong>root</strong>即為Heap中具有最小Key值之node；</li>
 <li>接著把Heap中「最後一個node」之資料放進「第一個index位置」裡面，如此便從Heap中移除原先的「最小Key值node」；</li>
 <li>由於在上個步驟已經把原先位於「最後位置index」之node放進<strong>root</strong>之位置，便能夠直接刪除最後一個位置的記憶體位置，調整存放資料的<code>heap</code>；<ul>
-<li>在此，因為使用了C++標準函式庫(STL)的<code>std::vector</code>，若要刪除<code>heap</code>的最後一個元素，只要只用成員函式(member function)<code>erase()</code>即可。<br />
+<li>在此，因為使用了C++標準函式庫(STL)的<code>std::vector</code>，若要刪除<code>heap</code>的最後一個元素，只要只用成員函式(member function)：<code>std::vector::erase()</code>即可。<br />
 (關於<code>std::vector::erase</code>，請參考：<a href="http://www.cplusplus.com/reference/vector/vector/erase/">Cplusplus：std::vector::erase</a>)</li>
 </ul>
 </li>
@@ -482,10 +480,13 @@
 <ul>
 <li>由於函式的參數(argument)是<code>struct</code>結構中的<code>element</code>，若以圖五(a)為例，資料的<code>element</code>就是「英文字母」(A、B、C等等)，因此，先利用<code>FindPosition()</code>找到該資料在Heap中的位置index；</li>
 <li>再判斷，若參數中的<code>newKey</code>沒有比原先的Key還小，就直接結束函式(可以想成<code>DecreaseKey()</code>只有把資料之Key降低，沒有調高的功能)；</li>
-<li>若沒有在上個步驟結束函式，便把資料之Key更新成<code>newKey</code>；</li>
+<li>若沒有在上個步驟結束函式，便把資料之Key更新成<code>newKey</code>；<ul>
+<li>因為使用矩陣存放資料，所以只要有資料在Heap中的index，即可靠index對資料進行存取。</li>
+</ul>
+</li>
 <li>因為是把資料的Key「降低」，因此，有可能使得原先資料所位於的subtree違反Min Heap規則，需要調整：<ul>
 <li>假設被修改的資料是位於index(<span class="math">\(i\)</span>)的node(<span class="math">\(i\)</span>)，便比較node(<span class="math">\(i\)</span>)與其<strong>parent</strong>(也就是node(<span class="math">\(\lfloor i/2 \rfloor\)</span>))之Key值，</li>
-<li>如果node(<span class="math">\(i\)</span>)之Key值較小，便交換index(<span class="math">\(i\)</span>)與index(<span class="math">\(\lfloor i/2 \rfloor\)</span>)上的資料(如同在<code>Minheapify()</code>中的交換資料)。</li>
+<li>如果node(<span class="math">\(i\)</span>)之Key值較小，便交換index(<span class="math">\(i\)</span>)與index(<span class="math">\(\lfloor i/2 \rfloor\)</span>)上的資料(如同在<code>Minheapify()</code>中的交換<code>swap()</code>)。</li>
 <li>若node(<span class="math">\(i\)</span>)之Key值仍然比其<strong>parent</strong>之Key值大，表示，node(<span class="math">\(i\)</span>)所在之subtree仍滿足Min Heap規則，即可結束函式。</li>
 <li>還有，由於Heap的<strong>root</strong>是從index(<span class="math">\(1\)</span>)開始存放資料，若一路回溯<strong>parent</strong>直到index小於<span class="math">\(1\)</span>，表示Heap中所有與「被修改的資料」有關之subtree都被檢查過了，可以結束函式。</li>
 </ul>
@@ -555,7 +556,8 @@
 
 
 <p></br></p>
-<p>由以上說明可以發現，在<code>MinHeapify()</code>中，是「由上往下」對subtree進行修正，有的寫法會將此操作獨立成函式：<strong>SiftDown</strong>；在<code>DecreaseKey()</code>中，則是「由下往上」進行修正，此則稱為<strong>SiftUp</strong>，範例請參考：<a href="http://codereview.stackexchange.com/questions/42999/implementation-of-binary-heap-in-c">Code Review：Implementation of binary heap in C++</a>。</p>
+<p>由以上說明可以發現，在<code>MinHeapify()</code>中，是「由上往下」對subtree進行修正，有的寫法會將此操作獨立成函式：<strong>SiftDown</strong>；<br />
+在<code>DecreaseKey()</code>中，則是「由下往上」進行修正，此則稱為<strong>SiftUp</strong>，範例請參考：<a href="http://codereview.stackexchange.com/questions/42999/implementation-of-binary-heap-in-c">Code Review：Implementation of binary heap in C++</a>。</p>
 <p></br>  </p>
 <p>以上便是以Binary Heap實現Min-Priority Queue之說明，後者將在許多應用出現，包括與Graph相關的<strong>Prim's Algorithm</strong>和<strong>Dijkstra's Algorithm</strong>。</p>
 <p></br></p>
