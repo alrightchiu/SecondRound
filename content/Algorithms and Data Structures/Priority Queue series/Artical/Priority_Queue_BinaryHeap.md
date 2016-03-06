@@ -238,7 +238,7 @@ public:
 
 在經過以上步驟之後，node(K)、node(Y)、node(Z)所形成的subtree已經滿足Min Heap的規則。  
 
-不過，由於node(K)之Key值比node(Y)之Key值大，因此，即使原先由node(Y)、node(B)、node(G)形成之subtree滿足Min Heap規則(以圖二(a)的情形為例，原先就是不滿足Min Heap的)，仍不能保證node(K)取代node(Y)後，node(K)、node(B)、node(G)所形成之subtree也滿足Min Heap規則，所以需要重複上述步驟，再次以node(K)作為subtree之**root**，檢查並調整subtree成Min Heap，如圖二(c)與圖二(d)。
+不過，由於node(K)之Key值比node(Y)之Key值大，因此，即使原先由node(Y)、node(B)、node(G)形成之subtree滿足Min Heap規則(以圖二(a)的情形為例，原先已經不滿足Min Heap)，仍不能保證node(K)取代node(Y)後，node(K)、node(B)、node(G)所形成之subtree也滿足Min Heap規則，所以需要重複上述步驟，再次以node(K)作為subtree之**root**，檢查並調整subtree成Min Heap，如圖二(c)與圖二(d)。
 
 <center>
 ![cc][f5]
@@ -252,7 +252,7 @@ public:
 
 因為`smallest`挑的是node($i$)、node($2i$)、node($2i+1$)中Key值最小的node，使之成為subtree之`root`，因此「所有被檢查過的」subtree，必定滿足Min Heap之規則，如圖二(d)中的「node(Y)、node(G)、node(Z)」與「node(G)、node(B)、node(K)」。
 
-但是，Binary Heap中仍然可能有某些subtree不符合Min Heap規則，如圖二(d)中的「node(E)、node(F)、node(I)」，因此，會需要一個迴圈對「所有具有**child**的node」進行檢查(利用`MinHeapify()`檢查)，這就是下一個函式`BuildMinHeap`的任務。
+但是，Binary Heap中仍然可能有某些subtree不符合Min Heap規則，如圖二(d)中的「node(E)、node(F)、node(I)」，因此，會需要一個迴圈對「所有具有**child**的node」進行檢查(利用`MinHeapify()`檢查)，這就是下一個函式`BuildMinHeap()`的任務。
 
 `MinHeapify()`之範例程式碼如下：
 
@@ -377,7 +377,6 @@ int BinaryHeap::FindPosition(int node){
 
 ```cpp
 // C++ code
-
 class BinaryHeap{
     ...
     bool IsHeapEmpty(){return (heap.size()<1);};
@@ -395,7 +394,6 @@ class BinaryHeap{
 
 ```cpp
 // C++ code
-
 int BinaryHeap::Minimum(){
     return heap[1].element;
 }
@@ -413,7 +411,7 @@ int BinaryHeap::Minimum(){
 * 若Heap中有資料，先以變數`min`讀取Min Heap中的**root**之資料內容，**root**即為Heap中具有最小Key值之node；
 * 接著把Heap中「最後一個node」之資料放進「第一個index位置」裡面，如此便從Heap中移除原先的「最小Key值node」；
 * 由於在上個步驟已經把原先位於「最後位置index」之node放進**root**之位置，便能夠直接刪除最後一個位置的記憶體位置，調整存放資料的`heap`；
-    * 在此，因為使用了C++標準函式庫(STL)的`std::vector`，若要刪除`heap`的最後一個元素，只要只用成員函式(member function)`erase()`即可。  
+    * 在此，因為使用了C++標準函式庫(STL)的`std::vector`，若要刪除`heap`的最後一個元素，只要只用成員函式(member function)：`std::vector::erase()`即可。  
     (關於`std::vector::erase`，請參考：[Cplusplus：std::vector::erase](http://www.cplusplus.com/reference/vector/vector/erase/))
 * 此時，**root**位置的node之Key極有可能比其兩個**child**之Key值還要大，有可能違反Min Heap規則，因此需要對其執行`MinHeapify()`。
 
@@ -464,9 +462,10 @@ int BinaryHeap::ExtractMin(){
 * 由於函式的參數(argument)是`struct`結構中的`element`，若以圖五(a)為例，資料的`element`就是「英文字母」(A、B、C等等)，因此，先利用`FindPosition()`找到該資料在Heap中的位置index；
 * 再判斷，若參數中的`newKey`沒有比原先的Key還小，就直接結束函式(可以想成`DecreaseKey()`只有把資料之Key降低，沒有調高的功能)；
 * 若沒有在上個步驟結束函式，便把資料之Key更新成`newKey`；
+    * 因為使用矩陣存放資料，所以只要有資料在Heap中的index，即可靠index對資料進行存取。
 * 因為是把資料的Key「降低」，因此，有可能使得原先資料所位於的subtree違反Min Heap規則，需要調整：
     * 假設被修改的資料是位於index($i$)的node($i$)，便比較node($i$)與其**parent**(也就是node($\lfloor i/2 \rfloor$))之Key值，
-    * 如果node($i$)之Key值較小，便交換index($i$)與index($\lfloor i/2 \rfloor$)上的資料(如同在`Minheapify()`中的交換資料)。
+    * 如果node($i$)之Key值較小，便交換index($i$)與index($\lfloor i/2 \rfloor$)上的資料(如同在`Minheapify()`中的交換`swap()`)。
     * 若node($i$)之Key值仍然比其**parent**之Key值大，表示，node($i$)所在之subtree仍滿足Min Heap規則，即可結束函式。
     * 還有，由於Heap的**root**是從index($1$)開始存放資料，若一路回溯**parent**直到index小於$1$，表示Heap中所有與「被修改的資料」有關之subtree都被檢查過了，可以結束函式。
 
@@ -576,7 +575,8 @@ void BinaryHeap::MinHeapInsert(int node, int key){
 
 
 
-由以上說明可以發現，在`MinHeapify()`中，是「由上往下」對subtree進行修正，有的寫法會將此操作獨立成函式：**SiftDown**；在`DecreaseKey()`中，則是「由下往上」進行修正，此則稱為**SiftUp**，範例請參考：[Code Review：Implementation of binary heap in C++](http://codereview.stackexchange.com/questions/42999/implementation-of-binary-heap-in-c)。
+由以上說明可以發現，在`MinHeapify()`中，是「由上往下」對subtree進行修正，有的寫法會將此操作獨立成函式：**SiftDown**；  
+在`DecreaseKey()`中，則是「由下往上」進行修正，此則稱為**SiftUp**，範例請參考：[Code Review：Implementation of binary heap in C++](http://codereview.stackexchange.com/questions/42999/implementation-of-binary-heap-in-c)。
 
 </br>  
 
