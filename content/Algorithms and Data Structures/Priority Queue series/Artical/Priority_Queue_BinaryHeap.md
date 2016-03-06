@@ -205,13 +205,13 @@ public:
 
 接著要介紹和Min Heap與Min-Priority Queue有關的函式。
 
-小小提醒：為避免混淆，在圖示介紹中，資料的「element」是以「英文字母」表示，而實際的程式碼，資料的「element」仍是用`int`，例如，$A-1$、$B-2$等等的對應。
+小小提醒：為避免混淆，在圖示介紹中，資料的「element」是以「英文字母」表示，而實際的程式碼，資料的「element」仍是用`int`，例如，使用$A-1$、$B-2$做對應。
 
 <a name="MinHeapify"></a>
 
 ###函式：MinHeapify
 
-`MinHeapify()`是一種由上至下，按照Min Heap之規則逐一調整subtree的方法，步驟如下：
+`MinHeapify()`是一種「由上至下」(由**root**往**leaf**)，按照Min Heap之規則逐一調整subtree的方法，步驟如下：
 
 * 選定某個index($i$)之node($i$)，視為subtree之**root**；
 * 比較**root**的Key與兩個**child**(node($2i$)與node($2i+1$))之Key；
