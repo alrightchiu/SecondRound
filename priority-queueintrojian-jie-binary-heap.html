@@ -280,10 +280,10 @@
 <p><a name="operation"></a></p>
 <h2>Binary Heap之Operation(函式)</h2>
 <p>接著要介紹和Min Heap與Min-Priority Queue有關的函式。</p>
-<p>小小提醒：為避免混淆，在圖示介紹中，資料的「element」是以「英文字母」表示，而實際的程式碼，資料的「element」仍是用<code>int</code>，例如，<span class="math">\(A-1\)</span>、<span class="math">\(B-2\)</span>等等的對應。</p>
+<p>小小提醒：為避免混淆，在圖示介紹中，資料的「element」是以「英文字母」表示，而實際的程式碼，資料的「element」仍是用<code>int</code>，例如，使用<span class="math">\(A-1\)</span>、<span class="math">\(B-2\)</span>做對應。</p>
 <p><a name="MinHeapify"></a></p>
 <h3>函式：MinHeapify</h3>
-<p><code>MinHeapify()</code>是一種由上至下，按照Min Heap之規則逐一調整subtree的方法，步驟如下：</p>
+<p><code>MinHeapify()</code>是一種「由上至下」(由<strong>root</strong>往<strong>leaf</strong>)，按照Min Heap之規則逐一調整subtree的方法，步驟如下：</p>
 <ul>
 <li>選定某個index(<span class="math">\(i\)</span>)之node(<span class="math">\(i\)</span>)，視為subtree之<strong>root</strong>；</li>
 <li>比較<strong>root</strong>的Key與兩個<strong>child</strong>(node(<span class="math">\(2i\)</span>)與node(<span class="math">\(2i+1\)</span>))之Key；<ul>
