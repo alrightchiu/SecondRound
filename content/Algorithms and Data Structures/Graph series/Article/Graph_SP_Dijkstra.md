@@ -9,7 +9,7 @@ Summary: 介紹Dijkstra's Algorithm。
 </br>
 ###先備知識與注意事項
 
-本篇文章將介紹另一種解決Single-Source Shortest Path的方法：**Dijkstra's Algorithm**。  
+本篇文章將介紹另一種處理Single-Source Shortest Path的方法：**Dijkstra's Algorithm**。  
 演算法的概念依然需要：
 
 * **Relaxation** 
@@ -22,7 +22,7 @@ Summary: 介紹Dijkstra's Algorithm。
 
 * `ExtractMin()`
 * `DecreaseKey()`
-* `BuildMinHeap()`，亦可用`MinHeapInsert()`取代；
+* `MinHeapInsert()`，不過本文以`BuildMinHeap()`取代；
 
 若讀者需要稍作複習，請參考[Priority Queue：Intro(簡介) & Binary Heap](http://alrightchiu.github.io/SecondRound/priority-queueintrojian-jie-binary-heap.html)。
 
@@ -71,8 +71,8 @@ Summary: 介紹Dijkstra's Algorithm。
 
 演算法將使用兩項資料項目`predecessor[]`與`distance[]`，其功能如下：
 
-* `predecessor[]`：
-* `distance[]`：
+* `predecessor[]`：記錄vertex是被哪個vertex所找到，由`predecessor[]`可以還原出**Predecessor Subgraph**，也就是**Shortest-Path Tree**。
+* `distance[]`：記錄從起點vertex走到特定vertex的path之weight總和。
 
 </br>
 以下以圖一(a)之Graph為例，以vertex(0)為起點，進行**Dijkstra's Algorithm**。
@@ -355,7 +355,7 @@ print distance:
 
 
 
-最後，關於**Dijkstra's Algorithm**之時間複雜度，會因為Min-Priority Queue所使用的資料結構(例如，Binary Heap或是Fibonacci Heap)而有所差異，可能最差從$O(V^2+E)$到最好$O(V\logV+E)$，請參考以下連結之討論：
+最後，關於**Dijkstra's Algorithm**之時間複雜度，會因為Min-Priority Queue所使用的資料結構(例如，Binary Heap或是Fibonacci Heap)而有所差異，可能最差從$O(V^2+E)$到最好$O(V\log V+E)$，請參考以下連結之討論：
 
 * [Ashley Montanaro：Priority queues and Dijkstra’s algorithm](https://www.cs.bris.ac.uk/~montanar/teaching/dsa/dijkstra-handout.pdf)
 * [Rashid Bin Muhammad：Dijkstra's Algorithm](http://www.personal.kent.edu/~rmuhamma/Algorithms/MyAlgorithms/GraphAlgor/dijkstraAlgor.htm)
