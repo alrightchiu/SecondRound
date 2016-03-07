@@ -365,19 +365,19 @@ print distance:
 
 
 
-[f1]: f1.png
-[f2]: f2.png
-[f3]: f3.png
-[f4]: f4.png
-[f5]: f5.png
-[f6]: f6.png
-[f7]: f7.png
-[f8]: f8.png
-[f9]: f9.png
-[f10]: f10.png
-[f11]: f11.png
-[f12]: f12.png
-[f13]: f13.png
+[f1]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_Dijkstra/f1.png?raw=true
+[f2]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_Dijkstra/f2.png?raw=true
+[f3]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_Dijkstra/f3.png?raw=true
+[f4]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_Dijkstra/f4.png?raw=true
+[f5]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_Dijkstra/f5.png?raw=true
+[f6]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_Dijkstra/f6.png?raw=true
+[f7]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_Dijkstra/f7.png?raw=true
+[f8]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_Dijkstra/f8.png?raw=true
+[f9]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_Dijkstra/f9.png?raw=true
+[f10]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_Dijkstra/f10.png?raw=true
+[f11]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_Dijkstra/f11.png?raw=true
+[f12]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_Dijkstra/f12.png?raw=true
+[f13]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_Dijkstra/f13.png?raw=true
 
 
 
