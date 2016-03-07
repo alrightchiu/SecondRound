@@ -175,8 +175,11 @@ Summary: 介紹在DAG(directed acyclic graph)上處理Single-Source Shortest Pat
 順便在找到`topologicalsort[]`後，將`discover[]`與`finish[]`印出。
 * `DFSVisit_TS()`：此為`DFSVisit()`的變形，唯一修改的部分是在`finish[]`更新後，多加了一行`array[count--] = vertex;`，其中`count`為`topologicalsort[]`的**index**，用意是要按照「探索結束」的先後，將vertex依序從`topologicalsort[]`的尾端放到前端，如此一來，`topologicalsort[]`所存放的vertex，就會按照`finish[]`由大到小的順序。
 
+以及`main()`：建立如圖四(a)之`AdjList`，並進行`DAG_SP()`。
+
 (關於`DFS()`與`DFSVisit()`之概念與程式碼，請參考[Graph: Depth-First Search(DFS，深度優先搜尋)](http://alrightchiu.github.io/SecondRound/graph-depth-first-searchdfsshen-du-you-xian-sou-xun.html)。)  
-(關於**Topological Sort**與`DFS()`的關聯，請參考[Grpah: 利用DFS尋找DAG的Topological Sort(拓撲排序)](http://alrightchiu.github.io/SecondRound/grpah-li-yong-dfsxun-zhao-dagde-topological-sorttuo-pu-pai-xu.html)。)
+(關於**Topological Sort**與`DFS()`的關聯，請參考[Grpah: 利用DFS尋找DAG的Topological Sort(拓撲排序)](http://alrightchiu.github.io/SecondRound/grpah-li-yong-dfsxun-zhao-dagde-topological-sorttuo-pu-pai-xu.html)。)  
+</br>
 
 ```cpp
 // C++ code
@@ -210,7 +213,6 @@ public:
                      int *finish, int vertex, int &time, int &count);
  
 };
-
 void Graph_SP::GetTopologicalSort(int *array, int Start){
     
     int color[num_vertex], discover[num_vertex], finish[num_vertex];
@@ -237,7 +239,6 @@ void Graph_SP::GetTopologicalSort(int *array, int Start){
     std::cout << "\nprint finish time:\n";
     PrintIntArray(finish);
 }
-
 void Graph_SP::DFSVisit_TS(int *array, int *color, int *discover, 
                            int *finish, int vertex, int &time, int &count){
     
@@ -254,8 +255,6 @@ void Graph_SP::DFSVisit_TS(int *array, int *color, int *discover,
     finish[vertex] = ++time;
     array[count--] = vertex;            // 產生Topological Sort
 }
-
-
 void Graph_SP::DAG_SP(int Start){
     
     InitializeSingleSource(Start);      // distance[],predecessor[]的initialization
