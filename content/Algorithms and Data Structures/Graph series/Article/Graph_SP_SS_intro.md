@@ -242,7 +242,7 @@ void Graph_SP::Relax(int from, int to, int weight){
 
 ###Upper-Bound property
 
-一旦從vertex(S)抵達vertex(X)之path已經更新至最短路徑$\delta(S,X)$，那麼`distance[X]`就不會再更新了。
+一旦從vertex(S)抵達vertex(X)之path已經更新至最短路徑$\delta(S,X)$，那麼`distance[X]`將不再更新，保持`distance[X]`$=\delta(S,X)$至演算法程序結束。
 
 * 觀察`Relax()`的`if`條件式，若新的path之weight比原有的path之weight還大，就不更新`distance`與`predecessor`。
 
