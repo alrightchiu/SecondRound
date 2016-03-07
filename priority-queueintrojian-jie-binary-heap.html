@@ -247,7 +247,7 @@
 <div class="highlight"><pre><span class="c1">// C++ code</span>
 <span class="k">class</span> <span class="nc">BinaryHeap</span><span class="p">{</span>
 <span class="k">private</span><span class="o">:</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">HeapNode</span><span class="o">&gt;</span> <span class="n">heap</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">HeapNode</span><span class="o">&gt;</span> <span class="n">heap</span><span class="p">;</span>        <span class="c1">// 存放HeapNode資料的矩陣</span>
     <span class="kt">void</span> <span class="nf">swap</span><span class="p">(</span><span class="k">struct</span> <span class="n">HeapNode</span> <span class="o">&amp;</span><span class="n">p1</span><span class="p">,</span> <span class="k">struct</span> <span class="n">HeapNode</span> <span class="o">&amp;</span><span class="n">p2</span><span class="p">);</span>
     <span class="kt">int</span> <span class="nf">FindPosition</span><span class="p">(</span><span class="kt">int</span> <span class="n">node</span><span class="p">);</span>
     <span class="kt">int</span> <span class="nf">GetParentNode</span><span class="p">(</span><span class="kt">int</span> <span class="n">node</span><span class="p">){</span><span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">floor</span><span class="p">(</span><span class="n">node</span><span class="o">/</span><span class="mi">2</span><span class="p">);};</span>

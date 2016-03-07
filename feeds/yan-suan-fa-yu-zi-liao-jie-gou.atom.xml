@@ -171,7 +171,7 @@
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// C++ code&lt;/span&gt;
 &lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;BinaryHeap&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
 &lt;span class="k"&gt;private&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
-    &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;vector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;HeapNode&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;heap&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;vector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;HeapNode&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;heap&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;        &lt;span class="c1"&gt;// 存放HeapNode資料的矩陣&lt;/span&gt;
     &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;swap&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;HeapNode&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;p1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;HeapNode&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;p2&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
     &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;FindPosition&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;node&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
     &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;GetParentNode&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;node&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;&lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;floor&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;node&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;);};&lt;/span&gt;
@@ -1072,7 +1072,7 @@
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;對第四、五條edge(2,4)、edge(2,5)進行&lt;code&gt;Relax()&lt;/code&gt;，見圖三(c)：&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;由於&lt;code&gt;distance[4]&lt;/code&gt;小於「從vertex()走過去的成本(&lt;code&gt;distance[2]+w(2,4)&lt;/code&gt;)，因此，仍維持從vertex(1)走到vertex(4)之路徑。&lt;/li&gt;
+&lt;li&gt;由於&lt;code&gt;distance[4]&lt;/code&gt;小於「從vertex(2)走過去的成本(&lt;code&gt;distance[2]+w(2,4)&lt;/code&gt;)，因此，仍維持從vertex(1)走到vertex(4)之路徑。&lt;/li&gt;
 &lt;li&gt;而&lt;code&gt;distance[5]&lt;/code&gt;大於&lt;code&gt;distance[2]+w(2,5)&lt;/code&gt;，因此更新：&lt;ul&gt;
 &lt;li&gt;&lt;code&gt;distance[5]=distance[2]+w(2,5)&lt;/code&gt;；&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;predecessor[5]=2&lt;/code&gt;；&lt;/li&gt;

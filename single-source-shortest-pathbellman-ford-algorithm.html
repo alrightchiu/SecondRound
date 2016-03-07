@@ -225,7 +225,7 @@
 </center></p>
 <p>對第四、五條edge(2,4)、edge(2,5)進行<code>Relax()</code>，見圖三(c)：</p>
 <ul>
-<li>由於<code>distance[4]</code>小於「從vertex()走過去的成本(<code>distance[2]+w(2,4)</code>)，因此，仍維持從vertex(1)走到vertex(4)之路徑。</li>
+<li>由於<code>distance[4]</code>小於「從vertex(2)走過去的成本(<code>distance[2]+w(2,4)</code>)，因此，仍維持從vertex(1)走到vertex(4)之路徑。</li>
 <li>而<code>distance[5]</code>大於<code>distance[2]+w(2,5)</code>，因此更新：<ul>
 <li><code>distance[5]=distance[2]+w(2,5)</code>；</li>
 <li><code>predecessor[5]=2</code>；</li>
