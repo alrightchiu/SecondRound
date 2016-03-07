@@ -217,8 +217,10 @@
 順便在找到<code>topologicalsort[]</code>後，將<code>discover[]</code>與<code>finish[]</code>印出。</li>
 <li><code>DFSVisit_TS()</code>：此為<code>DFSVisit()</code>的變形，唯一修改的部分是在<code>finish[]</code>更新後，多加了一行<code>array[count--] = vertex;</code>，其中<code>count</code>為<code>topologicalsort[]</code>的<strong>index</strong>，用意是要按照「探索結束」的先後，將vertex依序從<code>topologicalsort[]</code>的尾端放到前端，如此一來，<code>topologicalsort[]</code>所存放的vertex，就會按照<code>finish[]</code>由大到小的順序。</li>
 </ul>
+<p>以及<code>main()</code>：建立如圖四(a)之<code>AdjList</code>，並進行<code>DAG_SP()</code>。</p>
 <p>(關於<code>DFS()</code>與<code>DFSVisit()</code>之概念與程式碼，請參考<a href="http://alrightchiu.github.io/SecondRound/graph-depth-first-searchdfsshen-du-you-xian-sou-xun.html">Graph: Depth-First Search(DFS，深度優先搜尋)</a>。)<br />
-(關於<strong>Topological Sort</strong>與<code>DFS()</code>的關聯，請參考<a href="http://alrightchiu.github.io/SecondRound/grpah-li-yong-dfsxun-zhao-dagde-topological-sorttuo-pu-pai-xu.html">Grpah: 利用DFS尋找DAG的Topological Sort(拓撲排序)</a>。)</p>
+(關於<strong>Topological Sort</strong>與<code>DFS()</code>的關聯，請參考<a href="http://alrightchiu.github.io/SecondRound/grpah-li-yong-dfsxun-zhao-dagde-topological-sorttuo-pu-pai-xu.html">Grpah: 利用DFS尋找DAG的Topological Sort(拓撲排序)</a>。)<br />
+</br></p>
 <div class="highlight"><pre><span class="c1">// C++ code</span>
 <span class="cp">#include &lt;iostream&gt;</span>
 <span class="cp">#include &lt;vector&gt;</span>
@@ -250,7 +252,6 @@
                      <span class="kt">int</span> <span class="o">*</span><span class="n">finish</span><span class="p">,</span> <span class="kt">int</span> <span class="n">vertex</span><span class="p">,</span> <span class="kt">int</span> <span class="o">&amp;</span><span class="n">time</span><span class="p">,</span> <span class="kt">int</span> <span class="o">&amp;</span><span class="n">count</span><span class="p">);</span>
 
 <span class="p">};</span>
-
 <span class="kt">void</span> <span class="n">Graph_SP</span><span class="o">::</span><span class="n">GetTopologicalSort</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">array</span><span class="p">,</span> <span class="kt">int</span> <span class="n">Start</span><span class="p">){</span>
 
     <span class="kt">int</span> <span class="n">color</span><span class="p">[</span><span class="n">num_vertex</span><span class="p">],</span> <span class="n">discover</span><span class="p">[</span><span class="n">num_vertex</span><span class="p">],</span> <span class="n">finish</span><span class="p">[</span><span class="n">num_vertex</span><span class="p">];</span>
@@ -277,7 +278,6 @@
     <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">print finish time:</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
     <span class="n">PrintIntArray</span><span class="p">(</span><span class="n">finish</span><span class="p">);</span>
 <span class="p">}</span>
-
 <span class="kt">void</span> <span class="n">Graph_SP</span><span class="o">::</span><span class="n">DFSVisit_TS</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">array</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">color</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">discover</span><span class="p">,</span> 
                            <span class="kt">int</span> <span class="o">*</span><span class="n">finish</span><span class="p">,</span> <span class="kt">int</span> <span class="n">vertex</span><span class="p">,</span> <span class="kt">int</span> <span class="o">&amp;</span><span class="n">time</span><span class="p">,</span> <span class="kt">int</span> <span class="o">&amp;</span><span class="n">count</span><span class="p">){</span>
 
@@ -294,8 +294,6 @@
     <span class="n">finish</span><span class="p">[</span><span class="n">vertex</span><span class="p">]</span> <span class="o">=</span> <span class="o">++</span><span class="n">time</span><span class="p">;</span>
     <span class="n">array</span><span class="p">[</span><span class="n">count</span><span class="o">--</span><span class="p">]</span> <span class="o">=</span> <span class="n">vertex</span><span class="p">;</span>            <span class="c1">// 產生Topological Sort</span>
 <span class="p">}</span>
-
-
 <span class="kt">void</span> <span class="n">Graph_SP</span><span class="o">::</span><span class="n">DAG_SP</span><span class="p">(</span><span class="kt">int</span> <span class="n">Start</span><span class="p">){</span>
 
     <span class="n">InitializeSingleSource</span><span class="p">(</span><span class="n">Start</span><span class="p">);</span>      <span class="c1">// distance[],predecessor[]的initialization</span>
