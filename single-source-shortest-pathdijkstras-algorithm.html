@@ -115,7 +115,7 @@
     <article>
         <p></br></p>
 <h3>先備知識與注意事項</h3>
-<p>本篇文章將介紹另一種解決Single-Source Shortest Path的方法：<strong>Dijkstra's Algorithm</strong>。<br />
+<p>本篇文章將介紹另一種處理Single-Source Shortest Path的方法：<strong>Dijkstra's Algorithm</strong>。<br />
 演算法的概念依然需要：</p>
 <ul>
 <li><strong>Relaxation</strong> </li>
@@ -127,7 +127,7 @@
 <ul>
 <li><code>ExtractMin()</code></li>
 <li><code>DecreaseKey()</code></li>
-<li><code>BuildMinHeap()</code>，亦可用<code>MinHeapInsert()</code>取代；</li>
+<li><code>MinHeapInsert()</code>，不過本文以<code>BuildMinHeap()</code>取代；</li>
 </ul>
 <p>若讀者需要稍作複習，請參考<a href="http://alrightchiu.github.io/SecondRound/priority-queueintrojian-jie-binary-heap.html">Priority Queue：Intro(簡介) &amp; Binary Heap</a>。</p>
 <hr />
@@ -166,8 +166,8 @@
 <p>如此便能得到從起點vertex抵達其餘vertex的最短路徑。</p>
 <p>演算法將使用兩項資料項目<code>predecessor[]</code>與<code>distance[]</code>，其功能如下：</p>
 <ul>
-<li><code>predecessor[]</code>：</li>
-<li><code>distance[]</code>：</li>
+<li><code>predecessor[]</code>：記錄vertex是被哪個vertex所找到，由<code>predecessor[]</code>可以還原出<strong>Predecessor Subgraph</strong>，也就是<strong>Shortest-Path Tree</strong>。</li>
+<li><code>distance[]</code>：記錄從起點vertex走到特定vertex的path之weight總和。</li>
 </ul>
 <p></br>
 以下以圖一(a)之Graph為例，以vertex(0)為起點，進行<strong>Dijkstra's Algorithm</strong>。</p>
@@ -399,7 +399,7 @@
 </pre></div>
 
 
-<p>最後，關於<strong>Dijkstra's Algorithm</strong>之時間複雜度，會因為Min-Priority Queue所使用的資料結構(例如，Binary Heap或是Fibonacci Heap)而有所差異，可能最差從<span class="math">\(O(V^2+E)\)</span>到最好<span class="math">\(O(V\logV+E)\)</span>，請參考以下連結之討論：</p>
+<p>最後，關於<strong>Dijkstra's Algorithm</strong>之時間複雜度，會因為Min-Priority Queue所使用的資料結構(例如，Binary Heap或是Fibonacci Heap)而有所差異，可能最差從<span class="math">\(O(V^2+E)\)</span>到最好<span class="math">\(O(V\log V+E)\)</span>，請參考以下連結之討論：</p>
 <ul>
 <li><a href="https://www.cs.bris.ac.uk/~montanar/teaching/dsa/dijkstra-handout.pdf">Ashley Montanaro：Priority queues and Dijkstra’s algorithm</a></li>
 <li><a href="http://www.personal.kent.edu/~rmuhamma/Algorithms/MyAlgorithms/GraphAlgor/dijkstraAlgor.htm">Rashid Bin Muhammad：Dijkstra's Algorithm</a></li>

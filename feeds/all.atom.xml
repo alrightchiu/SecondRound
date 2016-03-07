@@ -38,7 +38,7 @@
 &lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/priority-queueintrojian-jie-binary-heap.html"&gt;Priority Queue：Intro(簡介) &amp;amp; Binary Heap&lt;/a&gt;  &lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;</summary><category term="C++"></category></entry><entry><title>Single-Source Shortest Path：Dijkstra's Algorithm</title><link href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathdijkstras-algorithm.html" rel="alternate"></link><updated>2016-03-07T22:30:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-03-07:SecondRound/single-source-shortest-pathdijkstras-algorithm.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h3&gt;先備知識與注意事項&lt;/h3&gt;
-&lt;p&gt;本篇文章將介紹另一種解決Single-Source Shortest Path的方法：&lt;strong&gt;Dijkstra's Algorithm&lt;/strong&gt;。&lt;br /&gt;
+&lt;p&gt;本篇文章將介紹另一種處理Single-Source Shortest Path的方法：&lt;strong&gt;Dijkstra's Algorithm&lt;/strong&gt;。&lt;br /&gt;
 演算法的概念依然需要：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;Relaxation&lt;/strong&gt; &lt;/li&gt;
@@ -50,7 +50,7 @@
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;ExtractMin()&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;DecreaseKey()&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;BuildMinHeap()&lt;/code&gt;，亦可用&lt;code&gt;MinHeapInsert()&lt;/code&gt;取代；&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;MinHeapInsert()&lt;/code&gt;，不過本文以&lt;code&gt;BuildMinHeap()&lt;/code&gt;取代；&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;若讀者需要稍作複習，請參考&lt;a href="http://alrightchiu.github.io/SecondRound/priority-queueintrojian-jie-binary-heap.html"&gt;Priority Queue：Intro(簡介) &amp;amp; Binary Heap&lt;/a&gt;。&lt;/p&gt;
 &lt;hr /&gt;
@@ -89,8 +89,8 @@
 &lt;p&gt;如此便能得到從起點vertex抵達其餘vertex的最短路徑。&lt;/p&gt;
 &lt;p&gt;演算法將使用兩項資料項目&lt;code&gt;predecessor[]&lt;/code&gt;與&lt;code&gt;distance[]&lt;/code&gt;，其功能如下：&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;code&gt;predecessor[]&lt;/code&gt;：&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;distance[]&lt;/code&gt;：&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;predecessor[]&lt;/code&gt;：記錄vertex是被哪個vertex所找到，由&lt;code&gt;predecessor[]&lt;/code&gt;可以還原出&lt;strong&gt;Predecessor Subgraph&lt;/strong&gt;，也就是&lt;strong&gt;Shortest-Path Tree&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;distance[]&lt;/code&gt;：記錄從起點vertex走到特定vertex的path之weight總和。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;/br&gt;
 以下以圖一(a)之Graph為例，以vertex(0)為起點，進行&lt;strong&gt;Dijkstra's Algorithm&lt;/strong&gt;。&lt;/p&gt;
@@ -322,7 +322,7 @@
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;最後，關於&lt;strong&gt;Dijkstra's Algorithm&lt;/strong&gt;之時間複雜度，會因為Min-Priority Queue所使用的資料結構(例如，Binary Heap或是Fibonacci Heap)而有所差異，可能最差從&lt;span class="math"&gt;\(O(V^2+E)\)&lt;/span&gt;到最好&lt;span class="math"&gt;\(O(V\logV+E)\)&lt;/span&gt;，請參考以下連結之討論：&lt;/p&gt;
+&lt;p&gt;最後，關於&lt;strong&gt;Dijkstra's Algorithm&lt;/strong&gt;之時間複雜度，會因為Min-Priority Queue所使用的資料結構(例如，Binary Heap或是Fibonacci Heap)而有所差異，可能最差從&lt;span class="math"&gt;\(O(V^2+E)\)&lt;/span&gt;到最好&lt;span class="math"&gt;\(O(V\log V+E)\)&lt;/span&gt;，請參考以下連結之討論：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="https://www.cs.bris.ac.uk/~montanar/teaching/dsa/dijkstra-handout.pdf"&gt;Ashley Montanaro：Priority queues and Dijkstra’s algorithm&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://www.personal.kent.edu/~rmuhamma/Algorithms/MyAlgorithms/GraphAlgor/dijkstraAlgor.htm"&gt;Rashid Bin Muhammad：Dijkstra's Algorithm&lt;/a&gt;&lt;/li&gt;
