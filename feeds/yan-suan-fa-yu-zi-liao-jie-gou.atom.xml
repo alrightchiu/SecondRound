@@ -2113,7 +2113,7 @@
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;edgesetMST[]&lt;/code&gt;：用來收集所有MST中的edge，功能與&lt;a href="http://alrightchiu.github.io/SecondRound/minimum-spanning-treeintrojian-jie.html#theorem"&gt;Theorem1中的Set A&lt;/a&gt;相同。&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;subset[]&lt;/code&gt;：用來記錄&lt;code&gt;edgesetMST[]&lt;/code&gt;中的edge之兩端vertex所屬的集合，目的是用來判斷是否形成&lt;strong&gt;cycle&lt;/strong&gt;。&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;increaseWeight[]&lt;/code&gt;：把Graph中的edge按照weight由小到大排序，依序放進&lt;code&gt;increaseWeight[]&lt;/code&gt;。&lt;br /&gt;
+&lt;li&gt;&lt;code&gt;increaseWeight[]&lt;/code&gt;：把Graph中的edge按照weight由小到大排序，依序放進&lt;code&gt;increaseWeight[]&lt;/code&gt;，當演算法在「挑選edge」形成最短路徑時，便是按照「weight由小到大」之順序挑選。&lt;br /&gt;
 將圖二(a)的Graph之edge排序，可以得到如圖二(b)的&lt;code&gt;increaseWeight[]&lt;/code&gt;。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;center&gt;
@@ -2127,7 +2127,7 @@
 &lt;li&gt;&lt;span class="math"&gt;\(|-1|=1\)&lt;/span&gt;表示每個Set裡面只有一個element。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;得到如圖二(b)的&lt;code&gt;increaseWeight[]&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;從Graph中，按照「weight由小到大」之順序得到如圖二(b)的&lt;code&gt;increaseWeight[]&lt;/code&gt;。&lt;/li&gt;
 &lt;li&gt;此時&lt;code&gt;edgesetMST[]&lt;/code&gt;還是空集合。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;center&gt;
@@ -2135,7 +2135,7 @@
 &lt;p&gt;&lt;strong&gt;圖二(c)。&lt;/strong&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;接著開始進入「挑選edge」的迴圈。&lt;/p&gt;
-&lt;p&gt;首先，根據&lt;code&gt;increaseWeight[]&lt;/code&gt;，整個Graph中weight最小的edge是edge(1,4)，便利用&lt;code&gt;FindSetCollapsing()&lt;/code&gt;與&lt;code&gt;subset[]&lt;/code&gt;判斷vertex(1)與vertex(4)是否屬於同一個Set，如果不是的話，便執行：&lt;/p&gt;
+&lt;p&gt;首先，根據&lt;code&gt;increaseWeight[]&lt;/code&gt;(從index(&lt;span class="math"&gt;\(0\)&lt;/span&gt;)開始取得edge)，整個Graph中weight最小的edge是edge(1,4)，便利用&lt;code&gt;FindSetCollapsing()&lt;/code&gt;與&lt;code&gt;subset[]&lt;/code&gt;判斷vertex(1)與vertex(4)是否屬於同一個Set，如果不是的話，便執行：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;將edge(1,4)加入&lt;code&gt;edgesetMST[]&lt;/code&gt;，見圖二(d)；&lt;/li&gt;
 &lt;li&gt;並利用&lt;code&gt;UnionSet()&lt;/code&gt;將vertex(1)與vertex(4)合併成一個新的Set。&lt;ul&gt;
