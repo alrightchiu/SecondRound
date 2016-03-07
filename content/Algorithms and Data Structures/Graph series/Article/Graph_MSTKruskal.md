@@ -118,7 +118,7 @@ Set是不講求順序(order)的資料彙集(collection)，其資料結構可以�
 
 * `edgesetMST[]`：用來收集所有MST中的edge，功能與[Theorem1中的Set A](http://alrightchiu.github.io/SecondRound/minimum-spanning-treeintrojian-jie.html#theorem)相同。
 * `subset[]`：用來記錄`edgesetMST[]`中的edge之兩端vertex所屬的集合，目的是用來判斷是否形成**cycle**。
-* `increaseWeight[]`：把Graph中的edge按照weight由小到大排序，依序放進`increaseWeight[]`。  
+* `increaseWeight[]`：把Graph中的edge按照weight由小到大排序，依序放進`increaseWeight[]`，當演算法在「挑選edge」形成最短路徑時，便是按照「weight由小到大」之順序挑選。  
 將圖二(a)的Graph之edge排序，可以得到如圖二(b)的`increaseWeight[]`。
 
 <center>
@@ -132,7 +132,7 @@ Set是不講求順序(order)的資料彙集(collection)，其資料結構可以�
 * 先把Graph中的每一個vertex都視為各自獨立且互斥的集合(disjoint set)，也就是把`subset[]`的每一個元素都設為$-1$，如圖二(c)。
     * 負值表示每個vertex都是各自Set的root。
     * $|-1|=1$表示每個Set裡面只有一個element。
-* 得到如圖二(b)的`increaseWeight[]`。
+* 從Graph中，按照「weight由小到大」之順序得到如圖二(b)的`increaseWeight[]`。
 * 此時`edgesetMST[]`還是空集合。
 
 <center>
@@ -143,7 +143,7 @@ Set是不講求順序(order)的資料彙集(collection)，其資料結構可以�
 
 接著開始進入「挑選edge」的迴圈。
 
-首先，根據`increaseWeight[]`，整個Graph中weight最小的edge是edge(1,4)，便利用`FindSetCollapsing()`與`subset[]`判斷vertex(1)與vertex(4)是否屬於同一個Set，如果不是的話，便執行：
+首先，根據`increaseWeight[]`(從index($0$)開始取得edge)，整個Graph中weight最小的edge是edge(1,4)，便利用`FindSetCollapsing()`與`subset[]`判斷vertex(1)與vertex(4)是否屬於同一個Set，如果不是的話，便執行：
 
 * 將edge(1,4)加入`edgesetMST[]`，見圖二(d)；
 * 並利用`UnionSet()`將vertex(1)與vertex(4)合併成一個新的Set。
