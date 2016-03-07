@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="zh-hant">
+
+<head>
+            <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+
+        <title>Single-Source Shortest Path：Dijkstra's Algorithm</title>
+
+            <link href="http://alrightchiu.github.io/SecondRound/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Second Round Full Atom Feed" />
+            <link href="http://alrightchiu.github.io/SecondRound/feeds/yan-suan-fa-yu-zi-liao-jie-gou.atom.xml" type="application/atom+xml" rel="alternate" title="Second Round Categories Atom Feed" />
+
+        <!-- Bootstrap Core CSS -->
+        <link href="http://alrightchiu.github.io/SecondRound/theme/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="http://alrightchiu.github.io/SecondRound/theme/css/clean-blog.min.css" rel="stylesheet">
+
+        <!-- Code highlight color scheme -->
+            <link href="http://alrightchiu.github.io/SecondRound/theme/css/code_blocks/darkly.css" rel="stylesheet">
+
+
+        <!-- Custom Fonts -->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+
+
+
+        <meta name="tags" contents="C++" />
+        <meta name="tags" contents="Graph" />
+        <meta name="tags" contents="Shortest Path" />
+        <meta name="tags" contents="Relaxation" />
+        <meta name="tags" contents="Priority Queue" />
+        <meta name="tags" contents="Greedy Algorithm" />
+
+
+	                <meta property="og:locale" content="">
+		<meta property="og:site_name" content="Second Round">
+
+	<meta property="og:type" content="article">
+	<meta property="article:author" content="">
+	<meta property="og:url" content="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathdijkstras-algorithm.html">
+	<meta property="og:title" content="Single-Source Shortest Path：Dijkstra's Algorithm">
+	<meta property="og:description" content="">
+	<meta property="og:image" content="http://alrightchiu.github.io/SecondRound/">
+	<meta property="article:published_time" content="2016-03-07 22:30:00+08:00">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://alrightchiu.github.io/SecondRound/">Second Round</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a href="http://alrightchiu.github.io/SecondRound/archives.html">Archives</a></li>
+                        <li><a href="http://alrightchiu.github.io/SecondRound/tags.html">Tags</a></li>
+
+                            <li><a href="http://alrightchiu.github.io/SecondRound/pages/about.html">About</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+        <header class="intro-header" style="background-image: url('http://alrightchiu.github.io/SecondRound/theme/images/post-bg.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>Single-Source Shortest Path：Dijkstra's Algorithm</h1>
+                        <span class="meta">Posted by
+                                <a href="http://alrightchiu.github.io/SecondRound/author/chiu-cc.html">Chiu CC</a>
+                             on  3 07, 2016
+                        </span>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    <!-- Post Content -->
+    <article>
+        <p></br></p>
+<h3>先備知識與注意事項</h3>
+<p>本篇文章將介紹另一種解決Single-Source Shortest Path的方法：<strong>Dijkstra's Algorithm</strong>。<br />
+演算法的概念依然需要：</p>
+<ul>
+<li><strong>Relaxation</strong> </li>
+<li><strong>Convergence property</strong></li>
+<li><strong>Path-relaxation property</strong></li>
+</ul>
+<p>若有疑惑，<a href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathintrojian-jie.html#relax">傳送門在這裏</a>。</p>
+<p>在演算法中，將會使用到<strong>Min-Priority Queue</strong>，包含三個基本操作(operation)：</p>
+<ul>
+<li><code>ExtractMin()</code></li>
+<li><code>DecreaseKey()</code></li>
+<li><code>BuildMinHeap()</code>，亦可用<code>MinHeapInsert()</code>取代；</li>
+</ul>
+<p>若讀者需要稍作複習，請參考<a href="http://alrightchiu.github.io/SecondRound/priority-queueintrojian-jie-binary-heap.html">Priority Queue：Intro(簡介) &amp; Binary Heap</a>。</p>
+<hr />
+<h2>目錄</h2>
+<ul>
+<li><a href="#dijkstra">Dijkstra's Algorithm</a></li>
+<li><a href="#code">程式碼</a></li>
+<li><a href="#ref">參考資料</a></li>
+<li><a href="#series">Shortest Path系列文章</a></li>
+</ul>
+<p></br></p>
+<p><a name="dijkstra"></a></p>
+<h2>Dijkstra's Algorithm</h2>
+<p>若某一directed graph中，所有edge的weight皆為<strong>非負實數</strong>(<span class="math">\(weight\geq 0\)</span>)，如圖一(a)，便能夠使用<strong>Dijkstra's Algorithm</strong>處理這個directed graph上的Single-Source Shortest Path問題。</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_Dijkstra/f1.png?raw=true" /></p>
+<p><strong>圖一(a)。</strong>
+</center></p>
+<p><strong>Dijkstra's Algorithm</strong>是一種「每次挑選當前最佳選擇(optimal solution)」的<strong>Greedy Algorithm</strong>：</p>
+<ol>
+<li>把vertex分成兩個集合，其中一個集合「<strong>S</strong>」中的vertex屬於「已經找到從起點vertex出發至該vertex的最短路徑」，另一個集合「<strong>Q</strong>」中的vertex則還沒有。<ul>
+<li>非常重要：這裡的<strong>Q</strong>就是<strong>Min-Priority Queue</strong>，其中每一個<strong>HeapNode</strong>的<code>element</code>即為「vertex的index」，<code>key</code>即為「vertex的<code>distance</code>」，表示從起點走到該vertex的path成本。 </li>
+</ul>
+</li>
+<li>對所有vertex的<code>predecessor</code>與<code>distance</code>進行初始化(見圖一(b))，並更新起點vertex之<code>distance</code>為<span class="math">\(0\)</span>；</li>
+<li>若Graph中有<span class="math">\(V\)</span>個vertex，便執行<span class="math">\(V\)</span>次迴圈。  </li>
+<li>在每一個迴圈的開始，從<strong>Q</strong>中挑選出「<code>distance</code>值最小」的vertex，表示已經找到「從起點vertex抵達該vertex之最短距離」，並將該vertex從<strong>Q</strong>中移除，放進<strong>S</strong>集合。<ul>
+<li>利用<code>ExtractMin()</code>挑選「<code>distance</code>值最小」的vertex，即為<strong>Greedy Algorithm</strong>概念。 </li>
+</ul>
+</li>
+<li>每一次迴圈都會藉由<code>Relax()</code>更新「從起點vertex到達<strong>仍屬於Q集合</strong>的vertex之path距離」，並將path距離存放於<code>distance[]</code>。並且利用<code>DecreaseKey()</code>更新<strong>Q</strong>中vertex的<strong>Key</strong>(也就是<code>distance</code>)。<br />
+步驟四與步驟五為完整的一次迴圈。</li>
+<li>進到下一個迴圈時，會繼續從<strong>Q</strong>中挑選出「<code>distance</code>最小」的vertex，放進<strong>S</strong>。</li>
+<li>重複上述步驟，直到<strong>Q</strong>中的vertex都被放進<strong>S</strong>為止。  </li>
+</ol>
+<p>如此便能得到從起點vertex抵達其餘vertex的最短路徑。</p>
+<p>演算法將使用兩項資料項目<code>predecessor[]</code>與<code>distance[]</code>，其功能如下：</p>
+<ul>
+<li><code>predecessor[]</code>：</li>
+<li><code>distance[]</code>：</li>
+</ul>
+<p></br>
+以下以圖一(a)之Graph為例，以vertex(0)為起點，進行<strong>Dijkstra's Algorithm</strong>。</p>
+<p>首先，對<code>predecessor[]</code>和<code>distance[]</code>進行初始化：</p>
+<ul>
+<li>所有vertex的<code>predecessor[]</code>先設為<span class="math">\(-1\)</span>。<ul>
+<li>若到演算法結束時，vertex(X)之<code>predecessor[X]</code>仍等於<span class="math">\(-1\)</span>，表示從起點vertex走不到vertex(X)。</li>
+</ul>
+</li>
+<li>所有vertex的<code>distance[]</code>先設為「無限大(<span class="math">\(\infty\)</span>)」。<ul>
+<li>若在演算法結束時，<code>distance[]</code>仍為「無限大(<span class="math">\(\infty\)</span>)」，表示，從起點vertex走不到vertex(X)。</li>
+</ul>
+</li>
+<li>把起點vertex(0)之<code>distance[0]</code>設為<span class="math">\(0\)</span>，如此一來，當挑選Min-Priority Queue中，<code>distance[]</code>值最小的vertex，進行路徑探索時，就會從vertex(0)開始。</li>
+</ul>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_Dijkstra/f2.png?raw=true" /></p>
+<p><strong>圖一(b)。</strong>
+</center></p>
+<p>接著便進入演算法的主要迴圈，包含兩個步驟：</p>
+<ol>
+<li><code>ExtractMin()</code>：從Min-Priority Queue，也就是<strong>Q</strong>中，選出<code>distance</code>最小的vertex，並將其從<strong>Q</strong>中移除。</li>
+<li><code>Relax()</code>以及<code>DecreaseKey()</code>：對選出的vertex所連結的edge進行<code>Relax()</code>，更新<code>distance</code>與<code>predecessor</code>，並同步更新<strong>Q</strong>。</li>
+</ol>
+<p><strong>第一次迴圈：</strong></p>
+<p>從<strong>Q</strong>中以<code>ExtractMin()</code>，取得目前<code>distance</code>值最小的vertex：起點vertex(0)。<br />
+建立一個變數<code>int u</code>記住vertex(0)，並將vertex(0)從<strong>Q</strong>移除，表示已經找到從起點vertex走到vertex(0)的最短路徑，見圖二(a)。</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_Dijkstra/f3.png?raw=true" /></p>
+<p><strong>圖二(a)。</strong>
+</center></p>
+<p>接著，以vertex(0)為探索起點，尋找所有「從vertex(0)指出去」的edge，進行：</p>
+<ul>
+<li><code>Relax()</code>：以圖二(b)為例，從vertex(0)能夠走到vertex(1)、vertex(5)，便利用<code>Relax()</code>更新從起點vertex，經過vertex(0)後抵達vertex(1)、vertex(5)的path之weight總和，存放進<code>distance[]</code>，同時更新<code>predecessor[]</code>。<ul>
+<li>vertex(1)能夠從vertex(0)以成本「<span class="math">\(8\)</span>」走到，比原先的「無限大(<span class="math">\(\infty\)</span>)」成本要低，因此，更新：<ul>
+<li><code>distance[1]=distance[0]+weight(0,1)</code>；</li>
+<li><code>predecessor[1]=0</code>。</li>
+</ul>
+</li>
+<li>對vertex(5)比照辦理。</li>
+</ul>
+</li>
+<li><code>DecreaseKey()</code>：在更新<code>distance[]</code>之後，也要同步更新<strong>Q</strong>中HeapNode的資料，也就是有被<code>Relax()</code>的vertex之<code>distance</code>。</li>
+</ul>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_Dijkstra/f4.png?raw=true" /></p>
+<p><strong>圖二(b)。</strong>
+</center></p>
+<p></br>
+<strong>第二次迴圈：</strong></p>
+<p>繼續從<strong>Q</strong>中選出<code>distance</code>最小的vertex(5)，並將vertex(5)從<strong>Q</strong>中移除，表示已經找到「從起點vertex(0)走到vertex(5)」的最短距離，如圖三(a)。</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_Dijkstra/f5.png?raw=true" /></p>
+<p><strong>圖三(a)。</strong>
+</center></p>
+<p>關鍵是，為什麼從<strong>Q</strong>中挑選<code>distance</code>最小的vertex(X)，就能肯定已經找到「從起點vertex走到vertex(X)之最短路徑」，<code>distance[X]</code><span class="math">\(=\delta(0,X)\)</span>？</p>
+<p>這裡不進行嚴謹證明(請參考：<a href="https://www.cs.bris.ac.uk/~montanar/teaching/dsa/dijkstra-handout.pdf">Ashley Montanaro：Priority queues and Dijkstra’s algorithm</a>)，只就基本條件推論。</p>
+<p>前面提到，<strong>Dijkstra's Algorithm</strong>的使用時機是，當Graph中的weight皆為非負實數(<span class="math">\(weight\geq 0\)</span>)，因此：</p>
+<ul>
+<li>Graph中的所有<strong>cycle</strong>之wieght總和必定是正值(positive value)；</li>
+<li>亦即，路徑中的edge越多，其weight總和只會增加或持平，不可能減少。</li>
+</ul>
+<p>那麼再看圖三(a)，從vertex(0)走到vertex(5)有兩個選擇：</p>
+<ol>
+<li>一個是經過edge(0,5)，成本為<span class="math">\(1\)</span>；</li>
+<li>另一個是經過edge(0,1)，再經過其他vertex(例如，<span class="math">\(Path:0-1-2-3-5\)</span>)，最後抵達vertex(5)，由於edge(0,1)之weight已經是<span class="math">\(8\)</span>，可以確定的是，經過edge(0,1)的這條path之weight總和必定大於<span class="math">\(8\)</span>。</li>
+</ol>
+<p>顯然，直接經過edge(0,5)會是從vertex(0)走到vertex(5)最短的路徑。  </p>
+<p>更廣義地說，從<strong>Q</strong>中挑選<code>distance</code>最小之vertex，並將其從<strong>Q</strong>中移除，必定表示，已經找到從起點vertex走到該vertex之最短路徑。</p>
+<p></br>
+接著，重複上述步驟：</p>
+<ul>
+<li><code>Relax()</code>：對所有「從vertex(5)指出去」的edge進行<strong>Relaxation</strong>。</li>
+<li><code>DecreaseKey()</code>：同步更新<strong>Q</strong>中的vertex之<code>distance[]</code>。</li>
+</ul>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_Dijkstra/f6.png?raw=true" /></p>
+<p><strong>圖三(b)。</strong>
+</center></p>
+<p>接下來，第三次迴圈至第六次迴圈(直到<strong>Q</strong>中的vertex都被移除)的步驟如上述，見圖四(a)-圖七(a)。</p>
+<p><strong>第三次迴圈：</strong></p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_Dijkstra/f7.png?raw=true" /></p>
+<p><strong>圖四(a)。</strong>
+</center></p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_Dijkstra/f8.png?raw=true" /></p>
+<p><strong>圖四(b)。</strong>
+</center></p>
+<p><strong>第四次迴圈：</strong></p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_Dijkstra/f9.png?raw=true" /></p>
+<p><strong>圖五(a)。</strong>
+</center></p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_Dijkstra/f10.png?raw=true" /></p>
+<p><strong>圖五(b)。</strong>
+</center></p>
+<p><strong>第五次迴圈：</strong></p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_Dijkstra/f11.png?raw=true" /></p>
+<p><strong>圖六(a)。</strong>
+</center></p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_Dijkstra/f12.png?raw=true" /></p>
+<p><strong>圖六(b)。</strong>
+</center></p>
+<p><strong>第六次迴圈：</strong></p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_Dijkstra/f13.png?raw=true" /></p>
+<p><strong>圖七(a)。</strong>
+</center></p>
+<p>圖七(a)便是從vertex(0)走到Graph中其餘vertex之最短路徑<strong>Predecessor Subgraph</strong>。</p>
+<p></br></p>
+<p><a name="code"></a></p>
+<h2>程式碼</h2>
+<p>程式碼包含幾個部分：</p>
+<p><code>class BinaryHeap</code>與<code>struct HeapNode</code>：以Binary Heap實現Min-Priority Queue，概念與範例程式碼請參考<a href="http://alrightchiu.github.io/SecondRound/priority-queueintrojian-jie-binary-heap.html">Priority Queue：Intro(簡介) &amp; Binary Heap</a>。</p>
+<p><code>class Graph_SP</code>：</p>
+<ul>
+<li>基本的資料項目：<code>AdjList</code>、<code>num_vertex</code>、<code>predecessor</code>、<code>distance</code>。</li>
+<li><code>Relax()</code>、<code>InitializeSingleSource()</code>之功能與<strong>Bellman-Ford Algorithm</strong>所使用相同。</li>
+<li><code>Dijkstra()</code>：功能如前一小節所述。</li>
+<li>把<code>class BinaryHeap</code>設為<code>class Graph_SP</code>的「<strong>friend</strong>」，才能夠把<code>distance[]</code>放進Min Heap中。</li>
+</ul>
+<p>以及<code>main()</code>：建立如圖一(a)之<code>AdjList</code>，並進行<code>Dijkstra()</code>。</p>
+<div class="highlight"><pre><span class="c1">// C++ code</span>
+<span class="cp">#include &lt;iostream&gt;</span>
+<span class="cp">#include &lt;vector&gt;</span>
+<span class="cp">#include &lt;list&gt;</span>
+<span class="cp">#include &lt;utility&gt;          </span><span class="c1">// for std::pair&lt;&gt;</span>
+<span class="cp">#include &lt;iomanip&gt;          </span><span class="c1">// for std::setw()</span>
+<span class="cp">#include &lt;cmath&gt;            </span><span class="c1">// for std::floor</span>
+
+<span class="k">struct</span> <span class="n">HeapNode</span><span class="p">{</span>
+    <span class="kt">int</span> <span class="n">element</span><span class="p">,</span> <span class="n">key</span><span class="p">;</span>               <span class="c1">// element代表vertex, key代表distance</span>
+    <span class="n">HeapNode</span><span class="p">()</span><span class="o">:</span><span class="n">element</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="n">key</span><span class="p">(</span><span class="mi">0</span><span class="p">){};</span>
+    <span class="n">HeapNode</span><span class="p">(</span><span class="kt">int</span> <span class="n">node</span><span class="p">,</span> <span class="kt">int</span> <span class="n">key</span><span class="p">)</span><span class="o">:</span><span class="n">element</span><span class="p">(</span><span class="n">node</span><span class="p">),</span> <span class="n">key</span><span class="p">(</span><span class="n">key</span><span class="p">){};</span>
+<span class="p">};</span>
+<span class="k">class</span> <span class="nc">BinaryHeap</span><span class="p">{</span>
+<span class="k">private</span><span class="o">:</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">HeapNode</span><span class="o">&gt;</span> <span class="n">heap</span><span class="p">;</span>            <span class="c1">// 存放HeapNode之vertex及distance的矩陣</span>
+    <span class="kt">void</span> <span class="nf">swap</span><span class="p">(</span><span class="k">struct</span> <span class="n">HeapNode</span> <span class="o">&amp;</span><span class="n">p1</span><span class="p">,</span> <span class="k">struct</span> <span class="n">HeapNode</span> <span class="o">&amp;</span><span class="n">p2</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="nf">FindPosition</span><span class="p">(</span><span class="kt">int</span> <span class="n">node</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="nf">GetParentNode</span><span class="p">(</span><span class="kt">int</span> <span class="n">node</span><span class="p">){</span><span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">floor</span><span class="p">(</span><span class="n">node</span><span class="o">/</span><span class="mi">2</span><span class="p">);};</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">BinaryHeap</span><span class="p">(){</span><span class="n">heap</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="mi">1</span><span class="p">);};</span>
+    <span class="n">BinaryHeap</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">){</span><span class="n">heap</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);}</span>          
+    <span class="kt">bool</span> <span class="n">IsHeapEmpty</span><span class="p">(){</span><span class="k">return</span> <span class="p">(</span><span class="n">heap</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">&lt;</span><span class="mi">1</span><span class="p">);};</span>
+
+    <span class="c1">// Min-Priority Queue</span>
+    <span class="kt">void</span> <span class="nf">MinHeapify</span><span class="p">(</span><span class="kt">int</span> <span class="n">node</span><span class="p">,</span> <span class="kt">int</span> <span class="n">length</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="nf">BuildMinHeap</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">array</span><span class="p">);</span>                               
+    <span class="kt">void</span> <span class="nf">DecreaseKey</span><span class="p">(</span><span class="kt">int</span> <span class="n">node</span><span class="p">,</span> <span class="kt">int</span> <span class="n">newKey</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="nf">MinHeapInsert</span><span class="p">(</span><span class="kt">int</span> <span class="n">node</span><span class="p">,</span> <span class="kt">int</span> <span class="n">key</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="nf">Minimum</span><span class="p">();</span>         
+    <span class="kt">int</span> <span class="nf">ExtractMin</span><span class="p">();</span>
+<span class="p">};</span>
+
+<span class="k">const</span> <span class="kt">int</span> <span class="n">Max_Distance</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
+<span class="k">class</span> <span class="nc">Graph_SP</span><span class="p">{</span>             <span class="c1">// SP serves as Shortest Path</span>
+<span class="k">private</span><span class="o">:</span>
+    <span class="kt">int</span> <span class="n">num_vertex</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">list</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;&gt;&gt;</span> <span class="n">AdjList</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">predecessor</span><span class="p">,</span> <span class="n">distance</span><span class="p">;</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">Graph_SP</span><span class="p">()</span><span class="o">:</span><span class="n">num_vertex</span><span class="p">(</span><span class="mi">0</span><span class="p">){};</span>
+    <span class="n">Graph_SP</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span><span class="o">:</span><span class="n">num_vertex</span><span class="p">(</span><span class="n">n</span><span class="p">){</span>
+        <span class="n">AdjList</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">num_vertex</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="kt">void</span> <span class="n">AddEdge</span><span class="p">(</span><span class="kt">int</span> <span class="n">from</span><span class="p">,</span> <span class="kt">int</span> <span class="n">to</span><span class="p">,</span> <span class="kt">int</span> <span class="n">weight</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="nf">PrintDataArray</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">array</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="nf">PrintIntArray</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">array</span><span class="p">);</span>
+
+    <span class="kt">void</span> <span class="nf">InitializeSingleSource</span><span class="p">(</span><span class="kt">int</span> <span class="n">Start</span><span class="p">);</span>     <span class="c1">// 以Start作為起點</span>
+    <span class="kt">void</span> <span class="nf">Relax</span><span class="p">(</span><span class="kt">int</span> <span class="n">X</span><span class="p">,</span> <span class="kt">int</span> <span class="n">Y</span><span class="p">,</span> <span class="kt">int</span> <span class="n">weight</span><span class="p">);</span>       <span class="c1">// edge方向：from X to Y</span>
+
+    <span class="kt">void</span> <span class="nf">Dijkstra</span><span class="p">(</span><span class="kt">int</span> <span class="n">Start</span> <span class="o">=</span> <span class="mi">0</span><span class="p">);</span>        <span class="c1">// 需要Min-Priority Queue</span>
+    <span class="k">friend</span> <span class="k">class</span> <span class="nc">BinaryHeap</span><span class="p">;</span>             <span class="c1">// 以Binary Heap實現Min-Priority Queue</span>
+<span class="p">};</span>
+<span class="kt">void</span> <span class="n">Graph_SP</span><span class="o">::</span><span class="n">Dijkstra</span><span class="p">(</span><span class="kt">int</span> <span class="n">Start</span><span class="p">){</span>
+
+    <span class="n">InitializeSingleSource</span><span class="p">(</span><span class="n">Start</span><span class="p">);</span>
+
+    <span class="n">BinaryHeap</span> <span class="nf">minQueue</span><span class="p">(</span><span class="n">num_vertex</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>   <span class="c1">// object of min queue</span>
+    <span class="n">minQueue</span><span class="p">.</span><span class="n">BuildMinHeap</span><span class="p">(</span><span class="n">distance</span><span class="p">);</span>
+
+    <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">minQueue</span><span class="p">.</span><span class="n">IsHeapEmpty</span><span class="p">())</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">u</span> <span class="o">=</span> <span class="n">minQueue</span><span class="p">.</span><span class="n">ExtractMin</span><span class="p">();</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">list</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;&gt;::</span><span class="n">iterator</span> <span class="n">itr</span> <span class="o">=</span> <span class="n">AdjList</span><span class="p">[</span><span class="n">u</span><span class="p">].</span><span class="n">begin</span><span class="p">();</span>
+             <span class="n">itr</span> <span class="o">!=</span> <span class="n">AdjList</span><span class="p">[</span><span class="n">u</span><span class="p">].</span><span class="n">end</span><span class="p">();</span> <span class="n">itr</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">Relax</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="p">(</span><span class="o">*</span><span class="n">itr</span><span class="p">).</span><span class="n">first</span><span class="p">,</span> <span class="p">(</span><span class="o">*</span><span class="n">itr</span><span class="p">).</span><span class="n">second</span><span class="p">);</span>
+            <span class="n">minQueue</span><span class="p">.</span><span class="n">DecreaseKey</span><span class="p">((</span><span class="o">*</span><span class="n">itr</span><span class="p">).</span><span class="n">first</span><span class="p">,</span> <span class="n">distance</span><span class="p">[(</span><span class="o">*</span><span class="n">itr</span><span class="p">).</span><span class="n">first</span><span class="p">]);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">print predecessor:</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">PrintDataArray</span><span class="p">(</span><span class="n">predecessor</span><span class="p">);</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">print distance:</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">PrintDataArray</span><span class="p">(</span><span class="n">distance</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+
+    <span class="n">Graph_SP</span> <span class="n">g9</span><span class="p">(</span><span class="mi">6</span><span class="p">);</span>
+    <span class="n">g9</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">);</span><span class="n">g9</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="n">g9</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span><span class="n">g9</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="n">g9</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span><span class="n">g9</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span><span class="n">g9</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+    <span class="n">g9</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span><span class="n">g9</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">);</span><span class="n">g9</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">);</span><span class="n">g9</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+    <span class="n">g9</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span><span class="n">g9</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">);</span>
+
+    <span class="n">g9</span><span class="p">.</span><span class="n">Dijkstra</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>output:</p>
+<div class="highlight"><pre><span class="k">new</span> <span class="n">key</span> <span class="n">is</span> <span class="n">larger</span> <span class="n">than</span> <span class="n">current</span> <span class="n">key</span>
+<span class="k">new</span> <span class="n">key</span> <span class="n">is</span> <span class="n">larger</span> <span class="n">than</span> <span class="n">current</span> <span class="n">key</span>
+
+<span class="n">print</span> <span class="nl">predecessor</span><span class="p">:</span>
+   <span class="mi">0</span>   <span class="mi">1</span>   <span class="mi">2</span>   <span class="mi">3</span>   <span class="mi">4</span>   <span class="mi">5</span>
+  <span class="o">-</span><span class="mi">1</span>   <span class="mi">3</span>   <span class="mi">1</span>   <span class="mi">5</span>   <span class="mi">5</span>   <span class="mi">0</span>
+
+<span class="n">print</span> <span class="nl">distance</span><span class="p">:</span>
+   <span class="mi">0</span>   <span class="mi">1</span>   <span class="mi">2</span>   <span class="mi">3</span>   <span class="mi">4</span>   <span class="mi">5</span>
+   <span class="mi">0</span>   <span class="mi">7</span>   <span class="mi">8</span>   <span class="mi">3</span>   <span class="mi">9</span>   <span class="mi">1</span>
+</pre></div>
+
+
+<p>最後，關於<strong>Dijkstra's Algorithm</strong>之時間複雜度，會因為Min-Priority Queue所使用的資料結構(例如，Binary Heap或是Fibonacci Heap)而有所差異，可能最差從<span class="math">\(O(V^2+E)\)</span>到最好<span class="math">\(O(V\logV+E)\)</span>，請參考以下連結之討論：</p>
+<ul>
+<li><a href="https://www.cs.bris.ac.uk/~montanar/teaching/dsa/dijkstra-handout.pdf">Ashley Montanaro：Priority queues and Dijkstra’s algorithm</a></li>
+<li><a href="http://www.personal.kent.edu/~rmuhamma/Algorithms/MyAlgorithms/GraphAlgor/dijkstraAlgor.htm">Rashid Bin Muhammad：Dijkstra's Algorithm</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Dijkstra's_algorithm">Wikipedia：Dijkstra's algorithm</a></li>
+</ul>
+<p></br>  </p>
+<p>以上便是<strong>Dijkstra's Algorithm</strong>之介紹。  </p>
+<p>讀者不妨嘗試比較<strong>Dijkstra's Algorithm</strong>與<strong>Bellman-Ford Algorithm</strong>之差異，一般情況下，<strong>Dijkstra's Algorithm</strong>應該會較有效率，不過限制是Graph之weight必須是非負實數，若遇到weight為負數時，仍需使用<strong>Bellman-Ford Algorithm</strong>。</p>
+<p></br></p>
+<hr />
+<p><a name="ref"></a></p>
+<h3>參考資料：</h3>
+<ul>
+<li><a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844">Introduction to Algorithms, Ch24</a> </li>
+<li><a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376">Fundamentals of Data Structures in C++, Ch6</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Dijkstra's_algorithm">Wikipedia：Dijkstra's algorithm</a></li>
+<li><a href="http://alrightchiu.github.io/SecondRound/priority-queueintrojian-jie-binary-heap.html">Priority Queue：Intro(簡介) &amp; Binary Heap</a></li>
+<li><a href="https://www.cs.bris.ac.uk/~montanar/teaching/dsa/dijkstra-handout.pdf">Ashley Montanaro：Priority queues and Dijkstra’s algorithm</a></li>
+<li><a href="http://www.personal.kent.edu/~rmuhamma/Algorithms/MyAlgorithms/GraphAlgor/dijkstraAlgor.htm">Rashid Bin Muhammad：Dijkstra's Algorithm</a></li>
+</ul>
+<p><a name="series"></a></p>
+<p></br></p>
+<h3>Shortest Path系列文章</h3>
+<p><a href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathintrojian-jie.html">Single-Source Shortest Path：Intro(簡介)</a><br />
+<a href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathbellman-ford-algorithm.html">Single-Source Shortest Path：Bellman-Ford Algorithm</a><br />
+<a href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathon-dagdirected-acyclic-graph.html">Single-Source Shortest Path：on DAG(directed acyclic graph)</a>  </p>
+<p>回到目錄：</p>
+<p><a href="http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html">目錄：演算法與資料結構</a></p>
+<p></br></p>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' && location_protocol !== 'https') location_protocol = 'https:';
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+    </article>
+
+        <div class="tags">
+            <p>tags: <a href="http://alrightchiu.github.io/SecondRound/tag/c.html">C++</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/graph.html">Graph</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/shortest-path.html">Shortest Path</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/relaxation.html">Relaxation</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/priority-queue.html">Priority Queue</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/greedy-algorithm.html">Greedy Algorithm</a>, </p>
+        </div>
+
+<hr>
+<div class="sharing">
+</div>
+    <hr>
+
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                            <li>
+                                <a href="https://github.com/alrightchiu">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                    </ul>
+<p class="copyright text-muted">
+    Blog powered by <a href="http://getpelican.com">Pelican</a>,
+    which takes great advantage of <a href="http://python.org">Python</a>.
+</p>                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="http://alrightchiu.github.io/SecondRound/theme/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="http://alrightchiu.github.io/SecondRound/theme/js/bootstrap.min.js"></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script src="http://alrightchiu.github.io/SecondRound/theme/js/clean-blog.min.js"></script>
+
+</body>
+
+</html>
