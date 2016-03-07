@@ -144,7 +144,7 @@ Summary: 介紹Bellman-Ford Algorithm。
 
 對第四、五條edge(2,4)、edge(2,5)進行`Relax()`，見圖三(c)：
 
-* 由於`distance[4]`小於「從vertex()走過去的成本(`distance[2]+w(2,4)`)，因此，仍維持從vertex(1)走到vertex(4)之路徑。
+* 由於`distance[4]`小於「從vertex(2)走過去的成本(`distance[2]+w(2,4)`)，因此，仍維持從vertex(1)走到vertex(4)之路徑。
 * 而`distance[5]`大於`distance[2]+w(2,5)`，因此更新：
     * `distance[5]=distance[2]+w(2,5)`；
     * `predecessor[5]=2`；

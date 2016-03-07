@@ -167,7 +167,7 @@ struct HeapNode{
 // C++ code
 class BinaryHeap{
 private:
-    std::vector<HeapNode> heap;
+    std::vector<HeapNode> heap;        // 存放HeapNode資料的矩陣
     void swap(struct HeapNode &p1, struct HeapNode &p2);
     int FindPosition(int node);
     int GetParentNode(int node){return std::floor(node/2);};
