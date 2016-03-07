@@ -1562,7 +1562,7 @@
 &lt;/ul&gt;
 &lt;p&gt;&lt;a name="upper-bound"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h3&gt;Upper-Bound property&lt;/h3&gt;
-&lt;p&gt;一旦從vertex(S)抵達vertex(X)之path已經更新至最短路徑&lt;span class="math"&gt;\(\delta(S,X)\)&lt;/span&gt;，那麼&lt;code&gt;distance[X]&lt;/code&gt;就不會再更新了。&lt;/p&gt;
+&lt;p&gt;一旦從vertex(S)抵達vertex(X)之path已經更新至最短路徑&lt;span class="math"&gt;\(\delta(S,X)\)&lt;/span&gt;，那麼&lt;code&gt;distance[X]&lt;/code&gt;將不再更新，保持&lt;code&gt;distance[X]&lt;/code&gt;&lt;span class="math"&gt;\(=\delta(S,X)\)&lt;/span&gt;至演算法程序結束。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;觀察&lt;code&gt;Relax()&lt;/code&gt;的&lt;code&gt;if&lt;/code&gt;條件式，若新的path之weight比原有的path之weight還大，就不更新&lt;code&gt;distance&lt;/code&gt;與&lt;code&gt;predecessor&lt;/code&gt;。&lt;/li&gt;
 &lt;/ul&gt;

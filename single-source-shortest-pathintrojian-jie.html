@@ -301,7 +301,7 @@
 </ul>
 <p><a name="upper-bound"></a></p>
 <h3>Upper-Bound property</h3>
-<p>一旦從vertex(S)抵達vertex(X)之path已經更新至最短路徑<span class="math">\(\delta(S,X)\)</span>，那麼<code>distance[X]</code>就不會再更新了。</p>
+<p>一旦從vertex(S)抵達vertex(X)之path已經更新至最短路徑<span class="math">\(\delta(S,X)\)</span>，那麼<code>distance[X]</code>將不再更新，保持<code>distance[X]</code><span class="math">\(=\delta(S,X)\)</span>至演算法程序結束。</p>
 <ul>
 <li>觀察<code>Relax()</code>的<code>if</code>條件式，若新的path之weight比原有的path之weight還大，就不更新<code>distance</code>與<code>predecessor</code>。</li>
 </ul>
