@@ -336,12 +336,12 @@ void Graph_SP::Relax(int from, int to, int weight){
 ||有positive cycle&nbsp;&nbsp;&nbsp;&nbsp;|沒有positive cycle&nbsp;&nbsp;&nbsp;&nbsp;|
 |---|---|---|
 |**有negative weight**&nbsp;&nbsp;&nbsp;|&nbsp;Bellman-Ford&nbsp;&nbsp;|&nbsp;on DAG&nbsp;|
-|**沒有negative weight**&nbsp;&nbsp;&nbsp;|&nbsp;Dijkstra&nbsp;&nbsp;|&nbsp;All three&nbsp;|
+|**沒有negative weight**&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;Dijkstra&nbsp;&nbsp;|&nbsp;All three&nbsp;|
 
 **表一：三種演算法之使用情境比較**
 
 
-|Bellman-Ford&nbsp;&nbsp;|&nbsp;&nbsp;on DAG&nbsp;&nbsp;|&nbsp;&nbsp;Dijkstra(worse)&nbsp;&nbsp;|&nbsp;&nbsp;Dijkstra(better)|
+|Bellman-Ford&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;on DAG&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;Dijkstra(worse)&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;Dijkstra(better)|
 |---|---|---|---|
 |$O(VE)$&nbsp;|&nbsp;&nbsp;$O(V+E)$&nbsp;&nbsp;|&nbsp;&nbsp;$O(V^2+E)$&nbsp;&nbsp;|&nbsp;&nbsp;$O(V\log V+E)$&nbsp;&nbsp;|
 
