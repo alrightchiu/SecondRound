@@ -49,7 +49,7 @@ Summary: 介紹於Graph中，以單一Vertex作為起點，抵達其餘Vertex之
 * path之weight：若有一條$Path:0-1-2-...-K$，定義其weight為所有edge之weight總和，$w(path)=\sum_{i=1}^{K}w(i-1,i)$，如圖一。
 * 最短路徑之成本$w(path)=\delta(X,Y)$：在Graph上，所有從vertex(X)出發抵達vertex(Y)的path中，具有最小weight之path，稱為最短路徑，其weight滿足：
 
-    * $\delta(X,Y)=\min${w(path), for all path from X to Y}。  
+    * $\delta(X,Y)=\min${$w(path)$, for all path from X to Y}。  
     (可能有多條path之weight皆為極小值，那麼這些path都是最短路徑。)
     
 * 若$\delta(X,Y)=\infty$，則表示無法從vertex(X)走到vertex(Y)。
