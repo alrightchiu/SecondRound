@@ -297,7 +297,8 @@
 </pre></div>
 
 
-<p>根據<strong>Relaxation</strong>可以衍生出幾個性質：</p>
+<p></br>
+根據<strong>Relaxation</strong>可以衍生出幾個性質：</p>
 <p><a name="triangle"></a></p>
 <h3>Triangle inequality</h3>
 <p>經過<strong>Relaxation</strong>，並得到最短路徑後，任意兩個在Grpah上之vertex(X)與vertex(Y)，若存在edge(X,Y)從vertex(X)指向vertex(Y)，必定滿足以下關係(假設vertex(S)為起點)：</p>
@@ -339,14 +340,78 @@
 <p></br></p>
 <p><a name="trailer"></a></p>
 <h2>精彩預告</h2>
-<p>了解以上稍微繁瑣的<strong>Single-Source最短路徑</strong>之問題情境後，先來一睹接下來四篇文章將介紹的四種演算法之風采，包含適用情境與時間複雜度：</p>
-<p>||||</p>
-<p>若處理的是Single-Source問題的最短路徑：</p>
+<p>了解了<strong>最短路徑問題</strong>之情境後，先一睹接下來四篇文章將介紹的四種演算法之風采，包含適用情境與時間複雜度。</p>
+<p>若處理的是<strong>Single-Source</strong>問題的最短路徑：<br />
+(注意：一律不允許<strong>negative cycle</strong>出現)</p>
 <ol>
-<li><strong>Bellmem-Ford Algorithm</strong>：</li>
-<li><strong>Shortest Path in DAG</strong></li>
-<li><strong>Dijkstra's Algorithm</strong></li>
+<li>
+<p><strong>Bellmem-Ford Algorithm</strong>：</p>
+<ul>
+<li>只要Graph中沒有<strong>negative cycle</strong>，即使有<strong>positive cycle</strong>、edge有<strong>negative weight</strong>，皆可使用。</li>
+<li>時間複雜度：<span class="math">\(O(VE)\)</span>。</li>
+</ul>
+</li>
+<li>
+<p><strong>Shortest Path on DAG</strong>：</p>
+<ul>
+<li>只要Graph中沒有<strong>cycle</strong>，即使edge有<strong>negative weight</strong>，亦可使用。</li>
+<li>時間複雜度：<span class="math">\(O(V+E)\)</span>。</li>
+</ul>
+</li>
+<li>
+<p><strong>Dijkstra's Algorithm</strong>：</p>
+<ul>
+<li>只要Graph中的edge沒有<strong>negative weight</strong>，即使有<strong>cycle</strong>，亦可使用。</li>
+<li>時間複雜度：<ul>
+<li>若使用<strong>Binary Heap</strong>作為<strong>Min-Priority Queue</strong>，需要<span class="math">\(O(V^2+E)\)</span>；</li>
+<li>若使用<strong>Fibonacci Heap</strong>作為<strong>Min-Priority Queue</strong>，只需要<span class="math">\(O(V\log V+E)\)</span>。</li>
+</ul>
+</li>
+</ul>
+</li>
 </ol>
+<p>綜合以上，三種演算法之使用情境比較：</p>
+<table>
+<thead>
+<tr>
+<th>情境</th>
+<th>有positive cycle</th>
+<th>沒有positive cycle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>有negative weight</td>
+<td>Bellman-Ford</td>
+<td>on DAG</td>
+</tr>
+<tr>
+<td>沒有negative weight</td>
+<td>Dijkstra</td>
+<td>All three</td>
+</tr>
+</tbody>
+</table>
+<p>三種演算法之時間複雜度比較：</p>
+<table>
+<thead>
+<tr>
+<th>Bellman-Ford</th>
+<th>on DAG</th>
+<th>Dijkstra(worse)</th>
+<th>Dijkstra(better)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="math">\(O(VE)\)</span></td>
+<td><span class="math">\(O(V+E)\)</span></td>
+<td><span class="math">\(O(V^2+E)\)</span></td>
+<td><span class="math">\(O(V\log V+E)\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>若處理的是<strong>All-Pairs Shortest Path</strong>問題：</p>
 <p>只要掌握<strong>Relaxation</strong>、<strong>Convergence property</strong>與<strong>Path-relaxation property</strong>之概念就沒問題了。</p>
 <p></br></p>
 <hr />
