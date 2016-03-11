@@ -2036,7 +2036,7 @@
 &lt;tr&gt;
 &lt;td&gt;&lt;span class="math"&gt;\(O(VE)\)&lt;/span&gt;&amp;nbsp;&lt;/td&gt;
 &lt;td&gt;&amp;nbsp;&amp;nbsp;&lt;span class="math"&gt;\(O(V+E)\)&lt;/span&gt;&amp;nbsp;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&amp;nbsp;&lt;span class="math"&gt;\(O(V^2+E)\)&lt;/span&gt;&amp;nbsp;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&amp;nbsp;&lt;span class="math"&gt;\(O(E+V^2)\)&lt;/span&gt;&amp;nbsp;&amp;nbsp;&lt;/td&gt;
 &lt;td&gt;&amp;nbsp;&amp;nbsp;&lt;span class="math"&gt;\(O(E+V\log V)\)&lt;/span&gt;&amp;nbsp;&amp;nbsp;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
