@@ -335,8 +335,8 @@ void Graph_SP::Relax(int from, int to, int weight){
 
 ||有positive cycle&nbsp;&nbsp;&nbsp;&nbsp;|沒有positive cycle&nbsp;&nbsp;&nbsp;&nbsp;|
 |---|---|---|
-|**有negative weight**&nbsp;&nbsp;|&nbsp;Bellman-Ford&nbsp;&nbsp;|&nbsp;on DAG&nbsp;|
-|**沒有negative weight**&nbsp;&nbsp;|&nbsp;Dijkstra&nbsp;&nbsp;|&nbsp;All three&nbsp;|
+|**有negative weight**&nbsp;&nbsp;&nbsp;|&nbsp;Bellman-Ford&nbsp;&nbsp;|&nbsp;on DAG&nbsp;|
+|**沒有negative weight**&nbsp;&nbsp;&nbsp;|&nbsp;Dijkstra&nbsp;&nbsp;|&nbsp;All three&nbsp;|
 
 **表一：三種演算法之使用情境比較**
 
