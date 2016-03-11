@@ -344,7 +344,7 @@ void Graph_SP::Relax(int from, int to, int weight){
 
 |Bellman-Ford&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;on DAG&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;Dijkstra(worst)&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;Dijkstra(best)|
 |---|---|---|---|
-|$O(VE)$&nbsp;|&nbsp;&nbsp;$O(V+E)$&nbsp;&nbsp;|&nbsp;&nbsp;$O(V^2+E)$&nbsp;&nbsp;|&nbsp;&nbsp;$O(E+V\log V)$&nbsp;&nbsp;|
+|$O(VE)$&nbsp;|&nbsp;&nbsp;$O(V+E)$&nbsp;&nbsp;|&nbsp;&nbsp;$O(E+V^2)$&nbsp;&nbsp;|&nbsp;&nbsp;$O(E+V\log V)$&nbsp;&nbsp;|
 
 **表二：三種演算法之時間複雜度比較**
 </center>
