@@ -2015,7 +2015,7 @@
 &lt;td&gt;&amp;nbsp;on DAG&amp;nbsp;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td&gt;&lt;strong&gt;沒有negative weight&lt;/strong&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;沒有negative weight&lt;/strong&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/td&gt;
 &lt;td&gt;&amp;nbsp;Dijkstra&amp;nbsp;&amp;nbsp;&lt;/td&gt;
 &lt;td&gt;&amp;nbsp;All three&amp;nbsp;&lt;/td&gt;
 &lt;/tr&gt;
@@ -2025,9 +2025,9 @@
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
-&lt;th&gt;Bellman-Ford&amp;nbsp;&amp;nbsp;&lt;/th&gt;
-&lt;th&gt;&amp;nbsp;&amp;nbsp;on DAG&amp;nbsp;&amp;nbsp;&lt;/th&gt;
-&lt;th&gt;&amp;nbsp;&amp;nbsp;Dijkstra(worse)&amp;nbsp;&amp;nbsp;&lt;/th&gt;
+&lt;th&gt;Bellman-Ford&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/th&gt;
+&lt;th&gt;&amp;nbsp;&amp;nbsp;on DAG&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/th&gt;
+&lt;th&gt;&amp;nbsp;&amp;nbsp;Dijkstra(worse)&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/th&gt;
 &lt;th&gt;&amp;nbsp;&amp;nbsp;Dijkstra(better)&lt;/th&gt;
 &lt;/tr&gt;
 &lt;/thead&gt;
