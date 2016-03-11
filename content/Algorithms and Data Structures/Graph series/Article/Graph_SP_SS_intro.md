@@ -313,10 +313,9 @@ void Graph_SP::Relax(int from, int to, int weight){
 ##精彩預告
 
 
-了解了**最短路徑問題**之情境後，先一睹接下來四篇文章將介紹的四種演算法之風采，包含適用情境與時間複雜度。
-
-若處理的是**Single-Source**問題的最短路徑：  
+接下來三篇文章，將介紹處理**Single-Source Shortest Path**的三種演算法，各別的適用情境與時間複雜度如下：  
 (注意：一律不允許**negative cycle**出現)
+
 
 1. **Bellmem-Ford Algorithm**：
     * 只要Graph中沒有**negative cycle**，即使有**positive cycle**、edge有**negative weight**，皆可使用。
@@ -336,8 +335,8 @@ void Graph_SP::Relax(int from, int to, int weight){
 
 |情境|有positive cycle|沒有positive cycle|
 |---|---|---|
-|有negative weight|Bellman-Ford|on DAG|
-|沒有negative weight|Dijkstra|All three|
+|**有negative weight**|Bellman-Ford|on DAG|
+|**沒有negative weight**|Dijkstra|All three|
 
 三種演算法之時間複雜度比較：
 
@@ -345,12 +344,7 @@ void Graph_SP::Relax(int from, int to, int weight){
 |---|---|---|---|
 |$O(VE)$|$O(V+E)$|$O(V^2+E)$|$O(V\log V+E)$|
 
-若處理的是**All-Pairs Shortest Path**問題：
 
-
-
-
-只要掌握**Relaxation**、**Convergence property**與**Path-relaxation property**之概念就沒問題了。
 
 </br>
 
