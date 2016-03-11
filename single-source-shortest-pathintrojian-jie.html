@@ -130,6 +130,7 @@
 <li><a href="#path-relaxation">Path-relaxation property</a></li>
 </ul>
 </li>
+<li><a href="#trailer">精彩預告</a></li>
 <li><a href="#ref">參考資料</a></li>
 <li><a href="#series">Shortest Path系列文章</a></li>
 </ul>
@@ -145,12 +146,16 @@
 <p>定義名詞：</p>
 <ul>
 <li>path之weight：若有一條<span class="math">\(Path:0-1-2-...-K\)</span>，定義其weight為所有edge之weight總和，<span class="math">\(w(path)=\sum_{i=1}^{K}w(i-1,i)\)</span>，如圖一。</li>
-<li>最短路徑<span class="math">\(w(path)=\delta(X,Y)\)</span>：在Graph上，所有從vertex(X)出發抵達vertex(Y)的path中，具有最小weight之path，稱為最短路徑，其weight滿足：<ul>
-<li><span class="math">\(\delta(X,Y)=\min\)</span>{<span class="math">\(w(path)|path from X to Y\)</span>}。<br />
+<li>
+<p>最短路徑之成本<span class="math">\(w(path)=\delta(X,Y)\)</span>：在Graph上，所有從vertex(X)出發抵達vertex(Y)的path中，具有最小weight之path，稱為最短路徑，其weight滿足：</p>
+<ul>
+<li><span class="math">\(\delta(X,Y)=\min\)</span>{<span class="math">\(w(path)\)</span>|<span class="math">\(path from X to Y\)</span>}。<br />
 (可能有多條path之weight皆為極小值，那麼這些path都是最短路徑。)</li>
 </ul>
 </li>
-<li>若<span class="math">\(\delta(X,Y)=\infty\)</span>，則表示無法從vertex(X)走到vertex(Y)。</li>
+<li>
+<p>若<span class="math">\(\delta(X,Y)=\infty\)</span>，則表示無法從vertex(X)走到vertex(Y)。</p>
+</li>
 </ul>
 <p><center>
 <img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_intro/f1.png?raw=true" /></p>
@@ -170,8 +175,8 @@
 </ul>
 </li>
 </ol>
-<p>綜合以上，先學第二種問題的演算法：以單一vertex為起點，抵達Graph中的其餘所有vertex之最短路徑，就是最明智的選擇。(推銷成功)</p>
-<p>先來看個簡單的範例：</p>
+<p>綜合以上，先學第二種問題的演算法：以單一vertex為起點，抵達Graph中的其餘所有vertex之最短路徑，再學第四種問題的<strong>Floyd-Warshall Algorithm</strong>(以及其他高效率的演算法)，就是最明智的選擇。(推銷成功)</p>
+<p>先來看個簡單的<strong>Single-Source Shortest Path</strong>範例：</p>
 <p><center>
 <img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_intro/f2.png?raw=true" /></p>
 <p><strong>圖二(a)。</strong>
@@ -185,7 +190,7 @@
 <img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_intro/f3.png?raw=true" /></p>
 <p><strong>圖二(b)：path上之edge越少，不見得weight總和越小。</strong>
 </center></p>
-<p>在處理最短路徑問題時，最基本需要用到兩個資料項目：</p>
+<p>如圖二(b)所示，在處理最短路徑問題時，最基本需要用到兩個資料項目：</p>
 <ul>
 <li><code>distance[]</code>：記錄從起點vertex，經過具有weight之edge，走到其餘vertex之「距離」，也就是該條path之weight。若有一條<span class="math">\(Path:0-1-2\)</span>，則path之weight總和即記錄在<code>distance[2]</code>。</li>
 <li><code>predecessor[]</code>：除了距離之外，還希望能夠回溯路徑，因此需要記錄vertex之<code>predecessor</code>，並以此得到<strong>Predecessor Subgraph</strong>。</li>
@@ -331,11 +336,14 @@
 <ul>
 <li>例如，<code>Relax()</code>順序：「edge(2,3)-&gt;<strong>edge(0,1)</strong>-&gt;edge(2,3)-&gt;<strong>edge(1,2)</strong>-&gt;<strong>edge(2,3)</strong>」仍可以得到最短路徑，<code>distance[3]</code><span class="math">\(=\delta(0,3)\)</span>。</li>
 </ul>
-<p></br>  </p>
-<p>以上便是稍微繁瑣的<strong>Single-Source最短路徑</strong>之問題情境的介紹。  </p>
-<p>接下來將依序介紹三個演算法來找到Single-Source問題的最短路徑：</p>
+<p></br></p>
+<p><a name="trailer"></a></p>
+<h2>精彩預告</h2>
+<p>了解以上稍微繁瑣的<strong>Single-Source最短路徑</strong>之問題情境後，先來一睹接下來四篇文章將介紹的四種演算法之風采，包含適用情境與時間複雜度：</p>
+<p>||||</p>
+<p>若處理的是Single-Source問題的最短路徑：</p>
 <ol>
-<li><strong>Bellmem-Ford Algorithm</strong></li>
+<li><strong>Bellmem-Ford Algorithm</strong>：</li>
 <li><strong>Shortest Path in DAG</strong></li>
 <li><strong>Dijkstra's Algorithm</strong></li>
 </ol>
