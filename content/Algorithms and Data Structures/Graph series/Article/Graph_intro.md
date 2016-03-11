@@ -263,12 +263,14 @@ Graph比Tree更加廣義，其定義僅僅使用了集合(Set)，並且不限制
 
 1. **Minimum Spanning Tree(MST，最小生成樹)**：給定一個connected、weighted的undirected graph，要在這個graph中，找到(1)連結所有vertex，而且(2)edge上的weight總和最小的「Tree」。  
 例如，鄉公所要鋪路，先以鄉公所為中心(`root`)，把所有馬路必須到達的地區視為vertex，則路就是edge，那麼，鋪路的目標便是利用最低成本(weight總和最小)將馬路延伸到所有必須抵達的地區，這就是MST的問題。
+
 2. **Shortest Path(最短路徑)**：顧名思義，最短路徑即是找到vertex(A)與vertex(B)之間「成本」最小的path，例如以Google Map規劃時間成本最小的路線。  
 其中又可以分為：
     * **Single-Pair Shortest Path**：從一個vertex，抵達特定的另一個vertex之最短路徑；
     * **Single-Source Shortest Path**：從一個vertex，抵達graph中其餘所有vertex之最短路徑；
     * **Single-Destination Shortest Path**：從每一個graph中的vertex抵達特定的vertex之最短路徑；
     * **All-Pairs Shortest Path**：graph中的所有vertex抵達其餘所有vertex之最短路徑。
+    
 3. **Network Flow(網路流)**：若現在有一個複雜的水管系統，水從入水口流入，經過許多互相連結、且孔徑不一的水管後，從出水口流出，目標是一次流入最大量的水。  
 其中可能遇到的問題如：由於水管的孔徑各不相同，若先流過一條半徑只有2公分的水管，則接在其後的水管的半徑即使再大，水流量仍會被半徑2公分的水管所限制，因此整體流量也就受限制。  
 如何分配水流在水管之間的流法，即是Network Flow要處理的問題。
