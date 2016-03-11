@@ -25,8 +25,11 @@ Summary: 介紹於Graph中，以單一Vertex作為起點，抵達其餘Vertex之
     * [Upper-Bound property](#upper-bound)
     * [Convergence property](#convergence)
     * [Path-relaxation property](#path-relaxation)
+* [精彩預告](#trailer)
 * [參考資料](#ref)
 * [Shortest Path系列文章](#series)
+
+
 
 
 </br>
@@ -44,9 +47,11 @@ Summary: 介紹於Graph中，以單一Vertex作為起點，抵達其餘Vertex之
 定義名詞：
 
 * path之weight：若有一條$Path:0-1-2-...-K$，定義其weight為所有edge之weight總和，$w(path)=\sum_{i=1}^{K}w(i-1,i)$，如圖一。
-* 最短路徑$w(path)=\delta(X,Y)$：在Graph上，所有從vertex(X)出發抵達vertex(Y)的path中，具有最小weight之path，稱為最短路徑，其weight滿足：
-    * $\delta(X,Y)=\min${$w(path)|path from X to Y$}。  
+* 最短路徑之成本$w(path)=\delta(X,Y)$：在Graph上，所有從vertex(X)出發抵達vertex(Y)的path中，具有最小weight之path，稱為最短路徑，其weight滿足：
+
+    * $\delta(X,Y)=\min${$w(path)$|$path from X to Y$}。  
     (可能有多條path之weight皆為極小值，那麼這些path都是最短路徑。)
+    
 * 若$\delta(X,Y)=\infty$，則表示無法從vertex(X)走到vertex(Y)。
 
 <center>
@@ -66,9 +71,9 @@ Summary: 介紹於Graph中，以單一Vertex作為起點，抵達其餘Vertex之
     * 不過之後將介紹的**Floyd-Warshall Algorithm**有更好的答案。
 
 
-綜合以上，先學第二種問題的演算法：以單一vertex為起點，抵達Graph中的其餘所有vertex之最短路徑，就是最明智的選擇。(推銷成功)
+綜合以上，先學第二種問題的演算法：以單一vertex為起點，抵達Graph中的其餘所有vertex之最短路徑，再學第四種問題的**Floyd-Warshall Algorithm**(以及其他高效率的演算法)，就是最明智的選擇。(推銷成功)
 
-先來看個簡單的範例：
+先來看個簡單的**Single-Source Shortest Path**範例：
 
 <center>
 ![cc][f2]
@@ -87,7 +92,7 @@ Summary: 介紹於Graph中，以單一Vertex作為起點，抵達其餘Vertex之
 **圖二(b)：path上之edge越少，不見得weight總和越小。**
 </center>
 
-在處理最短路徑問題時，最基本需要用到兩個資料項目：
+如圖二(b)所示，在處理最短路徑問題時，最基本需要用到兩個資料項目：
 
 * `distance[]`：記錄從起點vertex，經過具有weight之edge，走到其餘vertex之「距離」，也就是該條path之weight。若有一條$Path:0-1-2$，則path之weight總和即記錄在`distance[2]`。
 * `predecessor[]`：除了距離之外，還希望能夠回溯路徑，因此需要記錄vertex之`predecessor`，並以此得到**Predecessor Subgraph**。
@@ -301,15 +306,20 @@ void Graph_SP::Relax(int from, int to, int weight){
 
 
 
+</br>
+
+<a name="trailer"></a>
+
+##精彩預告
+
+了解以上稍微繁瑣的**Single-Source最短路徑**之問題情境後，先來一睹接下來四篇文章將介紹的四種演算法之風采，包含適用情境與時間複雜度：
+
+||||
 
 
-</br>  
+若處理的是Single-Source問題的最短路徑：
 
-以上便是稍微繁瑣的**Single-Source最短路徑**之問題情境的介紹。  
-
-接下來將依序介紹三個演算法來找到Single-Source問題的最短路徑：
-
-1. **Bellmem-Ford Algorithm**
+1. **Bellmem-Ford Algorithm**：
 2. **Shortest Path in DAG**
 3. **Dijkstra's Algorithm**
 
