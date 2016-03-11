@@ -1978,9 +1978,7 @@
 &lt;p&gt;接下來三篇文章，將介紹處理&lt;strong&gt;Single-Source Shortest Path&lt;/strong&gt;的三種演算法，各別的適用情境與時間複雜度如下：&lt;br /&gt;
 (注意：一律不允許&lt;strong&gt;negative cycle&lt;/strong&gt;出現)&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Bellmem-Ford Algorithm&lt;/strong&gt;：&lt;/p&gt;
-&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Bellmem-Ford Algorithm&lt;/strong&gt;：&lt;ul&gt;
 &lt;li&gt;只要Graph中沒有&lt;strong&gt;negative cycle&lt;/strong&gt;，即使有&lt;strong&gt;positive cycle&lt;/strong&gt;、edge有&lt;strong&gt;negative weight&lt;/strong&gt;，皆可使用。&lt;/li&gt;
 &lt;li&gt;時間複雜度：&lt;span class="math"&gt;\(O(VE)\)&lt;/span&gt;。&lt;/li&gt;
 &lt;/ul&gt;
@@ -2009,9 +2007,9 @@
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
-&lt;th&gt;情境&lt;/th&gt;
-&lt;th&gt;有positive cycle&lt;/th&gt;
-&lt;th&gt;沒有positive cycle&lt;/th&gt;
+&lt;th&gt;&amp;nbsp;&amp;nbsp;情境&amp;nbsp;&amp;nbsp;&lt;/th&gt;
+&lt;th&gt;&amp;nbsp;&amp;nbsp;有positive cycle&amp;nbsp;&amp;nbsp;&lt;/th&gt;
+&lt;th&gt;&amp;nbsp;&amp;nbsp;沒有positive cycle&amp;nbsp;&amp;nbsp;&lt;/th&gt;
 &lt;/tr&gt;
 &lt;/thead&gt;
 &lt;tbody&gt;
@@ -2027,10 +2025,7 @@
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;p&gt;&lt;strong&gt;表一：三種演算法之使用情境比較&lt;/strong&gt;
-&lt;/center&gt;&lt;/p&gt;
-&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
-&lt;p&gt;&lt;center&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;表一：三種演算法之使用情境比較&lt;/strong&gt;&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
