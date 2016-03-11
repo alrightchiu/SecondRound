@@ -331,20 +331,28 @@ void Graph_SP::Relax(int from, int to, int weight){
         * 若使用**Binary Heap**作為**Min-Priority Queue**，需要$O(V^2+E)$；
         * 若使用**Fibonacci Heap**作為**Min-Priority Queue**，只需要$O(V\log V+E)$。
 
-綜合以上，三種演算法之使用情境比較：
+
+
+<center>
 
 |情境|有positive cycle|沒有positive cycle|
 |---|---|---|
-|**有negative weight**&nbsp;|&nbsp;Bellman-Ford&nbsp;|&nbsp;on DAG&nbsp;|
-|**沒有negative weight**&nbsp;|&nbsp;Dijkstra&nbsp;|&nbsp;All three&nbsp;|
+|**有negative weight**&nbsp;&nbsp;|&nbsp;Bellman-Ford&nbsp;&nbsp;|&nbsp;&nbsp;on DAG&nbsp;|
+|**沒有negative weight**&nbsp;&nbsp;|&nbsp;Dijkstra&nbsp;&nbsp;|&nbsp;&nbsp;All three&nbsp;|
 
-三種演算法之時間複雜度比較：
+**表一：三種演算法之使用情境比較**
+</center>
 
-|Bellman-Ford&nbsp;|&nbsp;on DAG&nbsp;|&nbsp;Dijkstra(worse)&nbsp;|&nbsp;Dijkstra(better)|
+</br>
+
+<center>
+
+|Bellman-Ford&nbsp;&nbsp;|&nbsp;&nbsp;on DAG&nbsp;&nbsp;|&nbsp;&nbsp;Dijkstra(worse)&nbsp;&nbsp;|&nbsp;&nbsp;Dijkstra(better)|
 |---|---|---|---|
-|$O(VE)$&nbsp;|&nbsp;$O(V+E)$&nbsp;|&nbsp;$O(V^2+E)$&nbsp;|&nbsp;$O(V\log V+E)$&nbsp;|
+|$O(VE)$&nbsp;|&nbsp;&nbsp;$O(V+E)$&nbsp;&nbsp;|&nbsp;&nbsp;$O(V^2+E)$&nbsp;&nbsp;|&nbsp;&nbsp;$O(V\log V+E)$&nbsp;&nbsp;|
 
-
+**表二：三種演算法之時間複雜度比較**
+</center>
 
 </br>
 
