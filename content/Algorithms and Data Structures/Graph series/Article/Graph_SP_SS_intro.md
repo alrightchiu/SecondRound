@@ -231,7 +231,7 @@ void Graph_SP::Relax(int from, int to, int weight){
 }
 ```
 
-
+</br>
 根據**Relaxation**可以衍生出幾個性質：
 
 <a name="triangle"></a>
@@ -312,16 +312,43 @@ void Graph_SP::Relax(int from, int to, int weight){
 
 ##精彩預告
 
-了解以上稍微繁瑣的**Single-Source最短路徑**之問題情境後，先來一睹接下來四篇文章將介紹的四種演算法之風采，包含適用情境與時間複雜度：
 
-||||
+了解了**最短路徑問題**之情境後，先一睹接下來四篇文章將介紹的四種演算法之風采，包含適用情境與時間複雜度。
 
-
-若處理的是Single-Source問題的最短路徑：
+若處理的是**Single-Source**問題的最短路徑：  
+(注意：一律不允許**negative cycle**出現)
 
 1. **Bellmem-Ford Algorithm**：
-2. **Shortest Path in DAG**
-3. **Dijkstra's Algorithm**
+    * 只要Graph中沒有**negative cycle**，即使有**positive cycle**、edge有**negative weight**，皆可使用。
+    * 時間複雜度：$O(VE)$。
+
+2. **Shortest Path on DAG**：
+    * 只要Graph中沒有**cycle**，即使edge有**negative weight**，亦可使用。
+    * 時間複雜度：$O(V+E)$。
+
+3. **Dijkstra's Algorithm**：
+    * 只要Graph中的edge沒有**negative weight**，即使有**cycle**，亦可使用。
+    * 時間複雜度：
+        * 若使用**Binary Heap**作為**Min-Priority Queue**，需要$O(V^2+E)$；
+        * 若使用**Fibonacci Heap**作為**Min-Priority Queue**，只需要$O(V\log V+E)$。
+
+綜合以上，三種演算法之使用情境比較：
+
+|情境|有positive cycle|沒有positive cycle|
+|---|---|---|
+|有negative weight|Bellman-Ford|on DAG|
+|沒有negative weight|Dijkstra|All three|
+
+三種演算法之時間複雜度比較：
+
+|Bellman-Ford|on DAG|Dijkstra(worse)|Dijkstra(better)|
+|---|---|---|---|
+|$O(VE)$|$O(V+E)$|$O(V^2+E)$|$O(V\log V+E)$|
+
+若處理的是**All-Pairs Shortest Path**問題：
+
+
+
 
 只要掌握**Relaxation**、**Convergence property**與**Path-relaxation property**之概念就沒問題了。
 
