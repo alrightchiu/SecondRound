@@ -320,7 +320,6 @@ void Graph_SP::Relax(int from, int to, int weight){
 1. **Bellmem-Ford Algorithm**：
     * 只要Graph中沒有**negative cycle**，即使有**positive cycle**、edge有**negative weight**，皆可使用。
     * 時間複雜度：$O(VE)$。
-
 2. **Shortest Path on DAG**：
     * 只要Graph中沒有**cycle**，即使edge有**negative weight**，亦可使用。
     * 時間複雜度：$O(V+E)$。
@@ -335,17 +334,13 @@ void Graph_SP::Relax(int from, int to, int weight){
 
 <center>
 
-|情境|有positive cycle|沒有positive cycle|
+|&nbsp;&nbsp;情境&nbsp;&nbsp;|&nbsp;&nbsp;有positive cycle&nbsp;&nbsp;|&nbsp;&nbsp;沒有positive cycle&nbsp;&nbsp;|
 |---|---|---|
 |**有negative weight**&nbsp;&nbsp;|&nbsp;Bellman-Ford&nbsp;&nbsp;|&nbsp;&nbsp;on DAG&nbsp;|
 |**沒有negative weight**&nbsp;&nbsp;|&nbsp;Dijkstra&nbsp;&nbsp;|&nbsp;&nbsp;All three&nbsp;|
 
 **表一：三種演算法之使用情境比較**
-</center>
 
-</br>
-
-<center>
 
 |Bellman-Ford&nbsp;&nbsp;|&nbsp;&nbsp;on DAG&nbsp;&nbsp;|&nbsp;&nbsp;Dijkstra(worse)&nbsp;&nbsp;|&nbsp;&nbsp;Dijkstra(better)|
 |---|---|---|---|
