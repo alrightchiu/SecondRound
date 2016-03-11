@@ -333,7 +333,7 @@ void Graph_SP::Relax(int from, int to, int weight){
 
 <center>
 
-|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;條件&nbsp;&nbsp;|有positive cycle&nbsp;&nbsp;&nbsp;&nbsp;|沒有positive cycle&nbsp;&nbsp;&nbsp;&nbsp;|
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;條件&nbsp;&nbsp;|有positive cycle&nbsp;&nbsp;&nbsp;&nbsp;|沒有positive cycle&nbsp;&nbsp;&nbsp;&nbsp;|
 |---|---|---|
 |**有negative weight**&nbsp;&nbsp;|&nbsp;Bellman-Ford&nbsp;&nbsp;|&nbsp;on DAG&nbsp;|
 |**沒有negative weight**&nbsp;&nbsp;|&nbsp;Dijkstra&nbsp;&nbsp;|&nbsp;All three&nbsp;|
