@@ -335,14 +335,14 @@ void Graph_SP::Relax(int from, int to, int weight){
 
 |情境|有positive cycle|沒有positive cycle|
 |---|---|---|
-|**有negative weight**|Bellman-Ford|on DAG|
-|**沒有negative weight**|Dijkstra|All three|
+|**有negative weight**&nbsp;|&nbsp;Bellman-Ford&nbsp;|&nbsp;on DAG&nbsp;|
+|**沒有negative weight**&nbsp;|&nbsp;Dijkstra&nbsp;|&nbsp;All three&nbsp;|
 
 三種演算法之時間複雜度比較：
 
-|Bellman-Ford|on DAG|Dijkstra(worse)|Dijkstra(better)|
+|Bellman-Ford&nbsp;|&nbsp;on DAG&nbsp;|&nbsp;Dijkstra(worse)&nbsp;|&nbsp;Dijkstra(better)|
 |---|---|---|---|
-|$O(VE)$|$O(V+E)$|$O(V^2+E)$|$O(V\log V+E)$|
+|$O(VE)$&nbsp;|&nbsp;$O(V+E)$&nbsp;|&nbsp;$O(V^2+E)$&nbsp;|&nbsp;$O(V\log V+E)$&nbsp;|
 
 
 
