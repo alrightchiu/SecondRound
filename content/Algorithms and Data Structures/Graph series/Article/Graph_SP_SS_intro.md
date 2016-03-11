@@ -331,7 +331,7 @@ void Graph_SP::Relax(int from, int to, int weight){
         * 若使用**Binary Heap**作為**Min-Priority Queue**，需要$O(V^2+E)$；
         * 若使用**Fibonacci Heap**作為**Min-Priority Queue**，只需要$O(V\log V+E)$。
 
-
+將以上描述做成表格，見表一與表二：
 
 <center>
 
