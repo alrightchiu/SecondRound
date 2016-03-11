@@ -1991,8 +1991,9 @@
 &lt;li&gt;&lt;strong&gt;Dijkstra's Algorithm&lt;/strong&gt;：&lt;ul&gt;
 &lt;li&gt;只要Graph中的edge沒有&lt;strong&gt;negative weight&lt;/strong&gt;，即使有&lt;strong&gt;cycle&lt;/strong&gt;，亦可使用。&lt;/li&gt;
 &lt;li&gt;時間複雜度：&lt;ul&gt;
-&lt;li&gt;若使用&lt;strong&gt;Binary Heap&lt;/strong&gt;作為&lt;strong&gt;Min-Priority Queue&lt;/strong&gt;，需要&lt;span class="math"&gt;\(O(V^2+E)\)&lt;/span&gt;；&lt;/li&gt;
-&lt;li&gt;若使用&lt;strong&gt;Fibonacci Heap&lt;/strong&gt;作為&lt;strong&gt;Min-Priority Queue&lt;/strong&gt;，只需要&lt;span class="math"&gt;\(O(V\log V+E)\)&lt;/span&gt;。&lt;/li&gt;
+&lt;li&gt;若使用普通矩陣(array)實現&lt;strong&gt;Min-Priority Queue&lt;/strong&gt;，需要&lt;span class="math"&gt;\(O(E+V^2)\)&lt;/span&gt;；&lt;/li&gt;
+&lt;li&gt;若使用&lt;strong&gt;Binary Heap&lt;/strong&gt;實現&lt;strong&gt;Min-Priority Queue&lt;/strong&gt;，需要&lt;span class="math"&gt;\(O((E+V)\log V)\)&lt;/span&gt;；&lt;/li&gt;
+&lt;li&gt;若使用&lt;strong&gt;Fibonacci Heap&lt;/strong&gt;實現&lt;strong&gt;Min-Priority Queue&lt;/strong&gt;，只需要&lt;span class="math"&gt;\(O(E+V\log V)\)&lt;/span&gt;。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
@@ -2027,8 +2028,8 @@
 &lt;tr&gt;
 &lt;th&gt;Bellman-Ford&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/th&gt;
 &lt;th&gt;&amp;nbsp;&amp;nbsp;on DAG&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/th&gt;
-&lt;th&gt;&amp;nbsp;&amp;nbsp;Dijkstra(worse)&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/th&gt;
-&lt;th&gt;&amp;nbsp;&amp;nbsp;Dijkstra(better)&lt;/th&gt;
+&lt;th&gt;&amp;nbsp;&amp;nbsp;Dijkstra(worst)&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/th&gt;
+&lt;th&gt;&amp;nbsp;&amp;nbsp;Dijkstra(best)&lt;/th&gt;
 &lt;/tr&gt;
 &lt;/thead&gt;
 &lt;tbody&gt;
@@ -2036,7 +2037,7 @@
 &lt;td&gt;&lt;span class="math"&gt;\(O(VE)\)&lt;/span&gt;&amp;nbsp;&lt;/td&gt;
 &lt;td&gt;&amp;nbsp;&amp;nbsp;&lt;span class="math"&gt;\(O(V+E)\)&lt;/span&gt;&amp;nbsp;&amp;nbsp;&lt;/td&gt;
 &lt;td&gt;&amp;nbsp;&amp;nbsp;&lt;span class="math"&gt;\(O(V^2+E)\)&lt;/span&gt;&amp;nbsp;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&amp;nbsp;&lt;span class="math"&gt;\(O(V\log V+E)\)&lt;/span&gt;&amp;nbsp;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&amp;nbsp;&lt;span class="math"&gt;\(O(E+V\log V)\)&lt;/span&gt;&amp;nbsp;&amp;nbsp;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;

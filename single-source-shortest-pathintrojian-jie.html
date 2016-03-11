@@ -356,8 +356,9 @@
 <li><strong>Dijkstra's Algorithm</strong>：<ul>
 <li>只要Graph中的edge沒有<strong>negative weight</strong>，即使有<strong>cycle</strong>，亦可使用。</li>
 <li>時間複雜度：<ul>
-<li>若使用<strong>Binary Heap</strong>作為<strong>Min-Priority Queue</strong>，需要<span class="math">\(O(V^2+E)\)</span>；</li>
-<li>若使用<strong>Fibonacci Heap</strong>作為<strong>Min-Priority Queue</strong>，只需要<span class="math">\(O(V\log V+E)\)</span>。</li>
+<li>若使用普通矩陣(array)實現<strong>Min-Priority Queue</strong>，需要<span class="math">\(O(E+V^2)\)</span>；</li>
+<li>若使用<strong>Binary Heap</strong>實現<strong>Min-Priority Queue</strong>，需要<span class="math">\(O((E+V)\log V)\)</span>；</li>
+<li>若使用<strong>Fibonacci Heap</strong>實現<strong>Min-Priority Queue</strong>，只需要<span class="math">\(O(E+V\log V)\)</span>。</li>
 </ul>
 </li>
 </ul>
@@ -392,8 +393,8 @@
 <tr>
 <th>Bellman-Ford&nbsp;&nbsp;&nbsp;</th>
 <th>&nbsp;&nbsp;on DAG&nbsp;&nbsp;&nbsp;</th>
-<th>&nbsp;&nbsp;Dijkstra(worse)&nbsp;&nbsp;&nbsp;</th>
-<th>&nbsp;&nbsp;Dijkstra(better)</th>
+<th>&nbsp;&nbsp;Dijkstra(worst)&nbsp;&nbsp;&nbsp;</th>
+<th>&nbsp;&nbsp;Dijkstra(best)</th>
 </tr>
 </thead>
 <tbody>
@@ -401,7 +402,7 @@
 <td><span class="math">\(O(VE)\)</span>&nbsp;</td>
 <td>&nbsp;&nbsp;<span class="math">\(O(V+E)\)</span>&nbsp;&nbsp;</td>
 <td>&nbsp;&nbsp;<span class="math">\(O(V^2+E)\)</span>&nbsp;&nbsp;</td>
-<td>&nbsp;&nbsp;<span class="math">\(O(V\log V+E)\)</span>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;<span class="math">\(O(E+V\log V)\)</span>&nbsp;&nbsp;</td>
 </tr>
 </tbody>
 </table>
