@@ -323,7 +323,6 @@ void Graph_SP::Relax(int from, int to, int weight){
 2. **Shortest Path on DAG**：
     * 只要Graph中沒有**cycle**，即使edge有**negative weight**，亦可使用。
     * 時間複雜度：$O(V+E)$。
-
 3. **Dijkstra's Algorithm**：
     * 只要Graph中的edge沒有**negative weight**，即使有**cycle**，亦可使用。
     * 時間複雜度：
@@ -334,7 +333,7 @@ void Graph_SP::Relax(int from, int to, int weight){
 
 <center>
 
-|&nbsp;&nbsp;情境&nbsp;&nbsp;|&nbsp;&nbsp;有positive cycle&nbsp;&nbsp;|&nbsp;&nbsp;沒有positive cycle&nbsp;&nbsp;|
+|&nbsp;&nbsp;&nbsp;&nbsp;情境&nbsp;&nbsp;|有positive cycle&nbsp;&nbsp;|沒有positive cycle&nbsp;&nbsp;|
 |---|---|---|
 |**有negative weight**&nbsp;&nbsp;|&nbsp;Bellman-Ford&nbsp;&nbsp;|&nbsp;&nbsp;on DAG&nbsp;|
 |**沒有negative weight**&nbsp;&nbsp;|&nbsp;Dijkstra&nbsp;&nbsp;|&nbsp;&nbsp;All three&nbsp;|
