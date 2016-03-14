@@ -366,7 +366,7 @@ void Graph_SP::Relax(int from, int to, int weight){
 
 ###Shortest Path系列文章
 
-[Shortest Path：Intro(簡介)](http://alrightchiu.github.io/SecondRound/single-source-shortest-pathintrojian-jie.html)  
+[Shortest Path：Intro(簡介)](http://alrightchiu.github.io/SecondRound/shortest-pathintrojian-jie.html)  
 [Single-Source Shortest Path：Bellman-Ford Algorithm](http://alrightchiu.github.io/SecondRound/single-source-shortest-pathbellman-ford-algorithm.html)  
 [Single-Source Shortest Path：on DAG(directed acyclic graph)](http://alrightchiu.github.io/SecondRound/single-source-shortest-pathon-dagdirected-acyclic-graph.html)  
 [Single-Source Shortest Path：Dijkstra's Algorithm](http://alrightchiu.github.io/SecondRound/single-source-shortest-pathdijkstras-algorithm.html)  
