@@ -118,7 +118,8 @@ Summary: 介紹Dijkstra's Algorithm。
         * `distance[1]=distance[0]+weight(0,1)`；
         * `predecessor[1]=0`。
     * 對vertex(5)比照辦理。
-* `DecreaseKey()`：在更新`distance[]`之後，也要同步更新**Q**中HeapNode的資料，也就是有被`Relax()`的vertex之`distance`。
+* `DecreaseKey()`：在更新`distance[]`之後，也要同步更新**Q**中HeapNode的資料。
+
 
 
 <center>
