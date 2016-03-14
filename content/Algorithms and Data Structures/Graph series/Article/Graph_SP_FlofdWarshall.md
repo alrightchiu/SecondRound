@@ -443,9 +443,10 @@ $$
     * 在第三層迴圈的`if`判斷式內，多了一個條件`(Distance[i][k] != MaxDistance)`，是因為實際上的程式碼不存在「無限大($\infty$)」，以下面提供的程式碼為例，令無限大的距離為`int MaxDistance = 1000`，可以想像的是，若不加上上述條件，程式會以為`Distance=1000`是「有edge相連」，而進行路徑更新，導致錯誤(error)。
     * 為了驗證需要，在每一次「引入**中繼點**vertex(k)，並更新完`Distance`與`Predecessor`後」，都會將此兩項資料印出，與主要演算法無關。
 
-以及`main()`：建立如圖二(a)的Graph之`AdjMatrix`，並進行`FloydWarshall()`。
+以及`main()`：建立如圖二(a)的Graph之`AdjMatrix`，並進行`FloydWarshall()`。  
+另外，程式碼以$0,1,2,3$代表$A,B,C,D$。
 
-* 程式碼以$0,1,2,3$代表$A,B,C,D$。
+
 
 ```cpp
 // C++ code
