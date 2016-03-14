@@ -633,8 +633,7 @@ Predecessor[]:
 
 </br>  
 
-以上便是嘔心瀝血的**Floyd-Warshall Algorithm**之介紹。  
-內容主要圍繞在「引入**中繼點**」與「最短路徑之**結構特徵**」上，需要讀者細細品味。
+以上便是嘔心瀝血的**Floyd-Warshall Algorithm**之介紹，內容主要圍繞在「引入**中繼點**」與「最短路徑之**結構特徵**」上，值得讀者細細品嘗。
 
 </br>
 
@@ -662,7 +661,7 @@ Predecessor[]:
 [Single-Source Shortest Path：Bellman-Ford Algorithm](http://alrightchiu.github.io/SecondRound/single-source-shortest-pathbellman-ford-algorithm.html)  
 [Single-Source Shortest Path：on DAG(directed acyclic graph)](http://alrightchiu.github.io/SecondRound/single-source-shortest-pathon-dagdirected-acyclic-graph.html)  
 [Single-Source Shortest Path：Dijkstra's Algorithm](http://alrightchiu.github.io/SecondRound/single-source-shortest-pathdijkstras-algorithm.html)  
-[All-Pairs Shortest Path：Floyd-Warshall Algorithm]()  
+[All-Pairs Shortest Path：Floyd-Warshall Algorithm](http://alrightchiu.github.io/SecondRound/all-pairs-shortest-pathfloyd-warshall-algorithm.html)    
 
 
 回到目錄：

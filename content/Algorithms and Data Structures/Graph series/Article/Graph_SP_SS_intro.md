@@ -1,10 +1,8 @@
-Title: Single-Source Shortest Path：Intro(簡介)    
+Title: Shortest Path：Intro(簡介)    
 Date: 2016-2-29 20:12  
 Category: 演算法與資料結構  
 Tags: C++, Graph, Intro, Shortest Path, Relaxation 
-Summary: 介紹於Graph中，以單一Vertex作為起點，抵達其餘Vertex之最短路徑(Single-Source Shortest Path)之問題情境與基本性質。
-
- 
+Summary: 介紹於Graph中的最短路徑問題情境與基本性質。
 
 
 </br>
@@ -368,10 +366,13 @@ void Graph_SP::Relax(int from, int to, int weight){
 
 ###Shortest Path系列文章
 
-[Single-Source Shortest Path：Intro(簡介)](http://alrightchiu.github.io/SecondRound/single-source-shortest-pathintrojian-jie.html)  
+[Shortest Path：Intro(簡介)](http://alrightchiu.github.io/SecondRound/single-source-shortest-pathintrojian-jie.html)  
 [Single-Source Shortest Path：Bellman-Ford Algorithm](http://alrightchiu.github.io/SecondRound/single-source-shortest-pathbellman-ford-algorithm.html)  
 [Single-Source Shortest Path：on DAG(directed acyclic graph)](http://alrightchiu.github.io/SecondRound/single-source-shortest-pathon-dagdirected-acyclic-graph.html)  
 [Single-Source Shortest Path：Dijkstra's Algorithm](http://alrightchiu.github.io/SecondRound/single-source-shortest-pathdijkstras-algorithm.html)  
+[All-Pairs Shortest Path：Floyd-Warshall Algorithm](http://alrightchiu.github.io/SecondRound/all-pairs-shortest-pathfloyd-warshall-algorithm.html)    
+
+
 
 回到目錄：
 
