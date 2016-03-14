@@ -155,7 +155,7 @@ Summary: 介紹於Graph中，以單一Vertex作為起點，抵達其餘Vertex之
 此種情形發生在**Shortest-Path Tree**退化成Linked list的時候。
 
 **特徵二**：。若在Graph上，存在一條從vertex(0)走到vertex(K)的最短路徑，$P:v_0-v_1-v_2-...-v_K$，並定義所有path上的vertex所形成的**subpath**為$P_{ij}:v_i-v_{i+1}-...-v_j$，其中$1\leq i\leq j\leq K$，那麼每一條**subpath**都會是最短路徑。  
-白話文：最短路徑必定是由較小段的最短路徑所連結起來的。換句話說，每個最短路徑接起來的路徑必定仍然是最短路徑。
+白話文：最短路徑必定是由較小段的最短路徑(subpath)所連結起來的。換句話說，由較小段的最短路徑(subpath)接起來的路徑必定仍然是最短路徑。
 
 圖二(b)中，從vertex(0)走到vertex(5)之最短路徑為：$P:v_0-v_1-v_4-v_3-v_2-v_5$，那麼其中的任何一條path，都是兩個vertex之間的最短距離：
 
