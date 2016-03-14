@@ -464,7 +464,7 @@ $$</div>
 <code>Distance</code>的矩陣意義很容易解讀，例如<code>Distance[X][Y]=5</code>，即表示，從vertex(X)走到vertex(Y)的最短路徑之成本為<span class="math">\(5\)</span>。</p>
 <p>稍微複雜的是如何從<code>Predecessor</code>回溯出路徑。<br />
 <code>Predecessor[X][Y]=Z</code>的物理意義是，從vertex(X)走到vertex(Y)的最短路徑上，vertex(Y)的<strong>predecessor</strong>為vertex(Z)，也就是說，vertex(Y)是透過edge(Z,Y)才接上<span class="math">\(Path:X-...-Z\)</span>。</p>
-<p>觀察圖三(d)的<code>Predecessor[A][]</code>，若要找到從vertex(A)走到vertex(D)的最短路徑，見圖四(a)：</p>
+<p>若要從圖三(d)的<code>Predecessor[A][]</code>中找到從vertex(A)走到vertex(D)的最短路徑，見圖四(a)：</p>
 <ul>
 <li>根據<code>Predecessor[A][D]=C</code>，得知是經由edge(C,D)走到vertex(D)，再接著看從vertex(A)要怎麼走到vertex(C)；</li>
 <li>根據<code>Predecessor[A][C]=B</code>，得知是經由edge(B,C)走到vertex(C)，再接著看從vertex(A)要怎麼走到vertex(B)；</li>
@@ -506,6 +506,9 @@ $$</div>
 </li>
 </ul>
 <p>以及<code>main()</code>：建立如圖二(a)的Graph之<code>AdjMatrix</code>，並進行<code>FloydWarshall()</code>。</p>
+<ul>
+<li>程式碼以<span class="math">\(0,1,2,3\)</span>代表<span class="math">\(A,B,C,D\)</span>。</li>
+</ul>
 <div class="highlight"><pre><span class="c1">// C++ code</span>
 <span class="cp">#include &lt;iostream&gt;</span>
 <span class="cp">#include &lt;vector&gt;</span>
