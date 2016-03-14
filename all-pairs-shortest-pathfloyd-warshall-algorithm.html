@@ -401,8 +401,8 @@ $$</div>
 <li>若不存在edge(X,Y)，則<code>Distance[X][Y]</code>等於「無限大(<span class="math">\(\infty\)</span>)」，表示無法從vertex(X)走到vertex(Y)。</li>
 </ul>
 </li>
-<li><code>Predecessor</code>記錄的是「被走到的vertex」的<strong>predecessor</strong>：<ul>
-<li>若存在edge(X,Y)，則「從vertex(X)走到vertex(Y)」的路徑在，確實是由「vertex(X)」走到vertex(Y)，因此<code>Predecessor[X][Y]</code>即為vertex(X)，見圖三(a)：<ul>
+<li><code>Predecessor</code>記錄的是「被走到的vertex」的<strong>predecessor</strong>，見圖三(a)：<ul>
+<li>若存在edge(X,Y)，則「從vertex(X)走到vertex(Y)」的路徑在，確實是由「vertex(X)」走到vertex(Y)，因此<code>Predecessor[X][Y]</code>即為vertex(X)：<ul>
 <li><code>Predecessor[A][C]=A</code>；</li>
 <li><code>Predecessor[C][D]=C</code>。</li>
 </ul>
@@ -466,12 +466,13 @@ $$</div>
 <code>Predecessor[X][Y]=Z</code>的物理意義是，從vertex(X)走到vertex(Y)的最短路徑上，vertex(Y)的<strong>predecessor</strong>為vertex(Z)，也就是說，vertex(Y)是透過edge(Z,Y)才接上<span class="math">\(Path:X-...-Z\)</span>。</p>
 <p>觀察圖三(d)的<code>Predecessor[A][]</code>，若要找到從vertex(A)走到vertex(D)的最短路徑，見圖四(a)：</p>
 <ul>
-<li>根據<code>Predecessor[A][D]=C</code>，得知是經由edge(C,D)，再接著看從vertex(A)要怎麼走到vertex(C)；</li>
-<li>根據<code>Predecessor[A][C]=B</code>，得知是經由edge(B,C)，再接著看從vertex(A)要怎麼走到vertex(B)；</li>
-<li>最後，根據<code>Predecessor[A][B]=A</code>，得知是經由edge(A,B)；</li>
+<li>根據<code>Predecessor[A][D]=C</code>，得知是經由edge(C,D)走到vertex(D)，再接著看從vertex(A)要怎麼走到vertex(C)；</li>
+<li>根據<code>Predecessor[A][C]=B</code>，得知是經由edge(B,C)走到vertex(C)，再接著看從vertex(A)要怎麼走到vertex(B)；</li>
+<li>最後，根據<code>Predecessor[A][B]=A</code>，得知是經由edge(A,B)走到vertex(B)；<br />
+(實際上的程式碼可能會多找一次，直到<code>Predecessor==NIL</code>)</li>
 </ul>
 <p>此時便能找到，從vertex(A)走到vertex(D)的最短路徑為<span class="math">\(Path:A-B-C-D\)</span>。<br />
-(值得注意的是，<span class="math">\(Path:A-B-C-D\)</span>的<strong>任何subpath</strong>都是最短路徑。)</p>
+值得注意的是，<span class="math">\(Path:A-B-C-D\)</span>的<strong>任何subpath</strong>都是最短路徑。</p>
 <p><center>
 <img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/AllPairs_FloydWarshall/f10.png?raw=true" /></p>
 <p><strong>圖四(a)。</strong>
