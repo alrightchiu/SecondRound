@@ -332,8 +332,8 @@ $$
 * `Distance`等於`Adjacency Matrix`：
     * 若存在edge(X,Y)，則`Distance[X][Y]`即為edge(X,Y)之weight；
     * 若不存在edge(X,Y)，則`Distance[X][Y]`等於「無限大($\infty$)」，表示無法從vertex(X)走到vertex(Y)。
-* `Predecessor`記錄的是「被走到的vertex」的**predecessor**：
-    * 若存在edge(X,Y)，則「從vertex(X)走到vertex(Y)」的路徑在，確實是由「vertex(X)」走到vertex(Y)，因此`Predecessor[X][Y]`即為vertex(X)，見圖三(a)：
+* `Predecessor`記錄的是「被走到的vertex」的**predecessor**，見圖三(a)：
+    * 若存在edge(X,Y)，則「從vertex(X)走到vertex(Y)」的路徑在，確實是由「vertex(X)」走到vertex(Y)，因此`Predecessor[X][Y]`即為vertex(X)：
         * `Predecessor[A][C]=A`；
         * `Predecessor[C][D]=C`。
     * 若不存在edge(X,Y)，則以`NIL`、`NULL`或是$-1$表示「vertex(Y)無法由vertex(X)走到」。
@@ -399,12 +399,13 @@ $$
 
 觀察圖三(d)的`Predecessor[A][]`，若要找到從vertex(A)走到vertex(D)的最短路徑，見圖四(a)：
 
-* 根據`Predecessor[A][D]=C`，得知是經由edge(C,D)，再接著看從vertex(A)要怎麼走到vertex(C)；
-*  根據`Predecessor[A][C]=B`，得知是經由edge(B,C)，再接著看從vertex(A)要怎麼走到vertex(B)；
-*  最後，根據`Predecessor[A][B]=A`，得知是經由edge(A,B)；
+* 根據`Predecessor[A][D]=C`，得知是經由edge(C,D)走到vertex(D)，再接著看從vertex(A)要怎麼走到vertex(C)；
+*  根據`Predecessor[A][C]=B`，得知是經由edge(B,C)走到vertex(C)，再接著看從vertex(A)要怎麼走到vertex(B)；
+*  最後，根據`Predecessor[A][B]=A`，得知是經由edge(A,B)走到vertex(B)；  
+(實際上的程式碼可能會多找一次，直到`Predecessor==NIL`)
 
 此時便能找到，從vertex(A)走到vertex(D)的最短路徑為$Path:A-B-C-D$。  
-(值得注意的是，$Path:A-B-C-D$的**任何subpath**都是最短路徑。)
+值得注意的是，$Path:A-B-C-D$的**任何subpath**都是最短路徑。
 
 <center>
 ![cc][f10]
