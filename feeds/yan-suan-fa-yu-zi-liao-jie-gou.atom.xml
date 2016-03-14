@@ -1871,7 +1871,7 @@
 &lt;/ul&gt;
 &lt;p&gt;此種情形發生在&lt;strong&gt;Shortest-Path Tree&lt;/strong&gt;退化成Linked list的時候。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;特徵二&lt;/strong&gt;：。若在Graph上，存在一條從vertex(0)走到vertex(K)的最短路徑，&lt;span class="math"&gt;\(P:v_0-v_1-v_2-...-v_K\)&lt;/span&gt;，並定義所有path上的vertex所形成的&lt;strong&gt;subpath&lt;/strong&gt;為&lt;span class="math"&gt;\(P_{ij}:v_i-v_{i+1}-...-v_j\)&lt;/span&gt;，其中&lt;span class="math"&gt;\(1\leq i\leq j\leq K\)&lt;/span&gt;，那麼每一條&lt;strong&gt;subpath&lt;/strong&gt;都會是最短路徑。&lt;br /&gt;
-白話文：最短路徑必定是由較小段的最短路徑所連結起來的。換句話說，每個最短路徑接起來的路徑必定仍然是最短路徑。&lt;/p&gt;
+白話文：最短路徑必定是由較小段的最短路徑(subpath)所連結起來的。換句話說，由較小段的最短路徑(subpath)接起來的路徑必定仍然是最短路徑。&lt;/p&gt;
 &lt;p&gt;圖二(b)中，從vertex(0)走到vertex(5)之最短路徑為：&lt;span class="math"&gt;\(P:v_0-v_1-v_4-v_3-v_2-v_5\)&lt;/span&gt;，那麼其中的任何一條path，都是兩個vertex之間的最短距離：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;從vertex(1)走到vertex(2)之最短路徑：&lt;span class="math"&gt;\(P:v_1-v_4-v_3-v_2\)&lt;/span&gt;，weight總和為&lt;span class="math"&gt;\(1\)&lt;/span&gt;。&lt;/li&gt;
