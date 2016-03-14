@@ -432,7 +432,7 @@ $$&lt;/div&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;以及&lt;code&gt;main()&lt;/code&gt;：建立如圖二(a)的Graph之&lt;code&gt;AdjMatrix&lt;/code&gt;，並進行&lt;code&gt;FloydWarshall()&lt;/code&gt;。&lt;br /&gt;
-另外，程式碼以&lt;span class="math"&gt;\(0,1,2,3\)&lt;/span&gt;代表&lt;span class="math"&gt;\(A,B,C,D\)&lt;/span&gt;。&lt;/p&gt;
+另外，程式碼以vertex&lt;span class="math"&gt;\(:0,1,2,3\)&lt;/span&gt;代表vertex&lt;span class="math"&gt;\(:A,B,C,D\)&lt;/span&gt;。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// C++ code&lt;/span&gt;
 &lt;span class="cp"&gt;#include &amp;lt;iostream&amp;gt;&lt;/span&gt;
 &lt;span class="cp"&gt;#include &amp;lt;vector&amp;gt;&lt;/span&gt;
