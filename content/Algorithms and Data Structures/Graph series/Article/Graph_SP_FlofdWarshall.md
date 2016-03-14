@@ -252,7 +252,7 @@ Summary: 介紹Floyd-Warshall Algorithm。
 
 如果是第一種情形，「vertex(k)不在最短路徑上」，最短路徑便維持$Path:i-...-j$。  
 
-* 維持的意思是，最短路徑是由「起點vertex(i)」、「終點vertex(j)」與「**中繼點**{$1,2,...,k-1$}」構成；
+* 維持的意思是，最短路徑是由「起點vertex(i)」、「終點vertex(j)」與「**中繼點**{$1,2,...,k-1$}」中的vertex構成；
 * 成本便滿足：$d^{(k)}_{ij}=d^{(k-1)}_{ij}$
 
 
