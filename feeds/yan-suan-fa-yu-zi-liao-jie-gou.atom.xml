@@ -134,7 +134,7 @@
 &lt;li&gt;對vertex(5)比照辦理。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DecreaseKey()&lt;/code&gt;：在更新&lt;code&gt;distance[]&lt;/code&gt;之後，也要同步更新&lt;strong&gt;Q&lt;/strong&gt;中HeapNode的資料，也就是有被&lt;code&gt;Relax()&lt;/code&gt;的vertex之&lt;code&gt;distance&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DecreaseKey()&lt;/code&gt;：在更新&lt;code&gt;distance[]&lt;/code&gt;之後，也要同步更新&lt;strong&gt;Q&lt;/strong&gt;中HeapNode的資料。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/SingleSource_Dijkstra/f4.png?raw=true" /&gt;&lt;/p&gt;
