@@ -444,7 +444,7 @@ $$
     * 為了驗證需要，在每一次「引入**中繼點**vertex(k)，並更新完`Distance`與`Predecessor`後」，都會將此兩項資料印出，與主要演算法無關。
 
 以及`main()`：建立如圖二(a)的Graph之`AdjMatrix`，並進行`FloydWarshall()`。  
-另外，程式碼以$0,1,2,3$代表$A,B,C,D$。
+另外，程式碼以vertex$:0,1,2,3$代表vertex$:A,B,C,D$。
 
 
 
