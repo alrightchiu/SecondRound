@@ -397,7 +397,7 @@ $$
 稍微複雜的是如何從`Predecessor`回溯出路徑。  
 `Predecessor[X][Y]=Z`的物理意義是，從vertex(X)走到vertex(Y)的最短路徑上，vertex(Y)的**predecessor**為vertex(Z)，也就是說，vertex(Y)是透過edge(Z,Y)才接上$Path:X-...-Z$。
 
-觀察圖三(d)的`Predecessor[A][]`，若要找到從vertex(A)走到vertex(D)的最短路徑，見圖四(a)：
+若要從圖三(d)的`Predecessor[A][]`中找到從vertex(A)走到vertex(D)的最短路徑，見圖四(a)：
 
 * 根據`Predecessor[A][D]=C`，得知是經由edge(C,D)走到vertex(D)，再接著看從vertex(A)要怎麼走到vertex(C)；
 *  根據`Predecessor[A][C]=B`，得知是經由edge(B,C)走到vertex(C)，再接著看從vertex(A)要怎麼走到vertex(B)；
@@ -444,6 +444,8 @@ $$
     * 為了驗證需要，在每一次「引入**中繼點**vertex(k)，並更新完`Distance`與`Predecessor`後」，都會將此兩項資料印出，與主要演算法無關。
 
 以及`main()`：建立如圖二(a)的Graph之`AdjMatrix`，並進行`FloydWarshall()`。
+
+* 程式碼以$0,1,2,3$代表$A,B,C,D$。
 
 ```cpp
 // C++ code
