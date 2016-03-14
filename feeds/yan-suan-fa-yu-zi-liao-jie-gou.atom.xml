@@ -37,7 +37,649 @@
 &lt;a href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathdijkstras-algorithm.html"&gt;Single-Source Shortest Path：Dijkstra's Algorithm&lt;/a&gt;  &lt;/p&gt;
 &lt;h2&gt;Priority Queue系列文章&lt;/h2&gt;
 &lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/priority-queueintrojian-jie-binary-heap.html"&gt;Priority Queue：Intro(簡介) &amp;amp; Binary Heap&lt;/a&gt;  &lt;/p&gt;
-&lt;p&gt;&lt;/br&gt;&lt;/p&gt;</summary><category term="C++"></category></entry><entry><title>Single-Source Shortest Path：Dijkstra's Algorithm</title><link href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathdijkstras-algorithm.html" rel="alternate"></link><updated>2016-03-07T22:30:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-03-07:SecondRound/single-source-shortest-pathdijkstras-algorithm.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;</summary><category term="C++"></category></entry><entry><title>All-Pairs Shortest Path：Floyd-Warshall Algorithm</title><link href="http://alrightchiu.github.io/SecondRound/all-pairs-shortest-pathfloyd-warshall-algorithm.html" rel="alternate"></link><updated>2016-03-14T18:10:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-03-14:SecondRound/all-pairs-shortest-pathfloyd-warshall-algorithm.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;h3&gt;先備知識與注意事項&lt;/h3&gt;
+&lt;p&gt;本篇文章將介紹&lt;strong&gt;Floyd-Warshall Algorithm&lt;/strong&gt;來解決&lt;strong&gt;All-Pairs Shortest Path&lt;/strong&gt;問題。  &lt;/p&gt;
+&lt;p&gt;由於是&lt;strong&gt;All Pairs&lt;/strong&gt;，每個vertex都將視為起點，尋找以該vertex走到其他vertex之最短路徑，可以想見，在&lt;strong&gt;Single-Source Shortest Path&lt;/strong&gt;中使用的一維矩陣&lt;code&gt;distance[]&lt;/code&gt;與&lt;code&gt;predecessor[]&lt;/code&gt;，需要再增加一個維度成二維矩陣，以&lt;code&gt;Distance[][]&lt;/code&gt;與&lt;code&gt;Predecessor[][]&lt;/code&gt;表示，以完成相同的功能。&lt;br /&gt;
+連帶地，在建立Graph時，也將使用&lt;strong&gt;Adjacency Matrix&lt;/strong&gt;，並以其陣列元素值代表edge之weight。&lt;br /&gt;
+(這並不表示不能使用&lt;strong&gt;Adjacency List&lt;/strong&gt;實現，只是較為費工。)&lt;/p&gt;
+&lt;hr /&gt;
+&lt;h2&gt;目錄&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="#ss"&gt;若使用Single-Source Shortest Path之演算法&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#floyd"&gt;Floyd-Warshall Algorithm&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href="#inter"&gt;引入中繼點(intermediate vertex)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#explain"&gt;以數學符號表示&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#example"&gt;觀察Distance與Predecessor的變化&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href="#code"&gt;程式碼&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#ref"&gt;參考資料&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#series"&gt;Shortest Path系列文章&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a name="ss"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;若使用Single-Source Shortest Path之演算法&lt;/h2&gt;
+&lt;p&gt;在&lt;a href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathintrojian-jie.html"&gt;Single-Source Shortest Path：Intro(簡介)&lt;/a&gt;曾經提過，用&lt;strong&gt;Single-Source Shortest Path&lt;/strong&gt;之演算法其實也可以應付&lt;strong&gt;All-Pairs Shortest Path&lt;/strong&gt;問題，只要把每一個vertex都當做起點，找一次&lt;strong&gt;Bellman-Ford Algorithm&lt;/strong&gt;(或者&lt;strong&gt;Dijkstra's Algorithm&lt;/strong&gt;)，就能得到Graph中「從每一個vertex到達其餘vertex之最短路徑」，可惜效能卻不能盡如人意。  &lt;/p&gt;
+&lt;p&gt;上述提到的兩種演算法之時間複雜度如表一：&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Bellman-Ford&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/th&gt;
+&lt;th&gt;&amp;nbsp;&amp;nbsp;Dijkstra(worst)&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/th&gt;
+&lt;th&gt;&amp;nbsp;&amp;nbsp;Dijkstra(best)&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;span class="math"&gt;\(O(VE)\)&lt;/span&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&amp;nbsp;&lt;span class="math"&gt;\(O(E+V^2)\)&lt;/span&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&amp;nbsp;&lt;span class="math"&gt;\(O(E+V\log V)\)&lt;/span&gt;&amp;nbsp;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;strong&gt;表一：兩種演算法解決&lt;/strong&gt;Single-Source Shortest Path&lt;strong&gt;之時間複雜度&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;若再加上「以每個vertex為起點」的運算成本，更新成表二：&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Bellman-Ford&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/th&gt;
+&lt;th&gt;&amp;nbsp;&amp;nbsp;Dijkstra(worst)&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/th&gt;
+&lt;th&gt;&amp;nbsp;&amp;nbsp;Dijkstra(best)&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;span class="math"&gt;\(O(V^2E)\)&lt;/span&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&amp;nbsp;&lt;span class="math"&gt;\(O(EV+V^3)\)&lt;/span&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&amp;nbsp;&lt;span class="math"&gt;\(O(EV+V^2\log V)\)&lt;/span&gt;&amp;nbsp;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;strong&gt;表二：兩種演算法解決&lt;/strong&gt;All-Pairs Shortest Path&lt;strong&gt;之時間複雜度&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;還有一個條件：觀察&lt;strong&gt;Adjacency Matrix&lt;/strong&gt;發現，edge最多的情況，即為矩陣中除了對角線(diagonal)為&lt;span class="math"&gt;\(0\)&lt;/span&gt;，其餘皆有值的情況，因此edge數目&lt;span class="math"&gt;\(E\)&lt;/span&gt;與vertex數目&lt;span class="math"&gt;\(V\)&lt;/span&gt;應具有以下關係：  &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(E=O(V^2)\)&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;將此關係代入表二，形成表三：&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Bellman-Ford&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/th&gt;
+&lt;th&gt;&amp;nbsp;&amp;nbsp;Dijkstra(worst)&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/th&gt;
+&lt;th&gt;&amp;nbsp;&amp;nbsp;Dijkstra(best)&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;span class="math"&gt;\(O(V^4)\)&lt;/span&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&amp;nbsp;&lt;span class="math"&gt;\(O(V^3+V^3)\)&lt;/span&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&amp;nbsp;&lt;span class="math"&gt;\(O(V^3+V^2\log V)\)&lt;/span&gt;&amp;nbsp;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;strong&gt;表三：兩種演算法解決&lt;/strong&gt;All-Pairs Shortest Path&lt;strong&gt;之時間複雜度&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;根據表三，成本最高的情況發生在&lt;strong&gt;Bellman-Ford Algorithm&lt;/strong&gt;，需要&lt;span class="math"&gt;\(O(V^4)\)&lt;/span&gt;的成本，而&lt;strong&gt;Dijkstra's Algorithm&lt;/strong&gt;雖然非常有效率，只需要&lt;span class="math"&gt;\(O(V^3)\)&lt;/span&gt;，但是不要忘記，唯有Graph中不存在具有negative weight的edge時，才可使用&lt;strong&gt;Dijkstra's Algorithm&lt;/strong&gt;，這將是一大限制。&lt;/p&gt;
+&lt;p&gt;而本篇文章將要介紹的&lt;strong&gt;Floyd-Warshall Algorithm&lt;/strong&gt;，適用的情況只需要「Graph中不存在&lt;strong&gt;negative cycle&lt;/strong&gt;」，即可在時間複雜度&lt;span class="math"&gt;\(O(V^3)\)&lt;/span&gt;完成。&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a name="floyd"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;Floyd-Warshall Algorithm&lt;/h2&gt;
+&lt;p&gt;&lt;a name="inter"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;引入中繼點(intermediate vertex)&lt;/h3&gt;
+&lt;p&gt;若用一句含有逗點的話來描述&lt;strong&gt;Floyd-Warshall Algorithm&lt;/strong&gt;的精髓，應該可以這麼說：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;每次多加入一個「&lt;strong&gt;中繼點(intermediate vertex)&lt;/strong&gt;」，考慮從vertex(X)走向vertex(Y)的最短路徑，是否因為經過了該中繼點vertex(Z)而降低成本，形成新的最短路徑。  &lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;中繼點&lt;/strong&gt;就是「允許被路徑經過」的vertex。 &lt;/li&gt;
+&lt;li&gt;若原先的最短路徑是&lt;span class="math"&gt;\(Path:X-Y\)&lt;/span&gt;，在引入&lt;strong&gt;中繼點&lt;/strong&gt;vertex(Z)後，最短路徑就有兩種可能，&lt;span class="math"&gt;\(Path:X-Y\)&lt;/span&gt;或者&lt;span class="math"&gt;\(Path:X-Z-Y\)&lt;/span&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/AllPairs_FloydWarshall/f5.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖一。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;
+先看個簡單的例子，感受一下&lt;strong&gt;中繼點(intermediate vertex)&lt;/strong&gt;究竟為何物。&lt;/p&gt;
+&lt;p&gt;以圖二(a)的Graph為例，其滿足：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;不包含&lt;strong&gt;negative cycle&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;(允許)含有&lt;strong&gt;positive cycle&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;(允許)edge具有&lt;strong&gt;negative weight&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;要找到從vertex(A)走到vertex(D)的最短路徑。&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/AllPairs_FloydWarshall/f1.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖二(a)。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;在概念上，引入兩個集合會較容易理解：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;集合K&lt;/strong&gt;：由所有&lt;strong&gt;中繼點&lt;/strong&gt;形成的集合。&lt;ul&gt;
+&lt;li&gt;當演算法剛開始，Graph的「每一個vertex」都在&lt;strong&gt;K&lt;/strong&gt;裏面。&lt;/li&gt;
+&lt;li&gt;隨著演算法的進行，vertex將逐一從&lt;strong&gt;集合K&lt;/strong&gt;中被移除。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;集合S&lt;/strong&gt;：只有與「存在&lt;strong&gt;集合S&lt;/strong&gt;裡面的vertex」相連的edge，才會被納入尋找最短路徑的討論。隨著演算法進行，會不停從&lt;strong&gt;集合K&lt;/strong&gt;挑選vertex放進&lt;strong&gt;集合S&lt;/strong&gt;，尋找新的最短路徑。&lt;ul&gt;
+&lt;li&gt;舉例來說，若要找到圖二(a)的Graph中，從vertex(A)走到vertex(D)的最短路徑，若&lt;strong&gt;集合S&lt;/strong&gt;裡面只有vertex(A)、vertex(B)、vertex(D)，那麼就只能考慮由「edge(A,B)、edge(A,D)、edge(B,D)」形成的路徑，以其中的最短路徑為最後結果(這時候的最短路徑只能算是「當前找到」的最短路徑，未必是最後結果)。&lt;/li&gt;
+&lt;li&gt;特別注意，&lt;strong&gt;集合S&lt;/strong&gt;的作用是找到「某個vertex(X)走到某個vertex(Y)」的最短路徑，因此，即使「加入的中繼點」都相同，但是起點與終點必定不同，所以不同的「起點vertex(X)與終點vertex(Y)」之組合，都有各自的&lt;strong&gt;集合S&lt;/strong&gt;。&lt;ul&gt;
+&lt;li&gt;從vertex(A)走到vertex(D)，起始狀態的&lt;strong&gt;集合S&lt;/strong&gt;為&lt;span class="math"&gt;\(S=\)&lt;/span&gt;{&lt;span class="math"&gt;\(A,D\)&lt;/span&gt;}，加入中繼點vertex(B)後，更新成&lt;span class="math"&gt;\(S=\)&lt;/span&gt;{&lt;span class="math"&gt;\(A,B,D\)&lt;/span&gt;}。&lt;/li&gt;
+&lt;li&gt;從vertex(C)走到vertex(D)，起始狀態的&lt;strong&gt;集合S&lt;/strong&gt;為&lt;span class="math"&gt;\(S=\)&lt;/span&gt;{&lt;span class="math"&gt;\(C,D\)&lt;/span&gt;}，加入中繼點vertex(B)後，更新成&lt;span class="math"&gt;\(S=\)&lt;/span&gt;{&lt;span class="math"&gt;\(B,C,D\)&lt;/span&gt;}。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;/br&gt;
+見圖二(b)，「初始狀態」指的是「尚未加入任何中繼點進入&lt;strong&gt;集合S&lt;/strong&gt;」，因此&lt;strong&gt;集合K&lt;/strong&gt;應包含所有vertex，&lt;span class="math"&gt;\(K=\)&lt;/span&gt;{&lt;span class="math"&gt;\(A,B,C,D\)&lt;/span&gt;}。&lt;/p&gt;
+&lt;p&gt;因為沒有任何中繼點，對所有的「起點-終點」組合而言，&lt;strong&gt;集合S&lt;/strong&gt;都只有起點vertex(X)與終點vertex(Y)，而最短路徑有兩種可能：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;若存在edge(X,Y)，最短路徑必定是edge(X,Y)；&lt;/li&gt;
+&lt;li&gt;若不存在edge(X,Y)，那麼兩者的距離為「無限大(&lt;span class="math"&gt;\(\infty\)&lt;/span&gt;)」。  &lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/AllPairs_FloydWarshall/f4.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖二(b)。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;考慮圖二(b)，從vertex(A)走到vertex(D)的最短路徑就是經過edge(A,D)的&lt;span class="math"&gt;\(Path:A-D\)&lt;/span&gt;，成本為&lt;span class="math"&gt;\(8\)&lt;/span&gt;。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;此時「從vertex(A)走到vertex(D)」的&lt;strong&gt;集合S&lt;/strong&gt;為&lt;span class="math"&gt;\(S=\)&lt;/span&gt;{&lt;span class="math"&gt;\(A,D\)&lt;/span&gt;}。&lt;/li&gt;
+&lt;li&gt;若考慮的是「從vertex(C)走到vertex(B)」的問題，此時&lt;strong&gt;集合S&lt;/strong&gt;為&lt;span class="math"&gt;\(S=\)&lt;/span&gt;{&lt;span class="math"&gt;\(B,C\)&lt;/span&gt;}。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;/br&gt;
+接著，依序從&lt;strong&gt;集合K&lt;/strong&gt;中，讀取vertex(A)、vertex(B)、vertex(C)、vertex(D)作為中繼點，加入&lt;strong&gt;集合S&lt;/strong&gt;，並考慮所有由「&lt;strong&gt;集合S&lt;/strong&gt;中的vertex互相相連的edge」形成的路徑，找到其中的最短路徑。&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/AllPairs_FloydWarshall/f2.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖二(c)。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;首先加入vertex(A)作為&lt;strong&gt;中繼點&lt;/strong&gt;，見圖二(c)左：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;集合S&lt;/strong&gt;沒有更新，仍是&lt;span class="math"&gt;\(S=\)&lt;/span&gt;{&lt;span class="math"&gt;\(A,D\)&lt;/span&gt;}，因此，所有路徑中的最短路徑仍然是&lt;span class="math"&gt;\(Path:A-D\)&lt;/span&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;集合K&lt;/strong&gt;更新成&lt;span class="math"&gt;\(K=\)&lt;/span&gt;{&lt;span class="math"&gt;\(B,C,D\)&lt;/span&gt;}，也就是說，除了vertex(D)為終點vertex，其餘的vertex(B)、vertex(C)都不能被路徑經過。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;接著加入vertex(B)作為&lt;strong&gt;中繼點&lt;/strong&gt;，見圖二(c)右：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;集合S&lt;/strong&gt;更新成&lt;span class="math"&gt;\(S=\)&lt;/span&gt;{&lt;span class="math"&gt;\(A,B,D\)&lt;/span&gt;}；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;集合K&lt;/strong&gt;更新成&lt;span class="math"&gt;\(K=\)&lt;/span&gt;{&lt;span class="math"&gt;\(C,D\)&lt;/span&gt;}，亦即，除了vertex(D)為終點，vertex(C)不能被路徑經過。  &lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;根據是否經過中繼點vertex(B)，所有能夠「從vertex(A)走到vertex(D)」的路徑共有兩條：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(Path:A-D\)&lt;/span&gt;，成本&lt;span class="math"&gt;\(8\)&lt;/span&gt;；&lt;/li&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(Path:A-B-D\)&lt;/span&gt;，成本&lt;span class="math"&gt;\(5\)&lt;/span&gt;；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;於是更新「當前的最短路徑」為&lt;span class="math"&gt;\(Path:A-B-D\)&lt;/span&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/AllPairs_FloydWarshall/f3.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖二(d)。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;繼續加入vertex(C)作為&lt;strong&gt;中繼點&lt;/strong&gt;，見圖二(d)左：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;集合S&lt;/strong&gt;更新成&lt;span class="math"&gt;\(S=\)&lt;/span&gt;{&lt;span class="math"&gt;\(A,B,C,D\)&lt;/span&gt;}；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;集合K&lt;/strong&gt;更新成&lt;span class="math"&gt;\(K=\)&lt;/span&gt;{&lt;span class="math"&gt;\(D\)&lt;/span&gt;}。  &lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;所有能夠「從vertex(A)走到vertex(D)」的路徑共有數條(因為出現&lt;strong&gt;cycle&lt;/strong&gt;)：  &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(Path:A-D\)&lt;/span&gt;，成本&lt;span class="math"&gt;\(8\)&lt;/span&gt;；&lt;/li&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(Path:A-B-D\)&lt;/span&gt;，成本&lt;span class="math"&gt;\(5\)&lt;/span&gt;；&lt;/li&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(Path:A-C-D\)&lt;/span&gt;，成本&lt;span class="math"&gt;\(7\)&lt;/span&gt;；&lt;/li&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(Path:A-B-C-D\)&lt;/span&gt;，成本&lt;span class="math"&gt;\(1\)&lt;/span&gt;；&lt;/li&gt;
+&lt;li&gt;所有包含&lt;strong&gt;cycle&lt;/strong&gt;&lt;span class="math"&gt;\(:A-B-C-A\)&lt;/span&gt;的路徑，成本一定大於&lt;span class="math"&gt;\(4\)&lt;/span&gt;；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;可以找到「當前的最短路徑」為&lt;span class="math"&gt;\(Path:A-B-C-D\)&lt;/span&gt;。&lt;/p&gt;
+&lt;p&gt;最後，再加入vertex(D)作為&lt;strong&gt;中繼點&lt;/strong&gt;，如圖二(d)右，因為沒有更新&lt;strong&gt;集合S&lt;/strong&gt;，最短路徑維持&lt;span class="math"&gt;\(Path:A-B-C-D\)&lt;/span&gt;，此即為最終結果。&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;
+最重要的是，&lt;span class="math"&gt;\(Path:A-B-C-D\)&lt;/span&gt;的形成，其實是由一段一段的&lt;strong&gt;subpath&lt;/strong&gt;慢慢接起來的：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;在「初始狀態」時，&lt;span class="math"&gt;\(Path:A-B\)&lt;/span&gt;、&lt;span class="math"&gt;\(Path:B-C\)&lt;/span&gt;、&lt;span class="math"&gt;\(Path:C-D\)&lt;/span&gt;就已經是最短路徑。&lt;/li&gt;
+&lt;li&gt;當引入vertex(B)作為&lt;strong&gt;中繼點&lt;/strong&gt;時，對&lt;span class="math"&gt;\(Path:A-B-C-D\)&lt;/span&gt;的形成沒有影響。&lt;/li&gt;
+&lt;li&gt;當引入vertex(C)作為&lt;strong&gt;中繼點&lt;/strong&gt;時，因為已經有最短路徑&lt;span class="math"&gt;\(Path:B-C\)&lt;/span&gt;以及&lt;span class="math"&gt;\(Path:C-D\)&lt;/span&gt;，便建立起從vertex(B)走到vertex(D)的最段路徑，&lt;span class="math"&gt;\(Path:B-C-D\)&lt;/span&gt;。&lt;/li&gt;
+&lt;li&gt;最後，因為已經有最短路徑&lt;span class="math"&gt;\(Path:B-C-D\)&lt;/span&gt;，連同另一段最段路徑&lt;span class="math"&gt;\(Path:A-B\)&lt;/span&gt;，便能得到從vertex(A)走到vertex(D)的最短路徑，&lt;span class="math"&gt;\(Path:A-B-C-D\)&lt;/span&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;更廣義的意義上，可以將以上步驟解讀成：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;在引入中繼點vertex(k)之前，已經找到「引入中繼點vertex(k-1)後，從vertex(i)走到vertex(j)」的最短路徑；&lt;/li&gt;
+&lt;li&gt;在引入中繼點vertex(k-1)之前，已經找到「引入中繼點vertex(k-2)後，從vertex(i)走到vertex(j)」的最短路徑；&lt;/li&gt;
+&lt;li&gt;依此類推。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;經由以上觀察，&lt;strong&gt;Floyd-Warshall Algorithm&lt;/strong&gt;的奧義就是「以較小段的最短路徑(subpath)，連結出最終的最短路徑」。    &lt;/p&gt;
+&lt;p&gt;而其正確性的根據是最短路徑的&lt;strong&gt;結構特徵&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;最短路徑是由較小段的最短路徑(subpath)所連結起來的。換句話說，由較小段的最短路徑(subpath)接起來的路徑必定仍然是最短路徑。&lt;br /&gt;
+(參考：&lt;a href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathintrojian-jie.html#property"&gt;Single-Source Shortest Path：Intro(簡介)&lt;/a&gt;)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;接著，將以上說明，以稍微嚴謹的數學符號表示。&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a name="explain"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;以數學符號表示&lt;/h3&gt;
+&lt;p&gt;現考慮，從vertex(i)走到vertex(j)，逐一引入&lt;strong&gt;中繼點&lt;/strong&gt;vertex(k)，欲尋找最短路徑。  &lt;/p&gt;
+&lt;p&gt;定義，引入&lt;strong&gt;中繼點&lt;/strong&gt;vertex(k)後，「當前的最短路徑」之成本為&lt;span class="math"&gt;\(d^{(k)}_{ij}\)&lt;/span&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(d^{(k)}_{ij}\)&lt;/span&gt;為「已將&lt;strong&gt;集合K&lt;/strong&gt;{&lt;span class="math"&gt;\(1,2,3,...k\)&lt;/span&gt;}中的所有vertex作為&lt;strong&gt;中繼點&lt;/strong&gt;引入&lt;strong&gt;集合S&lt;/strong&gt;」後，從起點vertex(i)走到終點vertex(j)的路徑之成本。&lt;/li&gt;
+&lt;li&gt;注意：引入&lt;strong&gt;中繼點&lt;/strong&gt;的順序以{&lt;span class="math"&gt;\(1,2,3,...k\)&lt;/span&gt;}表示，但實際上順序不重要，只要所有vertex都被當作&lt;strong&gt;中繼點&lt;/strong&gt;一次，而且是只有一次，即可。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;由於最短路徑不包含&lt;strong&gt;cycle&lt;/strong&gt;，每當引入一個&lt;strong&gt;中繼點&lt;/strong&gt;vertex(k)，只有兩種可能：  &lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;vertex(k)不在最短路徑上，&lt;span class="math"&gt;\(Path:i-...-j\)&lt;/span&gt;；&lt;/li&gt;
+&lt;li&gt;vertex(k)位在最短路徑上，&lt;span class="math"&gt;\(Path:i-...-k-...-j\)&lt;/span&gt;；  &lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;如果是第一種情形，「vertex(k)不在最短路徑上」，最短路徑便維持&lt;span class="math"&gt;\(Path:i-...-j\)&lt;/span&gt;。  &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;維持的意思是，最短路徑是由「起點vertex(i)」、「終點vertex(j)」與「&lt;strong&gt;中繼點&lt;/strong&gt;{&lt;span class="math"&gt;\(1,2,...,k-1\)&lt;/span&gt;}」構成；&lt;/li&gt;
+&lt;li&gt;成本便滿足：&lt;span class="math"&gt;\(d^{(k)}_{ij}=d^{(k-1)}_{ij}\)&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;如果是第二種情形，「vertex(k)位在最短路徑上」，最短路徑又可以分成兩段：&lt;span class="math"&gt;\(SubPath:i-...-k\)&lt;/span&gt;，以及&lt;span class="math"&gt;\(SubPath:k-...-j\)&lt;/span&gt;，又因為這兩段subpath也是「考慮了&lt;strong&gt;集合K&lt;/strong&gt;{&lt;span class="math"&gt;\(1,2,3,...k-1\)&lt;/span&gt;}的vertex作為&lt;strong&gt;中繼點&lt;/strong&gt;引入&lt;strong&gt;集合S&lt;/strong&gt;」後得到的最短路徑，便保證&lt;span class="math"&gt;\(Path:i-...-k-...-j\)&lt;/span&gt;也會是最短路徑，其路徑成本滿足：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(d^{(k)}_{ij}=d^{(k-1)}_{ik}+d^{(k-1)}_{kj}\)&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;綜合以上，可以得到，引入&lt;strong&gt;中繼點&lt;/strong&gt;vertex(k)後，從vertex(i)走到vertex(j)的最短路徑之成本：&lt;/p&gt;
+&lt;div class="math"&gt;$$
+d^{(k)}_{ij}=
+\begin{cases}
+w_{ij}  &amp;amp; \text{if $k=0$}\\
+\min(d^{(k-1)}_{ij},d^{(k-1)}_{ik}+d^{(k-1)}_{kj}) &amp;amp; \text{if $k\geq 1$}
+\end{cases}
+$$&lt;/div&gt;
+&lt;p&gt;其中，&lt;span class="math"&gt;\(w_{ij}\)&lt;/span&gt;即為edge的weight。&lt;/p&gt;
+&lt;p&gt;以&lt;span class="math"&gt;\(D\)&lt;/span&gt;表示&lt;code&gt;Distance[][]&lt;/code&gt;，則&lt;span class="math"&gt;\(D^{(k)}[i][j]=d^{(k)}_{ij}\)&lt;/span&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;
+只要&lt;code&gt;Distance[][]&lt;/code&gt;被更新，也需要同時更新&lt;code&gt;Predecessor[][]&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;比照&lt;span class="math"&gt;\(d^{(k)}_{ij}\)&lt;/span&gt;的定義，以&lt;span class="math"&gt;\(p^{(k)}_{ij}\)&lt;/span&gt;表示：「已將&lt;strong&gt;集合K&lt;/strong&gt;{&lt;span class="math"&gt;\(1,2,3,...k\)&lt;/span&gt;}中的所有vertex作為&lt;strong&gt;中繼點&lt;/strong&gt;引入&lt;strong&gt;集合S&lt;/strong&gt;」後，從起點vertex(i)走到終點vertex(j)的路徑上，&lt;strong&gt;vertex(j)的predecessor&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;其數學式定義如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;初始狀態時，因為當只有edge(i,j)存在時，才存在一條路徑從vertex(i)走到vertex(j)，因此，&lt;span class="math"&gt;\(p^{(0)}_{ij}\)&lt;/span&gt;的初始狀態為：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="math"&gt;$$
+p^{(0)}_{ij}=
+\begin{cases}
+NIL &amp;amp; \text{if $i=j$ or $w_{ij}=\infty$}\\
+i &amp;amp; \text{if $i\neq j$ and $w_{ij}&amp;lt;\infty$}
+\end{cases}
+$$&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;當開始引入&lt;strong&gt;中繼點&lt;/strong&gt;vertex(k)後，&lt;span class="math"&gt;\(p^{(k)}_{ij}\)&lt;/span&gt;便如同&lt;span class="math"&gt;\(d^{(k)}_{ij}\)&lt;/span&gt;，需考慮是否因為vertex(k)所提供的edge更新了最短路徑，定義如下：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="math"&gt;$$
+p^{(k)}_{ij}=  
+\begin{cases}  
+p^{(k-1)}_{ij} &amp;amp; \text{if $d^{(k-1)}_{ij}\leq d^{(k-1)}_{ik}+d^{(k-1)}_{kj}$}\\  
+p^{(k-1)}_{kj} &amp;amp; \text{if $d^{(k-1)}_{ij}&amp;gt;d^{(k-1)}_{ik}+d^{(k-1)}_{kj}$}\\  
+\end{cases}  
+$$&lt;/div&gt;
+&lt;p&gt;將&lt;code&gt;Predecessor[][]&lt;/code&gt;以&lt;span class="math"&gt;\(P\)&lt;/span&gt;表示，那麼&lt;span class="math"&gt;\(P^{(k)}[i][j]=p^{(k)}_{ij}\)&lt;/span&gt;。&lt;/p&gt;
+&lt;p&gt;由於&lt;code&gt;Predecessor[][]&lt;/code&gt;比較難理解，馬上以圖二(a)之Graph為例，看一次&lt;code&gt;Distance[][]&lt;/code&gt;與&lt;code&gt;Predecessor[][]&lt;/code&gt;的規則變化，並且解讀&lt;code&gt;Predecessor[][]&lt;/code&gt;攜帶的路徑訊息。&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a name="example"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;觀察Distance與Predecessor的變化&lt;/h3&gt;
+&lt;p&gt;圖三(a)到圖三(d)展示依序將vertex(A)、vertex(B)、vertex(C)、vertex(D)作為&lt;strong&gt;中繼點&lt;/strong&gt;，納入&lt;strong&gt;集合S&lt;/strong&gt;，考慮從vertex(A)到vertex(D)的最短路徑之過程。&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/AllPairs_FloydWarshall/f6.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖三(a)。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;圖三(a)，表示「初始狀態」，只有當edge(X,Y)存在時，才存在vertex(X)到vertex(Y)的最短路徑，此時的兩項資料結構：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Distance&lt;/code&gt;等於&lt;code&gt;Adjacency Matrix&lt;/code&gt;：&lt;ul&gt;
+&lt;li&gt;若存在edge(X,Y)，則&lt;code&gt;Distance[X][Y]&lt;/code&gt;即為edge(X,Y)之weight；&lt;/li&gt;
+&lt;li&gt;若不存在edge(X,Y)，則&lt;code&gt;Distance[X][Y]&lt;/code&gt;等於「無限大(&lt;span class="math"&gt;\(\infty\)&lt;/span&gt;)」，表示無法從vertex(X)走到vertex(Y)。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Predecessor&lt;/code&gt;記錄的是「被走到的vertex」的&lt;strong&gt;predecessor&lt;/strong&gt;：&lt;ul&gt;
+&lt;li&gt;若存在edge(X,Y)，則「從vertex(X)走到vertex(Y)」的路徑在，確實是由「vertex(X)」走到vertex(Y)，因此&lt;code&gt;Predecessor[X][Y]&lt;/code&gt;即為vertex(X)，見圖三(a)：&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Predecessor[A][C]=A&lt;/code&gt;；&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Predecessor[C][D]=C&lt;/code&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;若不存在edge(X,Y)，則以&lt;code&gt;NIL&lt;/code&gt;、&lt;code&gt;NULL&lt;/code&gt;或是&lt;span class="math"&gt;\(-1\)&lt;/span&gt;表示「vertex(Y)無法由vertex(X)走到」。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/AllPairs_FloydWarshall/f7.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖三(b)。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;圖三(b)引入vertex(A)作為&lt;strong&gt;中繼點&lt;/strong&gt;，其中有兩點值得討論。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;span class="math"&gt;\(Path:C-A-B\)&lt;/span&gt;，成本&lt;span class="math"&gt;\(6\)&lt;/span&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;原本從vertex(C)無法走到vertex(B)，現在「vertex(A)可以被路徑經過」，因此「從vertex(C)走到vertex(B)」便能將&lt;span class="math"&gt;\(Path:C-A\)&lt;/span&gt;接上&lt;span class="math"&gt;\(Path:A-B\)&lt;/span&gt;，形成&lt;span class="math"&gt;\(Path:C-A-B\)&lt;/span&gt;，成本&lt;code&gt;Distance[C][B]&lt;/code&gt;更新為&lt;span class="math"&gt;\(6\)&lt;/span&gt;，比原本的無限大(&lt;span class="math"&gt;\(\infty\)&lt;/span&gt;)小，所以更新為「當前的最短路徑」。&lt;/li&gt;
+&lt;li&gt;在&lt;span class="math"&gt;\(Path:C-A-B\)&lt;/span&gt;上，是由「vertex(A)」走到vertex(B)的，因此更新&lt;code&gt;Predecessor[C][B]=Predecessor[A][B]=A&lt;/code&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;從vertex(C)走到vertex(D)沒有更新：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;在引入vertex(A)之後，從vertex(C)走到vertex(D)多了一條選擇：&lt;span class="math"&gt;\(Path:C-A-D\)&lt;/span&gt;，但是其成本為&lt;span class="math"&gt;\(12\)&lt;/span&gt;，比原本的&lt;span class="math"&gt;\(Path:C-D\)&lt;/span&gt;之成本&lt;span class="math"&gt;\(1\)&lt;/span&gt;還高，因此不更新路徑，維持&lt;span class="math"&gt;\(Path:C-D\)&lt;/span&gt;為「當前的最短路徑」。&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Distance[C][D]=1&lt;/code&gt;；&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Predecessor[C][D]=C&lt;/code&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;根據以上兩種情形：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;只要遇到更短的路徑就更新；&lt;/li&gt;
+&lt;li&gt;若比當前的路徑之成本還高的話就維持原樣；&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;正是&lt;strong&gt;Relaxation&lt;/strong&gt;的概念。&lt;br /&gt;
+(關於&lt;strong&gt;Relaxation&lt;/strong&gt;，請參考：&lt;a href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathintrojian-jie.html#relax"&gt;Single-Source Shortest Path：Intro(簡介)&lt;/a&gt;)&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/AllPairs_FloydWarshall/f8.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖三(c)。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;圖三(c)引入vertex(B)作為&lt;strong&gt;中繼點&lt;/strong&gt;，被更新的有「vertex(A)走到vertex(C)」與「vertex(A)走到vertex(D)」，資料項目更新如下：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;Distance[A][C]=Distance[A][B]+Distance[B][C]&lt;/code&gt;&lt;span class="math"&gt;\(=0\)&lt;/span&gt;；&lt;br /&gt;
+&lt;code&gt;Distance[A][D]=Distance[A][B]+Distance[B][D]&lt;/code&gt;&lt;span class="math"&gt;\(=5\)&lt;/span&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Predecessor[A][C]=Predecessor[B][C]=B&lt;/code&gt;；&lt;br /&gt;
+&lt;code&gt;Predecessor[A][D]=Predecessor[B][D]=B&lt;/code&gt;；&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;同樣地，從「vertex(C)走到vertex(D)」又有了新的可能路徑&lt;span class="math"&gt;\(Path:C-A-B-D\)&lt;/span&gt;，不過其成本為&lt;span class="math"&gt;\(9\)&lt;/span&gt;，高於&lt;span class="math"&gt;\(Path:C-D\)&lt;/span&gt;之成本&lt;span class="math"&gt;\(1\)&lt;/span&gt;，因此不更新。&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/AllPairs_FloydWarshall/f9.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖三(d)。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;圖三(d)引入vertex(C)作為&lt;strong&gt;中繼點&lt;/strong&gt;，更新之邏輯同上，不再贅述。&lt;br /&gt;
+再將vertex(D)作為&lt;strong&gt;中繼點&lt;/strong&gt;也不會影響任何路徑，因為沒有任何一條從vertex(D)「指出去」的edge，亦即，從vertex(D)走到其餘vertex的成本都是「無限大(&lt;span class="math"&gt;\(\infty\)&lt;/span&gt;)」，所以圖三(d)即為&lt;strong&gt;Floyd-Warshall Algorithm&lt;/strong&gt;的結果。&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;
+&lt;code&gt;Distance&lt;/code&gt;的矩陣意義很容易解讀，例如&lt;code&gt;Distance[X][Y]=5&lt;/code&gt;，即表示，從vertex(X)走到vertex(Y)的最短路徑之成本為&lt;span class="math"&gt;\(5\)&lt;/span&gt;。&lt;/p&gt;
+&lt;p&gt;稍微複雜的是如何從&lt;code&gt;Predecessor&lt;/code&gt;回溯出路徑。&lt;br /&gt;
+&lt;code&gt;Predecessor[X][Y]=Z&lt;/code&gt;的物理意義是，從vertex(X)走到vertex(Y)的最短路徑上，vertex(Y)的&lt;strong&gt;predecessor&lt;/strong&gt;為vertex(Z)，也就是說，vertex(Y)是透過edge(Z,Y)才接上&lt;span class="math"&gt;\(Path:X-...-Z\)&lt;/span&gt;。&lt;/p&gt;
+&lt;p&gt;觀察圖三(d)的&lt;code&gt;Predecessor[A][]&lt;/code&gt;，若要找到從vertex(A)走到vertex(D)的最短路徑，見圖四(a)：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;根據&lt;code&gt;Predecessor[A][D]=C&lt;/code&gt;，得知是經由edge(C,D)，再接著看從vertex(A)要怎麼走到vertex(C)；&lt;/li&gt;
+&lt;li&gt;根據&lt;code&gt;Predecessor[A][C]=B&lt;/code&gt;，得知是經由edge(B,C)，再接著看從vertex(A)要怎麼走到vertex(B)；&lt;/li&gt;
+&lt;li&gt;最後，根據&lt;code&gt;Predecessor[A][B]=A&lt;/code&gt;，得知是經由edge(A,B)；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;此時便能找到，從vertex(A)走到vertex(D)的最短路徑為&lt;span class="math"&gt;\(Path:A-B-C-D\)&lt;/span&gt;。&lt;br /&gt;
+(值得注意的是，&lt;span class="math"&gt;\(Path:A-B-C-D\)&lt;/span&gt;的&lt;strong&gt;任何subpath&lt;/strong&gt;都是最短路徑。)&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/AllPairs_FloydWarshall/f10.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖四(a)。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;同理，根據&lt;code&gt;Predecessor[B][]&lt;/code&gt;可以找到從vertex(B)走到其餘vertex的最短路徑，見圖四(b)，分別是：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(Path:B-C\)&lt;/span&gt;，成本&lt;span class="math"&gt;\(-2\)&lt;/span&gt;；&lt;/li&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(Path:B-C-A\)&lt;/span&gt;，成本&lt;span class="math"&gt;\(2\)&lt;/span&gt;；&lt;/li&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(Path:B-C-D\)&lt;/span&gt;，成本&lt;span class="math"&gt;\(-1\)&lt;/span&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/AllPairs_FloydWarshall/f11.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖四(b)。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a name="code"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;程式碼&lt;/h2&gt;
+&lt;p&gt;程式碼包含幾個部分：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;class Graph_SP_AllPairs&lt;/code&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;基本的資料項目：&lt;code&gt;AdjList&lt;/code&gt;、&lt;code&gt;Distance&lt;/code&gt;、&lt;code&gt;Predecessor&lt;/code&gt;；&lt;ul&gt;
+&lt;li&gt;以&lt;code&gt;std::vector&amp;lt;std::vector&amp;lt;int&amp;gt;&amp;gt;&lt;/code&gt;實現。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;基本函式：&lt;strong&gt;Constructor&lt;/strong&gt;、&lt;code&gt;AddEdge()&lt;/code&gt;、&lt;code&gt;PrintData()&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;InitializeData()&lt;/code&gt;用來對&lt;code&gt;Distance&lt;/code&gt;與&lt;code&gt;Predecessor&lt;/code&gt;進行上一小節介紹過的初始化。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;FloydWarshall()&lt;/code&gt;利用三層迴圈，進行&lt;strong&gt;Floyd-Warshall Algorithm&lt;/strong&gt;。&lt;ul&gt;
+&lt;li&gt;在第三層迴圈的&lt;code&gt;if&lt;/code&gt;判斷式內，多了一個條件&lt;code&gt;(Distance[i][k] != MaxDistance)&lt;/code&gt;，是因為實際上的程式碼不存在「無限大(&lt;span class="math"&gt;\(\infty\)&lt;/span&gt;)」，以下面提供的程式碼為例，令無限大的距離為&lt;code&gt;int MaxDistance = 1000&lt;/code&gt;，可以想像的是，若不加上上述條件，程式會以為&lt;code&gt;Distance=1000&lt;/code&gt;是「有edge相連」，而進行路徑更新，導致錯誤(error)。&lt;/li&gt;
+&lt;li&gt;為了驗證需要，在每一次「引入&lt;strong&gt;中繼點&lt;/strong&gt;vertex(k)，並更新完&lt;code&gt;Distance&lt;/code&gt;與&lt;code&gt;Predecessor&lt;/code&gt;後」，都會將此兩項資料印出，與主要演算法無關。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;以及&lt;code&gt;main()&lt;/code&gt;：建立如圖二(a)的Graph之&lt;code&gt;AdjMatrix&lt;/code&gt;，並進行&lt;code&gt;FloydWarshall()&lt;/code&gt;。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// C++ code&lt;/span&gt;
+&lt;span class="cp"&gt;#include &amp;lt;iostream&amp;gt;&lt;/span&gt;
+&lt;span class="cp"&gt;#include &amp;lt;vector&amp;gt;&lt;/span&gt;
+&lt;span class="cp"&gt;#include &amp;lt;iomanip&amp;gt;      &lt;/span&gt;&lt;span class="c1"&gt;// for setw()&lt;/span&gt;
+
+&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;MaxDistance&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;1000&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Graph_SP_AllPairs&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="k"&gt;private&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;num_vertex&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;vector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;vector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;AdjMatrix&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;Distance&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;Predecessor&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="k"&gt;public&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+    &lt;span class="n"&gt;Graph_SP_AllPairs&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;num_vertex&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;){};&lt;/span&gt;
+    &lt;span class="n"&gt;Graph_SP_AllPairs&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;AddEdge&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;from&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;weight&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;PrintData&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;vector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;vector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;array&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;InitializeData&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+    &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;FloydWarshall&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+&lt;span class="p"&gt;};&lt;/span&gt;
+
+&lt;span class="n"&gt;Graph_SP_AllPairs&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;Graph_SP_AllPairs&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;num_vertex&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
+    &lt;span class="c1"&gt;// Constructor, initialize AdjMatrix with 0 or MaxDistance&lt;/span&gt;
+    &lt;span class="n"&gt;AdjMatrix&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;resize&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;num_vertex&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;num_vertex&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="n"&gt;AdjMatrix&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;].&lt;/span&gt;&lt;span class="n"&gt;resize&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;num_vertex&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;MaxDistance&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+        &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;j&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;j&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;num_vertex&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
+                &lt;span class="n"&gt;AdjMatrix&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+            &lt;span class="p"&gt;}&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;Graph_SP_AllPairs&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;InitializeData&lt;/span&gt;&lt;span class="p"&gt;(){&lt;/span&gt;
+
+    &lt;span class="n"&gt;Distance&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;resize&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;num_vertex&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="n"&gt;Predecessor&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;resize&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;num_vertex&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;num_vertex&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="n"&gt;Distance&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;].&lt;/span&gt;&lt;span class="n"&gt;resize&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;num_vertex&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+        &lt;span class="n"&gt;Predecessor&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;].&lt;/span&gt;&lt;span class="n"&gt;resize&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;num_vertex&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+        &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;j&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;j&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;num_vertex&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="n"&gt;Distance&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;AdjMatrix&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+            &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Distance&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;!=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;Distance&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;!=&lt;/span&gt; &lt;span class="n"&gt;MaxDistance&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+                &lt;span class="n"&gt;Predecessor&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+            &lt;span class="p"&gt;}&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;Graph_SP_AllPairs&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;FloydWarshall&lt;/span&gt;&lt;span class="p"&gt;(){&lt;/span&gt;
+
+    &lt;span class="n"&gt;InitializeData&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+
+    &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;initial Distance[]:&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;PrintData&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Distance&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s"&gt;initial Predecessor[]:&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;PrintData&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Predecessor&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;k&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;k&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;num_vertex&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;k&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s"&gt;including vertex(&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;k&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;):&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;num_vertex&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;j&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;j&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;num_vertex&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+                &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;Distance&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;Distance&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="n"&gt;k&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="n"&gt;Distance&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;k&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt; 
+                     &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Distance&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="n"&gt;k&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;!=&lt;/span&gt; &lt;span class="n"&gt;MaxDistance&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+                    &lt;span class="n"&gt;Distance&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Distance&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="n"&gt;k&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="n"&gt;Distance&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;k&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+                    &lt;span class="n"&gt;Predecessor&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Predecessor&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;k&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+                &lt;span class="p"&gt;}&lt;/span&gt;
+            &lt;span class="p"&gt;}&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+        &lt;span class="c1"&gt;// print data after including new vertex and updating the shortest paths&lt;/span&gt;
+        &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;Distance[]:&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="n"&gt;PrintData&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Distance&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+        &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s"&gt;Predecessor[]:&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="n"&gt;PrintData&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Predecessor&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;Graph_SP_AllPairs&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;PrintData&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;vector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;vector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;array&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
+
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;num_vertex&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
+        &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;j&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;j&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;num_vertex&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;setw&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;array&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+        &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;endl&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;Graph_SP_AllPairs&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;AddEdge&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;from&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;weight&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
+    &lt;span class="n"&gt;AdjMatrix&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;from&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;weight&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;main&lt;/span&gt;&lt;span class="p"&gt;(){&lt;/span&gt;
+
+    &lt;span class="n"&gt;Graph_SP_AllPairs&lt;/span&gt; &lt;span class="n"&gt;g10&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="n"&gt;g10&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;AddEdge&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;span class="n"&gt;g10&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;AddEdge&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;6&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;span class="n"&gt;g10&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;AddEdge&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;8&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="n"&gt;g10&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;AddEdge&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;span class="n"&gt;g10&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;AddEdge&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="n"&gt;g10&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;AddEdge&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;span class="n"&gt;g10&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;AddEdge&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+    &lt;span class="n"&gt;g10&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;FloydWarshall&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;output:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;initial&lt;/span&gt; &lt;span class="n"&gt;Distance&lt;/span&gt;&lt;span class="p"&gt;[]&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+    &lt;span class="mi"&gt;0&lt;/span&gt;    &lt;span class="mi"&gt;2&lt;/span&gt;    &lt;span class="mi"&gt;6&lt;/span&gt;    &lt;span class="mi"&gt;8&lt;/span&gt;
+ &lt;span class="mi"&gt;1000&lt;/span&gt;    &lt;span class="mi"&gt;0&lt;/span&gt;   &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;    &lt;span class="mi"&gt;3&lt;/span&gt;
+    &lt;span class="mi"&gt;4&lt;/span&gt; &lt;span class="mi"&gt;1000&lt;/span&gt;    &lt;span class="mi"&gt;0&lt;/span&gt;    &lt;span class="mi"&gt;1&lt;/span&gt;
+ &lt;span class="mi"&gt;1000&lt;/span&gt; &lt;span class="mi"&gt;1000&lt;/span&gt; &lt;span class="mi"&gt;1000&lt;/span&gt;    &lt;span class="mi"&gt;0&lt;/span&gt;
+
+&lt;span class="n"&gt;initial&lt;/span&gt; &lt;span class="n"&gt;Predecessor&lt;/span&gt;&lt;span class="p"&gt;[]&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+   &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;    &lt;span class="mi"&gt;0&lt;/span&gt;    &lt;span class="mi"&gt;0&lt;/span&gt;    &lt;span class="mi"&gt;0&lt;/span&gt;
+   &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;   &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;    &lt;span class="mi"&gt;1&lt;/span&gt;    &lt;span class="mi"&gt;1&lt;/span&gt;
+    &lt;span class="mi"&gt;2&lt;/span&gt;   &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;   &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;    &lt;span class="mi"&gt;2&lt;/span&gt;
+   &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;   &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;   &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;   &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;
+
+&lt;span class="n"&gt;including&lt;/span&gt; &lt;span class="n"&gt;vertex&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+&lt;span class="n"&gt;Distance&lt;/span&gt;&lt;span class="p"&gt;[]&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+    &lt;span class="mi"&gt;0&lt;/span&gt;    &lt;span class="mi"&gt;2&lt;/span&gt;    &lt;span class="mi"&gt;6&lt;/span&gt;    &lt;span class="mi"&gt;8&lt;/span&gt;
+ &lt;span class="mi"&gt;1000&lt;/span&gt;    &lt;span class="mi"&gt;0&lt;/span&gt;   &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;    &lt;span class="mi"&gt;3&lt;/span&gt;
+    &lt;span class="mi"&gt;4&lt;/span&gt;    &lt;span class="mi"&gt;6&lt;/span&gt;    &lt;span class="mi"&gt;0&lt;/span&gt;    &lt;span class="mi"&gt;1&lt;/span&gt;
+ &lt;span class="mi"&gt;1000&lt;/span&gt; &lt;span class="mi"&gt;1000&lt;/span&gt; &lt;span class="mi"&gt;1000&lt;/span&gt;    &lt;span class="mi"&gt;0&lt;/span&gt;
+
+&lt;span class="n"&gt;Predecessor&lt;/span&gt;&lt;span class="p"&gt;[]&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+   &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;    &lt;span class="mi"&gt;0&lt;/span&gt;    &lt;span class="mi"&gt;0&lt;/span&gt;    &lt;span class="mi"&gt;0&lt;/span&gt;
+   &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;   &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;    &lt;span class="mi"&gt;1&lt;/span&gt;    &lt;span class="mi"&gt;1&lt;/span&gt;
+    &lt;span class="mi"&gt;2&lt;/span&gt;    &lt;span class="mi"&gt;0&lt;/span&gt;   &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;    &lt;span class="mi"&gt;2&lt;/span&gt;
+   &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;   &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;   &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;   &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;
+
+&lt;span class="n"&gt;including&lt;/span&gt; &lt;span class="n"&gt;vertex&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+&lt;span class="n"&gt;Distance&lt;/span&gt;&lt;span class="p"&gt;[]&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+    &lt;span class="mi"&gt;0&lt;/span&gt;    &lt;span class="mi"&gt;2&lt;/span&gt;    &lt;span class="mi"&gt;0&lt;/span&gt;    &lt;span class="mi"&gt;5&lt;/span&gt;
+ &lt;span class="mi"&gt;1000&lt;/span&gt;    &lt;span class="mi"&gt;0&lt;/span&gt;   &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;    &lt;span class="mi"&gt;3&lt;/span&gt;
+    &lt;span class="mi"&gt;4&lt;/span&gt;    &lt;span class="mi"&gt;6&lt;/span&gt;    &lt;span class="mi"&gt;0&lt;/span&gt;    &lt;span class="mi"&gt;1&lt;/span&gt;
+ &lt;span class="mi"&gt;1000&lt;/span&gt; &lt;span class="mi"&gt;1000&lt;/span&gt; &lt;span class="mi"&gt;1000&lt;/span&gt;    &lt;span class="mi"&gt;0&lt;/span&gt;
+
+&lt;span class="n"&gt;Predecessor&lt;/span&gt;&lt;span class="p"&gt;[]&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+   &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;    &lt;span class="mi"&gt;0&lt;/span&gt;    &lt;span class="mi"&gt;1&lt;/span&gt;    &lt;span class="mi"&gt;1&lt;/span&gt;
+   &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;   &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;    &lt;span class="mi"&gt;1&lt;/span&gt;    &lt;span class="mi"&gt;1&lt;/span&gt;
+    &lt;span class="mi"&gt;2&lt;/span&gt;    &lt;span class="mi"&gt;0&lt;/span&gt;   &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;    &lt;span class="mi"&gt;2&lt;/span&gt;
+   &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;   &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;   &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;   &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;
+
+&lt;span class="n"&gt;including&lt;/span&gt; &lt;span class="n"&gt;vertex&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+&lt;span class="n"&gt;Distance&lt;/span&gt;&lt;span class="p"&gt;[]&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+    &lt;span class="mi"&gt;0&lt;/span&gt;    &lt;span class="mi"&gt;2&lt;/span&gt;    &lt;span class="mi"&gt;0&lt;/span&gt;    &lt;span class="mi"&gt;1&lt;/span&gt;
+    &lt;span class="mi"&gt;2&lt;/span&gt;    &lt;span class="mi"&gt;0&lt;/span&gt;   &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;   &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;
+    &lt;span class="mi"&gt;4&lt;/span&gt;    &lt;span class="mi"&gt;6&lt;/span&gt;    &lt;span class="mi"&gt;0&lt;/span&gt;    &lt;span class="mi"&gt;1&lt;/span&gt;
+ &lt;span class="mi"&gt;1000&lt;/span&gt; &lt;span class="mi"&gt;1000&lt;/span&gt; &lt;span class="mi"&gt;1000&lt;/span&gt;    &lt;span class="mi"&gt;0&lt;/span&gt;
+
+&lt;span class="n"&gt;Predecessor&lt;/span&gt;&lt;span class="p"&gt;[]&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+   &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;    &lt;span class="mi"&gt;0&lt;/span&gt;    &lt;span class="mi"&gt;1&lt;/span&gt;    &lt;span class="mi"&gt;2&lt;/span&gt;
+    &lt;span class="mi"&gt;2&lt;/span&gt;   &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;    &lt;span class="mi"&gt;1&lt;/span&gt;    &lt;span class="mi"&gt;2&lt;/span&gt;
+    &lt;span class="mi"&gt;2&lt;/span&gt;    &lt;span class="mi"&gt;0&lt;/span&gt;   &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;    &lt;span class="mi"&gt;2&lt;/span&gt;
+   &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;   &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;   &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;   &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;
+
+&lt;span class="n"&gt;including&lt;/span&gt; &lt;span class="n"&gt;vertex&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+&lt;span class="n"&gt;Distance&lt;/span&gt;&lt;span class="p"&gt;[]&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+    &lt;span class="mi"&gt;0&lt;/span&gt;    &lt;span class="mi"&gt;2&lt;/span&gt;    &lt;span class="mi"&gt;0&lt;/span&gt;    &lt;span class="mi"&gt;1&lt;/span&gt;
+    &lt;span class="mi"&gt;2&lt;/span&gt;    &lt;span class="mi"&gt;0&lt;/span&gt;   &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;   &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;
+    &lt;span class="mi"&gt;4&lt;/span&gt;    &lt;span class="mi"&gt;6&lt;/span&gt;    &lt;span class="mi"&gt;0&lt;/span&gt;    &lt;span class="mi"&gt;1&lt;/span&gt;
+ &lt;span class="mi"&gt;1000&lt;/span&gt; &lt;span class="mi"&gt;1000&lt;/span&gt; &lt;span class="mi"&gt;1000&lt;/span&gt;    &lt;span class="mi"&gt;0&lt;/span&gt;
+
+&lt;span class="n"&gt;Predecessor&lt;/span&gt;&lt;span class="p"&gt;[]&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+   &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;    &lt;span class="mi"&gt;0&lt;/span&gt;    &lt;span class="mi"&gt;1&lt;/span&gt;    &lt;span class="mi"&gt;2&lt;/span&gt;
+    &lt;span class="mi"&gt;2&lt;/span&gt;   &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;    &lt;span class="mi"&gt;1&lt;/span&gt;    &lt;span class="mi"&gt;2&lt;/span&gt;
+    &lt;span class="mi"&gt;2&lt;/span&gt;    &lt;span class="mi"&gt;0&lt;/span&gt;   &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;    &lt;span class="mi"&gt;2&lt;/span&gt;
+   &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;   &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;   &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;   &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;/br&gt;  &lt;/p&gt;
+&lt;p&gt;以上便是嘔心瀝血的&lt;strong&gt;Floyd-Warshall Algorithm&lt;/strong&gt;之介紹。&lt;br /&gt;
+內容主要圍繞在「引入&lt;strong&gt;中繼點&lt;/strong&gt;」與「最短路徑之&lt;strong&gt;結構特徵&lt;/strong&gt;」上，需要讀者細細品味。&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;&lt;a name="ref"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;參考資料：&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844"&gt;Introduction to Algorithms, Ch25&lt;/a&gt; &lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376"&gt;Fundamentals of Data Structures in C++, Ch6&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.cse.ust.hk/faculty/golin/COMP271Sp03/Notes/MyL15.pdf"&gt;Mordecai Golin：Lecture15:The Floyd-Warshall Algorithm&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://en.wikipedia.org/wiki/Floyd%E2%80%93Warshall_algorithm"&gt;Wikipedia：Floyd-Warshall Algorithm&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.geeksforgeeks.org/dynamic-programming-set-16-floyd-warshall-algorithm/"&gt;GeeksforGeeks：Dynamic Programming | Set 16 (Floyd Warshall Algorithm)&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a name="series"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;h3&gt;Shortest Path系列文章&lt;/h3&gt;
+&lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathintrojian-jie.html"&gt;Single-Source Shortest Path：Intro(簡介)&lt;/a&gt;&lt;br /&gt;
+&lt;a href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathbellman-ford-algorithm.html"&gt;Single-Source Shortest Path：Bellman-Ford Algorithm&lt;/a&gt;&lt;br /&gt;
+&lt;a href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathon-dagdirected-acyclic-graph.html"&gt;Single-Source Shortest Path：on DAG(directed acyclic graph)&lt;/a&gt;&lt;br /&gt;
+&lt;a href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathdijkstras-algorithm.html"&gt;Single-Source Shortest Path：Dijkstra's Algorithm&lt;/a&gt;&lt;br /&gt;
+&lt;a href=""&gt;All-Pairs Shortest Path：Floyd-Warshall Algorithm&lt;/a&gt;  &lt;/p&gt;
+&lt;p&gt;回到目錄：&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html"&gt;目錄：演算法與資料結構&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;script type="text/javascript"&gt;if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width &lt; 768) ? "left" : align;
+        indent = (screen.width &lt; 768) ? "0em" : indent;
+        linebreak = (screen.width &lt; 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' &amp;&amp; location_protocol !== 'https') location_protocol = 'https:';
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+&lt;/script&gt;</summary><category term="C++"></category><category term="Graph"></category><category term="Shortest Path"></category><category term="Relaxation"></category><category term="Dynamic Programming"></category></entry><entry><title>Single-Source Shortest Path：Dijkstra's Algorithm</title><link href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathdijkstras-algorithm.html" rel="alternate"></link><updated>2016-03-07T22:30:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-03-07:SecondRound/single-source-shortest-pathdijkstras-algorithm.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h3&gt;先備知識與注意事項&lt;/h3&gt;
 &lt;p&gt;本篇文章將介紹另一種處理Single-Source Shortest Path的方法：&lt;strong&gt;Dijkstra's Algorithm&lt;/strong&gt;。&lt;br /&gt;
 演算法的概念依然需要：&lt;/p&gt;

@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="zh-hant">
+
+<head>
+            <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+
+        <title>All-Pairs Shortest Path：Floyd-Warshall Algorithm</title>
+
+            <link href="http://alrightchiu.github.io/SecondRound/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Second Round Full Atom Feed" />
+            <link href="http://alrightchiu.github.io/SecondRound/feeds/yan-suan-fa-yu-zi-liao-jie-gou.atom.xml" type="application/atom+xml" rel="alternate" title="Second Round Categories Atom Feed" />
+
+        <!-- Bootstrap Core CSS -->
+        <link href="http://alrightchiu.github.io/SecondRound/theme/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="http://alrightchiu.github.io/SecondRound/theme/css/clean-blog.min.css" rel="stylesheet">
+
+        <!-- Code highlight color scheme -->
+            <link href="http://alrightchiu.github.io/SecondRound/theme/css/code_blocks/darkly.css" rel="stylesheet">
+
+
+        <!-- Custom Fonts -->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+
+
+
+        <meta name="tags" contents="C++" />
+        <meta name="tags" contents="Graph" />
+        <meta name="tags" contents="Shortest Path" />
+        <meta name="tags" contents="Relaxation" />
+        <meta name="tags" contents="Dynamic Programming" />
+
+
+	                <meta property="og:locale" content="">
+		<meta property="og:site_name" content="Second Round">
+
+	<meta property="og:type" content="article">
+	<meta property="article:author" content="">
+	<meta property="og:url" content="http://alrightchiu.github.io/SecondRound/all-pairs-shortest-pathfloyd-warshall-algorithm.html">
+	<meta property="og:title" content="All-Pairs Shortest Path：Floyd-Warshall Algorithm">
+	<meta property="og:description" content="">
+	<meta property="og:image" content="http://alrightchiu.github.io/SecondRound/">
+	<meta property="article:published_time" content="2016-03-14 18:10:00+08:00">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://alrightchiu.github.io/SecondRound/">Second Round</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a href="http://alrightchiu.github.io/SecondRound/archives.html">Archives</a></li>
+                        <li><a href="http://alrightchiu.github.io/SecondRound/tags.html">Tags</a></li>
+
+                            <li><a href="http://alrightchiu.github.io/SecondRound/pages/about.html">About</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+        <header class="intro-header" style="background-image: url('http://alrightchiu.github.io/SecondRound/theme/images/post-bg.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>All-Pairs Shortest Path：Floyd-Warshall Algorithm</h1>
+                        <span class="meta">Posted by
+                                <a href="http://alrightchiu.github.io/SecondRound/author/chiu-cc.html">Chiu CC</a>
+                             on  3 14, 2016
+                        </span>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    <!-- Post Content -->
+    <article>
+        <p></br></p>
+<h3>先備知識與注意事項</h3>
+<p>本篇文章將介紹<strong>Floyd-Warshall Algorithm</strong>來解決<strong>All-Pairs Shortest Path</strong>問題。  </p>
+<p>由於是<strong>All Pairs</strong>，每個vertex都將視為起點，尋找以該vertex走到其他vertex之最短路徑，可以想見，在<strong>Single-Source Shortest Path</strong>中使用的一維矩陣<code>distance[]</code>與<code>predecessor[]</code>，需要再增加一個維度成二維矩陣，以<code>Distance[][]</code>與<code>Predecessor[][]</code>表示，以完成相同的功能。<br />
+連帶地，在建立Graph時，也將使用<strong>Adjacency Matrix</strong>，並以其陣列元素值代表edge之weight。<br />
+(這並不表示不能使用<strong>Adjacency List</strong>實現，只是較為費工。)</p>
+<hr />
+<h2>目錄</h2>
+<ul>
+<li><a href="#ss">若使用Single-Source Shortest Path之演算法</a></li>
+<li><a href="#floyd">Floyd-Warshall Algorithm</a><ul>
+<li><a href="#inter">引入中繼點(intermediate vertex)</a></li>
+<li><a href="#explain">以數學符號表示</a></li>
+<li><a href="#example">觀察Distance與Predecessor的變化</a></li>
+</ul>
+</li>
+<li><a href="#code">程式碼</a></li>
+<li><a href="#ref">參考資料</a></li>
+<li><a href="#series">Shortest Path系列文章</a></li>
+</ul>
+<p></br></p>
+<p><a name="ss"></a></p>
+<h2>若使用Single-Source Shortest Path之演算法</h2>
+<p>在<a href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathintrojian-jie.html">Single-Source Shortest Path：Intro(簡介)</a>曾經提過，用<strong>Single-Source Shortest Path</strong>之演算法其實也可以應付<strong>All-Pairs Shortest Path</strong>問題，只要把每一個vertex都當做起點，找一次<strong>Bellman-Ford Algorithm</strong>(或者<strong>Dijkstra's Algorithm</strong>)，就能得到Graph中「從每一個vertex到達其餘vertex之最短路徑」，可惜效能卻不能盡如人意。  </p>
+<p>上述提到的兩種演算法之時間複雜度如表一：</p>
+<p><center></p>
+<table>
+<thead>
+<tr>
+<th>Bellman-Ford&nbsp;&nbsp;&nbsp;&nbsp;</th>
+<th>&nbsp;&nbsp;Dijkstra(worst)&nbsp;&nbsp;&nbsp;</th>
+<th>&nbsp;&nbsp;Dijkstra(best)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="math">\(O(VE)\)</span>&nbsp;</td>
+<td>&nbsp;&nbsp;<span class="math">\(O(E+V^2)\)</span>&nbsp;&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;<span class="math">\(O(E+V\log V)\)</span>&nbsp;&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<p><strong>表一：兩種演算法解決</strong>Single-Source Shortest Path<strong>之時間複雜度</strong>
+</center></p>
+<p>若再加上「以每個vertex為起點」的運算成本，更新成表二：</p>
+<p><center></p>
+<table>
+<thead>
+<tr>
+<th>Bellman-Ford&nbsp;&nbsp;&nbsp;&nbsp;</th>
+<th>&nbsp;&nbsp;Dijkstra(worst)&nbsp;&nbsp;&nbsp;</th>
+<th>&nbsp;&nbsp;Dijkstra(best)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="math">\(O(V^2E)\)</span>&nbsp;</td>
+<td>&nbsp;&nbsp;<span class="math">\(O(EV+V^3)\)</span>&nbsp;&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;<span class="math">\(O(EV+V^2\log V)\)</span>&nbsp;&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<p><strong>表二：兩種演算法解決</strong>All-Pairs Shortest Path<strong>之時間複雜度</strong>
+</center></p>
+<p>還有一個條件：觀察<strong>Adjacency Matrix</strong>發現，edge最多的情況，即為矩陣中除了對角線(diagonal)為<span class="math">\(0\)</span>，其餘皆有值的情況，因此edge數目<span class="math">\(E\)</span>與vertex數目<span class="math">\(V\)</span>應具有以下關係：  </p>
+<ul>
+<li><span class="math">\(E=O(V^2)\)</span></li>
+</ul>
+<p>將此關係代入表二，形成表三：</p>
+<p><center></p>
+<table>
+<thead>
+<tr>
+<th>Bellman-Ford&nbsp;&nbsp;&nbsp;&nbsp;</th>
+<th>&nbsp;&nbsp;Dijkstra(worst)&nbsp;&nbsp;&nbsp;</th>
+<th>&nbsp;&nbsp;Dijkstra(best)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="math">\(O(V^4)\)</span>&nbsp;</td>
+<td>&nbsp;&nbsp;<span class="math">\(O(V^3+V^3)\)</span>&nbsp;&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;<span class="math">\(O(V^3+V^2\log V)\)</span>&nbsp;&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<p><strong>表三：兩種演算法解決</strong>All-Pairs Shortest Path<strong>之時間複雜度</strong>
+</center></p>
+<p>根據表三，成本最高的情況發生在<strong>Bellman-Ford Algorithm</strong>，需要<span class="math">\(O(V^4)\)</span>的成本，而<strong>Dijkstra's Algorithm</strong>雖然非常有效率，只需要<span class="math">\(O(V^3)\)</span>，但是不要忘記，唯有Graph中不存在具有negative weight的edge時，才可使用<strong>Dijkstra's Algorithm</strong>，這將是一大限制。</p>
+<p>而本篇文章將要介紹的<strong>Floyd-Warshall Algorithm</strong>，適用的情況只需要「Graph中不存在<strong>negative cycle</strong>」，即可在時間複雜度<span class="math">\(O(V^3)\)</span>完成。</p>
+<p></br></p>
+<p><a name="floyd"></a></p>
+<h2>Floyd-Warshall Algorithm</h2>
+<p><a name="inter"></a></p>
+<h3>引入中繼點(intermediate vertex)</h3>
+<p>若用一句含有逗點的話來描述<strong>Floyd-Warshall Algorithm</strong>的精髓，應該可以這麼說：</p>
+<ul>
+<li>每次多加入一個「<strong>中繼點(intermediate vertex)</strong>」，考慮從vertex(X)走向vertex(Y)的最短路徑，是否因為經過了該中繼點vertex(Z)而降低成本，形成新的最短路徑。  <ul>
+<li><strong>中繼點</strong>就是「允許被路徑經過」的vertex。 </li>
+<li>若原先的最短路徑是<span class="math">\(Path:X-Y\)</span>，在引入<strong>中繼點</strong>vertex(Z)後，最短路徑就有兩種可能，<span class="math">\(Path:X-Y\)</span>或者<span class="math">\(Path:X-Z-Y\)</span>。</li>
+</ul>
+</li>
+</ul>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/AllPairs_FloydWarshall/f5.png?raw=true" /></p>
+<p><strong>圖一。</strong>
+</center></p>
+<p></br>
+先看個簡單的例子，感受一下<strong>中繼點(intermediate vertex)</strong>究竟為何物。</p>
+<p>以圖二(a)的Graph為例，其滿足：</p>
+<ol>
+<li>不包含<strong>negative cycle</strong></li>
+<li>(允許)含有<strong>positive cycle</strong></li>
+<li>(允許)edge具有<strong>negative weight</strong></li>
+</ol>
+<p>要找到從vertex(A)走到vertex(D)的最短路徑。</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/AllPairs_FloydWarshall/f1.png?raw=true" /></p>
+<p><strong>圖二(a)。</strong>
+</center></p>
+<p>在概念上，引入兩個集合會較容易理解：</p>
+<ul>
+<li><strong>集合K</strong>：由所有<strong>中繼點</strong>形成的集合。<ul>
+<li>當演算法剛開始，Graph的「每一個vertex」都在<strong>K</strong>裏面。</li>
+<li>隨著演算法的進行，vertex將逐一從<strong>集合K</strong>中被移除。</li>
+</ul>
+</li>
+<li><strong>集合S</strong>：只有與「存在<strong>集合S</strong>裡面的vertex」相連的edge，才會被納入尋找最短路徑的討論。隨著演算法進行，會不停從<strong>集合K</strong>挑選vertex放進<strong>集合S</strong>，尋找新的最短路徑。<ul>
+<li>舉例來說，若要找到圖二(a)的Graph中，從vertex(A)走到vertex(D)的最短路徑，若<strong>集合S</strong>裡面只有vertex(A)、vertex(B)、vertex(D)，那麼就只能考慮由「edge(A,B)、edge(A,D)、edge(B,D)」形成的路徑，以其中的最短路徑為最後結果(這時候的最短路徑只能算是「當前找到」的最短路徑，未必是最後結果)。</li>
+<li>特別注意，<strong>集合S</strong>的作用是找到「某個vertex(X)走到某個vertex(Y)」的最短路徑，因此，即使「加入的中繼點」都相同，但是起點與終點必定不同，所以不同的「起點vertex(X)與終點vertex(Y)」之組合，都有各自的<strong>集合S</strong>。<ul>
+<li>從vertex(A)走到vertex(D)，起始狀態的<strong>集合S</strong>為<span class="math">\(S=\)</span>{<span class="math">\(A,D\)</span>}，加入中繼點vertex(B)後，更新成<span class="math">\(S=\)</span>{<span class="math">\(A,B,D\)</span>}。</li>
+<li>從vertex(C)走到vertex(D)，起始狀態的<strong>集合S</strong>為<span class="math">\(S=\)</span>{<span class="math">\(C,D\)</span>}，加入中繼點vertex(B)後，更新成<span class="math">\(S=\)</span>{<span class="math">\(B,C,D\)</span>}。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p></br>
+見圖二(b)，「初始狀態」指的是「尚未加入任何中繼點進入<strong>集合S</strong>」，因此<strong>集合K</strong>應包含所有vertex，<span class="math">\(K=\)</span>{<span class="math">\(A,B,C,D\)</span>}。</p>
+<p>因為沒有任何中繼點，對所有的「起點-終點」組合而言，<strong>集合S</strong>都只有起點vertex(X)與終點vertex(Y)，而最短路徑有兩種可能：</p>
+<ul>
+<li>若存在edge(X,Y)，最短路徑必定是edge(X,Y)；</li>
+<li>若不存在edge(X,Y)，那麼兩者的距離為「無限大(<span class="math">\(\infty\)</span>)」。  </li>
+</ul>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/AllPairs_FloydWarshall/f4.png?raw=true" /></p>
+<p><strong>圖二(b)。</strong>
+</center></p>
+<p>考慮圖二(b)，從vertex(A)走到vertex(D)的最短路徑就是經過edge(A,D)的<span class="math">\(Path:A-D\)</span>，成本為<span class="math">\(8\)</span>。</p>
+<ul>
+<li>此時「從vertex(A)走到vertex(D)」的<strong>集合S</strong>為<span class="math">\(S=\)</span>{<span class="math">\(A,D\)</span>}。</li>
+<li>若考慮的是「從vertex(C)走到vertex(B)」的問題，此時<strong>集合S</strong>為<span class="math">\(S=\)</span>{<span class="math">\(B,C\)</span>}。</li>
+</ul>
+<p></br>
+接著，依序從<strong>集合K</strong>中，讀取vertex(A)、vertex(B)、vertex(C)、vertex(D)作為中繼點，加入<strong>集合S</strong>，並考慮所有由「<strong>集合S</strong>中的vertex互相相連的edge」形成的路徑，找到其中的最短路徑。</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/AllPairs_FloydWarshall/f2.png?raw=true" /></p>
+<p><strong>圖二(c)。</strong>
+</center></p>
+<p>首先加入vertex(A)作為<strong>中繼點</strong>，見圖二(c)左：</p>
+<ul>
+<li><strong>集合S</strong>沒有更新，仍是<span class="math">\(S=\)</span>{<span class="math">\(A,D\)</span>}，因此，所有路徑中的最短路徑仍然是<span class="math">\(Path:A-D\)</span>。</li>
+<li><strong>集合K</strong>更新成<span class="math">\(K=\)</span>{<span class="math">\(B,C,D\)</span>}，也就是說，除了vertex(D)為終點vertex，其餘的vertex(B)、vertex(C)都不能被路徑經過。</li>
+</ul>
+<p>接著加入vertex(B)作為<strong>中繼點</strong>，見圖二(c)右：</p>
+<ul>
+<li><strong>集合S</strong>更新成<span class="math">\(S=\)</span>{<span class="math">\(A,B,D\)</span>}；</li>
+<li><strong>集合K</strong>更新成<span class="math">\(K=\)</span>{<span class="math">\(C,D\)</span>}，亦即，除了vertex(D)為終點，vertex(C)不能被路徑經過。  </li>
+</ul>
+<p>根據是否經過中繼點vertex(B)，所有能夠「從vertex(A)走到vertex(D)」的路徑共有兩條：</p>
+<ul>
+<li><span class="math">\(Path:A-D\)</span>，成本<span class="math">\(8\)</span>；</li>
+<li><span class="math">\(Path:A-B-D\)</span>，成本<span class="math">\(5\)</span>；</li>
+</ul>
+<p>於是更新「當前的最短路徑」為<span class="math">\(Path:A-B-D\)</span>。</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/AllPairs_FloydWarshall/f3.png?raw=true" /></p>
+<p><strong>圖二(d)。</strong>
+</center></p>
+<p>繼續加入vertex(C)作為<strong>中繼點</strong>，見圖二(d)左：</p>
+<ul>
+<li><strong>集合S</strong>更新成<span class="math">\(S=\)</span>{<span class="math">\(A,B,C,D\)</span>}；</li>
+<li><strong>集合K</strong>更新成<span class="math">\(K=\)</span>{<span class="math">\(D\)</span>}。  </li>
+</ul>
+<p>所有能夠「從vertex(A)走到vertex(D)」的路徑共有數條(因為出現<strong>cycle</strong>)：  </p>
+<ul>
+<li><span class="math">\(Path:A-D\)</span>，成本<span class="math">\(8\)</span>；</li>
+<li><span class="math">\(Path:A-B-D\)</span>，成本<span class="math">\(5\)</span>；</li>
+<li><span class="math">\(Path:A-C-D\)</span>，成本<span class="math">\(7\)</span>；</li>
+<li><span class="math">\(Path:A-B-C-D\)</span>，成本<span class="math">\(1\)</span>；</li>
+<li>所有包含<strong>cycle</strong><span class="math">\(:A-B-C-A\)</span>的路徑，成本一定大於<span class="math">\(4\)</span>；</li>
+</ul>
+<p>可以找到「當前的最短路徑」為<span class="math">\(Path:A-B-C-D\)</span>。</p>
+<p>最後，再加入vertex(D)作為<strong>中繼點</strong>，如圖二(d)右，因為沒有更新<strong>集合S</strong>，最短路徑維持<span class="math">\(Path:A-B-C-D\)</span>，此即為最終結果。</p>
+<p></br>
+最重要的是，<span class="math">\(Path:A-B-C-D\)</span>的形成，其實是由一段一段的<strong>subpath</strong>慢慢接起來的：</p>
+<ul>
+<li>在「初始狀態」時，<span class="math">\(Path:A-B\)</span>、<span class="math">\(Path:B-C\)</span>、<span class="math">\(Path:C-D\)</span>就已經是最短路徑。</li>
+<li>當引入vertex(B)作為<strong>中繼點</strong>時，對<span class="math">\(Path:A-B-C-D\)</span>的形成沒有影響。</li>
+<li>當引入vertex(C)作為<strong>中繼點</strong>時，因為已經有最短路徑<span class="math">\(Path:B-C\)</span>以及<span class="math">\(Path:C-D\)</span>，便建立起從vertex(B)走到vertex(D)的最段路徑，<span class="math">\(Path:B-C-D\)</span>。</li>
+<li>最後，因為已經有最短路徑<span class="math">\(Path:B-C-D\)</span>，連同另一段最段路徑<span class="math">\(Path:A-B\)</span>，便能得到從vertex(A)走到vertex(D)的最短路徑，<span class="math">\(Path:A-B-C-D\)</span>。</li>
+</ul>
+<p>更廣義的意義上，可以將以上步驟解讀成：</p>
+<ul>
+<li>在引入中繼點vertex(k)之前，已經找到「引入中繼點vertex(k-1)後，從vertex(i)走到vertex(j)」的最短路徑；</li>
+<li>在引入中繼點vertex(k-1)之前，已經找到「引入中繼點vertex(k-2)後，從vertex(i)走到vertex(j)」的最短路徑；</li>
+<li>依此類推。</li>
+</ul>
+<p>經由以上觀察，<strong>Floyd-Warshall Algorithm</strong>的奧義就是「以較小段的最短路徑(subpath)，連結出最終的最短路徑」。    </p>
+<p>而其正確性的根據是最短路徑的<strong>結構特徵</strong>：</p>
+<ul>
+<li>最短路徑是由較小段的最短路徑(subpath)所連結起來的。換句話說，由較小段的最短路徑(subpath)接起來的路徑必定仍然是最短路徑。<br />
+(參考：<a href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathintrojian-jie.html#property">Single-Source Shortest Path：Intro(簡介)</a>)</li>
+</ul>
+<p>接著，將以上說明，以稍微嚴謹的數學符號表示。</p>
+<p></br></p>
+<p><a name="explain"></a></p>
+<h3>以數學符號表示</h3>
+<p>現考慮，從vertex(i)走到vertex(j)，逐一引入<strong>中繼點</strong>vertex(k)，欲尋找最短路徑。  </p>
+<p>定義，引入<strong>中繼點</strong>vertex(k)後，「當前的最短路徑」之成本為<span class="math">\(d^{(k)}_{ij}\)</span>：</p>
+<ul>
+<li><span class="math">\(d^{(k)}_{ij}\)</span>為「已將<strong>集合K</strong>{<span class="math">\(1,2,3,...k\)</span>}中的所有vertex作為<strong>中繼點</strong>引入<strong>集合S</strong>」後，從起點vertex(i)走到終點vertex(j)的路徑之成本。</li>
+<li>注意：引入<strong>中繼點</strong>的順序以{<span class="math">\(1,2,3,...k\)</span>}表示，但實際上順序不重要，只要所有vertex都被當作<strong>中繼點</strong>一次，而且是只有一次，即可。</li>
+</ul>
+<p>由於最短路徑不包含<strong>cycle</strong>，每當引入一個<strong>中繼點</strong>vertex(k)，只有兩種可能：  </p>
+<ol>
+<li>vertex(k)不在最短路徑上，<span class="math">\(Path:i-...-j\)</span>；</li>
+<li>vertex(k)位在最短路徑上，<span class="math">\(Path:i-...-k-...-j\)</span>；  </li>
+</ol>
+<p>如果是第一種情形，「vertex(k)不在最短路徑上」，最短路徑便維持<span class="math">\(Path:i-...-j\)</span>。  </p>
+<ul>
+<li>維持的意思是，最短路徑是由「起點vertex(i)」、「終點vertex(j)」與「<strong>中繼點</strong>{<span class="math">\(1,2,...,k-1\)</span>}」構成；</li>
+<li>成本便滿足：<span class="math">\(d^{(k)}_{ij}=d^{(k-1)}_{ij}\)</span></li>
+</ul>
+<p>如果是第二種情形，「vertex(k)位在最短路徑上」，最短路徑又可以分成兩段：<span class="math">\(SubPath:i-...-k\)</span>，以及<span class="math">\(SubPath:k-...-j\)</span>，又因為這兩段subpath也是「考慮了<strong>集合K</strong>{<span class="math">\(1,2,3,...k-1\)</span>}的vertex作為<strong>中繼點</strong>引入<strong>集合S</strong>」後得到的最短路徑，便保證<span class="math">\(Path:i-...-k-...-j\)</span>也會是最短路徑，其路徑成本滿足：</p>
+<ul>
+<li><span class="math">\(d^{(k)}_{ij}=d^{(k-1)}_{ik}+d^{(k-1)}_{kj}\)</span></li>
+</ul>
+<p>綜合以上，可以得到，引入<strong>中繼點</strong>vertex(k)後，從vertex(i)走到vertex(j)的最短路徑之成本：</p>
+<div class="math">$$
+d^{(k)}_{ij}=
+\begin{cases}
+w_{ij}  &amp; \text{if $k=0$}\\
+\min(d^{(k-1)}_{ij},d^{(k-1)}_{ik}+d^{(k-1)}_{kj}) &amp; \text{if $k\geq 1$}
+\end{cases}
+$$</div>
+<p>其中，<span class="math">\(w_{ij}\)</span>即為edge的weight。</p>
+<p>以<span class="math">\(D\)</span>表示<code>Distance[][]</code>，則<span class="math">\(D^{(k)}[i][j]=d^{(k)}_{ij}\)</span>。</p>
+<p></br>
+只要<code>Distance[][]</code>被更新，也需要同時更新<code>Predecessor[][]</code>。</p>
+<p>比照<span class="math">\(d^{(k)}_{ij}\)</span>的定義，以<span class="math">\(p^{(k)}_{ij}\)</span>表示：「已將<strong>集合K</strong>{<span class="math">\(1,2,3,...k\)</span>}中的所有vertex作為<strong>中繼點</strong>引入<strong>集合S</strong>」後，從起點vertex(i)走到終點vertex(j)的路徑上，<strong>vertex(j)的predecessor</strong>。</p>
+<p>其數學式定義如下：</p>
+<ul>
+<li>初始狀態時，因為當只有edge(i,j)存在時，才存在一條路徑從vertex(i)走到vertex(j)，因此，<span class="math">\(p^{(0)}_{ij}\)</span>的初始狀態為：</li>
+</ul>
+<div class="math">$$
+p^{(0)}_{ij}=
+\begin{cases}
+NIL &amp; \text{if $i=j$ or $w_{ij}=\infty$}\\
+i &amp; \text{if $i\neq j$ and $w_{ij}&lt;\infty$}
+\end{cases}
+$$</div>
+<ul>
+<li>當開始引入<strong>中繼點</strong>vertex(k)後，<span class="math">\(p^{(k)}_{ij}\)</span>便如同<span class="math">\(d^{(k)}_{ij}\)</span>，需考慮是否因為vertex(k)所提供的edge更新了最短路徑，定義如下：</li>
+</ul>
+<div class="math">$$
+p^{(k)}_{ij}=  
+\begin{cases}  
+p^{(k-1)}_{ij} &amp; \text{if $d^{(k-1)}_{ij}\leq d^{(k-1)}_{ik}+d^{(k-1)}_{kj}$}\\  
+p^{(k-1)}_{kj} &amp; \text{if $d^{(k-1)}_{ij}&gt;d^{(k-1)}_{ik}+d^{(k-1)}_{kj}$}\\  
+\end{cases}  
+$$</div>
+<p>將<code>Predecessor[][]</code>以<span class="math">\(P\)</span>表示，那麼<span class="math">\(P^{(k)}[i][j]=p^{(k)}_{ij}\)</span>。</p>
+<p>由於<code>Predecessor[][]</code>比較難理解，馬上以圖二(a)之Graph為例，看一次<code>Distance[][]</code>與<code>Predecessor[][]</code>的規則變化，並且解讀<code>Predecessor[][]</code>攜帶的路徑訊息。</p>
+<p></br></p>
+<p><a name="example"></a></p>
+<h3>觀察Distance與Predecessor的變化</h3>
+<p>圖三(a)到圖三(d)展示依序將vertex(A)、vertex(B)、vertex(C)、vertex(D)作為<strong>中繼點</strong>，納入<strong>集合S</strong>，考慮從vertex(A)到vertex(D)的最短路徑之過程。</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/AllPairs_FloydWarshall/f6.png?raw=true" /></p>
+<p><strong>圖三(a)。</strong>
+</center></p>
+<p>圖三(a)，表示「初始狀態」，只有當edge(X,Y)存在時，才存在vertex(X)到vertex(Y)的最短路徑，此時的兩項資料結構：</p>
+<ul>
+<li><code>Distance</code>等於<code>Adjacency Matrix</code>：<ul>
+<li>若存在edge(X,Y)，則<code>Distance[X][Y]</code>即為edge(X,Y)之weight；</li>
+<li>若不存在edge(X,Y)，則<code>Distance[X][Y]</code>等於「無限大(<span class="math">\(\infty\)</span>)」，表示無法從vertex(X)走到vertex(Y)。</li>
+</ul>
+</li>
+<li><code>Predecessor</code>記錄的是「被走到的vertex」的<strong>predecessor</strong>：<ul>
+<li>若存在edge(X,Y)，則「從vertex(X)走到vertex(Y)」的路徑在，確實是由「vertex(X)」走到vertex(Y)，因此<code>Predecessor[X][Y]</code>即為vertex(X)，見圖三(a)：<ul>
+<li><code>Predecessor[A][C]=A</code>；</li>
+<li><code>Predecessor[C][D]=C</code>。</li>
+</ul>
+</li>
+<li>若不存在edge(X,Y)，則以<code>NIL</code>、<code>NULL</code>或是<span class="math">\(-1\)</span>表示「vertex(Y)無法由vertex(X)走到」。</li>
+</ul>
+</li>
+</ul>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/AllPairs_FloydWarshall/f7.png?raw=true" /></p>
+<p><strong>圖三(b)。</strong>
+</center></p>
+<p>圖三(b)引入vertex(A)作為<strong>中繼點</strong>，其中有兩點值得討論。</p>
+<ol>
+<li>
+<p><span class="math">\(Path:C-A-B\)</span>，成本<span class="math">\(6\)</span>：</p>
+<ul>
+<li>原本從vertex(C)無法走到vertex(B)，現在「vertex(A)可以被路徑經過」，因此「從vertex(C)走到vertex(B)」便能將<span class="math">\(Path:C-A\)</span>接上<span class="math">\(Path:A-B\)</span>，形成<span class="math">\(Path:C-A-B\)</span>，成本<code>Distance[C][B]</code>更新為<span class="math">\(6\)</span>，比原本的無限大(<span class="math">\(\infty\)</span>)小，所以更新為「當前的最短路徑」。</li>
+<li>在<span class="math">\(Path:C-A-B\)</span>上，是由「vertex(A)」走到vertex(B)的，因此更新<code>Predecessor[C][B]=Predecessor[A][B]=A</code>。</li>
+</ul>
+</li>
+<li>
+<p>從vertex(C)走到vertex(D)沒有更新：</p>
+<ul>
+<li>在引入vertex(A)之後，從vertex(C)走到vertex(D)多了一條選擇：<span class="math">\(Path:C-A-D\)</span>，但是其成本為<span class="math">\(12\)</span>，比原本的<span class="math">\(Path:C-D\)</span>之成本<span class="math">\(1\)</span>還高，因此不更新路徑，維持<span class="math">\(Path:C-D\)</span>為「當前的最短路徑」。<ul>
+<li><code>Distance[C][D]=1</code>；</li>
+<li><code>Predecessor[C][D]=C</code>。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p>根據以上兩種情形：</p>
+<ol>
+<li>只要遇到更短的路徑就更新；</li>
+<li>若比當前的路徑之成本還高的話就維持原樣；</li>
+</ol>
+<p>正是<strong>Relaxation</strong>的概念。<br />
+(關於<strong>Relaxation</strong>，請參考：<a href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathintrojian-jie.html#relax">Single-Source Shortest Path：Intro(簡介)</a>)</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/AllPairs_FloydWarshall/f8.png?raw=true" /></p>
+<p><strong>圖三(c)。</strong>
+</center></p>
+<p>圖三(c)引入vertex(B)作為<strong>中繼點</strong>，被更新的有「vertex(A)走到vertex(C)」與「vertex(A)走到vertex(D)」，資料項目更新如下：</p>
+<ol>
+<li><code>Distance[A][C]=Distance[A][B]+Distance[B][C]</code><span class="math">\(=0\)</span>；<br />
+<code>Distance[A][D]=Distance[A][B]+Distance[B][D]</code><span class="math">\(=5\)</span>。</li>
+<li><code>Predecessor[A][C]=Predecessor[B][C]=B</code>；<br />
+<code>Predecessor[A][D]=Predecessor[B][D]=B</code>；</li>
+</ol>
+<p>同樣地，從「vertex(C)走到vertex(D)」又有了新的可能路徑<span class="math">\(Path:C-A-B-D\)</span>，不過其成本為<span class="math">\(9\)</span>，高於<span class="math">\(Path:C-D\)</span>之成本<span class="math">\(1\)</span>，因此不更新。</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/AllPairs_FloydWarshall/f9.png?raw=true" /></p>
+<p><strong>圖三(d)。</strong>
+</center></p>
+<p>圖三(d)引入vertex(C)作為<strong>中繼點</strong>，更新之邏輯同上，不再贅述。<br />
+再將vertex(D)作為<strong>中繼點</strong>也不會影響任何路徑，因為沒有任何一條從vertex(D)「指出去」的edge，亦即，從vertex(D)走到其餘vertex的成本都是「無限大(<span class="math">\(\infty\)</span>)」，所以圖三(d)即為<strong>Floyd-Warshall Algorithm</strong>的結果。</p>
+<p></br>
+<code>Distance</code>的矩陣意義很容易解讀，例如<code>Distance[X][Y]=5</code>，即表示，從vertex(X)走到vertex(Y)的最短路徑之成本為<span class="math">\(5\)</span>。</p>
+<p>稍微複雜的是如何從<code>Predecessor</code>回溯出路徑。<br />
+<code>Predecessor[X][Y]=Z</code>的物理意義是，從vertex(X)走到vertex(Y)的最短路徑上，vertex(Y)的<strong>predecessor</strong>為vertex(Z)，也就是說，vertex(Y)是透過edge(Z,Y)才接上<span class="math">\(Path:X-...-Z\)</span>。</p>
+<p>觀察圖三(d)的<code>Predecessor[A][]</code>，若要找到從vertex(A)走到vertex(D)的最短路徑，見圖四(a)：</p>
+<ul>
+<li>根據<code>Predecessor[A][D]=C</code>，得知是經由edge(C,D)，再接著看從vertex(A)要怎麼走到vertex(C)；</li>
+<li>根據<code>Predecessor[A][C]=B</code>，得知是經由edge(B,C)，再接著看從vertex(A)要怎麼走到vertex(B)；</li>
+<li>最後，根據<code>Predecessor[A][B]=A</code>，得知是經由edge(A,B)；</li>
+</ul>
+<p>此時便能找到，從vertex(A)走到vertex(D)的最短路徑為<span class="math">\(Path:A-B-C-D\)</span>。<br />
+(值得注意的是，<span class="math">\(Path:A-B-C-D\)</span>的<strong>任何subpath</strong>都是最短路徑。)</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/AllPairs_FloydWarshall/f10.png?raw=true" /></p>
+<p><strong>圖四(a)。</strong>
+</center></p>
+<p>同理，根據<code>Predecessor[B][]</code>可以找到從vertex(B)走到其餘vertex的最短路徑，見圖四(b)，分別是：</p>
+<ul>
+<li><span class="math">\(Path:B-C\)</span>，成本<span class="math">\(-2\)</span>；</li>
+<li><span class="math">\(Path:B-C-A\)</span>，成本<span class="math">\(2\)</span>；</li>
+<li><span class="math">\(Path:B-C-D\)</span>，成本<span class="math">\(-1\)</span>。</li>
+</ul>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/ShortestPath_fig/AllPairs_FloydWarshall/f11.png?raw=true" /></p>
+<p><strong>圖四(b)。</strong>
+</center></p>
+<p></br></p>
+<p><a name="code"></a></p>
+<h2>程式碼</h2>
+<p>程式碼包含幾個部分：</p>
+<p><code>class Graph_SP_AllPairs</code>：</p>
+<ul>
+<li>基本的資料項目：<code>AdjList</code>、<code>Distance</code>、<code>Predecessor</code>；<ul>
+<li>以<code>std::vector&lt;std::vector&lt;int&gt;&gt;</code>實現。</li>
+</ul>
+</li>
+<li>基本函式：<strong>Constructor</strong>、<code>AddEdge()</code>、<code>PrintData()</code>。</li>
+<li><code>InitializeData()</code>用來對<code>Distance</code>與<code>Predecessor</code>進行上一小節介紹過的初始化。</li>
+<li><code>FloydWarshall()</code>利用三層迴圈，進行<strong>Floyd-Warshall Algorithm</strong>。<ul>
+<li>在第三層迴圈的<code>if</code>判斷式內，多了一個條件<code>(Distance[i][k] != MaxDistance)</code>，是因為實際上的程式碼不存在「無限大(<span class="math">\(\infty\)</span>)」，以下面提供的程式碼為例，令無限大的距離為<code>int MaxDistance = 1000</code>，可以想像的是，若不加上上述條件，程式會以為<code>Distance=1000</code>是「有edge相連」，而進行路徑更新，導致錯誤(error)。</li>
+<li>為了驗證需要，在每一次「引入<strong>中繼點</strong>vertex(k)，並更新完<code>Distance</code>與<code>Predecessor</code>後」，都會將此兩項資料印出，與主要演算法無關。</li>
+</ul>
+</li>
+</ul>
+<p>以及<code>main()</code>：建立如圖二(a)的Graph之<code>AdjMatrix</code>，並進行<code>FloydWarshall()</code>。</p>
+<div class="highlight"><pre><span class="c1">// C++ code</span>
+<span class="cp">#include &lt;iostream&gt;</span>
+<span class="cp">#include &lt;vector&gt;</span>
+<span class="cp">#include &lt;iomanip&gt;      </span><span class="c1">// for setw()</span>
+
+<span class="k">const</span> <span class="kt">int</span> <span class="n">MaxDistance</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">;</span>
+<span class="k">class</span> <span class="nc">Graph_SP_AllPairs</span><span class="p">{</span>
+<span class="k">private</span><span class="o">:</span>
+    <span class="kt">int</span> <span class="n">num_vertex</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">AdjMatrix</span><span class="p">,</span> <span class="n">Distance</span><span class="p">,</span> <span class="n">Predecessor</span><span class="p">;</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">Graph_SP_AllPairs</span><span class="p">()</span><span class="o">:</span><span class="n">num_vertex</span><span class="p">(</span><span class="mi">0</span><span class="p">){};</span>
+    <span class="n">Graph_SP_AllPairs</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="nf">AddEdge</span><span class="p">(</span><span class="kt">int</span> <span class="n">from</span><span class="p">,</span> <span class="kt">int</span> <span class="n">to</span><span class="p">,</span> <span class="kt">int</span> <span class="n">weight</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="nf">PrintData</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">array</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="nf">InitializeData</span><span class="p">();</span>
+    <span class="kt">void</span> <span class="nf">FloydWarshall</span><span class="p">();</span>
+<span class="p">};</span>
+
+<span class="n">Graph_SP_AllPairs</span><span class="o">::</span><span class="n">Graph_SP_AllPairs</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span><span class="o">:</span><span class="n">num_vertex</span><span class="p">(</span><span class="n">n</span><span class="p">){</span>
+    <span class="c1">// Constructor, initialize AdjMatrix with 0 or MaxDistance</span>
+    <span class="n">AdjMatrix</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">num_vertex</span><span class="p">);</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">num_vertex</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">AdjMatrix</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">resize</span><span class="p">(</span><span class="n">num_vertex</span><span class="p">,</span> <span class="n">MaxDistance</span><span class="p">);</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">num_vertex</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">==</span> <span class="n">j</span><span class="p">){</span>
+                <span class="n">AdjMatrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="n">Graph_SP_AllPairs</span><span class="o">::</span><span class="n">InitializeData</span><span class="p">(){</span>
+
+    <span class="n">Distance</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">num_vertex</span><span class="p">);</span>
+    <span class="n">Predecessor</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">num_vertex</span><span class="p">);</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">num_vertex</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">Distance</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">resize</span><span class="p">(</span><span class="n">num_vertex</span><span class="p">);</span>
+        <span class="n">Predecessor</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">resize</span><span class="p">(</span><span class="n">num_vertex</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">num_vertex</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">Distance</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">AdjMatrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">];</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">Distance</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">Distance</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">!=</span> <span class="n">MaxDistance</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">Predecessor</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="n">Graph_SP_AllPairs</span><span class="o">::</span><span class="n">FloydWarshall</span><span class="p">(){</span>
+
+    <span class="n">InitializeData</span><span class="p">();</span>
+
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;initial Distance[]:</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">PrintData</span><span class="p">(</span><span class="n">Distance</span><span class="p">);</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">initial Predecessor[]:</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">PrintData</span><span class="p">(</span><span class="n">Predecessor</span><span class="p">);</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">num_vertex</span><span class="p">;</span> <span class="n">k</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">including vertex(&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">k</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;):</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">num_vertex</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">num_vertex</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">if</span> <span class="p">((</span><span class="n">Distance</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">Distance</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">k</span><span class="p">]</span><span class="o">+</span><span class="n">Distance</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">j</span><span class="p">])</span> 
+                     <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">Distance</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">k</span><span class="p">]</span> <span class="o">!=</span> <span class="n">MaxDistance</span><span class="p">))</span> <span class="p">{</span>
+                    <span class="n">Distance</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">Distance</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">k</span><span class="p">]</span><span class="o">+</span><span class="n">Distance</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">j</span><span class="p">];</span>
+                    <span class="n">Predecessor</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">Predecessor</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">j</span><span class="p">];</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="c1">// print data after including new vertex and updating the shortest paths</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Distance[]:</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+        <span class="n">PrintData</span><span class="p">(</span><span class="n">Distance</span><span class="p">);</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">Predecessor[]:</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+        <span class="n">PrintData</span><span class="p">(</span><span class="n">Predecessor</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="n">Graph_SP_AllPairs</span><span class="o">::</span><span class="n">PrintData</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">array</span><span class="p">){</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">num_vertex</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">num_vertex</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setw</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">];</span>
+        <span class="p">}</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="n">Graph_SP_AllPairs</span><span class="o">::</span><span class="n">AddEdge</span><span class="p">(</span><span class="kt">int</span> <span class="n">from</span><span class="p">,</span> <span class="kt">int</span> <span class="n">to</span><span class="p">,</span> <span class="kt">int</span> <span class="n">weight</span><span class="p">){</span>
+    <span class="n">AdjMatrix</span><span class="p">[</span><span class="n">from</span><span class="p">][</span><span class="n">to</span><span class="p">]</span> <span class="o">=</span> <span class="n">weight</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+
+    <span class="n">Graph_SP_AllPairs</span> <span class="n">g10</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
+    <span class="n">g10</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span><span class="n">g10</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">);</span><span class="n">g10</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">);</span>
+    <span class="n">g10</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">);</span><span class="n">g10</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+    <span class="n">g10</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span><span class="n">g10</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+
+    <span class="n">g10</span><span class="p">.</span><span class="n">FloydWarshall</span><span class="p">();</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>output:</p>
+<div class="highlight"><pre><span class="n">initial</span> <span class="n">Distance</span><span class="p">[]</span><span class="o">:</span>
+    <span class="mi">0</span>    <span class="mi">2</span>    <span class="mi">6</span>    <span class="mi">8</span>
+ <span class="mi">1000</span>    <span class="mi">0</span>   <span class="o">-</span><span class="mi">2</span>    <span class="mi">3</span>
+    <span class="mi">4</span> <span class="mi">1000</span>    <span class="mi">0</span>    <span class="mi">1</span>
+ <span class="mi">1000</span> <span class="mi">1000</span> <span class="mi">1000</span>    <span class="mi">0</span>
+
+<span class="n">initial</span> <span class="n">Predecessor</span><span class="p">[]</span><span class="o">:</span>
+   <span class="o">-</span><span class="mi">1</span>    <span class="mi">0</span>    <span class="mi">0</span>    <span class="mi">0</span>
+   <span class="o">-</span><span class="mi">1</span>   <span class="o">-</span><span class="mi">1</span>    <span class="mi">1</span>    <span class="mi">1</span>
+    <span class="mi">2</span>   <span class="o">-</span><span class="mi">1</span>   <span class="o">-</span><span class="mi">1</span>    <span class="mi">2</span>
+   <span class="o">-</span><span class="mi">1</span>   <span class="o">-</span><span class="mi">1</span>   <span class="o">-</span><span class="mi">1</span>   <span class="o">-</span><span class="mi">1</span>
+
+<span class="n">including</span> <span class="n">vertex</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">:</span>
+<span class="n">Distance</span><span class="p">[]</span><span class="o">:</span>
+    <span class="mi">0</span>    <span class="mi">2</span>    <span class="mi">6</span>    <span class="mi">8</span>
+ <span class="mi">1000</span>    <span class="mi">0</span>   <span class="o">-</span><span class="mi">2</span>    <span class="mi">3</span>
+    <span class="mi">4</span>    <span class="mi">6</span>    <span class="mi">0</span>    <span class="mi">1</span>
+ <span class="mi">1000</span> <span class="mi">1000</span> <span class="mi">1000</span>    <span class="mi">0</span>
+
+<span class="n">Predecessor</span><span class="p">[]</span><span class="o">:</span>
+   <span class="o">-</span><span class="mi">1</span>    <span class="mi">0</span>    <span class="mi">0</span>    <span class="mi">0</span>
+   <span class="o">-</span><span class="mi">1</span>   <span class="o">-</span><span class="mi">1</span>    <span class="mi">1</span>    <span class="mi">1</span>
+    <span class="mi">2</span>    <span class="mi">0</span>   <span class="o">-</span><span class="mi">1</span>    <span class="mi">2</span>
+   <span class="o">-</span><span class="mi">1</span>   <span class="o">-</span><span class="mi">1</span>   <span class="o">-</span><span class="mi">1</span>   <span class="o">-</span><span class="mi">1</span>
+
+<span class="n">including</span> <span class="n">vertex</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">:</span>
+<span class="n">Distance</span><span class="p">[]</span><span class="o">:</span>
+    <span class="mi">0</span>    <span class="mi">2</span>    <span class="mi">0</span>    <span class="mi">5</span>
+ <span class="mi">1000</span>    <span class="mi">0</span>   <span class="o">-</span><span class="mi">2</span>    <span class="mi">3</span>
+    <span class="mi">4</span>    <span class="mi">6</span>    <span class="mi">0</span>    <span class="mi">1</span>
+ <span class="mi">1000</span> <span class="mi">1000</span> <span class="mi">1000</span>    <span class="mi">0</span>
+
+<span class="n">Predecessor</span><span class="p">[]</span><span class="o">:</span>
+   <span class="o">-</span><span class="mi">1</span>    <span class="mi">0</span>    <span class="mi">1</span>    <span class="mi">1</span>
+   <span class="o">-</span><span class="mi">1</span>   <span class="o">-</span><span class="mi">1</span>    <span class="mi">1</span>    <span class="mi">1</span>
+    <span class="mi">2</span>    <span class="mi">0</span>   <span class="o">-</span><span class="mi">1</span>    <span class="mi">2</span>
+   <span class="o">-</span><span class="mi">1</span>   <span class="o">-</span><span class="mi">1</span>   <span class="o">-</span><span class="mi">1</span>   <span class="o">-</span><span class="mi">1</span>
+
+<span class="n">including</span> <span class="n">vertex</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">:</span>
+<span class="n">Distance</span><span class="p">[]</span><span class="o">:</span>
+    <span class="mi">0</span>    <span class="mi">2</span>    <span class="mi">0</span>    <span class="mi">1</span>
+    <span class="mi">2</span>    <span class="mi">0</span>   <span class="o">-</span><span class="mi">2</span>   <span class="o">-</span><span class="mi">1</span>
+    <span class="mi">4</span>    <span class="mi">6</span>    <span class="mi">0</span>    <span class="mi">1</span>
+ <span class="mi">1000</span> <span class="mi">1000</span> <span class="mi">1000</span>    <span class="mi">0</span>
+
+<span class="n">Predecessor</span><span class="p">[]</span><span class="o">:</span>
+   <span class="o">-</span><span class="mi">1</span>    <span class="mi">0</span>    <span class="mi">1</span>    <span class="mi">2</span>
+    <span class="mi">2</span>   <span class="o">-</span><span class="mi">1</span>    <span class="mi">1</span>    <span class="mi">2</span>
+    <span class="mi">2</span>    <span class="mi">0</span>   <span class="o">-</span><span class="mi">1</span>    <span class="mi">2</span>
+   <span class="o">-</span><span class="mi">1</span>   <span class="o">-</span><span class="mi">1</span>   <span class="o">-</span><span class="mi">1</span>   <span class="o">-</span><span class="mi">1</span>
+
+<span class="n">including</span> <span class="n">vertex</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">:</span>
+<span class="n">Distance</span><span class="p">[]</span><span class="o">:</span>
+    <span class="mi">0</span>    <span class="mi">2</span>    <span class="mi">0</span>    <span class="mi">1</span>
+    <span class="mi">2</span>    <span class="mi">0</span>   <span class="o">-</span><span class="mi">2</span>   <span class="o">-</span><span class="mi">1</span>
+    <span class="mi">4</span>    <span class="mi">6</span>    <span class="mi">0</span>    <span class="mi">1</span>
+ <span class="mi">1000</span> <span class="mi">1000</span> <span class="mi">1000</span>    <span class="mi">0</span>
+
+<span class="n">Predecessor</span><span class="p">[]</span><span class="o">:</span>
+   <span class="o">-</span><span class="mi">1</span>    <span class="mi">0</span>    <span class="mi">1</span>    <span class="mi">2</span>
+    <span class="mi">2</span>   <span class="o">-</span><span class="mi">1</span>    <span class="mi">1</span>    <span class="mi">2</span>
+    <span class="mi">2</span>    <span class="mi">0</span>   <span class="o">-</span><span class="mi">1</span>    <span class="mi">2</span>
+   <span class="o">-</span><span class="mi">1</span>   <span class="o">-</span><span class="mi">1</span>   <span class="o">-</span><span class="mi">1</span>   <span class="o">-</span><span class="mi">1</span>
+</pre></div>
+
+
+<p></br>  </p>
+<p>以上便是嘔心瀝血的<strong>Floyd-Warshall Algorithm</strong>之介紹。<br />
+內容主要圍繞在「引入<strong>中繼點</strong>」與「最短路徑之<strong>結構特徵</strong>」上，需要讀者細細品味。</p>
+<p></br></p>
+<hr />
+<p><a name="ref"></a></p>
+<h3>參考資料：</h3>
+<ul>
+<li><a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844">Introduction to Algorithms, Ch25</a> </li>
+<li><a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376">Fundamentals of Data Structures in C++, Ch6</a></li>
+<li><a href="http://www.cse.ust.hk/faculty/golin/COMP271Sp03/Notes/MyL15.pdf">Mordecai Golin：Lecture15:The Floyd-Warshall Algorithm</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Floyd%E2%80%93Warshall_algorithm">Wikipedia：Floyd-Warshall Algorithm</a></li>
+<li><a href="http://www.geeksforgeeks.org/dynamic-programming-set-16-floyd-warshall-algorithm/">GeeksforGeeks：Dynamic Programming | Set 16 (Floyd Warshall Algorithm)</a></li>
+</ul>
+<p><a name="series"></a></p>
+<p></br></p>
+<h3>Shortest Path系列文章</h3>
+<p><a href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathintrojian-jie.html">Single-Source Shortest Path：Intro(簡介)</a><br />
+<a href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathbellman-ford-algorithm.html">Single-Source Shortest Path：Bellman-Ford Algorithm</a><br />
+<a href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathon-dagdirected-acyclic-graph.html">Single-Source Shortest Path：on DAG(directed acyclic graph)</a><br />
+<a href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathdijkstras-algorithm.html">Single-Source Shortest Path：Dijkstra's Algorithm</a><br />
+<a href="">All-Pairs Shortest Path：Floyd-Warshall Algorithm</a>  </p>
+<p>回到目錄：</p>
+<p><a href="http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html">目錄：演算法與資料結構</a></p>
+<p></br></p>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' && location_protocol !== 'https') location_protocol = 'https:';
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+    </article>
+
+        <div class="tags">
+            <p>tags: <a href="http://alrightchiu.github.io/SecondRound/tag/c.html">C++</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/graph.html">Graph</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/shortest-path.html">Shortest Path</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/relaxation.html">Relaxation</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/dynamic-programming.html">Dynamic Programming</a>, </p>
+        </div>
+
+<hr>
+<div class="sharing">
+</div>
+    <hr>
+
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                            <li>
+                                <a href="https://github.com/alrightchiu">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                    </ul>
+<p class="copyright text-muted">
+    Blog powered by <a href="http://getpelican.com">Pelican</a>,
+    which takes great advantage of <a href="http://python.org">Python</a>.
+</p>                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="http://alrightchiu.github.io/SecondRound/theme/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="http://alrightchiu.github.io/SecondRound/theme/js/bootstrap.min.js"></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script src="http://alrightchiu.github.io/SecondRound/theme/js/clean-blog.min.js"></script>
+
+</body>
+
+</html>
