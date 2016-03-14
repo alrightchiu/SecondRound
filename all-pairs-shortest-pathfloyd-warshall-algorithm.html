@@ -343,7 +343,7 @@
 </ol>
 <p>如果是第一種情形，「vertex(k)不在最短路徑上」，最短路徑便維持<span class="math">\(Path:i-...-j\)</span>。  </p>
 <ul>
-<li>維持的意思是，最短路徑是由「起點vertex(i)」、「終點vertex(j)」與「<strong>中繼點</strong>{<span class="math">\(1,2,...,k-1\)</span>}」構成；</li>
+<li>維持的意思是，最短路徑是由「起點vertex(i)」、「終點vertex(j)」與「<strong>中繼點</strong>{<span class="math">\(1,2,...,k-1\)</span>}」中的vertex構成；</li>
 <li>成本便滿足：<span class="math">\(d^{(k)}_{ij}=d^{(k-1)}_{ij}\)</span></li>
 </ul>
 <p>如果是第二種情形，「vertex(k)位在最短路徑上」，最短路徑又可以分成兩段：<span class="math">\(SubPath:i-...-k\)</span>，以及<span class="math">\(SubPath:k-...-j\)</span>，又因為這兩段subpath也是「考慮了<strong>集合K</strong>{<span class="math">\(1,2,3,...k-1\)</span>}的vertex作為<strong>中繼點</strong>引入<strong>集合S</strong>」後得到的最短路徑，便保證<span class="math">\(Path:i-...-k-...-j\)</span>也會是最短路徑，其路徑成本滿足：</p>

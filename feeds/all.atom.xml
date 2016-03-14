@@ -269,7 +269,7 @@
 &lt;/ol&gt;
 &lt;p&gt;如果是第一種情形，「vertex(k)不在最短路徑上」，最短路徑便維持&lt;span class="math"&gt;\(Path:i-...-j\)&lt;/span&gt;。  &lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;維持的意思是，最短路徑是由「起點vertex(i)」、「終點vertex(j)」與「&lt;strong&gt;中繼點&lt;/strong&gt;{&lt;span class="math"&gt;\(1,2,...,k-1\)&lt;/span&gt;}」構成；&lt;/li&gt;
+&lt;li&gt;維持的意思是，最短路徑是由「起點vertex(i)」、「終點vertex(j)」與「&lt;strong&gt;中繼點&lt;/strong&gt;{&lt;span class="math"&gt;\(1,2,...,k-1\)&lt;/span&gt;}」中的vertex構成；&lt;/li&gt;
 &lt;li&gt;成本便滿足：&lt;span class="math"&gt;\(d^{(k)}_{ij}=d^{(k-1)}_{ij}\)&lt;/span&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;如果是第二種情形，「vertex(k)位在最短路徑上」，最短路徑又可以分成兩段：&lt;span class="math"&gt;\(SubPath:i-...-k\)&lt;/span&gt;，以及&lt;span class="math"&gt;\(SubPath:k-...-j\)&lt;/span&gt;，又因為這兩段subpath也是「考慮了&lt;strong&gt;集合K&lt;/strong&gt;{&lt;span class="math"&gt;\(1,2,3,...k-1\)&lt;/span&gt;}的vertex作為&lt;strong&gt;中繼點&lt;/strong&gt;引入&lt;strong&gt;集合S&lt;/strong&gt;」後得到的最短路徑，便保證&lt;span class="math"&gt;\(Path:i-...-k-...-j\)&lt;/span&gt;也會是最短路徑，其路徑成本滿足：&lt;/p&gt;
