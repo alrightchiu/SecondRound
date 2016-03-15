@@ -49,7 +49,7 @@ STATIC_PATHS = ['fig']
 
 # Flex setting
 SITETITLE = SITENAME
-SITESUBTITLE = u'Hey Oh'
+SITESUBTITLE = u'寫給初學者的演算法與資料結構教學'
 # SITEDESCRIPTION = u'Not Bad Not Bed'
 # SITELOGO = u'http://alrightchiu.github.io/SecondRound/fig/antiwar.jpg'
 
