@@ -2,7 +2,7 @@ Title: Flow Networks：Maximum Flow & Ford-Fulkerson Algorithm
 Date: 2016-3-18 20:12  
 Category: 演算法與資料結構  
 Tags: C++, Graph, Flow Networks, Intro, BFS, Edmonds-Karp Algorithm   
-Summary: 介紹Graph之應用：Flow Networks並找到利用Ford-Fulkerson Algorithm找到Flow Networks中的Maximum Flow。
+Summary: 介紹Graph之應用：Flow Networks。並利用Ford-Fulkerson Algorithm找到Flow Networks中的Maximum Flow。
 
 
 </br>
