@@ -10,7 +10,7 @@ Summary: 介紹Floyd-Warshall Algorithm。
 
 本篇文章將介紹**Floyd-Warshall Algorithm**來解決**All-Pairs Shortest Path**問題。  
 
-由於是**All Pairs**，每個vertex都將視為起點，尋找以該vertex走到其他vertex之最短路徑，可以想見，在**Single-Source Shortest Path**中使用的一維矩陣`distance[]`與`predecessor[]`，需要再增加一個維度成二維矩陣，以`Distance[][]`與`Predecessor[][]`表示，以完成相同的功能。  
+由於是**All Pairs**，每個vertex都將視為起點，尋找以該vertex走到其他vertex之最短路徑，可以想見，在**Single-Source Shortest Path**中使用的一維矩陣`distance[]`與`predecessor[]`，需要再增加一個維度成二維矩陣，以`Distance[][]`與`Predecessor[][]`表示。  
 連帶地，在建立Graph時，也將使用**Adjacency Matrix**，並以其陣列元素值代表edge之weight。  
 (這並不表示不能使用**Adjacency List**實現，只是較為費工。)
 
