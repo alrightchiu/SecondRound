@@ -120,8 +120,8 @@ edge代表水管，edge之weight(以下將稱為**capacity**)表示水管的「�
 
 * $c_f(X,Y)=c(X,Y)-f(X,Y)$
     * $c(X,Y)$為原來水管孔徑大小；
-    * $f(X,Y)$為目前水管已經有多少流量；
-    * $c_f(X,Y)$為水管還能再容納多少
+    * $f(X,Y)$表示目前水管已經有多少流量；
+    * $c_f(X,Y)$表示水管還能再容納多少流量。
 
 
 <center>
@@ -573,7 +573,7 @@ Possible Maximum Flow: 17
 
 ###Flow Networks系列文章
 
-[Flow Networks：Maximum Flow & Ford-Fulkerson Algorithm]()    
+[Flow Networks：Maximum Flow & Ford-Fulkerson Algorithm](http://alrightchiu.github.io/SecondRound/flow-networksmaximum-flow-ford-fulkerson-algorithm.html)    
 
 
 
