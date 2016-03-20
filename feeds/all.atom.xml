@@ -40,7 +40,7 @@
 &lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/flow-networksmaximum-flow-ford-fulkerson-algorithm.html"&gt;Flow Networks：Maximum Flow &amp;amp; Ford-Fulkerson Algorithm&lt;/a&gt;    &lt;/p&gt;
 &lt;h2&gt;Priority Queue系列文章&lt;/h2&gt;
 &lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/priority-queueintrojian-jie-binary-heap.html"&gt;Priority Queue：Intro(簡介) &amp;amp; Binary Heap&lt;/a&gt;  &lt;/p&gt;
-&lt;p&gt;&lt;/br&gt;&lt;/p&gt;</summary><category term="C++"></category></entry><entry><title>Flow Networks：Maximum Flow &amp; Ford-Fulkerson Algorithm</title><link href="http://alrightchiu.github.io/SecondRound/flow-networksmaximum-flow-ford-fulkerson-algorithm.html" rel="alternate"></link><updated>2016-03-18T20:12:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-03-18:SecondRound/flow-networksmaximum-flow-ford-fulkerson-algorithm.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;</summary><category term="C++"></category></entry><entry><title>Flow Networks：Maximum Flow &amp; Ford-Fulkerson Algorithm</title><link href="http://alrightchiu.github.io/SecondRound/flow-networksmaximum-flow-ford-fulkerson-algorithm.html" rel="alternate"></link><updated>2016-03-20T17:39:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-03-20:SecondRound/flow-networksmaximum-flow-ford-fulkerson-algorithm.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h3&gt;先備知識與注意事項&lt;/h3&gt;
 &lt;p&gt;考慮如下情境：&lt;/p&gt;
 &lt;p&gt;在某個污水處理廠的某一道程序裡，有一個「進水孔」，和一個「排水孔」，中間由許多「孔徑不一」的水管連接起來，因為水管的「孔徑大小」會影響到「每單位時間的流量」，因此要解決的問題，就是找到每單位時間可以排放「最大流量(&lt;strong&gt;flow&lt;/strong&gt;)」的「排水方法」。&lt;/p&gt;
