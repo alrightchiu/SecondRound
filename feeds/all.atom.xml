@@ -38,10 +38,515 @@
 &lt;a href="http://alrightchiu.github.io/SecondRound/all-pairs-shortest-pathfloyd-warshall-algorithm.html"&gt;All-Pairs Shortest Path：Floyd-Warshall Algorithm&lt;/a&gt;    &lt;/p&gt;
 &lt;h2&gt;Priority Queue系列文章&lt;/h2&gt;
 &lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/priority-queueintrojian-jie-binary-heap.html"&gt;Priority Queue：Intro(簡介) &amp;amp; Binary Heap&lt;/a&gt;  &lt;/p&gt;
-&lt;p&gt;&lt;/br&gt;&lt;/p&gt;</summary><category term="C++"></category></entry><entry><title>All-Pairs Shortest Path：Floyd-Warshall Algorithm</title><link href="http://alrightchiu.github.io/SecondRound/all-pairs-shortest-pathfloyd-warshall-algorithm.html" rel="alternate"></link><updated>2016-03-14T18:10:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-03-14:SecondRound/all-pairs-shortest-pathfloyd-warshall-algorithm.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;</summary><category term="C++"></category></entry><entry><title>Flow Networks：Maximum Flow &amp; Ford-Fulkerson Algorithm</title><link href="http://alrightchiu.github.io/SecondRound/flow-networksmaximum-flow-ford-fulkerson-algorithm.html" rel="alternate"></link><updated>2016-03-18T20:12:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-03-18:SecondRound/flow-networksmaximum-flow-ford-fulkerson-algorithm.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;h3&gt;先備知識與注意事項&lt;/h3&gt;
+&lt;p&gt;考慮如下情境：&lt;/p&gt;
+&lt;p&gt;在某個污水處理廠的某一道程序裡，有一個「進水孔」，和一個「排水孔」，中間由許多「孔徑不一」的水管連接起來，因為水管的「孔徑大小」會影響到「每單位時間的流量」，因此要解決的問題，就是找到每單位時間可以排放「最大流量(&lt;strong&gt;flow&lt;/strong&gt;)」的「排水方法」。&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/Flow_Networks_fig/Maximum_Flow/f2.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖一。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;以圖一為例，進水孔為vertex(S)，排水孔為vertex(T)，中間要經過污水處理站vertex(A)與vertex(C)。&lt;br /&gt;
+edge代表水管，edge之weight(以下將稱為&lt;strong&gt;capacity&lt;/strong&gt;)表示水管的「孔徑」。  &lt;/p&gt;
+&lt;p&gt;考慮兩種「排水方法」的&lt;strong&gt;flow&lt;/strong&gt;：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;第一種「分配水流」的方法，每單位時間總流量為&lt;span class="math"&gt;\(20\)&lt;/span&gt;：&lt;ol&gt;
+&lt;li&gt;在&lt;span class="math"&gt;\(Path:S-A-T\)&lt;/span&gt;上每單位時間流了&lt;span class="math"&gt;\(5\)&lt;/span&gt;單位的水；&lt;/li&gt;
+&lt;li&gt;在&lt;span class="math"&gt;\(Path:S-A-C-T\)&lt;/span&gt;上每單位時間流了&lt;span class="math"&gt;\(10\)&lt;/span&gt;單位的水(問題出在這，占去了edge(C,T)的容量)；&lt;/li&gt;
+&lt;li&gt;在&lt;span class="math"&gt;\(Path:S-C-T\)&lt;/span&gt;上，因為edge(C,T)上只剩下「&lt;span class="math"&gt;\(5\)&lt;/span&gt;單位的容量」，因此每單位時間流了&lt;span class="math"&gt;\(5\)&lt;/span&gt;單位的水；&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;第二種「分配水流」的方法，每單位時間總流量為&lt;span class="math"&gt;\(25\)&lt;/span&gt;：&lt;ol&gt;
+&lt;li&gt;在&lt;span class="math"&gt;\(Path:S-A-T\)&lt;/span&gt;上每單位時間流了&lt;span class="math"&gt;\(10\)&lt;/span&gt;單位的水；&lt;/li&gt;
+&lt;li&gt;在&lt;span class="math"&gt;\(Path:S-A-C-T\)&lt;/span&gt;上每單位時間流了&lt;span class="math"&gt;\(5\)&lt;/span&gt;單位的水；&lt;/li&gt;
+&lt;li&gt;在&lt;span class="math"&gt;\(Path:S-C-T\)&lt;/span&gt;上，因為edge(C,T)上剛好還有「&lt;span class="math"&gt;\(10\)&lt;/span&gt;單位的容量」，因此每單位時間流了&lt;span class="math"&gt;\(10\)&lt;/span&gt;單位的水；&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;從以上兩種「排水方式」可以看得出來，解決問題的精神，就是如何有效利用水管的「孔徑容量」，讓最多的水可以從「進水孔」流到「排水孔」。&lt;/p&gt;
+&lt;p&gt;這就是在&lt;strong&gt;Flow Networks&lt;/strong&gt;上找到&lt;strong&gt;Maximum Flow&lt;/strong&gt;(最大流量)的問題。&lt;/p&gt;
+&lt;p&gt;以下將介紹&lt;strong&gt;Ford-Fulkerson Algorithm&lt;/strong&gt;(若使用&lt;strong&gt;BFS&lt;/strong&gt;搜尋路徑，又稱為&lt;strong&gt;Edmonds-Karp Algorithm&lt;/strong&gt;)來回應此問題。&lt;/p&gt;
+&lt;hr /&gt;
+&lt;h2&gt;目錄&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="#property"&gt;Flow Networks基本性質&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#ff"&gt;Ford-Fulkerson Algorithm&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href="#residual"&gt;Residual Networks(剩餘網路)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#aug"&gt;Augmenting Paths(增廣路徑)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#algorithm"&gt;演算法概念&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href="#code"&gt;程式碼&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#bfs"&gt;利用BFS的優點&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#ref"&gt;參考資料&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#series"&gt;Flow Networks系列文章&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a name="property"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;Flow Networks基本性質&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Flow Networks&lt;/strong&gt;是一個weighted,directed graph，其edge(X,Y)具有非負的&lt;strong&gt;capacity&lt;/strong&gt;，&lt;span class="math"&gt;\(c(X,Y)\geq 0\)&lt;/span&gt;，如圖二(a)。&lt;br /&gt;
+(此處以&lt;strong&gt;capacity&lt;/strong&gt;取代&lt;strong&gt;weight&lt;/strong&gt;，&lt;strong&gt;capacity&lt;/strong&gt;就是「水管孔徑」。)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;若不存在edge(X,Y)，則定義&lt;span class="math"&gt;\(c(X,Y)=0\)&lt;/span&gt;。&lt;/li&gt;
+&lt;li&gt;特別區分兩個vertex：&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;source&lt;/strong&gt;：表示Flow Networks的「流量源頭」，以&lt;strong&gt;s&lt;/strong&gt;表示；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;sink&lt;/strong&gt;：表示Flow Networks的「流量終點」，也稱為&lt;strong&gt;termination&lt;/strong&gt;，以&lt;strong&gt;t&lt;/strong&gt;表示。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/Flow_Networks_fig/Maximum_Flow/f1.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖二(a)。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;而水管裡的「水流」，&lt;strong&gt;flow&lt;/strong&gt;，必須滿足以下條件，圖二(b)：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Capacity constraint&lt;/strong&gt;：從vertex(X)流向vertex(Y)的&lt;strong&gt;flow&lt;/strong&gt;，不能比edge(X,Y)的&lt;strong&gt;capacity&lt;/strong&gt;還大，&lt;span class="math"&gt;\(f(X,Y)\leq c(X,Y)\)&lt;/span&gt;。  &lt;ul&gt;
+&lt;li&gt;若每單位時間內，水管孔徑只能容納&lt;span class="math"&gt;\(5\)&lt;/span&gt;單位，那&lt;strong&gt;flow&lt;/strong&gt;最多就是&lt;span class="math"&gt;\(5\)&lt;/span&gt;單位。&lt;/li&gt;
+&lt;li&gt;以圖二(b)為例，在&lt;span class="math"&gt;\(Path:S-A-C-D-T\)&lt;/span&gt;上的edge之&lt;strong&gt;capacity&lt;/strong&gt;皆大於&lt;span class="math"&gt;\(6\)&lt;/span&gt;，因此在此路徑上流入&lt;span class="math"&gt;\(6\)&lt;/span&gt;單位的&lt;strong&gt;flow&lt;/strong&gt;是可行的。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Skew symmetry&lt;/strong&gt;：若定義從vertex(X)到vertex(Y)之edge(X,Y)上，有&lt;span class="math"&gt;\(5\)&lt;/span&gt;單位的&lt;strong&gt;flow&lt;/strong&gt;，&lt;span class="math"&gt;\(f(X,Y)=5\)&lt;/span&gt;，這就等價於，從vertex(Y)到vertex(X)之edge(Y,X)上，有&lt;span class="math"&gt;\(-5\)&lt;/span&gt;單位的&lt;strong&gt;flow&lt;/strong&gt;，&lt;span class="math"&gt;\(f(Y,X)=-5\)&lt;/span&gt;。&lt;ul&gt;
+&lt;li&gt;與「電子流(負電荷)」與「電流(正電荷)」之概念雷同，從左到右的電流其實是從右到左的電子流之等價概念。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Flow conservation&lt;/strong&gt;：對Graph中除了&lt;strong&gt;source&lt;/strong&gt;與&lt;strong&gt;sink&lt;/strong&gt;以外的vertex(X)而言，所有「流進&lt;strong&gt;flow&lt;/strong&gt;」之總和要等於所有「流出&lt;strong&gt;flow&lt;/strong&gt;」的總和。  &lt;ul&gt;
+&lt;li&gt;也就是水流不會無故增加或無故減少，可視為一種&lt;strong&gt;能量守恆&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;以圖二(b)為例，流入vertex(A)的&lt;strong&gt;flow&lt;/strong&gt;為&lt;span class="math"&gt;\(6\)&lt;/span&gt;，流出vertex(A)的&lt;strong&gt;flow&lt;/strong&gt;也是&lt;span class="math"&gt;\(6\)&lt;/span&gt;，對vertex(C)、vertex(D)也是。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/Flow_Networks_fig/Maximum_Flow/f3.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖二(b)。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a name="ff"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;Ford-Fulkerson Algorithm&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Ford-Fulkerson Algorithm&lt;/strong&gt;需要兩個輔助工具：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Residual Networks&lt;/strong&gt;(剩餘網路)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Augmenting Paths&lt;/strong&gt;(增廣路徑)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;a name="residual"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;Residual Networks(剩餘網路)&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Residual Networks&lt;/strong&gt;的概念為，記錄Graph上之edge還有多少「剩餘的容量」可以讓水流流過。  &lt;/p&gt;
+&lt;p&gt;以圖三(a)為例，若在&lt;span class="math"&gt;\(Path:S-A-C-D-T\)&lt;/span&gt;上的所有edge都有&lt;span class="math"&gt;\(6\)&lt;/span&gt;單位的&lt;strong&gt;flow&lt;/strong&gt;流過，那麼這些edge(edge(S,A)、edge(A,C)、edge(C,D)、edge(D,T))的可用「剩餘&lt;strong&gt;capacity&lt;/strong&gt;」，都應該要「減&lt;span class="math"&gt;\(6\)&lt;/span&gt;」，例如，edge(S,A)只能「再容納&lt;span class="math"&gt;\(9-6=3\)&lt;/span&gt;單位」的&lt;strong&gt;flow&lt;/strong&gt;，edge(C,D)只能「再容納&lt;span class="math"&gt;\(7-6=1\)&lt;/span&gt;單位」的&lt;strong&gt;flow&lt;/strong&gt;。  &lt;/p&gt;
+&lt;p&gt;這些「剩餘&lt;strong&gt;capacity&lt;/strong&gt;」就稱為&lt;strong&gt;residual capacity&lt;/strong&gt;，以&lt;span class="math"&gt;\(c_f\)&lt;/span&gt;表示，若edge(X,Y)上有&lt;strong&gt;flow&lt;/strong&gt;流過，&lt;span class="math"&gt;\(f(X,Y)\)&lt;/span&gt;，便將edge(X,Y)上的&lt;strong&gt;residual capacity&lt;/strong&gt;定義為：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(c_f(X,Y)=c(X,Y)-f(X,Y)\)&lt;/span&gt;&lt;ul&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(c(X,Y)\)&lt;/span&gt;為原來水管孔徑大小；&lt;/li&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(f(X,Y)\)&lt;/span&gt;為目前水管已經有多少流量；&lt;/li&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(c_f(X,Y)\)&lt;/span&gt;為水管還能再容納多少&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/Flow_Networks_fig/Maximum_Flow/f4.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖三(a)。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Residual Networks&lt;/strong&gt;也是一個directed graph，其中：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;vertex集合與原directed graph完全相同；&lt;/li&gt;
+&lt;li&gt;edge之&lt;strong&gt;capacity&lt;/strong&gt;以&lt;strong&gt;residual capacity&lt;/strong&gt;取代，見圖三(a)右。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;最關鍵的是，若「從vertex(A)指向vertex(C)」之edge(A,C)上，有&lt;span class="math"&gt;\(6\)&lt;/span&gt;單位的&lt;strong&gt;flow&lt;/strong&gt;流過，&lt;span class="math"&gt;\(f(A,C)=6\)&lt;/span&gt;，那麼在其&lt;strong&gt;Residual Networks&lt;/strong&gt;上，會因應產生出一條「從vertex(C)指向vertex(A)」的edge(C,A)，並具有&lt;span class="math"&gt;\(6\)&lt;/span&gt;單位的&lt;strong&gt;residual capacity&lt;/strong&gt;，&lt;span class="math"&gt;\(c_f(C,A)=6\)&lt;/span&gt;。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;因為&lt;strong&gt;Skew symmetry&lt;/strong&gt;，&lt;span class="math"&gt;\(f(C,A)=-f(A,C)\)&lt;/span&gt;；&lt;/li&gt;
+&lt;li&gt;再根據定義，&lt;span class="math"&gt;\(c_f(C,A)=c(C,A)-f(C,A)=c(C,A)+f(A,C)=0+6=6\)&lt;/span&gt;，&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;其物理意義呢？可以用「如果想要重新配置水流方向」來理解。&lt;/p&gt;
+&lt;p&gt;舉例來說，如果現在想經過&lt;span class="math"&gt;\(Path:S-C-A-B-T\)&lt;/span&gt;流過&lt;span class="math"&gt;\(2\)&lt;/span&gt;單位的&lt;strong&gt;flow&lt;/strong&gt;，若觀察最一開始「還沒有&lt;strong&gt;flow&lt;/strong&gt;經過」的directed graph(圖二(a))，其實並不存在從vertex(C)指向vertex(A)的edge(C,A)，因此&lt;span class="math"&gt;\(c(C,A)=0\)&lt;/span&gt;，但是因為在圖三(a)已經有&lt;span class="math"&gt;\(6\)&lt;/span&gt;單位的&lt;strong&gt;flow&lt;/strong&gt;從vertex(A)流向vertex(C)，使得現在可以從edge(A,C)上把&lt;span class="math"&gt;\(2\)&lt;/span&gt;單位的&lt;strong&gt;flow&lt;/strong&gt;「收回」，轉而分配到edge(A,B)上，而edge(A,C)上，就剩下&lt;span class="math"&gt;\(4\)&lt;/span&gt;單位的&lt;strong&gt;flow&lt;/strong&gt;，最後的結果如圖三(b)左所示。&lt;br /&gt;
+在新增一條「增加&lt;strong&gt;flow&lt;/strong&gt;的Path」後，&lt;strong&gt;Residual Networks&lt;/strong&gt;更新如圖三(b)右。&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/Flow_Networks_fig/Maximum_Flow/f5.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖三(b)。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;經過圖三(a)以及圖三(b)之後，流入&lt;strong&gt;sink&lt;/strong&gt;(或稱&lt;strong&gt;termination&lt;/strong&gt;)的&lt;strong&gt;flow&lt;/strong&gt;累加到&lt;span class="math"&gt;\(8\)&lt;/span&gt;單位。&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a name="aug"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;Augmenting Paths(增廣路徑)&lt;/h3&gt;
+&lt;p&gt;在&lt;strong&gt;Residual Networks&lt;/strong&gt;裡，所有能夠「從&lt;strong&gt;source&lt;/strong&gt;走到&lt;strong&gt;termination&lt;/strong&gt;」的路徑，也就是所有能夠「增加&lt;strong&gt;flow&lt;/strong&gt;的path」，就稱為&lt;strong&gt;Augmenting Paths&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/Flow_Networks_fig/Maximum_Flow/f6.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖四(a)。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;若以圖四(a)的&lt;strong&gt;Residual Networks&lt;/strong&gt;為例，見圖四(b)，&lt;strong&gt;Augmenting Paths&lt;/strong&gt;有許多可能，例如：  &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(Path:S-A-B-T\)&lt;/span&gt;，&lt;span class="math"&gt;\(3\)&lt;/span&gt;單位的&lt;strong&gt;flow&lt;/strong&gt;。&lt;ul&gt;
+&lt;li&gt;因為在路徑上，所有edge中最小的&lt;strong&gt;capacity&lt;/strong&gt;為&lt;span class="math"&gt;\(c(A,B)=3\)&lt;/span&gt;，因此，&lt;strong&gt;flow&lt;/strong&gt;可以容許從&lt;span class="math"&gt;\(1\)&lt;/span&gt;單位到&lt;span class="math"&gt;\(3\)&lt;/span&gt;單位。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(Path:S-C-B-D-T\)&lt;/span&gt;，&lt;span class="math"&gt;\(2\)&lt;/span&gt;單位的&lt;strong&gt;flow&lt;/strong&gt;。&lt;ul&gt;
+&lt;li&gt;同理，因為在路徑上，所有edge中最小的&lt;strong&gt;capacity&lt;/strong&gt;為&lt;span class="math"&gt;\(c(B,D)=c(D,T)=2\)&lt;/span&gt;，因此，&lt;strong&gt;flow&lt;/strong&gt;可以容許&lt;span class="math"&gt;\(1\)&lt;/span&gt;單位或&lt;span class="math"&gt;\(2\)&lt;/span&gt;單位。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/Flow_Networks_fig/Maximum_Flow/f7.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖四(b)。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;綜合以上可以確定，以圖四(c)為例：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;若要看當前流入&lt;strong&gt;termination&lt;/strong&gt;的「總流量」，要在圖四(c)左，edge上標示「flow/capacity」的Graph上找。&lt;ul&gt;
+&lt;li&gt;如圖四(c)，流入vertex(T)的&lt;strong&gt;總flow&lt;/strong&gt;為&lt;span class="math"&gt;\(8\)&lt;/span&gt;單位。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;若要找「還能夠增加多少流量」，也就是找&lt;strong&gt;Augmenting Paths&lt;/strong&gt;，需要在&lt;strong&gt;Residual Networks&lt;/strong&gt;上找，如圖四(c)右。&lt;ul&gt;
+&lt;li&gt;若在&lt;span class="math"&gt;\(Path:S-A-B-T\)&lt;/span&gt;、&lt;span class="math"&gt;\(Path:S-A-C-D-T\)&lt;/span&gt;、&lt;span class="math"&gt;\(Path:S-C-B-T\)&lt;/span&gt;流入「不超過該路徑上最低&lt;strong&gt;residual capacity&lt;/strong&gt;」之&lt;strong&gt;flow&lt;/strong&gt;，都是圖四(c)上的&lt;strong&gt;Augmenting Paths&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/Flow_Networks_fig/Maximum_Flow/f5_1.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖四(c)。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a name="algorithm"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;演算法概念&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Ford-Fulkerson Algorithm&lt;/strong&gt;(若使用&lt;strong&gt;BFS&lt;/strong&gt;搜尋路徑，又稱為&lt;strong&gt;Edmonds-Karp Algorithm&lt;/strong&gt;的方法如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;在&lt;strong&gt;Residual Networks&lt;/strong&gt;上尋找&lt;strong&gt;Augmenting Paths&lt;/strong&gt;。&lt;ul&gt;
+&lt;li&gt;若以&lt;code&gt;BFS()&lt;/code&gt;尋找，便能確保每次找到的&lt;strong&gt;Augmenting Paths&lt;/strong&gt;一定經過「最少的edge」。&lt;/li&gt;
+&lt;li&gt;找到&lt;strong&gt;Augmenting Paths&lt;/strong&gt;上的「最小&lt;strong&gt;residual capacity&lt;/strong&gt;」加入&lt;strong&gt;總flow&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;再以「最小&lt;strong&gt;residual capacity&lt;/strong&gt;」更新&lt;strong&gt;Residual Networks&lt;/strong&gt;上的edge之&lt;strong&gt;residual capacity&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;重複上述步驟，直到再也沒有&lt;strong&gt;Augmenting Paths&lt;/strong&gt;為止。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;便能找到&lt;strong&gt;Maximum Flow&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;以圖二(a)之&lt;strong&gt;Flow Networks&lt;/strong&gt;作為範例，尋找&lt;strong&gt;Maximum Flow&lt;/strong&gt;之步驟如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;先以「&lt;strong&gt;flow&lt;/strong&gt;為零」對&lt;strong&gt;residual networks&lt;/strong&gt;進行初始化，如圖五(a)。&lt;br /&gt;
+觀察後發現，&lt;strong&gt;G&lt;sub&gt;f&lt;/sub&gt;&lt;/strong&gt;就是&lt;strong&gt;Adjacency Matrix&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/Flow_Networks_fig/Maximum_Flow/f8.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖五(a)。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;在&lt;strong&gt;G&lt;sub&gt;f&lt;/sub&gt;&lt;/strong&gt;上，以&lt;code&gt;BFS()&lt;/code&gt;找到能夠從vertex(S)走到vertex(T)，且「egde數最少」的路徑：&lt;span class="math"&gt;\(Path:S-A-B-T\)&lt;/span&gt;，見圖五(b)。&lt;ul&gt;
+&lt;li&gt;根據「Graph上建立vertex的順序」，&lt;code&gt;BFS()&lt;/code&gt;有可能找到都是&lt;span class="math"&gt;\(3\)&lt;/span&gt;條edge的&lt;span class="math"&gt;\(Path:S-A-B-T\)&lt;/span&gt;或是&lt;span class="math"&gt;\(Path:S-C-D-T\)&lt;/span&gt;。這裡以前者為例。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/Flow_Networks_fig/Maximum_Flow/f9.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖五(b)。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;觀察&lt;span class="math"&gt;\(Path:S-A-B-T\)&lt;/span&gt;上之edge，發現edge(A,B)具有「最小&lt;strong&gt;residual capacity&lt;/strong&gt;」，&lt;span class="math"&gt;\(c_f(A,B)=3\)&lt;/span&gt;，便更新「總&lt;strong&gt;flow&lt;/strong&gt;新增&lt;span class="math"&gt;\(3\)&lt;/span&gt;」。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;G&lt;sub&gt;f&lt;/sub&gt;&lt;/strong&gt;上，更新edge之&lt;strong&gt;residual capacity&lt;/strong&gt;，見圖五(c)：&lt;ul&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(c_f(S,A)=c(S,A)-f(S,A)=9-3=6\)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(c_f(A,S)=c(A,S)-f(A,S)=0+3=3\)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(c_f(A,B)=c(A,B)-f(A,B)=3-3=0\)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(c_f(B,A)=c(B,A)-f(B,A)=0+3=3\)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(c_f(B,T)=c(B,T)-f(B,T)=9-3=6\)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(c_f(T,B)=c(T,B)-f(T,B)=0+3=3\)&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/Flow_Networks_fig/Maximum_Flow/f10.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖五(c)。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;在&lt;strong&gt;G&lt;sub&gt;f&lt;/sub&gt;&lt;/strong&gt;上，以&lt;code&gt;BFS()&lt;/code&gt;找到能夠從vertex(S)走到vertex(T)，且「egde數最少」的路徑：&lt;span class="math"&gt;\(Path:S-C-D-T\)&lt;/span&gt;，見圖五(d)。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/Flow_Networks_fig/Maximum_Flow/f11.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖五(d)。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;觀察&lt;span class="math"&gt;\(Path:S-A-B-T\)&lt;/span&gt;上之edge，發現edge(C,D)具有「最小&lt;strong&gt;residual capacity&lt;/strong&gt;」，&lt;span class="math"&gt;\(c_f(C,D)=7\)&lt;/span&gt;，便更新「總&lt;strong&gt;flow&lt;/strong&gt;新增&lt;span class="math"&gt;\(7\)&lt;/span&gt;」。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;G&lt;sub&gt;f&lt;/sub&gt;&lt;/strong&gt;上，更新edge之&lt;strong&gt;residual capacity&lt;/strong&gt;，見圖五(e)：&lt;ul&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(c_f(S,C)=c(S,C)-f(S,C)=9-7=2\)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(c_f(C,S)=c(C,S)-f(C,S)=0+7=7\)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(c_f(C,D)=c(C,D)-f(C,D)=7-7=0\)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(c_f(D,C)=c(D,C)-f(D,C)=0+7=7\)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(c_f(D,T)=c(D,T)-f(D,T)=8-7=1\)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(c_f(T,D)=c(T,D)-f(T,D)=0+7=7\)&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/Flow_Networks_fig/Maximum_Flow/f12.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖五(e)。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;接著繼續重複上述步驟：「更新&lt;strong&gt;Residual Networks&lt;/strong&gt;，尋找&lt;strong&gt;Augmenting Paths&lt;/strong&gt;」，見圖五(f)-(l)。&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/Flow_Networks_fig/Maximum_Flow/f13.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖五(f)：找到&lt;span class="math"&gt;\(Path:S-C-B-T\)&lt;/span&gt;。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/Flow_Networks_fig/Maximum_Flow/f14.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖五(g)：更新Residual Networks。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/Flow_Networks_fig/Maximum_Flow/f15.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖五(h)：找到&lt;span class="math"&gt;\(Path:S-A-C-B-T\)&lt;/span&gt;。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/Flow_Networks_fig/Maximum_Flow/f16.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖五(i)：更新Residual Networks。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/Flow_Networks_fig/Maximum_Flow/f17.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖五(j)：找到&lt;span class="math"&gt;\(Path:S-A-C-B-D-T\)&lt;/span&gt;。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/Flow_Networks_fig/Maximum_Flow/f18.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖五(k)：更新Residual Networks。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/Flow_Networks_fig/Maximum_Flow/f19.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖五(l)：找到Maximum Flow。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;當執行到圖五(l)，在&lt;strong&gt;Residual Networks&lt;/strong&gt;上再也找不到任何一條&lt;strong&gt;Augmenting Paths&lt;/strong&gt;，便完成演算法。&lt;br /&gt;
+&lt;strong&gt;Maximum Flow&lt;/strong&gt;為&lt;span class="math"&gt;\(17\)&lt;/span&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a name="code"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;程式碼&lt;/h2&gt;
+&lt;p&gt;程式碼包含幾個部分：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;class Graph_FlowNetWorks&lt;/code&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;使用&lt;code&gt;AdjMatrix&lt;/code&gt;建立Graph，並利用&lt;code&gt;AdjMatrix[X][Y]&lt;/code&gt;儲存edge(X,Y)的weight。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;BFSfindExistingPath()&lt;/code&gt;：利用&lt;strong&gt;Breadth-First Search&lt;/strong&gt;尋找「從&lt;strong&gt;source&lt;/strong&gt;走到&lt;strong&gt;termination&lt;/strong&gt;」的路徑，而且是edge數最少的路徑。&lt;ul&gt;
+&lt;li&gt;關於&lt;strong&gt;Breadth-First Search&lt;/strong&gt;，請參考&lt;a href="http://alrightchiu.github.io/SecondRound/graph-breadth-first-searchbfsguang-du-you-xian-sou-xun.html"&gt;Graph: Breadth-First Search(BFS，廣度優先搜尋)&lt;/a&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;FordFulkerson()&lt;/code&gt;：進行&lt;strong&gt;Ford-Fulkerson Algorithm&lt;/strong&gt;的主要函式，內容如前一小節所述。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;MinCapacity()&lt;/code&gt;：用來找到從&lt;code&gt;BFSfindExistingPath()&lt;/code&gt;找到的路徑上，最小的&lt;strong&gt;residual capacity&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;以及&lt;code&gt;main()&lt;/code&gt;：建立如圖二(a)之&lt;code&gt;AdjMatrix&lt;/code&gt;，並進行&lt;code&gt;FordFulkerson()&lt;/code&gt;。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// C++ code&lt;/span&gt;
+&lt;span class="cp"&gt;#include &amp;lt;iostream&amp;gt;&lt;/span&gt;
+&lt;span class="cp"&gt;#include &amp;lt;vector&amp;gt;&lt;/span&gt;
+&lt;span class="cp"&gt;#include &amp;lt;queue&amp;gt;&lt;/span&gt;
+
+&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Graph_FlowNetWorks&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="k"&gt;private&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;num_vertex&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;vector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;vector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;AdjMatrix&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="k"&gt;public&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+    &lt;span class="n"&gt;Graph_FlowNetWorks&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;num_vertex&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;){};&lt;/span&gt;
+    &lt;span class="n"&gt;Graph_FlowNetWorks&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;AddEdge&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;from&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;capacity&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+    &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;FordFulkerson&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;source&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;termination&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="kt"&gt;bool&lt;/span&gt; &lt;span class="nf"&gt;BFSfindExistingPath&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;vector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;vector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;graphResidual&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; 
+                             &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;predecessor&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;source&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;termination&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;MinCapacity&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;vector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;vector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;graphResidual&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; 
+                    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;predecessor&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;termination&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+&lt;span class="p"&gt;};&lt;/span&gt;
+&lt;span class="n"&gt;Graph_FlowNetWorks&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;Graph_FlowNetWorks&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;num_vertex&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
+    &lt;span class="c1"&gt;// constructor&lt;/span&gt;
+    &lt;span class="n"&gt;AdjMatrix&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;resize&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;num_vertex&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;num_vertex&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="n"&gt;AdjMatrix&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;].&lt;/span&gt;&lt;span class="n"&gt;resize&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;num_vertex&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="kt"&gt;bool&lt;/span&gt; &lt;span class="n"&gt;Graph_FlowNetWorks&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;BFSfindExistingPath&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;vector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;vector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;graph&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; 
+                                             &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;predecessor&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;t&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
+    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;visited&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;num_vertex&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;num_vertex&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
+        &lt;span class="n"&gt;visited&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;     &lt;span class="c1"&gt;// 0 表示還沒有被找到&lt;/span&gt;
+        &lt;span class="n"&gt;predecessor&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+
+    &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;queue&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;queue&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="c1"&gt;// BFS 從 s 開始, 也可以規定s一律訂成vertex(0)&lt;/span&gt;
+    &lt;span class="n"&gt;queue&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;push&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="n"&gt;visited&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="n"&gt;queue&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;empty&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;exploring&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;queue&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;front&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+        &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;j&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;j&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;num_vertex&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;graph&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;exploring&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;!=&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;visited&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;==&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+                &lt;span class="n"&gt;queue&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;push&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+                &lt;span class="n"&gt;visited&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+                &lt;span class="n"&gt;predecessor&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;exploring&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+            &lt;span class="p"&gt;}&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+        &lt;span class="n"&gt;queue&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;pop&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;visited&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;t&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;   &lt;span class="c1"&gt;// 若t有被visited, 表示有path從s到t&lt;/span&gt;
+                                &lt;span class="c1"&gt;// 也可以用 if (predecessor[t] != -1) 判斷&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;Graph_FlowNetWorks&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;MinCapacity&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;vector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;vector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;graph&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; 
+                                    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;predecessor&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;t&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
+    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;min&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;      &lt;span class="c1"&gt;// 確保min會更新, 假設graph上的capacity都小於100&lt;/span&gt;
+
+    &lt;span class="c1"&gt;// 用predecessor[idx] 和 idx 表示一條edge&lt;/span&gt;
+    &lt;span class="c1"&gt;// 找到在從s到t的path上, capacity最小的值, 存入min&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;idx&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;t&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;predecessor&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;idx&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;!=&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;idx&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;predecessor&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;idx&lt;/span&gt;&lt;span class="p"&gt;]){&lt;/span&gt;
+        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;graph&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;predecessor&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;idx&lt;/span&gt;&lt;span class="p"&gt;]][&lt;/span&gt;&lt;span class="n"&gt;idx&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;!=&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;graph&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;predecessor&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;idx&lt;/span&gt;&lt;span class="p"&gt;]][&lt;/span&gt;&lt;span class="n"&gt;idx&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;min&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="n"&gt;min&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;graph&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;predecessor&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;idx&lt;/span&gt;&lt;span class="p"&gt;]][&lt;/span&gt;&lt;span class="n"&gt;idx&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;min&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;Graph_FlowNetWorks&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;FordFulkerson&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;source&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;termination&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
+
+    &lt;span class="c1"&gt;// residual networks的初始狀態等於AdjMatrix, 見圖五(a)&lt;/span&gt;
+    &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;vector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;vector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;graphResidual&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;AdjMatrix&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;    
+    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;maxflow&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;                                           
+    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;predecessor&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;num_vertex&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+
+    &lt;span class="c1"&gt;// BFS finds augmenting path,&lt;/span&gt;
+    &lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;BFSfindExistingPath&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;graphResidual&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;predecessor&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;source&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;termination&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;mincapacity&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;MinCapacity&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;graphResidual&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;predecessor&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;termination&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+        &lt;span class="n"&gt;maxflow&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;maxflow&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;mincapacity&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;Y&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;termination&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;Y&lt;/span&gt; &lt;span class="o"&gt;!=&lt;/span&gt; &lt;span class="n"&gt;source&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;Y&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;predecessor&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;Y&lt;/span&gt;&lt;span class="p"&gt;]){&lt;/span&gt;
+            &lt;span class="c1"&gt;// 更新 residual graph&lt;/span&gt;
+            &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;X&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;predecessor&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;Y&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+            &lt;span class="n"&gt;graphResidual&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;X&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="n"&gt;Y&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;-=&lt;/span&gt; &lt;span class="n"&gt;mincapacity&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+            &lt;span class="n"&gt;graphResidual&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;Y&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="n"&gt;X&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="n"&gt;mincapacity&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;Possible Maximum Flow: &amp;quot;&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;maxflow&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;endl&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;Graph_FlowNetWorks&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;AddEdge&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;from&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;capacity&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
+
+    &lt;span class="n"&gt;AdjMatrix&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;from&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;capacity&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;main&lt;/span&gt;&lt;span class="p"&gt;(){&lt;/span&gt;
+    &lt;span class="n"&gt;Graph_FlowNetWorks&lt;/span&gt; &lt;span class="n"&gt;g11&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;6&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+    &lt;span class="n"&gt;g11&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;AddEdge&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;9&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;span class="n"&gt;g11&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;AddEdge&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;9&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="n"&gt;g11&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;AddEdge&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;span class="n"&gt;g11&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;AddEdge&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;8&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="n"&gt;g11&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;AddEdge&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;span class="n"&gt;g11&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;AddEdge&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;9&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="n"&gt;g11&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;AddEdge&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;7&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;span class="n"&gt;g11&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;AddEdge&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;7&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="n"&gt;g11&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;AddEdge&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;span class="n"&gt;g11&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;AddEdge&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;8&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+    &lt;span class="n"&gt;g11&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;FordFulkerson&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;    &lt;span class="c1"&gt;// 指定source為vertex(0), termination為vertex(5)&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;output:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;Possible&lt;/span&gt; &lt;span class="n"&gt;Maximum&lt;/span&gt; &lt;span class="nl"&gt;Flow&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;17&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;結果與圖五(k)相同。&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt; 
+&lt;a name="bfs"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;利用BFS的優點&lt;/h2&gt;
+&lt;p&gt;若在&lt;strong&gt;Residual Networks&lt;/strong&gt;尋找&lt;strong&gt;Augmenting Paths&lt;/strong&gt;的方法中，&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;沒有用上&lt;strong&gt;BFS&lt;/strong&gt;，稱為&lt;strong&gt;Ford-Fulkerson Algorithm&lt;/strong&gt;，時間複雜度&lt;span class="math"&gt;\(O(E|f|)\)&lt;/span&gt;。&lt;ul&gt;
+&lt;li&gt;其中，&lt;span class="math"&gt;\(E\)&lt;/span&gt;為Graph上的edge數；&lt;/li&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(|f|\)&lt;/span&gt;為「最大流量」。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;有用上&lt;strong&gt;BFS&lt;/strong&gt;，稱為&lt;strong&gt;Edmonds-Karp Algorithm&lt;/strong&gt;，時間複雜度&lt;span class="math"&gt;\(O(VE^2)\)&lt;/span&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;顯然，使用&lt;strong&gt;BFS&lt;/strong&gt;的優勢在於時間複雜度。&lt;br /&gt;
+嚴謹證明請參考&lt;a href="https://people.cs.umass.edu/~barring/cs611/lecture/11.pdf"&gt;David Mix Barrington：The Edmonds-Karp Heuristic&lt;/a&gt;。&lt;br /&gt;
+以下僅以一個簡單的例子，奉勸讀者使用&lt;strong&gt;BFS&lt;/strong&gt;沒有害處。&lt;/p&gt;
+&lt;p&gt;以圖六(a)為例，若使用&lt;strong&gt;BFS&lt;/strong&gt;，&lt;strong&gt;Maximum Flow&lt;/strong&gt;只需要「找兩次」&lt;strong&gt;Augmenting Paths&lt;/strong&gt;，&lt;span class="math"&gt;\(Path:S-A-T\)&lt;/span&gt;以及&lt;span class="math"&gt;\(Path:S-C-T\)&lt;/span&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/Flow_Networks_fig/Maximum_Flow/f20.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖六(a)。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;但如果使用&lt;strong&gt;DFS()&lt;/strong&gt;或其他方法，很有可能找到&lt;span class="math"&gt;\(Path:S-A-C-T\)&lt;/span&gt;，因為edge(A,C)的&lt;strong&gt;capacity&lt;/strong&gt;只有&lt;span class="math"&gt;\(1\)&lt;/span&gt;，&lt;span class="math"&gt;\(c(A,C)=1\)&lt;/span&gt;，便限制了每單位時間的流量，見圖六(b)。&lt;/p&gt;
+&lt;p&gt;若不幸，在下一次挑選&lt;strong&gt;Augmenting Paths&lt;/strong&gt;時，選到&lt;span class="math"&gt;\(Path:S-C-A-T\)&lt;/span&gt;，又只能流入&lt;span class="math"&gt;\(1\)&lt;/span&gt;單位的&lt;strong&gt;flow&lt;/strong&gt;。&lt;br /&gt;
+若每次都挑選到&lt;strong&gt;capacity&lt;/strong&gt;只有&lt;span class="math"&gt;\(1\)&lt;/span&gt;的edge，那麼，總共尋找&lt;strong&gt;Augmenting Paths&lt;/strong&gt;的次數恰等於「&lt;strong&gt;總flow&lt;/strong&gt;」的量，以圖六(b)為例，需要找&lt;span class="math"&gt;\(20000\)&lt;/span&gt;次&lt;strong&gt;Augmenting Paths&lt;/strong&gt;，不算有效率的方法。&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/Flow_Networks_fig/Maximum_Flow/f21.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖六(b)。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;  &lt;/p&gt;
+&lt;p&gt;以上便是&lt;strong&gt;Ford-Fulkerson Algorithm&lt;/strong&gt;(說是&lt;strong&gt;Edmonds-Karp Algorithm&lt;/strong&gt;也可以)的介紹。&lt;br /&gt;
+關於&lt;strong&gt;Maximum Flow&lt;/strong&gt;的應用，請參考&lt;a href="https://en.wikipedia.org/wiki/Maximum_flow_problem#Application"&gt;Wikipedia：Maximum flow problem&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;&lt;a name="ref"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;參考資料：&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844"&gt;Introduction to Algorithms, Ch26&lt;/a&gt; &lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376"&gt;Fundamentals of Data Structures in C++, Ch6&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://www.youtube.com/watch?v=hmIrJCGPPG4"&gt;LILD：Ford Fulkerson algorithm for Max Flow&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.geeksforgeeks.org/ford-fulkerson-algorithm-for-maximum-flow-problem/"&gt;GeeksforGeeks：Ford-Fulkerson Algorithm for Maximum Flow Problem&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/graph-breadth-first-searchbfsguang-du-you-xian-sou-xun.html"&gt;Graph: Breadth-First Search(BFS，廣度優先搜尋)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://people.cs.umass.edu/~barring/cs611/lecture/11.pdf"&gt;David Mix Barrington：The Edmonds-Karp Heuristic&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://en.wikipedia.org/wiki/Maximum_flow_problem#Application"&gt;Wikipedia：Maximum flow problem&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://mropengate.blogspot.tw/2015/01/algorithm-ch4-network-flow.html"&gt;Mr. Opengate：Algorithm - Ch5 網路流 與 最大流最小割定理 Network Flow and Maximum Flow Minimum Cut Theorem&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://pisces.ck.tp.edu.tw/~peng/index.php?action=showfile&amp;amp;file=f3cec71910d4a0106624e839f2891b17198ef58be"&gt;CK6125姜俊宇：網路流(Network Flow)&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a name="series"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;h3&gt;Flow Networks系列文章&lt;/h3&gt;
+&lt;p&gt;&lt;a href=""&gt;Flow Networks：Maximum Flow &amp;amp; Ford-Fulkerson Algorithm&lt;/a&gt;    &lt;/p&gt;
+&lt;p&gt;回到目錄：&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html"&gt;目錄：演算法與資料結構&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;script type="text/javascript"&gt;if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width &lt; 768) ? "left" : align;
+        indent = (screen.width &lt; 768) ? "0em" : indent;
+        linebreak = (screen.width &lt; 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' &amp;&amp; location_protocol !== 'https') location_protocol = 'https:';
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+&lt;/script&gt;</summary><category term="C++"></category><category term="Graph"></category><category term="Flow Networks"></category><category term="Intro"></category><category term="BFS"></category><category term="Edmonds-Karp Algorithm"></category></entry><entry><title>All-Pairs Shortest Path：Floyd-Warshall Algorithm</title><link href="http://alrightchiu.github.io/SecondRound/all-pairs-shortest-pathfloyd-warshall-algorithm.html" rel="alternate"></link><updated>2016-03-14T18:10:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-03-14:SecondRound/all-pairs-shortest-pathfloyd-warshall-algorithm.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h3&gt;先備知識與注意事項&lt;/h3&gt;
 &lt;p&gt;本篇文章將介紹&lt;strong&gt;Floyd-Warshall Algorithm&lt;/strong&gt;來解決&lt;strong&gt;All-Pairs Shortest Path&lt;/strong&gt;問題。  &lt;/p&gt;
-&lt;p&gt;由於是&lt;strong&gt;All Pairs&lt;/strong&gt;，每個vertex都將視為起點，尋找以該vertex走到其他vertex之最短路徑，可以想見，在&lt;strong&gt;Single-Source Shortest Path&lt;/strong&gt;中使用的一維矩陣&lt;code&gt;distance[]&lt;/code&gt;與&lt;code&gt;predecessor[]&lt;/code&gt;，需要再增加一個維度成二維矩陣，以&lt;code&gt;Distance[][]&lt;/code&gt;與&lt;code&gt;Predecessor[][]&lt;/code&gt;表示，以完成相同的功能。&lt;br /&gt;
+&lt;p&gt;由於是&lt;strong&gt;All Pairs&lt;/strong&gt;，每個vertex都將視為起點，尋找以該vertex走到其他vertex之最短路徑，可以想見，在&lt;strong&gt;Single-Source Shortest Path&lt;/strong&gt;中使用的一維矩陣&lt;code&gt;distance[]&lt;/code&gt;與&lt;code&gt;predecessor[]&lt;/code&gt;，需要再增加一個維度成二維矩陣，以&lt;code&gt;Distance[][]&lt;/code&gt;與&lt;code&gt;Predecessor[][]&lt;/code&gt;表示。&lt;br /&gt;
 連帶地，在建立Graph時，也將使用&lt;strong&gt;Adjacency Matrix&lt;/strong&gt;，並以其陣列元素值代表edge之weight。&lt;br /&gt;
 (這並不表示不能使用&lt;strong&gt;Adjacency List&lt;/strong&gt;實現，只是較為費工。)&lt;/p&gt;
 &lt;hr /&gt;
