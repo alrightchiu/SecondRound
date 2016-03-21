@@ -81,8 +81,8 @@ edge代表水管，edge之weight(以下將稱為**capacity**)表示水管的「�
 1. **Capacity constraint**：從vertex(X)流向vertex(Y)的**flow**，不能比edge(X,Y)的**capacity**還大，$f(X,Y)\leq c(X,Y)$。  
     * 若每單位時間內，水管孔徑只能容納$5$單位，那**flow**最多就是$5$單位。
     * 以圖二(b)為例，在$Path:S-A-C-D-T$上的edge之**capacity**皆大於$6$，因此在此路徑上流入$6$單位的**flow**是可行的。
-2. **Skew symmetry**：若定義從vertex(X)到vertex(Y)之edge(X,Y)上，有$5$單位的**flow**，$f(X,Y)=5$，這就等價於，從vertex(Y)到vertex(X)之edge(Y,X)上，有$-5$單位的**flow**，$f(Y,X)=-5$。
-    * 與「電子流(負電荷)」與「電流(正電荷)」之概念雷同，從左到右的電流其實是從右到左的電子流之等價概念。
+2. **Skew symmetry**：若定義「從vertex(X)指向vertex(Y)」之edge(X,Y)上，有$5$單位的**flow**，$f(X,Y)=5$，這就等價於，從vertex(Y)到vertex(X)之edge(Y,X)上，有$-5$單位的**flow**，$f(Y,X)=-5$。
+    * 與「電子流(負電荷)」與「電流(正電荷)」之概念雷同，從「左到右的電流」與「從右到左的電子流」具有等價的物理意義。
 3. **Flow conservation**：對Graph中除了**source**與**sink**以外的vertex(X)而言，所有「流進**flow**」之總和要等於所有「流出**flow**」的總和。  
     * 也就是水流不會無故增加或無故減少，可視為一種**能量守恆**。
     * 以圖二(b)為例，流入vertex(A)的**flow**為$6$，流出vertex(A)的**flow**也是$6$，對vertex(C)、vertex(D)也是。
