@@ -107,8 +107,8 @@ edge代表水管，edge之weight(以下將稱為&lt;strong&gt;capacity&lt;/stron
 &lt;li&gt;以圖二(b)為例，在&lt;span class="math"&gt;\(Path:S-A-C-D-T\)&lt;/span&gt;上的edge之&lt;strong&gt;capacity&lt;/strong&gt;皆大於&lt;span class="math"&gt;\(6\)&lt;/span&gt;，因此在此路徑上流入&lt;span class="math"&gt;\(6\)&lt;/span&gt;單位的&lt;strong&gt;flow&lt;/strong&gt;是可行的。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Skew symmetry&lt;/strong&gt;：若定義從vertex(X)到vertex(Y)之edge(X,Y)上，有&lt;span class="math"&gt;\(5\)&lt;/span&gt;單位的&lt;strong&gt;flow&lt;/strong&gt;，&lt;span class="math"&gt;\(f(X,Y)=5\)&lt;/span&gt;，這就等價於，從vertex(Y)到vertex(X)之edge(Y,X)上，有&lt;span class="math"&gt;\(-5\)&lt;/span&gt;單位的&lt;strong&gt;flow&lt;/strong&gt;，&lt;span class="math"&gt;\(f(Y,X)=-5\)&lt;/span&gt;。&lt;ul&gt;
-&lt;li&gt;與「電子流(負電荷)」與「電流(正電荷)」之概念雷同，從左到右的電流其實是從右到左的電子流之等價概念。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Skew symmetry&lt;/strong&gt;：若定義「從vertex(X)指向vertex(Y)」之edge(X,Y)上，有&lt;span class="math"&gt;\(5\)&lt;/span&gt;單位的&lt;strong&gt;flow&lt;/strong&gt;，&lt;span class="math"&gt;\(f(X,Y)=5\)&lt;/span&gt;，這就等價於，從vertex(Y)到vertex(X)之edge(Y,X)上，有&lt;span class="math"&gt;\(-5\)&lt;/span&gt;單位的&lt;strong&gt;flow&lt;/strong&gt;，&lt;span class="math"&gt;\(f(Y,X)=-5\)&lt;/span&gt;。&lt;ul&gt;
+&lt;li&gt;與「電子流(負電荷)」與「電流(正電荷)」之概念雷同，從「左到右的電流」與「從右到左的電子流」具有等價的物理意義。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Flow conservation&lt;/strong&gt;：對Graph中除了&lt;strong&gt;source&lt;/strong&gt;與&lt;strong&gt;sink&lt;/strong&gt;以外的vertex(X)而言，所有「流進&lt;strong&gt;flow&lt;/strong&gt;」之總和要等於所有「流出&lt;strong&gt;flow&lt;/strong&gt;」的總和。  &lt;ul&gt;
