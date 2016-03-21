@@ -206,7 +206,8 @@ edge代表水管，edge之weight(以下將稱為<strong>capacity</strong>)表示
 <h3>Residual Networks(剩餘網路)</h3>
 <p><strong>Residual Networks</strong>的概念為，記錄Graph上之edge還有多少「剩餘的容量」可以讓水流流過。  </p>
 <p>以圖三(a)為例，若在<span class="math">\(Path:S-A-C-D-T\)</span>上的所有edge都有<span class="math">\(6\)</span>單位的<strong>flow</strong>流過，那麼這些edge(edge(S,A)、edge(A,C)、edge(C,D)、edge(D,T))的可用「剩餘<strong>capacity</strong>」，都應該要「減<span class="math">\(6\)</span>」，例如，edge(S,A)只能「再容納<span class="math">\(9-6=3\)</span>單位」的<strong>flow</strong>，edge(C,D)只能「再容納<span class="math">\(7-6=1\)</span>單位」的<strong>flow</strong>。  </p>
-<p>這些「剩餘<strong>capacity</strong>」就稱為<strong>residual capacity</strong>，以<span class="math">\(c_f\)</span>表示，若edge(X,Y)上有<strong>flow</strong>流過，<span class="math">\(f(X,Y)\)</span>，便將edge(X,Y)上的<strong>residual capacity</strong>定義為：</p>
+<p>這些「剩餘<strong>capacity</strong>」就稱為<strong>residual capacity</strong>，以<span class="math">\(c_f\)</span>表示。<br />
+若edge(X,Y)上有<strong>flow</strong>流過，<span class="math">\(f(X,Y)\)</span>，便將edge(X,Y)上的<strong>residual capacity</strong>定義為：</p>
 <ul>
 <li><span class="math">\(c_f(X,Y)=c(X,Y)-f(X,Y)\)</span><ul>
 <li><span class="math">\(c(X,Y)\)</span>為原來水管孔徑大小；</li>
@@ -255,6 +256,7 @@ edge代表水管，edge之weight(以下將稱為<strong>capacity</strong>)表示
 <li>同理，因為在路徑上，所有edge中最小的<strong>capacity</strong>為<span class="math">\(c(B,D)=c(D,T)=2\)</span>，因此，<strong>flow</strong>可以容許<span class="math">\(1\)</span>單位或<span class="math">\(2\)</span>單位。</li>
 </ul>
 </li>
+<li>以及其他。</li>
 </ul>
 <p><center>
 <img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/Flow_Networks_fig/Maximum_Flow/f7.png?raw=true" /></p>

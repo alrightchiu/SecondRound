@@ -133,7 +133,8 @@ edge代表水管，edge之weight(以下將稱為&lt;strong&gt;capacity&lt;/stron
 &lt;h3&gt;Residual Networks(剩餘網路)&lt;/h3&gt;
 &lt;p&gt;&lt;strong&gt;Residual Networks&lt;/strong&gt;的概念為，記錄Graph上之edge還有多少「剩餘的容量」可以讓水流流過。  &lt;/p&gt;
 &lt;p&gt;以圖三(a)為例，若在&lt;span class="math"&gt;\(Path:S-A-C-D-T\)&lt;/span&gt;上的所有edge都有&lt;span class="math"&gt;\(6\)&lt;/span&gt;單位的&lt;strong&gt;flow&lt;/strong&gt;流過，那麼這些edge(edge(S,A)、edge(A,C)、edge(C,D)、edge(D,T))的可用「剩餘&lt;strong&gt;capacity&lt;/strong&gt;」，都應該要「減&lt;span class="math"&gt;\(6\)&lt;/span&gt;」，例如，edge(S,A)只能「再容納&lt;span class="math"&gt;\(9-6=3\)&lt;/span&gt;單位」的&lt;strong&gt;flow&lt;/strong&gt;，edge(C,D)只能「再容納&lt;span class="math"&gt;\(7-6=1\)&lt;/span&gt;單位」的&lt;strong&gt;flow&lt;/strong&gt;。  &lt;/p&gt;
-&lt;p&gt;這些「剩餘&lt;strong&gt;capacity&lt;/strong&gt;」就稱為&lt;strong&gt;residual capacity&lt;/strong&gt;，以&lt;span class="math"&gt;\(c_f\)&lt;/span&gt;表示，若edge(X,Y)上有&lt;strong&gt;flow&lt;/strong&gt;流過，&lt;span class="math"&gt;\(f(X,Y)\)&lt;/span&gt;，便將edge(X,Y)上的&lt;strong&gt;residual capacity&lt;/strong&gt;定義為：&lt;/p&gt;
+&lt;p&gt;這些「剩餘&lt;strong&gt;capacity&lt;/strong&gt;」就稱為&lt;strong&gt;residual capacity&lt;/strong&gt;，以&lt;span class="math"&gt;\(c_f\)&lt;/span&gt;表示。&lt;br /&gt;
+若edge(X,Y)上有&lt;strong&gt;flow&lt;/strong&gt;流過，&lt;span class="math"&gt;\(f(X,Y)\)&lt;/span&gt;，便將edge(X,Y)上的&lt;strong&gt;residual capacity&lt;/strong&gt;定義為：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;span class="math"&gt;\(c_f(X,Y)=c(X,Y)-f(X,Y)\)&lt;/span&gt;&lt;ul&gt;
 &lt;li&gt;&lt;span class="math"&gt;\(c(X,Y)\)&lt;/span&gt;為原來水管孔徑大小；&lt;/li&gt;
@@ -182,6 +183,7 @@ edge代表水管，edge之weight(以下將稱為&lt;strong&gt;capacity&lt;/stron
 &lt;li&gt;同理，因為在路徑上，所有edge中最小的&lt;strong&gt;capacity&lt;/strong&gt;為&lt;span class="math"&gt;\(c(B,D)=c(D,T)=2\)&lt;/span&gt;，因此，&lt;strong&gt;flow&lt;/strong&gt;可以容許&lt;span class="math"&gt;\(1\)&lt;/span&gt;單位或&lt;span class="math"&gt;\(2\)&lt;/span&gt;單位。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
+&lt;li&gt;以及其他。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/Flow_Networks_fig/Maximum_Flow/f7.png?raw=true" /&gt;&lt;/p&gt;
