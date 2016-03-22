@@ -17,9 +17,9 @@ Sorting(排序)是非常基本的資料處理操作，舉例來說，進入圖�
 
 ||Quick Sort &nbsp;&nbsp;|Merge Sort &nbsp;&nbsp;| Heap Sort&nbsp;&nbsp;| Insertion Sort&nbsp;&nbsp;| Selection Sort&nbsp;&nbsp;|
 |---|---|---|---|---|---|
-|best case     |&nbsp;&nbsp;$N\log N$ &nbsp;&nbsp;|&nbsp;&nbsp;$N\log N$ &nbsp;&nbsp;|&nbsp;&nbsp;$N\log N$ &nbsp;&nbsp;|&nbsp;&nbsp;$N$&nbsp;&nbsp;|&nbsp;&nbsp;$N^2$|
-|average case &nbsp;&nbsp;|&nbsp;$N\log N$&nbsp;&nbsp;|&nbsp;&nbsp;$N\log N$&nbsp;&nbsp;|&nbsp;&nbsp;$N\log N$&nbsp;&nbsp;|&nbsp;&nbsp;$N^2$&nbsp;&nbsp;|&nbsp;&nbsp;$N^2$|
-|worst case|&nbsp;&nbsp;$N^2$&nbsp;&nbsp;|&nbsp;&nbsp;$N\log N$&nbsp;&nbsp;|&nbsp;&nbsp;$N\log N$&nbsp;&nbsp;|&nbsp;&nbsp;$N^2$&nbsp;&nbsp;|&nbsp;&nbsp;$N^2$|
+|best case     |&nbsp;&nbsp;&nbsp;&nbsp;$N\log N$ &nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;$N\log N$ &nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;$N\log N$ &nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;$N$&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;$N^2$|
+|average case &nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;$N\log N$&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;$N\log N$&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;$N\log N$&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;$N^2$&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;$N^2$|
+|worst case|&nbsp;&nbsp;&nbsp;&nbsp;$N^2$&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;$N\log N$&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;$N\log N$&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;$N^2$&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;$N^2$|
 
 **表一：三種演算法之使用情境比較**
 
