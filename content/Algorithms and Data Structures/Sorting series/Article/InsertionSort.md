@@ -261,9 +261,11 @@ output:
 * [Introduction to Algorithms, Ch1](http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844) 
 * [Fundamentals of Data Structures in C++, Ch7](http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376)
 * [Wikipedia：Comparison sort](https://en.wikipedia.org/wiki/Comparison_sort)
+* [Wikipedia：Sorting algorithm](https://en.wikipedia.org/wiki/Sorting_algorithm)
 * [Mordecai Golin：Average Case Analysis of Insertionsort](http://home.cse.ust.hk/faculty/golin/COMP271Sp03/Notes/Ins_Sort_Average_Case.pdf)
 * [Stackoverflow：Is recursion ever faster than looping?](http://stackoverflow.com/questions/2651112/is-recursion-ever-faster-than-looping)
 * [Stackoverflow：Recursion or Iteration?](http://stackoverflow.com/questions/72209/recursion-or-iteration)
+* [Stackoverflow：How to optimize quicksort](http://stackoverflow.com/questions/12454866/how-to-optimize-quicksort)
 
 
 <a name="series"></a>
