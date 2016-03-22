@@ -74,7 +74,7 @@ Sorting(排序)是非常基本的資料處理操作，舉例來說，進入圖�
 </center>
 
 以下將以圖二的矩陣資料為例，進行**Insertion Sort**，見圖三。  
-依序從index(1)的
+
 
 <center>
 ![cc][f3]
