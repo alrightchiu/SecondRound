@@ -2,6 +2,9 @@
 <feed xmlns="http://www.w3.org/2005/Atom"><title>Second Round</title><link href="http://alrightchiu.github.io/SecondRound/" rel="alternate"></link><link href="http://alrightchiu.github.io/SecondRound/feeds/all.atom.xml" rel="self"></link><id>http://alrightchiu.github.io/SecondRound/</id><updated>2099-12-31T23:59:00+08:00</updated><entry><title>目錄：演算法與資料結構</title><link href="http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html" rel="alternate"></link><updated>2099-12-31T23:59:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2099-12-31:SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html</id><summary type="html">&lt;h2&gt;演算法與資料結構&lt;/h2&gt;
 &lt;p&gt;介紹演算法與資料結構的基本概念。&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;h2&gt;Sort系列文章&lt;/h2&gt;
+&lt;h3&gt;Comparison Sort&lt;/h3&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h2&gt;Tree系列文章&lt;/h2&gt;
 &lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/treeshu-introjian-jie.html"&gt;Tree(樹): Intro(簡介)&lt;/a&gt;&lt;/p&gt;
 &lt;h3&gt;Binary Tree(二元樹)&lt;/h3&gt;
@@ -38,9 +41,303 @@
 &lt;a href="http://alrightchiu.github.io/SecondRound/all-pairs-shortest-pathfloyd-warshall-algorithm.html"&gt;All-Pairs Shortest Path：Floyd-Warshall Algorithm&lt;/a&gt;    &lt;/p&gt;
 &lt;h3&gt;Flow Networks&lt;/h3&gt;
 &lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/flow-networksmaximum-flow-ford-fulkerson-algorithm.html"&gt;Flow Networks：Maximum Flow &amp;amp; Ford-Fulkerson Algorithm&lt;/a&gt;    &lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h2&gt;Priority Queue系列文章&lt;/h2&gt;
 &lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/priority-queueintrojian-jie-binary-heap.html"&gt;Priority Queue：Intro(簡介) &amp;amp; Binary Heap&lt;/a&gt;  &lt;/p&gt;
-&lt;p&gt;&lt;/br&gt;&lt;/p&gt;</summary><category term="C++"></category></entry><entry><title>Flow Networks：Maximum Flow &amp; Ford-Fulkerson Algorithm</title><link href="http://alrightchiu.github.io/SecondRound/flow-networksmaximum-flow-ford-fulkerson-algorithm.html" rel="alternate"></link><updated>2016-03-20T17:39:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-03-20:SecondRound/flow-networksmaximum-flow-ford-fulkerson-algorithm.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;</summary><category term="C++"></category></entry><entry><title>Comparison Sort: Insertion Sort(插入排序法)</title><link href="http://alrightchiu.github.io/SecondRound/comparison-sort-insertion-sortcha-ru-pai-xu-fa.html" rel="alternate"></link><updated>2016-03-22T23:49:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-03-22:SecondRound/comparison-sort-insertion-sortcha-ru-pai-xu-fa.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;h3&gt;先備知識與注意事項&lt;/h3&gt;
+&lt;p&gt;Sorting(排序)是非常基本的資料處理操作，舉例來說，進入圖書館的查詢系統，不論是想按照「出版日期」或是「相關程度」找書，都會得到「排序過」的結果。&lt;/p&gt;
+&lt;p&gt;常見的&lt;strong&gt;Comparison Sort&lt;/strong&gt;及其時間複雜度如表一，假設問題有&lt;span class="math"&gt;\(N\)&lt;/span&gt;筆資料：&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;Quick Sort &amp;nbsp;&amp;nbsp;&lt;/th&gt;
+&lt;th&gt;Merge Sort &amp;nbsp;&amp;nbsp;&lt;/th&gt;
+&lt;th&gt;Heap Sort&amp;nbsp;&amp;nbsp;&lt;/th&gt;
+&lt;th&gt;Insertion Sort&amp;nbsp;&amp;nbsp;&lt;/th&gt;
+&lt;th&gt;Selection Sort&amp;nbsp;&amp;nbsp;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;best case&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&amp;nbsp;&lt;span class="math"&gt;\(N\log N\)&lt;/span&gt; &amp;nbsp;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&amp;nbsp;&lt;span class="math"&gt;\(N\log N\)&lt;/span&gt; &amp;nbsp;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&amp;nbsp;&lt;span class="math"&gt;\(N\log N\)&lt;/span&gt; &amp;nbsp;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&amp;nbsp;&lt;span class="math"&gt;\(N\)&lt;/span&gt;&amp;nbsp;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&amp;nbsp;&lt;span class="math"&gt;\(N^2\)&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;average case &amp;nbsp;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;span class="math"&gt;\(N\log N\)&lt;/span&gt;&amp;nbsp;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&amp;nbsp;&lt;span class="math"&gt;\(N\log N\)&lt;/span&gt;&amp;nbsp;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&amp;nbsp;&lt;span class="math"&gt;\(N\log N\)&lt;/span&gt;&amp;nbsp;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&amp;nbsp;&lt;span class="math"&gt;\(N^2\)&lt;/span&gt;&amp;nbsp;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&amp;nbsp;&lt;span class="math"&gt;\(N^2\)&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;worst case&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&amp;nbsp;&lt;span class="math"&gt;\(N^2\)&lt;/span&gt;&amp;nbsp;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&amp;nbsp;&lt;span class="math"&gt;\(N\log N\)&lt;/span&gt;&amp;nbsp;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&amp;nbsp;&lt;span class="math"&gt;\(N\log N\)&lt;/span&gt;&amp;nbsp;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&amp;nbsp;&lt;span class="math"&gt;\(N^2\)&lt;/span&gt;&amp;nbsp;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&amp;nbsp;&lt;span class="math"&gt;\(N^2\)&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;strong&gt;表一：三種演算法之使用情境比較&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;本篇文章將介紹&lt;strong&gt;Insertion Sort(插入排序法)&lt;/strong&gt;。&lt;/p&gt;
+&lt;hr /&gt;
+&lt;h2&gt;目錄&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="#insertionsort"&gt;Insertion Sort(插入排序法&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#code"&gt;程式碼&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#ref"&gt;參考資料&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#series"&gt;Comparison Sort系列文章&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a name="insertionsort"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;Insertion Sort(插入排序法)&lt;/h2&gt;
+&lt;p&gt;想像手上有一副撲克牌，若想要將紙牌從左到右按照「小到大」排序。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Insertion Sort&lt;/strong&gt;的方法為：將第&lt;span class="math"&gt;\(i\)&lt;/span&gt;張紙牌加入「前&lt;span class="math"&gt;\(i-1\)&lt;/span&gt;張排序過」的紙牌組合，得到&lt;span class="math"&gt;\(i\)&lt;/span&gt;張排序過的紙牌組合。&lt;/p&gt;
+&lt;p&gt;以圖一為例，從左邊數來的前三張紙牌已經排好序：index(0)、index(1)、index(2)分別為&lt;span class="math"&gt;\(1、3、5\)&lt;/span&gt;，現在要將第四張紙牌(index(3)，數值為&lt;span class="math"&gt;\(2\)&lt;/span&gt;)加入前三張牌，想要得到「前四張排好序」的紙牌組合。&lt;br /&gt;
+經由觀察，最終結果的紙牌順序為&lt;span class="math"&gt;\(1、2、3、5\)&lt;/span&gt;，可以透過以下步驟完成：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;原先index(2)的&lt;span class="math"&gt;\(5\)&lt;/span&gt;搬到index(3)；&lt;/li&gt;
+&lt;li&gt;原先index(1)的&lt;span class="math"&gt;\(3\)&lt;/span&gt;搬到index(2)；&lt;/li&gt;
+&lt;li&gt;原先index(3)的&lt;span class="math"&gt;\(2\)&lt;/span&gt;搬到index(1)；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;如此便能把第&lt;span class="math"&gt;\(4\)&lt;/span&gt;張紙牌加入(&lt;strong&gt;insert&lt;/strong&gt;)「前&lt;span class="math"&gt;\(3\)&lt;/span&gt;張排序過」的紙牌組合，得到&lt;span class="math"&gt;\(4\)&lt;/span&gt;張排序過的紙牌組合。&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/InsertionSort/f1.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖一：想像這是撲克牌。&lt;/strong&gt;&lt;br /&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;由以上說明可以看出，&lt;strong&gt;Insertion Sort&lt;/strong&gt;要求，在處理第&lt;span class="math"&gt;\(i\)&lt;/span&gt;筆資料時，第&lt;span class="math"&gt;\(1\)&lt;/span&gt;筆至第&lt;span class="math"&gt;\(i-1\)&lt;/span&gt;筆資料必須先排好序。&lt;br /&gt;
+那麼，只要按照順序，從第&lt;span class="math"&gt;\(1\)&lt;/span&gt;筆資料開始處理，便能確保「處理第&lt;span class="math"&gt;\(2\)&lt;/span&gt;筆資料時，第&lt;span class="math"&gt;\(1\)&lt;/span&gt;筆資料已經排好序」，「處理第&lt;span class="math"&gt;\(3\)&lt;/span&gt;筆資料時，第&lt;span class="math"&gt;\(1\)&lt;/span&gt;筆、第&lt;span class="math"&gt;\(2\)&lt;/span&gt;筆資料已經排好序」，依此類推，若共有&lt;span class="math"&gt;\(N\)&lt;/span&gt;筆資料，必定能夠在處理第&lt;span class="math"&gt;\(N\)&lt;/span&gt;筆資料時，將第&lt;span class="math"&gt;\(1\)&lt;/span&gt;筆至第&lt;span class="math"&gt;\(N-1\)&lt;/span&gt;筆資料排序過。&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/InsertionSort/f2.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖二。&lt;/strong&gt;&lt;br /&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;以下將以圖二的矩陣資料為例，進行&lt;strong&gt;Insertion Sort&lt;/strong&gt;，見圖三。&lt;br /&gt;
+依序從index(1)的&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/InsertionSort/f3.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖三。&lt;/strong&gt;&lt;br /&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;
+那麼，第&lt;span class="math"&gt;\(i\)&lt;/span&gt;筆資料要怎麼知道其在前&lt;span class="math"&gt;\(1~i-1\)&lt;/span&gt;筆資料之間的順序位置？以圖三為例，當要將&lt;code&gt;array[3]&lt;/code&gt;的&lt;span class="math"&gt;\(2\)&lt;/span&gt;，加入&lt;code&gt;array[0]&lt;/code&gt;&lt;span class="math"&gt;\(~\)&lt;/span&gt;&lt;code&gt;array[2]&lt;/code&gt;的數列時，要怎麼得知，其將被換到&lt;code&gt;array[1]&lt;/code&gt;的位置？  &lt;br /&gt;
+就是要透過&lt;strong&gt;comparison&lt;/strong&gt;(比較)。&lt;/p&gt;
+&lt;p&gt;詳細步驟如下：&lt;/p&gt;
+&lt;p&gt;現考慮將&lt;code&gt;array[1]&lt;/code&gt;的&lt;span class="math"&gt;\(3\)&lt;/span&gt;加入&lt;code&gt;array[1]&lt;/code&gt;之前的數列，也就是與&lt;code&gt;array[0]&lt;/code&gt;的&lt;span class="math"&gt;\(5\)&lt;/span&gt;，一起形成「排好序」的&lt;code&gt;array[0]&lt;/code&gt;&lt;span class="math"&gt;\(~\)&lt;/span&gt;&lt;code&gt;array[1]&lt;/code&gt;，見圖四(a)：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;定義變數&lt;code&gt;int i&lt;/code&gt;為「目前欲處理」的資料的index。&lt;ul&gt;
+&lt;li&gt;在此&lt;code&gt;i=1&lt;/code&gt;，&lt;code&gt;array[i]=3&lt;/code&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;定義變數&lt;code&gt;int j&lt;/code&gt;來表示「已經排好序」的數列的「最後一個」元素之index。&lt;ul&gt;
+&lt;li&gt;在此&lt;code&gt;j=0&lt;/code&gt;，&lt;code&gt;array[j]=5&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;int j&lt;/code&gt;會不斷遞減，&lt;code&gt;j--&lt;/code&gt;，來檢查&lt;code&gt;array[j]&lt;/code&gt;是否比「目前欲處理」的資料還大，如果是，就將&lt;code&gt;array[j]&lt;/code&gt;「往後移」。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;定義變數&lt;code&gt;int key=array[i]&lt;/code&gt;，把「目前欲處理」的&lt;code&gt;array[i]&lt;/code&gt;以&lt;code&gt;key&lt;/code&gt;儲存，避免&lt;code&gt;array[i]&lt;/code&gt;被覆蓋掉。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/InsertionSort/f4.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖四(a)。&lt;/strong&gt;&lt;br /&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;接著，比較&lt;code&gt;key&lt;/code&gt;與&lt;code&gt;array[j]&lt;/code&gt;的大小，同時確認index(j)沒有超出矩陣範圍。  &lt;/p&gt;
+&lt;p&gt;若&lt;code&gt;key&amp;lt;array[j]&lt;/code&gt;(並且&lt;code&gt;j&amp;gt;-1&lt;/code&gt;)，就表示「目前欲處理」的資料(原先位在index(i)的資料)，比&lt;code&gt;array[j]&lt;/code&gt;(也就是index(i-1)的資料)還要小，於是將&lt;code&gt;array[j]&lt;/code&gt;「往後移」，見圖四(b)：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;換位置的方式類似&lt;code&gt;swap()&lt;/code&gt;，先執行&lt;code&gt;array[j+1]=array[j]&lt;/code&gt;，也就是將原先的&lt;code&gt;array[j]&lt;/code&gt;「往後移一個位置」。&lt;ul&gt;
+&lt;li&gt;在此，把&lt;span class="math"&gt;\(5\)&lt;/span&gt;放進&lt;code&gt;array[1]&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;可以預期，原先&lt;span class="math"&gt;\(5\)&lt;/span&gt;在的位置array[0]會被&lt;code&gt;key&lt;/code&gt;給補上。如此便完成&lt;code&gt;array[0]&lt;/code&gt;&lt;span class="math"&gt;\(~\)&lt;/span&gt;&lt;code&gt;array[1]&lt;/code&gt;的排序。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;接著，因為不確定前&lt;span class="math"&gt;\(1~i-1\)&lt;/span&gt;筆資料中，是否還有資料比&lt;code&gt;key&lt;/code&gt;大，所以執行&lt;code&gt;j--&lt;/code&gt;，繼續「往前」比較。&lt;ul&gt;
+&lt;li&gt;在此例，因為&lt;code&gt;j--&lt;/code&gt;後，&lt;code&gt;j&lt;/code&gt;等於&lt;span class="math"&gt;\(-1\)&lt;/span&gt;，已經超過矩陣範圍，所以便結束程序。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/InsertionSort/f5.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖四(b)。&lt;/strong&gt;&lt;br /&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;當兩項條件：&lt;code&gt;j&amp;gt;-1&lt;/code&gt;與&lt;code&gt;key&amp;lt;array[j]&lt;/code&gt;中，有任何一項條件不滿足時，便表示「已經檢查到前&lt;span class="math"&gt;\(1~i-1\)&lt;/span&gt;筆資料的盡頭」，或是「已經沒有比&lt;code&gt;key&lt;/code&gt;還小的資料」，於是便執行&lt;code&gt;array[j+1]=key&lt;/code&gt;，把&lt;code&gt;key&lt;/code&gt;放回矩陣裡。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;當不滿足上述兩項條件時，&lt;code&gt;j+1&lt;/code&gt;就會是&lt;code&gt;key&lt;/code&gt;的位置。&lt;br /&gt;
+在此，&lt;code&gt;j&lt;/code&gt;等於&lt;span class="math"&gt;\(-1\)&lt;/span&gt;，&lt;code&gt;j+1&lt;/code&gt;等於&lt;span class="math"&gt;\(0\)&lt;/span&gt;，表示&lt;code&gt;key&lt;/code&gt;是&lt;span class="math"&gt;\(1~i\)&lt;/span&gt;筆資料中，最小的資料。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;以上步驟，便完成&lt;code&gt;array[0]&lt;/code&gt;&lt;span class="math"&gt;\(~\)&lt;/span&gt;&lt;code&gt;array[1]&lt;/code&gt;的排序。&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/InsertionSort/f6.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖四(c)。&lt;/strong&gt;&lt;br /&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;目前為止，可以確定&lt;code&gt;array[0]&lt;/code&gt;&lt;span class="math"&gt;\(~\)&lt;/span&gt;&lt;code&gt;array[1]&lt;/code&gt;已經排好序，便能夠再接著將&lt;code&gt;array[2]&lt;/code&gt;加入前面兩項，完成&lt;code&gt;array[0]&lt;/code&gt;&lt;span class="math"&gt;\(~\)&lt;/span&gt;&lt;code&gt;array[2]&lt;/code&gt;的排序，見圖四(d)。&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/InsertionSort/f7.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖四(d)。&lt;/strong&gt;&lt;br /&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;再看一次，要把&lt;code&gt;array[3]&lt;/code&gt;放入&lt;code&gt;array[0]&lt;/code&gt;&lt;span class="math"&gt;\(~\)&lt;/span&gt;&lt;code&gt;array[2]&lt;/code&gt;的排序中，形成&lt;code&gt;array[0]&lt;/code&gt;&lt;span class="math"&gt;\(~\)&lt;/span&gt;&lt;code&gt;array[3]&lt;/code&gt;的排序。&lt;/p&gt;
+&lt;p&gt;其中，在比較&lt;code&gt;key&lt;/code&gt;是否比&lt;code&gt;array[0]&lt;/code&gt;還小時，發現&lt;code&gt;key&amp;gt;array[j]&lt;/code&gt;(&lt;code&gt;key&lt;/code&gt;為&lt;span class="math"&gt;\(2\)&lt;/span&gt;，&lt;code&gt;array[j]&lt;/code&gt;為&lt;span class="math"&gt;\(1\)&lt;/span&gt;)，便不需要把&lt;code&gt;array[0]&lt;/code&gt;「往後移」，並把&lt;code&gt;key&lt;/code&gt;放進&lt;code&gt;array[j+1]&lt;/code&gt;，完成&lt;code&gt;array[0]&lt;/code&gt;&lt;span class="math"&gt;\(~\)&lt;/span&gt;&lt;code&gt;array[3]&lt;/code&gt;的排序。&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/InsertionSort/f8.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖四(e)。&lt;/strong&gt;&lt;br /&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;重複上述步驟，便可完成&lt;code&gt;array[0]&lt;/code&gt;&lt;span class="math"&gt;\(~\)&lt;/span&gt;&lt;code&gt;array[5]&lt;/code&gt;的排序，如圖三所示。&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a name="code"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;程式碼&lt;/h2&gt;
+&lt;p&gt;程式碼很直觀：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;int i&lt;/code&gt;是「目前要處理」的資料index(i)；&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;int j=i-1&lt;/code&gt;是用來指出前&lt;span class="math"&gt;\(1~i-1\)&lt;/span&gt;筆資料的index；&lt;/li&gt;
+&lt;li&gt;第一個&lt;code&gt;for&lt;/code&gt;迴圈，用意是把每一個矩陣元素都視為「目前要處理」的資料一次；&lt;/li&gt;
+&lt;li&gt;在&lt;code&gt;for&lt;/code&gt;迴圈裡的&lt;code&gt;while&lt;/code&gt;迴圈，用意是把「目前要處理」的資料與前&lt;span class="math"&gt;\(1~i-1\)&lt;/span&gt;筆資料做比較，並找到適當的位置，將&lt;span class="math"&gt;\(1~i\)&lt;/span&gt;筆資料做排序。  &lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;以及&lt;code&gt;main()&lt;/code&gt;，建立如圖二的矩陣，並進行&lt;code&gt;InsertionSort()&lt;/code&gt;，並將矩陣元素以&lt;code&gt;PrintArray()&lt;/code&gt;印出。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// C++ code&lt;/span&gt;
+
+&lt;span class="cp"&gt;#include &amp;lt;iostream&amp;gt;&lt;/span&gt;
+&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;InsertionSort&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;arr&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
+
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;key&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;arr&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+        &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;j&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;key&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;arr&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;j&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="n"&gt;arr&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;arr&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+            &lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+        &lt;span class="n"&gt;arr&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;PrintArray&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;arr&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;arr&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="s"&gt;&amp;quot; &amp;quot;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;endl&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;argc&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;argv&lt;/span&gt;&lt;span class="p"&gt;[])&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+
+    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;array&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;6&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;6&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt; &lt;span class="p"&gt;};&lt;/span&gt;
+    &lt;span class="n"&gt;PrintArray&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;array&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;6&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+    &lt;span class="n"&gt;InsertionSort&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;array&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;6&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+    &lt;span class="n"&gt;PrintArray&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;array&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;6&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;output:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="mi"&gt;5&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt; &lt;span class="mi"&gt;6&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt; 
+&lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt; &lt;span class="mi"&gt;6&lt;/span&gt; 
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;以上便是&lt;strong&gt;Insertion Sort&lt;/strong&gt;的介紹。&lt;/p&gt;
+&lt;p&gt;關於時間複雜度的部分：&lt;br /&gt;
+(欲將資料由左至右以「小到大」排序)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;best case&lt;/strong&gt;：若要處理的序列是&lt;span class="math"&gt;\(1、2、...、N\)&lt;/span&gt;，那麼只要比較&lt;span class="math"&gt;\(N\)&lt;/span&gt;次即可完成排序，時間複雜度為&lt;span class="math"&gt;\(O(N)\)&lt;/span&gt;，此即為。&lt;ul&gt;
+&lt;li&gt;依此推論，當問題已經「接近完成排序」的狀態時，使用&lt;strong&gt;Insertion Sort&lt;/strong&gt;會非常有效率。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;worst case&lt;/strong&gt;：若要處理的序列恰好是顛倒順序，&lt;span class="math"&gt;\(N、N-1、...、2、1\)&lt;/span&gt;，那麼位於index(i)的元素，需要比較「&lt;span class="math"&gt;\(i-1\)&lt;/span&gt;次」，完成演算法總共要比較&lt;span class="math"&gt;\(frac{N(N-1)}{2}\)&lt;/span&gt;次，時間複雜度為&lt;span class="math"&gt;\(O(N^2)\)&lt;/span&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;average case&lt;/strong&gt;：時間複雜度也是&lt;span class="math"&gt;\(O(N^2)\)&lt;/span&gt;。&lt;ul&gt;
+&lt;li&gt;詳情請參考：&lt;a href="http://home.cse.ust.hk/faculty/golin/COMP271Sp03/Notes/Ins_Sort_Average_Case.pdf"&gt;Mordecai Golin：Average Case Analysis of Insertionsort&lt;/a&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;當問題的資料量較小時(欲排序的元素之數目較小)，使用&lt;strong&gt;Insertion Sort&lt;/strong&gt;會很有效率，這是因為和&lt;strong&gt;Quick Sort&lt;/strong&gt;、&lt;strong&gt;Merge Sort&lt;/strong&gt;、&lt;strong&gt;Heap Sort&lt;/strong&gt;相比，&lt;strong&gt;Insertion Sort&lt;/strong&gt;不具有「遞迴」形式，因此不需要&lt;strong&gt;系統的stack&lt;/strong&gt;，詳情請參考：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://stackoverflow.com/questions/2651112/is-recursion-ever-faster-than-looping"&gt;Stackoverflow：Is recursion ever faster than looping?&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://stackoverflow.com/questions/72209/recursion-or-iteration"&gt;Stackoverflow：Recursion or Iteration?&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;再加上前面提到的&lt;strong&gt;best case&lt;/strong&gt;特徵，有些演算法會在&lt;strong&gt;Quick Sort&lt;/strong&gt;中加入&lt;strong&gt;Insertion Sort&lt;/strong&gt;，讓「接近完成排序」的資料以&lt;strong&gt;Insertion Sort&lt;/strong&gt;處理，如此便能以&lt;strong&gt;best case&lt;/strong&gt;的時間複雜度完成排序，詳情請參考：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://stackoverflow.com/questions/12454866/how-to-optimize-quicksort"&gt;Stackoverflow：How to optimize quicksort&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;&lt;a name="ref"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;參考資料：&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844"&gt;Introduction to Algorithms, Ch1&lt;/a&gt; &lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376"&gt;Fundamentals of Data Structures in C++, Ch7&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://en.wikipedia.org/wiki/Comparison_sort"&gt;Wikipedia：Comparison sort&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://home.cse.ust.hk/faculty/golin/COMP271Sp03/Notes/Ins_Sort_Average_Case.pdf"&gt;Mordecai Golin：Average Case Analysis of Insertionsort&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://stackoverflow.com/questions/2651112/is-recursion-ever-faster-than-looping"&gt;Stackoverflow：Is recursion ever faster than looping?&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://stackoverflow.com/questions/72209/recursion-or-iteration"&gt;Stackoverflow：Recursion or Iteration?&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a name="series"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;h3&gt;Comparison Sort系列文章&lt;/h3&gt;
+&lt;p&gt;&lt;a href=""&gt;Comparison Sort: Insertion Sort(插入排序法)&lt;/a&gt;   &lt;/p&gt;
+&lt;p&gt;回到目錄：&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html"&gt;目錄：演算法與資料結構&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;script type="text/javascript"&gt;if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width &lt; 768) ? "left" : align;
+        indent = (screen.width &lt; 768) ? "0em" : indent;
+        linebreak = (screen.width &lt; 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' &amp;&amp; location_protocol !== 'https') location_protocol = 'https:';
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+&lt;/script&gt;</summary><category term="C++"></category><category term="Comparison Sort"></category><category term="Sort"></category></entry><entry><title>Flow Networks：Maximum Flow &amp; Ford-Fulkerson Algorithm</title><link href="http://alrightchiu.github.io/SecondRound/flow-networksmaximum-flow-ford-fulkerson-algorithm.html" rel="alternate"></link><updated>2016-03-20T17:39:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-03-20:SecondRound/flow-networksmaximum-flow-ford-fulkerson-algorithm.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h3&gt;先備知識與注意事項&lt;/h3&gt;
 &lt;p&gt;考慮如下情境：&lt;/p&gt;
 &lt;p&gt;在某個污水處理廠的某一道程序裡，有一個「進水孔」，和一個「排水孔」，中間由許多「孔徑不一」的水管連接起來，因為水管的「孔徑大小」會影響到「每單位時間的流量」，因此要解決的問題，就是找到每單位時間可以排放「最大流量(&lt;strong&gt;flow&lt;/strong&gt;)」的「排水方法」。&lt;/p&gt;

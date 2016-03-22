@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="zh-hant">
+
+<head>
+            <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+
+        <title>Comparison Sort: Insertion Sort(插入排序法)</title>
+
+            <link href="http://alrightchiu.github.io/SecondRound/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Second Round Full Atom Feed" />
+            <link href="http://alrightchiu.github.io/SecondRound/feeds/yan-suan-fa-yu-zi-liao-jie-gou.atom.xml" type="application/atom+xml" rel="alternate" title="Second Round Categories Atom Feed" />
+
+        <!-- Bootstrap Core CSS -->
+        <link href="http://alrightchiu.github.io/SecondRound/theme/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="http://alrightchiu.github.io/SecondRound/theme/css/clean-blog.min.css" rel="stylesheet">
+
+        <!-- Code highlight color scheme -->
+            <link href="http://alrightchiu.github.io/SecondRound/theme/css/code_blocks/darkly.css" rel="stylesheet">
+
+
+        <!-- Custom Fonts -->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+
+
+
+        <meta name="tags" contents="C++" />
+        <meta name="tags" contents="Comparison Sort" />
+        <meta name="tags" contents="Sort" />
+
+
+	                <meta property="og:locale" content="">
+		<meta property="og:site_name" content="Second Round">
+
+	<meta property="og:type" content="article">
+	<meta property="article:author" content="">
+	<meta property="og:url" content="http://alrightchiu.github.io/SecondRound/comparison-sort-insertion-sortcha-ru-pai-xu-fa.html">
+	<meta property="og:title" content="Comparison Sort: Insertion Sort(插入排序法)">
+	<meta property="og:description" content="">
+	<meta property="og:image" content="http://alrightchiu.github.io/SecondRound/">
+	<meta property="article:published_time" content="2016-03-22 23:49:00+08:00">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://alrightchiu.github.io/SecondRound/">Second Round</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a href="http://alrightchiu.github.io/SecondRound/archives.html">Archives</a></li>
+                        <li><a href="http://alrightchiu.github.io/SecondRound/tags.html">Tags</a></li>
+
+                            <li><a href="http://alrightchiu.github.io/SecondRound/pages/about.html">About</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+        <header class="intro-header" style="background-image: url('http://alrightchiu.github.io/SecondRound/theme/images/post-bg.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>Comparison Sort: Insertion Sort(插入排序法)</h1>
+                        <span class="meta">Posted by
+                                <a href="http://alrightchiu.github.io/SecondRound/author/chiu-cc.html">Chiu CC</a>
+                             on  3 22, 2016
+                        </span>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    <!-- Post Content -->
+    <article>
+        <p></br></p>
+<h3>先備知識與注意事項</h3>
+<p>Sorting(排序)是非常基本的資料處理操作，舉例來說，進入圖書館的查詢系統，不論是想按照「出版日期」或是「相關程度」找書，都會得到「排序過」的結果。</p>
+<p>常見的<strong>Comparison Sort</strong>及其時間複雜度如表一，假設問題有<span class="math">\(N\)</span>筆資料：</p>
+<p><center></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Quick Sort &nbsp;&nbsp;</th>
+<th>Merge Sort &nbsp;&nbsp;</th>
+<th>Heap Sort&nbsp;&nbsp;</th>
+<th>Insertion Sort&nbsp;&nbsp;</th>
+<th>Selection Sort&nbsp;&nbsp;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>best case</td>
+<td>&nbsp;&nbsp;<span class="math">\(N\log N\)</span> &nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;<span class="math">\(N\log N\)</span> &nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;<span class="math">\(N\log N\)</span> &nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;<span class="math">\(N\)</span>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;<span class="math">\(N^2\)</span></td>
+</tr>
+<tr>
+<td>average case &nbsp;&nbsp;</td>
+<td>&nbsp;<span class="math">\(N\log N\)</span>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;<span class="math">\(N\log N\)</span>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;<span class="math">\(N\log N\)</span>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;<span class="math">\(N^2\)</span>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;<span class="math">\(N^2\)</span></td>
+</tr>
+<tr>
+<td>worst case</td>
+<td>&nbsp;&nbsp;<span class="math">\(N^2\)</span>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;<span class="math">\(N\log N\)</span>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;<span class="math">\(N\log N\)</span>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;<span class="math">\(N^2\)</span>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;<span class="math">\(N^2\)</span></td>
+</tr>
+</tbody>
+</table>
+<p><strong>表一：三種演算法之使用情境比較</strong></p>
+<p></center></p>
+<p>本篇文章將介紹<strong>Insertion Sort(插入排序法)</strong>。</p>
+<hr />
+<h2>目錄</h2>
+<ul>
+<li><a href="#insertionsort">Insertion Sort(插入排序法</a></li>
+<li><a href="#code">程式碼</a></li>
+<li><a href="#ref">參考資料</a></li>
+<li><a href="#series">Comparison Sort系列文章</a></li>
+</ul>
+<p></br></p>
+<p><a name="insertionsort"></a></p>
+<h2>Insertion Sort(插入排序法)</h2>
+<p>想像手上有一副撲克牌，若想要將紙牌從左到右按照「小到大」排序。</p>
+<p><strong>Insertion Sort</strong>的方法為：將第<span class="math">\(i\)</span>張紙牌加入「前<span class="math">\(i-1\)</span>張排序過」的紙牌組合，得到<span class="math">\(i\)</span>張排序過的紙牌組合。</p>
+<p>以圖一為例，從左邊數來的前三張紙牌已經排好序：index(0)、index(1)、index(2)分別為<span class="math">\(1、3、5\)</span>，現在要將第四張紙牌(index(3)，數值為<span class="math">\(2\)</span>)加入前三張牌，想要得到「前四張排好序」的紙牌組合。<br />
+經由觀察，最終結果的紙牌順序為<span class="math">\(1、2、3、5\)</span>，可以透過以下步驟完成：</p>
+<ul>
+<li>原先index(2)的<span class="math">\(5\)</span>搬到index(3)；</li>
+<li>原先index(1)的<span class="math">\(3\)</span>搬到index(2)；</li>
+<li>原先index(3)的<span class="math">\(2\)</span>搬到index(1)；</li>
+</ul>
+<p>如此便能把第<span class="math">\(4\)</span>張紙牌加入(<strong>insert</strong>)「前<span class="math">\(3\)</span>張排序過」的紙牌組合，得到<span class="math">\(4\)</span>張排序過的紙牌組合。</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/InsertionSort/f1.png?raw=true" /></p>
+<p><strong>圖一：想像這是撲克牌。</strong><br />
+</center></p>
+<p>由以上說明可以看出，<strong>Insertion Sort</strong>要求，在處理第<span class="math">\(i\)</span>筆資料時，第<span class="math">\(1\)</span>筆至第<span class="math">\(i-1\)</span>筆資料必須先排好序。<br />
+那麼，只要按照順序，從第<span class="math">\(1\)</span>筆資料開始處理，便能確保「處理第<span class="math">\(2\)</span>筆資料時，第<span class="math">\(1\)</span>筆資料已經排好序」，「處理第<span class="math">\(3\)</span>筆資料時，第<span class="math">\(1\)</span>筆、第<span class="math">\(2\)</span>筆資料已經排好序」，依此類推，若共有<span class="math">\(N\)</span>筆資料，必定能夠在處理第<span class="math">\(N\)</span>筆資料時，將第<span class="math">\(1\)</span>筆至第<span class="math">\(N-1\)</span>筆資料排序過。</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/InsertionSort/f2.png?raw=true" /></p>
+<p><strong>圖二。</strong><br />
+</center></p>
+<p>以下將以圖二的矩陣資料為例，進行<strong>Insertion Sort</strong>，見圖三。<br />
+依序從index(1)的</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/InsertionSort/f3.png?raw=true" /></p>
+<p><strong>圖三。</strong><br />
+</center></p>
+<p></br>
+那麼，第<span class="math">\(i\)</span>筆資料要怎麼知道其在前<span class="math">\(1~i-1\)</span>筆資料之間的順序位置？以圖三為例，當要將<code>array[3]</code>的<span class="math">\(2\)</span>，加入<code>array[0]</code><span class="math">\(~\)</span><code>array[2]</code>的數列時，要怎麼得知，其將被換到<code>array[1]</code>的位置？  <br />
+就是要透過<strong>comparison</strong>(比較)。</p>
+<p>詳細步驟如下：</p>
+<p>現考慮將<code>array[1]</code>的<span class="math">\(3\)</span>加入<code>array[1]</code>之前的數列，也就是與<code>array[0]</code>的<span class="math">\(5\)</span>，一起形成「排好序」的<code>array[0]</code><span class="math">\(~\)</span><code>array[1]</code>，見圖四(a)：</p>
+<ul>
+<li>定義變數<code>int i</code>為「目前欲處理」的資料的index。<ul>
+<li>在此<code>i=1</code>，<code>array[i]=3</code>。</li>
+</ul>
+</li>
+<li>定義變數<code>int j</code>來表示「已經排好序」的數列的「最後一個」元素之index。<ul>
+<li>在此<code>j=0</code>，<code>array[j]=5</code>。</li>
+<li><code>int j</code>會不斷遞減，<code>j--</code>，來檢查<code>array[j]</code>是否比「目前欲處理」的資料還大，如果是，就將<code>array[j]</code>「往後移」。</li>
+</ul>
+</li>
+<li>定義變數<code>int key=array[i]</code>，把「目前欲處理」的<code>array[i]</code>以<code>key</code>儲存，避免<code>array[i]</code>被覆蓋掉。</li>
+</ul>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/InsertionSort/f4.png?raw=true" /></p>
+<p><strong>圖四(a)。</strong><br />
+</center></p>
+<p>接著，比較<code>key</code>與<code>array[j]</code>的大小，同時確認index(j)沒有超出矩陣範圍。  </p>
+<p>若<code>key&lt;array[j]</code>(並且<code>j&gt;-1</code>)，就表示「目前欲處理」的資料(原先位在index(i)的資料)，比<code>array[j]</code>(也就是index(i-1)的資料)還要小，於是將<code>array[j]</code>「往後移」，見圖四(b)：</p>
+<ul>
+<li>換位置的方式類似<code>swap()</code>，先執行<code>array[j+1]=array[j]</code>，也就是將原先的<code>array[j]</code>「往後移一個位置」。<ul>
+<li>在此，把<span class="math">\(5\)</span>放進<code>array[1]</code>。</li>
+<li>可以預期，原先<span class="math">\(5\)</span>在的位置array[0]會被<code>key</code>給補上。如此便完成<code>array[0]</code><span class="math">\(~\)</span><code>array[1]</code>的排序。</li>
+</ul>
+</li>
+<li>接著，因為不確定前<span class="math">\(1~i-1\)</span>筆資料中，是否還有資料比<code>key</code>大，所以執行<code>j--</code>，繼續「往前」比較。<ul>
+<li>在此例，因為<code>j--</code>後，<code>j</code>等於<span class="math">\(-1\)</span>，已經超過矩陣範圍，所以便結束程序。</li>
+</ul>
+</li>
+</ul>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/InsertionSort/f5.png?raw=true" /></p>
+<p><strong>圖四(b)。</strong><br />
+</center></p>
+<p>當兩項條件：<code>j&gt;-1</code>與<code>key&lt;array[j]</code>中，有任何一項條件不滿足時，便表示「已經檢查到前<span class="math">\(1~i-1\)</span>筆資料的盡頭」，或是「已經沒有比<code>key</code>還小的資料」，於是便執行<code>array[j+1]=key</code>，把<code>key</code>放回矩陣裡。</p>
+<ul>
+<li>當不滿足上述兩項條件時，<code>j+1</code>就會是<code>key</code>的位置。<br />
+在此，<code>j</code>等於<span class="math">\(-1\)</span>，<code>j+1</code>等於<span class="math">\(0\)</span>，表示<code>key</code>是<span class="math">\(1~i\)</span>筆資料中，最小的資料。</li>
+</ul>
+<p>以上步驟，便完成<code>array[0]</code><span class="math">\(~\)</span><code>array[1]</code>的排序。</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/InsertionSort/f6.png?raw=true" /></p>
+<p><strong>圖四(c)。</strong><br />
+</center></p>
+<p>目前為止，可以確定<code>array[0]</code><span class="math">\(~\)</span><code>array[1]</code>已經排好序，便能夠再接著將<code>array[2]</code>加入前面兩項，完成<code>array[0]</code><span class="math">\(~\)</span><code>array[2]</code>的排序，見圖四(d)。</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/InsertionSort/f7.png?raw=true" /></p>
+<p><strong>圖四(d)。</strong><br />
+</center></p>
+<p>再看一次，要把<code>array[3]</code>放入<code>array[0]</code><span class="math">\(~\)</span><code>array[2]</code>的排序中，形成<code>array[0]</code><span class="math">\(~\)</span><code>array[3]</code>的排序。</p>
+<p>其中，在比較<code>key</code>是否比<code>array[0]</code>還小時，發現<code>key&gt;array[j]</code>(<code>key</code>為<span class="math">\(2\)</span>，<code>array[j]</code>為<span class="math">\(1\)</span>)，便不需要把<code>array[0]</code>「往後移」，並把<code>key</code>放進<code>array[j+1]</code>，完成<code>array[0]</code><span class="math">\(~\)</span><code>array[3]</code>的排序。</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/InsertionSort/f8.png?raw=true" /></p>
+<p><strong>圖四(e)。</strong><br />
+</center></p>
+<p>重複上述步驟，便可完成<code>array[0]</code><span class="math">\(~\)</span><code>array[5]</code>的排序，如圖三所示。</p>
+<p></br></p>
+<p><a name="code"></a></p>
+<h2>程式碼</h2>
+<p>程式碼很直觀：</p>
+<ul>
+<li><code>int i</code>是「目前要處理」的資料index(i)；</li>
+<li><code>int j=i-1</code>是用來指出前<span class="math">\(1~i-1\)</span>筆資料的index；</li>
+<li>第一個<code>for</code>迴圈，用意是把每一個矩陣元素都視為「目前要處理」的資料一次；</li>
+<li>在<code>for</code>迴圈裡的<code>while</code>迴圈，用意是把「目前要處理」的資料與前<span class="math">\(1~i-1\)</span>筆資料做比較，並找到適當的位置，將<span class="math">\(1~i\)</span>筆資料做排序。  </li>
+</ul>
+<p>以及<code>main()</code>，建立如圖二的矩陣，並進行<code>InsertionSort()</code>，並將矩陣元素以<code>PrintArray()</code>印出。</p>
+<div class="highlight"><pre><span class="c1">// C++ code</span>
+
+<span class="cp">#include &lt;iostream&gt;</span>
+<span class="kt">void</span> <span class="nf">InsertionSort</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">arr</span><span class="p">,</span> <span class="kt">int</span> <span class="n">size</span><span class="p">){</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">size</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">key</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+        <span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">key</span> <span class="o">&lt;</span> <span class="n">arr</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="n">j</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">arr</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
+            <span class="n">j</span><span class="o">--</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="n">arr</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">key</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="nf">PrintArray</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">arr</span><span class="p">,</span> <span class="kt">int</span> <span class="n">size</span><span class="p">){</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">size</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span> <span class="n">argv</span><span class="p">[])</span> <span class="p">{</span>
+
+    <span class="kt">int</span> <span class="n">array</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">4</span> <span class="p">};</span>
+    <span class="n">PrintArray</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="mi">6</span><span class="p">);</span>
+
+    <span class="n">InsertionSort</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="mi">6</span><span class="p">);</span>
+
+    <span class="n">PrintArray</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="mi">6</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>output:</p>
+<div class="highlight"><pre><span class="mi">5</span> <span class="mi">3</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">6</span> <span class="mi">4</span> 
+<span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> 
+</pre></div>
+
+
+<p></br></p>
+<p>以上便是<strong>Insertion Sort</strong>的介紹。</p>
+<p>關於時間複雜度的部分：<br />
+(欲將資料由左至右以「小到大」排序)</p>
+<ul>
+<li><strong>best case</strong>：若要處理的序列是<span class="math">\(1、2、...、N\)</span>，那麼只要比較<span class="math">\(N\)</span>次即可完成排序，時間複雜度為<span class="math">\(O(N)\)</span>，此即為。<ul>
+<li>依此推論，當問題已經「接近完成排序」的狀態時，使用<strong>Insertion Sort</strong>會非常有效率。</li>
+</ul>
+</li>
+<li><strong>worst case</strong>：若要處理的序列恰好是顛倒順序，<span class="math">\(N、N-1、...、2、1\)</span>，那麼位於index(i)的元素，需要比較「<span class="math">\(i-1\)</span>次」，完成演算法總共要比較<span class="math">\(frac{N(N-1)}{2}\)</span>次，時間複雜度為<span class="math">\(O(N^2)\)</span>。</li>
+<li><strong>average case</strong>：時間複雜度也是<span class="math">\(O(N^2)\)</span>。<ul>
+<li>詳情請參考：<a href="http://home.cse.ust.hk/faculty/golin/COMP271Sp03/Notes/Ins_Sort_Average_Case.pdf">Mordecai Golin：Average Case Analysis of Insertionsort</a>。</li>
+</ul>
+</li>
+</ul>
+<p>當問題的資料量較小時(欲排序的元素之數目較小)，使用<strong>Insertion Sort</strong>會很有效率，這是因為和<strong>Quick Sort</strong>、<strong>Merge Sort</strong>、<strong>Heap Sort</strong>相比，<strong>Insertion Sort</strong>不具有「遞迴」形式，因此不需要<strong>系統的stack</strong>，詳情請參考：</p>
+<ul>
+<li><a href="http://stackoverflow.com/questions/2651112/is-recursion-ever-faster-than-looping">Stackoverflow：Is recursion ever faster than looping?</a></li>
+<li><a href="http://stackoverflow.com/questions/72209/recursion-or-iteration">Stackoverflow：Recursion or Iteration?</a></li>
+</ul>
+<p>再加上前面提到的<strong>best case</strong>特徵，有些演算法會在<strong>Quick Sort</strong>中加入<strong>Insertion Sort</strong>，讓「接近完成排序」的資料以<strong>Insertion Sort</strong>處理，如此便能以<strong>best case</strong>的時間複雜度完成排序，詳情請參考：</p>
+<ul>
+<li><a href="http://stackoverflow.com/questions/12454866/how-to-optimize-quicksort">Stackoverflow：How to optimize quicksort</a></li>
+</ul>
+<p></br></p>
+<hr />
+<p><a name="ref"></a></p>
+<h3>參考資料：</h3>
+<ul>
+<li><a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844">Introduction to Algorithms, Ch1</a> </li>
+<li><a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376">Fundamentals of Data Structures in C++, Ch7</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Comparison_sort">Wikipedia：Comparison sort</a></li>
+<li><a href="http://home.cse.ust.hk/faculty/golin/COMP271Sp03/Notes/Ins_Sort_Average_Case.pdf">Mordecai Golin：Average Case Analysis of Insertionsort</a></li>
+<li><a href="http://stackoverflow.com/questions/2651112/is-recursion-ever-faster-than-looping">Stackoverflow：Is recursion ever faster than looping?</a></li>
+<li><a href="http://stackoverflow.com/questions/72209/recursion-or-iteration">Stackoverflow：Recursion or Iteration?</a></li>
+</ul>
+<p><a name="series"></a></p>
+<p></br></p>
+<h3>Comparison Sort系列文章</h3>
+<p><a href="">Comparison Sort: Insertion Sort(插入排序法)</a>   </p>
+<p>回到目錄：</p>
+<p><a href="http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html">目錄：演算法與資料結構</a></p>
+<p></br></p>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' && location_protocol !== 'https') location_protocol = 'https:';
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+    </article>
+
+        <div class="tags">
+            <p>tags: <a href="http://alrightchiu.github.io/SecondRound/tag/c.html">C++</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/comparison-sort.html">Comparison Sort</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/sort.html">Sort</a>, </p>
+        </div>
+
+<hr>
+<div class="sharing">
+</div>
+    <hr>
+
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                            <li>
+                                <a href="https://github.com/alrightchiu">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                    </ul>
+<p class="copyright text-muted">
+    Blog powered by <a href="http://getpelican.com">Pelican</a>,
+    which takes great advantage of <a href="http://python.org">Python</a>.
+</p>                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="http://alrightchiu.github.io/SecondRound/theme/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="http://alrightchiu.github.io/SecondRound/theme/js/bootstrap.min.js"></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script src="http://alrightchiu.github.io/SecondRound/theme/js/clean-blog.min.js"></script>
+
+</body>
+
+</html>
