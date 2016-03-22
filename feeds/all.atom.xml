@@ -122,8 +122,7 @@
 &lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/InsertionSort/f2.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖二。&lt;/strong&gt;&lt;br /&gt;
 &lt;/center&gt;&lt;/p&gt;
-&lt;p&gt;以下將以圖二的矩陣資料為例，進行&lt;strong&gt;Insertion Sort&lt;/strong&gt;，見圖三。&lt;br /&gt;
-依序從index(1)的&lt;/p&gt;
+&lt;p&gt;以下將以圖二的矩陣資料為例，進行&lt;strong&gt;Insertion Sort&lt;/strong&gt;，見圖三。  &lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/InsertionSort/f3.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖三。&lt;/strong&gt;&lt;br /&gt;
