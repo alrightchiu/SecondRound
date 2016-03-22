@@ -16,7 +16,7 @@ Summary: 請先閱讀本篇目錄。
 
 ###Comparison Sort
 
-
+[Comparison Sort: Insertion Sort(插入排序法)](http://alrightchiu.github.io/SecondRound/comparison-sort-insertion-sortcha-ru-pai-xu-fa.html)    
 
 
 
