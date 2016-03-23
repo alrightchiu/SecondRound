@@ -113,9 +113,7 @@ L D M B G E H A N F I C K
 幾點說明：
 
 * 這裡對`class TreeNode`與`class BinaryTree`之定義，與[上一篇文章](http://alrightchiu.github.io/SecondRound/binary-tree-traversal.html#ex_code)之最大不同在於資料的隱蔽性，因為在此不需要於`main()`中存取任何pointer(`root`、`leftchild`、`rightchild`)，因此將之放進**private**區塊。
-
 * 在許多traversal中，時常以pointer不為`NULL`作為`while`的判斷式，因此在constructor中，多做一步，將pointer指向`NULL`(eg：`leftchild = 0`)避免埋地雷在日後炸自己。
-
 * 在`class BinaryTree`除了上一篇介紹過的inorder traversal外，多了兩個新朋友`LevelorderConstruct()`與`insertLevelorder()`，前者即是本篇主角，吃進`stringstream`後，把樹建出來；後者純粹是好玩，其功能為「以Complete Binary Tree之位置規則，在理應出現node的位置，新增node」，能夠儘量減少在新增node時增加樹高(height)。
 
 
