@@ -246,7 +246,7 @@ output:
 * [Stackoverflow：Is recursion ever faster than looping?](http://stackoverflow.com/questions/2651112/is-recursion-ever-faster-than-looping)
 * [Stackoverflow：Recursion or Iteration?](http://stackoverflow.com/questions/72209/recursion-or-iteration)
 
-再加上前面提到的**best case**特徵，有些演算法會在**Quick Sort**中加入**Insertion Sort**，讓「接近完成排序」的資料以**Insertion Sort**處理，如此便能以**best case**的時間複雜度完成排序，詳情請參考：
+再加上前面提到的**best case**特徵，有些演算法會在**Quick Sort**中加入**Insertion Sort**，讓剩下的「接近完成排序」的資料以**Insertion Sort**處理，使排序更有效率，詳情請參考：
 
 * [Stackoverflow：How to optimize quicksort](http://stackoverflow.com/questions/12454866/how-to-optimize-quicksort)
 
