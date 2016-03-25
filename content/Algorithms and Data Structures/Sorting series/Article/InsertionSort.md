@@ -21,7 +21,7 @@ Sorting(排序)是非常基本的資料處理操作，舉例來說，進入圖�
 |average case &nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;$N\log N$&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;$N\log N$&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;$N\log N$&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$N^2$&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$N^2$|
 |worst case|&nbsp;&nbsp;&nbsp;&nbsp;$N^2$&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;$N\log N$&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;$N\log N$&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$N^2$&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$N^2$|
 
-**表一：三種演算法之使用情境比較**
+**表一：五種排序法之時間複雜度比較**
 
 </center>
 
@@ -196,7 +196,7 @@ void PrintArray(int *arr, int size){
     }
     std::cout << std::endl;
 }
-int main(int argc, const char * argv[]) {
+int main() {
     
     int array[6] = { 5, 3, 1, 2, 6, 4 };
     PrintArray(array, 6);
