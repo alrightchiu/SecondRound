@@ -204,7 +204,7 @@
 </li>
 <li>定義變數<code>int j</code>來表示「已經排好序」的數列的「最後一個」元素之index。<ul>
 <li>在此<code>j=0</code>，<code>array[j]=5</code>。</li>
-<li><code>int j</code>會不斷遞減，<code>j--</code>，來檢查<code>array[j]</code>是否比「目前欲處理」的資料還大，如果是，就將<code>array[j]</code>「往後移」。</li>
+<li><code>int j</code>會不斷遞減，<code>j--</code>，來檢查<code>array[j]</code>是否比「目前欲處理」的資料還大。</li>
 </ul>
 </li>
 <li>定義變數<code>int key=array[i]</code>，把「目前欲處理」的<code>array[i]</code>以<code>key</code>儲存，避免<code>array[i]</code>被覆蓋掉。</li>
@@ -287,10 +287,12 @@
 <span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
 
     <span class="kt">int</span> <span class="n">array</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">4</span> <span class="p">};</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;original:</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
     <span class="n">PrintArray</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="mi">6</span><span class="p">);</span>
 
     <span class="n">InsertionSort</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="mi">6</span><span class="p">);</span>
 
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;sorted:</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
     <span class="n">PrintArray</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="mi">6</span><span class="p">);</span>
     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
@@ -298,8 +300,10 @@
 
 
 <p>output:</p>
-<div class="highlight"><pre><span class="mi">5</span> <span class="mi">3</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">6</span> <span class="mi">4</span> 
-<span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> 
+<div class="highlight"><pre><span class="nl">original</span><span class="p">:</span>
+<span class="mi">5</span> <span class="mi">4</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">6</span> <span class="mi">4</span> 
+<span class="nl">sorted</span><span class="p">:</span>
+<span class="mi">1</span> <span class="mi">2</span> <span class="mi">4</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> 
 </pre></div>
 
 
