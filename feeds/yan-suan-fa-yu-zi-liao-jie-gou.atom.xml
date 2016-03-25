@@ -111,7 +111,7 @@
 &lt;li&gt;原先index(1)的&lt;span class="math"&gt;\(3\)&lt;/span&gt;搬到index(2)；&lt;/li&gt;
 &lt;li&gt;原先index(3)的&lt;span class="math"&gt;\(2\)&lt;/span&gt;搬到index(1)；&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;如此便能把第&lt;span class="math"&gt;\(4\)&lt;/span&gt;張紙牌加入(&lt;strong&gt;insert&lt;/strong&gt;)「前&lt;span class="math"&gt;\(3\)&lt;/span&gt;張排序過」的紙牌組合，得到&lt;span class="math"&gt;\(4\)&lt;/span&gt;張排序過的紙牌組合。&lt;/p&gt;
+&lt;p&gt;如此便能把第&lt;span class="math"&gt;\(4\)&lt;/span&gt;張紙牌加入(&lt;strong&gt;insert&lt;/strong&gt;)「前&lt;span class="math"&gt;\(3\)&lt;/span&gt;張排序過」的紙牌組合，得到「前&lt;span class="math"&gt;\(4\)&lt;/span&gt;張排序過」的紙牌組合。&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/InsertionSort/f1.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖一：想像這是撲克牌。&lt;/strong&gt;&lt;br /&gt;
