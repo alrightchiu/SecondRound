@@ -204,7 +204,7 @@ edge代表水管，edge之weight(以下將稱為<strong>capacity</strong>)表示
 </ol>
 <p><a name="residual"></a></p>
 <h3>Residual Networks(剩餘網路)</h3>
-<p><strong>Residual Networks</strong>的概念為，記錄Graph上之edge還有多少「剩餘的容量」可以讓水流流過。  </p>
+<p><strong>Residual Networks</strong>的概念為，記錄Graph上之edge還有多少「剩餘的容量」可以讓<strong>flow</strong>流過。  </p>
 <p>以圖三(a)為例，若在<span class="math">\(Path:S-A-C-D-T\)</span>上的所有edge都有<span class="math">\(6\)</span>單位的<strong>flow</strong>流過，那麼這些edge(edge(S,A)、edge(A,C)、edge(C,D)、edge(D,T))的可用「剩餘<strong>capacity</strong>」，都應該要「減<span class="math">\(6\)</span>」，例如，edge(S,A)只能「再容納<span class="math">\(9-6=3\)</span>單位」的<strong>flow</strong>，edge(C,D)只能「再容納<span class="math">\(7-6=1\)</span>單位」的<strong>flow</strong>。  </p>
 <p>這些「剩餘<strong>capacity</strong>」就稱為<strong>residual capacity</strong>，以<span class="math">\(c_f\)</span>表示。<br />
 若edge(X,Y)上有<strong>flow</strong>流過，<span class="math">\(f(X,Y)\)</span>，便將edge(X,Y)上的<strong>residual capacity</strong>定義為：</p>
@@ -312,8 +312,12 @@ edge代表水管，edge之weight(以下將稱為<strong>capacity</strong>)表示
 <p><strong>圖五(b)。</strong>
 </center></p>
 <ul>
-<li>觀察<span class="math">\(Path:S-A-B-T\)</span>上之edge，發現edge(A,B)具有「最小<strong>residual capacity</strong>」，<span class="math">\(c_f(A,B)=3\)</span>，便更新「總<strong>flow</strong>新增<span class="math">\(3\)</span>」。</li>
-<li><strong>G<sub>f</sub></strong>上，更新edge之<strong>residual capacity</strong>，見圖五(c)：<ul>
+<li>
+<p>觀察<span class="math">\(Path:S-A-B-T\)</span>上之edge，發現edge(A,B)具有「最小<strong>residual capacity</strong>」，<span class="math">\(c_f(A,B)=3\)</span>，便更新「總<strong>flow</strong>新增<span class="math">\(3\)</span>」。</p>
+</li>
+<li>
+<p><strong>G<sub>f</sub></strong>上，更新edge之<strong>residual capacity</strong>，見圖五(c)：</p>
+<ul>
 <li><span class="math">\(c_f(S,A)=c(S,A)-f(S,A)=9-3=6\)</span></li>
 <li><span class="math">\(c_f(A,S)=c(A,S)-f(A,S)=0+3=3\)</span></li>
 <li><span class="math">\(c_f(A,B)=c(A,B)-f(A,B)=3-3=0\)</span></li>
@@ -335,8 +339,12 @@ edge代表水管，edge之weight(以下將稱為<strong>capacity</strong>)表示
 <p><strong>圖五(d)。</strong>
 </center></p>
 <ul>
-<li>觀察<span class="math">\(Path:S-A-B-T\)</span>上之edge，發現edge(C,D)具有「最小<strong>residual capacity</strong>」，<span class="math">\(c_f(C,D)=7\)</span>，便更新「總<strong>flow</strong>新增<span class="math">\(7\)</span>」。</li>
-<li><strong>G<sub>f</sub></strong>上，更新edge之<strong>residual capacity</strong>，見圖五(e)：<ul>
+<li>
+<p>觀察<span class="math">\(Path:S-A-B-T\)</span>上之edge，發現edge(C,D)具有「最小<strong>residual capacity</strong>」，<span class="math">\(c_f(C,D)=7\)</span>，便更新「總<strong>flow</strong>新增<span class="math">\(7\)</span>」。</p>
+</li>
+<li>
+<p><strong>G<sub>f</sub></strong>上，更新edge之<strong>residual capacity</strong>，見圖五(e)：</p>
+<ul>
 <li><span class="math">\(c_f(S,C)=c(S,C)-f(S,C)=9-7=2\)</span></li>
 <li><span class="math">\(c_f(C,S)=c(C,S)-f(C,S)=0+7=7\)</span></li>
 <li><span class="math">\(c_f(C,D)=c(C,D)-f(C,D)=7-7=0\)</span></li>

@@ -434,7 +434,7 @@ edge代表水管，edge之weight(以下將稱為&lt;strong&gt;capacity&lt;/stron
 &lt;/ol&gt;
 &lt;p&gt;&lt;a name="residual"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h3&gt;Residual Networks(剩餘網路)&lt;/h3&gt;
-&lt;p&gt;&lt;strong&gt;Residual Networks&lt;/strong&gt;的概念為，記錄Graph上之edge還有多少「剩餘的容量」可以讓水流流過。  &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Residual Networks&lt;/strong&gt;的概念為，記錄Graph上之edge還有多少「剩餘的容量」可以讓&lt;strong&gt;flow&lt;/strong&gt;流過。  &lt;/p&gt;
 &lt;p&gt;以圖三(a)為例，若在&lt;span class="math"&gt;\(Path:S-A-C-D-T\)&lt;/span&gt;上的所有edge都有&lt;span class="math"&gt;\(6\)&lt;/span&gt;單位的&lt;strong&gt;flow&lt;/strong&gt;流過，那麼這些edge(edge(S,A)、edge(A,C)、edge(C,D)、edge(D,T))的可用「剩餘&lt;strong&gt;capacity&lt;/strong&gt;」，都應該要「減&lt;span class="math"&gt;\(6\)&lt;/span&gt;」，例如，edge(S,A)只能「再容納&lt;span class="math"&gt;\(9-6=3\)&lt;/span&gt;單位」的&lt;strong&gt;flow&lt;/strong&gt;，edge(C,D)只能「再容納&lt;span class="math"&gt;\(7-6=1\)&lt;/span&gt;單位」的&lt;strong&gt;flow&lt;/strong&gt;。  &lt;/p&gt;
 &lt;p&gt;這些「剩餘&lt;strong&gt;capacity&lt;/strong&gt;」就稱為&lt;strong&gt;residual capacity&lt;/strong&gt;，以&lt;span class="math"&gt;\(c_f\)&lt;/span&gt;表示。&lt;br /&gt;
 若edge(X,Y)上有&lt;strong&gt;flow&lt;/strong&gt;流過，&lt;span class="math"&gt;\(f(X,Y)\)&lt;/span&gt;，便將edge(X,Y)上的&lt;strong&gt;residual capacity&lt;/strong&gt;定義為：&lt;/p&gt;
@@ -542,8 +542,12 @@ edge代表水管，edge之weight(以下將稱為&lt;strong&gt;capacity&lt;/stron
 &lt;p&gt;&lt;strong&gt;圖五(b)。&lt;/strong&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;觀察&lt;span class="math"&gt;\(Path:S-A-B-T\)&lt;/span&gt;上之edge，發現edge(A,B)具有「最小&lt;strong&gt;residual capacity&lt;/strong&gt;」，&lt;span class="math"&gt;\(c_f(A,B)=3\)&lt;/span&gt;，便更新「總&lt;strong&gt;flow&lt;/strong&gt;新增&lt;span class="math"&gt;\(3\)&lt;/span&gt;」。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;G&lt;sub&gt;f&lt;/sub&gt;&lt;/strong&gt;上，更新edge之&lt;strong&gt;residual capacity&lt;/strong&gt;，見圖五(c)：&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;觀察&lt;span class="math"&gt;\(Path:S-A-B-T\)&lt;/span&gt;上之edge，發現edge(A,B)具有「最小&lt;strong&gt;residual capacity&lt;/strong&gt;」，&lt;span class="math"&gt;\(c_f(A,B)=3\)&lt;/span&gt;，便更新「總&lt;strong&gt;flow&lt;/strong&gt;新增&lt;span class="math"&gt;\(3\)&lt;/span&gt;」。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;G&lt;sub&gt;f&lt;/sub&gt;&lt;/strong&gt;上，更新edge之&lt;strong&gt;residual capacity&lt;/strong&gt;，見圖五(c)：&lt;/p&gt;
+&lt;ul&gt;
 &lt;li&gt;&lt;span class="math"&gt;\(c_f(S,A)=c(S,A)-f(S,A)=9-3=6\)&lt;/span&gt;&lt;/li&gt;
 &lt;li&gt;&lt;span class="math"&gt;\(c_f(A,S)=c(A,S)-f(A,S)=0+3=3\)&lt;/span&gt;&lt;/li&gt;
 &lt;li&gt;&lt;span class="math"&gt;\(c_f(A,B)=c(A,B)-f(A,B)=3-3=0\)&lt;/span&gt;&lt;/li&gt;
@@ -565,8 +569,12 @@ edge代表水管，edge之weight(以下將稱為&lt;strong&gt;capacity&lt;/stron
 &lt;p&gt;&lt;strong&gt;圖五(d)。&lt;/strong&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;觀察&lt;span class="math"&gt;\(Path:S-A-B-T\)&lt;/span&gt;上之edge，發現edge(C,D)具有「最小&lt;strong&gt;residual capacity&lt;/strong&gt;」，&lt;span class="math"&gt;\(c_f(C,D)=7\)&lt;/span&gt;，便更新「總&lt;strong&gt;flow&lt;/strong&gt;新增&lt;span class="math"&gt;\(7\)&lt;/span&gt;」。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;G&lt;sub&gt;f&lt;/sub&gt;&lt;/strong&gt;上，更新edge之&lt;strong&gt;residual capacity&lt;/strong&gt;，見圖五(e)：&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;觀察&lt;span class="math"&gt;\(Path:S-A-B-T\)&lt;/span&gt;上之edge，發現edge(C,D)具有「最小&lt;strong&gt;residual capacity&lt;/strong&gt;」，&lt;span class="math"&gt;\(c_f(C,D)=7\)&lt;/span&gt;，便更新「總&lt;strong&gt;flow&lt;/strong&gt;新增&lt;span class="math"&gt;\(7\)&lt;/span&gt;」。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;G&lt;sub&gt;f&lt;/sub&gt;&lt;/strong&gt;上，更新edge之&lt;strong&gt;residual capacity&lt;/strong&gt;，見圖五(e)：&lt;/p&gt;
+&lt;ul&gt;
 &lt;li&gt;&lt;span class="math"&gt;\(c_f(S,C)=c(S,C)-f(S,C)=9-7=2\)&lt;/span&gt;&lt;/li&gt;
 &lt;li&gt;&lt;span class="math"&gt;\(c_f(C,S)=c(C,S)-f(C,S)=0+7=7\)&lt;/span&gt;&lt;/li&gt;
 &lt;li&gt;&lt;span class="math"&gt;\(c_f(C,D)=c(C,D)-f(C,D)=7-7=0\)&lt;/span&gt;&lt;/li&gt;
