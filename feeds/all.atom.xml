@@ -197,7 +197,7 @@
 &lt;li&gt;第一個&lt;code&gt;for&lt;/code&gt;迴圈，用意是把每一個矩陣元素都視為「目前要處理」的資料一次；&lt;/li&gt;
 &lt;li&gt;在&lt;code&gt;for&lt;/code&gt;迴圈裡的&lt;code&gt;while&lt;/code&gt;迴圈，用意是把「目前要處理」的資料與前&lt;span class="math"&gt;\(1\)&lt;/span&gt;~&lt;span class="math"&gt;\(i-1\)&lt;/span&gt;筆資料做比較，並找到適當的位置，將&lt;span class="math"&gt;\(1\)&lt;/span&gt;~&lt;span class="math"&gt;\(i\)&lt;/span&gt;筆資料做排序。  &lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;以及&lt;code&gt;main()&lt;/code&gt;，建立如圖二的矩陣，並進行&lt;code&gt;InsertionSort()&lt;/code&gt;，並將矩陣元素以&lt;code&gt;PrintArray()&lt;/code&gt;印出。&lt;/p&gt;
+&lt;p&gt;以及&lt;code&gt;main()&lt;/code&gt;，建立如圖二的矩陣，進行&lt;code&gt;InsertionSort()&lt;/code&gt;，並將矩陣元素以&lt;code&gt;PrintArray()&lt;/code&gt;印出。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// C++ code&lt;/span&gt;
 
 &lt;span class="cp"&gt;#include &amp;lt;iostream&amp;gt;&lt;/span&gt;
