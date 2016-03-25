@@ -403,7 +403,7 @@ edge代表水管，edge之weight(以下將稱為&lt;strong&gt;capacity&lt;/stron
 &lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/Flow_Networks_fig/Maximum_Flow/f1.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖二(a)。&lt;/strong&gt;
 &lt;/center&gt;&lt;/p&gt;
-&lt;p&gt;而水管裡的「水流」，&lt;strong&gt;flow&lt;/strong&gt;，必須滿足以下條件，圖二(b)：&lt;/p&gt;
+&lt;p&gt;而水管裡的「水流」，&lt;strong&gt;flow&lt;/strong&gt;，必須滿足以下條件，見圖二(b)：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;strong&gt;Capacity constraint&lt;/strong&gt;：從vertex(X)流向vertex(Y)的&lt;strong&gt;flow&lt;/strong&gt;，不能比edge(X,Y)的&lt;strong&gt;capacity&lt;/strong&gt;還大，&lt;span class="math"&gt;\(f(X,Y)\leq c(X,Y)\)&lt;/span&gt;。  &lt;ul&gt;
 &lt;li&gt;若每單位時間內，水管孔徑只能容納&lt;span class="math"&gt;\(5\)&lt;/span&gt;單位，那&lt;strong&gt;flow&lt;/strong&gt;最多就是&lt;span class="math"&gt;\(5\)&lt;/span&gt;單位。&lt;/li&gt;

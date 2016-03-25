@@ -173,7 +173,7 @@ edge代表水管，edge之weight(以下將稱為<strong>capacity</strong>)表示
 <img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/Flow_Networks_fig/Maximum_Flow/f1.png?raw=true" /></p>
 <p><strong>圖二(a)。</strong>
 </center></p>
-<p>而水管裡的「水流」，<strong>flow</strong>，必須滿足以下條件，圖二(b)：</p>
+<p>而水管裡的「水流」，<strong>flow</strong>，必須滿足以下條件，見圖二(b)：</p>
 <ol>
 <li><strong>Capacity constraint</strong>：從vertex(X)流向vertex(Y)的<strong>flow</strong>，不能比edge(X,Y)的<strong>capacity</strong>還大，<span class="math">\(f(X,Y)\leq c(X,Y)\)</span>。  <ul>
 <li>若每單位時間內，水管孔徑只能容納<span class="math">\(5\)</span>單位，那<strong>flow</strong>最多就是<span class="math">\(5\)</span>單位。</li>
