@@ -76,7 +76,7 @@ edge代表水管，edge之weight(以下將稱為**capacity**)表示水管的「�
 **圖二(a)。**
 </center>
 
-而水管裡的「水流」，**flow**，必須滿足以下條件，圖二(b)：
+而水管裡的「水流」，**flow**，必須滿足以下條件，見圖二(b)：
 
 1. **Capacity constraint**：從vertex(X)流向vertex(Y)的**flow**，不能比edge(X,Y)的**capacity**還大，$f(X,Y)\leq c(X,Y)$。  
     * 若每單位時間內，水管孔徑只能容納$5$單位，那**flow**最多就是$5$單位。
