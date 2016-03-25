@@ -34,7 +34,7 @@ Sorting(排序)是非常基本的資料處理操作，舉例來說，進入圖�
 
 ##目錄
 
-* [Insertion Sort(插入排序法](#insertionsort)
+* [Insertion Sort(插入排序法)](#insertionsort)
 * [程式碼](#code)
 * [參考資料](#ref)
 * [Comparison Sort系列文章](#series)
