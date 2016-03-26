@@ -290,7 +290,7 @@ Sorting(排序)是非常基本的資料處理操作，舉例來說，進入圖�
     * 當`Partition()`中條件式`if(pivot<array[j])`時；
     * 當index(`j`)檢查完除了`pivot=array[end]`之外的元素時。 
 * `Partition()`：將數列調整成「比**pivot**小」、「**pivot**」、「比**pivot**大」的主要函式。
-* `QuickSort()`：進行**Quick Sort**的主要函式，以**遞迴(recursion)**的形式，將數列(矩陣)不斷拆解成更小的數列並以此排序。
+* `QuickSort()`：進行**Quick Sort**的主要函式，以**遞迴(recursion)**的形式，將數列(矩陣)不斷拆解成更小的數列，藉此排序。
 
 以及`main()`，以矩陣表示如圖一(a)的數列，進行`QuickSort()`，並將矩陣元素以`PrintArray()`印出。
 
