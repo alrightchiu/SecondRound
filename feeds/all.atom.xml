@@ -45,7 +45,403 @@
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h2&gt;Priority Queue系列文章&lt;/h2&gt;
 &lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/priority-queueintrojian-jie-binary-heap.html"&gt;Priority Queue：Intro(簡介) &amp;amp; Binary Heap&lt;/a&gt;  &lt;/p&gt;
-&lt;p&gt;&lt;/br&gt;&lt;/p&gt;</summary><category term="C++"></category></entry><entry><title>Comparison Sort: Insertion Sort(插入排序法)</title><link href="http://alrightchiu.github.io/SecondRound/comparison-sort-insertion-sortcha-ru-pai-xu-fa.html" rel="alternate"></link><updated>2016-03-22T23:49:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-03-22:SecondRound/comparison-sort-insertion-sortcha-ru-pai-xu-fa.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;</summary><category term="C++"></category></entry><entry><title>Comparison Sort: Quick Sort(快速排序法)</title><link href="http://alrightchiu.github.io/SecondRound/comparison-sort-quick-sortkuai-su-pai-xu-fa.html" rel="alternate"></link><updated>2016-03-26T17:51:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-03-26:SecondRound/comparison-sort-quick-sortkuai-su-pai-xu-fa.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;h3&gt;先備知識與注意事項&lt;/h3&gt;
+&lt;p&gt;Sorting(排序)是非常基本的資料處理操作，舉例來說，進入圖書館的查詢系統，不論是想按照「出版日期」或是「相關程度」找書，都會得到「排序過」的結果。&lt;/p&gt;
+&lt;p&gt;常見的&lt;strong&gt;Comparison Sort&lt;/strong&gt;及其時間複雜度如表一，假設問題有&lt;span class="math"&gt;\(N\)&lt;/span&gt;筆資料：&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;Quick Sort &amp;nbsp;&amp;nbsp;&lt;/th&gt;
+&lt;th&gt;Merge Sort &amp;nbsp;&amp;nbsp;&lt;/th&gt;
+&lt;th&gt;Heap Sort&amp;nbsp;&amp;nbsp;&lt;/th&gt;
+&lt;th&gt;Insertion Sort&amp;nbsp;&amp;nbsp;&lt;/th&gt;
+&lt;th&gt;Selection Sort&amp;nbsp;&amp;nbsp;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;best case&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span class="math"&gt;\(N\log N\)&lt;/span&gt; &amp;nbsp;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span class="math"&gt;\(N\log N\)&lt;/span&gt; &amp;nbsp;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span class="math"&gt;\(N\log N\)&lt;/span&gt; &amp;nbsp;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span class="math"&gt;\(N\)&lt;/span&gt;&amp;nbsp;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span class="math"&gt;\(N^2\)&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;average case &amp;nbsp;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span class="math"&gt;\(N\log N\)&lt;/span&gt;&amp;nbsp;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span class="math"&gt;\(N\log N\)&lt;/span&gt;&amp;nbsp;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span class="math"&gt;\(N\log N\)&lt;/span&gt;&amp;nbsp;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span class="math"&gt;\(N^2\)&lt;/span&gt;&amp;nbsp;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span class="math"&gt;\(N^2\)&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;worst case&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span class="math"&gt;\(N^2\)&lt;/span&gt;&amp;nbsp;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span class="math"&gt;\(N\log N\)&lt;/span&gt;&amp;nbsp;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span class="math"&gt;\(N\log N\)&lt;/span&gt;&amp;nbsp;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span class="math"&gt;\(N^2\)&lt;/span&gt;&amp;nbsp;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span class="math"&gt;\(N^2\)&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;strong&gt;表一：五種排序法之時間複雜度比較&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;本篇文章將介紹&lt;strong&gt;Quick Sort(快速排序法)&lt;/strong&gt;。&lt;/p&gt;
+&lt;hr /&gt;
+&lt;h2&gt;目錄&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="#insertionsort"&gt;Quick Sort(快速排序法)&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href="#partition"&gt;介紹：Partition&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href="#code"&gt;程式碼&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#ref"&gt;參考資料&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#series"&gt;Comparison Sort系列文章&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a name="insertionsort"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;Quick Sort(快速排序法)&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Quick Sort&lt;/strong&gt;是一種「把大問題分成小問題處理」的&lt;strong&gt;Divide and Conquer&lt;/strong&gt;方法，概念如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;在數列中任意挑選一個數，稱為&lt;strong&gt;pivot&lt;/strong&gt;，然後&lt;strong&gt;調整數列&lt;/strong&gt;，使得「所有在&lt;strong&gt;pivot&lt;/strong&gt;左邊的數，都比&lt;strong&gt;pivot&lt;/strong&gt;還小」，而「在&lt;strong&gt;pivot&lt;/strong&gt;右邊的數都比&lt;strong&gt;pivot&lt;/strong&gt;大」。&lt;/li&gt;
+&lt;li&gt;接著，將所有在&lt;strong&gt;pivot&lt;/strong&gt;左邊的數視為「新的數列」，所有在&lt;strong&gt;pivot&lt;/strong&gt;右邊的數視為「另一個新的數列」，「分別」重複上述步驟(選&lt;strong&gt;pivot&lt;/strong&gt;、調整數列)，直到分不出「新的數列」為止。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/QuickSort/f1.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖一(a)。&lt;/strong&gt;&lt;br /&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;以圖一(a)為例，考慮數列{&lt;span class="math"&gt;\(9、4、1、6、7、3、8、2、5\)&lt;/span&gt;}，先任意選定&lt;span class="math"&gt;\(5\)&lt;/span&gt;為&lt;strong&gt;pivot&lt;/strong&gt;，接著調整數列，使得&lt;strong&gt;pivot&lt;/strong&gt;左邊的數{&lt;span class="math"&gt;\(4、1、3、2\)&lt;/span&gt;}皆小於&lt;span class="math"&gt;\(5\)&lt;/span&gt;，而&lt;strong&gt;pivot&lt;/strong&gt;右邊的數{&lt;span class="math"&gt;\(9、8、6、7\)&lt;/span&gt;}皆大於&lt;span class="math"&gt;\(5\)&lt;/span&gt;。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;目前為止，{&lt;span class="math"&gt;\(4、1、3、2\)&lt;/span&gt;}之間的大小順序還不必理會，{&lt;span class="math"&gt;\(9、8、6、7\)&lt;/span&gt;}之間的大小順序也不必理會。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;接著，分別將&lt;strong&gt;pivot&lt;/strong&gt;左邊的數列{&lt;span class="math"&gt;\(4、1、3、2\)&lt;/span&gt;}與&lt;strong&gt;pivot&lt;/strong&gt;右邊的數列{&lt;span class="math"&gt;\(9、8、6、7\)&lt;/span&gt;}視為新的數列處理，重複上述步驟(選&lt;strong&gt;pivot&lt;/strong&gt;、調整數列)，直到分不出「新的數列」為止，見圖一(b)。&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/QuickSort/f2.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖一(b)。&lt;/strong&gt;&lt;br /&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;以上的步驟中：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;pivot&lt;/strong&gt;可以任意挑選，在此是固定挑選數列(矩陣)的最後一個元素。&lt;/li&gt;
+&lt;li&gt;在「新的數列」上只是重複相同的步驟(選&lt;strong&gt;pivot&lt;/strong&gt;、調整數列)，可以利用&lt;strong&gt;遞迴(recursion)&lt;/strong&gt;處理。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;所以，最關鍵的就是如何「調整數列」，江湖上尊稱其為：&lt;strong&gt;Partition&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a name="partition"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;介紹：Partition()&lt;/h3&gt;
+&lt;p&gt;如同圖一(a)，&lt;strong&gt;Partition&lt;/strong&gt;的功能就是把數列「區分」成「小於&lt;strong&gt;pivot&lt;/strong&gt;」與「大於&lt;strong&gt;pivot&lt;/strong&gt;」兩半。&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/QuickSort/f1.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖一(a)。&lt;/strong&gt;&lt;br /&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;詳細步驟如下：&lt;/p&gt;
+&lt;p&gt;定義變數(variable)，見圖二(a)：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;int front&lt;/code&gt;為數列的「最前端」index。&lt;ul&gt;
+&lt;li&gt;此例，&lt;code&gt;front&lt;/code&gt;為index(&lt;span class="math"&gt;\(0\)&lt;/span&gt;)。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;int end&lt;/code&gt;為數列的「最尾端」index。&lt;ul&gt;
+&lt;li&gt;此例，&lt;code&gt;end&lt;/code&gt;為index(&lt;span class="math"&gt;\(8\)&lt;/span&gt;)。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;int i&lt;/code&gt;為所有小於&lt;strong&gt;pivot&lt;/strong&gt;的數所形成的數列的「最後位置」。&lt;ul&gt;
+&lt;li&gt;一開始將index(&lt;code&gt;i&lt;/code&gt;)初始化為&lt;code&gt;front-1&lt;/code&gt;，因為有可能數列中，所有數都比&lt;strong&gt;pivot&lt;/strong&gt;大。&lt;/li&gt;
+&lt;li&gt;一旦發現有數比&lt;strong&gt;pivot&lt;/strong&gt;小，index(&lt;code&gt;i&lt;/code&gt;)便往後移動(&lt;code&gt;i++&lt;/code&gt;)，表示「所有小於&lt;strong&gt;pivot&lt;/strong&gt;的數所形成的數列」又增加了一名成員。&lt;/li&gt;
+&lt;li&gt;當演算法結束時，所有在index(&lt;code&gt;i&lt;/code&gt;)左邊的數，都比&lt;strong&gt;pivot&lt;/strong&gt;小，所有在index(&lt;code&gt;i&lt;/code&gt;)右邊的數，都比&lt;strong&gt;pivot&lt;/strong&gt;大。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;int j&lt;/code&gt;是讓&lt;strong&gt;pivot&lt;/strong&gt;與其餘數值逐一比較的index，從&lt;code&gt;front&lt;/code&gt;檢查到&lt;code&gt;end-1&lt;/code&gt;(因為&lt;code&gt;end&lt;/code&gt;是&lt;strong&gt;pivot&lt;/strong&gt;自己)。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;int pivot=array[end]&lt;/code&gt;，以數列最後一個數做為&lt;strong&gt;pivot&lt;/strong&gt;。&lt;ul&gt;
+&lt;li&gt;此例，&lt;code&gt;pivot&lt;/code&gt;為&lt;span class="math"&gt;\(5\)&lt;/span&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;pivot&lt;/strong&gt;的「數值」可以是任意的，挑選矩陣的最後一個位置是為了方便index(&lt;code&gt;j&lt;/code&gt;)的移動，也可以挑選任意位置。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/QuickSort/f3.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖二(a)。&lt;/strong&gt;&lt;br /&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;接著，開始移動index(&lt;code&gt;j&lt;/code&gt;)，從index(&lt;span class="math"&gt;\(0\)&lt;/span&gt;)到index(&lt;span class="math"&gt;\(7\)&lt;/span&gt;)，將數列(矩陣)元素逐一與&lt;code&gt;pivot&lt;/code&gt;比較，並進行調整(用&lt;code&gt;swap()&lt;/code&gt;調整)。&lt;/p&gt;
+&lt;p&gt;見圖二(b)，一開始，&lt;code&gt;j&lt;/code&gt;&lt;span class="math"&gt;\(=0\)&lt;/span&gt;，&lt;code&gt;i&lt;/code&gt;&lt;span class="math"&gt;\(=-1\)&lt;/span&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;比較&lt;code&gt;pivot&lt;/code&gt;與&lt;code&gt;array[j=0]&lt;/code&gt;，發現&lt;code&gt;pivot&lt;/code&gt;&lt;span class="math"&gt;\(=5&amp;lt;\)&lt;/span&gt;&lt;code&gt;array[0]&lt;/code&gt;&lt;span class="math"&gt;\(=9\)&lt;/span&gt;，所以不需要移動index(&lt;code&gt;i&lt;/code&gt;)。&lt;/li&gt;
+&lt;li&gt;移動index(&lt;code&gt;j&lt;/code&gt;)，&lt;code&gt;j++&lt;/code&gt;，繼續往後比較。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/QuickSort/f4.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖二(b)。&lt;/strong&gt;&lt;br /&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;見圖二(c)，此時&lt;code&gt;j&lt;/code&gt;&lt;span class="math"&gt;\(=1\)&lt;/span&gt;，&lt;code&gt;i&lt;/code&gt;&lt;span class="math"&gt;\(=-1\)&lt;/span&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;比較&lt;code&gt;pivot&lt;/code&gt;與&lt;code&gt;array[j=1]&lt;/code&gt;，發現&lt;code&gt;pivot&lt;/code&gt;&lt;span class="math"&gt;\(=5&amp;gt;\)&lt;/span&gt;&lt;code&gt;array[1]&lt;/code&gt;&lt;span class="math"&gt;\(=4\)&lt;/span&gt;，便執行：&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;i++&lt;/code&gt;：移動index(&lt;code&gt;i&lt;/code&gt;)，表示又找到一個比&lt;strong&gt;pivot&lt;/strong&gt;小的數。此時，&lt;code&gt;i&lt;/code&gt;&lt;span class="math"&gt;\(=0\)&lt;/span&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;swap(array[i=0],array[j=1])&lt;/code&gt;：透過這個&lt;code&gt;swap()&lt;/code&gt;，便能把比&lt;strong&gt;pivot&lt;/strong&gt;小的數，放到比&lt;strong&gt;pivot&lt;/strong&gt;大的數的「前面」(也就是矩陣的左邊)。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;移動index(&lt;code&gt;j&lt;/code&gt;)，&lt;code&gt;j++&lt;/code&gt;，繼續往後比較。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/QuickSort/f5.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖二(c)。&lt;/strong&gt;&lt;br /&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;見圖二(d)，此時&lt;code&gt;j&lt;/code&gt;&lt;span class="math"&gt;\(=2\)&lt;/span&gt;，&lt;code&gt;i&lt;/code&gt;&lt;span class="math"&gt;\(=0\)&lt;/span&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;比較&lt;code&gt;pivot&lt;/code&gt;與&lt;code&gt;array[j=2]&lt;/code&gt;，發現&lt;code&gt;pivot&lt;/code&gt;&lt;span class="math"&gt;\(=5&amp;gt;\)&lt;/span&gt;&lt;code&gt;array[2]&lt;/code&gt;&lt;span class="math"&gt;\(=1\)&lt;/span&gt;，便執行：&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;i++&lt;/code&gt;：移動index(&lt;code&gt;i&lt;/code&gt;)，表示又找到一個比&lt;strong&gt;pivot&lt;/strong&gt;小的數。此時，&lt;code&gt;i&lt;/code&gt;&lt;span class="math"&gt;\(=1\)&lt;/span&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;swap(array[i=1],array[j=2])&lt;/code&gt;：透過這個&lt;code&gt;swap()&lt;/code&gt;，便能把比&lt;strong&gt;pivot&lt;/strong&gt;小的數({&lt;span class="math"&gt;\(4、1\)&lt;/span&gt;})，放到比&lt;strong&gt;pivot&lt;/strong&gt;大的數({&lt;span class="math"&gt;\(9\)&lt;/span&gt;})的「前面」。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;移動index(&lt;code&gt;j&lt;/code&gt;)，&lt;code&gt;j++&lt;/code&gt;，繼續往後比較。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/QuickSort/f6.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖二(d)。&lt;/strong&gt;&lt;br /&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;見圖二(e)，此時&lt;code&gt;j&lt;/code&gt;&lt;span class="math"&gt;\(=3\)&lt;/span&gt;，&lt;code&gt;i&lt;/code&gt;&lt;span class="math"&gt;\(=1\)&lt;/span&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;比較&lt;code&gt;pivot&lt;/code&gt;與&lt;code&gt;array[j=3]&lt;/code&gt;，發現&lt;code&gt;pivot&lt;/code&gt;&lt;span class="math"&gt;\(=5&amp;lt;\)&lt;/span&gt;&lt;code&gt;array[3]&lt;/code&gt;&lt;span class="math"&gt;\(=6\)&lt;/span&gt;，所以不需要移動index(&lt;code&gt;i&lt;/code&gt;)。&lt;/li&gt;
+&lt;li&gt;移動index(&lt;code&gt;j&lt;/code&gt;)，&lt;code&gt;j++&lt;/code&gt;，繼續往後比較。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/QuickSort/f7.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖二(e)。&lt;/strong&gt;&lt;br /&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;見圖二(f)，此時&lt;code&gt;j&lt;/code&gt;&lt;span class="math"&gt;\(=4\)&lt;/span&gt;，&lt;code&gt;i&lt;/code&gt;&lt;span class="math"&gt;\(=1\)&lt;/span&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;比較&lt;code&gt;pivot&lt;/code&gt;與&lt;code&gt;array[j=4]&lt;/code&gt;，發現&lt;code&gt;pivot&lt;/code&gt;&lt;span class="math"&gt;\(=5&amp;lt;\)&lt;/span&gt;&lt;code&gt;array[4]&lt;/code&gt;&lt;span class="math"&gt;\(=7\)&lt;/span&gt;，所以不需要移動index(&lt;code&gt;i&lt;/code&gt;)。&lt;ul&gt;
+&lt;li&gt;到目前為止，漸漸可以看出，「比&lt;strong&gt;pivot&lt;/strong&gt;小」的數形成一個數列({&lt;span class="math"&gt;\(4、1\)&lt;/span&gt;})，「比&lt;strong&gt;pivot&lt;/strong&gt;大」的數形成另一個數列({&lt;span class="math"&gt;\(9、6、7\)&lt;/span&gt;})，最後只要把&lt;strong&gt;pivot&lt;/strong&gt;插入這兩個數列中間，就完成的&lt;code&gt;Partition()&lt;/code&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;移動index(&lt;code&gt;j&lt;/code&gt;)，&lt;code&gt;j++&lt;/code&gt;，繼續往後比較。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/QuickSort/f8.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖二(f)。&lt;/strong&gt;&lt;br /&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;見圖二(g)，此時&lt;code&gt;j&lt;/code&gt;&lt;span class="math"&gt;\(=5\)&lt;/span&gt;，&lt;code&gt;i&lt;/code&gt;&lt;span class="math"&gt;\(=1\)&lt;/span&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;比較&lt;code&gt;pivot&lt;/code&gt;與&lt;code&gt;array[j=5]&lt;/code&gt;，發現&lt;code&gt;pivot&lt;/code&gt;&lt;span class="math"&gt;\(=5&amp;gt;\)&lt;/span&gt;&lt;code&gt;array[5]&lt;/code&gt;&lt;span class="math"&gt;\(=3\)&lt;/span&gt;，便執行：&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;i++&lt;/code&gt;：移動index(&lt;code&gt;i&lt;/code&gt;)，表示又找到一個比&lt;strong&gt;pivot&lt;/strong&gt;小的數。此時，&lt;code&gt;i&lt;/code&gt;&lt;span class="math"&gt;\(=2\)&lt;/span&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;swap(array[i=2],array[j=5])&lt;/code&gt;：透過這個&lt;code&gt;swap()&lt;/code&gt;，便能把比&lt;strong&gt;pivot&lt;/strong&gt;小的數({&lt;span class="math"&gt;\(4、1、3\)&lt;/span&gt;})，放到比&lt;strong&gt;pivot&lt;/strong&gt;大的數({&lt;span class="math"&gt;\(6、7、9\)&lt;/span&gt;})的「前面」。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;移動index(&lt;code&gt;j&lt;/code&gt;)，&lt;code&gt;j++&lt;/code&gt;，繼續往後比較。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/QuickSort/f9.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖二(g)。&lt;/strong&gt;&lt;br /&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;見圖二(h)，此時&lt;code&gt;j&lt;/code&gt;&lt;span class="math"&gt;\(=6\)&lt;/span&gt;，&lt;code&gt;i&lt;/code&gt;&lt;span class="math"&gt;\(=2\)&lt;/span&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;比較&lt;code&gt;pivot&lt;/code&gt;與&lt;code&gt;array[j=6]&lt;/code&gt;，發現&lt;code&gt;pivot&lt;/code&gt;&lt;span class="math"&gt;\(=5&amp;lt;\)&lt;/span&gt;&lt;code&gt;array[6]&lt;/code&gt;&lt;span class="math"&gt;\(=8\)&lt;/span&gt;，所以不需要移動index(&lt;code&gt;i&lt;/code&gt;)。&lt;/li&gt;
+&lt;li&gt;移動index(&lt;code&gt;j&lt;/code&gt;)，&lt;code&gt;j++&lt;/code&gt;，繼續往後比較。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/QuickSort/f10.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖二(h)。&lt;/strong&gt;&lt;br /&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;見圖二(i)，此時&lt;code&gt;j&lt;/code&gt;&lt;span class="math"&gt;\(=7\)&lt;/span&gt;，&lt;code&gt;i&lt;/code&gt;&lt;span class="math"&gt;\(=2\)&lt;/span&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;比較&lt;code&gt;pivot&lt;/code&gt;與&lt;code&gt;array[j=7]&lt;/code&gt;，發現&lt;code&gt;pivot&lt;/code&gt;&lt;span class="math"&gt;\(=5&amp;gt;\)&lt;/span&gt;&lt;code&gt;array[7]&lt;/code&gt;&lt;span class="math"&gt;\(=2\)&lt;/span&gt;，便執行：&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;i++&lt;/code&gt;：移動index(&lt;code&gt;i&lt;/code&gt;)，表示又找到一個比&lt;strong&gt;pivot&lt;/strong&gt;小的數。此時，&lt;code&gt;i&lt;/code&gt;&lt;span class="math"&gt;\(=3\)&lt;/span&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;swap(array[i=3],array[j=7])&lt;/code&gt;：透過這個&lt;code&gt;swap()&lt;/code&gt;，便能把比&lt;strong&gt;pivot&lt;/strong&gt;小的數({&lt;span class="math"&gt;\(4、1、3、2\)&lt;/span&gt;})，放到比&lt;strong&gt;pivot&lt;/strong&gt;大的數({&lt;span class="math"&gt;\(6、7、9、8\)&lt;/span&gt;})的「前面」。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;移動index(&lt;code&gt;j&lt;/code&gt;)，&lt;code&gt;j++&lt;/code&gt;，繼續往後比較。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/QuickSort/f11.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖二(i)。&lt;/strong&gt;&lt;br /&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;見圖二(j)，此時&lt;code&gt;j&lt;/code&gt;&lt;span class="math"&gt;\(=8\)&lt;/span&gt;，&lt;code&gt;i&lt;/code&gt;&lt;span class="math"&gt;\(=3\)&lt;/span&gt;。&lt;br /&gt;
+因為index(&lt;code&gt;j&lt;/code&gt;)只需要從&lt;code&gt;front&lt;/code&gt;移動到&lt;code&gt;end-1&lt;/code&gt;即可。當index(&lt;code&gt;j&lt;/code&gt;)走到&lt;code&gt;end&lt;/code&gt;時，便結束此&lt;strong&gt;迴圈&lt;/strong&gt;，表示數列中的所有數都已經和&lt;strong&gt;pivot&lt;/strong&gt;比較過了。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;i++&lt;/code&gt;，把index(&lt;code&gt;i&lt;/code&gt;)從「所有比&lt;strong&gt;pivot&lt;/strong&gt;小的數列」的最後一個位置，移動到「所有比&lt;strong&gt;pivot&lt;/strong&gt;大的數列」的第一個位置，此時&lt;code&gt;i&lt;/code&gt;&lt;span class="math"&gt;\(=4\)&lt;/span&gt;。&lt;/li&gt;
+&lt;li&gt;接著執行&lt;code&gt;swap(array[i=4],array[end])&lt;/code&gt;：便成功把&lt;strong&gt;pivot&lt;/strong&gt;插入兩個數列之間了。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/QuickSort/f12.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖二(j)。&lt;/strong&gt;&lt;br /&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;經過以上步驟，便把數列分成三部分，如圖一(a)：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;比&lt;strong&gt;pivot&lt;/strong&gt;小的數所形成的數列；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;pivot&lt;/strong&gt;；&lt;/li&gt;
+&lt;li&gt;比&lt;strong&gt;pivot&lt;/strong&gt;大的數所形成的數列。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/QuickSort/f1.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖一(a)。&lt;/strong&gt;&lt;br /&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;接著，只要再對「左數列」與「右數列」，分別重複上述的「選&lt;strong&gt;pivot&lt;/strong&gt;、調整數列」步驟，如圖三，直到新數列的&lt;code&gt;front&lt;/code&gt;&lt;span class="math"&gt;\(\geq\)&lt;/span&gt;&lt;code&gt;end&lt;/code&gt;，便能完成對數列的排序。&lt;br /&gt;
+(回頭看一眼圖一(b)。)&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/QuickSort/f13.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖三：以遞迴的方式，對新的數列做排序。&lt;/strong&gt;&lt;br /&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a name="code"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;程式碼&lt;/h2&gt;
+&lt;p&gt;程式碼很直觀：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;swap()&lt;/code&gt;：交換矩陣元素之位置，使用時機：&lt;ul&gt;
+&lt;li&gt;當&lt;code&gt;Partition()&lt;/code&gt;中條件式&lt;code&gt;if(pivot&amp;lt;array[j])&lt;/code&gt;時；&lt;/li&gt;
+&lt;li&gt;當index(&lt;code&gt;j&lt;/code&gt;)檢查完除了&lt;code&gt;pivot=array[end]&lt;/code&gt;之外的元素時。 &lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Partition()&lt;/code&gt;：將數列調整成「比&lt;strong&gt;pivot&lt;/strong&gt;小」、「&lt;strong&gt;pivot&lt;/strong&gt;」、「比&lt;strong&gt;pivot&lt;/strong&gt;大」的主要函式。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;QuickSort()&lt;/code&gt;：進行&lt;strong&gt;Quick Sort&lt;/strong&gt;的主要函式，以&lt;strong&gt;遞迴(recursion)&lt;/strong&gt;的形式，將數列(矩陣)不斷拆解成更小的數列並以此排序。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;以及&lt;code&gt;main()&lt;/code&gt;，以矩陣表示如圖一(a)的數列，進行&lt;code&gt;QuickSort()&lt;/code&gt;，並將矩陣元素以&lt;code&gt;PrintArray()&lt;/code&gt;印出。&lt;/p&gt;
+&lt;p&gt;完整程式範例如下：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// C++ code&lt;/span&gt;
+
+&lt;span class="cp"&gt;#include &amp;lt;iostream&amp;gt;&lt;/span&gt;
+&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;swap&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
+    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;temp&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;temp&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;Partition&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;arr&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;front&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;end&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
+    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;pivot&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;arr&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;end&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;front&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;j&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;front&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;j&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;end&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;arr&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;pivot&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+            &lt;span class="n"&gt;swap&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;arr&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;arr&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="p"&gt;]);&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="n"&gt;swap&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;arr&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;arr&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;end&lt;/span&gt;&lt;span class="p"&gt;]);&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;QuickSort&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;arr&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;front&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;end&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;front&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;end&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;pivot&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Partition&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;arr&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;front&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;end&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+        &lt;span class="n"&gt;QuickSort&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;arr&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;front&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;pivot&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+        &lt;span class="n"&gt;QuickSort&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;arr&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;pivot&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;end&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;PrintArray&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;arr&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;arr&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="s"&gt;&amp;quot; &amp;quot;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;endl&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+
+    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;9&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;arr_quick&lt;/span&gt;&lt;span class="p"&gt;[]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="mi"&gt;9&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;6&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;7&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;8&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;};&lt;/span&gt;
+    &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;original:&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;PrintArray&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;arr_quick&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+    &lt;span class="n"&gt;QuickSort&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;arr_quick&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+    &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;sorted:&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;PrintArray&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;arr_quick&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;output:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nl"&gt;original&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+&lt;span class="mi"&gt;9&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="mi"&gt;6&lt;/span&gt; &lt;span class="mi"&gt;7&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt; &lt;span class="mi"&gt;8&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt; 
+&lt;span class="nl"&gt;sorted&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+&lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt; &lt;span class="mi"&gt;6&lt;/span&gt; &lt;span class="mi"&gt;7&lt;/span&gt; &lt;span class="mi"&gt;8&lt;/span&gt; &lt;span class="mi"&gt;9&lt;/span&gt;  
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;以上便是&lt;strong&gt;Quick Sort&lt;/strong&gt;的介紹。&lt;br /&gt;
+因為不需要額外的記憶體空間，因此，只要能避免&lt;strong&gt;worst case&lt;/strong&gt;，那麼&lt;strong&gt;Quick Sort&lt;/strong&gt;會非常有效率。&lt;/p&gt;
+&lt;p&gt;關於時間複雜度的部分，請參考：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://www.khanacademy.org/computing/computer-science/algorithms/quick-sort/a/analysis-of-quicksort"&gt;Khan Academy：Analysis of quicksort&lt;/a&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;優化的方法，請參考：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://stackoverflow.com/questions/12454866/how-to-optimize-quicksort"&gt;Stackoverflow：How to optimize quicksort&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;&lt;a name="ref"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;參考資料：&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844"&gt;Introduction to Algorithms, Ch7&lt;/a&gt; &lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376"&gt;Fundamentals of Data Structures in C++, Ch7&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://en.wikipedia.org/wiki/Comparison_sort"&gt;Wikipedia：Comparison sort&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://en.wikipedia.org/wiki/Sorting_algorithm"&gt;Wikipedia：Sorting algorithm&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://stackoverflow.com/questions/12454866/how-to-optimize-quicksort"&gt;Stackoverflow：How to optimize quicksort&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a name="series"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;h3&gt;Comparison Sort系列文章&lt;/h3&gt;
+&lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/comparison-sort-insertion-sortcha-ru-pai-xu-fa.html"&gt;Comparison Sort: Insertion Sort(插入排序法)&lt;/a&gt; &lt;br /&gt;
+&lt;a href=""&gt;Comparison Sort: Quick Sort(快速排序法)&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;回到目錄：&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html"&gt;目錄：演算法與資料結構&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;script type="text/javascript"&gt;if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width &lt; 768) ? "left" : align;
+        indent = (screen.width &lt; 768) ? "0em" : indent;
+        linebreak = (screen.width &lt; 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' &amp;&amp; location_protocol !== 'https') location_protocol = 'https:';
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+&lt;/script&gt;</summary><category term="C++"></category><category term="Comparison Sort"></category><category term="Sort"></category><category term="Divide and Conquer"></category></entry><entry><title>Comparison Sort: Insertion Sort(插入排序法)</title><link href="http://alrightchiu.github.io/SecondRound/comparison-sort-insertion-sortcha-ru-pai-xu-fa.html" rel="alternate"></link><updated>2016-03-22T23:49:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-03-22:SecondRound/comparison-sort-insertion-sortcha-ru-pai-xu-fa.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h3&gt;先備知識與注意事項&lt;/h3&gt;
 &lt;p&gt;Sorting(排序)是非常基本的資料處理操作，舉例來說，進入圖書館的查詢系統，不論是想按照「出版日期」或是「相關程度」找書，都會得到「排序過」的結果。&lt;/p&gt;
 &lt;p&gt;常見的&lt;strong&gt;Comparison Sort&lt;/strong&gt;及其時間複雜度如表一，假設問題有&lt;span class="math"&gt;\(N\)&lt;/span&gt;筆資料：&lt;/p&gt;
@@ -165,7 +561,7 @@
 &lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/InsertionSort/f5.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖四(b)。&lt;/strong&gt;&lt;br /&gt;
 &lt;/center&gt;&lt;/p&gt;
-&lt;p&gt;當兩項條件：&lt;code&gt;j&amp;gt;-1&lt;/code&gt;與&lt;code&gt;key&amp;lt;array[j]&lt;/code&gt;中，有任何一項條件不滿足時，便表示「已經檢查到前&lt;span class="math"&gt;\(1\)&lt;/span&gt;~&lt;span class="math"&gt;\(i-1\)&lt;/span&gt;筆資料的盡頭」，或是「已經沒有比&lt;code&gt;key&lt;/code&gt;還小的資料」，於是便執行&lt;code&gt;array[j+1]=key&lt;/code&gt;，把&lt;code&gt;key&lt;/code&gt;放回矩陣裡。&lt;/p&gt;
+&lt;p&gt;當兩項條件：&lt;code&gt;j&amp;gt;-1&lt;/code&gt;與&lt;code&gt;key&amp;lt;array[j]&lt;/code&gt;中，有任何一項條件不滿足時，便表示「已經檢查到前&lt;span class="math"&gt;\(1\)&lt;/span&gt;~&lt;span class="math"&gt;\(i-1\)&lt;/span&gt;筆資料的盡頭」，或是「已經沒有比&lt;code&gt;key&lt;/code&gt;還小的資料」，於是便執行&lt;code&gt;array[j+1]=key&lt;/code&gt;，把&lt;code&gt;key&lt;/code&gt;放回矩陣裡，見圖四(c)。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;當不滿足上述兩項條件時，&lt;code&gt;j+1&lt;/code&gt;就會是&lt;code&gt;key&lt;/code&gt;的位置。&lt;br /&gt;
 在此，&lt;code&gt;j&lt;/code&gt;等於&lt;span class="math"&gt;\(-1\)&lt;/span&gt;，&lt;code&gt;j+1&lt;/code&gt;等於&lt;span class="math"&gt;\(0\)&lt;/span&gt;，表示&lt;code&gt;key&lt;/code&gt;是&lt;span class="math"&gt;\(1\)&lt;/span&gt;~&lt;span class="math"&gt;\(i\)&lt;/span&gt;筆資料中，最小的資料。&lt;/li&gt;

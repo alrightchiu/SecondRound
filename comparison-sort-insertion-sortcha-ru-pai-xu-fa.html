@@ -230,7 +230,7 @@
 <img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/InsertionSort/f5.png?raw=true" /></p>
 <p><strong>圖四(b)。</strong><br />
 </center></p>
-<p>當兩項條件：<code>j&gt;-1</code>與<code>key&lt;array[j]</code>中，有任何一項條件不滿足時，便表示「已經檢查到前<span class="math">\(1\)</span>~<span class="math">\(i-1\)</span>筆資料的盡頭」，或是「已經沒有比<code>key</code>還小的資料」，於是便執行<code>array[j+1]=key</code>，把<code>key</code>放回矩陣裡。</p>
+<p>當兩項條件：<code>j&gt;-1</code>與<code>key&lt;array[j]</code>中，有任何一項條件不滿足時，便表示「已經檢查到前<span class="math">\(1\)</span>~<span class="math">\(i-1\)</span>筆資料的盡頭」，或是「已經沒有比<code>key</code>還小的資料」，於是便執行<code>array[j+1]=key</code>，把<code>key</code>放回矩陣裡，見圖四(c)。</p>
 <ul>
 <li>當不滿足上述兩項條件時，<code>j+1</code>就會是<code>key</code>的位置。<br />
 在此，<code>j</code>等於<span class="math">\(-1\)</span>，<code>j+1</code>等於<span class="math">\(0\)</span>，表示<code>key</code>是<span class="math">\(1\)</span>~<span class="math">\(i\)</span>筆資料中，最小的資料。</li>

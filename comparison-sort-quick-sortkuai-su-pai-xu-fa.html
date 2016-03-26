@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="zh-hant">
+
+<head>
+            <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+
+        <title>Comparison Sort: Quick Sort(快速排序法)</title>
+
+            <link href="http://alrightchiu.github.io/SecondRound/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Second Round Full Atom Feed" />
+            <link href="http://alrightchiu.github.io/SecondRound/feeds/yan-suan-fa-yu-zi-liao-jie-gou.atom.xml" type="application/atom+xml" rel="alternate" title="Second Round Categories Atom Feed" />
+
+        <!-- Bootstrap Core CSS -->
+        <link href="http://alrightchiu.github.io/SecondRound/theme/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="http://alrightchiu.github.io/SecondRound/theme/css/clean-blog.min.css" rel="stylesheet">
+
+        <!-- Code highlight color scheme -->
+            <link href="http://alrightchiu.github.io/SecondRound/theme/css/code_blocks/darkly.css" rel="stylesheet">
+
+
+        <!-- Custom Fonts -->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+
+
+
+        <meta name="tags" contents="C++" />
+        <meta name="tags" contents="Comparison Sort" />
+        <meta name="tags" contents="Sort" />
+        <meta name="tags" contents="Divide and Conquer" />
+
+
+	                <meta property="og:locale" content="">
+		<meta property="og:site_name" content="Second Round">
+
+	<meta property="og:type" content="article">
+	<meta property="article:author" content="">
+	<meta property="og:url" content="http://alrightchiu.github.io/SecondRound/comparison-sort-quick-sortkuai-su-pai-xu-fa.html">
+	<meta property="og:title" content="Comparison Sort: Quick Sort(快速排序法)">
+	<meta property="og:description" content="">
+	<meta property="og:image" content="http://alrightchiu.github.io/SecondRound/">
+	<meta property="article:published_time" content="2016-03-26 17:51:00+08:00">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://alrightchiu.github.io/SecondRound/">Second Round</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a href="http://alrightchiu.github.io/SecondRound/archives.html">Archives</a></li>
+                        <li><a href="http://alrightchiu.github.io/SecondRound/tags.html">Tags</a></li>
+
+                            <li><a href="http://alrightchiu.github.io/SecondRound/pages/about.html">About</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+        <header class="intro-header" style="background-image: url('http://alrightchiu.github.io/SecondRound/theme/images/post-bg.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>Comparison Sort: Quick Sort(快速排序法)</h1>
+                        <span class="meta">Posted by
+                                <a href="http://alrightchiu.github.io/SecondRound/author/chiu-cc.html">Chiu CC</a>
+                             on  3 26, 2016
+                        </span>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    <!-- Post Content -->
+    <article>
+        <p></br></p>
+<h3>先備知識與注意事項</h3>
+<p>Sorting(排序)是非常基本的資料處理操作，舉例來說，進入圖書館的查詢系統，不論是想按照「出版日期」或是「相關程度」找書，都會得到「排序過」的結果。</p>
+<p>常見的<strong>Comparison Sort</strong>及其時間複雜度如表一，假設問題有<span class="math">\(N\)</span>筆資料：</p>
+<p><center></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Quick Sort &nbsp;&nbsp;</th>
+<th>Merge Sort &nbsp;&nbsp;</th>
+<th>Heap Sort&nbsp;&nbsp;</th>
+<th>Insertion Sort&nbsp;&nbsp;</th>
+<th>Selection Sort&nbsp;&nbsp;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>best case</td>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;<span class="math">\(N\log N\)</span> &nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;<span class="math">\(N\log N\)</span> &nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;<span class="math">\(N\log N\)</span> &nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="math">\(N\)</span>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="math">\(N^2\)</span></td>
+</tr>
+<tr>
+<td>average case &nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;<span class="math">\(N\log N\)</span>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;<span class="math">\(N\log N\)</span>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;<span class="math">\(N\log N\)</span>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="math">\(N^2\)</span>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="math">\(N^2\)</span></td>
+</tr>
+<tr>
+<td>worst case</td>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;<span class="math">\(N^2\)</span>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;<span class="math">\(N\log N\)</span>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;<span class="math">\(N\log N\)</span>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="math">\(N^2\)</span>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="math">\(N^2\)</span></td>
+</tr>
+</tbody>
+</table>
+<p><strong>表一：五種排序法之時間複雜度比較</strong></p>
+<p></center></p>
+<p>本篇文章將介紹<strong>Quick Sort(快速排序法)</strong>。</p>
+<hr />
+<h2>目錄</h2>
+<ul>
+<li><a href="#insertionsort">Quick Sort(快速排序法)</a><ul>
+<li><a href="#partition">介紹：Partition</a></li>
+</ul>
+</li>
+<li><a href="#code">程式碼</a></li>
+<li><a href="#ref">參考資料</a></li>
+<li><a href="#series">Comparison Sort系列文章</a></li>
+</ul>
+<p></br></p>
+<p><a name="insertionsort"></a></p>
+<h2>Quick Sort(快速排序法)</h2>
+<p><strong>Quick Sort</strong>是一種「把大問題分成小問題處理」的<strong>Divide and Conquer</strong>方法，概念如下：</p>
+<ul>
+<li>在數列中任意挑選一個數，稱為<strong>pivot</strong>，然後<strong>調整數列</strong>，使得「所有在<strong>pivot</strong>左邊的數，都比<strong>pivot</strong>還小」，而「在<strong>pivot</strong>右邊的數都比<strong>pivot</strong>大」。</li>
+<li>接著，將所有在<strong>pivot</strong>左邊的數視為「新的數列」，所有在<strong>pivot</strong>右邊的數視為「另一個新的數列」，「分別」重複上述步驟(選<strong>pivot</strong>、調整數列)，直到分不出「新的數列」為止。</li>
+</ul>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/QuickSort/f1.png?raw=true" /></p>
+<p><strong>圖一(a)。</strong><br />
+</center></p>
+<p>以圖一(a)為例，考慮數列{<span class="math">\(9、4、1、6、7、3、8、2、5\)</span>}，先任意選定<span class="math">\(5\)</span>為<strong>pivot</strong>，接著調整數列，使得<strong>pivot</strong>左邊的數{<span class="math">\(4、1、3、2\)</span>}皆小於<span class="math">\(5\)</span>，而<strong>pivot</strong>右邊的數{<span class="math">\(9、8、6、7\)</span>}皆大於<span class="math">\(5\)</span>。</p>
+<ul>
+<li>目前為止，{<span class="math">\(4、1、3、2\)</span>}之間的大小順序還不必理會，{<span class="math">\(9、8、6、7\)</span>}之間的大小順序也不必理會。</li>
+</ul>
+<p>接著，分別將<strong>pivot</strong>左邊的數列{<span class="math">\(4、1、3、2\)</span>}與<strong>pivot</strong>右邊的數列{<span class="math">\(9、8、6、7\)</span>}視為新的數列處理，重複上述步驟(選<strong>pivot</strong>、調整數列)，直到分不出「新的數列」為止，見圖一(b)。</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/QuickSort/f2.png?raw=true" /></p>
+<p><strong>圖一(b)。</strong><br />
+</center></p>
+<p>以上的步驟中：</p>
+<ul>
+<li><strong>pivot</strong>可以任意挑選，在此是固定挑選數列(矩陣)的最後一個元素。</li>
+<li>在「新的數列」上只是重複相同的步驟(選<strong>pivot</strong>、調整數列)，可以利用<strong>遞迴(recursion)</strong>處理。</li>
+</ul>
+<p>所以，最關鍵的就是如何「調整數列」，江湖上尊稱其為：<strong>Partition</strong>。</p>
+<p></br></p>
+<p><a name="partition"></a></p>
+<h3>介紹：Partition()</h3>
+<p>如同圖一(a)，<strong>Partition</strong>的功能就是把數列「區分」成「小於<strong>pivot</strong>」與「大於<strong>pivot</strong>」兩半。</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/QuickSort/f1.png?raw=true" /></p>
+<p><strong>圖一(a)。</strong><br />
+</center></p>
+<p>詳細步驟如下：</p>
+<p>定義變數(variable)，見圖二(a)：</p>
+<ul>
+<li><code>int front</code>為數列的「最前端」index。<ul>
+<li>此例，<code>front</code>為index(<span class="math">\(0\)</span>)。</li>
+</ul>
+</li>
+<li><code>int end</code>為數列的「最尾端」index。<ul>
+<li>此例，<code>end</code>為index(<span class="math">\(8\)</span>)。</li>
+</ul>
+</li>
+<li><code>int i</code>為所有小於<strong>pivot</strong>的數所形成的數列的「最後位置」。<ul>
+<li>一開始將index(<code>i</code>)初始化為<code>front-1</code>，因為有可能數列中，所有數都比<strong>pivot</strong>大。</li>
+<li>一旦發現有數比<strong>pivot</strong>小，index(<code>i</code>)便往後移動(<code>i++</code>)，表示「所有小於<strong>pivot</strong>的數所形成的數列」又增加了一名成員。</li>
+<li>當演算法結束時，所有在index(<code>i</code>)左邊的數，都比<strong>pivot</strong>小，所有在index(<code>i</code>)右邊的數，都比<strong>pivot</strong>大。</li>
+</ul>
+</li>
+<li><code>int j</code>是讓<strong>pivot</strong>與其餘數值逐一比較的index，從<code>front</code>檢查到<code>end-1</code>(因為<code>end</code>是<strong>pivot</strong>自己)。</li>
+<li><code>int pivot=array[end]</code>，以數列最後一個數做為<strong>pivot</strong>。<ul>
+<li>此例，<code>pivot</code>為<span class="math">\(5\)</span>。</li>
+<li><strong>pivot</strong>的「數值」可以是任意的，挑選矩陣的最後一個位置是為了方便index(<code>j</code>)的移動，也可以挑選任意位置。</li>
+</ul>
+</li>
+</ul>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/QuickSort/f3.png?raw=true" /></p>
+<p><strong>圖二(a)。</strong><br />
+</center></p>
+<p>接著，開始移動index(<code>j</code>)，從index(<span class="math">\(0\)</span>)到index(<span class="math">\(7\)</span>)，將數列(矩陣)元素逐一與<code>pivot</code>比較，並進行調整(用<code>swap()</code>調整)。</p>
+<p>見圖二(b)，一開始，<code>j</code><span class="math">\(=0\)</span>，<code>i</code><span class="math">\(=-1\)</span>：</p>
+<ul>
+<li>比較<code>pivot</code>與<code>array[j=0]</code>，發現<code>pivot</code><span class="math">\(=5&lt;\)</span><code>array[0]</code><span class="math">\(=9\)</span>，所以不需要移動index(<code>i</code>)。</li>
+<li>移動index(<code>j</code>)，<code>j++</code>，繼續往後比較。</li>
+</ul>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/QuickSort/f4.png?raw=true" /></p>
+<p><strong>圖二(b)。</strong><br />
+</center></p>
+<p>見圖二(c)，此時<code>j</code><span class="math">\(=1\)</span>，<code>i</code><span class="math">\(=-1\)</span>：</p>
+<ul>
+<li>比較<code>pivot</code>與<code>array[j=1]</code>，發現<code>pivot</code><span class="math">\(=5&gt;\)</span><code>array[1]</code><span class="math">\(=4\)</span>，便執行：<ul>
+<li><code>i++</code>：移動index(<code>i</code>)，表示又找到一個比<strong>pivot</strong>小的數。此時，<code>i</code><span class="math">\(=0\)</span>。</li>
+<li><code>swap(array[i=0],array[j=1])</code>：透過這個<code>swap()</code>，便能把比<strong>pivot</strong>小的數，放到比<strong>pivot</strong>大的數的「前面」(也就是矩陣的左邊)。</li>
+</ul>
+</li>
+<li>移動index(<code>j</code>)，<code>j++</code>，繼續往後比較。</li>
+</ul>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/QuickSort/f5.png?raw=true" /></p>
+<p><strong>圖二(c)。</strong><br />
+</center></p>
+<p>見圖二(d)，此時<code>j</code><span class="math">\(=2\)</span>，<code>i</code><span class="math">\(=0\)</span>：</p>
+<ul>
+<li>比較<code>pivot</code>與<code>array[j=2]</code>，發現<code>pivot</code><span class="math">\(=5&gt;\)</span><code>array[2]</code><span class="math">\(=1\)</span>，便執行：<ul>
+<li><code>i++</code>：移動index(<code>i</code>)，表示又找到一個比<strong>pivot</strong>小的數。此時，<code>i</code><span class="math">\(=1\)</span>。</li>
+<li><code>swap(array[i=1],array[j=2])</code>：透過這個<code>swap()</code>，便能把比<strong>pivot</strong>小的數({<span class="math">\(4、1\)</span>})，放到比<strong>pivot</strong>大的數({<span class="math">\(9\)</span>})的「前面」。</li>
+</ul>
+</li>
+<li>移動index(<code>j</code>)，<code>j++</code>，繼續往後比較。</li>
+</ul>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/QuickSort/f6.png?raw=true" /></p>
+<p><strong>圖二(d)。</strong><br />
+</center></p>
+<p>見圖二(e)，此時<code>j</code><span class="math">\(=3\)</span>，<code>i</code><span class="math">\(=1\)</span>：</p>
+<ul>
+<li>比較<code>pivot</code>與<code>array[j=3]</code>，發現<code>pivot</code><span class="math">\(=5&lt;\)</span><code>array[3]</code><span class="math">\(=6\)</span>，所以不需要移動index(<code>i</code>)。</li>
+<li>移動index(<code>j</code>)，<code>j++</code>，繼續往後比較。</li>
+</ul>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/QuickSort/f7.png?raw=true" /></p>
+<p><strong>圖二(e)。</strong><br />
+</center></p>
+<p>見圖二(f)，此時<code>j</code><span class="math">\(=4\)</span>，<code>i</code><span class="math">\(=1\)</span>：</p>
+<ul>
+<li>比較<code>pivot</code>與<code>array[j=4]</code>，發現<code>pivot</code><span class="math">\(=5&lt;\)</span><code>array[4]</code><span class="math">\(=7\)</span>，所以不需要移動index(<code>i</code>)。<ul>
+<li>到目前為止，漸漸可以看出，「比<strong>pivot</strong>小」的數形成一個數列({<span class="math">\(4、1\)</span>})，「比<strong>pivot</strong>大」的數形成另一個數列({<span class="math">\(9、6、7\)</span>})，最後只要把<strong>pivot</strong>插入這兩個數列中間，就完成的<code>Partition()</code>。</li>
+</ul>
+</li>
+<li>移動index(<code>j</code>)，<code>j++</code>，繼續往後比較。</li>
+</ul>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/QuickSort/f8.png?raw=true" /></p>
+<p><strong>圖二(f)。</strong><br />
+</center></p>
+<p>見圖二(g)，此時<code>j</code><span class="math">\(=5\)</span>，<code>i</code><span class="math">\(=1\)</span>：</p>
+<ul>
+<li>比較<code>pivot</code>與<code>array[j=5]</code>，發現<code>pivot</code><span class="math">\(=5&gt;\)</span><code>array[5]</code><span class="math">\(=3\)</span>，便執行：<ul>
+<li><code>i++</code>：移動index(<code>i</code>)，表示又找到一個比<strong>pivot</strong>小的數。此時，<code>i</code><span class="math">\(=2\)</span>。</li>
+<li><code>swap(array[i=2],array[j=5])</code>：透過這個<code>swap()</code>，便能把比<strong>pivot</strong>小的數({<span class="math">\(4、1、3\)</span>})，放到比<strong>pivot</strong>大的數({<span class="math">\(6、7、9\)</span>})的「前面」。</li>
+</ul>
+</li>
+<li>移動index(<code>j</code>)，<code>j++</code>，繼續往後比較。</li>
+</ul>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/QuickSort/f9.png?raw=true" /></p>
+<p><strong>圖二(g)。</strong><br />
+</center></p>
+<p>見圖二(h)，此時<code>j</code><span class="math">\(=6\)</span>，<code>i</code><span class="math">\(=2\)</span>：</p>
+<ul>
+<li>比較<code>pivot</code>與<code>array[j=6]</code>，發現<code>pivot</code><span class="math">\(=5&lt;\)</span><code>array[6]</code><span class="math">\(=8\)</span>，所以不需要移動index(<code>i</code>)。</li>
+<li>移動index(<code>j</code>)，<code>j++</code>，繼續往後比較。</li>
+</ul>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/QuickSort/f10.png?raw=true" /></p>
+<p><strong>圖二(h)。</strong><br />
+</center></p>
+<p>見圖二(i)，此時<code>j</code><span class="math">\(=7\)</span>，<code>i</code><span class="math">\(=2\)</span>：</p>
+<ul>
+<li>比較<code>pivot</code>與<code>array[j=7]</code>，發現<code>pivot</code><span class="math">\(=5&gt;\)</span><code>array[7]</code><span class="math">\(=2\)</span>，便執行：<ul>
+<li><code>i++</code>：移動index(<code>i</code>)，表示又找到一個比<strong>pivot</strong>小的數。此時，<code>i</code><span class="math">\(=3\)</span>。</li>
+<li><code>swap(array[i=3],array[j=7])</code>：透過這個<code>swap()</code>，便能把比<strong>pivot</strong>小的數({<span class="math">\(4、1、3、2\)</span>})，放到比<strong>pivot</strong>大的數({<span class="math">\(6、7、9、8\)</span>})的「前面」。</li>
+</ul>
+</li>
+<li>移動index(<code>j</code>)，<code>j++</code>，繼續往後比較。</li>
+</ul>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/QuickSort/f11.png?raw=true" /></p>
+<p><strong>圖二(i)。</strong><br />
+</center></p>
+<p>見圖二(j)，此時<code>j</code><span class="math">\(=8\)</span>，<code>i</code><span class="math">\(=3\)</span>。<br />
+因為index(<code>j</code>)只需要從<code>front</code>移動到<code>end-1</code>即可。當index(<code>j</code>)走到<code>end</code>時，便結束此<strong>迴圈</strong>，表示數列中的所有數都已經和<strong>pivot</strong>比較過了。</p>
+<ul>
+<li><code>i++</code>，把index(<code>i</code>)從「所有比<strong>pivot</strong>小的數列」的最後一個位置，移動到「所有比<strong>pivot</strong>大的數列」的第一個位置，此時<code>i</code><span class="math">\(=4\)</span>。</li>
+<li>接著執行<code>swap(array[i=4],array[end])</code>：便成功把<strong>pivot</strong>插入兩個數列之間了。</li>
+</ul>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/QuickSort/f12.png?raw=true" /></p>
+<p><strong>圖二(j)。</strong><br />
+</center></p>
+<p>經過以上步驟，便把數列分成三部分，如圖一(a)：</p>
+<ol>
+<li>比<strong>pivot</strong>小的數所形成的數列；</li>
+<li><strong>pivot</strong>；</li>
+<li>比<strong>pivot</strong>大的數所形成的數列。</li>
+</ol>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/QuickSort/f1.png?raw=true" /></p>
+<p><strong>圖一(a)。</strong><br />
+</center></p>
+<p>接著，只要再對「左數列」與「右數列」，分別重複上述的「選<strong>pivot</strong>、調整數列」步驟，如圖三，直到新數列的<code>front</code><span class="math">\(\geq\)</span><code>end</code>，便能完成對數列的排序。<br />
+(回頭看一眼圖一(b)。)</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/QuickSort/f13.png?raw=true" /></p>
+<p><strong>圖三：以遞迴的方式，對新的數列做排序。</strong><br />
+</center></p>
+<p></br></p>
+<p><a name="code"></a></p>
+<h2>程式碼</h2>
+<p>程式碼很直觀：</p>
+<ul>
+<li><code>swap()</code>：交換矩陣元素之位置，使用時機：<ul>
+<li>當<code>Partition()</code>中條件式<code>if(pivot&lt;array[j])</code>時；</li>
+<li>當index(<code>j</code>)檢查完除了<code>pivot=array[end]</code>之外的元素時。 </li>
+</ul>
+</li>
+<li><code>Partition()</code>：將數列調整成「比<strong>pivot</strong>小」、「<strong>pivot</strong>」、「比<strong>pivot</strong>大」的主要函式。</li>
+<li><code>QuickSort()</code>：進行<strong>Quick Sort</strong>的主要函式，以<strong>遞迴(recursion)</strong>的形式，將數列(矩陣)不斷拆解成更小的數列並以此排序。</li>
+</ul>
+<p>以及<code>main()</code>，以矩陣表示如圖一(a)的數列，進行<code>QuickSort()</code>，並將矩陣元素以<code>PrintArray()</code>印出。</p>
+<p>完整程式範例如下：</p>
+<div class="highlight"><pre><span class="c1">// C++ code</span>
+
+<span class="cp">#include &lt;iostream&gt;</span>
+<span class="kt">void</span> <span class="nf">swap</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">b</span><span class="p">){</span>
+    <span class="kt">int</span> <span class="n">temp</span> <span class="o">=</span> <span class="o">*</span><span class="n">a</span><span class="p">;</span>
+    <span class="o">*</span><span class="n">a</span> <span class="o">=</span> <span class="o">*</span><span class="n">b</span><span class="p">;</span>
+    <span class="o">*</span><span class="n">b</span> <span class="o">=</span> <span class="n">temp</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kt">int</span> <span class="nf">Partition</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">arr</span><span class="p">,</span> <span class="kt">int</span> <span class="n">front</span><span class="p">,</span> <span class="kt">int</span> <span class="n">end</span><span class="p">){</span>
+    <span class="kt">int</span> <span class="n">pivot</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="n">end</span><span class="p">];</span>
+    <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">front</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">front</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">end</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">pivot</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">i</span><span class="o">++</span><span class="p">;</span>
+            <span class="n">swap</span><span class="p">(</span><span class="o">&amp;</span><span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="o">&amp;</span><span class="n">arr</span><span class="p">[</span><span class="n">j</span><span class="p">]);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="n">swap</span><span class="p">(</span><span class="o">&amp;</span><span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="o">&amp;</span><span class="n">arr</span><span class="p">[</span><span class="n">end</span><span class="p">]);</span>
+    <span class="k">return</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="nf">QuickSort</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">arr</span><span class="p">,</span> <span class="kt">int</span> <span class="n">front</span><span class="p">,</span> <span class="kt">int</span> <span class="n">end</span><span class="p">){</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">front</span> <span class="o">&lt;</span> <span class="n">end</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">pivot</span> <span class="o">=</span> <span class="n">Partition</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">front</span><span class="p">,</span> <span class="n">end</span><span class="p">);</span>
+        <span class="n">QuickSort</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">front</span><span class="p">,</span> <span class="n">pivot</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+        <span class="n">QuickSort</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">pivot</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">end</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="nf">PrintArray</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">arr</span><span class="p">,</span> <span class="kt">int</span> <span class="n">size</span><span class="p">){</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">size</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">9</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">arr_quick</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">9</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">};</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;original:</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">PrintArray</span><span class="p">(</span><span class="n">arr_quick</span><span class="p">,</span> <span class="n">n</span><span class="p">);</span>
+
+    <span class="n">QuickSort</span><span class="p">(</span><span class="n">arr_quick</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;sorted:</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">PrintArray</span><span class="p">(</span><span class="n">arr_quick</span><span class="p">,</span> <span class="n">n</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>output:</p>
+<div class="highlight"><pre><span class="nl">original</span><span class="p">:</span>
+<span class="mi">9</span> <span class="mi">4</span> <span class="mi">1</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">3</span> <span class="mi">8</span> <span class="mi">2</span> <span class="mi">5</span> 
+<span class="nl">sorted</span><span class="p">:</span>
+<span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span>  
+</pre></div>
+
+
+<p></br></p>
+<p>以上便是<strong>Quick Sort</strong>的介紹。<br />
+因為不需要額外的記憶體空間，因此，只要能避免<strong>worst case</strong>，那麼<strong>Quick Sort</strong>會非常有效率。</p>
+<p>關於時間複雜度的部分，請參考：</p>
+<ul>
+<li><a href="https://www.khanacademy.org/computing/computer-science/algorithms/quick-sort/a/analysis-of-quicksort">Khan Academy：Analysis of quicksort</a>。</li>
+</ul>
+<p>優化的方法，請參考：</p>
+<ul>
+<li><a href="http://stackoverflow.com/questions/12454866/how-to-optimize-quicksort">Stackoverflow：How to optimize quicksort</a></li>
+</ul>
+<p></br></p>
+<hr />
+<p><a name="ref"></a></p>
+<h3>參考資料：</h3>
+<ul>
+<li><a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844">Introduction to Algorithms, Ch7</a> </li>
+<li><a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376">Fundamentals of Data Structures in C++, Ch7</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Comparison_sort">Wikipedia：Comparison sort</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Sorting_algorithm">Wikipedia：Sorting algorithm</a></li>
+<li><a href="http://stackoverflow.com/questions/12454866/how-to-optimize-quicksort">Stackoverflow：How to optimize quicksort</a></li>
+</ul>
+<p><a name="series"></a></p>
+<p></br></p>
+<h3>Comparison Sort系列文章</h3>
+<p><a href="http://alrightchiu.github.io/SecondRound/comparison-sort-insertion-sortcha-ru-pai-xu-fa.html">Comparison Sort: Insertion Sort(插入排序法)</a> <br />
+<a href="">Comparison Sort: Quick Sort(快速排序法)</a></p>
+<p>回到目錄：</p>
+<p><a href="http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html">目錄：演算法與資料結構</a></p>
+<p></br></p>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' && location_protocol !== 'https') location_protocol = 'https:';
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+    </article>
+
+        <div class="tags">
+            <p>tags: <a href="http://alrightchiu.github.io/SecondRound/tag/c.html">C++</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/comparison-sort.html">Comparison Sort</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/sort.html">Sort</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/divide-and-conquer.html">Divide and Conquer</a>, </p>
+        </div>
+
+<hr>
+<div class="sharing">
+</div>
+    <hr>
+
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                            <li>
+                                <a href="https://github.com/alrightchiu">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                    </ul>
+<p class="copyright text-muted">
+    Blog powered by <a href="http://getpelican.com">Pelican</a>,
+    which takes great advantage of <a href="http://python.org">Python</a>.
+</p>                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="http://alrightchiu.github.io/SecondRound/theme/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="http://alrightchiu.github.io/SecondRound/theme/js/bootstrap.min.js"></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script src="http://alrightchiu.github.io/SecondRound/theme/js/clean-blog.min.js"></script>
+
+</body>
+
+</html>
