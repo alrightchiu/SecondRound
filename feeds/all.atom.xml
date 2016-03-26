@@ -295,7 +295,7 @@
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;&lt;code&gt;Partition()&lt;/code&gt;：將數列調整成「比&lt;strong&gt;pivot&lt;/strong&gt;小」、「&lt;strong&gt;pivot&lt;/strong&gt;」、「比&lt;strong&gt;pivot&lt;/strong&gt;大」的主要函式。&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;QuickSort()&lt;/code&gt;：進行&lt;strong&gt;Quick Sort&lt;/strong&gt;的主要函式，以&lt;strong&gt;遞迴(recursion)&lt;/strong&gt;的形式，將數列(矩陣)不斷拆解成更小的數列並以此排序。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;QuickSort()&lt;/code&gt;：進行&lt;strong&gt;Quick Sort&lt;/strong&gt;的主要函式，以&lt;strong&gt;遞迴(recursion)&lt;/strong&gt;的形式，將數列(矩陣)不斷拆解成更小的數列，藉此排序。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;以及&lt;code&gt;main()&lt;/code&gt;，以矩陣表示如圖一(a)的數列，進行&lt;code&gt;QuickSort()&lt;/code&gt;，並將矩陣元素以&lt;code&gt;PrintArray()&lt;/code&gt;印出。&lt;/p&gt;
 &lt;p&gt;完整程式範例如下：&lt;/p&gt;
