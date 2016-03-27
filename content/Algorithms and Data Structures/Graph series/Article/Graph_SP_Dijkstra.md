@@ -313,6 +313,7 @@ void Graph_SP::Dijkstra(int Start){
         int u = minQueue.ExtractMin();
         for (std::list<std::pair<int, int>>::iterator itr = AdjList[u].begin();
              itr != AdjList[u].end(); itr++) {
+             
             Relax(u, (*itr).first, (*itr).second);
             minQueue.DecreaseKey((*itr).first, distance[(*itr).first]);
         }

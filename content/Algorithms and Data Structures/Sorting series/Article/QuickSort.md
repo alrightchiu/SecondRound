@@ -314,8 +314,9 @@ int Partition(int *arr, int front, int end){
             swap(&arr[i], &arr[j]);
         }
     }
-    swap(&arr[i+1], &arr[end]);
-    return i+1;
+    i++;
+    swap(&arr[i], &arr[end]);
+    return i;
 }
 void QuickSort(int *arr, int front, int end){
     if (front < end) {
