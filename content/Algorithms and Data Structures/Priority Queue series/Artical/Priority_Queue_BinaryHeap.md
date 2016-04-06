@@ -1,4 +1,4 @@
-Title: Priority Queue：Intro(簡介) & Binary Heap11111111111
+Title: Priority Queue：Intro(簡介) & Binary Heap
 Date: 2016-3-5 21:25  
 Category: 演算法與資料結構  
 Tags: C++, Intro, Priority Queue, Heap, Binary Tree,  
