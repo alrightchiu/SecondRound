@@ -160,7 +160,7 @@ struct HeapNode{
 };
 ```
 
-備註：為了區別`element`與`key`，圖示中的`element`是以「英文字母」表示，而`key`用`int`。不過這裡定義的`struct HeapNode`之`element`是以`int`表示，主要是為了使這篇文章定義的**Min-Priority Queue**可以在[Dijkstra's Algorithm](http://alrightchiu.github.io/SecondRound/single-source-shortest-pathdijkstras-algorithm.html)直接複製貼上使用。
+備註：為了區別`element`與`key`，圖示中的`element`是以「英文字母」表示，而`key`用`int`。不過這裡定義的`struct HeapNode`之`element`是以`int`表示，主要是為了使這篇文章定義的**Min-Priority Queue**可以在[Single-Source Shortest Path：Dijkstra's Algorithm](http://alrightchiu.github.io/SecondRound/single-source-shortest-pathdijkstras-algorithm.html)直接複製貼上使用。
 
 </br>
 `class BinaryHeap`之定義，以及所有成員函式(member function)之宣告如下：
@@ -598,6 +598,7 @@ void BinaryHeap::MinHeapInsert(int node, int key){
 * [禪心劍氣相思骨：Priority Queue 解析1 - 從binary heap開始](http://blog.yam.com/rockmanray/article/44952434)
 * [Binary Tree: Intro(簡介)](http://alrightchiu.github.io/SecondRound/binary-tree-introjian-jie.html)
 * [Code Review：Implementation of binary heap in C++](http://codereview.stackexchange.com/questions/42999/implementation-of-binary-heap-in-c)
+* [Single-Source Shortest Path：Dijkstra's Algorithm](http://alrightchiu.github.io/SecondRound/single-source-shortest-pathdijkstras-algorithm.html)
 * [Wikipedia：Priority Queue](https://en.wikipedia.org/wiki/Priority_queue)
 * [Wikipedia：Binary Heap](https://en.wikipedia.org/wiki/Binary_heap)
 
