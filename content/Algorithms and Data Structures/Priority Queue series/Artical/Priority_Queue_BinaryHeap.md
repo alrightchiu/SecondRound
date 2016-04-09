@@ -137,8 +137,6 @@ Binary Heap有兩項基本特徵：
 * **Max Heap**：在每一個subtree中，**root**之「key」要比兩個**child**之「key」還要大：
     * $Key(i)>Key(2i)$
     * $Key(i)>Key(2i+1)$
-
-
 * **Min Heap**：在每一個subtree中，**root**之「key」要比兩個**child**之「key」還要小：
     * $Key(i)<Key(2i)$
     * $Key(i)<Key(2i+1)$
