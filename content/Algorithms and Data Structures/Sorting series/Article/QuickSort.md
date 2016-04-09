@@ -400,7 +400,8 @@ sorted:
 * [Fundamentals of Data Structures in C++, Ch7](http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376)
 * [Wikipedia：Comparison sort](https://en.wikipedia.org/wiki/Comparison_sort)
 * [Wikipedia：Sorting algorithm](https://en.wikipedia.org/wiki/Sorting_algorithm)
-* [Stackoverflow：How to optimize quicksort](http://stackoverflow.com/questions/12454866/how-to-optimize-quicksort)
+* [Stackoverflow：How to optimize quicksort](http://stackoverflow.com/questions/12454866/how-to-optimize-quicksort)  
+* [Khan Academy：Analysis of quicksort](https://www.khanacademy.org/computing/computer-science/algorithms/quick-sort/a/analysis-of-quicksort)  
 
 
 <a name="series"></a>
