@@ -320,7 +320,9 @@ void BinaryHeap::MinHeapify(int node, int length){
     * 此處給定`std::vector<int> array`，把`array`的**index**視為`element`，把`array`的**數值**視為`key`。
         * 若array[] = {100, 27, 34, 56,...}，那麼element(0)就對應到key(100)，element(1)就對應到key(27)，element(2)就對應到key(34)，依此類推。
         * 例如在**Graph**問題中，`array`的**index**時常對應到「特定的vertex」，例如`BFS()`的`distance[]`，`distance[1]`即表示「從起點vertex走到vertex(1)」的距離，因此不需要特別使用`struct HeapNode`表示`array`的矩陣元素。
+        
     * 也可以把input令成`std::vector<HeapNode> array`，那麼每一個矩陣元素都有各自的`element`與`key`，依序放進`std::vector<HeapNode> heap`即可。
+    
 * `heap[]`初始化：先把`array[]`的資料放進`heap[]`，並將`heap[0]`閒置。
 * 接著對index($\lfloor N/2 \rfloor$)到index($1$)進行`MinHeapify()`。  
 </br>
