@@ -481,13 +481,14 @@
         <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;error: heap is empty</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
         <span class="n">exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
     <span class="p">}</span>
-    <span class="kt">int</span> <span class="n">min</span> <span class="o">=</span> <span class="n">heap</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">element</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">min</span> <span class="o">=</span> <span class="n">heap</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">element</span><span class="p">;</span>    <span class="c1">// 此時heap的第一個node具有最小key值</span>
+                                  <span class="c1">// 便以min記錄其element, 最後回傳min</span>
     <span class="c1">// delete the first element/vertex</span>
     <span class="n">heap</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">heap</span><span class="p">[</span><span class="n">heap</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span><span class="p">];</span>            <span class="c1">// 把最後一個element放到第一個位置,</span>
     <span class="n">heap</span><span class="p">.</span><span class="n">erase</span><span class="p">(</span><span class="n">heap</span><span class="p">.</span><span class="n">begin</span><span class="p">()</span><span class="o">+</span><span class="n">heap</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>   <span class="c1">// 再刪除最後一個element</span>
     <span class="n">MinHeapify</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">heap</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>          <span class="c1">// 目前, heap[1]具有最大Key, 需要進行調整</span>
 
-    <span class="k">return</span> <span class="n">min</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">min</span><span class="p">;</span>       <span class="c1">// 回傳heap中具有最小key的element</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -504,7 +505,7 @@
 </li>
 <li>因為是把資料的Key「降低」，因此，有可能使得原先資料所位於的subtree違反Min Heap規則，需要調整：<ul>
 <li>假設被修改的資料是位於index(<span class="math">\(i\)</span>)的node(<span class="math">\(i\)</span>)，便比較node(<span class="math">\(i\)</span>)與其<strong>parent</strong>(也就是node(<span class="math">\(\lfloor i/2 \rfloor\)</span>))之Key值，</li>
-<li>如果node(<span class="math">\(i\)</span>)之Key值較小，便交換index(<span class="math">\(i\)</span>)與index(<span class="math">\(\lfloor i/2 \rfloor\)</span>)上的資料(如同在<code>Minheapify()</code>中的交換<code>swap()</code>)。</li>
+<li>如果node(<span class="math">\(i\)</span>)之Key值較小，便交換index(<span class="math">\(i\)</span>)與index(<span class="math">\(\lfloor i/2 \rfloor\)</span>)的資料(如同在<code>Minheapify()</code>中的交換<code>swap()</code>)。</li>
 <li>若node(<span class="math">\(i\)</span>)之Key值仍然比其<strong>parent</strong>之Key值大，表示，node(<span class="math">\(i\)</span>)所在之subtree仍滿足Min Heap規則，即可結束函式。</li>
 <li>還有，由於Heap的<strong>root</strong>是從index(<span class="math">\(1\)</span>)開始存放資料，若一路回溯<strong>parent</strong>直到index小於<span class="math">\(1\)</span>，表示Heap中所有與「被修改的資料」有關之subtree都被檢查過了，可以結束函式。</li>
 </ul>
@@ -524,7 +525,8 @@
 <img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Priority%20Queue%20series/Binary%20Heap%20fig/DecreaseKey.gif?raw=true" /></p>
 <p><strong>圖五(c)。</strong>
 </center></p>
-<p><code>DecreaseKey()</code>之範例程式碼如下：</p>
+<p><code>DecreaseKey()</code>之範例程式碼如下：<br />
+(函式裡的<code>int node</code>與<code>struct HeapNode</code>的<code>element</code>具有相同意義)</p>
 <div class="highlight"><pre><span class="c1">// C++ code</span>
 <span class="kt">void</span> <span class="n">BinaryHeap</span><span class="o">::</span><span class="n">DecreaseKey</span><span class="p">(</span><span class="kt">int</span> <span class="n">node</span><span class="p">,</span> <span class="kt">int</span> <span class="n">newKey</span><span class="p">){</span>
 
@@ -563,7 +565,8 @@
 <p><img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Priority%20Queue%20series/Binary%20Heap%20fig/f13.png?raw=true" /></p>
 <p><strong>圖六(c)。</strong>
 </center></p>
-<p><code>MinHeapInsert()</code>之範例程式碼如下：</p>
+<p><code>MinHeapInsert()</code>之範例程式碼如下：<br />
+(函式裡的<code>int node</code>與<code>struct HeapNode</code>的<code>element</code>具有相同意義)</p>
 <div class="highlight"><pre><span class="c1">// C++ code</span>
 <span class="kt">void</span> <span class="n">BinaryHeap</span><span class="o">::</span><span class="n">MinHeapInsert</span><span class="p">(</span><span class="kt">int</span> <span class="n">node</span><span class="p">,</span> <span class="kt">int</span> <span class="n">key</span><span class="p">){</span>
 
