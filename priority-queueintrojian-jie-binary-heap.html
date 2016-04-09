@@ -254,7 +254,7 @@
     <span class="kt">int</span> <span class="nf">GetParentNode</span><span class="p">(</span><span class="kt">int</span> <span class="n">node</span><span class="p">){</span><span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">floor</span><span class="p">(</span><span class="n">node</span><span class="o">/</span><span class="mi">2</span><span class="p">);};</span>
 <span class="k">public</span><span class="o">:</span>
     <span class="n">BinaryHeap</span><span class="p">(){</span>               <span class="c1">// default constructor會把heap[0]給預留 </span>
-        <span class="n">heap</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>   <span class="c1">// 之後若新增HeapNode, 會從heap[1]開始新增</span>
+        <span class="n">heap</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>         <span class="c1">// 之後若新增HeapNode, 會從heap[1]開始新增</span>
     <span class="p">}</span>
     <span class="n">BinaryHeap</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">){</span>
         <span class="n">heap</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
