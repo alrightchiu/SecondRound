@@ -2405,6 +2405,7 @@ $$&lt;/div&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
+&lt;p&gt;備註：為了區別&lt;code&gt;element&lt;/code&gt;與&lt;code&gt;key&lt;/code&gt;，圖示中的&lt;code&gt;element&lt;/code&gt;是以「英文字母」表示，而&lt;code&gt;key&lt;/code&gt;用&lt;code&gt;int&lt;/code&gt;。不過這裡定義的&lt;code&gt;struct HeapNode&lt;/code&gt;之&lt;code&gt;element&lt;/code&gt;是以&lt;code&gt;int&lt;/code&gt;表示，主要是為了使這篇文章定義的&lt;strong&gt;Min-Priority Queue&lt;/strong&gt;可以在&lt;a href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathdijkstras-algorithm.html"&gt;Dijkstra's Algorithm&lt;/a&gt;直接複製貼上使用。&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;
 &lt;code&gt;class BinaryHeap&lt;/code&gt;之定義，以及所有成員函式(member function)之宣告如下：&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// C++ code&lt;/span&gt;
@@ -2722,7 +2723,7 @@ $$&lt;/div&gt;
 &lt;p&gt;由以上說明可以發現，在&lt;code&gt;MinHeapify()&lt;/code&gt;中，是「由上往下」對subtree進行修正，有的寫法會將此操作獨立成函式：&lt;strong&gt;SiftDown&lt;/strong&gt;；&lt;br /&gt;
 在&lt;code&gt;DecreaseKey()&lt;/code&gt;中，則是「由下往上」進行修正，此則稱為&lt;strong&gt;SiftUp&lt;/strong&gt;，範例請參考：&lt;a href="http://codereview.stackexchange.com/questions/42999/implementation-of-binary-heap-in-c"&gt;Code Review：Implementation of binary heap in C++&lt;/a&gt;。&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;  &lt;/p&gt;
-&lt;p&gt;以上便是以Binary Heap實現Min-Priority Queue之說明，後者將在許多應用出現，包括與Graph相關的&lt;strong&gt;Prim's Algorithm&lt;/strong&gt;和&lt;strong&gt;Dijkstra's Algorithm&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;以上便是以Binary Heap實現Min-Priority Queue之說明，後者將在許多應用出現，包括與Graph相關的&lt;strong&gt;Prim's Algorithm&lt;/strong&gt;和&lt;a href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathdijkstras-algorithm.html"&gt;Dijkstra's Algorithm&lt;/a&gt;。&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;hr /&gt;
 &lt;p&gt;&lt;a name="ref"&gt;&lt;/a&gt;&lt;/p&gt;

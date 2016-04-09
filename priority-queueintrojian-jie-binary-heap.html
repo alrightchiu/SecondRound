@@ -242,6 +242,7 @@
 </pre></div>
 
 
+<p>備註：為了區別<code>element</code>與<code>key</code>，圖示中的<code>element</code>是以「英文字母」表示，而<code>key</code>用<code>int</code>。不過這裡定義的<code>struct HeapNode</code>之<code>element</code>是以<code>int</code>表示，主要是為了使這篇文章定義的<strong>Min-Priority Queue</strong>可以在<a href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathdijkstras-algorithm.html">Dijkstra's Algorithm</a>直接複製貼上使用。</p>
 <p></br>
 <code>class BinaryHeap</code>之定義，以及所有成員函式(member function)之宣告如下：</p>
 <div class="highlight"><pre><span class="c1">// C++ code</span>
@@ -559,7 +560,7 @@
 <p>由以上說明可以發現，在<code>MinHeapify()</code>中，是「由上往下」對subtree進行修正，有的寫法會將此操作獨立成函式：<strong>SiftDown</strong>；<br />
 在<code>DecreaseKey()</code>中，則是「由下往上」進行修正，此則稱為<strong>SiftUp</strong>，範例請參考：<a href="http://codereview.stackexchange.com/questions/42999/implementation-of-binary-heap-in-c">Code Review：Implementation of binary heap in C++</a>。</p>
 <p></br>  </p>
-<p>以上便是以Binary Heap實現Min-Priority Queue之說明，後者將在許多應用出現，包括與Graph相關的<strong>Prim's Algorithm</strong>和<strong>Dijkstra's Algorithm</strong>。</p>
+<p>以上便是以Binary Heap實現Min-Priority Queue之說明，後者將在許多應用出現，包括與Graph相關的<strong>Prim's Algorithm</strong>和<a href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathdijkstras-algorithm.html">Dijkstra's Algorithm</a>。</p>
 <p></br></p>
 <hr />
 <p><a name="ref"></a></p>
