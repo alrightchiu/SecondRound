@@ -361,7 +361,14 @@
 </center></p>
 <p><code>BuildMinHeap()</code>之範例程式碼如下：</p>
 <ul>
-<li>input：給定一個任意矩陣<code>array[]</code>。</li>
+<li>input：給定一個任意矩陣<code>array[]</code>。<ul>
+<li>此處，任意矩陣<code>std::vector&lt;int&gt; array</code>，把<code>array</code>的<strong>index</strong>視為<code>element</code>，把<code>array</code>的<strong>數值</strong>視為<code>key</code>。<ul>
+<li>若array[] = {100, 27, 34, 56,...}，那麼element(0)就對應到key(100)，element(1)就對應到key(27)，element(2)就對應到key(34)，依此類推。</li>
+</ul>
+</li>
+<li>也可以把input令成<code>std::vector&lt;HeapNode&gt; array</code>，那麼每一個矩陣元素都有各自的<code>element</code>與<code>key</code>，依序放進<code>std::vector&lt;HeapNode&gt; heap</code>即可。</li>
+</ul>
+</li>
 <li><code>heap[]</code>初始化：先把<code>array[]</code>的資料放進<code>heap[]</code>，並將<code>heap[0]</code>閒置。</li>
 <li>接著對index(<span class="math">\(\lfloor N/2 \rfloor\)</span>)到index(<span class="math">\(1\)</span>)進行<code>MinHeapify()</code>。<br />
 </br></li>
@@ -369,9 +376,10 @@
 <div class="highlight"><pre><span class="c1">// C++ code</span>
 <span class="kt">void</span> <span class="n">BinaryHeap</span><span class="o">::</span><span class="n">BuildMinHeap</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">array</span><span class="p">){</span>
 
-    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">array</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>     <span class="c1">// 將array[]的資料放進 heap之矩陣中</span>
-        <span class="n">heap</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">].</span><span class="n">element</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>                 <span class="c1">// 並預留 heap[0] 不做使用</span>
-        <span class="n">heap</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">].</span><span class="n">key</span> <span class="o">=</span> <span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+    <span class="c1">// 將array[]的資料放進 heap之矩陣中, 並預留 heap[0] 不做使用</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">array</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>     
+        <span class="n">heap</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">].</span><span class="n">element</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>                 <span class="c1">// 把array[]的idx視為element</span>
+        <span class="n">heap</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">].</span><span class="n">key</span> <span class="o">=</span> <span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>              <span class="c1">// 把array[]的數值視為key</span>
     <span class="p">}</span>
     <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">heap</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">1</span> <span class="p">;</span> <span class="n">i</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">MinHeapify</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">heap</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>     <span class="c1">// length要減一, 因為heap從從1開始存放資料</span>
