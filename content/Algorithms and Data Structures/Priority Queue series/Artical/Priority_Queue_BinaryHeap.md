@@ -323,6 +323,7 @@ void BinaryHeap::MinHeapify(int node, int length){
         
     * 也可以把input令成`std::vector<HeapNode> array`，那麼每一個矩陣元素都有各自的`element`與`key`，依序放進`std::vector<HeapNode> heap`即可。
 
+
 * `heap[]`初始化：先把`array[]`的資料放進`heap[]`，並將`heap[0]`閒置。
 * 接著對index($\lfloor N/2 \rfloor$)到index($1$)進行`MinHeapify()`。  
 </br>
