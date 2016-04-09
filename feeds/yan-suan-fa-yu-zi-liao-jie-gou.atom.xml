@@ -2405,7 +2405,7 @@ $$&lt;/div&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;備註：為了區別&lt;code&gt;element&lt;/code&gt;與&lt;code&gt;key&lt;/code&gt;，圖示中的&lt;code&gt;element&lt;/code&gt;是以「英文字母」表示，而&lt;code&gt;key&lt;/code&gt;用&lt;code&gt;int&lt;/code&gt;。不過這裡定義的&lt;code&gt;struct HeapNode&lt;/code&gt;之&lt;code&gt;element&lt;/code&gt;是以&lt;code&gt;int&lt;/code&gt;表示，主要是為了使這篇文章定義的&lt;strong&gt;Min-Priority Queue&lt;/strong&gt;可以在&lt;a href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathdijkstras-algorithm.html"&gt;Dijkstra's Algorithm&lt;/a&gt;直接複製貼上使用。&lt;/p&gt;
+&lt;p&gt;備註：為了區別&lt;code&gt;element&lt;/code&gt;與&lt;code&gt;key&lt;/code&gt;，圖示中的&lt;code&gt;element&lt;/code&gt;是以「英文字母」表示，而&lt;code&gt;key&lt;/code&gt;用&lt;code&gt;int&lt;/code&gt;。不過這裡定義的&lt;code&gt;struct HeapNode&lt;/code&gt;之&lt;code&gt;element&lt;/code&gt;是以&lt;code&gt;int&lt;/code&gt;表示，主要是為了使這篇文章定義的&lt;strong&gt;Min-Priority Queue&lt;/strong&gt;可以在&lt;a href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathdijkstras-algorithm.html"&gt;Single-Source Shortest Path：Dijkstra's Algorithm&lt;/a&gt;直接複製貼上使用。&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;
 &lt;code&gt;class BinaryHeap&lt;/code&gt;之定義，以及所有成員函式(member function)之宣告如下：&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// C++ code&lt;/span&gt;
@@ -2735,6 +2735,7 @@ $$&lt;/div&gt;
 &lt;li&gt;&lt;a href="http://blog.yam.com/rockmanray/article/44952434"&gt;禪心劍氣相思骨：Priority Queue 解析1 - 從binary heap開始&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/binary-tree-introjian-jie.html"&gt;Binary Tree: Intro(簡介)&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://codereview.stackexchange.com/questions/42999/implementation-of-binary-heap-in-c"&gt;Code Review：Implementation of binary heap in C++&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathdijkstras-algorithm.html"&gt;Single-Source Shortest Path：Dijkstra's Algorithm&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://en.wikipedia.org/wiki/Priority_queue"&gt;Wikipedia：Priority Queue&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://en.wikipedia.org/wiki/Binary_heap"&gt;Wikipedia：Binary Heap&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
