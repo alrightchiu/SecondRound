@@ -453,13 +453,14 @@ int BinaryHeap::ExtractMin(){
         std::cout << "error: heap is empty\n";
         exit(-1);
     }
-    int min = heap[1].element;
+    int min = heap[1].element;    // 此時heap的第一個node具有最小key值
+                                  // 便以min記錄其element, 最後回傳min
     // delete the first element/vertex
     heap[1] = heap[heap.size()-1];            // 把最後一個element放到第一個位置,
     heap.erase(heap.begin()+heap.size()-1);   // 再刪除最後一個element
     MinHeapify(1, (int)heap.size());          // 目前, heap[1]具有最大Key, 需要進行調整
     
-    return min;
+    return min;       // 回傳heap中具有最小key的element
 }
 ```
 
@@ -476,7 +477,7 @@ int BinaryHeap::ExtractMin(){
     * 因為使用矩陣存放資料，所以只要有資料在Heap中的index，即可靠index對資料進行存取。
 * 因為是把資料的Key「降低」，因此，有可能使得原先資料所位於的subtree違反Min Heap規則，需要調整：
     * 假設被修改的資料是位於index($i$)的node($i$)，便比較node($i$)與其**parent**(也就是node($\lfloor i/2 \rfloor$))之Key值，
-    * 如果node($i$)之Key值較小，便交換index($i$)與index($\lfloor i/2 \rfloor$)上的資料(如同在`Minheapify()`中的交換`swap()`)。
+    * 如果node($i$)之Key值較小，便交換index($i$)與index($\lfloor i/2 \rfloor$)的資料(如同在`Minheapify()`中的交換`swap()`)。
     * 若node($i$)之Key值仍然比其**parent**之Key值大，表示，node($i$)所在之subtree仍滿足Min Heap規則，即可結束函式。
     * 還有，由於Heap的**root**是從index($1$)開始存放資料，若一路回溯**parent**直到index小於$1$，表示Heap中所有與「被修改的資料」有關之subtree都被檢查過了，可以結束函式。
 
@@ -503,7 +504,8 @@ int BinaryHeap::ExtractMin(){
 **圖五(c)。**
 </center>
 
-`DecreaseKey()`之範例程式碼如下：
+`DecreaseKey()`之範例程式碼如下：  
+(函式裡的`int node`與`struct HeapNode`的`element`具有相同意義)
 
 ```cpp
 // C++ code
@@ -553,7 +555,8 @@ void BinaryHeap::DecreaseKey(int node, int newKey){
 </center>
 
 
-`MinHeapInsert()`之範例程式碼如下：
+`MinHeapInsert()`之範例程式碼如下：  
+(函式裡的`int node`與`struct HeapNode`的`element`具有相同意義)
 
 ```cpp
 // C++ code
