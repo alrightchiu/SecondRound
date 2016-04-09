@@ -175,7 +175,7 @@ private:
     int GetParentNode(int node){return std::floor(node/2);};
 public:
     BinaryHeap(){				// default constructor會把heap[0]給預留 
-        heap.resize(1);   // 之後若新增HeapNode, 會從heap[1]開始新增
+        heap.resize(1);         // 之後若新增HeapNode, 會從heap[1]開始新增
     }
     BinaryHeap(int n){
         heap.resize(n + 1);
