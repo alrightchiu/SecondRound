@@ -2592,7 +2592,7 @@ $$&lt;/div&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;以及定義在&lt;code&gt;class BinaryHeap&lt;/code&gt;裡面的&lt;code&gt;InHeapEmpty()&lt;/code&gt;與&lt;code&gt;GetParentNode()&lt;/code&gt;，分別檢查Heap是否有資料，和回傳node(i)之&lt;strong&gt;parent&lt;/strong&gt;的index(&lt;span class="math"&gt;\(\lfloor i/2 \rfloor\)&lt;/span&gt;)：&lt;/p&gt;
+&lt;p&gt;以及定義在&lt;code&gt;class BinaryHeap&lt;/code&gt;裡面的&lt;code&gt;IsHeapEmpty()&lt;/code&gt;與&lt;code&gt;GetParentNode()&lt;/code&gt;，分別檢查Heap是否有資料，和回傳node(i)之&lt;strong&gt;parent&lt;/strong&gt;的index(&lt;span class="math"&gt;\(\lfloor i/2 \rfloor\)&lt;/span&gt;)：&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// C++ code&lt;/span&gt;
 &lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;BinaryHeap&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="p"&gt;...&lt;/span&gt;
