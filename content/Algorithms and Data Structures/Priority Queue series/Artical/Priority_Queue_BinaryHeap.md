@@ -419,11 +419,12 @@ int BinaryHeap::Minimum(){
 `ExtractMin()`的目的是「回傳具有最小Key的node之index」，並且將其從Heap中移除，步驟如下：
 
 * 確認Heap是否有資料，若沒有的話，便回傳**error：巧婦難為無米之炊**。
-* 若Heap中有資料，先以變數`min`讀取Min Heap中的**root**之資料內容，**root**即為Heap中具有最小Key值之node；
+* 若Heap中有資料，先以變數`min`記下Min Heap中的**root**之`element`，**root**即為Heap中具有最小Key值之node；
 * 接著把Heap中「最後一個node」之資料放進「第一個index位置」裡面，如此便從Heap中移除原先的「最小Key值node」；
 * 由於在上個步驟已經把原先位於「最後位置index」之node放進**root**之位置，便能夠直接刪除最後一個位置的記憶體位置，調整存放資料的`heap`；
     * 在此，因為使用了C++標準函式庫(STL)的`std::vector`，若要刪除`heap`的最後一個元素，只要只用成員函式(member function)：`std::vector::erase()`即可。  
     (關於`std::vector::erase`，請參考：[Cplusplus：std::vector::erase](http://www.cplusplus.com/reference/vector/vector/erase/))
+
 * 此時，**root**位置的node之Key極有可能比其兩個**child**之Key值還要大，有可能違反Min Heap規則，因此需要對其執行`MinHeapify()`。
 
 以圖四(a)為例，要取出Min Heap的**root**，也就是Key值為2的node(D)，並且將Min Heap中，位在最後一個index之node(C)放進**root**，然後利用`MinHeapify()`重新將Heap調整成Min heap，如圖四(b)。
