@@ -317,6 +317,9 @@ void BinaryHeap::MinHeapify(int node, int length){
 `BuildMinHeap()`之範例程式碼如下：
 
 * input：給定一個任意矩陣`array[]`。
+    * 此處，任意矩陣`std::vector<int> array`，把`array`的**index**視為`element`，把`array`的**數值**視為`key`。
+        * 若array[] = {100, 27, 34, 56,...}，那麼element(0)就對應到key(100)，element(1)就對應到key(27)，element(2)就對應到key(34)，依此類推。
+    * 也可以把input令成`std::vector<HeapNode> array`，那麼每一個矩陣元素都有各自的`element`與`key`，依序放進`std::vector<HeapNode> heap`即可。
 * `heap[]`初始化：先把`array[]`的資料放進`heap[]`，並將`heap[0]`閒置。
 * 接著對index($\lfloor N/2 \rfloor$)到index($1$)進行`MinHeapify()`。  
 </br>
@@ -324,16 +327,18 @@ void BinaryHeap::MinHeapify(int node, int length){
 ```cpp
 // C++ code
 void BinaryHeap::BuildMinHeap(std::vector<int> array){
-    
-    for (int i = 0; i < array.size(); i++) {     // 將array[]的資料放進 heap之矩陣中
-        heap[i + 1].element = i;                 // 並預留 heap[0] 不做使用
-        heap[i + 1].key = array[i];
+
+    // 將array[]的資料放進 heap之矩陣中, 並預留 heap[0] 不做使用
+    for (int i = 0; i < array.size(); i++) {     
+        heap[i + 1].element = i;                 // 把array[]的idx視為element
+        heap[i + 1].key = array[i];              // 把array[]的數值視為key
     }
     for (int i = (int)heap.size()/2; i >= 1 ; i--) {
         MinHeapify(i, (int)heap.size()-1);     // length要減一, 因為heap從從1開始存放資料
     }
 }
 ```
+
 
 
 <a name="other"></a>
