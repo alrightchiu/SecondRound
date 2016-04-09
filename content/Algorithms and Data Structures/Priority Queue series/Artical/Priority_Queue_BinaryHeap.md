@@ -160,6 +160,8 @@ struct HeapNode{
 };
 ```
 
+備註：為了區別`element`與`key`，圖示中的`element`是以「英文字母」表示，而`key`用`int`。不過這裡定義的`struct HeapNode`之`element`是以`int`表示，主要是為了使這篇文章定義的**Min-Priority Queue**可以在[Dijkstra's Algorithm](http://alrightchiu.github.io/SecondRound/single-source-shortest-pathdijkstras-algorithm.html)直接複製貼上使用。
+
 </br>
 `class BinaryHeap`之定義，以及所有成員函式(member function)之宣告如下：
 
@@ -580,7 +582,7 @@ void BinaryHeap::MinHeapInsert(int node, int key){
 
 </br>  
 
-以上便是以Binary Heap實現Min-Priority Queue之說明，後者將在許多應用出現，包括與Graph相關的**Prim's Algorithm**和**Dijkstra's Algorithm**。
+以上便是以Binary Heap實現Min-Priority Queue之說明，後者將在許多應用出現，包括與Graph相關的**Prim's Algorithm**和[Dijkstra's Algorithm](http://alrightchiu.github.io/SecondRound/single-source-shortest-pathdijkstras-algorithm.html)。
 
 </br>
 
