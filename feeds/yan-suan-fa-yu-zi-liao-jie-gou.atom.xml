@@ -2433,7 +2433,7 @@ $$&lt;/div&gt;
     &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;Minimum&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;                  &lt;span class="c1"&gt;// 回傳vertex的位置index&lt;/span&gt;
     &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;ExtractMin&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;               &lt;span class="c1"&gt;// 回傳vertex的位置index&lt;/span&gt;
 
-&lt;span class="c1"&gt;//    void HeapSortSmalltoLarge();&lt;/span&gt;
+    &lt;span class="c1"&gt;// void HeapSort();&lt;/span&gt;
 
     &lt;span class="c1"&gt;// Max-Priority Queue&lt;/span&gt;
     &lt;span class="p"&gt;...&lt;/span&gt;
@@ -2531,7 +2531,7 @@ $$&lt;/div&gt;
 &lt;li&gt;
 &lt;p&gt;此處給定&lt;code&gt;std::vector&amp;lt;int&amp;gt; array&lt;/code&gt;，把&lt;code&gt;array&lt;/code&gt;的&lt;strong&gt;index&lt;/strong&gt;視為&lt;code&gt;element&lt;/code&gt;，把&lt;code&gt;array&lt;/code&gt;的&lt;strong&gt;數值&lt;/strong&gt;視為&lt;code&gt;key&lt;/code&gt;。&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;若array[] = {100, 27, 34, 56,...}，那麼key(100)就對應到element(0)，key(27)對應到element(1)，key(34)對應到element(2)，依此類推。&lt;/li&gt;
+&lt;li&gt;若array[] = {&lt;span class="math"&gt;\(100,27,34,56,...\)&lt;/span&gt;}，那麼key(&lt;span class="math"&gt;\(100\)&lt;/span&gt;)就對應到element(&lt;span class="math"&gt;\(0\)&lt;/span&gt;)，key(&lt;span class="math"&gt;\(27\)&lt;/span&gt;)對應到element(&lt;span class="math"&gt;\(1\)&lt;/span&gt;)，key(&lt;span class="math"&gt;\(34\)&lt;/span&gt;)對應到element(&lt;span class="math"&gt;\(2\)&lt;/span&gt;)，依此類推。&lt;/li&gt;
 &lt;li&gt;例如在&lt;strong&gt;Graph&lt;/strong&gt;問題中，&lt;code&gt;array&lt;/code&gt;的&lt;strong&gt;index&lt;/strong&gt;時常對應到「特定的vertex」，例如&lt;code&gt;BFS()&lt;/code&gt;的&lt;code&gt;distance[]&lt;/code&gt;，&lt;code&gt;distance[1]&lt;/code&gt;即表示「從起點vertex走到vertex(1)」的距離，因此不需要特別使用&lt;code&gt;struct HeapNode&lt;/code&gt;表示&lt;code&gt;array&lt;/code&gt;的矩陣元素。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;

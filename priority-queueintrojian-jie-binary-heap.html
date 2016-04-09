@@ -269,7 +269,7 @@
     <span class="kt">int</span> <span class="nf">Minimum</span><span class="p">();</span>                  <span class="c1">// 回傳vertex的位置index</span>
     <span class="kt">int</span> <span class="nf">ExtractMin</span><span class="p">();</span>               <span class="c1">// 回傳vertex的位置index</span>
 
-<span class="c1">//    void HeapSortSmalltoLarge();</span>
+    <span class="c1">// void HeapSort();</span>
 
     <span class="c1">// Max-Priority Queue</span>
     <span class="p">...</span>
@@ -367,7 +367,7 @@
 <li>
 <p>此處給定<code>std::vector&lt;int&gt; array</code>，把<code>array</code>的<strong>index</strong>視為<code>element</code>，把<code>array</code>的<strong>數值</strong>視為<code>key</code>。</p>
 <ul>
-<li>若array[] = {100, 27, 34, 56,...}，那麼key(100)就對應到element(0)，key(27)對應到element(1)，key(34)對應到element(2)，依此類推。</li>
+<li>若array[] = {<span class="math">\(100,27,34,56,...\)</span>}，那麼key(<span class="math">\(100\)</span>)就對應到element(<span class="math">\(0\)</span>)，key(<span class="math">\(27\)</span>)對應到element(<span class="math">\(1\)</span>)，key(<span class="math">\(34\)</span>)對應到element(<span class="math">\(2\)</span>)，依此類推。</li>
 <li>例如在<strong>Graph</strong>問題中，<code>array</code>的<strong>index</strong>時常對應到「特定的vertex」，例如<code>BFS()</code>的<code>distance[]</code>，<code>distance[1]</code>即表示「從起點vertex走到vertex(1)」的距離，因此不需要特別使用<code>struct HeapNode</code>表示<code>array</code>的矩陣元素。</li>
 </ul>
 </li>
