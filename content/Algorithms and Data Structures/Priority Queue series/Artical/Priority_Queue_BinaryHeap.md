@@ -384,7 +384,7 @@ int BinaryHeap::FindPosition(int node){
     return idx;
 }
 ```
-以及定義在`class BinaryHeap`裡面的`InHeapEmpty()`與`GetParentNode()`，分別檢查Heap是否有資料，和回傳node(i)之**parent**的index($\lfloor i/2 \rfloor$)：
+以及定義在`class BinaryHeap`裡面的`IsHeapEmpty()`與`GetParentNode()`，分別檢查Heap是否有資料，和回傳node(i)之**parent**的index($\lfloor i/2 \rfloor$)：
 
 ```cpp
 // C++ code
