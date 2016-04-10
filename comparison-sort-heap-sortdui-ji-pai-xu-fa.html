@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="zh-hant">
+
+<head>
+            <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+
+        <title>Comparison Sort: Heap Sort(堆積排序法)</title>
+
+            <link href="http://alrightchiu.github.io/SecondRound/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Second Round Full Atom Feed" />
+            <link href="http://alrightchiu.github.io/SecondRound/feeds/yan-suan-fa-yu-zi-liao-jie-gou.atom.xml" type="application/atom+xml" rel="alternate" title="Second Round Categories Atom Feed" />
+
+        <!-- Bootstrap Core CSS -->
+        <link href="http://alrightchiu.github.io/SecondRound/theme/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="http://alrightchiu.github.io/SecondRound/theme/css/clean-blog.min.css" rel="stylesheet">
+
+        <!-- Code highlight color scheme -->
+            <link href="http://alrightchiu.github.io/SecondRound/theme/css/code_blocks/darkly.css" rel="stylesheet">
+
+
+        <!-- Custom Fonts -->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+
+
+
+        <meta name="tags" contents="C++" />
+        <meta name="tags" contents="Comparison Sort" />
+        <meta name="tags" contents="Sort" />
+        <meta name="tags" contents="Heap" />
+
+
+	                <meta property="og:locale" content="">
+		<meta property="og:site_name" content="Second Round">
+
+	<meta property="og:type" content="article">
+	<meta property="article:author" content="">
+	<meta property="og:url" content="http://alrightchiu.github.io/SecondRound/comparison-sort-heap-sortdui-ji-pai-xu-fa.html">
+	<meta property="og:title" content="Comparison Sort: Heap Sort(堆積排序法)">
+	<meta property="og:description" content="">
+	<meta property="og:image" content="http://alrightchiu.github.io/SecondRound/">
+	<meta property="article:published_time" content="2016-04-10 16:30:00+08:00">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://alrightchiu.github.io/SecondRound/">Second Round</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a href="http://alrightchiu.github.io/SecondRound/archives.html">Archives</a></li>
+                        <li><a href="http://alrightchiu.github.io/SecondRound/tags.html">Tags</a></li>
+
+                            <li><a href="http://alrightchiu.github.io/SecondRound/pages/about.html">About</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+        <header class="intro-header" style="background-image: url('http://alrightchiu.github.io/SecondRound/theme/images/post-bg.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>Comparison Sort: Heap Sort(堆積排序法)</h1>
+                        <span class="meta">Posted by
+                                <a href="http://alrightchiu.github.io/SecondRound/author/chiu-cc.html">Chiu CC</a>
+                             on  4 10, 2016
+                        </span>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    <!-- Post Content -->
+    <article>
+        <p></br></p>
+<h3>先備知識與注意事項</h3>
+<p>Sorting(排序)是基本的資料處理，舉例來說，進入圖書館的查詢系統，不論是想按照「出版日期」或是「相關程度」找書，都會得到「排序過」的結果。</p>
+<p>常見的<strong>Comparison Sort</strong>及其時間複雜度如表一，假設問題有<span class="math">\(N\)</span>筆資料：</p>
+<p><center></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Quick Sort &nbsp;&nbsp;</th>
+<th>Merge Sort &nbsp;&nbsp;</th>
+<th>Heap Sort&nbsp;&nbsp;</th>
+<th>Insertion Sort&nbsp;&nbsp;</th>
+<th>Selection Sort&nbsp;&nbsp;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>best case</td>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;<span class="math">\(N\log N\)</span> &nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;<span class="math">\(N\log N\)</span> &nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;<span class="math">\(N\log N\)</span> &nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="math">\(N\)</span>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="math">\(N^2\)</span></td>
+</tr>
+<tr>
+<td>average case &nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;<span class="math">\(N\log N\)</span>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;<span class="math">\(N\log N\)</span>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;<span class="math">\(N\log N\)</span>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="math">\(N^2\)</span>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="math">\(N^2\)</span></td>
+</tr>
+<tr>
+<td>worst case</td>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;<span class="math">\(N^2\)</span>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;<span class="math">\(N\log N\)</span>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;<span class="math">\(N\log N\)</span>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="math">\(N^2\)</span>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="math">\(N^2\)</span></td>
+</tr>
+</tbody>
+</table>
+<p><strong>表一：五種排序法之時間複雜度比較</strong></p>
+<p></center></p>
+<p><strong>Binary Heap</strong>可以分為Min Heap與Max Heap兩種。兩者用在排序上，僅僅是順序「由大到小」和「由小到大」的差別。  </p>
+<p>本篇文章將介紹以Max Heap實現<strong>Heap Sort(堆積排序法)</strong>的方法。</p>
+<p>有關Min Heap的內容，請參考<a href="http://alrightchiu.github.io/SecondRound/priority-queueintrojian-jie-binary-heap.html#bh">Priority Queue：Intro(簡介) &amp; Binary Heap</a>。</p>
+<hr />
+<h2>目錄</h2>
+<ul>
+<li><a href="#bh">Binary Heap(二元堆積)</a><ul>
+<li><a href="#heapify">函式：MaxHeapify</a></li>
+<li><a href="#build">函式：BuildMaxHeap</a></li>
+</ul>
+</li>
+<li><a href="#hs">Heap Sort(堆積排序法)</a></li>
+<li><a href="#code">程式碼</a></li>
+<li><a href="#ref">參考資料</a></li>
+<li><a href="#series">Comparison Sort系列文章</a></li>
+</ul>
+<p></br></p>
+<p><a name="bh"></a></p>
+<h2>Binary Heap(二元堆積)</h2>
+<p>Binary Heap有兩項基本特徵：</p>
+<p><strong>特徵一</strong>：Binary Heap之結構可以視作<strong>Complete Binary Tree</strong>。</p>
+<ul>
+<li>如圖一(a)，數值<span class="math">\(1~9\)</span>，一共有9個元素，按照<strong>Complete Binary Tree</strong>之順序規則，填滿位置<span class="math">\(1~9\)</span>，以index(<span class="math">\(1\)</span>)<span class="math">\(~\)</span>index(<span class="math">\(9\)</span>)表示。</li>
+</ul>
+<p>這樣的優點是方便尋找「parent-child」之關係，以index(<span class="math">\(i\)</span>)的node為例：</p>
+<ul>
+<li>其<strong>left child</strong>必定位在<strong>index(<span class="math">\(2i\)</span>)</strong>；</li>
+<li>其<strong>right child</strong>必定位在<strong>index(<span class="math">\(2i+1\)</span>)</strong>；</li>
+<li>其<strong>parent</strong>必定位在<strong>index(<span class="math">\(\lfloor i/2 \rfloor\)</span>)</strong>。</li>
+</ul>
+<p>以圖一(a)中位於index(<span class="math">\(3\)</span>)之node(<span class="math">\(8\)</span>)為例：</p>
+<ul>
+<li>其<strong>left child</strong>為index(<span class="math">\(6\)</span>)之node(<span class="math">\(2\)</span>)；</li>
+<li>其<strong>right child</strong>為index(<span class="math">\(7\)</span>)之node(<span class="math">\(3\)</span>)；</li>
+<li>其<strong>parent</strong>為index(<span class="math">\(1\)</span>)之node(<span class="math">\(9\)</span>)。</li>
+</ul>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/HeapSort/f1.png?raw=true" /></p>
+<p><strong>圖一(a)。</strong>
+</center></p>
+<p><strong>特徵二</strong>：若將位於index(<span class="math">\(i\)</span>)之node視為subtree之<strong>root</strong>，那麼，可將此Binary Heap分為兩類：</p>
+<ul>
+<li>
+<p><strong>Max Heap</strong>：在每一個subtree中，<strong>root</strong>之「數值」要比兩個<strong>child</strong>之「數值」還要大，見圖一(a)：</p>
+<ul>
+<li><span class="math">\(value(i)&gt;value(2i)\)</span></li>
+<li><span class="math">\(value(i)&gt;value(2i+1)\)</span></li>
+</ul>
+</li>
+<li>
+<p><strong>Min Heap</strong>：在每一個subtree中，<strong>root</strong>之「數值」要比兩個<strong>child</strong>之「數值」還要小，見圖一(b)：</p>
+<ul>
+<li><span class="math">\(value(i)&lt;value(2i)\)</span></li>
+<li><span class="math">\(value(i)&lt;value(2i+1)\)</span></li>
+</ul>
+</li>
+</ul>
+<p>特別注意：在同一個subtree裡，<strong>leftchild</strong>(index(<span class="math">\(2i\)</span>))與<strong>rightchild</strong>(index(<span class="math">\(2i+1\)</span>))的「數值」大小順序不重要，只要和<strong>root</strong>(index(<span class="math">\(i\)</span>))比較即可。<br />
+這也是Binary Heap與Binary Search Tree其中一項區別。</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/HeapSort/f2.png?raw=true" /></p>
+<p><strong>圖一(b)。</strong>
+</center></p>
+<p>要滿足Binary Heap特有的「parent-child」之關係，只要讓矩陣中index(<span class="math">\(0\)</span>)的位置閒置，從index(<span class="math">\(1\)</span>)開始存放資料，即可使用矩陣(array)來表示Binary Heap。</p>
+<p>接著介紹兩個函式，把任意矩陣轉換成Max Heap。</p>
+<p></br></p>
+<p><a name="heapify"></a></p>
+<h3>函式：MaxHeapify</h3>
+<p><code>MaxHeapify()</code>的功能，是要「由上而下」地，以Max Heap的規則(<strong>root</strong>的數值「大於」兩個<strong>child</strong>的數值)，調整矩陣。</p>
+<p>以圖二(a)為例，觀察subtree「index(<span class="math">\(2\)</span>)-index(<span class="math">\(4\)</span>)-index(<span class="math">\(5\)</span>)」之「數值」：</p>
+<ul>
+<li>root：index(<span class="math">\(i=2\)</span>)為<span class="math">\(1\)</span></li>
+<li>leftchild：index(<span class="math">\(2i=4\)</span>)為<span class="math">\(9\)</span></li>
+<li>rightchild：index(<span class="math">\(2i+1=5\)</span>)為<span class="math">\(4\)</span></li>
+</ul>
+<p>不符合Max Heap規則，所以要想辦法把這三個數值中的「最大值」，調整到index(<span class="math">\(i=2\)</span>)，也就是這棵subtree的<strong>root</strong>。</p>
+<p>方法如下：</p>
+<ul>
+<li>找到這三者的最大值，並以<code>int largest</code>記錄該最大值的index。<ul>
+<li>圖二(a)中，把<code>largest</code>記錄為index(<span class="math">\(4\)</span>)。</li>
+</ul>
+</li>
+<li>將index(root)與index(largest)這兩個node互換位置，如此一來，當前的subtree必定能滿足Max Heap規則。<ul>
+<li>圖二(b)中，將index(<span class="math">\(2\)</span>)與index(<span class="math">\(4\)</span>)的node互換。</li>
+<li>subtree「index(<span class="math">\(2\)</span>)-index(<span class="math">\(4\)</span>)-index(<span class="math">\(5\)</span>)」的數值分別為「<span class="math">\(9-1-4\)</span>」，符合Max Heap。</li>
+</ul>
+</li>
+<li>繼續以index(largest)當作新的subtree的root，檢查新的subtree是否符合Max Heap規則。<ul>
+<li>圖二(b)中，subtree「index(<span class="math">\(4\)</span>)-index(<span class="math">\(8\)</span>)-index(<span class="math">\(9\)</span>)」再次不滿足Max Heap，便重複上述步驟，得到圖二(c)。</li>
+</ul>
+</li>
+</ul>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/HeapSort/f3.png?raw=true" /></p>
+<p><strong>圖二(a)。</strong>
+</center></p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/HeapSort/f4.png?raw=true" /></p>
+<p><strong>圖二(b)。</strong>
+</center></p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/HeapSort/f5.png?raw=true" /></p>
+<p><strong>圖二(c)。</strong>
+</center></p>
+<p>如此一來，有被<code>MaxHeapify()</code>檢查過的subtree，都會符合Max Heap規則。</p>
+<p>因此，只要對所有「具有child的node」檢查一次<code>MaxHeapify()</code>，便能夠把一個任意矩陣調整成Max Heap，這就是下一個函式<code>BuildMaxHeap()</code>的功能。</p>
+<p></br></p>
+<p><a name="build"></a></p>
+<h3>函式：BuildMaxHeap</h3>
+<p>有了<code>MaxHeapify()</code>之後，只要對所有「具有child的node」進行<code>MaxHeapify()</code>，也就是位於index(<span class="math">\(1\)</span>)<span class="math">\(~\)</span>index(<span class="math">\(\lfloor N/2 \rfloor\)</span>)的node，就能夠將任意矩陣調整成Max Heap。</p>
+<ul>
+<li>以圖三為例，Binary Heap共有<span class="math">\(9\)</span>個node，便從index(<span class="math">\(4\)</span>)往index(<span class="math">\(1\)</span>)，逐一對node進行<code>MaxHeapify()</code>，即可得到Max Heap。</li>
+</ul>
+<p>為什麼只要對「具有child的node」調整呢？<br />
+因為Max Heap的規則是「比較root的數值與child的數值」，如果是沒有child的node(屬於<strong>leaf node</strong>)，就一定不會違反Max Heap的規則。</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/HeapSort/BuildMaxHeap.gif?raw=true" /></p>
+<p><strong>圖三。</strong>
+</center></p>
+<p></br></p>
+<p><a name="hs"></a></p>
+<h2>Heap Sort(堆積排序法)</h2>
+<p>經過<code>BuildMaxHeap()</code>之後，便能將任意矩陣調整成Max Heap。</p>
+<p>那麼要如何將此Max Heap做排序呢？</p>
+<p>Max Heap的特徵是「第一個node具有最大值」，如果要將資料「由小到大」印出，步驟如下：</p>
+<ol>
+<li>把「第一個node」和「最後一個node」互換位置。</li>
+<li><strong>假裝heap的「最後一個node」從此消失不見</strong>。</li>
+<li>對「第一個node」進行<code>MaxHeapify()</code>。</li>
+</ol>
+<p>重複以上步驟，從heap的最後一個node開始，一路往上，直到root，便能得到排好序的矩陣。</p>
+<p>以圖四(a)的Max Heap為例，現要將其調整成「由小到大」排好序的矩陣。</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/HeapSort/f17.png?raw=true" /></p>
+<p><strong>圖四(a)。</strong>
+</center></p>
+<p>首先，從「最後一個位置」開始，將index(<span class="math">\(9\)</span>)的node與index(<span class="math">\(1\)</span>)的node互換位置，見圖四(b)。<br />
+如此，便把「最大值」的node(<span class="math">\(9\)</span>)給放到最後一個位置，以及「不是最大值」的node(<span class="math">\(1\)</span>)換到第一個位置。</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/HeapSort/f18.png?raw=true" /></p>
+<p><strong>圖四(b)。</strong>
+</center></p>
+<p>接著，最重要的概念就是「假裝最後一個node消失不見」：</p>
+<ul>
+<li>因為此時，heap的「最後一個node」一定是「最大值」的node，也就表示，如果要得到「由小到大」的排序，那麼，此時即完成「最大值node」的調整。</li>
+</ul>
+<p>同時，目前的index(<span class="math">\(1\)</span>)的node一定不是「最大值」，所以要利用<code>MaxHeapify()</code>重新調整「矩陣」，使其符合Max Heap規則。</p>
+<p>並且，由於「假裝最後一個node消失不見」，所以，接下來要調整的「矩陣」，是「忽略index(<span class="math">\(9\)</span>)」的矩陣，因此只要考慮由「index(<span class="math">\(1\)</span>)<span class="math">\(~\)</span>index(<span class="math">\(8\)</span>)」所形成的矩陣即可。  </p>
+<ul>
+<li>圖四(c)中的<code>size</code>，即表示<code>MaxHeapify()</code>要處理的矩陣之<strong>size</strong>。</li>
+<li>此次的<code>MaxHeapify()</code>將會碰到subtree(index(<span class="math">\(1\)</span>)-index(<span class="math">\(2\)</span>)-index(<span class="math">\(3\)</span>))與subtree(index(<span class="math">\(3\)</span>)-index(<span class="math">\(6\)</span>)-index(<span class="math">\(7\)</span>))。</li>
+</ul>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/HeapSort/f19.png?raw=true" /></p>
+<p><strong>圖四(c)。</strong>
+</center></p>
+<p>經過圖四(c)的<code>MaxHeapify()</code>調整，由「index(<span class="math">\(1\)</span>)<span class="math">\(~\)</span>index(<span class="math">\(8\)</span>)」形成的矩陣，又再次滿足Max Heap，見圖四(d)。</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/HeapSort/f20.png?raw=true" /></p>
+<p><strong>圖四(d)。</strong>
+</center></p>
+<p>接著，再繼續重複上述步驟：</p>
+<ul>
+<li>交換「目前考慮的矩陣」的「最後一個位置node」與「第一個node」；</li>
+<li>以<code>MaxHeapify()</code>調整「目前考慮的矩陣」。</li>
+</ul>
+<p>便能得到「由小到大」排好序的矩陣，見圖四(e)。</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/HeapSort/HeapSort.gif?raw=true" /></p>
+<p><strong>圖四(e)。</strong>
+</center></p>
+<p></br></p>
+<p><a name="code"></a></p>
+<h2>程式碼</h2>
+<p>範例程式碼包含幾個部分：</p>
+<p><code>swap()</code>：執行「交換node」。因為要實質交換<code>array</code>中的資料，所以必須使用<strong>reference</strong>或使<strong>pointer</strong>作為函式的參數(argument)。</p>
+<p><code>MaxHeapify()</code>：「由上而下」，逐一檢查subtree，使subtree滿足Max Heap規則。函式的參數分別為</p>
+<ul>
+<li><code>array</code>：記錄heap的矩陣。</li>
+<li><code>root</code>：當前的subtree之root的index。</li>
+<li><code>length</code>：這是「目前要處理的矩陣」的長度，同時也用來判斷<strong>child</strong>是否超過矩陣長度。</li>
+</ul>
+<p><code>BuildMaxHeap()</code>：對所有「具有<strong>child</strong>的node」進行<code>MaxHeapify()</code>。</p>
+<p><code>HeapSort()</code>：將Max Heap轉換成「由小到大」排好序的矩陣。小細節：</p>
+<ul>
+<li>因為heap是從index(<span class="math">\(1\)</span>)開始儲存資料，所以要先把index(<span class="math">\(0\)</span>)給空下來，最後再將其刪除。</li>
+<li>這裡是利用<code>std::vector&lt;int&gt;</code>的成員函式(member function)「<code>insert()</code>」與「<code>erase()</code>」處理。
+關於<code>std::vector</code>，請參考：<a href="http://www.cplusplus.com/reference/vector/vector/">Cplusplus：std::vector</a>。</li>
+</ul>
+<p>以及<code>main()</code>，建立矩陣，並執行<code>HeapSort()</code>，驗證結果。</p>
+<div class="highlight"><pre><span class="c1">// C++ code</span>
+<span class="cp">#include &lt;iostream&gt;</span>
+<span class="cp">#include &lt;vector&gt;</span>
+
+<span class="kt">void</span> <span class="nf">swap</span><span class="p">(</span><span class="kt">int</span> <span class="o">&amp;</span><span class="n">p1</span><span class="p">,</span> <span class="kt">int</span> <span class="o">&amp;</span><span class="n">p2</span><span class="p">){</span>
+    <span class="kt">int</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">p1</span><span class="p">;</span>
+    <span class="n">p1</span> <span class="o">=</span> <span class="n">p2</span><span class="p">;</span>
+    <span class="n">p2</span> <span class="o">=</span> <span class="n">temp</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">MaxHeapify</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">array</span><span class="p">,</span> <span class="kt">int</span> <span class="n">root</span><span class="p">,</span> <span class="kt">int</span> <span class="n">length</span><span class="p">){</span>
+
+    <span class="kt">int</span> <span class="n">left</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">root</span><span class="p">,</span>      <span class="c1">// 取得left child</span>
+    <span class="n">right</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">root</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>     <span class="c1">// 取得right child</span>
+    <span class="n">largest</span><span class="p">;</span>                <span class="c1">// largest用來記錄包含root與child, 三者之中Key最大的node</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">left</span> <span class="o">&lt;=</span> <span class="n">length</span> <span class="o">&amp;&amp;</span> <span class="n">array</span><span class="p">[</span><span class="n">left</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">array</span><span class="p">[</span><span class="n">root</span><span class="p">])</span>
+        <span class="n">largest</span> <span class="o">=</span> <span class="n">left</span><span class="p">;</span>
+    <span class="k">else</span>
+        <span class="n">largest</span> <span class="o">=</span> <span class="n">root</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">right</span> <span class="o">&lt;=</span> <span class="n">length</span> <span class="o">&amp;&amp;</span> <span class="n">array</span><span class="p">[</span><span class="n">right</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">array</span><span class="p">[</span><span class="n">largest</span><span class="p">])</span>
+        <span class="n">largest</span> <span class="o">=</span> <span class="n">right</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">largest</span> <span class="o">!=</span> <span class="n">root</span><span class="p">)</span> <span class="p">{</span>                         <span class="c1">// 如果目前root的Key不是三者中的最大</span>
+        <span class="n">swap</span><span class="p">(</span><span class="n">array</span><span class="p">[</span><span class="n">largest</span><span class="p">],</span> <span class="n">array</span><span class="p">[</span><span class="n">root</span><span class="p">]);</span>         <span class="c1">// 就調換root與三者中Key最大的node之位置</span>
+        <span class="n">MaxHeapify</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">largest</span><span class="p">,</span> <span class="n">length</span><span class="p">);</span>        <span class="c1">// 調整新的subtree成Max Heap</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">BuildMaxHeap</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">array</span><span class="p">){</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">array</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">1</span> <span class="p">;</span> <span class="n">i</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">MaxHeapify</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">array</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>     <span class="c1">// length要減一, 因為heap從1開始存放資料</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">HeapSort</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">array</span><span class="p">){</span>
+
+    <span class="n">array</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">array</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="mi">0</span><span class="p">);</span>                     <span class="c1">// 將index(0)閒置</span>
+
+    <span class="n">BuildMaxHeap</span><span class="p">(</span><span class="n">array</span><span class="p">);</span>                                <span class="c1">// 將array調整成Max Heap</span>
+
+    <span class="kt">int</span> <span class="n">size</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">array</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>                    <span class="c1">// size用來記錄「目前要處理的矩陣」之長度</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">array</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">i</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">swap</span><span class="p">(</span><span class="n">array</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>                       <span class="c1">// 將最大值放到array的最後一個位置</span>
+        <span class="n">size</span><span class="o">--</span><span class="p">;</span>
+        <span class="n">MaxHeapify</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="p">);</span>                     <span class="c1">// 調整「忽略最後一個位置」的矩陣</span>
+    <span class="p">}</span>
+
+    <span class="n">array</span><span class="p">.</span><span class="n">erase</span><span class="p">(</span><span class="n">array</span><span class="p">.</span><span class="n">begin</span><span class="p">());</span>                         <span class="c1">// 將index(0)刪除</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">PrintArray</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">array</span><span class="p">){</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">array</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="kt">int</span> <span class="n">arr_heap</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">9</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">};</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">array</span><span class="p">(</span><span class="n">arr_heap</span><span class="p">,</span> <span class="n">arr_heap</span><span class="o">+</span><span class="k">sizeof</span><span class="p">(</span><span class="n">arr_heap</span><span class="p">)</span><span class="o">/</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span>
+
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;original:</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">PrintArray</span><span class="p">(</span><span class="n">array</span><span class="p">);</span>
+
+    <span class="n">HeapSort</span><span class="p">(</span><span class="n">array</span><span class="p">);</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;sorted:</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">PrintArray</span><span class="p">(</span><span class="n">array</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>output:</p>
+<div class="highlight"><pre><span class="nl">original</span><span class="p">:</span>
+<span class="mi">9</span> <span class="mi">4</span> <span class="mi">1</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">3</span> <span class="mi">8</span> <span class="mi">2</span> <span class="mi">5</span>
+<span class="nl">sorted</span><span class="p">:</span>
+<span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span>
+</pre></div>
+
+
+<p></br>  </p>
+<p>以上便是以Max Heap實現<strong>Heap Sort</strong>之介紹。</p>
+<p></br></p>
+<hr />
+<p><a name="ref"></a></p>
+<h3>參考資料：</h3>
+<ul>
+<li><a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844">Introduction to Algorithms, Ch6</a> </li>
+<li><a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376">Fundamentals of Data Structures in C++, Ch5, Ch9</a></li>
+<li><a href="http://alrightchiu.github.io/SecondRound/priority-queueintrojian-jie-binary-heap.html">Priority Queue：Intro(簡介) &amp; Binary Heap</a></li>
+<li><a href="http://www.cplusplus.com/reference/vector/vector/">Cplusplus：std::vector</a></li>
+</ul>
+<p><a name="series"></a></p>
+<p></br></p>
+<h3>Comparison Sort系列文章</h3>
+<p><a href="http://alrightchiu.github.io/SecondRound/comparison-sort-insertion-sortcha-ru-pai-xu-fa.html">Comparison Sort: Insertion Sort(插入排序法)</a> <br />
+<a href="http://alrightchiu.github.io/SecondRound/comparison-sort-quick-sortkuai-su-pai-xu-fa.html">Comparison Sort: Quick Sort(快速排序法)</a><br />
+<a href="">Comparison Sort: Heap Sort(堆積排序法)</a>  </p>
+<p>回到目錄：</p>
+<p><a href="http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html">目錄：演算法與資料結構</a></p>
+<p></br></p>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' && location_protocol !== 'https') location_protocol = 'https:';
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+    </article>
+
+        <div class="tags">
+            <p>tags: <a href="http://alrightchiu.github.io/SecondRound/tag/c.html">C++</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/comparison-sort.html">Comparison Sort</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/sort.html">Sort</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/heap.html">Heap</a>, </p>
+        </div>
+
+<hr>
+<div class="sharing">
+</div>
+    <hr>
+
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                            <li>
+                                <a href="https://github.com/alrightchiu">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                    </ul>
+<p class="copyright text-muted">
+    Blog powered by <a href="http://getpelican.com">Pelican</a>,
+    which takes great advantage of <a href="http://python.org">Python</a>.
+</p>                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="http://alrightchiu.github.io/SecondRound/theme/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="http://alrightchiu.github.io/SecondRound/theme/js/bootstrap.min.js"></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script src="http://alrightchiu.github.io/SecondRound/theme/js/clean-blog.min.js"></script>
+
+</body>
+
+</html>
