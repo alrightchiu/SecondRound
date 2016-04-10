@@ -92,7 +92,8 @@
 &lt;/table&gt;
 &lt;p&gt;&lt;strong&gt;表一：五種排序法之時間複雜度比較&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;/center&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Binary Heap&lt;/strong&gt;可以分為Min Heap與Max Heap兩種。兩者用在排序上，僅僅是順序「由大到小」和「由小到大」的差別。  &lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;br /&gt;
+&lt;strong&gt;Binary Heap&lt;/strong&gt;可以分為Min Heap與Max Heap兩種。兩者用在排序上，僅僅是順序「由大到小」和「由小到大」的差別。  &lt;/p&gt;
 &lt;p&gt;本篇文章將介紹以Max Heap實現&lt;strong&gt;Heap Sort(堆積排序法)&lt;/strong&gt;的方法。&lt;/p&gt;
 &lt;p&gt;有關Min Heap的內容，請參考&lt;a href="http://alrightchiu.github.io/SecondRound/priority-queueintrojian-jie-binary-heap.html#bh"&gt;Priority Queue：Intro(簡介) &amp;amp; Binary Heap&lt;/a&gt;。&lt;/p&gt;
 &lt;hr /&gt;
@@ -114,7 +115,7 @@
 &lt;p&gt;Binary Heap有兩項基本特徵：&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;特徵一&lt;/strong&gt;：Binary Heap之結構可以視作&lt;strong&gt;Complete Binary Tree&lt;/strong&gt;。&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;如圖一(a)，數值&lt;span class="math"&gt;\(1~9\)&lt;/span&gt;，一共有9個元素，按照&lt;strong&gt;Complete Binary Tree&lt;/strong&gt;之順序規則，填滿位置&lt;span class="math"&gt;\(1~9\)&lt;/span&gt;，以index(&lt;span class="math"&gt;\(1\)&lt;/span&gt;)&lt;span class="math"&gt;\(~\)&lt;/span&gt;index(&lt;span class="math"&gt;\(9\)&lt;/span&gt;)表示。&lt;/li&gt;
+&lt;li&gt;如圖一(a)，數值&lt;span class="math"&gt;\(1\)&lt;/span&gt;~&lt;span class="math"&gt;\(9\)&lt;/span&gt;，一共有9個元素，按照&lt;strong&gt;Complete Binary Tree&lt;/strong&gt;之順序規則，填滿位置&lt;span class="math"&gt;\(1\)&lt;/span&gt;~&lt;span class="math"&gt;\(9\)&lt;/span&gt;，以index(&lt;span class="math"&gt;\(1\)&lt;/span&gt;)~index(&lt;span class="math"&gt;\(9\)&lt;/span&gt;)表示。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;這樣的優點是方便尋找「parent-child」之關係，以index(&lt;span class="math"&gt;\(i\)&lt;/span&gt;)的node為例：&lt;/p&gt;
 &lt;ul&gt;
@@ -149,12 +150,12 @@
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;特別注意：在同一個subtree裡，&lt;strong&gt;leftchild&lt;/strong&gt;(index(&lt;span class="math"&gt;\(2i\)&lt;/span&gt;))與&lt;strong&gt;rightchild&lt;/strong&gt;(index(&lt;span class="math"&gt;\(2i+1\)&lt;/span&gt;))的「數值」大小順序不重要，只要和&lt;strong&gt;root&lt;/strong&gt;(index(&lt;span class="math"&gt;\(i\)&lt;/span&gt;))比較即可。&lt;br /&gt;
-這也是Binary Heap與Binary Search Tree其中一項區別。&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/HeapSort/f2.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖一(b)。&lt;/strong&gt;
 &lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;特別注意：在同一個subtree裡，&lt;strong&gt;leftchild&lt;/strong&gt;(index(&lt;span class="math"&gt;\(2i\)&lt;/span&gt;))與&lt;strong&gt;rightchild&lt;/strong&gt;(index(&lt;span class="math"&gt;\(2i+1\)&lt;/span&gt;))的「數值」大小順序不重要，只要和&lt;strong&gt;root&lt;/strong&gt;(index(&lt;span class="math"&gt;\(i\)&lt;/span&gt;))比較即可。&lt;br /&gt;
+這也是Binary Heap與Binary Search Tree其中一項區別。&lt;/p&gt;
 &lt;p&gt;要滿足Binary Heap特有的「parent-child」之關係，只要讓矩陣中index(&lt;span class="math"&gt;\(0\)&lt;/span&gt;)的位置閒置，從index(&lt;span class="math"&gt;\(1\)&lt;/span&gt;)開始存放資料，即可使用矩陣(array)來表示Binary Heap。&lt;/p&gt;
 &lt;p&gt;接著介紹兩個函式，把任意矩陣轉換成Max Heap。&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
@@ -216,7 +217,7 @@
 &lt;h2&gt;Heap Sort(堆積排序法)&lt;/h2&gt;
 &lt;p&gt;經過&lt;code&gt;BuildMaxHeap()&lt;/code&gt;之後，便能將任意矩陣調整成Max Heap。&lt;/p&gt;
 &lt;p&gt;那麼要如何將此Max Heap做排序呢？&lt;/p&gt;
-&lt;p&gt;Max Heap的特徵是「第一個node具有最大值」，如果要將資料「由小到大」印出，步驟如下：&lt;/p&gt;
+&lt;p&gt;Max Heap的特徵是「第一個node具有最大值」，如果要將資料「由小到大」排序，步驟如下：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;把「第一個node」和「最後一個node」互換位置。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;假裝heap的「最後一個node」從此消失不見&lt;/strong&gt;。&lt;/li&gt;
@@ -236,10 +237,10 @@
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;接著，最重要的概念就是「假裝最後一個node消失不見」：&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;因為此時，heap的「最後一個node」一定是「最大值」的node，也就表示，如果要得到「由小到大」的排序，那麼，此時即完成「最大值node」的調整。&lt;/li&gt;
+&lt;li&gt;因為此時，heap的「最後一個node」一定是「最大值」的node，也就表示，如果要得到「由小到大」的排序，那麼，此時便已經完成「最大值node」的調整。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;同時，目前的index(&lt;span class="math"&gt;\(1\)&lt;/span&gt;)的node一定不是「最大值」，所以要利用&lt;code&gt;MaxHeapify()&lt;/code&gt;重新調整「矩陣」，使其符合Max Heap規則。&lt;/p&gt;
-&lt;p&gt;並且，由於「假裝最後一個node消失不見」，所以，接下來要調整的「矩陣」，是「忽略index(&lt;span class="math"&gt;\(9\)&lt;/span&gt;)」的矩陣，因此只要考慮由「index(&lt;span class="math"&gt;\(1\)&lt;/span&gt;)&lt;span class="math"&gt;\(~\)&lt;/span&gt;index(&lt;span class="math"&gt;\(8\)&lt;/span&gt;)」所形成的矩陣即可。  &lt;/p&gt;
+&lt;p&gt;又因為「假裝最後一個node消失不見」，所以，接下來要調整的「矩陣」，是「忽略index(&lt;span class="math"&gt;\(9\)&lt;/span&gt;)」的矩陣，因此只要考慮由「index(&lt;span class="math"&gt;\(1\)&lt;/span&gt;)~index(&lt;span class="math"&gt;\(8\)&lt;/span&gt;)」所形成的矩陣即可。  &lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;圖四(c)中的&lt;code&gt;size&lt;/code&gt;，即表示&lt;code&gt;MaxHeapify()&lt;/code&gt;要處理的矩陣之&lt;strong&gt;size&lt;/strong&gt;。&lt;/li&gt;
 &lt;li&gt;此次的&lt;code&gt;MaxHeapify()&lt;/code&gt;將會碰到subtree(index(&lt;span class="math"&gt;\(1\)&lt;/span&gt;)-index(&lt;span class="math"&gt;\(2\)&lt;/span&gt;)-index(&lt;span class="math"&gt;\(3\)&lt;/span&gt;))與subtree(index(&lt;span class="math"&gt;\(3\)&lt;/span&gt;)-index(&lt;span class="math"&gt;\(6\)&lt;/span&gt;)-index(&lt;span class="math"&gt;\(7\)&lt;/span&gt;))。&lt;/li&gt;
@@ -248,7 +249,7 @@
 &lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/HeapSort/f19.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖四(c)。&lt;/strong&gt;
 &lt;/center&gt;&lt;/p&gt;
-&lt;p&gt;經過圖四(c)的&lt;code&gt;MaxHeapify()&lt;/code&gt;調整，由「index(&lt;span class="math"&gt;\(1\)&lt;/span&gt;)&lt;span class="math"&gt;\(~\)&lt;/span&gt;index(&lt;span class="math"&gt;\(8\)&lt;/span&gt;)」形成的矩陣，又再次滿足Max Heap，見圖四(d)。&lt;/p&gt;
+&lt;p&gt;經過圖四(c)的&lt;code&gt;MaxHeapify()&lt;/code&gt;調整，由「index(&lt;span class="math"&gt;\(1\)&lt;/span&gt;)~index(&lt;span class="math"&gt;\(8\)&lt;/span&gt;)」形成的矩陣，又再次滿足Max Heap，見圖四(d)。&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/HeapSort/f20.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖四(d)。&lt;/strong&gt;
@@ -351,6 +352,7 @@
     &lt;span class="n"&gt;PrintArray&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;array&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 
     &lt;span class="n"&gt;HeapSort&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;array&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
     &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;sorted:&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
     &lt;span class="n"&gt;PrintArray&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;array&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 

@@ -156,7 +156,8 @@
 </table>
 <p><strong>表一：五種排序法之時間複雜度比較</strong></p>
 <p></center></p>
-<p><strong>Binary Heap</strong>可以分為Min Heap與Max Heap兩種。兩者用在排序上，僅僅是順序「由大到小」和「由小到大」的差別。  </p>
+<p></br><br />
+<strong>Binary Heap</strong>可以分為Min Heap與Max Heap兩種。兩者用在排序上，僅僅是順序「由大到小」和「由小到大」的差別。  </p>
 <p>本篇文章將介紹以Max Heap實現<strong>Heap Sort(堆積排序法)</strong>的方法。</p>
 <p>有關Min Heap的內容，請參考<a href="http://alrightchiu.github.io/SecondRound/priority-queueintrojian-jie-binary-heap.html#bh">Priority Queue：Intro(簡介) &amp; Binary Heap</a>。</p>
 <hr />
@@ -178,7 +179,7 @@
 <p>Binary Heap有兩項基本特徵：</p>
 <p><strong>特徵一</strong>：Binary Heap之結構可以視作<strong>Complete Binary Tree</strong>。</p>
 <ul>
-<li>如圖一(a)，數值<span class="math">\(1~9\)</span>，一共有9個元素，按照<strong>Complete Binary Tree</strong>之順序規則，填滿位置<span class="math">\(1~9\)</span>，以index(<span class="math">\(1\)</span>)<span class="math">\(~\)</span>index(<span class="math">\(9\)</span>)表示。</li>
+<li>如圖一(a)，數值<span class="math">\(1\)</span>~<span class="math">\(9\)</span>，一共有9個元素，按照<strong>Complete Binary Tree</strong>之順序規則，填滿位置<span class="math">\(1\)</span>~<span class="math">\(9\)</span>，以index(<span class="math">\(1\)</span>)~index(<span class="math">\(9\)</span>)表示。</li>
 </ul>
 <p>這樣的優點是方便尋找「parent-child」之關係，以index(<span class="math">\(i\)</span>)的node為例：</p>
 <ul>
@@ -213,12 +214,12 @@
 </ul>
 </li>
 </ul>
-<p>特別注意：在同一個subtree裡，<strong>leftchild</strong>(index(<span class="math">\(2i\)</span>))與<strong>rightchild</strong>(index(<span class="math">\(2i+1\)</span>))的「數值」大小順序不重要，只要和<strong>root</strong>(index(<span class="math">\(i\)</span>))比較即可。<br />
-這也是Binary Heap與Binary Search Tree其中一項區別。</p>
 <p><center>
 <img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/HeapSort/f2.png?raw=true" /></p>
 <p><strong>圖一(b)。</strong>
 </center></p>
+<p>特別注意：在同一個subtree裡，<strong>leftchild</strong>(index(<span class="math">\(2i\)</span>))與<strong>rightchild</strong>(index(<span class="math">\(2i+1\)</span>))的「數值」大小順序不重要，只要和<strong>root</strong>(index(<span class="math">\(i\)</span>))比較即可。<br />
+這也是Binary Heap與Binary Search Tree其中一項區別。</p>
 <p>要滿足Binary Heap特有的「parent-child」之關係，只要讓矩陣中index(<span class="math">\(0\)</span>)的位置閒置，從index(<span class="math">\(1\)</span>)開始存放資料，即可使用矩陣(array)來表示Binary Heap。</p>
 <p>接著介紹兩個函式，把任意矩陣轉換成Max Heap。</p>
 <p></br></p>
@@ -280,7 +281,7 @@
 <h2>Heap Sort(堆積排序法)</h2>
 <p>經過<code>BuildMaxHeap()</code>之後，便能將任意矩陣調整成Max Heap。</p>
 <p>那麼要如何將此Max Heap做排序呢？</p>
-<p>Max Heap的特徵是「第一個node具有最大值」，如果要將資料「由小到大」印出，步驟如下：</p>
+<p>Max Heap的特徵是「第一個node具有最大值」，如果要將資料「由小到大」排序，步驟如下：</p>
 <ol>
 <li>把「第一個node」和「最後一個node」互換位置。</li>
 <li><strong>假裝heap的「最後一個node」從此消失不見</strong>。</li>
@@ -300,10 +301,10 @@
 </center></p>
 <p>接著，最重要的概念就是「假裝最後一個node消失不見」：</p>
 <ul>
-<li>因為此時，heap的「最後一個node」一定是「最大值」的node，也就表示，如果要得到「由小到大」的排序，那麼，此時即完成「最大值node」的調整。</li>
+<li>因為此時，heap的「最後一個node」一定是「最大值」的node，也就表示，如果要得到「由小到大」的排序，那麼，此時便已經完成「最大值node」的調整。</li>
 </ul>
 <p>同時，目前的index(<span class="math">\(1\)</span>)的node一定不是「最大值」，所以要利用<code>MaxHeapify()</code>重新調整「矩陣」，使其符合Max Heap規則。</p>
-<p>並且，由於「假裝最後一個node消失不見」，所以，接下來要調整的「矩陣」，是「忽略index(<span class="math">\(9\)</span>)」的矩陣，因此只要考慮由「index(<span class="math">\(1\)</span>)<span class="math">\(~\)</span>index(<span class="math">\(8\)</span>)」所形成的矩陣即可。  </p>
+<p>又因為「假裝最後一個node消失不見」，所以，接下來要調整的「矩陣」，是「忽略index(<span class="math">\(9\)</span>)」的矩陣，因此只要考慮由「index(<span class="math">\(1\)</span>)~index(<span class="math">\(8\)</span>)」所形成的矩陣即可。  </p>
 <ul>
 <li>圖四(c)中的<code>size</code>，即表示<code>MaxHeapify()</code>要處理的矩陣之<strong>size</strong>。</li>
 <li>此次的<code>MaxHeapify()</code>將會碰到subtree(index(<span class="math">\(1\)</span>)-index(<span class="math">\(2\)</span>)-index(<span class="math">\(3\)</span>))與subtree(index(<span class="math">\(3\)</span>)-index(<span class="math">\(6\)</span>)-index(<span class="math">\(7\)</span>))。</li>
@@ -312,7 +313,7 @@
 <img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/HeapSort/f19.png?raw=true" /></p>
 <p><strong>圖四(c)。</strong>
 </center></p>
-<p>經過圖四(c)的<code>MaxHeapify()</code>調整，由「index(<span class="math">\(1\)</span>)<span class="math">\(~\)</span>index(<span class="math">\(8\)</span>)」形成的矩陣，又再次滿足Max Heap，見圖四(d)。</p>
+<p>經過圖四(c)的<code>MaxHeapify()</code>調整，由「index(<span class="math">\(1\)</span>)~index(<span class="math">\(8\)</span>)」形成的矩陣，又再次滿足Max Heap，見圖四(d)。</p>
 <p><center>
 <img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/HeapSort/f20.png?raw=true" /></p>
 <p><strong>圖四(d)。</strong>
@@ -415,6 +416,7 @@
     <span class="n">PrintArray</span><span class="p">(</span><span class="n">array</span><span class="p">);</span>
 
     <span class="n">HeapSort</span><span class="p">(</span><span class="n">array</span><span class="p">);</span>
+
     <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;sorted:</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
     <span class="n">PrintArray</span><span class="p">(</span><span class="n">array</span><span class="p">);</span>
 
