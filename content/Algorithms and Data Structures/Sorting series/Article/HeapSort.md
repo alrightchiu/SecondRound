@@ -24,6 +24,7 @@ Sorting(排序)是基本的資料處理，舉例來說，進入圖書館的查�
 
 </center>
 
+</br>  
 **Binary Heap**可以分為Min Heap與Max Heap兩種。兩者用在排序上，僅僅是順序「由大到小」和「由小到大」的差別。  
 
 本篇文章將介紹以Max Heap實現**Heap Sort(堆積排序法)**的方法。
@@ -54,7 +55,7 @@ Binary Heap有兩項基本特徵：
 
 **特徵一**：Binary Heap之結構可以視作**Complete Binary Tree**。
 
-* 如圖一(a)，數值$1~9$，一共有9個元素，按照**Complete Binary Tree**之順序規則，填滿位置$1~9$，以index($1$)$~$index($9$)表示。
+* 如圖一(a)，數值$1$~$9$，一共有9個元素，按照**Complete Binary Tree**之順序規則，填滿位置$1$~$9$，以index($1$)~index($9$)表示。
 
 這樣的優點是方便尋找「parent-child」之關係，以index($i$)的node為例：
 
@@ -84,15 +85,14 @@ Binary Heap有兩項基本特徵：
     * $value(i)<value(2i)$
     * $value(i)<value(2i+1)$
 
-特別注意：在同一個subtree裡，**leftchild**(index($2i$))與**rightchild**(index($2i+1$))的「數值」大小順序不重要，只要和**root**(index($i$))比較即可。  
-這也是Binary Heap與Binary Search Tree其中一項區別。
-
 <center>
 ![cc][f2]
 
 **圖一(b)。**
 </center>
 
+特別注意：在同一個subtree裡，**leftchild**(index($2i$))與**rightchild**(index($2i+1$))的「數值」大小順序不重要，只要和**root**(index($i$))比較即可。  
+這也是Binary Heap與Binary Search Tree其中一項區別。
 
 要滿足Binary Heap特有的「parent-child」之關係，只要讓矩陣中index($0$)的位置閒置，從index($1$)開始存放資料，即可使用矩陣(array)來表示Binary Heap。
 
@@ -150,9 +150,6 @@ Binary Heap有兩項基本特徵：
 因此，只要對所有「具有child的node」檢查一次`MaxHeapify()`，便能夠把一個任意矩陣調整成Max Heap，這就是下一個函式`BuildMaxHeap()`的功能。
 
 
-
-
-
 </br>
 
 <a name="build"></a>
@@ -185,7 +182,7 @@ Binary Heap有兩項基本特徵：
 
 那麼要如何將此Max Heap做排序呢？
 
-Max Heap的特徵是「第一個node具有最大值」，如果要將資料「由小到大」印出，步驟如下：
+Max Heap的特徵是「第一個node具有最大值」，如果要將資料「由小到大」排序，步驟如下：
 
 1. 把「第一個node」和「最後一個node」互換位置。
 2. **假裝heap的「最後一個node」從此消失不見**。
@@ -212,11 +209,11 @@ Max Heap的特徵是「第一個node具有最大值」，如果要將資料「�
 
 接著，最重要的概念就是「假裝最後一個node消失不見」：
 
-* 因為此時，heap的「最後一個node」一定是「最大值」的node，也就表示，如果要得到「由小到大」的排序，那麼，此時即完成「最大值node」的調整。
+* 因為此時，heap的「最後一個node」一定是「最大值」的node，也就表示，如果要得到「由小到大」的排序，那麼，此時便已經完成「最大值node」的調整。
 
 同時，目前的index($1$)的node一定不是「最大值」，所以要利用`MaxHeapify()`重新調整「矩陣」，使其符合Max Heap規則。
 
-並且，由於「假裝最後一個node消失不見」，所以，接下來要調整的「矩陣」，是「忽略index($9$)」的矩陣，因此只要考慮由「index($1$)$~$index($8$)」所形成的矩陣即可。  
+又因為「假裝最後一個node消失不見」，所以，接下來要調整的「矩陣」，是「忽略index($9$)」的矩陣，因此只要考慮由「index($1$)~index($8$)」所形成的矩陣即可。  
 
 * 圖四(c)中的`size`，即表示`MaxHeapify()`要處理的矩陣之**size**。
 * 此次的`MaxHeapify()`將會碰到subtree(index($1$)-index($2$)-index($3$))與subtree(index($3$)-index($6$)-index($7$))。
@@ -228,7 +225,7 @@ Max Heap的特徵是「第一個node具有最大值」，如果要將資料「�
 **圖四(c)。**
 </center>
 
-經過圖四(c)的`MaxHeapify()`調整，由「index($1$)$~$index($8$)」形成的矩陣，又再次滿足Max Heap，見圖四(d)。
+經過圖四(c)的`MaxHeapify()`調整，由「index($1$)~index($8$)」形成的矩陣，又再次滿足Max Heap，見圖四(d)。
 
 
 <center>
@@ -348,6 +345,7 @@ int main() {
     PrintArray(array);
 
     HeapSort(array);
+    
     std::cout << "sorted:\n";
     PrintArray(array);
 
