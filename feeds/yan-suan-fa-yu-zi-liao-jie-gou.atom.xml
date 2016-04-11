@@ -491,7 +491,8 @@
 &lt;/table&gt;
 &lt;p&gt;&lt;strong&gt;表一：五種排序法之時間複雜度比較&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;/center&gt;&lt;/p&gt;
-&lt;p&gt;本篇文章將介紹&lt;strong&gt;Quick Sort(快速排序法)&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;br /&gt;
+本篇文章將介紹&lt;strong&gt;Quick Sort(快速排序法)&lt;/strong&gt;。&lt;/p&gt;
 &lt;hr /&gt;
 &lt;h2&gt;目錄&lt;/h2&gt;
 &lt;ul&gt;
@@ -890,7 +891,8 @@
 &lt;/table&gt;
 &lt;p&gt;&lt;strong&gt;表一：五種排序法之時間複雜度比較&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;/center&gt;&lt;/p&gt;
-&lt;p&gt;本篇文章將介紹&lt;strong&gt;Insertion Sort(插入排序法)&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;  &lt;br /&gt;
+本篇文章將介紹&lt;strong&gt;Insertion Sort(插入排序法)&lt;/strong&gt;。&lt;/p&gt;
 &lt;hr /&gt;
 &lt;h2&gt;目錄&lt;/h2&gt;
 &lt;ul&gt;
