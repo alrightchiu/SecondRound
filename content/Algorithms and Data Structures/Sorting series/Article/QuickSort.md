@@ -334,14 +334,14 @@ void PrintArray(int *arr, int size){
 int main() {
     
     int n = 9;
-    int arr_quick[] = {9, 4, 1, 6, 7, 3, 8, 2, 5};
+    int arr[] = {9, 4, 1, 6, 7, 3, 8, 2, 5};
     std::cout << "original:\n";
-    PrintArray(arr_quick, n);
+    PrintArray(arr, n);
 
-    QuickSort(arr_quick, 0, n-1);
+    QuickSort(arr, 0, n-1);
     
     std::cout << "sorted:\n";
-    PrintArray(arr_quick, n);
+    PrintArray(arr, n);
     return 0;
 }
 ```

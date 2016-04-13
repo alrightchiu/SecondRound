@@ -338,8 +338,8 @@ void PrintArray(std::vector<int> &array){
 
 int main() {
 
-    int arr_heap[] = {9, 4, 1, 6, 7, 3, 8, 2, 5};
-    std::vector<int> array(arr_heap, arr_heap+sizeof(arr_heap)/sizeof(int));
+    int arr = {9, 4, 1, 6, 7, 3, 8, 2, 5};
+    std::vector<int> array(arr, arr+sizeof(arr)/sizeof(int));
     
     std::cout << "original:\n";
     PrintArray(array);
