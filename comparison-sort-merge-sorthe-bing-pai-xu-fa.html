@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="zh-hant">
+
+<head>
+            <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+
+        <title>Comparison Sort: Merge Sort(合併排序法)</title>
+
+            <link href="http://alrightchiu.github.io/SecondRound/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Second Round Full Atom Feed" />
+            <link href="http://alrightchiu.github.io/SecondRound/feeds/yan-suan-fa-yu-zi-liao-jie-gou.atom.xml" type="application/atom+xml" rel="alternate" title="Second Round Categories Atom Feed" />
+
+        <!-- Bootstrap Core CSS -->
+        <link href="http://alrightchiu.github.io/SecondRound/theme/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="http://alrightchiu.github.io/SecondRound/theme/css/clean-blog.min.css" rel="stylesheet">
+
+        <!-- Code highlight color scheme -->
+            <link href="http://alrightchiu.github.io/SecondRound/theme/css/code_blocks/darkly.css" rel="stylesheet">
+
+
+        <!-- Custom Fonts -->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+
+
+
+        <meta name="tags" contents="C++" />
+        <meta name="tags" contents="Comparison Sort" />
+        <meta name="tags" contents="Sort" />
+        <meta name="tags" contents="Divide and Conquer" />
+
+
+	                <meta property="og:locale" content="">
+		<meta property="og:site_name" content="Second Round">
+
+	<meta property="og:type" content="article">
+	<meta property="article:author" content="">
+	<meta property="og:url" content="http://alrightchiu.github.io/SecondRound/comparison-sort-merge-sorthe-bing-pai-xu-fa.html">
+	<meta property="og:title" content="Comparison Sort: Merge Sort(合併排序法)">
+	<meta property="og:description" content="">
+	<meta property="og:image" content="http://alrightchiu.github.io/SecondRound/">
+	<meta property="article:published_time" content="2016-04-13 17:46:00+08:00">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://alrightchiu.github.io/SecondRound/">Second Round</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a href="http://alrightchiu.github.io/SecondRound/archives.html">Archives</a></li>
+                        <li><a href="http://alrightchiu.github.io/SecondRound/tags.html">Tags</a></li>
+
+                            <li><a href="http://alrightchiu.github.io/SecondRound/pages/about.html">About</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+        <header class="intro-header" style="background-image: url('http://alrightchiu.github.io/SecondRound/theme/images/post-bg.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>Comparison Sort: Merge Sort(合併排序法)</h1>
+                        <span class="meta">Posted by
+                                <a href="http://alrightchiu.github.io/SecondRound/author/chiu-cc.html">Chiu CC</a>
+                             on  4 13, 2016
+                        </span>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    <!-- Post Content -->
+    <article>
+        <p></br></p>
+<h3>先備知識與注意事項</h3>
+<p>Sorting(排序)是基本的資料處理，舉例來說，進入圖書館的查詢系統，不論是想按照「出版日期」或是「相關程度」找書，都會得到「排序過」的結果。</p>
+<p>常見的<strong>Comparison Sort</strong>及其時間複雜度如表一，假設問題有<span class="math">\(N\)</span>筆資料：</p>
+<p><center></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Quick Sort &nbsp;&nbsp;</th>
+<th>Merge Sort &nbsp;&nbsp;</th>
+<th>Heap Sort&nbsp;&nbsp;</th>
+<th>Insertion Sort&nbsp;&nbsp;</th>
+<th>Selection Sort&nbsp;&nbsp;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>best case</td>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;<span class="math">\(N\log N\)</span> &nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;<span class="math">\(N\log N\)</span> &nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;<span class="math">\(N\log N\)</span> &nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="math">\(N\)</span>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="math">\(N^2\)</span></td>
+</tr>
+<tr>
+<td>average case &nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;<span class="math">\(N\log N\)</span>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;<span class="math">\(N\log N\)</span>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;<span class="math">\(N\log N\)</span>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="math">\(N^2\)</span>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="math">\(N^2\)</span></td>
+</tr>
+<tr>
+<td>worst case</td>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;<span class="math">\(N^2\)</span>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;<span class="math">\(N\log N\)</span>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;<span class="math">\(N\log N\)</span>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="math">\(N^2\)</span>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="math">\(N^2\)</span></td>
+</tr>
+</tbody>
+</table>
+<p><strong>表一：五種排序法之時間複雜度比較</strong></p>
+<p></center></p>
+<p></br>  </p>
+<p>本篇文章將介紹<strong>Merge Sort(合併排序法)</strong>。</p>
+<hr />
+<h2>目錄</h2>
+<ul>
+<li><a href="#ms">Merge Sort(合併排序法)</a><ul>
+<li><a href="#merge">函式：Merge</a></li>
+</ul>
+</li>
+<li><a href="#code">程式碼</a></li>
+<li><a href="#ref">參考資料</a></li>
+<li><a href="#series">Comparison Sort系列文章</a></li>
+</ul>
+<p></br></p>
+<p><a name="ms"></a></p>
+<h2>Merge Sort(合併排序法)</h2>
+<p><strong>Merge Sort</strong>屬於<strong>Divide and Conquer</strong>演算法，把問題先拆解(divide)成子問題，並在逐一處理子問題後，將子問題的結果合併(conquer)，如此便解決了原先的問題。</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/MergeSort/f1.png?raw=true" /></p>
+<p><strong>圖一。</strong>
+</center></p>
+<p>以圖一為例，要把數列{<span class="math">\(5,3,8,6,2,7,1,4\)</span>}排序成{<span class="math">\(1,2,3,4,5,6,7,8\)</span>}，<strong>Merge Sort</strong>的方法為：</p>
+<ul>
+<li><strong>Divide</strong>：把數列「對半拆解」成兩個小數列。<ul>
+<li>先把{<span class="math">\(5,3,8,6,2,7,1,4\)</span>}分成{<span class="math">\(5,3,8,6\)</span>}與{<span class="math">\(2,7,1,4\)</span>}。</li>
+<li>再把{<span class="math">\(5,3,8,6\)</span>}分解成{<span class="math">\(5,3\)</span>}與{<span class="math">\(8,6\)</span>}。</li>
+<li>{<span class="math">\(2,7,1,4\)</span>}分解成{<span class="math">\(2,7\)</span>}與{<span class="math">\(1,4\)</span>}。</li>
+<li>依此類推，直到每個數列剩下一個元素。</li>
+</ul>
+</li>
+<li><strong>Conquer</strong>：按照「由小到大」的順序，「合併」小數列。<ul>
+<li>考慮數列{<span class="math">\(5\)</span>}與{<span class="math">\(3\)</span>}，比較大小後，合併成數列{<span class="math">\(3,5\)</span>}。</li>
+<li>考慮數列{<span class="math">\(8\)</span>}與{<span class="math">\(6\)</span>}，比較大小後，合併成數列{<span class="math">\(6,8\)</span>}。</li>
+<li>考慮數列{<span class="math">\(3,5\)</span>}與{<span class="math">\(6,8\)</span>}，比較大小後，合併成數列{<span class="math">\(3,5,6,8\)</span>}。</li>
+<li>依此類推，最後，考慮數列{<span class="math">\(3,5,6,8\)</span>}與{<span class="math">\(1,2,4,7\)</span>}，比較大小後，合併成數列{<span class="math">\(1,2,3,4,5,6,7,8\)</span>}。</li>
+</ul>
+</li>
+</ul>
+<p>即完成<strong>Merge Sort</strong>。</p>
+<p>由圖一可以看出，在排序過程，需要先把{<span class="math">\(5\)</span>}與{<span class="math">\(3\)</span>}「記下來」，才能用來比較、合併出{<span class="math">\(3,5\)</span>}，需要先把{<span class="math">\(3,5\)</span>}與{<span class="math">\(6,8\)</span>}「記下來」，才能用來比較、合併出{<span class="math">\(3,5,6,8\)</span>}，因此，最直覺的方式，便是利用<strong>遞迴(recursion)</strong>來「記錄先前的狀態」：</p>
+<div class="highlight"><pre><span class="kt">void</span> <span class="nf">MergeSort</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">array</span><span class="p">,</span> <span class="kt">int</span> <span class="n">front</span><span class="p">,</span> <span class="kt">int</span> <span class="n">end</span><span class="p">){</span>
+                                         <span class="c1">// front與end為矩陣範圍</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">front</span> <span class="o">&lt;</span> <span class="n">end</span><span class="p">)</span> <span class="p">{</span>                   <span class="c1">// 表示目前的矩陣範圍是有效的</span>
+        <span class="kt">int</span> <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">front</span><span class="o">+</span><span class="n">end</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span>         <span class="c1">// mid即是將矩陣對半分的index</span>
+        <span class="n">MergeSort</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">front</span><span class="p">,</span> <span class="n">mid</span><span class="p">);</span>    <span class="c1">// 繼續divide矩陣的前半段subarray</span>
+        <span class="n">MergeSort</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">mid</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">end</span><span class="p">);</span>    <span class="c1">// 繼續divide矩陣的後半段subarray</span>
+        <span class="n">Merge</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">front</span><span class="p">,</span> <span class="n">mid</span><span class="p">,</span> <span class="n">end</span><span class="p">);</span>   <span class="c1">// 將兩個subarray做比較, 並合併出排序後的矩陣</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>所以，關鍵就是<code>Merge()</code>的方法。</p>
+<p></br></p>
+<p><a name="merge"></a></p>
+<h3>函式：Merge</h3>
+<p>以圖一中，合併數列{<span class="math">\(2,7\)</span>}與{<span class="math">\(1,4\)</span>}為例，見圖二(a)。</p>
+<p><code>Merge()</code>的大前提：若要由小數列合併出大數列，那麼各自的小數列必須「已經排好序」。</p>
+<ul>
+<li>例如數列{<span class="math">\(2,7\)</span>}，已經「由小到大」排好序(<span class="math">\(2\)</span>在<span class="math">\(7\)</span>前面)，數列{<span class="math">\(1,4\)</span>}也已經排好序。</li>
+</ul>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/MergeSort/f2.png?raw=true" /></p>
+<p><strong>圖二(a)。</strong>
+</center></p>
+<p><code>Merge()</code>的詳細步驟如下，見圖二(b)：</p>
+<ul>
+<li>建立兩個新的矩陣(稱為<code>LeftSub[]</code>與<code>RightSub[]</code>)，分別記錄數列{<span class="math">\(2,7\)</span>}與{<span class="math">\(1,4\)</span>}。</li>
+<li>並在兩個新矩陣的最後一個位置，新增一個值為「無限大」的元素。<ul>
+<li>這個「無限大」的元素是為了「比較」用。</li>
+</ul>
+</li>
+</ul>
+<p>接著便開始「比較兩個矩陣的元素」，挑選「較小的元素」放進原矩陣<code>Array</code>中。  </p>
+<ul>
+<li>目前要更新的是介於<code>Array[4]</code>~<code>Array[7]</code>的矩陣元素。</li>
+<li>以<code>int front</code>代表<span class="math">\(4\)</span>，以<code>int end</code>代表<span class="math">\(7\)</span>，表示此範圍的頭尾。</li>
+</ul>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/MergeSort/f3.png?raw=true" /></p>
+<p><strong>圖二(b)。</strong>
+</center></p>
+<p>首先，替<code>LeftSub[]</code>與<code>RightSub[]</code>設立個別的index，稱為<code>int idxLeft=0</code>與<code>int idxRight=0</code>，見圖二(c)的紅色箭頭。</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/MergeSort/f4.png?raw=true" /></p>
+<p><strong>圖二(c)。</strong>
+</center></p>
+<p>接著比較<code>LeftSub[idxLeft=0]</code>與<code>RightSub[idxRight=0]</code>，發現後者較小，便將<code>Array[front=4]</code>更新成<code>RightSub[idxRight=0]</code>的<span class="math">\(1\)</span>，見圖二(d)。</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/MergeSort/f5.png?raw=true" /></p>
+<p><strong>圖二(d)。</strong>
+</center></p>
+<p>由於目前的<code>RightSub[idxRight=0]</code>已經放進<code>Array</code>裡，表示該元素<span class="math">\(1\)</span>已經被調整完畢，於是便把<code>idxRight</code>往後移，繼續調整<code>RightSub[]</code>的其餘元素，見圖二(e)左。</p>
+<p>以上便完成一次「比較兩個小矩陣之元素大小」並「更新原矩陣元素」之過程。  </p>
+<p>重複上述步驟，繼續更新<code>Array[front+1]</code>的矩陣元素值，直到<code>Array[end=7]</code>，即可完成<code>Array[4]</code>~<code>Array[7]</code>的排序，見圖二(e)至圖二(g)。</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/MergeSort/f6.png?raw=true" /></p>
+<p><strong>圖二(e)。</strong>
+</center></p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/MergeSort/f7.png?raw=true" /></p>
+<p><strong>圖二(f)。</strong>
+</center></p>
+<p>此時，<code>idxRight</code>移動到<span class="math">\(2\)</span>，而<code>RightSub[2]</code>為「無限大」，如此一來便表示，<code>RightSub[]</code>裡的元素都已經成功地排序進<code>Array[]</code>裡。<br />
+接下來在比較<code>LeftSub[]</code>與<code>RightSub[]</code>時，一定會選擇<code>LeftSub[]</code>的元素放進<code>Array[]</code>。</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/MergeSort/f8.png?raw=true" /></p>
+<p><strong>圖二(g)。</strong>
+</center></p>
+<p>到目前為止，已經將<code>Array[4]</code>~<code>Array[7]</code>排序完成。<br />
+只要再將其與「排好序的」<code>Array[0]</code>~<code>Array[3]</code>進行「比較、合併」，即可完成<strong>Merge Sort</strong>，見圖二(h)。</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/MergeSort/merge.gif?raw=true" /></p>
+<p><strong>圖二(h)。</strong>
+</center></p>
+<p></br></p>
+<p><a name="code"></a></p>
+<h2>程式碼</h2>
+<p>範例程式碼包含幾個部分：</p>
+<p><code>MergeSort()</code>：以遞迴形式對數列進行<strong>Divide and Conquer</strong>。</p>
+<p><code>Merge()</code>：合併數列的主要函式，其中使用了<code>std::vector</code>的成員函式(member function)：<strong>constructor</strong>與<code>insert()</code>，來創造如圖二(b)的<code>LeftSub[]</code>與<code>RightSub[]</code>。</p>
+<ul>
+<li>關於<code>std::vector</code>，請參考：<a href="http://www.cplusplus.com/reference/vector/vector/">Cplusplus：std::vector</a>。</li>
+</ul>
+<p>以及<code>main()</code>，建立矩陣，並執行<code>MergeSort()</code>，驗證結果。</p>
+<div class="highlight"><pre><span class="c1">// C++ code</span>
+<span class="cp">#include &lt;iostream&gt;</span>
+<span class="cp">#include &lt;vector&gt;</span>
+
+<span class="k">const</span> <span class="kt">int</span> <span class="n">Max</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="nf">Merge</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">Array</span><span class="p">,</span> <span class="kt">int</span> <span class="n">front</span><span class="p">,</span> <span class="kt">int</span> <span class="n">mid</span><span class="p">,</span> <span class="kt">int</span> <span class="n">end</span><span class="p">){</span>
+
+    <span class="c1">// 利用 std::vector 的constructor, </span>
+    <span class="c1">// 把array[front]~array[mid]放進 LeftSub[]</span>
+    <span class="c1">// 把array[mid+1]~array[end]放進 RightSub[]</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">LeftSub</span><span class="p">(</span><span class="n">Array</span><span class="p">.</span><span class="n">begin</span><span class="p">()</span><span class="o">+</span><span class="n">front</span><span class="p">,</span> <span class="n">Array</span><span class="p">.</span><span class="n">begin</span><span class="p">()</span><span class="o">+</span><span class="n">mid</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span>
+                     <span class="n">RightSub</span><span class="p">(</span><span class="n">Array</span><span class="p">.</span><span class="n">begin</span><span class="p">()</span><span class="o">+</span><span class="n">mid</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">Array</span><span class="p">.</span><span class="n">begin</span><span class="p">()</span><span class="o">+</span><span class="n">end</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
+
+    <span class="n">LeftSub</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">LeftSub</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="n">Max</span><span class="p">);</span>      <span class="c1">// 在LeftSub[]尾端加入值為 Max 的元素</span>
+    <span class="n">RightSub</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">RightSub</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="n">Max</span><span class="p">);</span>    <span class="c1">// 在RightSub[]尾端加入值為 Max 的元素</span>
+
+    <span class="kt">int</span> <span class="n">idxLeft</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">idxRight</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">front</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">end</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">LeftSub</span><span class="p">[</span><span class="n">idxLeft</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">RightSub</span><span class="p">[</span><span class="n">idxRight</span><span class="p">]</span> <span class="p">)</span> <span class="p">{</span>
+            <span class="n">Array</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">LeftSub</span><span class="p">[</span><span class="n">idxLeft</span><span class="p">];</span>
+            <span class="n">idxLeft</span><span class="o">++</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">else</span><span class="p">{</span>
+            <span class="n">Array</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">RightSub</span><span class="p">[</span><span class="n">idxRight</span><span class="p">];</span>
+            <span class="n">idxRight</span><span class="o">++</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">MergeSort</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">array</span><span class="p">,</span> <span class="kt">int</span> <span class="n">front</span><span class="p">,</span> <span class="kt">int</span> <span class="n">end</span><span class="p">){</span>
+                                         <span class="c1">// front與end為矩陣範圍</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">front</span> <span class="o">&lt;</span> <span class="n">end</span><span class="p">)</span> <span class="p">{</span>                   <span class="c1">// 表示目前的矩陣範圍是有效的</span>
+        <span class="kt">int</span> <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">front</span><span class="o">+</span><span class="n">end</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span>         <span class="c1">// mid即是將矩陣對半分的index</span>
+        <span class="n">MergeSort</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">front</span><span class="p">,</span> <span class="n">mid</span><span class="p">);</span>    <span class="c1">// 繼續divide矩陣的前半段subarray</span>
+        <span class="n">MergeSort</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">mid</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">end</span><span class="p">);</span>    <span class="c1">// 繼續divide矩陣的後半段subarray</span>
+        <span class="n">Merge</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">front</span><span class="p">,</span> <span class="n">mid</span><span class="p">,</span> <span class="n">end</span><span class="p">);</span>   <span class="c1">// 將兩個subarray做比較, 並合併出排序後的矩陣</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">PrintArray</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">array</span><span class="p">){</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">array</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="kt">int</span> <span class="n">arr</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">5</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">};</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">array</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">arr</span><span class="o">+</span><span class="k">sizeof</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span><span class="o">/</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span>
+
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;original:</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">PrintArray</span><span class="p">(</span><span class="n">array</span><span class="p">);</span>
+
+    <span class="n">MergeSort</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">7</span><span class="p">);</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;sorted:</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">PrintArray</span><span class="p">(</span><span class="n">array</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>output:</p>
+<div class="highlight"><pre><span class="nl">original</span><span class="p">:</span>
+<span class="mi">5</span> <span class="mi">3</span> <span class="mi">8</span> <span class="mi">6</span> <span class="mi">2</span> <span class="mi">7</span> <span class="mi">1</span> <span class="mi">4</span>
+<span class="nl">sorted</span><span class="p">:</span>
+<span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span>
+</pre></div>
+
+
+<p></br>  </p>
+<p>以上便是<strong>Merge Sort</strong>之介紹。</p>
+<p></br></p>
+<hr />
+<p><a name="ref"></a></p>
+<h3>參考資料：</h3>
+<ul>
+<li><a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844">Introduction to Algorithms, Ch6</a> </li>
+<li><a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376">Fundamentals of Data Structures in C++, Ch5, Ch9</a></li>
+<li><a href="http://emn178.pixnet.net/blog/post/87965707-%E5%90%88%E4%BD%B5%E6%8E%92%E5%BA%8F%E6%B3%95%28merge-sort%29">小殘的程式光廊：合併排序法(Merge Sort)</a></li>
+<li><a href="http://program-lover.blogspot.tw/2008/10/mergesort.html">Infinite Loop：【演算】合併排序法 - Mergesort</a></li>
+<li><a href="http://www.cplusplus.com/reference/vector/vector/">Cplusplus：std::vector</a></li>
+</ul>
+<p><a name="series"></a></p>
+<p></br></p>
+<h3>Comparison Sort系列文章</h3>
+<p><a href="http://alrightchiu.github.io/SecondRound/comparison-sort-insertion-sortcha-ru-pai-xu-fa.html">Comparison Sort: Insertion Sort(插入排序法)</a> <br />
+<a href="http://alrightchiu.github.io/SecondRound/comparison-sort-quick-sortkuai-su-pai-xu-fa.html">Comparison Sort: Quick Sort(快速排序法)</a><br />
+<a href="http://alrightchiu.github.io/SecondRound/comparison-sort-heap-sortdui-ji-pai-xu-fa.html">Comparison Sort: Heap Sort(堆積排序法)</a>  </p>
+<p>回到目錄：</p>
+<p><a href="http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html">目錄：演算法與資料結構</a></p>
+<p></br></p>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' && location_protocol !== 'https') location_protocol = 'https:';
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+    </article>
+
+        <div class="tags">
+            <p>tags: <a href="http://alrightchiu.github.io/SecondRound/tag/c.html">C++</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/comparison-sort.html">Comparison Sort</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/sort.html">Sort</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/divide-and-conquer.html">Divide and Conquer</a>, </p>
+        </div>
+
+<hr>
+<div class="sharing">
+</div>
+    <hr>
+
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                            <li>
+                                <a href="https://github.com/alrightchiu">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                    </ul>
+<p class="copyright text-muted">
+    Blog powered by <a href="http://getpelican.com">Pelican</a>,
+    which takes great advantage of <a href="http://python.org">Python</a>.
+</p>                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="http://alrightchiu.github.io/SecondRound/theme/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="http://alrightchiu.github.io/SecondRound/theme/js/bootstrap.min.js"></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script src="http://alrightchiu.github.io/SecondRound/theme/js/clean-blog.min.js"></script>
+
+</body>
+
+</html>
