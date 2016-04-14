@@ -304,8 +304,8 @@ sorted:
 
 ###參考資料：
 
-* [Introduction to Algorithms, Ch6](http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844) 
-* [Fundamentals of Data Structures in C++, Ch5, Ch9](http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376)
+* [Introduction to Algorithms, Ch2](http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844) 
+* [Fundamentals of Data Structures in C++, Ch7](http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376)
 * [小殘的程式光廊：合併排序法(Merge Sort)](http://emn178.pixnet.net/blog/post/87965707-%E5%90%88%E4%BD%B5%E6%8E%92%E5%BA%8F%E6%B3%95%28merge-sort%29)
 * [Infinite Loop：【演算】合併排序法 - Mergesort](http://program-lover.blogspot.tw/2008/10/mergesort.html)
 * [Cplusplus：std::vector](http://www.cplusplus.com/reference/vector/vector/)

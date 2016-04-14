@@ -393,7 +393,7 @@ sorted:
 ###參考資料：
 
 * [Introduction to Algorithms, Ch6](http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844) 
-* [Fundamentals of Data Structures in C++, Ch5, Ch9](http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376)
+* [Fundamentals of Data Structures in C++, Ch5, Ch7](http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376)
 * [Priority Queue：Intro(簡介) & Binary Heap](http://alrightchiu.github.io/SecondRound/priority-queueintrojian-jie-binary-heap.html)
 * [Cplusplus：std::vector](http://www.cplusplus.com/reference/vector/vector/)
 
