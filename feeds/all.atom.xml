@@ -299,8 +299,8 @@
 &lt;p&gt;&lt;a name="ref"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h3&gt;參考資料：&lt;/h3&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844"&gt;Introduction to Algorithms, Ch6&lt;/a&gt; &lt;/li&gt;
-&lt;li&gt;&lt;a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376"&gt;Fundamentals of Data Structures in C++, Ch5, Ch9&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844"&gt;Introduction to Algorithms, Ch2&lt;/a&gt; &lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376"&gt;Fundamentals of Data Structures in C++, Ch7&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://emn178.pixnet.net/blog/post/87965707-%E5%90%88%E4%BD%B5%E6%8E%92%E5%BA%8F%E6%B3%95%28merge-sort%29"&gt;小殘的程式光廊：合併排序法(Merge Sort)&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://program-lover.blogspot.tw/2008/10/mergesort.html"&gt;Infinite Loop：【演算】合併排序法 - Mergesort&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://www.cplusplus.com/reference/vector/vector/"&gt;Cplusplus：std::vector&lt;/a&gt;&lt;/li&gt;
@@ -701,7 +701,7 @@
 &lt;h3&gt;參考資料：&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844"&gt;Introduction to Algorithms, Ch6&lt;/a&gt; &lt;/li&gt;
-&lt;li&gt;&lt;a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376"&gt;Fundamentals of Data Structures in C++, Ch5, Ch9&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376"&gt;Fundamentals of Data Structures in C++, Ch5, Ch7&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/priority-queueintrojian-jie-binary-heap.html"&gt;Priority Queue：Intro(簡介) &amp;amp; Binary Heap&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://www.cplusplus.com/reference/vector/vector/"&gt;Cplusplus：std::vector&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
