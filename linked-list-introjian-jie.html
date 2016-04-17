@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="zh-hant">
+
+<head>
+            <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+
+        <title>Linked List: Intro(簡介)</title>
+
+            <link href="http://alrightchiu.github.io/SecondRound/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Second Round Full Atom Feed" />
+            <link href="http://alrightchiu.github.io/SecondRound/feeds/yan-suan-fa-yu-zi-liao-jie-gou.atom.xml" type="application/atom+xml" rel="alternate" title="Second Round Categories Atom Feed" />
+
+        <!-- Bootstrap Core CSS -->
+        <link href="http://alrightchiu.github.io/SecondRound/theme/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="http://alrightchiu.github.io/SecondRound/theme/css/clean-blog.min.css" rel="stylesheet">
+
+        <!-- Code highlight color scheme -->
+            <link href="http://alrightchiu.github.io/SecondRound/theme/css/code_blocks/darkly.css" rel="stylesheet">
+
+
+        <!-- Custom Fonts -->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+
+
+
+        <meta name="tags" contents="C++" />
+        <meta name="tags" contents="Intro" />
+        <meta name="tags" contents="Linked List" />
+        <meta name="tags" contents="Pointer" />
+        <meta name="tags" contents="Array" />
+
+
+	                <meta property="og:locale" content="">
+		<meta property="og:site_name" content="Second Round">
+
+	<meta property="og:type" content="article">
+	<meta property="article:author" content="">
+	<meta property="og:url" content="http://alrightchiu.github.io/SecondRound/linked-list-introjian-jie.html">
+	<meta property="og:title" content="Linked List: Intro(簡介)">
+	<meta property="og:description" content="">
+	<meta property="og:image" content="http://alrightchiu.github.io/SecondRound/">
+	<meta property="article:published_time" content="2016-04-17 21:51:00+08:00">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://alrightchiu.github.io/SecondRound/">Second Round</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a href="http://alrightchiu.github.io/SecondRound/archives.html">Archives</a></li>
+                        <li><a href="http://alrightchiu.github.io/SecondRound/tags.html">Tags</a></li>
+
+                            <li><a href="http://alrightchiu.github.io/SecondRound/pages/about.html">About</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+        <header class="intro-header" style="background-image: url('http://alrightchiu.github.io/SecondRound/theme/images/post-bg.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>Linked List: Intro(簡介)</h1>
+                        <span class="meta">Posted by
+                                <a href="http://alrightchiu.github.io/SecondRound/author/chiu-cc.html">Chiu CC</a>
+                             on  4 17, 2016
+                        </span>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    <!-- Post Content -->
+    <article>
+        <p></br></p>
+<h3>先備知識與注意事項</h3>
+<p>要了解Linked List，一定要先了解<strong>pointer(指標)</strong>，建議讀者可以先閱讀以下連結內容：</p>
+<ul>
+<li><a href="http://openhome.cc/Gossip/CppGossip/Pointer.html">語言技術：C++ Gossip：指標與記憶體位址</a></li>
+<li><a href="http://openhome.cc/Gossip/CppGossip/newDelete.html">語言技術：C++ Gossip：new 運算子與 delete 運算子</a></li>
+</ul>
+<hr />
+<h2>目錄</h2>
+<ul>
+<li><a href="#intro">簡介：Linked list</a><ul>
+<li><a href="#repre">以兩個class(類別)表示Linked List</a></li>
+</ul>
+</li>
+<li><a href="#comp">比較：Array與Linked list</a><ul>
+<li><a href="#array">Array</a></li>
+<li><a href="#ll">Linked list</a></li>
+</ul>
+</li>
+<li><a href="#ref">參考資料</a></li>
+<li><a href="#series">Linked list系列文章</a></li>
+</ul>
+<p></br></p>
+<p><a name="intro"></a></p>
+<h2>簡介：Linked list</h2>
+<p>Linked List(連結串列)是一種常見的資料結構，其使用<strong>node(節點)</strong>來記錄、表示、儲存資料(data)，並利用每個node中的<strong>pointer</strong>指向下一個node，藉此將多個node串連起來，形成Linked List，見圖一(a)。</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/LinkedList/Intro/f1.png?raw=true" /></p>
+<p><strong>圖一(a)。</strong>
+</center></p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/LinkedList/Intro/f2.png?raw=true" /></p>
+<p><strong>圖一(b)。</strong>
+</center></p>
+<p>若實際打開每個node的內部，至少會包含(1)<strong>data</strong>來代表資料，與(2)<strong>pointer</strong>指向下一個node，見圖一(b)：</p>
+<ul>
+<li>Node1：<ul>
+<li>以<code>int</code>的data，記錄正整數<span class="math">\(7\)</span>。</li>
+<li>本身的記憶體位置為<span class="math">\(0x1001042f0\)</span>。</li>
+<li>以「node之<strong>pointer</strong>」，記錄(指向)下一個node之記憶體位置(<span class="math">\(0x100104300\)</span>)。</li>
+</ul>
+</li>
+<li>Node2：<ul>
+<li>以<code>int</code>的data，記錄正整數<span class="math">\(3\)</span>。</li>
+<li>本身的記憶體位置為<span class="math">\(0x100104300\)</span>。<ul>
+<li>由於在Node1中的「node之<strong>pointer</strong>」指向了Node2之記憶體位置，因此，便能夠經由Node1「找到」Node2。</li>
+</ul>
+</li>
+<li>以「node之<strong>pointer</strong>」，記錄(指向)下一個node之記憶體位置(<span class="math">\(0x100104310\)</span>)。</li>
+</ul>
+</li>
+<li>Node3：<ul>
+<li>以<code>int</code>的data，記錄正整數<span class="math">\(14\)</span>。</li>
+<li>本身的記憶體位置為<span class="math">\(0x100104310\)</span>。<ul>
+<li>由於在Node2中的「node之<strong>pointer</strong>」指向了Node3之記憶體位置，因此，便能夠經由Node2「找到」Node3。</li>
+</ul>
+</li>
+<li>以「node之<strong>pointer</strong>」，記錄(指向)<code>NULL</code>，表示Linked List的最後一個node。    </li>
+</ul>
+</li>
+</ul>
+<p>通常在面對一個Linked List時，能夠公開存取(access)的node只有「第一個node」，以<code>ListNode *first</code>表示，不過因為node中有<strong>pointer</strong>記錄下一個node的記憶體位置，便能夠讀取下一個node的<strong>data</strong>與<strong>pointer</strong>，換句話說，有了node中的<strong>pointer</strong>就可以在Linked List中「移動(<strong>traversal</strong>)」，更進一步，便能進行諸如「新增節點」、「刪除節點」、「印出Linked List」等等的資料處理，這些函式將在後續文章一一介紹。</p>
+<p></br></p>
+<p><a name="repre"></a></p>
+<h3>以兩個class(類別)表示Linked List</h3>
+<p>若以C++的<strong>class(類別)</strong>來實作Linked List，可以利用兩個class，使得node的資料不會被任意更動(也就是封裝(Encapsulation)的概念)：<br />
+(使用<code>struct</code>來代表node也是常見的做法，差別在於，<code>struct</code>的資料成員(data member)一定是<strong>公開的(public)</strong>)</p>
+<div class="highlight"><pre><span class="c1">// C++ code</span>
+<span class="k">class</span> <span class="nc">LinkedList</span><span class="p">;</span>    <span class="c1">// 為了將class LinkedList設成class ListNode的friend,</span>
+                     <span class="c1">// 需要先宣告</span>
+<span class="k">class</span> <span class="nc">ListNode</span><span class="p">{</span>
+<span class="k">private</span><span class="o">:</span>
+    <span class="kt">int</span> <span class="n">data</span><span class="p">;</span>
+    <span class="n">ListNode</span> <span class="o">*</span><span class="n">next</span><span class="p">;</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">ListNode</span><span class="p">()</span><span class="o">:</span><span class="n">data</span><span class="p">(</span><span class="mi">0</span><span class="p">){</span> <span class="n">next</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;};</span>
+    <span class="n">ListNode</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">)</span><span class="o">:</span><span class="n">data</span><span class="p">(</span><span class="n">a</span><span class="p">){</span> <span class="n">next</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;};</span>
+    <span class="k">friend</span> <span class="k">class</span> <span class="nc">LinkedList</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">class</span> <span class="nc">LinkedList</span><span class="p">{</span>
+<span class="k">private</span><span class="o">:</span>
+    <span class="kt">int</span> <span class="n">size</span><span class="p">;</span>                   <span class="c1">// size是用來記錄Linked List的長度, 非必要</span>
+    <span class="n">ListNode</span> <span class="o">*</span><span class="n">first</span><span class="p">;</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">LinkedList</span><span class="p">(){</span><span class="n">first</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;};</span>
+    <span class="kt">void</span> <span class="nf">Push_front</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">);</span>     <span class="c1">// 在list的開頭新增node</span>
+    <span class="kt">void</span> <span class="nf">Push_back</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">);</span>      <span class="c1">// 在list的尾巴新增node</span>
+    <span class="kt">void</span> <span class="nf">Delete</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">);</span>         <span class="c1">// 刪除list中的 int x</span>
+    <span class="kt">void</span> <span class="nf">Reverse</span><span class="p">();</span>             <span class="c1">// 將list反轉: 7-&gt;3-&gt;14 =&gt; 14-&gt;3-&gt;7</span>
+    <span class="kt">bool</span> <span class="nf">HasCycle</span><span class="p">();</span>            <span class="c1">// 檢查list中是否有cycle</span>
+    <span class="kt">void</span> <span class="nf">PrintList</span><span class="p">();</span>           <span class="c1">// 印出list的所有資料</span>
+    <span class="kt">void</span> <span class="nf">Clear</span><span class="p">();</span>               <span class="c1">// 把整串list刪除</span>
+<span class="p">};</span>
+</pre></div>
+
+
+<p></br></p>
+<p><a name="comp"></a></p>
+<h2>比較：Array與Linked list</h2>
+<p>Array(矩陣)也是常見的用來記錄一連串「具有相同形態的資料」的資料結構，以下便列舉Array與Linked List各自的優缺點，以及各自適合的問題情境。</p>
+<p>參考：  </p>
+<ul>
+<li><a href="http://stackoverflow.com/questions/166884/array-versus-linked-list">Stack Overflow：Array versus linked-list</a></li>
+<li><a href="http://stackoverflow.com/questions/393556/when-to-use-a-linked-list-over-an-array-array-list">Stack Overflow：When to use a linked list over an array/array list?</a></li>
+<li><a href="http://www.geeksforgeeks.org/linked-list-vs-array/">GeeksforGeeks：Linked List vs Array</a></li>
+</ul>
+<p><a name="array"></a></p>
+<h3>Array</h3>
+<p><strong>優點</strong>：</p>
+<ul>
+<li>random access：只要利用<strong>index</strong>即可在O(<span class="math">\(1\)</span>)時間對Array的資料做存取。</li>
+<li>較Linked List為節省記憶體空間：因為Linked List需要多一個<strong>pointer</strong>來記錄下一個node的記憶體位置。<ul>
+<li>假設node之<strong>data</strong>項目為<span class="math">\(1\)</span>byte的<code>char</code>，但是<strong>pointer</strong>項目卻要<span class="math">\(4\)</span>bytes，這樣的資料結構就多花了4倍的記憶體空間在與真正要處理的資料無關的部分上，是個沒有效率的做法。</li>
+</ul>
+</li>
+</ul>
+<p><strong>缺點</strong>：</p>
+<ul>
+<li>新增/刪除資料很麻煩：若要在第一個位置新增資料，就需要O(<span class="math">\(N\)</span>)時間把矩陣中所有元素往後移動。同理，若要刪除第一個位置的資料，也需要O(<span class="math">\(N\)</span>)時間把矩陣中剩餘的元素往前移動。</li>
+<li>若資料數量時常在改變，要時常調整矩陣的大小，會花費O(<span class="math">\(N\)</span>)的時間在搬動資料(把資料從舊的矩陣移動到新的矩陣)。</li>
+</ul>
+<p><strong>適用時機</strong>：</p>
+<ul>
+<li>希望能夠快速存取資料。</li>
+<li>已知欲處理的資料數量，便能確認矩陣的大小。</li>
+<li>要求記憶體空間的使用越少越好。</li>
+</ul>
+<p><a name="ll"></a></p>
+<h3>Linked List</h3>
+<p><strong>優點</strong>：</p>
+<ul>
+<li>新增/刪除資料較Array簡單，只要對O(<span class="math">\(1\)</span>)個node(所有與欲新增/刪除的node有<strong>pointer</strong>相連的node)調整<strong>pointer</strong>即可，不需要如同Array般搬動其餘元素。<ul>
+<li>若是在Linked List的「開頭」新增node，只要O(<span class="math">\(1\)</span>)。</li>
+<li>若要刪除特定node，或者在特定位置新增node，有可能需要先執行O(<span class="math">\(N\)</span>)的「搜尋」。</li>
+</ul>
+</li>
+<li>Linked List的資料數量可以是動態的，不像Array會有<strong>resize</strong>的問題。</li>
+</ul>
+<p><strong>缺點</strong>：</p>
+<ul>
+<li>因為Linked List沒有<strong>index</strong>，若要找到特定node，需要從頭(<code>ListNode *first</code>)開始找起，搜尋的時間複雜度為O(<span class="math">\(N\)</span>)。</li>
+<li>需要額外的記憶體空間來儲存<strong>pointer</strong>。</li>
+</ul>
+<p><strong>適用時機</strong>：</p>
+<ul>
+<li>無法預期資料數量時，使用Linked List就沒有<strong>resize</strong>的問題。</li>
+<li>需要頻繁地新增/刪除資料時。</li>
+<li>不需要快速查詢資料。</li>
+</ul>
+<p></br>  </p>
+<p>以上便是<strong>Linked List</strong>的初步介紹。<br />
+接下來的文章將逐一介紹<code>class LinkedList</code>的成員函式(member function)。</p>
+<p></br></p>
+<hr />
+<p><a name="ref"></a></p>
+<h3>參考資料：</h3>
+<ul>
+<li><a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844">Introduction to Algorithms, Ch10</a> </li>
+<li><a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376">Fundamentals of Data Structures in C++, Ch4</a></li>
+<li><a href="http://stackoverflow.com/questions/166884/array-versus-linked-list">Stack Overflow：Array versus linked-list</a></li>
+<li><a href="http://stackoverflow.com/questions/393556/when-to-use-a-linked-list-over-an-array-array-list">Stack Overflow：When to use a linked list over an array/array list?</a></li>
+<li><a href="http://www.geeksforgeeks.org/linked-list-vs-array/">GeeksforGeeks：Linked List vs Array</a></li>
+<li><a href="http://openhome.cc/Gossip/CppGossip/Pointer.html">語言技術：C++ Gossip：指標與記憶體位址</a></li>
+<li><a href="http://openhome.cc/Gossip/CppGossip/newDelete.html">語言技術：C++ Gossip：new 運算子與 delete 運算子</a></li>
+</ul>
+<p><a name="series"></a></p>
+<p></br></p>
+<h3>Linked List系列文章</h3>
+<p><a href="">Linked List: Intro(簡介)</a>  </p>
+<p>回到目錄：</p>
+<p><a href="http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html">目錄：演算法與資料結構</a></p>
+<p></br></p>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' && location_protocol !== 'https') location_protocol = 'https:';
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+    </article>
+
+        <div class="tags">
+            <p>tags: <a href="http://alrightchiu.github.io/SecondRound/tag/c.html">C++</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/intro.html">Intro</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/linked-list.html">Linked List</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/pointer.html">Pointer</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/array.html">Array</a>, </p>
+        </div>
+
+<hr>
+<div class="sharing">
+</div>
+    <hr>
+
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                            <li>
+                                <a href="https://github.com/alrightchiu">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                    </ul>
+<p class="copyright text-muted">
+    Blog powered by <a href="http://getpelican.com">Pelican</a>,
+    which takes great advantage of <a href="http://python.org">Python</a>.
+</p>                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="http://alrightchiu.github.io/SecondRound/theme/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="http://alrightchiu.github.io/SecondRound/theme/js/bootstrap.min.js"></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script src="http://alrightchiu.github.io/SecondRound/theme/js/clean-blog.min.js"></script>
+
+</body>
+
+</html>
