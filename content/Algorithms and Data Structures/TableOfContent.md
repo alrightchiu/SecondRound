@@ -9,6 +9,14 @@ Summary: 請先閱讀本篇目錄。
 
 介紹演算法與資料結構的基本概念。
 
+</br>
+
+##基本資料結構系列文章
+
+###Linked List
+
+[Linked List: Intro(簡介)](http://alrightchiu.github.io/SecondRound/linked-list-introjian-jie.html)  
+
 
 </br>
 
