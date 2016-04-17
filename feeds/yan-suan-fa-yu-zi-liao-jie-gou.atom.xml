@@ -2,6 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom"><title>Second Round</title><link href="http://alrightchiu.github.io/SecondRound/" rel="alternate"></link><link href="http://alrightchiu.github.io/SecondRound/feeds/yan-suan-fa-yu-zi-liao-jie-gou.atom.xml" rel="self"></link><id>http://alrightchiu.github.io/SecondRound/</id><updated>2099-12-31T23:59:00+08:00</updated><entry><title>目錄：演算法與資料結構</title><link href="http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html" rel="alternate"></link><updated>2099-12-31T23:59:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2099-12-31:SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html</id><summary type="html">&lt;h2&gt;演算法與資料結構&lt;/h2&gt;
 &lt;p&gt;介紹演算法與資料結構的基本概念。&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;h2&gt;基本資料結構系列文章&lt;/h2&gt;
+&lt;h3&gt;Linked List&lt;/h3&gt;
+&lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/linked-list-introjian-jie.html"&gt;Linked List: Intro(簡介)&lt;/a&gt;  &lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h2&gt;Sort系列文章&lt;/h2&gt;
 &lt;h3&gt;Comparison Sort&lt;/h3&gt;
 &lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/comparison-sort-insertion-sortcha-ru-pai-xu-fa.html"&gt;Comparison Sort: Insertion Sort(插入排序法)&lt;/a&gt;  &lt;br /&gt;
@@ -217,7 +221,7 @@
 &lt;p&gt;&lt;a name="series"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h3&gt;Linked List系列文章&lt;/h3&gt;
-&lt;p&gt;&lt;a href=""&gt;Linked List: Intro(簡介)&lt;/a&gt;  &lt;/p&gt;
+&lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/linked-list-introjian-jie.html"&gt;Linked List: Intro(簡介)&lt;/a&gt;  &lt;/p&gt;
 &lt;p&gt;回到目錄：&lt;/p&gt;
 &lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html"&gt;目錄：演算法與資料結構&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
