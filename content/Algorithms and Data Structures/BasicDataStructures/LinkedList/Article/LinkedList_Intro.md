@@ -53,16 +53,16 @@ Linked List(連結串列)是一種常見的資料結構，其使用**node(節點
 
 * Node1：
     * 以`int`的data，記錄正整數$7$。
-    * 本身的記憶體位置為$0x1001042f0$。
-    * 以「node之**pointer**」，記錄(指向)下一個node之記憶體位置($0x100104300$)。
+    * 本身的記憶體位置為`0x1001042f0`。
+    * 以「node之**pointer**」，記錄(指向)下一個node之記憶體位置(`0x100104300`)。
 * Node2：
     * 以`int`的data，記錄正整數$3$。
-    * 本身的記憶體位置為$0x100104300$。
+    * 本身的記憶體位置為`0x100104300`。
         * 由於在Node1中的「node之**pointer**」指向了Node2之記憶體位置，因此，便能夠經由Node1「找到」Node2。
-    * 以「node之**pointer**」，記錄(指向)下一個node之記憶體位置($0x100104310$)。
+    * 以「node之**pointer**」，記錄(指向)下一個node之記憶體位置(`0x100104310`)。
 * Node3：
     * 以`int`的data，記錄正整數$14$。
-    * 本身的記憶體位置為$0x100104310$。
+    * 本身的記憶體位置為`0x100104310`。
         * 由於在Node2中的「node之**pointer**」指向了Node3之記憶體位置，因此，便能夠經由Node2「找到」Node3。
     * 以「node之**pointer**」，記錄(指向)`NULL`，表示Linked List的最後一個node。    
 
@@ -95,7 +95,7 @@ public:
 class LinkedList{
 private:
     int size;                   // size是用來記錄Linked List的長度, 非必要
-    ListNode *first;
+    ListNode *first;            // list的第一個node
 public:
     LinkedList(){first = 0;};
     void Push_front(int x);     // 在list的開頭新增node
