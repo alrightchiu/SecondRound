@@ -170,8 +170,8 @@ Array(矩陣)也是常見的用來記錄一連串「具有相同形態的資料�
 * 不需要快速查詢資料。
 
 
-[f1]: f1.png
-[f2]: f2.png
+[f1]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/LinkedList/Intro/f1.png?raw=true
+[f2]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/LinkedList/Intro/f2.png?raw=true
 
 
 
