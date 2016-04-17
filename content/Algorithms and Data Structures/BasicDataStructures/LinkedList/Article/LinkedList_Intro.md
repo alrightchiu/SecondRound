@@ -8,7 +8,7 @@ Summary: 介紹Linked List(連結串列)。
 </br>
 ###先備知識與注意事項
 
-要了解Linked List，一定要先了解**pointer(指標)**，建議讀者可以先閱讀以下連結內容：
+要了解Linked List，一定要先看懂**pointer(指標)**，建議讀者可以先閱讀以下連結內容：
 
 * [語言技術：C++ Gossip：指標與記憶體位址](http://openhome.cc/Gossip/CppGossip/Pointer.html)
 * [語言技術：C++ Gossip：new 運算子與 delete 運算子](http://openhome.cc/Gossip/CppGossip/newDelete.html)
