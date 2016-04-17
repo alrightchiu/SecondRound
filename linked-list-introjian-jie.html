@@ -114,7 +114,7 @@
     <article>
         <p></br></p>
 <h3>先備知識與注意事項</h3>
-<p>要了解Linked List，一定要先了解<strong>pointer(指標)</strong>，建議讀者可以先閱讀以下連結內容：</p>
+<p>要了解Linked List，一定要先看懂<strong>pointer(指標)</strong>，建議讀者可以先閱讀以下連結內容：</p>
 <ul>
 <li><a href="http://openhome.cc/Gossip/CppGossip/Pointer.html">語言技術：C++ Gossip：指標與記憶體位址</a></li>
 <li><a href="http://openhome.cc/Gossip/CppGossip/newDelete.html">語言技術：C++ Gossip：new 運算子與 delete 運算子</a></li>
@@ -150,22 +150,22 @@
 <ul>
 <li>Node1：<ul>
 <li>以<code>int</code>的data，記錄正整數<span class="math">\(7\)</span>。</li>
-<li>本身的記憶體位置為<span class="math">\(0x1001042f0\)</span>。</li>
-<li>以「node之<strong>pointer</strong>」，記錄(指向)下一個node之記憶體位置(<span class="math">\(0x100104300\)</span>)。</li>
+<li>本身的記憶體位置為<code>0x1001042f0</code>。</li>
+<li>以「node之<strong>pointer</strong>」，記錄(指向)下一個node之記憶體位置(<code>0x100104300</code>)。</li>
 </ul>
 </li>
 <li>Node2：<ul>
 <li>以<code>int</code>的data，記錄正整數<span class="math">\(3\)</span>。</li>
-<li>本身的記憶體位置為<span class="math">\(0x100104300\)</span>。<ul>
+<li>本身的記憶體位置為<code>0x100104300</code>。<ul>
 <li>由於在Node1中的「node之<strong>pointer</strong>」指向了Node2之記憶體位置，因此，便能夠經由Node1「找到」Node2。</li>
 </ul>
 </li>
-<li>以「node之<strong>pointer</strong>」，記錄(指向)下一個node之記憶體位置(<span class="math">\(0x100104310\)</span>)。</li>
+<li>以「node之<strong>pointer</strong>」，記錄(指向)下一個node之記憶體位置(<code>0x100104310</code>)。</li>
 </ul>
 </li>
 <li>Node3：<ul>
 <li>以<code>int</code>的data，記錄正整數<span class="math">\(14\)</span>。</li>
-<li>本身的記憶體位置為<span class="math">\(0x100104310\)</span>。<ul>
+<li>本身的記憶體位置為<code>0x100104310</code>。<ul>
 <li>由於在Node2中的「node之<strong>pointer</strong>」指向了Node3之記憶體位置，因此，便能夠經由Node2「找到」Node3。</li>
 </ul>
 </li>
@@ -195,7 +195,7 @@
 <span class="k">class</span> <span class="nc">LinkedList</span><span class="p">{</span>
 <span class="k">private</span><span class="o">:</span>
     <span class="kt">int</span> <span class="n">size</span><span class="p">;</span>                   <span class="c1">// size是用來記錄Linked List的長度, 非必要</span>
-    <span class="n">ListNode</span> <span class="o">*</span><span class="n">first</span><span class="p">;</span>
+    <span class="n">ListNode</span> <span class="o">*</span><span class="n">first</span><span class="p">;</span>            <span class="c1">// list的第一個node</span>
 <span class="k">public</span><span class="o">:</span>
     <span class="n">LinkedList</span><span class="p">(){</span><span class="n">first</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;};</span>
     <span class="kt">void</span> <span class="nf">Push_front</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">);</span>     <span class="c1">// 在list的開頭新增node</span>
