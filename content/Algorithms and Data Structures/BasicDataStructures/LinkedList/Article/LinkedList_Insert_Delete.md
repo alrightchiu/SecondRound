@@ -365,7 +365,7 @@ void LinkedList::Delete(int x){
 // C++ code
 void LinkedList::Clear(){
     
-    while (first != 0) {
+    while (first != 0) {            // Traversal
         ListNode *current = first;
         first = first->next;
         delete current;
