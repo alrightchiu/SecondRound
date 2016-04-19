@@ -18,6 +18,9 @@ Summary: 請先閱讀本篇目錄。
 ###Linked List
 
 [Linked List: Intro(簡介)](http://alrightchiu.github.io/SecondRound/linked-list-introjian-jie.html)  
+[Linked List: 新增資料、刪除資料](http://alrightchiu.github.io/SecondRound/linked-list-xin-zeng-zi-liao-shan-chu-zi-liao.html)  
+
+
 
 
 </br>
