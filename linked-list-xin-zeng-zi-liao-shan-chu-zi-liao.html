@@ -393,7 +393,7 @@
 <div class="highlight"><pre><span class="c1">// C++ code</span>
 <span class="kt">void</span> <span class="n">LinkedList</span><span class="o">::</span><span class="n">Clear</span><span class="p">(){</span>
 
-    <span class="k">while</span> <span class="p">(</span><span class="n">first</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">first</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>            <span class="c1">// Traversal</span>
         <span class="n">ListNode</span> <span class="o">*</span><span class="n">current</span> <span class="o">=</span> <span class="n">first</span><span class="p">;</span>
         <span class="n">first</span> <span class="o">=</span> <span class="n">first</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
         <span class="k">delete</span> <span class="n">current</span><span class="p">;</span>
