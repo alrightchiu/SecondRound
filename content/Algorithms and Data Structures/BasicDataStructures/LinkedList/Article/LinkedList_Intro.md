@@ -33,7 +33,7 @@ Summary: 介紹Linked List(連結串列)。
 
 ##簡介：Linked list
 
-Linked List(連結串列)是一種常見的資料結構，其使用**node(節點)**來記錄、表示、儲存資料(data)，並利用每個node中的**pointer**指向下一個node，藉此將多個node串連起來，形成Linked List，見圖一(a)。
+Linked List(連結串列)是一種常見的資料結構，其使用**node(節點)**來記錄、表示、儲存資料(data)，並利用每個node中的**pointer**指向下一個node，藉此將多個node串連起來，形成Linked List，並以`NULL`來代表Linked List的終點，見圖一(a)。
 
 <center>
 ![cc][f1]
