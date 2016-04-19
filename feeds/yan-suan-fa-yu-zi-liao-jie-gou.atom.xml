@@ -52,7 +52,410 @@
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h2&gt;Priority Queue系列文章&lt;/h2&gt;
 &lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/priority-queueintrojian-jie-binary-heap.html"&gt;Priority Queue：Intro(簡介) &amp;amp; Binary Heap&lt;/a&gt;  &lt;/p&gt;
-&lt;p&gt;&lt;/br&gt;&lt;/p&gt;</summary><category term="C++"></category></entry><entry><title>Linked List: Intro(簡介)</title><link href="http://alrightchiu.github.io/SecondRound/linked-list-introjian-jie.html" rel="alternate"></link><updated>2016-04-17T21:51:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-04-17:SecondRound/linked-list-introjian-jie.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;</summary><category term="C++"></category></entry><entry><title>Linked List: 新增資料、刪除資料</title><link href="http://alrightchiu.github.io/SecondRound/linked-list-xin-zeng-zi-liao-shan-chu-zi-liao.html" rel="alternate"></link><updated>2016-04-19T22:39:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-04-19:SecondRound/linked-list-xin-zeng-zi-liao-shan-chu-zi-liao.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;h3&gt;先備知識與注意事項&lt;/h3&gt;
+&lt;p&gt;本篇文章將延續&lt;a href="http://alrightchiu.github.io/SecondRound/linked-list-introjian-jie.html"&gt;Linked List: Intro(簡介)&lt;/a&gt;，繼續介紹如何在Linked List中新增資料與刪除資料。&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/LinkedList/Insert_Delete/f0.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;class ListNode&lt;/code&gt;與&lt;code&gt;class LinkedList&lt;/code&gt;的定義如下：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// C++ code&lt;/span&gt;
+&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;LinkedList&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;    &lt;span class="c1"&gt;// 為了將class LinkedList設成class ListNode的friend,&lt;/span&gt;
+                     &lt;span class="c1"&gt;// 需要先宣告&lt;/span&gt;
+&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;ListNode&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="k"&gt;private&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;ListNode&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;next&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="k"&gt;public&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+    &lt;span class="n"&gt;ListNode&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt; &lt;span class="n"&gt;next&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="p"&gt;;};&lt;/span&gt;
+    &lt;span class="n"&gt;ListNode&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt; &lt;span class="n"&gt;next&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;};&lt;/span&gt;
+    &lt;span class="k"&gt;friend&lt;/span&gt; &lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;LinkedList&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;};&lt;/span&gt;
+
+&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;LinkedList&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="k"&gt;private&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+    &lt;span class="c1"&gt;// int size;                   // size是用來記錄Linked List的長度, 非必要&lt;/span&gt;
+    &lt;span class="n"&gt;ListNode&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;first&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;            &lt;span class="c1"&gt;// list的第一個node&lt;/span&gt;
+&lt;span class="k"&gt;public&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+    &lt;span class="n"&gt;LinkedList&lt;/span&gt;&lt;span class="p"&gt;(){&lt;/span&gt;&lt;span class="n"&gt;first&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;};&lt;/span&gt;
+    &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;PrintList&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;           &lt;span class="c1"&gt;// 印出list的所有資料&lt;/span&gt;
+    &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;Push_front&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;     &lt;span class="c1"&gt;// 在list的開頭新增node&lt;/span&gt;
+    &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;Push_back&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;      &lt;span class="c1"&gt;// 在list的尾巴新增node&lt;/span&gt;
+    &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;Delete&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;         &lt;span class="c1"&gt;// 刪除list中的 int x&lt;/span&gt;
+    &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;Clear&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;               &lt;span class="c1"&gt;// 把整串list刪除&lt;/span&gt;
+    &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;Reverse&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;             &lt;span class="c1"&gt;// 將list反轉: 7-&amp;gt;3-&amp;gt;14 =&amp;gt; 14-&amp;gt;3-&amp;gt;7&lt;/span&gt;
+    &lt;span class="kt"&gt;bool&lt;/span&gt; &lt;span class="nf"&gt;HasCycle&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;            &lt;span class="c1"&gt;// 檢查list中是否有cycle&lt;/span&gt;
+&lt;span class="p"&gt;};&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;hr /&gt;
+&lt;h2&gt;目錄&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="#print"&gt;函式：PrintList&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#front"&gt;函式：Push_front&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#back"&gt;函式：Push_back&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#delete"&gt;函式：Delete&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#clearall"&gt;函式：Clear&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#test"&gt;測試&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#ref"&gt;參考資料&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#series"&gt;Linked list系列文章&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a name="print"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;函式：PrintList&lt;/h2&gt;
+&lt;p&gt;第一個要介紹的是&lt;code&gt;PrintList()&lt;/code&gt;，功能就是把Linked List中的所有資料依序印出。要印出所有的資料，就必須「逐一訪問(&lt;strong&gt;Visiting&lt;/strong&gt;)」Linked List中的每一個node，這樣的操作又稱為&lt;strong&gt;Traversal(尋訪)&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;能夠完成這樣的操作，要歸功於node中記錄了「下一個node的記憶體位置」，如此，才能在訪問完當前的node之後，知道要繼續往哪一個記憶體位置上的node前進。&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/LinkedList/Insert_Delete/f1.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖一。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;以圖一為例：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;建立&lt;code&gt;ListNode *current&lt;/code&gt;來表示「目前走到哪一個node」。&lt;/li&gt;
+&lt;li&gt;若要對Linked List存取資料，必定是從第一個node開始，所以把&lt;code&gt;current&lt;/code&gt;指向&lt;code&gt;first&lt;/code&gt;所代表的記憶體位置，&lt;code&gt;current=first&lt;/code&gt;。&lt;ul&gt;
+&lt;li&gt;目前&lt;code&gt;first&lt;/code&gt;即為node(&lt;span class="math"&gt;\(7\)&lt;/span&gt;)。&lt;/li&gt;
+&lt;li&gt;同時，還能夠知道「下一個node」是指向node(&lt;span class="math"&gt;\(3\)&lt;/span&gt;)。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;在印出&lt;code&gt;current-&amp;gt;data&lt;/code&gt;，也就是&lt;span class="math"&gt;\(7\)&lt;/span&gt;後，便把&lt;code&gt;current&lt;/code&gt;移動到「下一個node」。&lt;ul&gt;
+&lt;li&gt;透過&lt;code&gt;current=current-&amp;gt;next&lt;/code&gt;，即可把&lt;code&gt;current&lt;/code&gt;指向node(&lt;span class="math"&gt;\(3\)&lt;/span&gt;)所在的記憶體位置。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;重複上述步驟，直到&lt;code&gt;current&lt;/code&gt;指向Linked List的終點&lt;code&gt;NULL&lt;/code&gt;為止，便能印出所有資料。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;由此可見，所有需要在Linked List中尋找特定資料的操作，都會用上&lt;strong&gt;Traversal&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;程式範例如下：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// C++ code&lt;/span&gt;
+&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;LinkedList&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;PrintList&lt;/span&gt;&lt;span class="p"&gt;(){&lt;/span&gt;
+
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;first&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;                      &lt;span class="c1"&gt;// 如果first node指向NULL, 表示list沒有資料&lt;/span&gt;
+        &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;List is empty.&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+
+    &lt;span class="n"&gt;ListNode&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;current&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;first&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;current&lt;/span&gt; &lt;span class="o"&gt;!=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;                 &lt;span class="c1"&gt;// Traversal&lt;/span&gt;
+        &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;current&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;data&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="s"&gt;&amp;quot; &amp;quot;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="n"&gt;current&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;current&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;next&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;endl&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a name="front"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;函式：Push_front&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;Push_front()&lt;/code&gt;的功能是在Linked List的開頭新增資料。  &lt;/p&gt;
+&lt;p&gt;若考慮在Linked list(&lt;span class="math"&gt;\(3\)&lt;/span&gt;-&lt;span class="math"&gt;\(&amp;gt;14\)&lt;/span&gt;)的開頭加入&lt;span class="math"&gt;\(23\)&lt;/span&gt;，方法如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;先建立一個新的節點&lt;code&gt;ListNode *newNode&lt;/code&gt;，帶有欲新增的資料(&lt;span class="math"&gt;\(23\)&lt;/span&gt;)，如圖二(a)。&lt;/li&gt;
+&lt;li&gt;將&lt;code&gt;newNode&lt;/code&gt;中的&lt;strong&gt;pointer&lt;/strong&gt;，&lt;code&gt;ListNode *next&lt;/code&gt;，指向Linked List的第一個node&lt;code&gt;first&lt;/code&gt;，如圖二(b)。&lt;/li&gt;
+&lt;li&gt;接著，把&lt;code&gt;first&lt;/code&gt;更新成&lt;code&gt;newNode&lt;/code&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;經過以上步驟(時間複雜度為O(&lt;span class="math"&gt;\(1\)&lt;/span&gt;))便得到新的Linked List：&lt;span class="math"&gt;\(23\)&lt;/span&gt;-&lt;span class="math"&gt;\(&amp;gt;3\)&lt;/span&gt;-&lt;span class="math"&gt;\(&amp;gt;14\)&lt;/span&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/LinkedList/Insert_Delete/f2.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖二(a)。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/LinkedList/Insert_Delete/f3.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖二(b)。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;程式範例如下：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// C++ code&lt;/span&gt;
+&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;LinkedList&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;Push_front&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
+
+    &lt;span class="n"&gt;ListNode&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;newNode&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;ListNode&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="n"&gt;newNode&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;next&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;first&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;        &lt;span class="c1"&gt;// 先把first接在newNode後面&lt;/span&gt;
+    &lt;span class="n"&gt;first&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;newNode&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;              &lt;span class="c1"&gt;// 再把first指向newNode所指向的記憶體位置&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a name="back"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;函式：Push_back&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;Push_back()&lt;/code&gt;的功能是在Linked List的尾巴新增資料。&lt;/p&gt;
+&lt;p&gt;若考慮在Linked list(&lt;span class="math"&gt;\(7\)&lt;/span&gt;-&lt;span class="math"&gt;\(&amp;gt;3\)&lt;/span&gt;-&lt;span class="math"&gt;\(&amp;gt;14\)&lt;/span&gt;)的尾巴加入&lt;span class="math"&gt;\(23\)&lt;/span&gt;，方法如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;先建立一個新的節點&lt;code&gt;ListNode *newNode&lt;/code&gt;，帶有欲新增的資料(&lt;span class="math"&gt;\(23\)&lt;/span&gt;)。&lt;/li&gt;
+&lt;li&gt;先利用如同&lt;code&gt;PrintList()&lt;/code&gt;中提過的&lt;strong&gt;Traversal&lt;/strong&gt;，把新建立的&lt;code&gt;ListNode *current&lt;/code&gt;移動到Linked List的尾端，node(&lt;span class="math"&gt;\(14\)&lt;/span&gt;)，如圖三(a)。&lt;ul&gt;
+&lt;li&gt;有些資料結構會在&lt;code&gt;class LinkedList&lt;/code&gt;中新增一項&lt;code&gt;ListNode *last&lt;/code&gt;，記錄Linked List的最後一個node，那麼，&lt;code&gt;Push_back()&lt;/code&gt;就不需要&lt;strong&gt;Traversal&lt;/strong&gt;，可以在O(&lt;span class="math"&gt;\(1\)&lt;/span&gt;)時間內完成。&lt;/li&gt;
+&lt;li&gt;若沒有&lt;code&gt;ListNode *last&lt;/code&gt;，就需要O(&lt;span class="math"&gt;\(N\)&lt;/span&gt;)的&lt;strong&gt;Traversal&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;接著把&lt;code&gt;current&lt;/code&gt;的&lt;code&gt;next pointer&lt;/code&gt;指向newNode，如圖三(b)。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;即可得到新的Linked List：&lt;span class="math"&gt;\(7\)&lt;/span&gt;-&lt;span class="math"&gt;\(&amp;gt;3\)&lt;/span&gt;-&lt;span class="math"&gt;\(&amp;gt;14\)&lt;/span&gt;-&lt;span class="math"&gt;\(&amp;gt;23\)&lt;/span&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/LinkedList/Insert_Delete/f4.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖三(a)。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/LinkedList/Insert_Delete/f5.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖三(b)。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;程式範例如下：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// C++ code&lt;/span&gt;
+&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;LinkedList&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;Push_back&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
+
+    &lt;span class="n"&gt;ListNode&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;newNode&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;ListNode&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;first&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;             &lt;span class="c1"&gt;// 若list沒有node, 令newNode為first&lt;/span&gt;
+        &lt;span class="n"&gt;first&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;newNode&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+
+    &lt;span class="n"&gt;ListNode&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;current&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;first&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;current&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;next&lt;/span&gt; &lt;span class="o"&gt;!=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;  &lt;span class="c1"&gt;// Traversal&lt;/span&gt;
+        &lt;span class="n"&gt;current&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;current&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;next&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="n"&gt;current&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;next&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;newNode&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a name="delete"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;函式：Delete&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;Delete(int x)&lt;/code&gt;的功能是要刪除Linked List中，資料為&lt;code&gt;int x&lt;/code&gt;的node。&lt;br /&gt;
+會有兩種情形，第一種是Linked List中確實有&lt;code&gt;int x&lt;/code&gt;，第二種是沒有。在第一種情況中，要再把&lt;code&gt;int x&lt;/code&gt;位於&lt;code&gt;first&lt;/code&gt;的情況分開。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;case1-1&lt;/strong&gt;：要在Linked List(&lt;span class="math"&gt;\(7\)&lt;/span&gt;-&lt;span class="math"&gt;\(&amp;gt;3\)&lt;/span&gt;-&lt;span class="math"&gt;\(&amp;gt;14\)&lt;/span&gt;)中刪除具有&lt;span class="math"&gt;\(3\)&lt;/span&gt;的node，見圖四(a)：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;利用&lt;strong&gt;Traversal&lt;/strong&gt;的概念，以&lt;code&gt;ListNode *current&lt;/code&gt;指向node(&lt;span class="math"&gt;\(3\)&lt;/span&gt;)，同時有&lt;code&gt;ListNode *previous&lt;/code&gt;指向node(&lt;span class="math"&gt;\(3\)&lt;/span&gt;)的「前一個node」，node(&lt;span class="math"&gt;\(7\)&lt;/span&gt;)。&lt;/li&gt;
+&lt;li&gt;接著，把&lt;code&gt;previsou&lt;/code&gt;的&lt;code&gt;next pointer&lt;/code&gt;指向&lt;code&gt;current&lt;/code&gt;的&lt;code&gt;next pointer&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;再把&lt;code&gt;current&lt;/code&gt;的記憶體釋放(若是使用&lt;code&gt;new&lt;/code&gt;進行動態配置，就使用&lt;code&gt;delete&lt;/code&gt;釋放)，還給&lt;strong&gt;heap&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;關鍵就是，在整個&lt;code&gt;Delete()&lt;/code&gt;的過程，只有node(&lt;span class="math"&gt;\(3\)&lt;/span&gt;)知道node(&lt;span class="math"&gt;\(14\)&lt;/span&gt;)的記憶體位置，所以在把node(&lt;span class="math"&gt;\(3\)&lt;/span&gt;)刪除之前，必須先透過node(&lt;span class="math"&gt;\(3\)&lt;/span&gt;)的&lt;strong&gt;pointer&lt;/strong&gt;找到node(&lt;span class="math"&gt;\(14\)&lt;/span&gt;)，把node(&lt;span class="math"&gt;\(14\)&lt;/span&gt;)接到node(&lt;span class="math"&gt;\(7\)&lt;/span&gt;)上(也可以說是，換成用node(&lt;span class="math"&gt;\(7\)&lt;/span&gt;)的&lt;strong&gt;pointer&lt;/strong&gt;記住node(&lt;span class="math"&gt;\(14\)&lt;/span&gt;)的記憶體位置)。&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/LinkedList/Insert_Delete/f6.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖四(a)。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;case1-2&lt;/strong&gt;：若要刪除具有&lt;span class="math"&gt;\(7\)&lt;/span&gt;的node，而且Linked List只有一個node，見圖四(b)：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;需要把這個情況獨立出來的原因是，這個情況不會進行&lt;strong&gt;Traversal&lt;/strong&gt;，所以&lt;code&gt;ListNode *previous&lt;/code&gt;始終指向&lt;code&gt;NULL&lt;/code&gt;，便不能呼叫其private data，若進行&lt;code&gt;previous-&amp;gt;next&lt;/code&gt;將會因為意圖對「無效的」記憶體位置進行存取，而產生像是「EXC_BAD_ACCESS」的錯誤(error)。&lt;/li&gt;
+&lt;li&gt;所以只要直接釋放&lt;code&gt;first&lt;/code&gt;的記憶體位置即可。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/LinkedList/Insert_Delete/f7.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖四(b)。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;case2&lt;/strong&gt;：若Linked List中沒有要刪除的node，包含Linked List本來就沒有任何node，見圖四(c)：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;若想要刪除&lt;span class="math"&gt;\(8\)&lt;/span&gt;，但是Linked List(&lt;span class="math"&gt;\(7\)&lt;/span&gt;-&lt;span class="math"&gt;\(&amp;gt;3\)&lt;/span&gt;-&lt;span class="math"&gt;\(&amp;gt;14\)&lt;/span&gt;)沒有&lt;span class="math"&gt;\(8\)&lt;/span&gt;，那麼在&lt;strong&gt;Traversal&lt;/strong&gt;後，&lt;code&gt;ListNode *current&lt;/code&gt;會一路走到Linked List的結尾，也就是&lt;code&gt;NULL&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;若Linked List本來就是空的，那麼建立的&lt;code&gt;ListNode *current = first&lt;/code&gt;，&lt;code&gt;current&lt;/code&gt;也會指向&lt;code&gt;NULL&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;以上這兩種情況，直接結束&lt;code&gt;Delete()&lt;/code&gt;函式。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/LinkedList/Insert_Delete/f8.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖四(c)。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;程式範例如下：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// C++ code&lt;/span&gt;
+&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;LinkedList&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;Delete&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
+
+    &lt;span class="n"&gt;ListNode&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;current&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;first&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;      
+             &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;previous&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;current&lt;/span&gt; &lt;span class="o"&gt;!=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;current&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;data&lt;/span&gt; &lt;span class="o"&gt;!=&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;  &lt;span class="c1"&gt;// Traversal&lt;/span&gt;
+        &lt;span class="n"&gt;previous&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;current&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;                       &lt;span class="c1"&gt;// 如果current指向NULL&lt;/span&gt;
+        &lt;span class="n"&gt;current&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;current&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;next&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;                  &lt;span class="c1"&gt;// 或是current-&amp;gt;data == x&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;                                             &lt;span class="c1"&gt;// 即結束while loop&lt;/span&gt;
+
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;current&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;             &lt;span class="c1"&gt;// list沒有要刪的node, 或是list為empty&lt;/span&gt;
+        &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;There is no &amp;quot;&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="s"&gt;&amp;quot; in list.&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="k"&gt;else&lt;/span&gt; &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;current&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="n"&gt;first&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;    &lt;span class="c1"&gt;// list只有一個node&lt;/span&gt;
+        &lt;span class="k"&gt;delete&lt;/span&gt; &lt;span class="n"&gt;first&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;               
+        &lt;span class="n"&gt;first&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;                  &lt;span class="c1"&gt;// 當指標被delete後, 將其指向NULL, &lt;/span&gt;
+        &lt;span class="n"&gt;current&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;                &lt;span class="c1"&gt;// 可以避免不必要bug&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;                     
+    &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="k"&gt;else&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;                          &lt;span class="c1"&gt;// 其餘情況, previous不為NULL&lt;/span&gt;
+        &lt;span class="n"&gt;previous&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;next&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;current&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;next&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="k"&gt;delete&lt;/span&gt; &lt;span class="n"&gt;current&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="n"&gt;current&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a name="clear"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;函式：Clear&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;Clear()&lt;/code&gt;的功能是清除整個Linked List。方法如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;從Linked List的「第一個node」&lt;code&gt;first&lt;/code&gt;開始，進行&lt;strong&gt;Traversal&lt;/strong&gt;。&lt;ul&gt;
+&lt;li&gt;利用&lt;code&gt;first=first-&amp;gt;next&lt;/code&gt;即可不斷移動&lt;code&gt;first&lt;/code&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;建立一個&lt;code&gt;ListNode *current&lt;/code&gt;記錄「要刪除的node」之記憶體位置。&lt;/li&gt;
+&lt;li&gt;重複上述步驟，直到&lt;code&gt;first&lt;/code&gt;指向Linked List的尾巴&lt;code&gt;NULL&lt;/code&gt;為止。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;見圖五(a)：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;原先&lt;code&gt;first&lt;/code&gt;記錄的是node(&lt;span class="math"&gt;\(7\)&lt;/span&gt;)。&lt;/li&gt;
+&lt;li&gt;建立&lt;code&gt;ListNode *current&lt;/code&gt;記錄&lt;code&gt;first&lt;/code&gt;，也就是node(&lt;span class="math"&gt;\(7\)&lt;/span&gt;)。&lt;/li&gt;
+&lt;li&gt;將&lt;code&gt;first&lt;/code&gt;移動到node(&lt;span class="math"&gt;\(3\)&lt;/span&gt;)。&lt;/li&gt;
+&lt;li&gt;刪除&lt;code&gt;current&lt;/code&gt;指向的node(&lt;span class="math"&gt;\(7\)&lt;/span&gt;)。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;如此，便把node(&lt;span class="math"&gt;\(7\)&lt;/span&gt;)從Linked List移除。&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/LinkedList/Insert_Delete/f9.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖五(a)。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;見圖五(b)：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;目前&lt;code&gt;first&lt;/code&gt;記錄的是node(&lt;span class="math"&gt;\(3\)&lt;/span&gt;)。&lt;/li&gt;
+&lt;li&gt;建立&lt;code&gt;ListNode *current&lt;/code&gt;記錄&lt;code&gt;first&lt;/code&gt;，也就是node(&lt;span class="math"&gt;\(3\)&lt;/span&gt;)。&lt;/li&gt;
+&lt;li&gt;將&lt;code&gt;first&lt;/code&gt;移動到node(&lt;span class="math"&gt;\(14\)&lt;/span&gt;)。&lt;/li&gt;
+&lt;li&gt;刪除&lt;code&gt;current&lt;/code&gt;指向的node(&lt;span class="math"&gt;\(3\)&lt;/span&gt;)。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;如此，便把node(&lt;span class="math"&gt;\(3\)&lt;/span&gt;)從Linked List移除。&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/LinkedList/Insert_Delete/f10.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖五(b)。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;見圖五(c)：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;目前&lt;code&gt;first&lt;/code&gt;記錄的是node(&lt;span class="math"&gt;\(14\)&lt;/span&gt;)。&lt;/li&gt;
+&lt;li&gt;建立&lt;code&gt;ListNode *current&lt;/code&gt;記錄&lt;code&gt;first&lt;/code&gt;，也就是node(&lt;span class="math"&gt;\(14\)&lt;/span&gt;)。&lt;/li&gt;
+&lt;li&gt;將&lt;code&gt;first&lt;/code&gt;移動到&lt;code&gt;NULL&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;刪除&lt;code&gt;current&lt;/code&gt;指向的node(&lt;span class="math"&gt;\(14\)&lt;/span&gt;)。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;這樣便把Linked List的node刪除完畢。&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/LinkedList/Insert_Delete/f11.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖五(c)。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;程式範例如下：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// C++ code&lt;/span&gt;
+&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;LinkedList&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;Clear&lt;/span&gt;&lt;span class="p"&gt;(){&lt;/span&gt;
+
+    &lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;first&lt;/span&gt; &lt;span class="o"&gt;!=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="n"&gt;ListNode&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;current&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;first&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="n"&gt;first&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;first&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;next&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="k"&gt;delete&lt;/span&gt; &lt;span class="n"&gt;current&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="n"&gt;current&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a name="test"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;測試&lt;/h2&gt;
+&lt;p&gt;在&lt;code&gt;main()&lt;/code&gt;測試前面所介紹的各個函式。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;//C++ code&lt;/span&gt;
+&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+
+    &lt;span class="n"&gt;LinkedList&lt;/span&gt; &lt;span class="n"&gt;list&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;     &lt;span class="c1"&gt;// 建立LinkedList的object&lt;/span&gt;
+    &lt;span class="n"&gt;list&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;PrintList&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;    &lt;span class="c1"&gt;// 目前list是空的&lt;/span&gt;
+    &lt;span class="n"&gt;list&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Delete&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;      &lt;span class="c1"&gt;// list是空的, 沒有4&lt;/span&gt;
+    &lt;span class="n"&gt;list&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Push_back&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;   &lt;span class="c1"&gt;// list: 5&lt;/span&gt;
+    &lt;span class="n"&gt;list&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Push_back&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;   &lt;span class="c1"&gt;// list: 5 3&lt;/span&gt;
+    &lt;span class="n"&gt;list&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Push_front&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;9&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;  &lt;span class="c1"&gt;// list: 9 5 3&lt;/span&gt;
+    &lt;span class="n"&gt;list&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;PrintList&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;    &lt;span class="c1"&gt;// 印出: 9 5 3&lt;/span&gt;
+    &lt;span class="n"&gt;list&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Delete&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;      &lt;span class="c1"&gt;// list: 9 3&lt;/span&gt;
+    &lt;span class="n"&gt;list&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Push_back&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;   &lt;span class="c1"&gt;// list: 9 3 4&lt;/span&gt;
+    &lt;span class="n"&gt;list&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Push_front&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;8&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;  &lt;span class="c1"&gt;// list: 8 9 3 4&lt;/span&gt;
+    &lt;span class="n"&gt;list&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;PrintList&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;    &lt;span class="c1"&gt;// 印出: 8 9 3 4&lt;/span&gt;
+    &lt;span class="n"&gt;list&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Clear&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;        &lt;span class="c1"&gt;// 清空list&lt;/span&gt;
+    &lt;span class="n"&gt;list&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;PrintList&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;    &lt;span class="c1"&gt;// 印出: List is empty.&lt;/span&gt;
+
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;output:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;List&lt;/span&gt; &lt;span class="n"&gt;is&lt;/span&gt; &lt;span class="n"&gt;empty&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;
+&lt;span class="n"&gt;There&lt;/span&gt; &lt;span class="n"&gt;is&lt;/span&gt; &lt;span class="n"&gt;no&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt; &lt;span class="n"&gt;in&lt;/span&gt; &lt;span class="n"&gt;list&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;
+&lt;span class="mi"&gt;9&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt; 
+&lt;span class="mi"&gt;8&lt;/span&gt; &lt;span class="mi"&gt;9&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt; 
+&lt;span class="n"&gt;List&lt;/span&gt; &lt;span class="n"&gt;is&lt;/span&gt; &lt;span class="n"&gt;empty&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;/br&gt;  &lt;/p&gt;
+&lt;p&gt;以上是在&lt;strong&gt;Linked List&lt;/strong&gt;中新增資料、刪除資料的方法介紹。  &lt;/p&gt;
+&lt;p&gt;程式的實作方式根據&lt;code&gt;class LinkedList&lt;/code&gt;的建立方式會有所不同，不過使用&lt;strong&gt;pointer&lt;/strong&gt;的邏輯應該是大同小異的。&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;&lt;a name="ref"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;參考資料：&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844"&gt;Introduction to Algorithms, Ch10&lt;/a&gt; &lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376"&gt;Fundamentals of Data Structures in C++, Ch4&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://emn178.pixnet.net/blog/post/93557502-%E9%80%A3%E7%B5%90%E4%B8%B2%E5%88%97%28linked-list%29"&gt;小殘的程式光廊：連結串列(Linked List)&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a name="series"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;h3&gt;Linked List系列文章&lt;/h3&gt;
+&lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/linked-list-introjian-jie.html"&gt;Linked List: Intro(簡介)&lt;/a&gt;&lt;br /&gt;
+&lt;a href=""&gt;Linked List: 新增資料、刪除資料&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;回到目錄：&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html"&gt;目錄：演算法與資料結構&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;script type="text/javascript"&gt;if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width &lt; 768) ? "left" : align;
+        indent = (screen.width &lt; 768) ? "0em" : indent;
+        linebreak = (screen.width &lt; 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' &amp;&amp; location_protocol !== 'https') location_protocol = 'https:';
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+&lt;/script&gt;</summary><category term="C++"></category><category term="Intro"></category><category term="Linked List"></category></entry><entry><title>Linked List: Intro(簡介)</title><link href="http://alrightchiu.github.io/SecondRound/linked-list-introjian-jie.html" rel="alternate"></link><updated>2016-04-17T21:51:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-04-17:SecondRound/linked-list-introjian-jie.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h3&gt;先備知識與注意事項&lt;/h3&gt;
 &lt;p&gt;要了解Linked List，一定要先看懂&lt;strong&gt;pointer(指標)&lt;/strong&gt;，建議讀者可以先閱讀以下連結內容：&lt;/p&gt;
 &lt;ul&gt;
