@@ -251,7 +251,7 @@ void LinkedList::Push_back(int x){
 **圖四(b)。**
 </center>
 
-**case2**：若Linked List中沒有要刪除的node，包含Linked List本來就沒有任何node，見圖四(c)：
+**case2**：若Linked List中沒有要刪除的node，見圖四(c)：
 
 * 若想要刪除$8$，但是Linked List($7$-$>3$-$>14$)沒有$8$，那麼在**Traversal**後，`ListNode *current`會一路走到Linked List的結尾，也就是`NULL`。
 * 若Linked List本來就是空的，那麼建立的`ListNode *current = first`，`current`也會指向`NULL`。
