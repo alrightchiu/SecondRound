@@ -134,7 +134,7 @@
 
 &lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;LinkedList&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
 &lt;span class="k"&gt;private&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
-    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;                   &lt;span class="c1"&gt;// size是用來記錄Linked List的長度, 非必要&lt;/span&gt;
+    &lt;span class="c1"&gt;// int size;                   // size是用來記錄Linked List的長度, 非必要&lt;/span&gt;
     &lt;span class="n"&gt;ListNode&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;first&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;            &lt;span class="c1"&gt;// list的第一個node&lt;/span&gt;
 &lt;span class="k"&gt;public&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
     &lt;span class="n"&gt;LinkedList&lt;/span&gt;&lt;span class="p"&gt;(){&lt;/span&gt;&lt;span class="n"&gt;first&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;};&lt;/span&gt;
