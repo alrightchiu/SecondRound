@@ -77,7 +77,7 @@
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a name="intro"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;簡介：Linked list&lt;/h2&gt;
-&lt;p&gt;Linked List(連結串列)是一種常見的資料結構，其使用&lt;strong&gt;node(節點)&lt;/strong&gt;來記錄、表示、儲存資料(data)，並利用每個node中的&lt;strong&gt;pointer&lt;/strong&gt;指向下一個node，藉此將多個node串連起來，形成Linked List，見圖一(a)。&lt;/p&gt;
+&lt;p&gt;Linked List(連結串列)是一種常見的資料結構，其使用&lt;strong&gt;node(節點)&lt;/strong&gt;來記錄、表示、儲存資料(data)，並利用每個node中的&lt;strong&gt;pointer&lt;/strong&gt;指向下一個node，藉此將多個node串連起來，形成Linked List，並以&lt;code&gt;NULL&lt;/code&gt;來代表Linked List的終點，見圖一(a)。&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/LinkedList/Intro/f1.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖一(a)。&lt;/strong&gt;
