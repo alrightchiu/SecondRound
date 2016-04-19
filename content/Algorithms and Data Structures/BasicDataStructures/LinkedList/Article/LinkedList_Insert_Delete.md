@@ -13,6 +13,8 @@ Summary: 介紹於Linked List(連結串列)中新增資料與刪除資料的方�
 <center>
 ![cc][f0]
 
+
+**Linked List**
 </center>
 
 
