@@ -75,8 +75,12 @@ Linked List(連結串列)是一種常見的資料結構，其使用**node(節點
 
 ###以兩個class(類別)表示Linked List
  
-若以C++的**class(類別)**來實作Linked List，可以利用兩個class，使得node的資料不會被任意更動(也就是封裝(Encapsulation)的概念)：  
-(使用`struct`來代表node也是常見的做法，差別在於，`struct`的資料成員(data member)一定是**公開的(public)**)
+若以C++的**class(類別)**來實作Linked List，可以利用兩個class，使得node的資料不會被任意更動(也就是封裝(Encapsulation)的概念)。   
+使用`struct`來代表node也是常見的做法，差別在於，`struct`的資料成員(data member)一定是**公開的(public)**。
+
+`class ListNode`的private data有兩項，一項代表著資料項目(在此以`int`示範)，一項是「指向型別(type)為ListNode之指標」，以`ListNode *next`表示，用來記錄「下一個node」的記憶體位置。
+
+在`class LinkedList`的private data中，最基本一定會有代表「第一個node」的`ListNode *first`，其餘資料項目可以視情況增加，像是`int size`用來記錄Linked List的長度等等。
 
 ```cpp
 // C++ code
