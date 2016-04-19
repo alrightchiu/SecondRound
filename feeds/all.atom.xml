@@ -244,7 +244,7 @@
 &lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/LinkedList/Insert_Delete/f7.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖四(b)。&lt;/strong&gt;
 &lt;/center&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;case2&lt;/strong&gt;：若Linked List中沒有要刪除的node，包含Linked List本來就沒有任何node，見圖四(c)：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;case2&lt;/strong&gt;：若Linked List中沒有要刪除的node，見圖四(c)：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;若想要刪除&lt;span class="math"&gt;\(8\)&lt;/span&gt;，但是Linked List(&lt;span class="math"&gt;\(7\)&lt;/span&gt;-&lt;span class="math"&gt;\(&amp;gt;3\)&lt;/span&gt;-&lt;span class="math"&gt;\(&amp;gt;14\)&lt;/span&gt;)沒有&lt;span class="math"&gt;\(8\)&lt;/span&gt;，那麼在&lt;strong&gt;Traversal&lt;/strong&gt;後，&lt;code&gt;ListNode *current&lt;/code&gt;會一路走到Linked List的結尾，也就是&lt;code&gt;NULL&lt;/code&gt;。&lt;/li&gt;
 &lt;li&gt;若Linked List本來就是空的，那麼建立的&lt;code&gt;ListNode *current = first&lt;/code&gt;，&lt;code&gt;current&lt;/code&gt;也會指向&lt;code&gt;NULL&lt;/code&gt;。&lt;/li&gt;

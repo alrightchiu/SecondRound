@@ -301,7 +301,7 @@
 <img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/LinkedList/Insert_Delete/f7.png?raw=true" /></p>
 <p><strong>圖四(b)。</strong>
 </center></p>
-<p><strong>case2</strong>：若Linked List中沒有要刪除的node，包含Linked List本來就沒有任何node，見圖四(c)：</p>
+<p><strong>case2</strong>：若Linked List中沒有要刪除的node，見圖四(c)：</p>
 <ul>
 <li>若想要刪除<span class="math">\(8\)</span>，但是Linked List(<span class="math">\(7\)</span>-<span class="math">\(&gt;3\)</span>-<span class="math">\(&gt;14\)</span>)沒有<span class="math">\(8\)</span>，那麼在<strong>Traversal</strong>後，<code>ListNode *current</code>會一路走到Linked List的結尾，也就是<code>NULL</code>。</li>
 <li>若Linked List本來就是空的，那麼建立的<code>ListNode *current = first</code>，<code>current</code>也會指向<code>NULL</code>。</li>
