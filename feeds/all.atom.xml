@@ -58,7 +58,8 @@
 &lt;p&gt;本篇文章將延續&lt;a href="http://alrightchiu.github.io/SecondRound/linked-list-introjian-jie.html"&gt;Linked List: Intro(簡介)&lt;/a&gt;，繼續介紹如何在Linked List中新增資料與刪除資料。&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/LinkedList/Insert_Delete/f0.png?raw=true" /&gt;&lt;/p&gt;
-&lt;p&gt;&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Linked List&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;class ListNode&lt;/code&gt;與&lt;code&gt;class LinkedList&lt;/code&gt;的定義如下：&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// C++ code&lt;/span&gt;
 &lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;LinkedList&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;    &lt;span class="c1"&gt;// 為了將class LinkedList設成class ListNode的friend,&lt;/span&gt;
