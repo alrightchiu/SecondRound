@@ -237,7 +237,7 @@
 <p><a name="back"></a></p>
 <h2>函式：Push_back</h2>
 <p><code>Push_back()</code>的功能是在Linked List的尾巴新增資料。</p>
-<p>若考慮在Linked list(<span class="math">\(7\)</span>-<span class="math">\(&gt;3\)</span>-<span class="math">\(&gt;14\)</span>)的尾巴加入<span class="math">\(23\)</span>，方法如下：</p>
+<p>若考慮在Linked list(<span class="math">\(7\)</span>-&gt;<span class="math">\(3\)</span>-&gt;<span class="math">\(14\)</span>)的尾巴加入<span class="math">\(23\)</span>，方法如下：</p>
 <ul>
 <li>先建立一個新的節點<code>ListNode *newNode</code>，帶有欲新增的資料(<span class="math">\(23\)</span>)。</li>
 <li>先利用如同<code>PrintList()</code>中提過的<strong>Traversal</strong>，把新建立的<code>ListNode *current</code>移動到Linked List的尾端，node(<span class="math">\(14\)</span>)，如圖三(a)。<ul>
@@ -247,7 +247,7 @@
 </li>
 <li>接著把<code>current</code>的<code>next pointer</code>指向newNode，如圖三(b)。</li>
 </ul>
-<p>即可得到新的Linked List：<span class="math">\(7\)</span>-<span class="math">\(&gt;3\)</span>-<span class="math">\(&gt;14\)</span>-<span class="math">\(&gt;23\)</span>。</p>
+<p>即可得到新的Linked List：<span class="math">\(7\)</span>-&gt;<span class="math">\(3\)</span>-&gt;<span class="math">\(14\)</span>-&gt;<span class="math">\(23\)</span>。</p>
 <p><center>
 <img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/LinkedList/Insert_Delete/f4.png?raw=true" /></p>
 <p><strong>圖三(a)。</strong>
@@ -281,7 +281,7 @@
 <h2>函式：Delete</h2>
 <p><code>Delete(int x)</code>的功能是要刪除Linked List中，資料為<code>int x</code>的node。<br />
 會有兩種情形，第一種是Linked List中確實有<code>int x</code>，第二種是沒有。在第一種情況中，要再把<code>int x</code>位於<code>first</code>的情況分開。</p>
-<p><strong>case1-1</strong>：要在Linked List(<span class="math">\(7\)</span>-<span class="math">\(&gt;3\)</span>-<span class="math">\(&gt;14\)</span>)中刪除具有<span class="math">\(3\)</span>的node，見圖四(a)：</p>
+<p><strong>case1-1</strong>：要在Linked List(<span class="math">\(7\)</span>-&gt;<span class="math">\(3\)</span>-&gt;<span class="math">\(14\)</span>)中刪除具有<span class="math">\(3\)</span>的node，見圖四(a)：</p>
 <ul>
 <li>利用<strong>Traversal</strong>的概念，以<code>ListNode *current</code>指向node(<span class="math">\(3\)</span>)，同時有<code>ListNode *previous</code>指向node(<span class="math">\(3\)</span>)的「前一個node」，node(<span class="math">\(7\)</span>)。</li>
 <li>接著，把<code>previsou</code>的<code>next pointer</code>指向<code>current</code>的<code>next pointer</code>。</li>
@@ -303,7 +303,7 @@
 </center></p>
 <p><strong>case2</strong>：若Linked List中沒有要刪除的node，見圖四(c)：</p>
 <ul>
-<li>若想要刪除<span class="math">\(8\)</span>，但是Linked List(<span class="math">\(7\)</span>-<span class="math">\(&gt;3\)</span>-<span class="math">\(&gt;14\)</span>)沒有<span class="math">\(8\)</span>，那麼在<strong>Traversal</strong>後，<code>ListNode *current</code>會一路走到Linked List的結尾，也就是<code>NULL</code>。</li>
+<li>若想要刪除<span class="math">\(8\)</span>，但是Linked List(<span class="math">\(7\)</span>-&gt;<span class="math">\(3\)</span>-&gt;<span class="math">\(14\)</span>)沒有<span class="math">\(8\)</span>，那麼在<strong>Traversal</strong>後，<code>ListNode *current</code>會一路走到Linked List的結尾，也就是<code>NULL</code>。</li>
 <li>若Linked List本來就是空的，那麼建立的<code>ListNode *current = first</code>，<code>current</code>也會指向<code>NULL</code>。</li>
 <li>以上這兩種情況，直接結束<code>Delete()</code>函式。</li>
 </ul>

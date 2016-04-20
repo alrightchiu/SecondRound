@@ -180,7 +180,7 @@
 &lt;p&gt;&lt;a name="back"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;函式：Push_back&lt;/h2&gt;
 &lt;p&gt;&lt;code&gt;Push_back()&lt;/code&gt;的功能是在Linked List的尾巴新增資料。&lt;/p&gt;
-&lt;p&gt;若考慮在Linked list(&lt;span class="math"&gt;\(7\)&lt;/span&gt;-&lt;span class="math"&gt;\(&amp;gt;3\)&lt;/span&gt;-&lt;span class="math"&gt;\(&amp;gt;14\)&lt;/span&gt;)的尾巴加入&lt;span class="math"&gt;\(23\)&lt;/span&gt;，方法如下：&lt;/p&gt;
+&lt;p&gt;若考慮在Linked list(&lt;span class="math"&gt;\(7\)&lt;/span&gt;-&amp;gt;&lt;span class="math"&gt;\(3\)&lt;/span&gt;-&amp;gt;&lt;span class="math"&gt;\(14\)&lt;/span&gt;)的尾巴加入&lt;span class="math"&gt;\(23\)&lt;/span&gt;，方法如下：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;先建立一個新的節點&lt;code&gt;ListNode *newNode&lt;/code&gt;，帶有欲新增的資料(&lt;span class="math"&gt;\(23\)&lt;/span&gt;)。&lt;/li&gt;
 &lt;li&gt;先利用如同&lt;code&gt;PrintList()&lt;/code&gt;中提過的&lt;strong&gt;Traversal&lt;/strong&gt;，把新建立的&lt;code&gt;ListNode *current&lt;/code&gt;移動到Linked List的尾端，node(&lt;span class="math"&gt;\(14\)&lt;/span&gt;)，如圖三(a)。&lt;ul&gt;
@@ -190,7 +190,7 @@
 &lt;/li&gt;
 &lt;li&gt;接著把&lt;code&gt;current&lt;/code&gt;的&lt;code&gt;next pointer&lt;/code&gt;指向newNode，如圖三(b)。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;即可得到新的Linked List：&lt;span class="math"&gt;\(7\)&lt;/span&gt;-&lt;span class="math"&gt;\(&amp;gt;3\)&lt;/span&gt;-&lt;span class="math"&gt;\(&amp;gt;14\)&lt;/span&gt;-&lt;span class="math"&gt;\(&amp;gt;23\)&lt;/span&gt;。&lt;/p&gt;
+&lt;p&gt;即可得到新的Linked List：&lt;span class="math"&gt;\(7\)&lt;/span&gt;-&amp;gt;&lt;span class="math"&gt;\(3\)&lt;/span&gt;-&amp;gt;&lt;span class="math"&gt;\(14\)&lt;/span&gt;-&amp;gt;&lt;span class="math"&gt;\(23\)&lt;/span&gt;。&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/LinkedList/Insert_Delete/f4.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖三(a)。&lt;/strong&gt;
@@ -224,7 +224,7 @@
 &lt;h2&gt;函式：Delete&lt;/h2&gt;
 &lt;p&gt;&lt;code&gt;Delete(int x)&lt;/code&gt;的功能是要刪除Linked List中，資料為&lt;code&gt;int x&lt;/code&gt;的node。&lt;br /&gt;
 會有兩種情形，第一種是Linked List中確實有&lt;code&gt;int x&lt;/code&gt;，第二種是沒有。在第一種情況中，要再把&lt;code&gt;int x&lt;/code&gt;位於&lt;code&gt;first&lt;/code&gt;的情況分開。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;case1-1&lt;/strong&gt;：要在Linked List(&lt;span class="math"&gt;\(7\)&lt;/span&gt;-&lt;span class="math"&gt;\(&amp;gt;3\)&lt;/span&gt;-&lt;span class="math"&gt;\(&amp;gt;14\)&lt;/span&gt;)中刪除具有&lt;span class="math"&gt;\(3\)&lt;/span&gt;的node，見圖四(a)：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;case1-1&lt;/strong&gt;：要在Linked List(&lt;span class="math"&gt;\(7\)&lt;/span&gt;-&amp;gt;&lt;span class="math"&gt;\(3\)&lt;/span&gt;-&amp;gt;&lt;span class="math"&gt;\(14\)&lt;/span&gt;)中刪除具有&lt;span class="math"&gt;\(3\)&lt;/span&gt;的node，見圖四(a)：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;利用&lt;strong&gt;Traversal&lt;/strong&gt;的概念，以&lt;code&gt;ListNode *current&lt;/code&gt;指向node(&lt;span class="math"&gt;\(3\)&lt;/span&gt;)，同時有&lt;code&gt;ListNode *previous&lt;/code&gt;指向node(&lt;span class="math"&gt;\(3\)&lt;/span&gt;)的「前一個node」，node(&lt;span class="math"&gt;\(7\)&lt;/span&gt;)。&lt;/li&gt;
 &lt;li&gt;接著，把&lt;code&gt;previsou&lt;/code&gt;的&lt;code&gt;next pointer&lt;/code&gt;指向&lt;code&gt;current&lt;/code&gt;的&lt;code&gt;next pointer&lt;/code&gt;。&lt;/li&gt;
@@ -246,7 +246,7 @@
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;case2&lt;/strong&gt;：若Linked List中沒有要刪除的node，見圖四(c)：&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;若想要刪除&lt;span class="math"&gt;\(8\)&lt;/span&gt;，但是Linked List(&lt;span class="math"&gt;\(7\)&lt;/span&gt;-&lt;span class="math"&gt;\(&amp;gt;3\)&lt;/span&gt;-&lt;span class="math"&gt;\(&amp;gt;14\)&lt;/span&gt;)沒有&lt;span class="math"&gt;\(8\)&lt;/span&gt;，那麼在&lt;strong&gt;Traversal&lt;/strong&gt;後，&lt;code&gt;ListNode *current&lt;/code&gt;會一路走到Linked List的結尾，也就是&lt;code&gt;NULL&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;若想要刪除&lt;span class="math"&gt;\(8\)&lt;/span&gt;，但是Linked List(&lt;span class="math"&gt;\(7\)&lt;/span&gt;-&amp;gt;&lt;span class="math"&gt;\(3\)&lt;/span&gt;-&amp;gt;&lt;span class="math"&gt;\(14\)&lt;/span&gt;)沒有&lt;span class="math"&gt;\(8\)&lt;/span&gt;，那麼在&lt;strong&gt;Traversal&lt;/strong&gt;後，&lt;code&gt;ListNode *current&lt;/code&gt;會一路走到Linked List的結尾，也就是&lt;code&gt;NULL&lt;/code&gt;。&lt;/li&gt;
 &lt;li&gt;若Linked List本來就是空的，那麼建立的&lt;code&gt;ListNode *current = first&lt;/code&gt;，&lt;code&gt;current&lt;/code&gt;也會指向&lt;code&gt;NULL&lt;/code&gt;。&lt;/li&gt;
 &lt;li&gt;以上這兩種情況，直接結束&lt;code&gt;Delete()&lt;/code&gt;函式。&lt;/li&gt;
 &lt;/ul&gt;
