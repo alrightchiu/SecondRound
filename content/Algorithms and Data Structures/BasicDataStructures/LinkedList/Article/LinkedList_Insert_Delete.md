@@ -166,7 +166,7 @@ void LinkedList::Push_front(int x){
 
 `Push_back()`的功能是在Linked List的尾巴新增資料。
 
-若考慮在Linked list($7$-$>3$-$>14$)的尾巴加入$23$，方法如下：
+若考慮在Linked list($7$->$3$->$14$)的尾巴加入$23$，方法如下：
 
 * 先建立一個新的節點`ListNode *newNode`，帶有欲新增的資料($23$)。
 * 先利用如同`PrintList()`中提過的**Traversal**，把新建立的`ListNode *current`移動到Linked List的尾端，node($14$)，如圖三(a)。
@@ -174,7 +174,7 @@ void LinkedList::Push_front(int x){
     * 若沒有`ListNode *last`，就需要O($N$)的**Traversal**。
 * 接著把`current`的`next pointer`指向newNode，如圖三(b)。
 
-即可得到新的Linked List：$7$-$>3$-$>14$-$>23$。
+即可得到新的Linked List：$7$->$3$->$14$->$23$。
 
 
 <center>
@@ -223,7 +223,7 @@ void LinkedList::Push_back(int x){
 `Delete(int x)`的功能是要刪除Linked List中，資料為`int x`的node。  
 會有兩種情形，第一種是Linked List中確實有`int x`，第二種是沒有。在第一種情況中，要再把`int x`位於`first`的情況分開。
 
-**case1-1**：要在Linked List($7$-$>3$-$>14$)中刪除具有$3$的node，見圖四(a)：
+**case1-1**：要在Linked List($7$->$3$->$14$)中刪除具有$3$的node，見圖四(a)：
 
 * 利用**Traversal**的概念，以`ListNode *current`指向node($3$)，同時有`ListNode *previous`指向node($3$)的「前一個node」，node($7$)。
 * 接著，把`previsou`的`next pointer`指向`current`的`next pointer`。
@@ -253,7 +253,7 @@ void LinkedList::Push_back(int x){
 
 **case2**：若Linked List中沒有要刪除的node，見圖四(c)：
 
-* 若想要刪除$8$，但是Linked List($7$-$>3$-$>14$)沒有$8$，那麼在**Traversal**後，`ListNode *current`會一路走到Linked List的結尾，也就是`NULL`。
+* 若想要刪除$8$，但是Linked List($7$->$3$->$14$)沒有$8$，那麼在**Traversal**後，`ListNode *current`會一路走到Linked List的結尾，也就是`NULL`。
 * 若Linked List本來就是空的，那麼建立的`ListNode *current = first`，`current`也會指向`NULL`。
 * 以上這兩種情況，直接結束`Delete()`函式。
 
