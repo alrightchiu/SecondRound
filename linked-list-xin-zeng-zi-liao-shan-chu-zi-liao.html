@@ -207,13 +207,13 @@
 <p><a name="front"></a></p>
 <h2>函式：Push_front</h2>
 <p><code>Push_front()</code>的功能是在Linked List的開頭新增資料。  </p>
-<p>若考慮在Linked list(<span class="math">\(3\)</span>-<span class="math">\(&gt;14\)</span>)的開頭加入<span class="math">\(23\)</span>，方法如下：</p>
+<p>若考慮在Linked list(<span class="math">\(3\)</span>-&gt;<span class="math">\(14\)</span>)的開頭加入<span class="math">\(23\)</span>，方法如下：</p>
 <ul>
 <li>先建立一個新的節點<code>ListNode *newNode</code>，帶有欲新增的資料(<span class="math">\(23\)</span>)，如圖二(a)。</li>
 <li>將<code>newNode</code>中的<strong>pointer</strong>，<code>ListNode *next</code>，指向Linked List的第一個node<code>first</code>，如圖二(b)。</li>
 <li>接著，把<code>first</code>更新成<code>newNode</code>。</li>
 </ul>
-<p>經過以上步驟(時間複雜度為O(<span class="math">\(1\)</span>))便得到新的Linked List：<span class="math">\(23\)</span>-<span class="math">\(&gt;3\)</span>-<span class="math">\(&gt;14\)</span>。</p>
+<p>經過以上步驟(時間複雜度為O(<span class="math">\(1\)</span>))便得到新的Linked List：<span class="math">\(23\)</span>-&gt;<span class="math">\(3\)</span>-&gt;<span class="math">\(14\)</span>。</p>
 <p><center>
 <img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/LinkedList/Insert_Delete/f2.png?raw=true" /></p>
 <p><strong>圖二(a)。</strong>

@@ -150,13 +150,13 @@
 &lt;p&gt;&lt;a name="front"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;函式：Push_front&lt;/h2&gt;
 &lt;p&gt;&lt;code&gt;Push_front()&lt;/code&gt;的功能是在Linked List的開頭新增資料。  &lt;/p&gt;
-&lt;p&gt;若考慮在Linked list(&lt;span class="math"&gt;\(3\)&lt;/span&gt;-&lt;span class="math"&gt;\(&amp;gt;14\)&lt;/span&gt;)的開頭加入&lt;span class="math"&gt;\(23\)&lt;/span&gt;，方法如下：&lt;/p&gt;
+&lt;p&gt;若考慮在Linked list(&lt;span class="math"&gt;\(3\)&lt;/span&gt;-&amp;gt;&lt;span class="math"&gt;\(14\)&lt;/span&gt;)的開頭加入&lt;span class="math"&gt;\(23\)&lt;/span&gt;，方法如下：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;先建立一個新的節點&lt;code&gt;ListNode *newNode&lt;/code&gt;，帶有欲新增的資料(&lt;span class="math"&gt;\(23\)&lt;/span&gt;)，如圖二(a)。&lt;/li&gt;
 &lt;li&gt;將&lt;code&gt;newNode&lt;/code&gt;中的&lt;strong&gt;pointer&lt;/strong&gt;，&lt;code&gt;ListNode *next&lt;/code&gt;，指向Linked List的第一個node&lt;code&gt;first&lt;/code&gt;，如圖二(b)。&lt;/li&gt;
 &lt;li&gt;接著，把&lt;code&gt;first&lt;/code&gt;更新成&lt;code&gt;newNode&lt;/code&gt;。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;經過以上步驟(時間複雜度為O(&lt;span class="math"&gt;\(1\)&lt;/span&gt;))便得到新的Linked List：&lt;span class="math"&gt;\(23\)&lt;/span&gt;-&lt;span class="math"&gt;\(&amp;gt;3\)&lt;/span&gt;-&lt;span class="math"&gt;\(&amp;gt;14\)&lt;/span&gt;。&lt;/p&gt;
+&lt;p&gt;經過以上步驟(時間複雜度為O(&lt;span class="math"&gt;\(1\)&lt;/span&gt;))便得到新的Linked List：&lt;span class="math"&gt;\(23\)&lt;/span&gt;-&amp;gt;&lt;span class="math"&gt;\(3\)&lt;/span&gt;-&amp;gt;&lt;span class="math"&gt;\(14\)&lt;/span&gt;。&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/LinkedList/Insert_Delete/f2.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖二(a)。&lt;/strong&gt;
