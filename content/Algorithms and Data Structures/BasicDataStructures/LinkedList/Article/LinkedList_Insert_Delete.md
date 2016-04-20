@@ -124,13 +124,13 @@ void LinkedList::PrintList(){
 
 `Push_front()`的功能是在Linked List的開頭新增資料。  
 
-若考慮在Linked list($3$-$>14$)的開頭加入$23$，方法如下：
+若考慮在Linked list($3$->$14$)的開頭加入$23$，方法如下：
 
 * 先建立一個新的節點`ListNode *newNode`，帶有欲新增的資料($23$)，如圖二(a)。
 * 將`newNode`中的**pointer**，`ListNode *next`，指向Linked List的第一個node`first`，如圖二(b)。
 * 接著，把`first`更新成`newNode`。
 
-經過以上步驟(時間複雜度為O($1$))便得到新的Linked List：$23$-$>3$-$>14$。
+經過以上步驟(時間複雜度為O($1$))便得到新的Linked List：$23$->$3$->$14$。
 
 <center>
 ![cc][f2]
