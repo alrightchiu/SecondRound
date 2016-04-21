@@ -9,7 +9,7 @@
         <meta name="author" content="">
 
 
-        <title>Linked List: 新增資料、刪除資料</title>
+        <title>Linked List: 新增資料、刪除資料、反轉</title>
 
             <link href="http://alrightchiu.github.io/SecondRound/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Second Round Full Atom Feed" />
             <link href="http://alrightchiu.github.io/SecondRound/feeds/yan-suan-fa-yu-zi-liao-jie-gou.atom.xml" type="application/atom+xml" rel="alternate" title="Second Round Categories Atom Feed" />
@@ -49,8 +49,8 @@
 
 	<meta property="og:type" content="article">
 	<meta property="article:author" content="">
-	<meta property="og:url" content="http://alrightchiu.github.io/SecondRound/linked-list-xin-zeng-zi-liao-shan-chu-zi-liao.html">
-	<meta property="og:title" content="Linked List: 新增資料、刪除資料">
+	<meta property="og:url" content="http://alrightchiu.github.io/SecondRound/linked-list-xin-zeng-zi-liao-shan-chu-zi-liao-fan-zhuan.html">
+	<meta property="og:title" content="Linked List: 新增資料、刪除資料、反轉">
 	<meta property="og:description" content="">
 	<meta property="og:image" content="http://alrightchiu.github.io/SecondRound/">
 	<meta property="article:published_time" content="2016-04-19 22:39:00+08:00">
@@ -92,7 +92,7 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="post-heading">
-                        <h1>Linked List: 新增資料、刪除資料</h1>
+                        <h1>Linked List: 新增資料、刪除資料、反轉</h1>
                         <span class="meta">Posted by
                                 <a href="http://alrightchiu.github.io/SecondRound/author/chiu-cc.html">Chiu CC</a>
                              on  4 19, 2016
@@ -112,9 +112,9 @@
     <article>
         <p></br></p>
 <h3>先備知識與注意事項</h3>
-<p>本篇文章將延續<a href="http://alrightchiu.github.io/SecondRound/linked-list-introjian-jie.html">Linked List: Intro(簡介)</a>，繼續介紹如何在Linked List中新增資料與刪除資料。</p>
+<p>本篇文章將延續<a href="http://alrightchiu.github.io/SecondRound/linked-list-introjian-jie.html">Linked List: Intro(簡介)</a>，繼續介紹於Linked List中常見的操作：新增資料、刪除資料與反轉Linked List。</p>
 <p><center>
-<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/LinkedList/Insert_Delete/f0.png?raw=true" /></p>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/LinkedList/Insert_Delete_Reverse/f0.png?raw=true" /></p>
 <p><strong>Linked List</strong>
 </center></p>
 <p><code>class ListNode</code>與<code>class LinkedList</code>的定義如下：</p>
@@ -133,7 +133,7 @@
 
 <span class="k">class</span> <span class="nc">LinkedList</span><span class="p">{</span>
 <span class="k">private</span><span class="o">:</span>
-    <span class="c1">// int size;                   // size是用來記錄Linked List的長度, 非必要</span>
+    <span class="c1">// int size;                // size是用來記錄Linked List的長度, 非必要</span>
     <span class="n">ListNode</span> <span class="o">*</span><span class="n">first</span><span class="p">;</span>            <span class="c1">// list的第一個node</span>
 <span class="k">public</span><span class="o">:</span>
     <span class="n">LinkedList</span><span class="p">(){</span><span class="n">first</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;};</span>
@@ -156,6 +156,7 @@
 <li><a href="#back">函式：Push_back</a></li>
 <li><a href="#delete">函式：Delete</a></li>
 <li><a href="#clearall">函式：Clear</a></li>
+<li><a href="#reverse">函式：Reverse</a></li>
 <li><a href="#test">測試</a></li>
 <li><a href="#ref">參考資料</a></li>
 <li><a href="#series">Linked list系列文章</a></li>
@@ -166,7 +167,7 @@
 <p>第一個要介紹的是<code>PrintList()</code>，功能就是把Linked List中的所有資料依序印出。要印出所有的資料，就必須「逐一訪問(<strong>Visiting</strong>)」Linked List中的每一個node，這樣的操作又稱為<strong>Traversal(尋訪)</strong>。</p>
 <p>能夠完成這樣的操作，要歸功於node中記錄了「下一個node的記憶體位置」，如此，才能在訪問完當前的node之後，知道要繼續往哪一個記憶體位置上的node前進。</p>
 <p><center>
-<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/LinkedList/Insert_Delete/f1.png?raw=true" /></p>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/LinkedList/Insert_Delete_Reverse/f1.png?raw=true" /></p>
 <p><strong>圖一。</strong>
 </center></p>
 <p>以圖一為例：</p>
@@ -215,11 +216,11 @@
 </ul>
 <p>經過以上步驟(時間複雜度為O(<span class="math">\(1\)</span>))便得到新的Linked List：<span class="math">\(23\)</span>-&gt;<span class="math">\(3\)</span>-&gt;<span class="math">\(14\)</span>。</p>
 <p><center>
-<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/LinkedList/Insert_Delete/f2.png?raw=true" /></p>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/LinkedList/Insert_Delete_Reverse/f2.png?raw=true" /></p>
 <p><strong>圖二(a)。</strong>
 </center></p>
 <p><center>
-<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/LinkedList/Insert_Delete/f3.png?raw=true" /></p>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/LinkedList/Insert_Delete_Reverse/f3.png?raw=true" /></p>
 <p><strong>圖二(b)。</strong>
 </center></p>
 <p>程式範例如下：</p>
@@ -249,11 +250,11 @@
 </ul>
 <p>即可得到新的Linked List：<span class="math">\(7\)</span>-&gt;<span class="math">\(3\)</span>-&gt;<span class="math">\(14\)</span>-&gt;<span class="math">\(23\)</span>。</p>
 <p><center>
-<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/LinkedList/Insert_Delete/f4.png?raw=true" /></p>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/LinkedList/Insert_Delete_Reverse/f4.png?raw=true" /></p>
 <p><strong>圖三(a)。</strong>
 </center></p>
 <p><center>
-<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/LinkedList/Insert_Delete/f5.png?raw=true" /></p>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/LinkedList/Insert_Delete_Reverse/f5.png?raw=true" /></p>
 <p><strong>圖三(b)。</strong>
 </center></p>
 <p>程式範例如下：</p>
@@ -289,7 +290,7 @@
 </ul>
 <p>關鍵就是，在整個<code>Delete()</code>的過程，只有node(<span class="math">\(3\)</span>)知道node(<span class="math">\(14\)</span>)的記憶體位置，所以在把node(<span class="math">\(3\)</span>)刪除之前，必須先透過node(<span class="math">\(3\)</span>)的<strong>pointer</strong>找到node(<span class="math">\(14\)</span>)，把node(<span class="math">\(14\)</span>)接到node(<span class="math">\(7\)</span>)上(也可以說是，換成用node(<span class="math">\(7\)</span>)的<strong>pointer</strong>記住node(<span class="math">\(14\)</span>)的記憶體位置)。</p>
 <p><center>
-<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/LinkedList/Insert_Delete/f6.png?raw=true" /></p>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/LinkedList/Insert_Delete_Reverse/f6.png?raw=true" /></p>
 <p><strong>圖四(a)。</strong>
 </center></p>
 <p><strong>case1-2</strong>：若要刪除具有<span class="math">\(7\)</span>的node，而且Linked List只有一個node，見圖四(b)：</p>
@@ -298,7 +299,7 @@
 <li>所以只要直接釋放<code>first</code>的記憶體位置即可。</li>
 </ul>
 <p><center>
-<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/LinkedList/Insert_Delete/f7.png?raw=true" /></p>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/LinkedList/Insert_Delete_Reverse/f7.png?raw=true" /></p>
 <p><strong>圖四(b)。</strong>
 </center></p>
 <p><strong>case2</strong>：若Linked List中沒有要刪除的node，見圖四(c)：</p>
@@ -308,7 +309,7 @@
 <li>以上這兩種情況，直接結束<code>Delete()</code>函式。</li>
 </ul>
 <p><center>
-<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/LinkedList/Insert_Delete/f8.png?raw=true" /></p>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/LinkedList/Insert_Delete_Reverse/f8.png?raw=true" /></p>
 <p><strong>圖四(c)。</strong>
 </center></p>
 <p>程式範例如下：</p>
@@ -362,7 +363,7 @@
 </ul>
 <p>如此，便把node(<span class="math">\(7\)</span>)從Linked List移除。</p>
 <p><center>
-<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/LinkedList/Insert_Delete/f9.png?raw=true" /></p>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/LinkedList/Insert_Delete_Reverse/f9.png?raw=true" /></p>
 <p><strong>圖五(a)。</strong>
 </center></p>
 <p>見圖五(b)：</p>
@@ -374,7 +375,7 @@
 </ul>
 <p>如此，便把node(<span class="math">\(3\)</span>)從Linked List移除。</p>
 <p><center>
-<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/LinkedList/Insert_Delete/f10.png?raw=true" /></p>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/LinkedList/Insert_Delete_Reverse/f10.png?raw=true" /></p>
 <p><strong>圖五(b)。</strong>
 </center></p>
 <p>見圖五(c)：</p>
@@ -386,7 +387,7 @@
 </ul>
 <p>這樣便把Linked List的node刪除完畢。</p>
 <p><center>
-<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/LinkedList/Insert_Delete/f11.png?raw=true" /></p>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/LinkedList/Insert_Delete_Reverse/f11.png?raw=true" /></p>
 <p><strong>圖五(c)。</strong>
 </center></p>
 <p>程式範例如下：</p>
@@ -399,6 +400,73 @@
         <span class="k">delete</span> <span class="n">current</span><span class="p">;</span>
         <span class="n">current</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
     <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p></br></p>
+<p><a name="reverse"></a></p>
+<h2>函式：Reverse</h2>
+<p><code>Reverse()</code>的功能是反轉Linked List，以圖六(a)的Linked lsit為例，經過<code>Reverse()</code>之後，預期得到圖六(b)。</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/LinkedList/Insert_Delete_Reverse/f19.png?raw=true" /></p>
+<p><strong>圖六(a)。</strong>
+</center></p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/LinkedList/Insert_Delete_Reverse/f23.png?raw=true" /></p>
+<p><strong>圖六(b)。</strong>
+</center></p>
+<p>要倒轉Linked List，其實就是把每個node的<strong>pointer</strong>的方向前後對調，但是因為每個node都只有被Linked List中的「一個node」記得，例如圖六(a)，只有node(<span class="math">\(7\)</span>)記得node(<span class="math">\(3\)</span>)的記憶體位置，只有node(<span class="math">\(14\)</span>)記得node(<span class="math">\(8\)</span>)的記憶體位置，所以，如果把node(<span class="math">\(14\)</span>)的<code>ListNode *next</code>(原本指向node(<span class="math">\(8\)</span>))更新成指向node(<span class="math">\(3\)</span>)，那麼整個Linked List中，就再也無法存取node(<span class="math">\(8\)</span>)。  </p>
+<p>所以在更新任何一個node之<strong>pointer</strong>之前，除了要知道「新的要指向的node」之記憶體位置，也要記錄「原先記錄的node」之記憶體位置，這裡使用三個指向node的指標(型別為<code>ListNode *</code>)，分別為<code>previous</code>、<code>current</code>、<code>preceding</code>，以圖六(c)為例：</p>
+<ul>
+<li>目前<code>current</code>為node(<span class="math">\(3\)</span>)，其指標<code>current-&gt;next</code>指向的是node(<span class="math">\(14\)</span>)。</li>
+<li>目前<code>previous</code>為node(<span class="math">\(7\)</span>)，是<code>current-&gt;next</code>最後要指向的記憶體位置。</li>
+<li>目前<code>preceding</code>為node(<span class="math">\(14\)</span>)，避免<code>current-&gt;next</code>更新成node(<span class="math">\(7\)</span>)後，再也找不到node(<span class="math">\(14\)</span>)。</li>
+</ul>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/LinkedList/Insert_Delete_Reverse/f24.png?raw=true" /></p>
+<p><strong>圖六(c)。</strong>
+</center></p>
+<p>有了這三個指標後，要執行的步驟只有兩個：</p>
+<ol>
+<li>將<code>current-&gt;next</code>從原本指向<code>preceding</code>更新成指向<code>previous</code>，如圖六(c)中圖。<ul>
+<li>執行<code>current-&gt;next=previous</code>，就把node(<span class="math">\(3\)</span>)的指向node(<span class="math">\(7\)</span>)。 </li>
+</ul>
+</li>
+<li>把三個指標「按照順序」往前移動，然後進行下一個node之<strong>pointer</strong>調整，如圖六(c)下圖。<ul>
+<li><code>previous=current</code>，將<code>previous</code>移動到node(<span class="math">\(3\)</span>)。</li>
+<li><code>current=preceding</code>，將<code>current</code>移動到node(<span class="math">\(14\)</span>)。</li>
+<li><code>preceding=preceding-&gt;next</code>，將<code>preceding</code>移動到node(<span class="math">\(8\)</span>)。  </li>
+</ul>
+</li>
+</ol>
+<p>重複上述步驟，直到<code>preceding</code>更新成<code>NULL</code>，調整Linked List的<code>first</code>所指向的記憶體位置，即完成Linked List之反轉。</p>
+<p>完整圖示見圖六(d)：</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/LinkedList/Insert_Delete_Reverse/f25.png?raw=true" /></p>
+<p><strong>圖六(d)。</strong>
+</center></p>
+<p>程式範例如下：</p>
+<div class="highlight"><pre><span class="c1">// C++ code</span>
+<span class="kt">void</span> <span class="n">LinkedList</span><span class="o">::</span><span class="n">Reverse</span><span class="p">(){</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">first</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">first</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// list is empty or list has only one node</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">ListNode</span> <span class="o">*</span><span class="n">previous</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+             <span class="o">*</span><span class="n">current</span> <span class="o">=</span> <span class="n">first</span><span class="p">,</span>
+             <span class="o">*</span><span class="n">preceding</span> <span class="o">=</span> <span class="n">first</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+
+    <span class="k">while</span> <span class="p">(</span><span class="n">preceding</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">current</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">previous</span><span class="p">;</span>      <span class="c1">// 把current-&gt;next轉向</span>
+        <span class="n">previous</span> <span class="o">=</span> <span class="n">current</span><span class="p">;</span>            <span class="c1">// previous往前挪</span>
+        <span class="n">current</span> <span class="o">=</span> <span class="n">preceding</span><span class="p">;</span>           <span class="c1">// current往前挪</span>
+        <span class="n">preceding</span> <span class="o">=</span> <span class="n">preceding</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>   <span class="c1">// preceding往前挪</span>
+    <span class="p">}</span>                                  <span class="c1">// preceding更新成NULL即跳出while loop</span>
+    <span class="n">current</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">previous</span><span class="p">;</span>          <span class="c1">// 此時current位於最後一個node, 將current-&gt;next轉向</span>
+    <span class="n">first</span> <span class="o">=</span> <span class="n">current</span><span class="p">;</span>                   <span class="c1">// 更新first為current</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -421,6 +489,8 @@
     <span class="n">list</span><span class="p">.</span><span class="n">Push_back</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>   <span class="c1">// list: 9 3 4</span>
     <span class="n">list</span><span class="p">.</span><span class="n">Push_front</span><span class="p">(</span><span class="mi">8</span><span class="p">);</span>  <span class="c1">// list: 8 9 3 4</span>
     <span class="n">list</span><span class="p">.</span><span class="n">PrintList</span><span class="p">();</span>    <span class="c1">// 印出: 8 9 3 4</span>
+    <span class="n">list</span><span class="p">.</span><span class="n">Reverse</span><span class="p">();</span>      <span class="c1">// list: 4 3 9 8</span>
+    <span class="n">list</span><span class="p">.</span><span class="n">PrintList</span><span class="p">();</span>    <span class="c1">// 印出: 4 3 9 8</span>
     <span class="n">list</span><span class="p">.</span><span class="n">Clear</span><span class="p">();</span>        <span class="c1">// 清空list</span>
     <span class="n">list</span><span class="p">.</span><span class="n">PrintList</span><span class="p">();</span>    <span class="c1">// 印出: List is empty.</span>
 
@@ -434,12 +504,13 @@
 <span class="n">There</span> <span class="n">is</span> <span class="n">no</span> <span class="mi">4</span> <span class="n">in</span> <span class="n">list</span><span class="p">.</span>
 <span class="mi">9</span> <span class="mi">5</span> <span class="mi">3</span> 
 <span class="mi">8</span> <span class="mi">9</span> <span class="mi">3</span> <span class="mi">4</span> 
+<span class="mi">4</span> <span class="mi">3</span> <span class="mi">9</span> <span class="mi">8</span> 
 <span class="n">List</span> <span class="n">is</span> <span class="n">empty</span><span class="p">.</span>
 </pre></div>
 
 
 <p></br>  </p>
-<p>以上是在<strong>Linked List</strong>中新增資料、刪除資料的方法介紹。  </p>
+<p>以上是在<strong>Linked List</strong>中新增資料、刪除資料與反轉Linked List的方法介紹。  </p>
 <p>程式的實作方式根據<code>class LinkedList</code>的建立方式會有所不同，不過使用<strong>pointer</strong>的邏輯應該是大同小異的。</p>
 <p></br></p>
 <hr />
@@ -454,7 +525,7 @@
 <p></br></p>
 <h3>Linked List系列文章</h3>
 <p><a href="http://alrightchiu.github.io/SecondRound/linked-list-introjian-jie.html">Linked List: Intro(簡介)</a><br />
-<a href="http://alrightchiu.github.io/SecondRound/linked-list-xin-zeng-zi-liao-shan-chu-zi-liao.html">Linked List: 新增資料、刪除資料</a>  </p>
+<a href="">Linked List: 新增資料、刪除資料、反轉</a>  </p>
 <p>回到目錄：</p>
 <p><a href="http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html">目錄：演算法與資料結構</a></p>
 <p></br></p>
