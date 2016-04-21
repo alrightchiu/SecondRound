@@ -16,7 +16,7 @@ traversal(尋訪)有「站在A地，往所有與A地相連的地方移動」的�
 
 移動到特定的node之後，通常伴隨著其他行為，例如print out(顯示資料)、assign(賦值)等等，這些操作又稱作Visiting。
 
-在閱讀本篇之前，建議先閱讀[Linked List: Traversal](http://alrightchiu.github.io/SecondRound/linked-list-traversal.html)作簡單複習。在Linked list與Tree中的traversal於pointer的操作概念上完全相同，不過由於Node的pointer增加了，於是從一維的移動拓展到二維的移動。  
+在閱讀本篇之前，建議先閱讀[Linked List: 新增資料、刪除資料、反轉](http://alrightchiu.github.io/SecondRound/linked-list-xin-zeng-zi-liao-shan-chu-zi-liao-fan-zhuan.html#print)作簡單複習。在Linked list與Tree中的traversal於pointer的操作概念上完全相同，不過由於Node的pointer增加了，於是從一維的移動拓展到二維的移動。  
 本篇文章將介紹在Binary Tree中的四種traversal方法。  
 
 另外，根據不同的程式實作方法，可能會使用上[stack(堆疊)](https://en.wikipedia.org/wiki/Stack_%28abstract_data_type%29)與[queue(佇列)](https://en.wikipedia.org/wiki/Queue_%28abstract_data_type%29)，如果熟悉的話，那就會很酷。
