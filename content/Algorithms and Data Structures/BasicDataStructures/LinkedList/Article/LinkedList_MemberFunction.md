@@ -47,7 +47,6 @@ public:
     void Delete(int x);         // 刪除list中的 int x
     void Clear();               // 把整串list刪除
     void Reverse();             // 將list反轉: 7->3->14 => 14->3->7
-    bool HasCycle();            // 檢查list中是否有cycle
 };
 ```
 
