@@ -41,7 +41,7 @@
 
         <meta name="tags" contents="C++" />
         <meta name="tags" contents="Intro" />
-        <meta name="tags" contents="Linked List" />
+        <meta name="tags" contents="Linked list" />
         <meta name="tags" contents="Pointer" />
         <meta name="tags" contents="Array" />
 
@@ -114,16 +114,21 @@
     <article>
         <p></br></p>
 <h3>先備知識與注意事項</h3>
-<p>要了解Linked List，一定要先看懂<strong>pointer(指標)</strong>，建議讀者可以先閱讀以下連結內容：</p>
+<p>要了解Linked list，一定要先看懂<strong>pointer(指標)</strong>，建議讀者可以先閱讀以下連結內容：</p>
 <ul>
 <li><a href="http://openhome.cc/Gossip/CppGossip/Pointer.html">語言技術：C++ Gossip：指標與記憶體位址</a></li>
 <li><a href="http://openhome.cc/Gossip/CppGossip/newDelete.html">語言技術：C++ Gossip：new 運算子與 delete 運算子</a></li>
+</ul>
+<p>本篇文章介紹的是最基本的<strong>Singly linked list</strong>，其餘還有<strong>Doubly linked list</strong>、<strong>Circular linked list</strong>，請參考：</p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Doubly_linked_list">Wikipedia：Doubly linked list</a></li>
+<li><a href="http://www.tutorialspoint.com/data_structures_algorithms/circular_linked_list_algorithm.htm">Tutorials Point：Data Structure - Circular Linked List</a></li>
 </ul>
 <hr />
 <h2>目錄</h2>
 <ul>
 <li><a href="#intro">簡介：Linked list</a><ul>
-<li><a href="#repre">以兩個class(類別)表示Linked List</a></li>
+<li><a href="#repre">以兩個class(類別)表示Linked list</a></li>
 </ul>
 </li>
 <li><a href="#comp">比較：Array與Linked list</a><ul>
@@ -137,7 +142,7 @@
 <p></br></p>
 <p><a name="intro"></a></p>
 <h2>簡介：Linked list</h2>
-<p>Linked List(連結串列)是一種常見的資料結構，其使用<strong>node(節點)</strong>來記錄、表示、儲存資料(data)，並利用每個node中的<strong>pointer</strong>指向下一個node，藉此將多個node串連起來，形成Linked List，並以<code>NULL</code>來代表Linked List的終點，見圖一(a)。</p>
+<p>Linked list(連結串列)是一種常見的資料結構，其使用<strong>node(節點)</strong>來記錄、表示、儲存資料(data)，並利用每個node中的<strong>pointer</strong>指向下一個node，藉此將多個node串連起來，形成Linked list，並以<code>NULL</code>來代表Linked list的終點，見圖一(a)。</p>
 <p><center>
 <img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/LinkedList/Intro/f1.png?raw=true" /></p>
 <p><strong>圖一(a)。</strong>
@@ -169,18 +174,18 @@
 <li>由於在Node2中的「node之<strong>pointer</strong>」指向了Node3之記憶體位置，因此，便能夠經由Node2「找到」Node3。</li>
 </ul>
 </li>
-<li>以「node之<strong>pointer</strong>」，記錄(指向)<code>NULL</code>，表示Linked List的最後一個node。    </li>
+<li>以「node之<strong>pointer</strong>」，記錄(指向)<code>NULL</code>，表示Linked list的最後一個node。    </li>
 </ul>
 </li>
 </ul>
-<p>通常在面對一個Linked List時，能夠公開存取(access)的node只有「第一個node」，以<code>ListNode *first</code>表示，不過因為node中有<strong>pointer</strong>記錄下一個node的記憶體位置，便能夠讀取下一個node的<strong>data</strong>與<strong>pointer</strong>，換句話說，有了node中的<strong>pointer</strong>就可以在Linked List中「移動(<strong>traversal</strong>)」，更進一步，便能進行諸如「新增節點」、「刪除節點」、「印出Linked List」等等的資料處理，這些函式將在後續文章一一介紹。</p>
+<p>通常在面對一個Linked list時，能夠公開存取(access)的node只有「第一個node」，以<code>ListNode *first</code>表示，不過因為node中有<strong>pointer</strong>記錄下一個node的記憶體位置，便能夠讀取下一個node的<strong>data</strong>與<strong>pointer</strong>，換句話說，有了node中的<strong>pointer</strong>就可以在Linked list中「移動(<strong>traversal</strong>)」，更進一步，便能進行諸如「新增節點」、「刪除節點」、「印出Linked list」等等的資料處理，這些函式將在後續文章一一介紹。</p>
 <p></br></p>
 <p><a name="repre"></a></p>
-<h3>以兩個class(類別)表示Linked List</h3>
-<p>若以C++的<strong>class(類別)</strong>來實作Linked List，可以利用兩個class，使得node的資料不會被任意更動(也就是封裝(Encapsulation)的概念)。 <br />
+<h3>以兩個class(類別)表示Linked list</h3>
+<p>若以C++的<strong>class(類別)</strong>來實作Linked list，可以利用兩個class，使得node的資料不會被任意更動(也就是封裝(Encapsulation)的概念)。 <br />
 使用<code>struct</code>來代表node也是常見的做法，差別在於，<code>struct</code>的資料成員(data member)一定是<strong>公開的(public)</strong>。</p>
 <p><code>class ListNode</code>的private data有兩項，一項代表著資料項目(在此以<code>int</code>示範)，一項是「指向型別(type)為ListNode之指標」，以<code>ListNode *next</code>表示，用來記錄「下一個node」的記憶體位置。</p>
-<p>在<code>class LinkedList</code>的private data中，最基本一定會有代表「第一個node」的<code>ListNode *first</code>，其餘資料項目可以視情況增加，像是<code>int size</code>用來記錄Linked List的長度等等。</p>
+<p>在<code>class LinkedList</code>的private data中，最基本一定會有代表「第一個node」的<code>ListNode *first</code>，其餘資料項目可以視情況增加，像是<code>int size</code>用來記錄Linked list的長度等等。</p>
 <div class="highlight"><pre><span class="c1">// C++ code</span>
 <span class="k">class</span> <span class="nc">LinkedList</span><span class="p">;</span>    <span class="c1">// 為了將class LinkedList設成class ListNode的friend,</span>
                      <span class="c1">// 需要先宣告</span>
@@ -196,7 +201,7 @@
 
 <span class="k">class</span> <span class="nc">LinkedList</span><span class="p">{</span>
 <span class="k">private</span><span class="o">:</span>
-    <span class="c1">// int size;                // size是用來記錄Linked List的長度, 非必要</span>
+    <span class="c1">// int size;                // size是用來記錄Linked list的長度, 非必要</span>
     <span class="n">ListNode</span> <span class="o">*</span><span class="n">first</span><span class="p">;</span>            <span class="c1">// list的第一個node</span>
 <span class="k">public</span><span class="o">:</span>
     <span class="n">LinkedList</span><span class="p">(){</span><span class="n">first</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;};</span>
@@ -213,7 +218,7 @@
 <p></br></p>
 <p><a name="comp"></a></p>
 <h2>比較：Array與Linked list</h2>
-<p>Array(矩陣)也是常見的用來記錄一連串「具有相同形態的資料」的資料結構，以下便列舉Array與Linked List各自的優缺點，以及各自適合的問題情境。</p>
+<p>Array(矩陣)也是常見的用來記錄一連串「具有相同形態的資料」的資料結構，以下便列舉Array與Linked list各自的優缺點，以及各自適合的問題情境。</p>
 <p>參考：  </p>
 <ul>
 <li><a href="http://stackoverflow.com/questions/166884/array-versus-linked-list">Stack Overflow：Array versus linked-list</a></li>
@@ -225,7 +230,7 @@
 <p><strong>優點</strong>：</p>
 <ul>
 <li>random access：只要利用<strong>index</strong>即可在O(<span class="math">\(1\)</span>)時間對Array的資料做存取。</li>
-<li>較Linked List為節省記憶體空間：因為Linked List需要多一個<strong>pointer</strong>來記錄下一個node的記憶體位置。<ul>
+<li>較Linked list為節省記憶體空間：因為Linked list需要多一個<strong>pointer</strong>來記錄下一個node的記憶體位置。<ul>
 <li>假設node之<strong>data</strong>項目為<span class="math">\(1\)</span>byte的<code>char</code>，但是<strong>pointer</strong>項目卻要<span class="math">\(4\)</span>bytes，這樣的資料結構就多花了4倍的記憶體空間在與真正要處理的資料無關的部分上，是個沒有效率的做法。</li>
 </ul>
 </li>
@@ -242,29 +247,29 @@
 <li>要求記憶體空間的使用越少越好。</li>
 </ul>
 <p><a name="ll"></a></p>
-<h3>Linked List</h3>
+<h3>Linked list</h3>
 <p><strong>優點</strong>：</p>
 <ul>
 <li>新增/刪除資料較Array簡單，只要對O(<span class="math">\(1\)</span>)個node(所有與欲新增/刪除的node有<strong>pointer</strong>相連的node)調整<strong>pointer</strong>即可，不需要如同Array般搬動其餘元素。<ul>
-<li>若是在Linked List的「開頭」新增node，只要O(<span class="math">\(1\)</span>)。</li>
+<li>若是在Linked list的「開頭」新增node，只要O(<span class="math">\(1\)</span>)。</li>
 <li>若要刪除特定node，或者在特定位置新增node，有可能需要先執行O(<span class="math">\(N\)</span>)的「搜尋」。</li>
 </ul>
 </li>
-<li>Linked List的資料數量可以是動態的，不像Array會有<strong>resize</strong>的問題。</li>
+<li>Linked list的資料數量可以是動態的，不像Array會有<strong>resize</strong>的問題。</li>
 </ul>
 <p><strong>缺點</strong>：</p>
 <ul>
-<li>因為Linked List沒有<strong>index</strong>，若要找到特定node，需要從頭(<code>ListNode *first</code>)開始找起，搜尋的時間複雜度為O(<span class="math">\(N\)</span>)。</li>
+<li>因為Linked list沒有<strong>index</strong>，若要找到特定node，需要從頭(<code>ListNode *first</code>)開始找起，搜尋的時間複雜度為O(<span class="math">\(N\)</span>)。</li>
 <li>需要額外的記憶體空間來儲存<strong>pointer</strong>。</li>
 </ul>
 <p><strong>適用時機</strong>：</p>
 <ul>
-<li>無法預期資料數量時，使用Linked List就沒有<strong>resize</strong>的問題。</li>
+<li>無法預期資料數量時，使用Linked list就沒有<strong>resize</strong>的問題。</li>
 <li>需要頻繁地新增/刪除資料時。</li>
 <li>不需要快速查詢資料。</li>
 </ul>
 <p></br>  </p>
-<p>以上便是<strong>Linked List</strong>的初步介紹。<br />
+<p>以上便是<strong>Linked list</strong>的初步介紹。<br />
 接下來的文章將逐一介紹<code>class LinkedList</code>的成員函式(member function)。</p>
 <p></br></p>
 <hr />
@@ -278,6 +283,8 @@
 <li><a href="http://www.geeksforgeeks.org/linked-list-vs-array/">GeeksforGeeks：Linked List vs Array</a></li>
 <li><a href="http://openhome.cc/Gossip/CppGossip/Pointer.html">語言技術：C++ Gossip：指標與記憶體位址</a></li>
 <li><a href="http://openhome.cc/Gossip/CppGossip/newDelete.html">語言技術：C++ Gossip：new 運算子與 delete 運算子</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Doubly_linked_list">Wikipedia：Doubly linked list</a></li>
+<li><a href="http://www.tutorialspoint.com/data_structures_algorithms/circular_linked_list_algorithm.htm">Tutorials Point：Data Structure - Circular Linked List</a></li>
 </ul>
 <p><a name="series"></a></p>
 <p></br></p>
@@ -347,7 +354,7 @@
     </article>
 
         <div class="tags">
-            <p>tags: <a href="http://alrightchiu.github.io/SecondRound/tag/c.html">C++</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/intro.html">Intro</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/linked-list.html">Linked List</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/pointer.html">Pointer</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/array.html">Array</a>, </p>
+            <p>tags: <a href="http://alrightchiu.github.io/SecondRound/tag/c.html">C++</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/intro.html">Intro</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/linked-list.html">Linked list</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/pointer.html">Pointer</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/array.html">Array</a>, </p>
         </div>
 
 <hr>
