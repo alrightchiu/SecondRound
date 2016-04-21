@@ -215,7 +215,7 @@ Array(矩陣)也是常見的用來記錄一連串「具有相同形態的資料�
 ###Linked List系列文章
 
 [Linked List: Intro(簡介)](http://alrightchiu.github.io/SecondRound/linked-list-introjian-jie.html)  
-[Linked List: 新增資料、刪除資料](http://alrightchiu.github.io/SecondRound/linked-list-xin-zeng-zi-liao-shan-chu-zi-liao.html)  
+[Linked List: 新增資料、刪除資料、反轉](http://alrightchiu.github.io/SecondRound/linked-list-xin-zeng-zi-liao-shan-chu-zi-liao-fan-zhuan.html)    
 
 
 回到目錄：

@@ -549,7 +549,7 @@ List is empty.
 ###Linked List系列文章
 
 [Linked List: Intro(簡介)](http://alrightchiu.github.io/SecondRound/linked-list-introjian-jie.html)  
-[Linked List: 新增資料、刪除資料、反轉]()  
+[Linked List: 新增資料、刪除資料、反轉](http://alrightchiu.github.io/SecondRound/linked-list-xin-zeng-zi-liao-shan-chu-zi-liao-fan-zhuan.html)    
 
 
 回到目錄：
