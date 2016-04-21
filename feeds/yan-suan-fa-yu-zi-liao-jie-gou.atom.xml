@@ -86,7 +86,6 @@
     &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;Delete&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;         &lt;span class="c1"&gt;// 刪除list中的 int x&lt;/span&gt;
     &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;Clear&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;               &lt;span class="c1"&gt;// 把整串list刪除&lt;/span&gt;
     &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;Reverse&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;             &lt;span class="c1"&gt;// 將list反轉: 7-&amp;gt;3-&amp;gt;14 =&amp;gt; 14-&amp;gt;3-&amp;gt;7&lt;/span&gt;
-    &lt;span class="kt"&gt;bool&lt;/span&gt; &lt;span class="nf"&gt;HasCycle&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;            &lt;span class="c1"&gt;// 檢查list中是否有cycle&lt;/span&gt;
 &lt;span class="p"&gt;};&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
@@ -622,7 +621,6 @@
     &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;Delete&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;         &lt;span class="c1"&gt;// 刪除list中的 int x&lt;/span&gt;
     &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;Clear&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;               &lt;span class="c1"&gt;// 把整串list刪除&lt;/span&gt;
     &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;Reverse&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;             &lt;span class="c1"&gt;// 將list反轉: 7-&amp;gt;3-&amp;gt;14 =&amp;gt; 14-&amp;gt;3-&amp;gt;7&lt;/span&gt;
-    &lt;span class="kt"&gt;bool&lt;/span&gt; &lt;span class="nf"&gt;HasCycle&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;            &lt;span class="c1"&gt;// 檢查list中是否有cycle&lt;/span&gt;
 &lt;span class="p"&gt;};&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
