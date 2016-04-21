@@ -1,14 +1,14 @@
-Title: Linked List: 新增資料、刪除資料    
+Title: Linked List: 新增資料、刪除資料、反轉    
 Date: 2016-4-19 22:39   
 Category: 演算法與資料結構  
 Tags: C++, Intro, Linked List     
-Summary: 介紹於Linked List(連結串列)中新增資料與刪除資料的方法。
+Summary: 介紹於Linked List(連結串列)中新增資料、刪除資料，以及如何反轉Linked List的方法。
 
 
 </br>
 ###先備知識與注意事項
 
-本篇文章將延續[Linked List: Intro(簡介)](http://alrightchiu.github.io/SecondRound/linked-list-introjian-jie.html)，繼續介紹如何在Linked List中新增資料與刪除資料。
+本篇文章將延續[Linked List: Intro(簡介)](http://alrightchiu.github.io/SecondRound/linked-list-introjian-jie.html)，繼續介紹於Linked List中常見的操作：新增資料、刪除資料與反轉Linked List。
 
 <center>
 ![cc][f0]
@@ -37,7 +37,7 @@ public:
 
 class LinkedList{
 private:
-    // int size;                   // size是用來記錄Linked List的長度, 非必要
+    // int size;                // size是用來記錄Linked List的長度, 非必要
     ListNode *first;            // list的第一個node
 public:
     LinkedList(){first = 0;};
@@ -61,9 +61,11 @@ public:
 * [函式：Push_back](#back)
 * [函式：Delete](#delete)
 * [函式：Clear](#clearall)
+* [函式：Reverse](#reverse)
 * [測試](#test)
 * [參考資料](#ref)
 * [Linked list系列文章](#series)
+
 
 
 
@@ -377,6 +379,90 @@ void LinkedList::Clear(){
 
 </br>
 
+<a name="reverse"></a>
+
+##函式：Reverse
+
+`Reverse()`的功能是反轉Linked List，以圖六(a)的Linked lsit為例，經過`Reverse()`之後，預期得到圖六(b)。
+
+<center>
+![cc][f19]
+
+**圖六(a)。**
+</center>
+
+<center>
+![cc][f23]
+
+**圖六(b)。**
+</center>
+
+要倒轉Linked List，其實就是把每個node的**pointer**的方向前後對調，但是因為每個node都只有被Linked List中的「一個node」記得，例如圖六(a)，只有node($7$)記得node($3$)的記憶體位置，只有node($14$)記得node($8$)的記憶體位置，所以，如果把node($14$)的`ListNode *next`(原本指向node($8$))更新成指向node($3$)，那麼整個Linked List中，就再也無法存取node($8$)。  
+
+所以在更新任何一個node之**pointer**之前，除了要知道「新的要指向的node」之記憶體位置，也要記錄「原先記錄的node」之記憶體位置，這裡使用三個指向node的指標(型別為`ListNode *`)，分別為`previous`、`current`、`preceding`，以圖六(c)為例：
+
+* 目前`current`為node($3$)，其指標`current->next`指向的是node($14$)。
+* 目前`previous`為node($7$)，是`current->next`最後要指向的記憶體位置。
+* 目前`preceding`為node($14$)，避免`current->next`更新成node($7$)後，再也找不到node($14$)。
+
+<center>
+![cc][f24]
+
+**圖六(c)。**
+</center>
+
+
+有了這三個指標後，要執行的步驟只有兩個：
+
+1. 將`current->next`從原本指向`preceding`更新成指向`previous`，如圖六(c)中圖。
+    * 執行`current->next=previous`，就把node($3$)的指向node($7$)。 
+2. 把三個指標「按照順序」往前移動，然後進行下一個node之**pointer**調整，如圖六(c)下圖。
+    * `previous=current`，將`previous`移動到node($3$)。
+    * `current=preceding`，將`current`移動到node($14$)。
+    * `preceding=preceding->next`，將`preceding`移動到node($8$)。  
+
+重複上述步驟，直到`preceding`更新成`NULL`，調整Linked List的`first`所指向的記憶體位置，即完成Linked List之反轉。
+
+完整圖示見圖六(d)：
+
+<center>
+![cc][f25]
+
+**圖六(d)。**
+</center>
+
+
+程式範例如下：
+
+```cpp
+// C++ code
+void LinkedList::Reverse(){
+    
+    if (first == 0 || first->next == 0) {
+        // list is empty or list has only one node
+        return;
+    }
+    
+    ListNode *previous = 0,
+             *current = first,
+             *preceding = first->next;
+    
+    while (preceding != 0) {
+        current->next = previous;      // 把current->next轉向
+        previous = current;            // previous往前挪
+        current = preceding;           // current往前挪
+        preceding = preceding->next;   // preceding往前挪
+    }                                  // preceding更新成NULL即跳出while loop
+    current->next = previous;          // 此時current位於最後一個node, 將current->next轉向
+    first = current;                   // 更新first為current
+}
+```
+
+
+
+
+</br>
+
 <a name="test"></a>
 
 ##測試
@@ -398,6 +484,8 @@ int main() {
     list.Push_back(4);   // list: 9 3 4
     list.Push_front(8);  // list: 8 9 3 4
     list.PrintList();    // 印出: 8 9 3 4
+    list.Reverse();      // list: 4 3 9 8
+    list.PrintList();    // 印出: 4 3 9 8
     list.Clear();        // 清空list
     list.PrintList();    // 印出: List is empty.
 
@@ -411,27 +499,31 @@ List is empty.
 There is no 4 in list.
 9 5 3 
 8 9 3 4 
+4 3 9 8 
 List is empty.
 ```
 
-[f0]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/LinkedList/Insert_Delete/f0.png?raw=true
-[f1]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/LinkedList/Insert_Delete/f1.png?raw=true
-[f2]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/LinkedList/Insert_Delete/f2.png?raw=true
-[f3]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/LinkedList/Insert_Delete/f3.png?raw=true
-[f4]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/LinkedList/Insert_Delete/f4.png?raw=true
-[f5]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/LinkedList/Insert_Delete/f5.png?raw=true
-[f6]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/LinkedList/Insert_Delete/f6.png?raw=true
-[f7]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/LinkedList/Insert_Delete/f7.png?raw=true
-[f8]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/LinkedList/Insert_Delete/f8.png?raw=true
-[f9]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/LinkedList/Insert_Delete/f9.png?raw=true
-[f10]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/LinkedList/Insert_Delete/f10.png?raw=true
-[f11]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/LinkedList/Insert_Delete/f11.png?raw=true
-
+[f0]: 
+[f1]:
+[f2]:
+[f3]: 
+[f4]:
+[f5]:
+[f6]: 
+[f7]:
+[f8]:
+[f9]: 
+[f10]:
+[f11]:
+[f19]: f19.png
+[f23]: f23.png
+[f24]: f24.png
+[f25]: f25.png
 
 
 </br>  
 
-以上是在**Linked List**中新增資料、刪除資料的方法介紹。  
+以上是在**Linked List**中新增資料、刪除資料與反轉Linked List的方法介紹。  
 
 程式的實作方式根據`class LinkedList`的建立方式會有所不同，不過使用**pointer**的邏輯應該是大同小異的。
 
@@ -457,7 +549,7 @@ List is empty.
 ###Linked List系列文章
 
 [Linked List: Intro(簡介)](http://alrightchiu.github.io/SecondRound/linked-list-introjian-jie.html)  
-[Linked List: 新增資料、刪除資料](http://alrightchiu.github.io/SecondRound/linked-list-xin-zeng-zi-liao-shan-chu-zi-liao.html)  
+[Linked List: 新增資料、刪除資料、反轉]()  
 
 
 回到目錄：

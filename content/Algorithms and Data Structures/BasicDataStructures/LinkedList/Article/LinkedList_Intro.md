@@ -98,7 +98,7 @@ public:
 
 class LinkedList{
 private:
-    // int size;                   // size是用來記錄Linked List的長度, 非必要
+    // int size;                // size是用來記錄Linked List的長度, 非必要
     ListNode *first;            // list的第一個node
 public:
     LinkedList(){first = 0;};
