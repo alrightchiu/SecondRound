@@ -1,20 +1,20 @@
 Title: Linked List: 新增資料、刪除資料、反轉    
 Date: 2016-4-19 22:39   
 Category: 演算法與資料結構  
-Tags: C++, Intro, Linked List     
-Summary: 介紹於Linked List(連結串列)中新增資料、刪除資料，以及如何反轉Linked List的方法。
+Tags: C++, Intro, Linked list     
+Summary: 介紹於Linked list(連結串列)中新增資料、刪除資料，以及如何反轉Linked list的方法。
 
 
 </br>
 ###先備知識與注意事項
 
-本篇文章將延續[Linked List: Intro(簡介)](http://alrightchiu.github.io/SecondRound/linked-list-introjian-jie.html)，繼續介紹於Linked List中常見的操作：新增資料、刪除資料與反轉Linked List。
+本篇文章將延續[Linked List: Intro(簡介)](http://alrightchiu.github.io/SecondRound/linked-list-introjian-jie.html)，繼續介紹於Linked list中常見的操作：新增資料、刪除資料與反轉Linked list。
 
 <center>
 ![cc][f0]
 
 
-**Linked List**
+**Linked list**
 </center>
 
 
@@ -37,7 +37,7 @@ public:
 
 class LinkedList{
 private:
-    // int size;                // size是用來記錄Linked List的長度, 非必要
+    // int size;                // size是用來記錄Linked list的長度, 非必要
     ListNode *first;            // list的第一個node
 public:
     LinkedList(){first = 0;};
@@ -74,7 +74,7 @@ public:
 
 ##函式：PrintList
 
-第一個要介紹的是`PrintList()`，功能就是把Linked List中的所有資料依序印出。要印出所有的資料，就必須「逐一訪問(**Visiting**)」Linked List中的每一個node，這樣的操作又稱為**Traversal(尋訪)**。
+第一個要介紹的是`PrintList()`，功能就是把Linked list中的所有資料依序印出。要印出所有的資料，就必須「逐一訪問(**Visiting**)」Linked list中的每一個node，這樣的操作又稱為**Traversal(尋訪)**。
 
 能夠完成這樣的操作，要歸功於node中記錄了「下一個node的記憶體位置」，如此，才能在訪問完當前的node之後，知道要繼續往哪一個記憶體位置上的node前進。
 
@@ -87,14 +87,14 @@ public:
 以圖一為例：
 
 * 建立`ListNode *current`來表示「目前走到哪一個node」。
-* 若要對Linked List存取資料，必定是從第一個node開始，所以把`current`指向`first`所代表的記憶體位置，`current=first`。
+* 若要對Linked list存取資料，必定是從第一個node開始，所以把`current`指向`first`所代表的記憶體位置，`current=first`。
     * 目前`first`即為node($7$)。
     * 同時，還能夠知道「下一個node」是指向node($3$)。
 * 在印出`current->data`，也就是$7$後，便把`current`移動到「下一個node」。
     * 透過`current=current->next`，即可把`current`指向node($3$)所在的記憶體位置。
-* 重複上述步驟，直到`current`指向Linked List的終點`NULL`為止，便能印出所有資料。
+* 重複上述步驟，直到`current`指向Linked list的終點`NULL`為止，便能印出所有資料。
 
-由此可見，所有需要在Linked List中尋找特定資料的操作，都會用上**Traversal**。
+由此可見，所有需要在Linked list中尋找特定資料的操作，都會用上**Traversal**。
 
 程式範例如下：
 
@@ -123,15 +123,15 @@ void LinkedList::PrintList(){
 
 ##函式：Push_front
 
-`Push_front()`的功能是在Linked List的開頭新增資料。  
+`Push_front()`的功能是在Linked list的開頭新增資料。  
 
 若考慮在Linked list($3$->$14$)的開頭加入$23$，方法如下：
 
 * 先建立一個新的節點`ListNode *newNode`，帶有欲新增的資料($23$)，如圖二(a)。
-* 將`newNode`中的**pointer**，`ListNode *next`，指向Linked List的第一個node`first`，如圖二(b)。
+* 將`newNode`中的**pointer**，`ListNode *next`，指向Linked list的第一個node`first`，如圖二(b)。
 * 接著，把`first`更新成`newNode`。
 
-經過以上步驟(時間複雜度為O($1$))便得到新的Linked List：$23$->$3$->$14$。
+經過以上步驟(時間複雜度為O($1$))便得到新的Linked list：$23$->$3$->$14$。
 
 <center>
 ![cc][f2]
@@ -165,17 +165,17 @@ void LinkedList::Push_front(int x){
 
 ##函式：Push_back
 
-`Push_back()`的功能是在Linked List的尾巴新增資料。
+`Push_back()`的功能是在Linked list的尾巴新增資料。
 
 若考慮在Linked list($7$->$3$->$14$)的尾巴加入$23$，方法如下：
 
 * 先建立一個新的節點`ListNode *newNode`，帶有欲新增的資料($23$)。
-* 先利用如同`PrintList()`中提過的**Traversal**，把新建立的`ListNode *current`移動到Linked List的尾端，node($14$)，如圖三(a)。
-    * 有些資料結構會在`class LinkedList`中新增一項`ListNode *last`，記錄Linked List的最後一個node，那麼，`Push_back()`就不需要**Traversal**，可以在O($1$)時間內完成。
+* 先利用如同`PrintList()`中提過的**Traversal**，把新建立的`ListNode *current`移動到Linked list的尾端，node($14$)，如圖三(a)。
+    * 有些資料結構會在`class LinkedList`中新增一項`ListNode *last`，記錄Linked list的最後一個node，那麼，`Push_back()`就不需要**Traversal**，可以在O($1$)時間內完成。
     * 若沒有`ListNode *last`，就需要O($N$)的**Traversal**。
 * 接著把`current`的`next pointer`指向newNode，如圖三(b)。
 
-即可得到新的Linked List：$7$->$3$->$14$->$23$。
+即可得到新的Linked list：$7$->$3$->$14$->$23$。
 
 
 <center>
@@ -221,10 +221,10 @@ void LinkedList::Push_back(int x){
 
 ##函式：Delete
 
-`Delete(int x)`的功能是要刪除Linked List中，資料為`int x`的node。  
-會有兩種情形，第一種是Linked List中確實有`int x`，第二種是沒有。在第一種情況中，要再把`int x`位於`first`的情況分開。
+`Delete(int x)`的功能是要刪除Linked list中，資料為`int x`的node。  
+會有兩種情形，第一種是Linked list中確實有`int x`，第二種是沒有。在第一種情況中，要再把`int x`位於`first`的情況分開。
 
-**case1-1**：要在Linked List($7$->$3$->$14$)中刪除具有$3$的node，見圖四(a)：
+**case1-1**：要在Linked list($7$->$3$->$14$)中刪除具有$3$的node，見圖四(a)：
 
 * 利用**Traversal**的概念，以`ListNode *current`指向node($3$)，同時有`ListNode *previous`指向node($3$)的「前一個node」，node($7$)。
 * 接著，把`previsou`的`next pointer`指向`current`的`next pointer`。
@@ -239,7 +239,7 @@ void LinkedList::Push_back(int x){
 </center>
 
 
-**case1-2**：若要刪除具有$7$的node，而且Linked List只有一個node，見圖四(b)：
+**case1-2**：若要刪除具有$7$的node，而且Linked list只有一個node，見圖四(b)：
 
 * 需要把這個情況獨立出來的原因是，這個情況不會進行**Traversal**，所以`ListNode *previous`始終指向`NULL`，便不能呼叫其private data，若進行`previous->next`將會因為意圖對「無效的」記憶體位置進行存取，而產生像是「EXC_BAD_ACCESS」的錯誤(error)。
 * 所以只要直接釋放`first`的記憶體位置即可。
@@ -252,10 +252,10 @@ void LinkedList::Push_back(int x){
 **圖四(b)。**
 </center>
 
-**case2**：若Linked List中沒有要刪除的node，見圖四(c)：
+**case2**：若Linked list中沒有要刪除的node，見圖四(c)：
 
-* 若想要刪除$8$，但是Linked List($7$->$3$->$14$)沒有$8$，那麼在**Traversal**後，`ListNode *current`會一路走到Linked List的結尾，也就是`NULL`。
-* 若Linked List本來就是空的，那麼建立的`ListNode *current = first`，`current`也會指向`NULL`。
+* 若想要刪除$8$，但是Linked list($7$->$3$->$14$)沒有$8$，那麼在**Traversal**後，`ListNode *current`會一路走到Linked list的結尾，也就是`NULL`。
+* 若Linked list本來就是空的，那麼建立的`ListNode *current = first`，`current`也會指向`NULL`。
 * 以上這兩種情況，直接結束`Delete()`函式。
 
 
@@ -305,12 +305,12 @@ void LinkedList::Delete(int x){
 
 ##函式：Clear
 
-`Clear()`的功能是清除整個Linked List。方法如下：
+`Clear()`的功能是清除整個Linked list。方法如下：
 
-* 從Linked List的「第一個node」`first`開始，進行**Traversal**。
+* 從Linked list的「第一個node」`first`開始，進行**Traversal**。
     * 利用`first=first->next`即可不斷移動`first`。
 * 建立一個`ListNode *current`記錄「要刪除的node」之記憶體位置。
-* 重複上述步驟，直到`first`指向Linked List的尾巴`NULL`為止。
+* 重複上述步驟，直到`first`指向Linked list的尾巴`NULL`為止。
 
 見圖五(a)：
 
@@ -319,7 +319,7 @@ void LinkedList::Delete(int x){
 * 將`first`移動到node($3$)。
 * 刪除`current`指向的node($7$)。
 
-如此，便把node($7$)從Linked List移除。
+如此，便把node($7$)從Linked list移除。
 
 <center>
 ![cc][f9]
@@ -334,7 +334,7 @@ void LinkedList::Delete(int x){
 * 將`first`移動到node($14$)。
 * 刪除`current`指向的node($3$)。
 
-如此，便把node($3$)從Linked List移除。
+如此，便把node($3$)從Linked list移除。
 
 
 <center>
@@ -350,7 +350,7 @@ void LinkedList::Delete(int x){
 * 將`first`移動到`NULL`。
 * 刪除`current`指向的node($14$)。
 
-這樣便把Linked List的node刪除完畢。
+這樣便把Linked list的node刪除完畢。
 
 <center>
 ![cc][f11]
@@ -382,7 +382,7 @@ void LinkedList::Clear(){
 
 ##函式：Reverse
 
-`Reverse()`的功能是反轉Linked List，以圖六(a)的Linked lsit為例，經過`Reverse()`之後，預期得到圖六(b)。
+`Reverse()`的功能是反轉Linked list，以圖六(a)的Linked list為例，經過`Reverse()`之後，預期得到圖六(b)。
 
 <center>
 ![cc][f19]
@@ -396,9 +396,9 @@ void LinkedList::Clear(){
 **圖六(b)。**
 </center>
 
-要倒轉Linked List，其實就是把每個node的**pointer**的方向前後對調，但是因為每個node都只有被Linked List中的「一個node」記得，例如圖六(a)，只有node($7$)記得node($3$)的記憶體位置，只有node($14$)記得node($8$)的記憶體位置，所以，如果把node($14$)的`ListNode *next`(原本指向node($8$))更新成指向node($3$)，那麼整個Linked List中，就再也無法存取node($8$)。  
+要倒轉Linked list，其實就是把每個node的**pointer**的方向前後對調，但是因為每個node都只有被Linked list中的「一個node」記得，例如圖六(a)，只有node($7$)記得node($3$)的記憶體位置，只有node($14$)記得node($8$)的記憶體位置，所以，如果把node($14$)的`ListNode *next`(原本指向node($8$))更新成指向node($3$)，那麼整個Linked list中，就再也無法存取node($8$)。  
 
-所以在更新任何一個node之**pointer**之前，除了要知道「新的要指向的node」之記憶體位置，也要記錄「原先記錄的node」之記憶體位置，這裡使用三個指向node的指標(型別為`ListNode *`)，分別為`previous`、`current`、`preceding`，以圖六(c)為例：
+所以在更新任何一個node之**pointer**之前，除了要知道「新的要指向的node」之記憶體位置，也要記錄「原先記錄的node」之記憶體位置，這裡使用三個指向node的指標，分別為`previous`、`current`、`preceding`，以圖六(c)為例：
 
 * 目前`current`為node($3$)，其指標`current->next`指向的是node($14$)。
 * 目前`previous`為node($7$)，是`current->next`最後要指向的記憶體位置。
@@ -420,7 +420,7 @@ void LinkedList::Clear(){
     * `current=preceding`，將`current`移動到node($14$)。
     * `preceding=preceding->next`，將`preceding`移動到node($8$)。  
 
-重複上述步驟，直到`preceding`更新成`NULL`，調整Linked List的`first`所指向的記憶體位置，即完成Linked List之反轉。
+重複上述步驟，直到`preceding`更新成`NULL`，調整Linked list的`first`所指向的記憶體位置，即完成Linked list之反轉。
 
 完整圖示見圖六(d)：
 
@@ -522,7 +522,7 @@ List is empty.
 
 </br>  
 
-以上是在**Linked List**中新增資料、刪除資料與反轉Linked List的方法介紹。  
+以上是在**Linked List**中新增資料、刪除資料與反轉Linked list的方法介紹。  
 
 程式的實作方式根據`class LinkedList`的建立方式會有所不同，不過使用**pointer**的邏輯應該是大同小異的。
 
