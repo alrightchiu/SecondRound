@@ -126,13 +126,6 @@ public:
 
 Array(矩陣)也是常見的用來記錄一連串「具有相同形態的資料」的資料結構，以下便列舉Array與Linked list各自的優缺點，以及各自適合的問題情境。
 
-參考：  
-
-* [Stack Overflow：Array versus linked-list](http://stackoverflow.com/questions/166884/array-versus-linked-list)
-* [Stack Overflow：When to use a linked list over an array/array list?](http://stackoverflow.com/questions/393556/when-to-use-a-linked-list-over-an-array-array-list)
-* [GeeksforGeeks：Linked List vs Array](http://www.geeksforgeeks.org/linked-list-vs-array/)
-
-
 <a name="array"></a>
 
 ###Array
