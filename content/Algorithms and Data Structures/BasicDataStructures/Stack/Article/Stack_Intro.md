@@ -102,7 +102,7 @@ Stack最大的功能是「記得先前的資訊」，所以時常用來處理需
 
 
 
-[f1]: f1.png
+[f1]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/Stack/intro/f1.png?raw=true
 
 
 
