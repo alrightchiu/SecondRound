@@ -141,7 +141,7 @@ Stack最大的功能是「記得先前的資訊」，所以時常用來處理需
 
 ###Stack系列文章
 
-[Stack: Intro(簡介)]()  
+[Stack: Intro(簡介)](http://alrightchiu.github.io/SecondRound/stack-introjian-jie.html)  
    
 
 

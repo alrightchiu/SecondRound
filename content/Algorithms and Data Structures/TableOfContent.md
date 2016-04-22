@@ -21,6 +21,9 @@ Summary: 請先閱讀本篇目錄。
 [Linked List: 新增資料、刪除資料、反轉](http://alrightchiu.github.io/SecondRound/linked-list-xin-zeng-zi-liao-shan-chu-zi-liao-fan-zhuan.html)    
 
 
+###Stack系列文章
+
+[Stack: Intro(簡介)](http://alrightchiu.github.io/SecondRound/stack-introjian-jie.html) 
 
 
 </br>
