@@ -635,6 +635,7 @@
 &lt;h2&gt;比較：Array與Linked list&lt;/h2&gt;
 &lt;p&gt;Array(矩陣)也是常見的用來記錄一連串「具有相同形態的資料」的資料結構，以下便列舉Array與Linked list各自的優缺點，以及各自適合的問題情境。&lt;/p&gt;
 &lt;p&gt;&lt;a name="array"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;  &lt;/p&gt;
 &lt;h3&gt;Array&lt;/h3&gt;
 &lt;p&gt;&lt;strong&gt;優點&lt;/strong&gt;：&lt;/p&gt;
 &lt;ul&gt;
@@ -656,6 +657,7 @@
 &lt;li&gt;要求記憶體空間的使用越少越好。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;a name="ll"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;  &lt;/p&gt;
 &lt;h3&gt;Linked list&lt;/h3&gt;
 &lt;p&gt;&lt;strong&gt;優點&lt;/strong&gt;：&lt;/p&gt;
 &lt;ul&gt;
