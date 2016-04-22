@@ -634,12 +634,6 @@
 &lt;p&gt;&lt;a name="comp"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;比較：Array與Linked list&lt;/h2&gt;
 &lt;p&gt;Array(矩陣)也是常見的用來記錄一連串「具有相同形態的資料」的資料結構，以下便列舉Array與Linked list各自的優缺點，以及各自適合的問題情境。&lt;/p&gt;
-&lt;p&gt;參考：  &lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href="http://stackoverflow.com/questions/166884/array-versus-linked-list"&gt;Stack Overflow：Array versus linked-list&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="http://stackoverflow.com/questions/393556/when-to-use-a-linked-list-over-an-array-array-list"&gt;Stack Overflow：When to use a linked list over an array/array list?&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="http://www.geeksforgeeks.org/linked-list-vs-array/"&gt;GeeksforGeeks：Linked List vs Array&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
 &lt;p&gt;&lt;a name="array"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h3&gt;Array&lt;/h3&gt;
 &lt;p&gt;&lt;strong&gt;優點&lt;/strong&gt;：&lt;/p&gt;
