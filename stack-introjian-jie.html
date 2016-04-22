@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="zh-hant">
+
+<head>
+            <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+
+        <title>Stack: Intro(簡介)</title>
+
+            <link href="http://alrightchiu.github.io/SecondRound/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Second Round Full Atom Feed" />
+            <link href="http://alrightchiu.github.io/SecondRound/feeds/yan-suan-fa-yu-zi-liao-jie-gou.atom.xml" type="application/atom+xml" rel="alternate" title="Second Round Categories Atom Feed" />
+
+        <!-- Bootstrap Core CSS -->
+        <link href="http://alrightchiu.github.io/SecondRound/theme/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="http://alrightchiu.github.io/SecondRound/theme/css/clean-blog.min.css" rel="stylesheet">
+
+        <!-- Code highlight color scheme -->
+            <link href="http://alrightchiu.github.io/SecondRound/theme/css/code_blocks/darkly.css" rel="stylesheet">
+
+
+        <!-- Custom Fonts -->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+
+
+
+        <meta name="tags" contents="C++" />
+        <meta name="tags" contents="Intro" />
+        <meta name="tags" contents="Stack" />
+
+
+	                <meta property="og:locale" content="">
+		<meta property="og:site_name" content="Second Round">
+
+	<meta property="og:type" content="article">
+	<meta property="article:author" content="">
+	<meta property="og:url" content="http://alrightchiu.github.io/SecondRound/stack-introjian-jie.html">
+	<meta property="og:title" content="Stack: Intro(簡介)">
+	<meta property="og:description" content="">
+	<meta property="og:image" content="http://alrightchiu.github.io/SecondRound/">
+	<meta property="article:published_time" content="2016-04-22 20:23:00+08:00">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://alrightchiu.github.io/SecondRound/">Second Round</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a href="http://alrightchiu.github.io/SecondRound/archives.html">Archives</a></li>
+                        <li><a href="http://alrightchiu.github.io/SecondRound/tags.html">Tags</a></li>
+
+                            <li><a href="http://alrightchiu.github.io/SecondRound/pages/about.html">About</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+        <header class="intro-header" style="background-image: url('http://alrightchiu.github.io/SecondRound/theme/images/post-bg.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>Stack: Intro(簡介)</h1>
+                        <span class="meta">Posted by
+                                <a href="http://alrightchiu.github.io/SecondRound/author/chiu-cc.html">Chiu CC</a>
+                             on  4 22, 2016
+                        </span>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    <!-- Post Content -->
+    <article>
+        <p></br></p>
+<h3>先備知識與注意事項</h3>
+<p><strong>Stack(堆疊)</strong>是一種概念性的抽象資料結構，可以分別使用Array(陣列)與Linked list(連結串列)來實作。</p>
+<p>本篇文章將介紹Stack的基本概念與應用，程式實作將留在下一篇。</p>
+<hr />
+<h2>目錄</h2>
+<ul>
+<li><a href="#intro">簡介：Stack</a></li>
+<li><a href="#app">Stack的應用</a></li>
+<li><a href="#ref">參考資料</a></li>
+<li><a href="#series">Linked list系列文章</a></li>
+</ul>
+<p></br></p>
+<p><a name="intro"></a></p>
+<h2>簡介：Stack</h2>
+<p><strong>Stack</strong>是具有「Last-In-First-Out」的資料結構(可以想像成一種裝資料的容器)，「最晚進入Stack」的資料會「最先被取出」，「最早進入Stack」的資料則「最晚被取出」。  </p>
+<p>就像搬家的時候要把書(資料)裝進箱子(Stack)，假設箱子的開口大小剛剛好只能平放一本書，如果先放入《灌籃高手》，再放《笑傲江湖》，再放《搶救國文大作戰》，那麼到了新家之後，因為箱子底下沒有破洞，所以要拿到最底下的《灌籃高手》，就一定得先把上面的《搶救國文大作戰》與《笑傲江湖》拿出箱子才行。  </p>
+<p>觀察以上的敘述，《灌籃高手》符合「最早放入箱子」而且「最晚拿出來」，而《搶救國文大作戰》符合「最晚放入箱子」且「最早拿出來」，其餘的資料也勢必符合此規則(每個資料至少會位於「最上面」一次)，便能夠將這個箱子視為一個Stack。<br />
+由此可見，Stack是一個抽象的概念，只要符合「Last-In-First-Out」的資料結構，都可以視為Stack。</p>
+<p>一般的<strong>Stack</strong>，會有以下幾個處理資料結構的功能：</p>
+<ul>
+<li><strong>Push(data)</strong>：把資料放進Stack。<ul>
+<li>把書放進箱子。</li>
+</ul>
+</li>
+<li><strong>Pop</strong>：把「最上面」的資料從Stack中移除。<ul>
+<li>把位於箱子「最上面」的書拿出來。</li>
+</ul>
+</li>
+<li><strong>Top</strong>：回傳「最上面」的資料，不影響資料結構本身。<ul>
+<li>確認目前位於箱子「最上面」的是哪本書。</li>
+</ul>
+</li>
+<li><strong>IsEmpty</strong>：確認Stack裡是否有資料，不影響資料結構本身。<ul>
+<li>確認箱子裡面有沒有書。</li>
+</ul>
+</li>
+<li><strong>getSize</strong>：回傳Stack裡的資料個數，不影響資料結構本身。<ul>
+<li>記錄目前箱子已經裝了多少本書。</li>
+</ul>
+</li>
+</ul>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/Stack/intro/f1.png?raw=true" /></p>
+<p><strong>圖一。</strong>
+</center></p>
+<p>以圖一為例，一開始Stack是空的：</p>
+<ul>
+<li>當<code>Push(6)</code>後，便把<span class="math">\(6\)</span>放入Stack。並用一個稱為<code>top</code>的變數，記錄Stack最上面的資料為何，在此即為<span class="math">\(6\)</span>。</li>
+<li>當<code>Push(3)</code>、<code>Push(7)</code>後，便把<span class="math">\(3、7\)</span>放入Stack。並更新<code>top</code>，使其記錄<span class="math">\(7\)</span>。</li>
+<li>當<code>Pop()</code>後，便把Stack中「最上面」的資料(<span class="math">\(7\)</span>)給移除，所以Stack中剩下<span class="math">\(6、3\)</span>，並更新<code>top</code>記錄<span class="math">\(3\)</span>。</li>
+<li>當<code>Push(14)</code>、<code>Push(8)</code>後，便把<span class="math">\(14、8\)</span>放入Stack。並更新<code>top</code>，使其記錄<span class="math">\(8\)</span>。</li>
+<li>在以上的任何階段，只要Stack有資料，使用函式<code>Top()</code>會回傳變數<code>top</code>所記錄的資料。</li>
+<li>在以上的任何階段，使用<code>IsEmpty()</code>便能判斷Stack裡是否有存放資料。</li>
+<li>在以上的任何階段，使用<code>getSize()</code>會回傳Stack中的資料個數。</li>
+</ul>
+<p>Stack還有一項重要的特徵：</p>
+<ul>
+<li>除了最上面的資料可以使用<code>Top()</code>來讀取，無法得知Stack裡面還有其餘哪些資料。要知道Stack裡的所有資料，只能靠<code>Pop()</code>，把資料一個一個拿出來檢查。</li>
+</ul>
+<p></br></p>
+<p><a name="app"></a></p>
+<h2>Stack的應用</h2>
+<p>Stack最大的功能是「記得先前的資訊」，所以時常用來處理需要「回復到先前的狀態」的問題，也稱為<strong>Back-Tracking</strong>問題，例如：</p>
+<ul>
+<li>編輯器(如word、sublime等等)中的<strong>undo</strong>。</li>
+<li>網頁瀏覽器的「回到前一頁」功能。</li>
+<li>編譯器(compiler)中的<strong>Parsing</strong>。<ul>
+<li>參考：<a href="http://www.tutorialspoint.com/compiler_design/compiler_design_top_down_parser.htm">Compiler Design - Top-Down Parser</a>。</li>
+</ul>
+</li>
+<li>任何<strong>遞迴(recursion)</strong>形式的演算法，都可以用Stack改寫，例如Depth-First Search(DFS，深度優先搜尋)。<ul>
+<li>參考：<a href="http://www.geeksforgeeks.org/iterative-depth-first-traversal/">GeeksforGeeks:Iterative Depth First Traversal of Graph</a>。</li>
+<li>因為<strong>遞迴(recursion)</strong>使用了系統的<strong>Call Stack</strong>。</li>
+</ul>
+</li>
+<li>於記憶體管理(memory management)中的<strong>Call Stack</strong>。<ul>
+<li>參考：<a href="https://en.wikipedia.org/wiki/Call_stack">Wikipedia：Call stack</a>。</li>
+<li>參考：<a href="http://stackoverflow.com/questions/79923/what-and-where-are-the-stack-and-heap">Stack Overflow：What and where are the stack and heap?</a>。</li>
+</ul>
+</li>
+</ul>
+<p></br>  </p>
+<p>以上是<strong>Stack</strong>的初步介紹。  </p>
+<p>下一篇文章將介紹以Array與Linked list實作Stack的方法。</p>
+<p></br></p>
+<hr />
+<p><a name="ref"></a></p>
+<h3>參考資料：</h3>
+<ul>
+<li><a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844">Introduction to Algorithms, Ch10</a> </li>
+<li><a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376">Fundamentals of Data Structures in C++, Ch3</a></li>
+<li><a href="http://www.tutorialspoint.com/compiler_design/compiler_design_top_down_parser.htm">Compiler Design - Top-Down Parser</a></li>
+<li><a href="http://www.geeksforgeeks.org/iterative-depth-first-traversal/">GeeksforGeeks:Iterative Depth First Traversal of Graph</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Call_stack">Wikipedia：Call stack</a></li>
+<li><a href="http://stackoverflow.com/questions/79923/what-and-where-are-the-stack-and-heap">Stack Overflow：What and where are the stack and heap?</a></li>
+<li><a href="http://jcsites.juniata.edu/faculty/kruse/cs240/stackapps.htm">Gerald W. Kruse：Stack Applications</a></li>
+<li><a href="https://www.quora.com/What-are-the-applications-of-queues-and-stacks-in-C++">Quora：What are the applications of queues and stacks in C++?</a></li>
+</ul>
+<p><a name="series"></a></p>
+<p></br></p>
+<h3>Stack系列文章</h3>
+<p><a href="">Stack: Intro(簡介)</a>  </p>
+<p>回到目錄：</p>
+<p><a href="http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html">目錄：演算法與資料結構</a></p>
+<p></br></p>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' && location_protocol !== 'https') location_protocol = 'https:';
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+    </article>
+
+        <div class="tags">
+            <p>tags: <a href="http://alrightchiu.github.io/SecondRound/tag/c.html">C++</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/intro.html">Intro</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/stack.html">Stack</a>, </p>
+        </div>
+
+<hr>
+<div class="sharing">
+</div>
+    <hr>
+
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                            <li>
+                                <a href="https://github.com/alrightchiu">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                    </ul>
+<p class="copyright text-muted">
+    Blog powered by <a href="http://getpelican.com">Pelican</a>,
+    which takes great advantage of <a href="http://python.org">Python</a>.
+</p>                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="http://alrightchiu.github.io/SecondRound/theme/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="http://alrightchiu.github.io/SecondRound/theme/js/bootstrap.min.js"></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script src="http://alrightchiu.github.io/SecondRound/theme/js/clean-blog.min.js"></script>
+
+</body>
+
+</html>

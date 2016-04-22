@@ -53,7 +53,169 @@
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h2&gt;Priority Queue系列文章&lt;/h2&gt;
 &lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/priority-queueintrojian-jie-binary-heap.html"&gt;Priority Queue：Intro(簡介) &amp;amp; Binary Heap&lt;/a&gt;  &lt;/p&gt;
-&lt;p&gt;&lt;/br&gt;&lt;/p&gt;</summary><category term="C++"></category></entry><entry><title>Linked List: 新增資料、刪除資料、反轉</title><link href="http://alrightchiu.github.io/SecondRound/linked-list-xin-zeng-zi-liao-shan-chu-zi-liao-fan-zhuan.html" rel="alternate"></link><updated>2016-04-19T22:39:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-04-19:SecondRound/linked-list-xin-zeng-zi-liao-shan-chu-zi-liao-fan-zhuan.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;</summary><category term="C++"></category></entry><entry><title>Stack: Intro(簡介)</title><link href="http://alrightchiu.github.io/SecondRound/stack-introjian-jie.html" rel="alternate"></link><updated>2016-04-22T20:23:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-04-22:SecondRound/stack-introjian-jie.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;h3&gt;先備知識與注意事項&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Stack(堆疊)&lt;/strong&gt;是一種概念性的抽象資料結構，可以分別使用Array(陣列)與Linked list(連結串列)來實作。&lt;/p&gt;
+&lt;p&gt;本篇文章將介紹Stack的基本概念與應用，程式實作將留在下一篇。&lt;/p&gt;
+&lt;hr /&gt;
+&lt;h2&gt;目錄&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="#intro"&gt;簡介：Stack&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#app"&gt;Stack的應用&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#ref"&gt;參考資料&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#series"&gt;Linked list系列文章&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a name="intro"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;簡介：Stack&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Stack&lt;/strong&gt;是具有「Last-In-First-Out」的資料結構(可以想像成一種裝資料的容器)，「最晚進入Stack」的資料會「最先被取出」，「最早進入Stack」的資料則「最晚被取出」。  &lt;/p&gt;
+&lt;p&gt;就像搬家的時候要把書(資料)裝進箱子(Stack)，假設箱子的開口大小剛剛好只能平放一本書，如果先放入《灌籃高手》，再放《笑傲江湖》，再放《搶救國文大作戰》，那麼到了新家之後，因為箱子底下沒有破洞，所以要拿到最底下的《灌籃高手》，就一定得先把上面的《搶救國文大作戰》與《笑傲江湖》拿出箱子才行。  &lt;/p&gt;
+&lt;p&gt;觀察以上的敘述，《灌籃高手》符合「最早放入箱子」而且「最晚拿出來」，而《搶救國文大作戰》符合「最晚放入箱子」且「最早拿出來」，其餘的資料也勢必符合此規則(每個資料至少會位於「最上面」一次)，便能夠將這個箱子視為一個Stack。&lt;br /&gt;
+由此可見，Stack是一個抽象的概念，只要符合「Last-In-First-Out」的資料結構，都可以視為Stack。&lt;/p&gt;
+&lt;p&gt;一般的&lt;strong&gt;Stack&lt;/strong&gt;，會有以下幾個處理資料結構的功能：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Push(data)&lt;/strong&gt;：把資料放進Stack。&lt;ul&gt;
+&lt;li&gt;把書放進箱子。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Pop&lt;/strong&gt;：把「最上面」的資料從Stack中移除。&lt;ul&gt;
+&lt;li&gt;把位於箱子「最上面」的書拿出來。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Top&lt;/strong&gt;：回傳「最上面」的資料，不影響資料結構本身。&lt;ul&gt;
+&lt;li&gt;確認目前位於箱子「最上面」的是哪本書。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;IsEmpty&lt;/strong&gt;：確認Stack裡是否有資料，不影響資料結構本身。&lt;ul&gt;
+&lt;li&gt;確認箱子裡面有沒有書。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;getSize&lt;/strong&gt;：回傳Stack裡的資料個數，不影響資料結構本身。&lt;ul&gt;
+&lt;li&gt;記錄目前箱子已經裝了多少本書。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/Stack/intro/f1.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖一。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;以圖一為例，一開始Stack是空的：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;當&lt;code&gt;Push(6)&lt;/code&gt;後，便把&lt;span class="math"&gt;\(6\)&lt;/span&gt;放入Stack。並用一個稱為&lt;code&gt;top&lt;/code&gt;的變數，記錄Stack最上面的資料為何，在此即為&lt;span class="math"&gt;\(6\)&lt;/span&gt;。&lt;/li&gt;
+&lt;li&gt;當&lt;code&gt;Push(3)&lt;/code&gt;、&lt;code&gt;Push(7)&lt;/code&gt;後，便把&lt;span class="math"&gt;\(3、7\)&lt;/span&gt;放入Stack。並更新&lt;code&gt;top&lt;/code&gt;，使其記錄&lt;span class="math"&gt;\(7\)&lt;/span&gt;。&lt;/li&gt;
+&lt;li&gt;當&lt;code&gt;Pop()&lt;/code&gt;後，便把Stack中「最上面」的資料(&lt;span class="math"&gt;\(7\)&lt;/span&gt;)給移除，所以Stack中剩下&lt;span class="math"&gt;\(6、3\)&lt;/span&gt;，並更新&lt;code&gt;top&lt;/code&gt;記錄&lt;span class="math"&gt;\(3\)&lt;/span&gt;。&lt;/li&gt;
+&lt;li&gt;當&lt;code&gt;Push(14)&lt;/code&gt;、&lt;code&gt;Push(8)&lt;/code&gt;後，便把&lt;span class="math"&gt;\(14、8\)&lt;/span&gt;放入Stack。並更新&lt;code&gt;top&lt;/code&gt;，使其記錄&lt;span class="math"&gt;\(8\)&lt;/span&gt;。&lt;/li&gt;
+&lt;li&gt;在以上的任何階段，只要Stack有資料，使用函式&lt;code&gt;Top()&lt;/code&gt;會回傳變數&lt;code&gt;top&lt;/code&gt;所記錄的資料。&lt;/li&gt;
+&lt;li&gt;在以上的任何階段，使用&lt;code&gt;IsEmpty()&lt;/code&gt;便能判斷Stack裡是否有存放資料。&lt;/li&gt;
+&lt;li&gt;在以上的任何階段，使用&lt;code&gt;getSize()&lt;/code&gt;會回傳Stack中的資料個數。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Stack還有一項重要的特徵：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;除了最上面的資料可以使用&lt;code&gt;Top()&lt;/code&gt;來讀取，無法得知Stack裡面還有其餘哪些資料。要知道Stack裡的所有資料，只能靠&lt;code&gt;Pop()&lt;/code&gt;，把資料一個一個拿出來檢查。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a name="app"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;Stack的應用&lt;/h2&gt;
+&lt;p&gt;Stack最大的功能是「記得先前的資訊」，所以時常用來處理需要「回復到先前的狀態」的問題，也稱為&lt;strong&gt;Back-Tracking&lt;/strong&gt;問題，例如：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;編輯器(如word、sublime等等)中的&lt;strong&gt;undo&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;網頁瀏覽器的「回到前一頁」功能。&lt;/li&gt;
+&lt;li&gt;編譯器(compiler)中的&lt;strong&gt;Parsing&lt;/strong&gt;。&lt;ul&gt;
+&lt;li&gt;參考：&lt;a href="http://www.tutorialspoint.com/compiler_design/compiler_design_top_down_parser.htm"&gt;Compiler Design - Top-Down Parser&lt;/a&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;任何&lt;strong&gt;遞迴(recursion)&lt;/strong&gt;形式的演算法，都可以用Stack改寫，例如Depth-First Search(DFS，深度優先搜尋)。&lt;ul&gt;
+&lt;li&gt;參考：&lt;a href="http://www.geeksforgeeks.org/iterative-depth-first-traversal/"&gt;GeeksforGeeks:Iterative Depth First Traversal of Graph&lt;/a&gt;。&lt;/li&gt;
+&lt;li&gt;因為&lt;strong&gt;遞迴(recursion)&lt;/strong&gt;使用了系統的&lt;strong&gt;Call Stack&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;於記憶體管理(memory management)中的&lt;strong&gt;Call Stack&lt;/strong&gt;。&lt;ul&gt;
+&lt;li&gt;參考：&lt;a href="https://en.wikipedia.org/wiki/Call_stack"&gt;Wikipedia：Call stack&lt;/a&gt;。&lt;/li&gt;
+&lt;li&gt;參考：&lt;a href="http://stackoverflow.com/questions/79923/what-and-where-are-the-stack-and-heap"&gt;Stack Overflow：What and where are the stack and heap?&lt;/a&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;/br&gt;  &lt;/p&gt;
+&lt;p&gt;以上是&lt;strong&gt;Stack&lt;/strong&gt;的初步介紹。  &lt;/p&gt;
+&lt;p&gt;下一篇文章將介紹以Array與Linked list實作Stack的方法。&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;&lt;a name="ref"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;參考資料：&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844"&gt;Introduction to Algorithms, Ch10&lt;/a&gt; &lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376"&gt;Fundamentals of Data Structures in C++, Ch3&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.tutorialspoint.com/compiler_design/compiler_design_top_down_parser.htm"&gt;Compiler Design - Top-Down Parser&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.geeksforgeeks.org/iterative-depth-first-traversal/"&gt;GeeksforGeeks:Iterative Depth First Traversal of Graph&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://en.wikipedia.org/wiki/Call_stack"&gt;Wikipedia：Call stack&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://stackoverflow.com/questions/79923/what-and-where-are-the-stack-and-heap"&gt;Stack Overflow：What and where are the stack and heap?&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://jcsites.juniata.edu/faculty/kruse/cs240/stackapps.htm"&gt;Gerald W. Kruse：Stack Applications&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://www.quora.com/What-are-the-applications-of-queues-and-stacks-in-C++"&gt;Quora：What are the applications of queues and stacks in C++?&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a name="series"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;h3&gt;Stack系列文章&lt;/h3&gt;
+&lt;p&gt;&lt;a href=""&gt;Stack: Intro(簡介)&lt;/a&gt;  &lt;/p&gt;
+&lt;p&gt;回到目錄：&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html"&gt;目錄：演算法與資料結構&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;script type="text/javascript"&gt;if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width &lt; 768) ? "left" : align;
+        indent = (screen.width &lt; 768) ? "0em" : indent;
+        linebreak = (screen.width &lt; 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' &amp;&amp; location_protocol !== 'https') location_protocol = 'https:';
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+&lt;/script&gt;</summary><category term="C++"></category><category term="Intro"></category><category term="Stack"></category></entry><entry><title>Linked List: 新增資料、刪除資料、反轉</title><link href="http://alrightchiu.github.io/SecondRound/linked-list-xin-zeng-zi-liao-shan-chu-zi-liao-fan-zhuan.html" rel="alternate"></link><updated>2016-04-19T22:39:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-04-19:SecondRound/linked-list-xin-zeng-zi-liao-shan-chu-zi-liao-fan-zhuan.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h3&gt;先備知識與注意事項&lt;/h3&gt;
 &lt;p&gt;本篇文章將延續&lt;a href="http://alrightchiu.github.io/SecondRound/linked-list-introjian-jie.html"&gt;Linked List: Intro(簡介)&lt;/a&gt;，繼續介紹於Linked list中常見的操作：新增資料、刪除資料與反轉Linked list。&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
