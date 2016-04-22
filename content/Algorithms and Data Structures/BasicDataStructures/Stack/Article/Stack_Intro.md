@@ -10,7 +10,7 @@ Summary: 介紹Stack(堆疊)。
 
 **Stack(堆疊)**是一種概念性的抽象資料結構，可以分別使用Array(陣列)與Linked list(連結串列)來實作。
 
-本篇文章將介紹Stack的基本概念與應用，程式實作將留在下一篇。
+本篇文章將介紹Stack的基本概念，程式實作留在下一篇。
 
 
 ***
@@ -20,7 +20,7 @@ Summary: 介紹Stack(堆疊)。
 * [簡介：Stack](#intro)
 * [Stack的應用](#app)
 * [參考資料](#ref)
-* [Linked list系列文章](#series)
+* [Stack系列文章](#series)
 
 
 
