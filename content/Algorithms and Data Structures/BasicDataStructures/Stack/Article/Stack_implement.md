@@ -375,8 +375,10 @@ size: 0
 
 </br>  
 
-以上便是分別以Array和Linked list實作Stack的方法。  
+以上是分別以Array和Linked list實作Stack的方法。  
+
 兩者的優劣，可以參考[Linked List: Intro(簡介)](http://alrightchiu.github.io/SecondRound/linked-list-introjian-jie.html#comp)中Array與Linked list的比較。
+
 
 </br>
 
