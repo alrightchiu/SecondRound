@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="zh-hant">
+
+<head>
+            <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+
+        <title>Stack: 以Array與Linked list實作</title>
+
+            <link href="http://alrightchiu.github.io/SecondRound/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Second Round Full Atom Feed" />
+            <link href="http://alrightchiu.github.io/SecondRound/feeds/yan-suan-fa-yu-zi-liao-jie-gou.atom.xml" type="application/atom+xml" rel="alternate" title="Second Round Categories Atom Feed" />
+
+        <!-- Bootstrap Core CSS -->
+        <link href="http://alrightchiu.github.io/SecondRound/theme/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="http://alrightchiu.github.io/SecondRound/theme/css/clean-blog.min.css" rel="stylesheet">
+
+        <!-- Code highlight color scheme -->
+            <link href="http://alrightchiu.github.io/SecondRound/theme/css/code_blocks/darkly.css" rel="stylesheet">
+
+
+        <!-- Custom Fonts -->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+
+
+
+        <meta name="tags" contents="C++" />
+        <meta name="tags" contents="Intro" />
+        <meta name="tags" contents="Stack" />
+        <meta name="tags" contents="Linked list" />
+        <meta name="tags" contents="Array" />
+
+
+	                <meta property="og:locale" content="">
+		<meta property="og:site_name" content="Second Round">
+
+	<meta property="og:type" content="article">
+	<meta property="article:author" content="">
+	<meta property="og:url" content="http://alrightchiu.github.io/SecondRound/stack-yi-arrayyu-linked-listshi-zuo.html">
+	<meta property="og:title" content="Stack: 以Array與Linked list實作">
+	<meta property="og:description" content="">
+	<meta property="og:image" content="http://alrightchiu.github.io/SecondRound/">
+	<meta property="article:published_time" content="2016-04-24 10:28:00+08:00">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://alrightchiu.github.io/SecondRound/">Second Round</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a href="http://alrightchiu.github.io/SecondRound/archives.html">Archives</a></li>
+                        <li><a href="http://alrightchiu.github.io/SecondRound/tags.html">Tags</a></li>
+
+                            <li><a href="http://alrightchiu.github.io/SecondRound/pages/about.html">About</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+        <header class="intro-header" style="background-image: url('http://alrightchiu.github.io/SecondRound/theme/images/post-bg.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>Stack: 以Array與Linked list實作</h1>
+                        <span class="meta">Posted by
+                                <a href="http://alrightchiu.github.io/SecondRound/author/chiu-cc.html">Chiu CC</a>
+                             on  4 24, 2016
+                        </span>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    <!-- Post Content -->
+    <article>
+        <p></br></p>
+<h3>先備知識與注意事項</h3>
+<p>本篇文章接續<a href="http://alrightchiu.github.io/SecondRound/stack-introjian-jie.html">Stack: Intro(簡介)</a>，介紹以Array與Linked list實作Stack的方法。</p>
+<p>如果對Linked list不太熟悉，建議讀者可以先閱讀以下連結之內容做簡單複習：</p>
+<ul>
+<li><a href="http://alrightchiu.github.io/SecondRound/linked-list-introjian-jie.html">Linked List: Intro(簡介)</a></li>
+<li><a href="http://alrightchiu.github.io/SecondRound/linked-list-xin-zeng-zi-liao-shan-chu-zi-liao-fan-zhuan.html">Linked List: 新增資料、刪除資料、反轉</a></li>
+</ul>
+<hr />
+<h2>目錄</h2>
+<ul>
+<li><a href="#array">以Array實作Stack</a></li>
+<li><a href="#ll">以Linked list實作Stack</a></li>
+<li><a href="#ref">參考資料</a></li>
+<li><a href="#series">Linked list系列文章</a></li>
+</ul>
+<p><a name="array"></a></p>
+<h2>以Array實作Stack</h2>
+<p>以下是以Array(陣列)實作Stack的程式範例，<code>class StackArray</code>的<code>private data</code>有三項：</p>
+<ul>
+<li><code>int top</code>：記錄於stack中，最上面資料的index。</li>
+<li><code>int capacity</code>：即為Array的size，也就是實際配置的記憶體大小。</li>
+<li><code>int *stack</code>：這裡以<code>int</code>作為資料的形別(type)做示範，所以就以<code>int</code>的Array來表示Stack。</li>
+</ul>
+<p>以及Stack的基本處理資料的函式：<code>Push()</code>、<code>Pop()</code>、<code>IsEmpty()</code>、<code>Top()</code>、<code>getSize()</code>。  </p>
+<p>比較需要注意的有：</p>
+<p><code>DoubleCapacity()</code>：因為利用Array來存放資料，所以有可能在不斷新增資料(<code>Push()</code>)時，碰上一開始分配給Array的記憶體空間(<code>capacity</code>)不夠的情況，可以透過重新配置一個<code>capacity</code>為兩倍大的Array來解決。</p>
+<ul>
+<li>更理想的做法是，能夠先對欲放進Stack處理的資料數量有個底，在初始化時，就把<code>capacity</code>設定在差不多的範圍，如此一來，不需要重複多次<code>DoubleCapacity()</code>，也不會過分浪費記憶體空間。</li>
+</ul>
+<p><code>Pop()</code>：最常見的做法，是「想像地」把資料從Array中移除，意思是，當呼叫<code>Pop()</code>時，其實只是把<code>int top</code>減一，並沒有真的把資料從Array中移除，這麼做的原因是，等到下次<code>Push()</code>新增資料時，自然會把該記憶體位置覆寫(overwrite)，見圖二(a)：</p>
+<ul>
+<li>當<code>Pop()</code>時，並沒有把<span class="math">\(7\)</span>刪除，只是把<code>top</code>移回到<span class="math">\(3\)</span>，讓Stack看起來已經把<span class="math">\(7\)</span>移除，此時「最上面」資料是<span class="math">\(3\)</span>。</li>
+<li>也有些寫法比較謹慎，會把原先是<span class="math">\(7\)</span>的記憶體位置，以<span class="math">\(0\)</span>覆寫，見圖二(b)。<ul>
+<li>參考：<a href="http://emn178.pixnet.net/blog/post/93426076-%E5%A0%86%E7%96%8A%28stack%29">小殘的程式光廊：堆疊(Stack)</a></li>
+</ul>
+</li>
+<li>還有ㄧ些寫法會真的把<span class="math">\(7\)</span>移除，此時就需要呼叫<code>class</code>的<code>destructor</code>。但是這種寫法並不推薦，原因是「向系統要記憶體」需要成本，如果接下來Stack還會新增資料，那麼只要確實更新<code>top</code>使得Stack「看起來」有<code>Pop()</code>就好。<ul>
+<li>參考：<a href="http://stackoverflow.com/questions/13215645/freeing-last-element-of-a-dynamic-array">Stack Overflow：Freeing last element of a dynamic array</a></li>
+</ul>
+</li>
+</ul>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/Stack/implement/f2.png?raw=true" /></p>
+<p><strong>圖二(a)。</strong>
+</center></p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/Stack/implement/f3.png?raw=true" /></p>
+<p><strong>圖二(b)。</strong>
+</center></p>
+<p>完整程式範例如下：</p>
+<div class="highlight"><pre><span class="c1">// C++ code</span>
+<span class="cp">#include &lt;iostream&gt;</span>
+
+<span class="k">class</span> <span class="nc">StackArray</span><span class="p">{</span>
+<span class="k">private</span><span class="o">:</span>
+    <span class="kt">int</span> <span class="n">top</span><span class="p">;</span>                 <span class="c1">// index of top element</span>
+    <span class="kt">int</span> <span class="n">capacity</span><span class="p">;</span>            <span class="c1">// allocated memory space of array</span>
+    <span class="kt">int</span> <span class="o">*</span><span class="n">stack</span><span class="p">;</span>              <span class="c1">// array representing stack</span>
+    <span class="kt">void</span> <span class="nf">DoubleCapacity</span><span class="p">();</span>   <span class="c1">// double the capacity of stack</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">StackArray</span><span class="p">()</span><span class="o">:</span><span class="n">top</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span><span class="n">capacity</span><span class="p">(</span><span class="mi">1</span><span class="p">){</span>    <span class="c1">// constructor</span>
+        <span class="n">stack</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">[</span><span class="n">capacity</span><span class="p">];</span>       <span class="c1">// initial state: top=-1, capacity=1</span>
+    <span class="p">}</span>
+    <span class="kt">void</span> <span class="n">Push</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="nf">Pop</span><span class="p">();</span>
+    <span class="kt">bool</span> <span class="nf">IsEmpty</span><span class="p">();</span>
+    <span class="kt">int</span> <span class="nf">Top</span><span class="p">();</span>
+    <span class="kt">int</span> <span class="nf">getSize</span><span class="p">();</span>
+<span class="p">};</span>
+<span class="kt">void</span> <span class="n">StackArray</span><span class="o">::</span><span class="n">DoubleCapacity</span><span class="p">(){</span>
+
+    <span class="n">capacity</span> <span class="o">*=</span> <span class="mi">2</span><span class="p">;</span>                            <span class="c1">// double capacity</span>
+    <span class="kt">int</span> <span class="o">*</span><span class="n">newStack</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">[</span><span class="n">capacity</span><span class="p">];</span>        <span class="c1">// create newStack</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">capacity</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>   <span class="c1">// copy element to newStack</span>
+        <span class="n">newStack</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">stack</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+    <span class="p">}</span>
+
+    <span class="k">delete</span> <span class="p">[]</span> <span class="n">stack</span><span class="p">;</span>              <span class="c1">// release the memory of stack</span>
+    <span class="n">stack</span> <span class="o">=</span> <span class="n">newStack</span><span class="p">;</span>             <span class="c1">// redirect stack to newStack</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">StackArray</span><span class="o">::</span><span class="n">Push</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">){</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">top</span> <span class="o">==</span> <span class="n">capacity</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>    <span class="c1">// if stack is full, double the capacity</span>
+        <span class="n">DoubleCapacity</span><span class="p">();</span>
+    <span class="p">}</span>
+    <span class="n">stack</span><span class="p">[</span><span class="o">++</span><span class="n">top</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>             <span class="c1">// update top and put x into stack</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">StackArray</span><span class="o">::</span><span class="n">Pop</span><span class="p">(){</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">IsEmpty</span><span class="p">())</span> <span class="p">{</span>          <span class="c1">// if stack is empty, there is nothing to pop</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Stack is empty.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">top</span><span class="o">--</span><span class="p">;</span>                    <span class="c1">// update top</span>
+<span class="c1">//    stack[top] = 0;         // (*1)</span>
+<span class="c1">//    stack[top].~T();        // (*2)</span>
+<span class="p">}</span>
+
+<span class="kt">bool</span> <span class="n">StackArray</span><span class="o">::</span><span class="n">IsEmpty</span><span class="p">(){</span>
+
+    <span class="c1">//    if (top == -1) {</span>
+    <span class="c1">//        return true;</span>
+    <span class="c1">//    }</span>
+    <span class="c1">//    else {</span>
+    <span class="c1">//        return false;</span>
+    <span class="c1">//    }</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">top</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">StackArray</span><span class="o">::</span><span class="n">Top</span><span class="p">(){</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">IsEmpty</span><span class="p">())</span> <span class="p">{</span>     <span class="c1">// check if stack is empty</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Stack is empty.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">stack</span><span class="p">[</span><span class="n">top</span><span class="p">];</span>   <span class="c1">// return the top element</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">StackArray</span><span class="o">::</span><span class="n">getSize</span><span class="p">(){</span>
+
+    <span class="k">return</span> <span class="n">top</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>        <span class="c1">// return the number of elements in stack</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+
+    <span class="n">StackArray</span> <span class="n">s</span><span class="p">;</span>
+    <span class="n">s</span><span class="p">.</span><span class="n">Pop</span><span class="p">();</span>
+
+    <span class="n">s</span><span class="p">.</span><span class="n">Push</span><span class="p">(</span><span class="mi">14</span><span class="p">);</span>
+    <span class="n">s</span><span class="p">.</span><span class="n">Push</span><span class="p">(</span><span class="mi">9</span><span class="p">);</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">top: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">s</span><span class="p">.</span><span class="n">Top</span><span class="p">()</span>
+              <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">size: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">s</span><span class="p">.</span><span class="n">getSize</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="n">s</span><span class="p">.</span><span class="n">Push</span><span class="p">(</span><span class="mi">7</span><span class="p">);</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">top: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">s</span><span class="p">.</span><span class="n">Top</span><span class="p">()</span>
+              <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">size: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">s</span><span class="p">.</span><span class="n">getSize</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="n">s</span><span class="p">.</span><span class="n">Pop</span><span class="p">();</span>
+    <span class="n">s</span><span class="p">.</span><span class="n">Pop</span><span class="p">();</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">top: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">s</span><span class="p">.</span><span class="n">Top</span><span class="p">()</span>
+              <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">size: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">s</span><span class="p">.</span><span class="n">getSize</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="n">s</span><span class="p">.</span><span class="n">Pop</span><span class="p">();</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">top: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">s</span><span class="p">.</span><span class="n">Top</span><span class="p">()</span>
+              <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">size: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">s</span><span class="p">.</span><span class="n">getSize</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>output:</p>
+<div class="highlight"><pre><span class="n">Stack</span> <span class="n">is</span> <span class="n">empty</span><span class="p">.</span>
+
+<span class="nl">top</span><span class="p">:</span> <span class="mi">9</span>
+<span class="nl">size</span><span class="p">:</span> <span class="mi">2</span>
+
+<span class="nl">top</span><span class="p">:</span> <span class="mi">7</span>
+<span class="nl">size</span><span class="p">:</span> <span class="mi">3</span>
+
+<span class="nl">top</span><span class="p">:</span> <span class="mi">14</span>
+<span class="nl">size</span><span class="p">:</span> <span class="mi">1</span>
+
+<span class="nl">top</span><span class="p">:</span> <span class="n">Stack</span> <span class="n">is</span> <span class="n">empty</span><span class="p">.</span>
+<span class="o">-</span><span class="mi">1</span>
+<span class="nl">size</span><span class="p">:</span> <span class="mi">0</span>
+</pre></div>
+
+
+<p><code>main()</code>測試的結果與圖二(c)相同：</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/Stack/implement/f4.png?raw=true" /></p>
+<p><strong>圖二(c)。</strong>
+</center></p>
+<p><a name="ll"></a></p>
+<h2>以Linked list實作Stack</h2>
+<p>Stack也可以用Linked list實現，以圖三(a)的Linked list為例，原先用來記錄第一個node的指標<code>first</code>，在Stack的實作上，就是用來記錄Stack「最上面」資料的指標<code>top</code>。</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/Stack/implement/f6.png?raw=true" /></p>
+<p><strong>圖三(a)。</strong>
+</center></p>
+<p>這裡延續<a href="http://alrightchiu.github.io/SecondRound/linked-list-xin-zeng-zi-liao-shan-chu-zi-liao-fan-zhuan.html">Linked List: 新增資料、刪除資料、反轉</a>對Linked list的實作方法，採用兩個<code>class</code>，一個是<code>class StackNode</code>，表示Linked list的node，一個是<code>class StackList</code>，其記錄Stack的「最上面node」，作為整個Stack的存取入口(如同Linked list是以「第一個node」作為存取入口)。</p>
+<ul>
+<li>有些寫法是利用<code>struct</code>來建立node，雖然<code>struct StackNode</code>的資料成員(data member)一定是<strong>public</strong>，不過只要把<code>class StackList</code>的<code>StackNode *top</code>設成<strong>private</strong>，那麼在<code>main()</code>同樣無法更改每個node的資料。<br />
+參考：<a href="http://codereview.stackexchange.com/questions/102393/c-stack-using-template">Code Review：C++ Stack using template</a></li>
+</ul>
+<p></br><br />
+特別注意<code>Push()</code>函式：</p>
+<ul>
+<li>因為要保持<code>StackNode *top</code>一直在Linked list的第一個位置，所以Stack在<code>Push()</code>新增資料時，採用Linked list的<code>Push_front()</code>。</li>
+<li>在程式範例中，有這麼一行<code>StackNode *newnode = new StackNode(x,top);</code>(目前是註解的狀態)是利用<code>class StackNode</code>的第三個<strong>constructor</strong>，直接把新增的node之<code>next pointer</code>指向<code>top</code>。功能等同於「先利用<code>class StackNode</code>的第二個<strong>constructor</strong>，再手動更新<code>newNode</code>的<code>next pointer</code>」。<ul>
+<li>小結論：好好利用<strong>constructor</strong>會更有效率。</li>
+</ul>
+</li>
+</ul>
+<p>完整程式範例如下：</p>
+<div class="highlight"><pre><span class="c1">// C++ code</span>
+<span class="cp">#include &lt;iostream&gt;</span>
+<span class="k">class</span> <span class="nc">StackList</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">StackNode</span><span class="p">{</span>
+<span class="k">private</span><span class="o">:</span>
+    <span class="kt">int</span> <span class="n">data</span><span class="p">;</span>
+    <span class="n">StackNode</span> <span class="o">*</span><span class="n">next</span><span class="p">;</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">StackNode</span><span class="p">()</span><span class="o">:</span><span class="n">data</span><span class="p">(</span><span class="mi">0</span><span class="p">){</span>
+        <span class="n">next</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">StackNode</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span><span class="o">:</span><span class="n">data</span><span class="p">(</span><span class="n">x</span><span class="p">){</span>
+        <span class="n">next</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">StackNode</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="n">StackNode</span> <span class="o">*</span><span class="n">nextNode</span><span class="p">)</span><span class="o">:</span><span class="n">data</span><span class="p">(</span><span class="n">x</span><span class="p">),</span><span class="n">next</span><span class="p">(</span><span class="n">nextNode</span><span class="p">){};</span>
+    <span class="k">friend</span> <span class="k">class</span> <span class="nc">StackList</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">class</span> <span class="nc">StackList</span><span class="p">{</span>
+<span class="k">private</span><span class="o">:</span>
+    <span class="n">StackNode</span> <span class="o">*</span><span class="n">top</span><span class="p">;</span>     <span class="c1">// remember the address of top element </span>
+    <span class="kt">int</span> <span class="n">size</span><span class="p">;</span>           <span class="c1">// number of elements in Stack</span>
+<span class="k">public</span><span class="o">:</span>                 
+    <span class="n">StackList</span><span class="p">()</span><span class="o">:</span><span class="n">size</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="n">top</span><span class="p">(</span><span class="mi">0</span><span class="p">){};</span>
+    <span class="kt">void</span> <span class="nf">Push</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="nf">Pop</span><span class="p">();</span>
+    <span class="kt">bool</span> <span class="nf">IsEmpty</span><span class="p">();</span>
+    <span class="kt">int</span> <span class="nf">Top</span><span class="p">();</span>
+    <span class="kt">int</span> <span class="nf">getSize</span><span class="p">();</span>
+<span class="p">};</span>
+
+<span class="kt">void</span> <span class="n">StackList</span><span class="o">::</span><span class="n">Push</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">){</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">IsEmpty</span><span class="p">())</span> <span class="p">{</span>
+        <span class="n">top</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StackNode</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
+        <span class="n">size</span><span class="o">++</span><span class="p">;</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">StackNode</span> <span class="o">*</span><span class="n">newnode</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StackNode</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>  <span class="c1">// Push_front() in Linked list</span>
+    <span class="n">newnode</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">top</span><span class="p">;</span>                    
+<span class="c1">//    StackNode *newnode = new StackNode(x,top);</span>
+    <span class="n">top</span> <span class="o">=</span> <span class="n">newnode</span><span class="p">;</span>
+    <span class="n">size</span><span class="o">++</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">StackList</span><span class="o">::</span><span class="n">Pop</span><span class="p">(){</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">IsEmpty</span><span class="p">())</span> <span class="p">{</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Stack is empty.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">StackNode</span> <span class="o">*</span><span class="n">deletenode</span> <span class="o">=</span> <span class="n">top</span><span class="p">;</span>
+    <span class="n">top</span> <span class="o">=</span> <span class="n">top</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+    <span class="k">delete</span> <span class="n">deletenode</span><span class="p">;</span>
+    <span class="n">deletenode</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">size</span><span class="o">--</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">bool</span> <span class="n">StackList</span><span class="o">::</span><span class="n">IsEmpty</span><span class="p">(){</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">);</span>     <span class="c1">// if size==0, return true</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">StackList</span><span class="o">::</span><span class="n">Top</span><span class="p">(){</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">IsEmpty</span><span class="p">())</span> <span class="p">{</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Stack is empty.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">top</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">StackList</span><span class="o">::</span><span class="n">getSize</span><span class="p">(){</span>
+
+    <span class="k">return</span> <span class="n">size</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+
+    <span class="n">StackList</span> <span class="n">s</span><span class="p">;</span>
+    <span class="n">s</span><span class="p">.</span><span class="n">Pop</span><span class="p">();</span>
+    <span class="n">s</span><span class="p">.</span><span class="n">Push</span><span class="p">(</span><span class="mi">32</span><span class="p">);</span>
+    <span class="n">s</span><span class="p">.</span><span class="n">Push</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">top: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">s</span><span class="p">.</span><span class="n">Top</span><span class="p">()</span>
+              <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">size: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">s</span><span class="p">.</span><span class="n">getSize</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="n">s</span><span class="p">.</span><span class="n">Push</span><span class="p">(</span><span class="mi">15</span><span class="p">);</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">top: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">s</span><span class="p">.</span><span class="n">Top</span><span class="p">()</span>
+              <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">size: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">s</span><span class="p">.</span><span class="n">getSize</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="n">s</span><span class="p">.</span><span class="n">Pop</span><span class="p">();</span>
+    <span class="n">s</span><span class="p">.</span><span class="n">Pop</span><span class="p">();</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">top: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">s</span><span class="p">.</span><span class="n">Top</span><span class="p">()</span>
+              <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">size: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">s</span><span class="p">.</span><span class="n">getSize</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="n">s</span><span class="p">.</span><span class="n">Pop</span><span class="p">();</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">top: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">s</span><span class="p">.</span><span class="n">Top</span><span class="p">()</span>
+              <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">size: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">s</span><span class="p">.</span><span class="n">getSize</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>output:</p>
+<div class="highlight"><pre><span class="n">Stack</span> <span class="n">is</span> <span class="n">empty</span><span class="p">.</span>
+
+<span class="nl">top</span><span class="p">:</span> <span class="mi">4</span>
+<span class="nl">size</span><span class="p">:</span> <span class="mi">2</span>
+
+<span class="nl">top</span><span class="p">:</span> <span class="mi">15</span>
+<span class="nl">size</span><span class="p">:</span> <span class="mi">3</span>
+
+<span class="nl">top</span><span class="p">:</span> <span class="mi">32</span>
+<span class="nl">size</span><span class="p">:</span> <span class="mi">1</span>
+
+<span class="nl">top</span><span class="p">:</span> <span class="n">Stack</span> <span class="n">is</span> <span class="n">empty</span><span class="p">.</span>
+<span class="o">-</span><span class="mi">1</span>
+<span class="nl">size</span><span class="p">:</span> <span class="mi">0</span>
+</pre></div>
+
+
+<p><code>main()</code>測試的結果與圖三(b)相同：</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/Stack/implement/f5.png?raw=true" /></p>
+<p><strong>圖三(b)。</strong>
+</center></p>
+<p></br>  </p>
+<p>以上便是分別以Array和Linked list實作Stack的方法。<br />
+兩者的優劣，可以參考<a href="http://alrightchiu.github.io/SecondRound/linked-list-introjian-jie.html#comp">Linked List: Intro(簡介)</a>中Array與Linked list的比較。</p>
+<p></br></p>
+<hr />
+<p><a name="ref"></a></p>
+<h3>參考資料：</h3>
+<ul>
+<li><a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844">Introduction to Algorithms, Ch10</a> </li>
+<li><a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376">Fundamentals of Data Structures in C++, Ch3</a></li>
+<li><a href="http://emn178.pixnet.net/blog/post/93426076-%E5%A0%86%E7%96%8A%28stack%29">小殘的程式光廊：堆疊(Stack)</a></li>
+<li><a href="http://stackoverflow.com/questions/13215645/freeing-last-element-of-a-dynamic-array">Stack Overflow：Freeing last element of a dynamic array</a></li>
+<li><a href="http://codereview.stackexchange.com/questions/102393/c-stack-using-template">Code Review：C++ Stack using template</a></li>
+<li><a href="http://alrightchiu.github.io/SecondRound/linked-list-introjian-jie.html">Linked List: Intro(簡介)</a></li>
+<li><a href="http://alrightchiu.github.io/SecondRound/linked-list-xin-zeng-zi-liao-shan-chu-zi-liao-fan-zhuan.html">Linked List: 新增資料、刪除資料、反轉</a></li>
+</ul>
+<p><a name="series"></a></p>
+<p></br></p>
+<h3>Stack系列文章</h3>
+<p><a href="http://alrightchiu.github.io/SecondRound/stack-introjian-jie.html">Stack: Intro(簡介)</a>  <br />
+<a href="">Stack: 以Array與Linked list實作</a></p>
+<p>回到目錄：</p>
+<p><a href="http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html">目錄：演算法與資料結構</a></p>
+<p></br></p>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' && location_protocol !== 'https') location_protocol = 'https:';
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+    </article>
+
+        <div class="tags">
+            <p>tags: <a href="http://alrightchiu.github.io/SecondRound/tag/c.html">C++</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/intro.html">Intro</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/stack.html">Stack</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/linked-list.html">Linked list</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/array.html">Array</a>, </p>
+        </div>
+
+<hr>
+<div class="sharing">
+</div>
+    <hr>
+
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                            <li>
+                                <a href="https://github.com/alrightchiu">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                    </ul>
+<p class="copyright text-muted">
+    Blog powered by <a href="http://getpelican.com">Pelican</a>,
+    which takes great advantage of <a href="http://python.org">Python</a>.
+</p>                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="http://alrightchiu.github.io/SecondRound/theme/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="http://alrightchiu.github.io/SecondRound/theme/js/bootstrap.min.js"></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script src="http://alrightchiu.github.io/SecondRound/theme/js/clean-blog.min.js"></script>
+
+</body>
+
+</html>

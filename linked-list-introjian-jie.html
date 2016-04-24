@@ -187,6 +187,7 @@
 <p><code>class ListNode</code>的private data有兩項，一項代表著資料項目(在此以<code>int</code>示範)，一項是「指向型別(type)為ListNode之指標」，以<code>ListNode *next</code>表示，用來記錄「下一個node」的記憶體位置。</p>
 <p>在<code>class LinkedList</code>的private data中，最基本一定會有代表「第一個node」的<code>ListNode *first</code>，其餘資料項目可以視情況增加，像是<code>int size</code>用來記錄Linked list的長度等等。</p>
 <div class="highlight"><pre><span class="c1">// C++ code</span>
+<span class="cp">#include &lt;iostream&gt;</span>
 <span class="k">class</span> <span class="nc">LinkedList</span><span class="p">;</span>    <span class="c1">// 為了將class LinkedList設成class ListNode的friend,</span>
                      <span class="c1">// 需要先宣告</span>
 <span class="k">class</span> <span class="nc">ListNode</span><span class="p">{</span>
