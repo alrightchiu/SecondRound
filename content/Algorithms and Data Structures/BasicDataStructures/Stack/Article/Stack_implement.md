@@ -34,7 +34,7 @@ Summary: 以Array與Linked list實作Stack。
 ##以Array實作Stack
 
 
-以下是以Array(陣列)實作Stack的程式範例，`class StackArray`的`private data`有三項：
+在以Array(陣列)實作Stack的程式範例中，`class StackArray`的`private data`有三項：
 
 * `int top`：記錄於stack中，最上面資料的index。
 * `int capacity`：即為Array的size，也就是實際配置的記憶體大小。
@@ -47,6 +47,7 @@ Summary: 以Array與Linked list實作Stack。
 `DoubleCapacity()`：因為利用Array來存放資料，所以有可能在不斷新增資料(`Push()`)時，碰上一開始分配給Array的記憶體空間(`capacity`)不夠的情況，可以透過重新配置一個`capacity`為兩倍大的Array來解決。
 
 * 更理想的做法是，能夠先對欲放進Stack處理的資料數量有個底，在初始化時，就把`capacity`設定在差不多的範圍，如此一來，不需要重複多次`DoubleCapacity()`，也不會過分浪費記憶體空間。
+* 本篇文章提供的範例程式碼將`capacity`初始為$1$，主要是為了方便測試`DoubleCapacity()`。
 
 `Pop()`：最常見的做法，是「想像地」把資料從Array中移除，意思是，當呼叫`Pop()`時，其實只是把`int top`減一，並沒有真的把資料從Array中移除，這麼做的原因是，等到下次`Push()`新增資料時，自然會把該記憶體位置覆寫(overwrite)，見圖二(a)：
 
@@ -222,7 +223,8 @@ Stack也可以用Linked list實現，以圖三(a)的Linked list為例，原先�
 特別注意`Push()`函式：
 
 * 因為要保持`StackNode *top`一直在Linked list的第一個位置，所以Stack在`Push()`新增資料時，採用Linked list的`Push_front()`。
-* 在程式範例中，有這麼一行`StackNode *newnode = new StackNode(x,top);`(目前是註解的狀態)是利用`class StackNode`的第三個**constructor**，直接把新增的node之`next pointer`指向`top`。功能等同於「先利用`class StackNode`的第二個**constructor**，再手動更新`newNode`的`next pointer`」。
+* 在程式範例中，有這麼一行`StackNode *newnode = new StackNode(x,top);`(目前是註解的狀態)是利用`class StackNode`的第三個**constructor**，直接把新增的node之`next pointer`指向`top`。  
+其功能等同於「先利用`class StackNode`的第二個**constructor**，再手動更新`newNode`的`next pointer`」。
     * 小結論：好好利用**constructor**會更有效率。
 
 
