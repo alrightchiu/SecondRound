@@ -23,6 +23,7 @@ Summary: 介紹於Linked list(連結串列)中新增資料、刪除資料，以�
 
 ```cpp
 // C++ code
+#include <iostream>
 class LinkedList;    // 為了將class LinkedList設成class ListNode的friend,
                      // 需要先宣告
 class ListNode{

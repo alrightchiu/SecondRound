@@ -90,6 +90,7 @@ Linked list(連結串列)是一種常見的資料結構，其使用**node(節點
 
 ```cpp
 // C++ code
+#include <iostream>
 class LinkedList;    // 為了將class LinkedList設成class ListNode的friend,
                      // 需要先宣告
 class ListNode{
