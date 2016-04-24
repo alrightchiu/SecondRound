@@ -74,7 +74,7 @@
 &lt;/ul&gt;
 &lt;p&gt;&lt;a name="array"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;以Array實作Stack&lt;/h2&gt;
-&lt;p&gt;以下是以Array(陣列)實作Stack的程式範例，&lt;code&gt;class StackArray&lt;/code&gt;的&lt;code&gt;private data&lt;/code&gt;有三項：&lt;/p&gt;
+&lt;p&gt;在以Array(陣列)實作Stack的程式範例中，&lt;code&gt;class StackArray&lt;/code&gt;的&lt;code&gt;private data&lt;/code&gt;有三項：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;int top&lt;/code&gt;：記錄於stack中，最上面資料的index。&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;int capacity&lt;/code&gt;：即為Array的size，也就是實際配置的記憶體大小。&lt;/li&gt;
@@ -85,6 +85,7 @@
 &lt;p&gt;&lt;code&gt;DoubleCapacity()&lt;/code&gt;：因為利用Array來存放資料，所以有可能在不斷新增資料(&lt;code&gt;Push()&lt;/code&gt;)時，碰上一開始分配給Array的記憶體空間(&lt;code&gt;capacity&lt;/code&gt;)不夠的情況，可以透過重新配置一個&lt;code&gt;capacity&lt;/code&gt;為兩倍大的Array來解決。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;更理想的做法是，能夠先對欲放進Stack處理的資料數量有個底，在初始化時，就把&lt;code&gt;capacity&lt;/code&gt;設定在差不多的範圍，如此一來，不需要重複多次&lt;code&gt;DoubleCapacity()&lt;/code&gt;，也不會過分浪費記憶體空間。&lt;/li&gt;
+&lt;li&gt;本篇文章提供的範例程式碼將&lt;code&gt;capacity&lt;/code&gt;初始為&lt;span class="math"&gt;\(1\)&lt;/span&gt;，主要是為了方便測試&lt;code&gt;DoubleCapacity()&lt;/code&gt;。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;code&gt;Pop()&lt;/code&gt;：最常見的做法，是「想像地」把資料從Array中移除，意思是，當呼叫&lt;code&gt;Pop()&lt;/code&gt;時，其實只是把&lt;code&gt;int top&lt;/code&gt;減一，並沒有真的把資料從Array中移除，這麼做的原因是，等到下次&lt;code&gt;Push()&lt;/code&gt;新增資料時，自然會把該記憶體位置覆寫(overwrite)，見圖二(a)：&lt;/p&gt;
 &lt;ul&gt;
@@ -247,7 +248,8 @@
 特別注意&lt;code&gt;Push()&lt;/code&gt;函式：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;因為要保持&lt;code&gt;StackNode *top&lt;/code&gt;一直在Linked list的第一個位置，所以Stack在&lt;code&gt;Push()&lt;/code&gt;新增資料時，採用Linked list的&lt;code&gt;Push_front()&lt;/code&gt;。&lt;/li&gt;
-&lt;li&gt;在程式範例中，有這麼一行&lt;code&gt;StackNode *newnode = new StackNode(x,top);&lt;/code&gt;(目前是註解的狀態)是利用&lt;code&gt;class StackNode&lt;/code&gt;的第三個&lt;strong&gt;constructor&lt;/strong&gt;，直接把新增的node之&lt;code&gt;next pointer&lt;/code&gt;指向&lt;code&gt;top&lt;/code&gt;。功能等同於「先利用&lt;code&gt;class StackNode&lt;/code&gt;的第二個&lt;strong&gt;constructor&lt;/strong&gt;，再手動更新&lt;code&gt;newNode&lt;/code&gt;的&lt;code&gt;next pointer&lt;/code&gt;」。&lt;ul&gt;
+&lt;li&gt;在程式範例中，有這麼一行&lt;code&gt;StackNode *newnode = new StackNode(x,top);&lt;/code&gt;(目前是註解的狀態)是利用&lt;code&gt;class StackNode&lt;/code&gt;的第三個&lt;strong&gt;constructor&lt;/strong&gt;，直接把新增的node之&lt;code&gt;next pointer&lt;/code&gt;指向&lt;code&gt;top&lt;/code&gt;。&lt;br /&gt;
+其功能等同於「先利用&lt;code&gt;class StackNode&lt;/code&gt;的第二個&lt;strong&gt;constructor&lt;/strong&gt;，再手動更新&lt;code&gt;newNode&lt;/code&gt;的&lt;code&gt;next pointer&lt;/code&gt;」。&lt;ul&gt;
 &lt;li&gt;小結論：好好利用&lt;strong&gt;constructor&lt;/strong&gt;會更有效率。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;

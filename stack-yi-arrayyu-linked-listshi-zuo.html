@@ -130,7 +130,7 @@
 </ul>
 <p><a name="array"></a></p>
 <h2>以Array實作Stack</h2>
-<p>以下是以Array(陣列)實作Stack的程式範例，<code>class StackArray</code>的<code>private data</code>有三項：</p>
+<p>在以Array(陣列)實作Stack的程式範例中，<code>class StackArray</code>的<code>private data</code>有三項：</p>
 <ul>
 <li><code>int top</code>：記錄於stack中，最上面資料的index。</li>
 <li><code>int capacity</code>：即為Array的size，也就是實際配置的記憶體大小。</li>
@@ -141,6 +141,7 @@
 <p><code>DoubleCapacity()</code>：因為利用Array來存放資料，所以有可能在不斷新增資料(<code>Push()</code>)時，碰上一開始分配給Array的記憶體空間(<code>capacity</code>)不夠的情況，可以透過重新配置一個<code>capacity</code>為兩倍大的Array來解決。</p>
 <ul>
 <li>更理想的做法是，能夠先對欲放進Stack處理的資料數量有個底，在初始化時，就把<code>capacity</code>設定在差不多的範圍，如此一來，不需要重複多次<code>DoubleCapacity()</code>，也不會過分浪費記憶體空間。</li>
+<li>本篇文章提供的範例程式碼將<code>capacity</code>初始為<span class="math">\(1\)</span>，主要是為了方便測試<code>DoubleCapacity()</code>。</li>
 </ul>
 <p><code>Pop()</code>：最常見的做法，是「想像地」把資料從Array中移除，意思是，當呼叫<code>Pop()</code>時，其實只是把<code>int top</code>減一，並沒有真的把資料從Array中移除，這麼做的原因是，等到下次<code>Push()</code>新增資料時，自然會把該記憶體位置覆寫(overwrite)，見圖二(a)：</p>
 <ul>
@@ -303,7 +304,8 @@
 特別注意<code>Push()</code>函式：</p>
 <ul>
 <li>因為要保持<code>StackNode *top</code>一直在Linked list的第一個位置，所以Stack在<code>Push()</code>新增資料時，採用Linked list的<code>Push_front()</code>。</li>
-<li>在程式範例中，有這麼一行<code>StackNode *newnode = new StackNode(x,top);</code>(目前是註解的狀態)是利用<code>class StackNode</code>的第三個<strong>constructor</strong>，直接把新增的node之<code>next pointer</code>指向<code>top</code>。功能等同於「先利用<code>class StackNode</code>的第二個<strong>constructor</strong>，再手動更新<code>newNode</code>的<code>next pointer</code>」。<ul>
+<li>在程式範例中，有這麼一行<code>StackNode *newnode = new StackNode(x,top);</code>(目前是註解的狀態)是利用<code>class StackNode</code>的第三個<strong>constructor</strong>，直接把新增的node之<code>next pointer</code>指向<code>top</code>。<br />
+其功能等同於「先利用<code>class StackNode</code>的第二個<strong>constructor</strong>，再手動更新<code>newNode</code>的<code>next pointer</code>」。<ul>
 <li>小結論：好好利用<strong>constructor</strong>會更有效率。</li>
 </ul>
 </li>
