@@ -70,7 +70,7 @@
 &lt;li&gt;&lt;a href="#array"&gt;以Array實作Stack&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="#ll"&gt;以Linked list實作Stack&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="#ref"&gt;參考資料&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="#series"&gt;Linked list系列文章&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#series"&gt;Stack系列文章&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;a name="array"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;以Array實作Stack&lt;/h2&gt;
