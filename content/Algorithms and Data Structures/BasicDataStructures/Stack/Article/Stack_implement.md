@@ -25,7 +25,7 @@ Summary: 以Array與Linked list實作Stack。
 * [以Array實作Stack](#array)
 * [以Linked list實作Stack](#ll)
 * [參考資料](#ref)
-* [Linked list系列文章](#series)
+* [Stack系列文章](#series)
 
 
 
