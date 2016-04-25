@@ -1,7 +1,7 @@
 Title: Linked List: 新增資料、刪除資料、反轉    
 Date: 2016-4-19 22:39   
 Category: 演算法與資料結構  
-Tags: C++, Intro, Linked list     
+Tags: C++, Linked list     
 Summary: 介紹於Linked list(連結串列)中新增資料、刪除資料，以及如何反轉Linked list的方法。
 
 
