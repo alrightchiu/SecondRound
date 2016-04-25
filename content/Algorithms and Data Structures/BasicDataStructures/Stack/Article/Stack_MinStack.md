@@ -161,7 +161,7 @@ int MinStack::Top(){
     
     if (data.empty()) {
         std::cout << "Stack is empty.\n";   // sorry for the bad exception handling
-        return -1;                          // exception handling
+        return -1;                          
     }
     
     return data.top();
@@ -176,13 +176,14 @@ int MinStack::getSize(){
     
     return (int)data.size();
 }
+
 int main(){
     
     MinStack s;
     s.Pop();
     s.Push(6);
-    std::cout << "\ntop: " << s.Top()
-              << "\nmin: " << s.getMin() << std::endl;
+    std::cout << "\ntop: " << s.Top() << "\nmin: " << s.getMin() << std::endl;
+              
     s.Push(13);
     std::cout << "\ntop: " << s.Top()
               << "\nmin: " << s.getMin() << std::endl;
