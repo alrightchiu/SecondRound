@@ -1,7 +1,7 @@
 Title: Linked List: Intro(簡介)    
 Date: 2016-4-17 21:51   
 Category: 演算法與資料結構  
-Tags: C++, Intro, Linked list, Pointer, Array     
+Tags: C++, Intro, Linked List, Pointer, Array     
 Summary: 介紹Linked list(連結串列)。
 
 
