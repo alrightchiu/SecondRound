@@ -80,7 +80,7 @@ Summary: 實作出能夠在O(1)取得最小值的Stack。
 </center>
 
 
-
+</br>   
 由於`Push()`新增資料時對`minstack`的處理，在`Pop()`刪除資料時，`datastack`和`minstack`只要同步進行`pop()`即可，觀察圖三，每一次之後，`minstack`的「最上面」資料仍然是`datastack`的「最小值」。
 
 
@@ -160,7 +160,7 @@ bool MinStack::IsEmpty(){
 int MinStack::Top(){
     
     if (data.empty()) {
-        std::cout << "Stack is empty.\n";   // sorry for the bad 
+        std::cout << "Stack is empty.\n";   // sorry for the bad exception handling
         return -1;                          // exception handling
     }
     
