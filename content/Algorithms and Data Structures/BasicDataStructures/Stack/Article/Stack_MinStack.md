@@ -185,32 +185,31 @@ int main(){
     std::cout << "\ntop: " << s.Top() << "\nmin: " << s.getMin() << std::endl;
               
     s.Push(13);
-    std::cout << "\ntop: " << s.Top()
-              << "\nmin: " << s.getMin() << std::endl;
+    std::cout << "\ntop: " << s.Top() << "\nmin: " << s.getMin() << std::endl;
+              
     s.Push(4);
-    std::cout << "\ntop: " << s.Top()
-              << "\nmin: " << s.getMin() << std::endl;
+    std::cout << "\ntop: " << s.Top() << "\nmin: " << s.getMin() << std::endl;
+              
     s.Push(9);
-    std::cout << "\ntop: " << s.Top()
-              << "\nmin: " << s.getMin() << std::endl;
+    std::cout << "\ntop: " << s.Top() << "\nmin: " << s.getMin() << std::endl;
+              
     s.Push(1);
-    std::cout << "\ntop: " << s.Top()
-              << "\nmin: " << s.getMin() << std::endl;
+    std::cout << "\ntop: " << s.Top() << "\nmin: " << s.getMin() << std::endl;
+              
     s.Pop();
-    std::cout << "\ntop: " << s.Top()
-              << "\nmin: " << s.getMin() << std::endl;
+    std::cout << "\ntop: " << s.Top() << "\nmin: " << s.getMin() << std::endl;
+              
     s.Pop();
-    std::cout << "\ntop: " << s.Top()
-              << "\nmin: " << s.getMin() << std::endl;
+    std::cout << "\ntop: " << s.Top() << "\nmin: " << s.getMin() << std::endl;
+             
     s.Pop();
-    std::cout << "\ntop: " << s.Top()
-              << "\nmin: " << s.getMin() << std::endl;
+    std::cout << "\ntop: " << s.Top() << "\nmin: " << s.getMin() << std::endl;
+              
     s.Pop();
-    std::cout << "\ntop: " << s.Top()
-              << "\nmin: " << s.getMin() << std::endl;
+    std::cout << "\ntop: " << s.Top() << "\nmin: " << s.getMin() << std::endl;
+              
     s.Pop();
-    std::cout << "\ntop: " << s.Top()
-              << "\nmin: " << s.getMin() << std::endl;
+    std::cout << "\ntop: " << s.Top() << "\nmin: " << s.getMin() << std::endl;
     
     return 0;
 }
@@ -253,7 +252,6 @@ min: Stack is empty.
 -1
 ```
 
-`main()`測試的結果與圖二、圖三相同：
 
 
 
