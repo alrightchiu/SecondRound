@@ -1,7 +1,7 @@
 Title: Minimum Spanning Tree：Prim's Algorithm     
 Date: 2016-2-25 20:30  
 Category: 演算法與資料結構  
-Tags: C++, Graph, MST, Greedy Algorithm, Cut(partition)  
+Tags: C++, Graph, Minimum Spanning Tree, Greedy Algorithm, Cut(partition)  
 Summary: 介紹於Graph中，利用Prim's Algorithm求得Minimum Spanning Tree(MST，最小生成樹)。
 
 

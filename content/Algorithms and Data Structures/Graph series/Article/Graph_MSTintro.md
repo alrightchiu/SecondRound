@@ -1,7 +1,7 @@
 Title: Minimum Spanning Tree：Intro(簡介)    
 Date: 2016-2-23 12:36  
 Category: 演算法與資料結構  
-Tags: C++, Graph, MST, Intro, Cut(partition)  
+Tags: C++, Graph, Minimum Spanning Tree, Intro, Cut(partition)  
 Summary: 介紹Graph中的Minimum Spanning Tree(MST，最小生成樹)。
 
 

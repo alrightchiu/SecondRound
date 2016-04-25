@@ -1,7 +1,7 @@
 Title: Minimum Spanning Tree：Kruskal's Algorithm     
 Date: 2016-2-24 20:50  
 Category: 演算法與資料結構  
-Tags: C++, Graph, MST, Greedy Algorithm, Cut(partition), Set(Find and Union)  
+Tags: C++, Graph, Minimum Spanning Tree, Greedy Algorithm, Cut(partition), Set(Find and Union)  
 Summary: 介紹於Graph中，利用Kruskal's Algorithm求得Minimum Spanning Tree(MST，最小生成樹)。
 
 
