@@ -154,22 +154,17 @@ int main(){
     
     StackArray s;
     s.Pop();
-    
     s.Push(14);
     s.Push(9);
-    std::cout << "\ntop: " << s.Top()
-              << "\nsize: " << s.getSize() << std::endl;
+    std::cout << "\ntop: " << s.Top() << "\nsize: " << s.getSize() << std::endl;
     s.Push(7);
-    std::cout << "\ntop: " << s.Top()
-              << "\nsize: " << s.getSize() << std::endl;
+    std::cout << "\ntop: " << s.Top() << "\nsize: " << s.getSize() << std::endl;
     s.Pop();
     s.Pop();
-    std::cout << "\ntop: " << s.Top()
-              << "\nsize: " << s.getSize() << std::endl;
+    std::cout << "\ntop: " << s.Top() << "\nsize: " << s.getSize() << std::endl; 
     s.Pop();
-    std::cout << "\ntop: " << s.Top()
-              << "\nsize: " << s.getSize() << std::endl;
-    
+    std::cout << "\ntop: " << s.Top() << "\nsize: " << s.getSize() << std::endl;
+               
     return 0;
 }
 ```
@@ -318,19 +313,15 @@ int main(){
     s.Pop();
     s.Push(32);
     s.Push(4);
-    std::cout << "\ntop: " << s.Top()
-              << "\nsize: " << s.getSize() << std::endl;
+    std::cout << "\ntop: " << s.Top() << "\nsize: " << s.getSize() << std::endl;        
     s.Push(15);
-    std::cout << "\ntop: " << s.Top()
-              << "\nsize: " << s.getSize() << std::endl;
+    std::cout << "\ntop: " << s.Top() << "\nsize: " << s.getSize() << std::endl;         
     s.Pop();
     s.Pop();
-    std::cout << "\ntop: " << s.Top()
-              << "\nsize: " << s.getSize() << std::endl;
+    std::cout << "\ntop: " << s.Top() << "\nsize: " << s.getSize() << std::endl;          
     s.Pop();
-    std::cout << "\ntop: " << s.Top()
-              << "\nsize: " << s.getSize() << std::endl;
-    
+    std::cout << "\ntop: " << s.Top() << "\nsize: " << s.getSize() << std::endl;
+
     return 0;
 }
 ```
