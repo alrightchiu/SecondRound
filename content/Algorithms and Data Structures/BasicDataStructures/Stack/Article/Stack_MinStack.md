@@ -1,7 +1,7 @@
 Title: Stack: 能夠在O(1)取得最小值的MinStack  
 Date: 2016-4-25 12:08   
 Category: 演算法與資料結構  
-Tags: C++, Intro, Stack,     
+Tags: C++, Stack,     
 Summary: 實作出能夠在O(1)取得最小值的Stack。
 
 

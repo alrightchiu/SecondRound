@@ -1,7 +1,7 @@
 Title: Stack: 以Array與Linked list實作  
 Date: 2016-4-24 10:28   
 Category: 演算法與資料結構  
-Tags: C++, Intro, Stack, Linked list, Array     
+Tags: C++, Stack, Linked list, Array     
 Summary: 以Array與Linked list實作Stack。
 
 
