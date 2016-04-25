@@ -118,7 +118,7 @@
 <img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/Stack/MinStack/f11.png?raw=true" /></p>
 <p><strong>圖一。</strong>
 </center></p>
-<p>以圖一為例，因為圖一是Stack的剖面圖，所以很容易可以看出，目前Stack中的最小值為<span class="math">\(4\)</span>。但是一般的Stack並沒有提供剖面圖這種東西，只能透過函式<code>top()</code>來得知Stack「最上面的」<span class="math">\(9\)</span>。</p>
+<p>以圖一為例，因為圖一是Stack的剖面圖，所以很容易可以看出，目前Stack中的最小值為<span class="math">\(4\)</span>。但是一般的Stack並沒有提供剖面圖這種東西，只能透過函式<code>top()</code>來得知Stack「最上面」的<span class="math">\(9\)</span>。</p>
 <p>本篇文章要介紹的便是能夠在O(<span class="math">\(1\)</span>)的時間複雜度，得知目前Stack裡的「最小值」的進化版Stack，以下稱為<strong>MinStack</strong>。</p>
 <p>在程式範例中將使用標準模板函式庫(STL)的<code>std::stack&lt;int&gt;</code>，其基本函式功能可以參考<a href="http://alrightchiu.github.io/SecondRound/stack-introjian-jie.html">Stack: Intro(簡介)</a>，更多內容請參考：<a href="http://www.cplusplus.com/reference/stack/stack/">Cplusplus：std::stack</a>。</p>
 <hr />
@@ -127,7 +127,7 @@
 <li><a href="#minstack">以兩個Stack來實作MinStack</a></li>
 <li><a href="#code">程式碼</a></li>
 <li><a href="#ref">參考資料</a></li>
-<li><a href="#series">Linked list系列文章</a></li>
+<li><a href="#series">Stack系列文章</a></li>
 </ul>
 <p></br></p>
 <p><a name="minstack"></a></p>
@@ -136,19 +136,13 @@
 <p>在<code>Push()</code>新增資料時：</p>
 <ul>
 <li><code>datastack</code>一如往常以<code>push()</code>將資料放進Stack中。</li>
-<li>
-<p><code>minstack</code>就必須判斷「欲新增的資料」是否有比「目前最上面」還要小。</p>
-<ul>
-<li>
-<p>如果有，就把「欲新增的資料」<code>push()</code>進<code>minstack</code>，此時該資料會位在Stack的「最上面」。  </p>
-<ul>
+<li><code>minstack</code>就必須判斷「欲新增的資料」是否有比「目前最上面」還要小。<ul>
+<li>如果有，就把「欲新增的資料」<code>push()</code>進<code>minstack</code>，此時該資料會位在Stack的「最上面」。  <ul>
 <li>特例：如果原先<code>minstack</code>裏面沒有資料，那麼就直接將「欲新增的資料」<code>push()</code>進<code>minstack</code>。</li>
 <li>透過這個步驟，可以保證<code>minstack</code>的「最上面」資料就是<code>datastack</code>中的「最小值」。</li>
 </ul>
 </li>
-<li>
-<p>如果沒有，就把<code>minstack</code>「目前最上面」的資料，再<code>push()</code>進<code>minstack</code>一次，表示在新增資料後，「最小值」不變。</p>
-</li>
+<li>如果沒有，就把<code>minstack</code>「目前最上面」的資料，再<code>push()</code>進<code>minstack</code>一次，表示在新增資料後，「最小值」不變。</li>
 </ul>
 </li>
 </ul>
