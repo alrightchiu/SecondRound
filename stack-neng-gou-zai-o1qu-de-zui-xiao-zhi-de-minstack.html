@@ -239,7 +239,7 @@
 
     <span class="k">if</span> <span class="p">(</span><span class="n">data</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span> <span class="p">{</span>
         <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Stack is empty.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>   <span class="c1">// sorry for the bad exception handling</span>
-        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>                          <span class="c1">// exception handling</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>                          
     <span class="p">}</span>
 
     <span class="k">return</span> <span class="n">data</span><span class="p">.</span><span class="n">top</span><span class="p">();</span>
@@ -254,13 +254,14 @@
 
     <span class="k">return</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">data</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
 <span class="p">}</span>
+
 <span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
 
     <span class="n">MinStack</span> <span class="n">s</span><span class="p">;</span>
     <span class="n">s</span><span class="p">.</span><span class="n">Pop</span><span class="p">();</span>
     <span class="n">s</span><span class="p">.</span><span class="n">Push</span><span class="p">(</span><span class="mi">6</span><span class="p">);</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">top: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">s</span><span class="p">.</span><span class="n">Top</span><span class="p">()</span>
-              <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">min: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">s</span><span class="p">.</span><span class="n">getMin</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">top: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">s</span><span class="p">.</span><span class="n">Top</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">min: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">s</span><span class="p">.</span><span class="n">getMin</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
     <span class="n">s</span><span class="p">.</span><span class="n">Push</span><span class="p">(</span><span class="mi">13</span><span class="p">);</span>
     <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">top: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">s</span><span class="p">.</span><span class="n">Top</span><span class="p">()</span>
               <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">min: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">s</span><span class="p">.</span><span class="n">getMin</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
