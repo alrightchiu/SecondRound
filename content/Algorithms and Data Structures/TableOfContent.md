@@ -25,6 +25,7 @@ Summary: 請先閱讀本篇目錄。
 
 [Stack: Intro(簡介)](http://alrightchiu.github.io/SecondRound/stack-introjian-jie.html)  
 [Stack: 以Array與Linked list實作](http://alrightchiu.github.io/SecondRound/stack-yi-arrayyu-linked-listshi-zuo.html)  
+[Stack: 能夠在O(1)取得最小值的MinStack](http://alrightchiu.github.io/SecondRound/stack-neng-gou-zai-o1qu-de-zui-xiao-zhi-de-minstack.html)  
 
 
 </br>
