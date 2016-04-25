@@ -356,7 +356,7 @@
         "}";
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
-&lt;/script&gt;</summary><category term="C++"></category><category term="Intro"></category><category term="Stack"></category></entry><entry><title>Stack: 以Array與Linked list實作</title><link href="http://alrightchiu.github.io/SecondRound/stack-yi-arrayyu-linked-listshi-zuo.html" rel="alternate"></link><updated>2016-04-24T10:28:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-04-24:SecondRound/stack-yi-arrayyu-linked-listshi-zuo.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;/script&gt;</summary><category term="C++"></category><category term="Stack"></category></entry><entry><title>Stack: 以Array與Linked list實作</title><link href="http://alrightchiu.github.io/SecondRound/stack-yi-arrayyu-linked-listshi-zuo.html" rel="alternate"></link><updated>2016-04-24T10:28:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-04-24:SecondRound/stack-yi-arrayyu-linked-listshi-zuo.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h3&gt;先備知識與注意事項&lt;/h3&gt;
 &lt;p&gt;本篇文章接續&lt;a href="http://alrightchiu.github.io/SecondRound/stack-introjian-jie.html"&gt;Stack: Intro(簡介)&lt;/a&gt;，介紹以Array與Linked list實作Stack的方法。&lt;/p&gt;
 &lt;p&gt;如果對Linked list不太熟悉，建議讀者可以先閱讀以下連結之內容做簡單複習：&lt;/p&gt;
@@ -754,7 +754,7 @@
         "}";
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
-&lt;/script&gt;</summary><category term="C++"></category><category term="Intro"></category><category term="Stack"></category><category term="Linked list"></category><category term="Array"></category></entry><entry><title>Stack: Intro(簡介)</title><link href="http://alrightchiu.github.io/SecondRound/stack-introjian-jie.html" rel="alternate"></link><updated>2016-04-22T20:23:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-04-22:SecondRound/stack-introjian-jie.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;/script&gt;</summary><category term="C++"></category><category term="Stack"></category><category term="Linked list"></category><category term="Array"></category></entry><entry><title>Stack: Intro(簡介)</title><link href="http://alrightchiu.github.io/SecondRound/stack-introjian-jie.html" rel="alternate"></link><updated>2016-04-22T20:23:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-04-22:SecondRound/stack-introjian-jie.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h3&gt;先備知識與注意事項&lt;/h3&gt;
 &lt;p&gt;&lt;strong&gt;Stack(堆疊)&lt;/strong&gt;是一種概念性的抽象資料結構，可以分別使用Array(陣列)與Linked list(連結串列)來實作。&lt;/p&gt;
 &lt;p&gt;本篇文章將介紹Stack的基本概念，程式實作留在下一篇。&lt;/p&gt;
