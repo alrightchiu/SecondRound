@@ -118,7 +118,8 @@
 &lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/Stack/MinStack/f8.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖二(b)。&lt;/strong&gt;
 &lt;/center&gt;&lt;/p&gt;
-&lt;p&gt;由於&lt;code&gt;Push()&lt;/code&gt;新增資料時對&lt;code&gt;minstack&lt;/code&gt;的處理，在&lt;code&gt;Pop()&lt;/code&gt;刪除資料時，&lt;code&gt;datastack&lt;/code&gt;和&lt;code&gt;minstack&lt;/code&gt;只要同步進行&lt;code&gt;pop()&lt;/code&gt;即可，觀察圖三，每一次之後，&lt;code&gt;minstack&lt;/code&gt;的「最上面」資料仍然是&lt;code&gt;datastack&lt;/code&gt;的「最小值」。&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt; &lt;br /&gt;
+由於&lt;code&gt;Push()&lt;/code&gt;新增資料時對&lt;code&gt;minstack&lt;/code&gt;的處理，在&lt;code&gt;Pop()&lt;/code&gt;刪除資料時，&lt;code&gt;datastack&lt;/code&gt;和&lt;code&gt;minstack&lt;/code&gt;只要同步進行&lt;code&gt;pop()&lt;/code&gt;即可，觀察圖三，每一次之後，&lt;code&gt;minstack&lt;/code&gt;的「最上面」資料仍然是&lt;code&gt;datastack&lt;/code&gt;的「最小值」。&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/Stack/MinStack/f9.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/Stack/MinStack/f10.png?raw=true" /&gt;&lt;/p&gt;
@@ -184,7 +185,7 @@
 &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;MinStack&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;Top&lt;/span&gt;&lt;span class="p"&gt;(){&lt;/span&gt;
 
     &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;empty&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-        &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;Stack is empty.&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;   &lt;span class="c1"&gt;// sorry for the bad &lt;/span&gt;
+        &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;Stack is empty.&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;   &lt;span class="c1"&gt;// sorry for the bad exception handling&lt;/span&gt;
         &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;                          &lt;span class="c1"&gt;// exception handling&lt;/span&gt;
     &lt;span class="p"&gt;}&lt;/span&gt;
 
