@@ -18,7 +18,7 @@ Summary: 實作出能夠在O(1)取得最小值的Stack。
 **圖一。**
 </center>
 
-以圖一為例，因為圖一是Stack的剖面圖，所以很容易可以看出，目前Stack中的最小值為$4$。但是一般的Stack並沒有提供剖面圖這種東西，只能透過函式`top()`來得知Stack「最上面的」$9$。
+以圖一為例，因為圖一是Stack的剖面圖，所以很容易可以看出，目前Stack中的最小值為$4$。但是一般的Stack並沒有提供剖面圖這種東西，只能透過函式`top()`來得知Stack「最上面」的$9$。
 
 本篇文章要介紹的便是能夠在O($1$)的時間複雜度，得知目前Stack裡的「最小值」的進化版Stack，以下稱為**MinStack**。
 
@@ -31,7 +31,7 @@ Summary: 實作出能夠在O(1)取得最小值的Stack。
 * [以兩個Stack來實作MinStack](#minstack)
 * [程式碼](#code)
 * [參考資料](#ref)
-* [Linked list系列文章](#series)
+* [Stack系列文章](#series)
 
 
 
@@ -50,7 +50,6 @@ Summary: 實作出能夠在O(1)取得最小值的Stack。
     * 如果有，就把「欲新增的資料」`push()`進`minstack`，此時該資料會位在Stack的「最上面」。  
         * 特例：如果原先`minstack`裏面沒有資料，那麼就直接將「欲新增的資料」`push()`進`minstack`。
         * 透過這個步驟，可以保證`minstack`的「最上面」資料就是`datastack`中的「最小值」。
-   
     * 如果沒有，就把`minstack`「目前最上面」的資料，再`push()`進`minstack`一次，表示在新增資料後，「最小值」不變。
 
 </br>  
