@@ -6683,7 +6683,7 @@ $$&lt;/div&gt;
         "}";
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
-&lt;/script&gt;</summary><category term="C++"></category><category term="Graph"></category><category term="MST"></category><category term="Greedy Algorithm"></category><category term="Cut(partition)"></category></entry><entry><title>Minimum Spanning Tree：Kruskal's Algorithm</title><link href="http://alrightchiu.github.io/SecondRound/minimum-spanning-treekruskals-algorithm.html" rel="alternate"></link><updated>2016-02-24T20:50:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-02-24:SecondRound/minimum-spanning-treekruskals-algorithm.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;/script&gt;</summary><category term="C++"></category><category term="Graph"></category><category term="Minimum Spanning Tree"></category><category term="Greedy Algorithm"></category><category term="Cut(partition)"></category></entry><entry><title>Minimum Spanning Tree：Kruskal's Algorithm</title><link href="http://alrightchiu.github.io/SecondRound/minimum-spanning-treekruskals-algorithm.html" rel="alternate"></link><updated>2016-02-24T20:50:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-02-24:SecondRound/minimum-spanning-treekruskals-algorithm.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h3&gt;先備知識與注意事項&lt;/h3&gt;
 &lt;p&gt;在上一篇文章&lt;a href="http://alrightchiu.github.io/SecondRound/minimum-spanning-treeintrojian-jie.html"&gt;Minimum Spanning Tree：Intro(簡介)&lt;/a&gt;介紹過MST的問題情境，這篇文章要接著介紹尋找MST的演算法之一：&lt;strong&gt;Kruskal's Algorithm&lt;/strong&gt;。&lt;/p&gt;
 &lt;p&gt;說明演算法時將會用上專有名詞如「light edge」、「cross」，如果不太熟悉，可以參考&lt;a href="http://alrightchiu.github.io/SecondRound/minimum-spanning-treeintrojian-jie.html"&gt;上一篇文章&lt;/a&gt;。&lt;/p&gt;
@@ -7097,7 +7097,7 @@ $$&lt;/div&gt;
         "}";
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
-&lt;/script&gt;</summary><category term="C++"></category><category term="Graph"></category><category term="MST"></category><category term="Greedy Algorithm"></category><category term="Cut(partition)"></category><category term="Set(Find and Union)"></category></entry><entry><title>Minimum Spanning Tree：Intro(簡介)</title><link href="http://alrightchiu.github.io/SecondRound/minimum-spanning-treeintrojian-jie.html" rel="alternate"></link><updated>2016-02-23T12:36:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-02-23:SecondRound/minimum-spanning-treeintrojian-jie.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;/script&gt;</summary><category term="C++"></category><category term="Graph"></category><category term="Minimum Spanning Tree"></category><category term="Greedy Algorithm"></category><category term="Cut(partition)"></category><category term="Set(Find and Union)"></category></entry><entry><title>Minimum Spanning Tree：Intro(簡介)</title><link href="http://alrightchiu.github.io/SecondRound/minimum-spanning-treeintrojian-jie.html" rel="alternate"></link><updated>2016-02-23T12:36:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-02-23:SecondRound/minimum-spanning-treeintrojian-jie.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h3&gt;先備知識與注意事項&lt;/h3&gt;
 &lt;p&gt;本篇文章旨在介紹Graph中常見的應用：Minimum Spanning Tree(MST，最小生成樹)。&lt;/p&gt;
 &lt;p&gt;在介紹演算法時，繼續會用上Set(集合)的概念，如果對Set有基本概念，相信讀者一定可以躺著讀完這篇。&lt;/p&gt;
@@ -7371,7 +7371,7 @@ $$&lt;/div&gt;
         "}";
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
-&lt;/script&gt;</summary><category term="C++"></category><category term="Graph"></category><category term="MST"></category><category term="Intro"></category><category term="Cut(partition)"></category></entry><entry><title>Grpah: 利用DFS尋找DAG的Topological Sort(拓撲排序)</title><link href="http://alrightchiu.github.io/SecondRound/grpah-li-yong-dfsxun-zhao-dagde-topological-sorttuo-pu-pai-xu.html" rel="alternate"></link><updated>2016-02-18T18:01:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-02-18:SecondRound/grpah-li-yong-dfsxun-zhao-dagde-topological-sorttuo-pu-pai-xu.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;/script&gt;</summary><category term="C++"></category><category term="Graph"></category><category term="Minimum Spanning Tree"></category><category term="Intro"></category><category term="Cut(partition)"></category></entry><entry><title>Grpah: 利用DFS尋找DAG的Topological Sort(拓撲排序)</title><link href="http://alrightchiu.github.io/SecondRound/grpah-li-yong-dfsxun-zhao-dagde-topological-sorttuo-pu-pai-xu.html" rel="alternate"></link><updated>2016-02-18T18:01:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-02-18:SecondRound/grpah-li-yong-dfsxun-zhao-dagde-topological-sorttuo-pu-pai-xu.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h3&gt;先備知識與注意事項&lt;/h3&gt;
 &lt;p&gt;有些事件具有絕對的「先後關係」，例如，襪子要在鞋子之前穿上，否則穿上鞋子後要再穿襪子需要一點奇蹟。&lt;/p&gt;
 &lt;p&gt;若以Graph來表示，vertex(穿襪子)、vertex(穿鞋子)與edge(先後關係)如圖一(a)：&lt;/p&gt;
