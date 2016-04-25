@@ -258,11 +258,11 @@ min: Stack is empty.
 
 
 
-[f7]: f7.png
-[f8]: f8.png
-[f9]: f9.png
-[f10]: f10.png
-[f11]: f11.png
+[f7]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/Stack/MinStack/f7.png?raw=true
+[f8]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/Stack/MinStack/f8.png?raw=true
+[f9]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/Stack/MinStack/f9.png?raw=true
+[f10]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/Stack/MinStack/f10.png?raw=true
+[f11]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/Stack/MinStack/f11.png?raw=true
 
 
 
