@@ -1,5 +1,5 @@
 Title: Queue: Intro(簡介)    
-Date: 2016-4-227 18:01   
+Date: 2016-4-27 18:01   
 Category: 演算法與資料結構  
 Tags: C++, Intro, Queue, Linked List   
 Summary: 介紹Queue(佇列)，並以Linked list實作。
