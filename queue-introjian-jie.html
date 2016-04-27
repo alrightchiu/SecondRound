@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="zh-hant">
+
+<head>
+            <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+
+        <title>Queue: Intro(簡介)</title>
+
+            <link href="http://alrightchiu.github.io/SecondRound/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Second Round Full Atom Feed" />
+            <link href="http://alrightchiu.github.io/SecondRound/feeds/yan-suan-fa-yu-zi-liao-jie-gou.atom.xml" type="application/atom+xml" rel="alternate" title="Second Round Categories Atom Feed" />
+
+        <!-- Bootstrap Core CSS -->
+        <link href="http://alrightchiu.github.io/SecondRound/theme/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="http://alrightchiu.github.io/SecondRound/theme/css/clean-blog.min.css" rel="stylesheet">
+
+        <!-- Code highlight color scheme -->
+            <link href="http://alrightchiu.github.io/SecondRound/theme/css/code_blocks/darkly.css" rel="stylesheet">
+
+
+        <!-- Custom Fonts -->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+
+
+
+        <meta name="tags" contents="C++" />
+        <meta name="tags" contents="Intro" />
+        <meta name="tags" contents="Queue" />
+        <meta name="tags" contents="Linked List" />
+
+
+	                <meta property="og:locale" content="">
+		<meta property="og:site_name" content="Second Round">
+
+	<meta property="og:type" content="article">
+	<meta property="article:author" content="">
+	<meta property="og:url" content="http://alrightchiu.github.io/SecondRound/queue-introjian-jie.html">
+	<meta property="og:title" content="Queue: Intro(簡介)">
+	<meta property="og:description" content="">
+	<meta property="og:image" content="http://alrightchiu.github.io/SecondRound/">
+	<meta property="article:published_time" content="2016-04-27 18:01:00+08:00">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://alrightchiu.github.io/SecondRound/">Second Round</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a href="http://alrightchiu.github.io/SecondRound/archives.html">Archives</a></li>
+                        <li><a href="http://alrightchiu.github.io/SecondRound/tags.html">Tags</a></li>
+
+                            <li><a href="http://alrightchiu.github.io/SecondRound/pages/about.html">About</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+        <header class="intro-header" style="background-image: url('http://alrightchiu.github.io/SecondRound/theme/images/post-bg.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>Queue: Intro(簡介)</h1>
+                        <span class="meta">Posted by
+                                <a href="http://alrightchiu.github.io/SecondRound/author/chiu-cc.html">Chiu CC</a>
+                             on  4 27, 2016
+                        </span>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    <!-- Post Content -->
+    <article>
+        <p></br></p>
+<h3>先備知識與注意事項</h3>
+<p><strong>Queue(佇列)</strong>是一種概念性的抽象資料結構，可以分別使用Linked list(連結串列)與Array(陣列)來實作。</p>
+<p>本篇文章將介紹Queue的基本概念，並以Linked list實作。</p>
+<hr />
+<h2>目錄</h2>
+<ul>
+<li><a href="#intro">簡介：Queue</a></li>
+<li><a href="#app">Queue的應用</a></li>
+<li><a href="#ll">以Linked list實作</a></li>
+<li><a href="#ref">參考資料</a></li>
+<li><a href="#series">Queue系列文章</a></li>
+</ul>
+<p></br></p>
+<p><a name="intro"></a></p>
+<h2>簡介：Queue</h2>
+<p><strong>Queue</strong>是具有「First-In-First-Out」的資料結構，如同排隊買車票的隊伍即可視為<strong>Queue</strong>，先進入隊伍的人，可以優先離開隊伍，走向售票窗口買票，而後到的人，就需要等隊伍前面的人都買完票後才能買。  </p>
+<p>如同普遍認知的排隊隊伍，Queue也具有以下特徵：</p>
+<ol>
+<li>隊伍有前方(以<strong>front</strong>表示)以及後方(以<strong>back</strong>表示)之分。</li>
+<li>若要進入隊伍(<strong>Push</strong>)，一定是從<strong>back</strong>進入。</li>
+<li>若要離開隊伍(<strong>Pop</strong>)，一定是從<strong>front</strong>離開。</li>
+</ol>
+<p>以圖一為例，由<strong>front</strong>(隊伍前方)和<strong>back</strong>(隊伍後方)可以判斷，進入隊伍的順序應該是<span class="math">\(23、1、3、35\)</span>。</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/Queue/intro/f1.png?raw=true" /></p>
+<p><strong>圖一。</strong>
+</center></p>
+<p>一般的<strong>Queue</strong>，會有以下幾個處理資料結構的功能，配合圖二：</p>
+<ul>
+<li><strong>Push(data)</strong>：把資料從Queue的「後面」放進Queue，並更新成新的<strong>back</strong>。<ul>
+<li>在Queue中新增資料又稱為<strong>enqueue</strong>。</li>
+</ul>
+</li>
+<li><strong>Pop</strong>：把<strong>front</strong>所指向的資料從Queue中移除，並更新<strong>front</strong>。<ul>
+<li>從Queue刪除資料又稱為<strong>dequeue</strong>。</li>
+</ul>
+</li>
+<li><strong>getFront</strong>：回傳<strong>front</strong>所指向的資料。</li>
+<li><strong>getBack</strong>：回傳<strong>back</strong>所指向的資料。</li>
+<li><strong>IsEmpty</strong>：確認Queue裡是否有資料。</li>
+<li><strong>getSize</strong>：回傳Queue裡的資料個數。</li>
+</ul>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/Queue/intro/queue.gif?raw=true" /></p>
+<p><strong>圖二。</strong>
+</center></p>
+<p></br></p>
+<p><a name="app"></a></p>
+<h2>Queue的應用</h2>
+<p>因為<strong>Queue</strong>的「First-In-First-Out」特徵，常用於先到先執行、需要排程(<strong>scheduling</strong>)的應用：</p>
+<ul>
+<li>演算法：<a href="http://alrightchiu.github.io/SecondRound/graph-breadth-first-searchbfsguang-du-you-xian-sou-xun.html">Breadth-First Search(廣度優先搜尋)</a>與<a href="http://alrightchiu.github.io/SecondRound/binary-tree-traversalxun-fang.html#level">Tree的Level-Order Traversal</a>會用到<strong>Queue</strong>。</li>
+<li>作業系統：被多個程式共享的資源(例如CPU、印表機、網站伺服器)，一次只能執行一個需求(例如request、interrupt)，因此需要有個<strong>Queue</strong>來安排多個程式的執行順序(例如device queue、job queue)，請參考：<ul>
+<li><a href="http://www.tutorialspoint.com/operating_system/os_process_scheduling.htm">Tutorialspoint：Operating System - Process Scheduling</a>。</li>
+<li><a href="http://stackoverflow.com/questions/2392824/what-are-practical-applications-of-queues">Stack Overflow：What are practical applications of Queues?</a>。</li>
+<li><a href="http://cs.stackexchange.com/questions/1106/which-queue-does-the-long-term-scheduler-maintain">Stack Exchange：Which queue does the long-term scheduler maintain?</a></li>
+</ul>
+</li>
+</ul>
+<p></br></p>
+<p><a name="ll"></a></p>
+<h2>以Linked list實作</h2>
+<p>以Linked list實作Queue非常直覺，如圖三，把每筆資料視為node，並且以<strong>pointer</strong>前後連結：</p>
+<ul>
+<li>Queue的<code>Push()</code>：在list的「尾巴」新增資料。</li>
+<li>Queue的<code>Pop()</code>：在list的「開頭」刪除資料。</li>
+</ul>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/Queue/intro/f2.png?raw=true" /></p>
+<p><strong>圖三。</strong>
+</center></p>
+<p>和<a href="http://alrightchiu.github.io/SecondRound/linked-list-xin-zeng-zi-liao-shan-chu-zi-liao-fan-zhuan.html">Linked List: 新增資料、刪除資料、反轉</a>介紹的Linked list的差異在於，因為Queue需要記得<strong>front</strong>和<strong>back</strong>的資料，所以Linked list除了原先記錄「第一個node」的<strong>pointer</strong>之外，要再多一個<strong>pointer</strong>記錄「最後一個node」。</p>
+<ul>
+<li>有了<strong>back pointer</strong>後，便能在時間複雜度O(<span class="math">\(1\)</span>)完成「在Linked list尾巴新增資料」。</li>
+</ul>
+<p>完整的程式範例如下：</p>
+<div class="highlight"><pre><span class="c1">// C++ code</span>
+<span class="cp">#include &lt;iostream&gt;</span>
+
+<span class="k">struct</span> <span class="n">QueueNode</span><span class="p">{</span>
+    <span class="kt">int</span> <span class="n">data</span><span class="p">;</span>
+    <span class="n">QueueNode</span> <span class="o">*</span><span class="n">next</span><span class="p">;</span>
+    <span class="n">QueueNode</span><span class="p">()</span><span class="o">:</span><span class="n">data</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="n">next</span><span class="p">(</span><span class="mi">0</span><span class="p">){};</span>
+    <span class="n">QueueNode</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span><span class="o">:</span><span class="n">data</span><span class="p">(</span><span class="n">x</span><span class="p">),</span><span class="n">next</span><span class="p">(</span><span class="mi">0</span><span class="p">){};</span>
+<span class="p">};</span>
+
+<span class="k">class</span> <span class="nc">QueueList</span><span class="p">{</span>
+<span class="k">private</span><span class="o">:</span>
+    <span class="n">QueueNode</span> <span class="o">*</span><span class="n">front</span><span class="p">;</span>
+    <span class="n">QueueNode</span> <span class="o">*</span><span class="n">back</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">size</span><span class="p">;</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">QueueList</span><span class="p">()</span><span class="o">:</span><span class="n">front</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="n">back</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="n">size</span><span class="p">(</span><span class="mi">0</span><span class="p">){};</span>
+    <span class="kt">void</span> <span class="nf">Push</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="nf">Pop</span><span class="p">();</span>
+    <span class="kt">bool</span> <span class="nf">IsEmpty</span><span class="p">();</span>
+    <span class="kt">int</span> <span class="nf">getFront</span><span class="p">();</span>
+    <span class="kt">int</span> <span class="nf">getBack</span><span class="p">();</span>
+    <span class="kt">int</span> <span class="nf">getSize</span><span class="p">();</span>
+<span class="p">};</span>
+
+<span class="kt">void</span> <span class="n">QueueList</span><span class="o">::</span><span class="n">Push</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">){</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">IsEmpty</span><span class="p">())</span> <span class="p">{</span>
+        <span class="n">front</span> <span class="o">=</span> <span class="k">new</span> <span class="n">QueueNode</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
+        <span class="n">back</span> <span class="o">=</span> <span class="n">front</span><span class="p">;</span>
+        <span class="n">size</span><span class="o">++</span><span class="p">;</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">QueueNode</span> <span class="o">*</span><span class="n">newNode</span> <span class="o">=</span> <span class="k">new</span> <span class="n">QueueNode</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
+    <span class="n">back</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">newNode</span><span class="p">;</span>
+    <span class="n">back</span> <span class="o">=</span> <span class="n">newNode</span><span class="p">;</span>         <span class="c1">// update back pointer</span>
+    <span class="n">size</span><span class="o">++</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">QueueList</span><span class="o">::</span><span class="n">Pop</span><span class="p">(){</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">IsEmpty</span><span class="p">())</span> <span class="p">{</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Queue is empty.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">QueueNode</span> <span class="o">*</span><span class="n">deletenode</span> <span class="o">=</span> <span class="n">front</span><span class="p">;</span>
+    <span class="n">front</span> <span class="o">=</span> <span class="n">front</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>    <span class="c1">// update front pointer</span>
+    <span class="k">delete</span> <span class="n">deletenode</span><span class="p">;</span>
+    <span class="n">deletenode</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">size</span><span class="o">--</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">QueueList</span><span class="o">::</span><span class="n">getFront</span><span class="p">(){</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">IsEmpty</span><span class="p">())</span> <span class="p">{</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Queue is empty.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">front</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">QueueList</span><span class="o">::</span><span class="n">getBack</span><span class="p">(){</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">IsEmpty</span><span class="p">())</span> <span class="p">{</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Queue is empty.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">back</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">bool</span> <span class="n">QueueList</span><span class="o">::</span><span class="n">IsEmpty</span><span class="p">(){</span>
+
+<span class="c1">//    return (size == 0);</span>
+    <span class="k">return</span> <span class="p">((</span><span class="n">front</span> <span class="o">&amp;&amp;</span> <span class="n">back</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">QueueList</span><span class="o">::</span><span class="n">getSize</span><span class="p">(){</span>
+
+    <span class="k">return</span> <span class="n">size</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+
+    <span class="n">QueueList</span> <span class="n">q</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">q</span><span class="p">.</span><span class="n">IsEmpty</span><span class="p">())</span> <span class="p">{</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Queue is empty.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">q</span><span class="p">.</span><span class="n">Push</span><span class="p">(</span><span class="mi">24</span><span class="p">);</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">After push 24: </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;front: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getFront</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;    &quot;</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;back: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getBack</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">q</span><span class="p">.</span><span class="n">Push</span><span class="p">(</span><span class="mi">8</span><span class="p">);</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">After push 8: </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;front: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getFront</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;    &quot;</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;back: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getBack</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">q</span><span class="p">.</span><span class="n">Push</span><span class="p">(</span><span class="mi">23</span><span class="p">);</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">After push 23: </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;front: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getFront</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;    &quot;</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;back: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getBack</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">q</span><span class="p">.</span><span class="n">Push</span><span class="p">(</span><span class="mi">13</span><span class="p">);</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">After push 13: </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;front: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getFront</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;    &quot;</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;back: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getBack</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">q</span><span class="p">.</span><span class="n">Pop</span><span class="p">();</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">After pop the front element: </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">q</span><span class="p">.</span><span class="n">Push</span><span class="p">(</span><span class="mi">35</span><span class="p">);</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">After push 13: </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;front: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getFront</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;     &quot;</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;back: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getBack</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">q</span><span class="p">.</span><span class="n">Pop</span><span class="p">();</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">After pop the front element: </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;front: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getFront</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;    &quot;</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;back: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getBack</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">q</span><span class="p">.</span><span class="n">Pop</span><span class="p">();</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">After pop the front element: </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;front: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getFront</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;    &quot;</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;back: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getBack</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">q</span><span class="p">.</span><span class="n">Pop</span><span class="p">();</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">After pop the front element: </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;front: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getFront</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;    &quot;</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;back: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getBack</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">q</span><span class="p">.</span><span class="n">Pop</span><span class="p">();</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">After pop the front element: </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">q</span><span class="p">.</span><span class="n">Pop</span><span class="p">();</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>output:</p>
+<div class="highlight"><pre><span class="n">Queue</span> <span class="n">is</span> <span class="n">empty</span><span class="p">.</span>
+
+<span class="n">After</span> <span class="n">push</span> <span class="mi">24</span><span class="o">:</span> 
+<span class="nl">front</span><span class="p">:</span> <span class="mi">24</span>    <span class="nl">back</span><span class="p">:</span> <span class="mi">24</span>
+
+<span class="n">After</span> <span class="n">push</span> <span class="mi">8</span><span class="o">:</span> 
+<span class="nl">front</span><span class="p">:</span> <span class="mi">24</span>    <span class="nl">back</span><span class="p">:</span> <span class="mi">8</span>
+
+<span class="n">After</span> <span class="n">push</span> <span class="mi">23</span><span class="o">:</span> 
+<span class="nl">front</span><span class="p">:</span> <span class="mi">24</span>    <span class="nl">back</span><span class="p">:</span> <span class="mi">23</span>
+
+<span class="n">After</span> <span class="n">push</span> <span class="mi">13</span><span class="o">:</span> 
+<span class="nl">front</span><span class="p">:</span> <span class="mi">24</span>    <span class="nl">back</span><span class="p">:</span> <span class="mi">13</span>
+
+<span class="n">After</span> <span class="n">pop</span> <span class="n">the</span> <span class="n">front</span> <span class="nl">element</span><span class="p">:</span> 
+
+<span class="n">After</span> <span class="n">push</span> <span class="mi">13</span><span class="o">:</span> 
+<span class="nl">front</span><span class="p">:</span> <span class="mi">8</span>     <span class="nl">back</span><span class="p">:</span> <span class="mi">35</span>
+
+<span class="n">After</span> <span class="n">pop</span> <span class="n">the</span> <span class="n">front</span> <span class="nl">element</span><span class="p">:</span> 
+<span class="nl">front</span><span class="p">:</span> <span class="mi">23</span>    <span class="nl">back</span><span class="p">:</span> <span class="mi">35</span>
+
+<span class="n">After</span> <span class="n">pop</span> <span class="n">the</span> <span class="n">front</span> <span class="nl">element</span><span class="p">:</span> 
+<span class="nl">front</span><span class="p">:</span> <span class="mi">13</span>    <span class="nl">back</span><span class="p">:</span> <span class="mi">35</span>
+
+<span class="n">After</span> <span class="n">pop</span> <span class="n">the</span> <span class="n">front</span> <span class="nl">element</span><span class="p">:</span> 
+<span class="nl">front</span><span class="p">:</span> <span class="mi">35</span>    <span class="nl">back</span><span class="p">:</span> <span class="mi">35</span>
+
+<span class="n">After</span> <span class="n">pop</span> <span class="n">the</span> <span class="n">front</span> <span class="nl">element</span><span class="p">:</span> 
+<span class="n">Queue</span> <span class="n">is</span> <span class="n">empty</span><span class="p">.</span>
+</pre></div>
+
+
+<p></br>  </p>
+<p>以上是<strong>Queue</strong>的基本介紹。  </p>
+<p></br></p>
+<hr />
+<p><a name="ref"></a></p>
+<h3>參考資料：</h3>
+<ul>
+<li><a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844">Introduction to Algorithms, Ch10</a> </li>
+<li><a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376">Fundamentals of Data Structures in C++, Ch3</a></li>
+<li><a href="http://www.tutorialspoint.com/operating_system/os_process_scheduling.htm">Tutorialspoint：Operating System - Process Scheduling</a>。</li>
+<li><a href="http://stackoverflow.com/questions/2392824/what-are-practical-applications-of-queues">Stack Overflow：What are practical applications of Queues?</a>。</li>
+<li><a href="http://cs.stackexchange.com/questions/1106/which-queue-does-the-long-term-scheduler-maintain">Stack Exchange：Which queue does the long-term scheduler maintain?</a></li>
+<li><a href="https://www.quora.com/What-are-the-applications-of-queues-and-stacks-in-C++">Quora：What are the applications of queues and stacks in C++?</a></li>
+</ul>
+<p><a name="series"></a></p>
+<p></br></p>
+<h3>Queue系列文章</h3>
+<p><a href="">Queue: Intro(簡介)</a>  </p>
+<p>回到目錄：</p>
+<p><a href="http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html">目錄：演算法與資料結構</a></p>
+<p></br></p>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' && location_protocol !== 'https') location_protocol = 'https:';
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+    </article>
+
+        <div class="tags">
+            <p>tags: <a href="http://alrightchiu.github.io/SecondRound/tag/c.html">C++</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/intro.html">Intro</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/queue.html">Queue</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/linked-list.html">Linked List</a>, </p>
+        </div>
+
+<hr>
+<div class="sharing">
+</div>
+    <hr>
+
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                            <li>
+                                <a href="https://github.com/alrightchiu">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                    </ul>
+<p class="copyright text-muted">
+    Blog powered by <a href="http://getpelican.com">Pelican</a>,
+    which takes great advantage of <a href="http://python.org">Python</a>.
+</p>                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="http://alrightchiu.github.io/SecondRound/theme/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="http://alrightchiu.github.io/SecondRound/theme/js/bootstrap.min.js"></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script src="http://alrightchiu.github.io/SecondRound/theme/js/clean-blog.min.js"></script>
+
+</body>
+
+</html>
