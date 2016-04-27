@@ -224,6 +224,7 @@ int main(){
     std::cout << "front: " << q.getFront() << "    " << "back: " << q.getBack() << "\n";
     q.Pop();
     std::cout<< "\nAfter pop the front element: \n";
+    std::cout << "front: " << q.getFront() << "     " << "back: " << q.getBack() << "\n";
     q.Push(35);
     std::cout<< "\nAfter push 35: \n";
     std::cout << "front: " << q.getFront() << "     " << "back: " << q.getBack() << "\n";
@@ -261,8 +262,9 @@ After push 13:
 front: 24    back: 13
 
 After pop the front element: 
+front: 8     back: 13
 
-After push 13: 
+After push 35: 
 front: 8     back: 35
 
 After pop the front element: 
