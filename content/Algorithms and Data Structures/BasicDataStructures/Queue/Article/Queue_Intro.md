@@ -322,7 +322,7 @@ Queue is empty.
 
 ###Queue系列文章
 
-[Queue: Intro(簡介)]()  
+[Queue: Intro(簡介)](http://alrightchiu.github.io/SecondRound/queue-introjian-jie.html)    
  
 
 
