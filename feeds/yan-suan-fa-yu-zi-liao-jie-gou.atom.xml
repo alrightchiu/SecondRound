@@ -817,7 +817,7 @@
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a name="app"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;Stack的應用&lt;/h2&gt;
-&lt;p&gt;Stack最大的功能是「記得先前的資訊」，所以時常用來處理需要「回復到先前的狀態」的問題，也稱為&lt;strong&gt;Back-Tracking&lt;/strong&gt;問題，例如：&lt;/p&gt;
+&lt;p&gt;Stack最主要的功能是「記得先前的資訊」，所以時常用來處理需要「回復到先前的狀態」的問題，也稱為&lt;strong&gt;Back-Tracking&lt;/strong&gt;問題，例如：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;編輯器(如word、sublime等等)中的&lt;strong&gt;undo&lt;/strong&gt;。&lt;/li&gt;
 &lt;li&gt;網頁瀏覽器的「回到前一頁」功能。&lt;/li&gt;
