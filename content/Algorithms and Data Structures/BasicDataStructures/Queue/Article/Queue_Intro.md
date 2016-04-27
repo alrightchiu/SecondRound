@@ -1,5 +1,5 @@
 Title: Queue: Intro(簡介)    
-Date: 2016-4-22 20:23   
+Date: 2016-4-227 18:01   
 Category: 演算法與資料結構  
 Tags: C++, Intro, Queue, Linked List   
 Summary: 介紹Queue(佇列)，並以Linked list實作。
@@ -285,17 +285,9 @@ Queue is empty.
 
 
 
-[f1]: f1.png
-[f2]: f2.png
-[f3]: f3.png
-[f4]: f4.png
-[f5]: f5.png
-[f6]: f6.png
-[f7]: f7.png
-[f8]: f8.png
-[f9]: f9.png
-[f10]: f10.png
-[queue]: queue.gif
+[f1]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/Queue/intro/f1.png?raw=true
+[f2]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/Queue/intro/f2.png?raw=true
+[queue]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/Queue/intro/queue.gif?raw=true
 
 
 
