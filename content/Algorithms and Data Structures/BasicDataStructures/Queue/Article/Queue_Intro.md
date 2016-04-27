@@ -225,7 +225,7 @@ int main(){
     q.Pop();
     std::cout<< "\nAfter pop the front element: \n";
     q.Push(35);
-    std::cout<< "\nAfter push 13: \n";
+    std::cout<< "\nAfter push 35: \n";
     std::cout << "front: " << q.getFront() << "     " << "back: " << q.getBack() << "\n";
     q.Pop();
     std::cout<< "\nAfter pop the front element: \n";
