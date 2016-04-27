@@ -9,7 +9,7 @@ Summary: 介紹於Graph中，利用Kruskal's Algorithm求得Minimum Spanning Tre
 ###先備知識與注意事項
 
 
-在上一篇文章[Minimum Spanning Tree：Intro(簡介)](http://alrightchiu.github.io/SecondRound/minimum-spanning-treeintrojian-jie.html)介紹過MST的問題情境，這篇文章要接著介紹尋找MST的演算法之一：**Kruskal's Algorithm**。
+在上一篇文章[Minimum Spanning Tree：Intro(簡介)](http://alrightchiu.github.io/SecondRound/minimum-spanning-treeintrojian-jie.html)介紹過MST的問題情境以及演算法概念，這篇文章要接著介紹尋找MST的演算法之一：**Kruskal's Algorithm**。
 
 
 
