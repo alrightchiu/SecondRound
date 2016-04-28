@@ -29,7 +29,7 @@ Summary: 請先閱讀本篇目錄。
 
 ###Queue
 
-[Queue: Intro(簡介)](http://alrightchiu.github.io/SecondRound/queue-introjian-jie-bing-yi-linked-listshi-zuo.html)    
+[Queue: Intro(簡介)，並以Linked list實作](http://alrightchiu.github.io/SecondRound/queue-introjian-jie-bing-yi-linked-listshi-zuo.html)    
 
 </br>
 
