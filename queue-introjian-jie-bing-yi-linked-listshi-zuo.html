@@ -9,7 +9,7 @@
         <meta name="author" content="">
 
 
-        <title>Queue: Intro(簡介)</title>
+        <title>Queue: Intro(簡介)，並以Linked list實作</title>
 
             <link href="http://alrightchiu.github.io/SecondRound/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Second Round Full Atom Feed" />
             <link href="http://alrightchiu.github.io/SecondRound/feeds/yan-suan-fa-yu-zi-liao-jie-gou.atom.xml" type="application/atom+xml" rel="alternate" title="Second Round Categories Atom Feed" />
@@ -50,8 +50,8 @@
 
 	<meta property="og:type" content="article">
 	<meta property="article:author" content="">
-	<meta property="og:url" content="http://alrightchiu.github.io/SecondRound/queue-introjian-jie.html">
-	<meta property="og:title" content="Queue: Intro(簡介)">
+	<meta property="og:url" content="http://alrightchiu.github.io/SecondRound/queue-introjian-jie-bing-yi-linked-listshi-zuo.html">
+	<meta property="og:title" content="Queue: Intro(簡介)，並以Linked list實作">
 	<meta property="og:description" content="">
 	<meta property="og:image" content="http://alrightchiu.github.io/SecondRound/">
 	<meta property="article:published_time" content="2016-04-27 18:01:00+08:00">
@@ -93,7 +93,7 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="post-heading">
-                        <h1>Queue: Intro(簡介)</h1>
+                        <h1>Queue: Intro(簡介)，並以Linked list實作</h1>
                         <span class="meta">Posted by
                                 <a href="http://alrightchiu.github.io/SecondRound/author/chiu-cc.html">Chiu CC</a>
                              on  4 27, 2016
@@ -281,31 +281,31 @@
     <span class="p">}</span>
     <span class="n">q</span><span class="p">.</span><span class="n">Push</span><span class="p">(</span><span class="mi">24</span><span class="p">);</span>
     <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">After push 24: </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;front: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getFront</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;    &quot;</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;back: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getBack</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;front: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getFront</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;    back: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getBack</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
     <span class="n">q</span><span class="p">.</span><span class="n">Push</span><span class="p">(</span><span class="mi">8</span><span class="p">);</span>
     <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">After push 8: </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;front: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getFront</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;    &quot;</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;back: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getBack</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;front: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getFront</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;    back: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getBack</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
     <span class="n">q</span><span class="p">.</span><span class="n">Push</span><span class="p">(</span><span class="mi">23</span><span class="p">);</span>
     <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">After push 23: </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;front: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getFront</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;    &quot;</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;back: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getBack</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;front: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getFront</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;    back: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getBack</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
     <span class="n">q</span><span class="p">.</span><span class="n">Push</span><span class="p">(</span><span class="mi">13</span><span class="p">);</span>
     <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">After push 13: </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;front: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getFront</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;    &quot;</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;back: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getBack</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;front: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getFront</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;    back: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getBack</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
     <span class="n">q</span><span class="p">.</span><span class="n">Pop</span><span class="p">();</span>
     <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">After pop the front element: </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;front: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getFront</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;     &quot;</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;back: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getBack</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;front: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getFront</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;     back: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getBack</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
     <span class="n">q</span><span class="p">.</span><span class="n">Push</span><span class="p">(</span><span class="mi">35</span><span class="p">);</span>
     <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">After push 35: </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;front: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getFront</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;     &quot;</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;back: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getBack</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;front: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getFront</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;     back: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getBack</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
     <span class="n">q</span><span class="p">.</span><span class="n">Pop</span><span class="p">();</span>
     <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">After pop the front element: </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;front: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getFront</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;    &quot;</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;back: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getBack</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;front: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getFront</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;    back: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getBack</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
     <span class="n">q</span><span class="p">.</span><span class="n">Pop</span><span class="p">();</span>
     <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">After pop the front element: </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;front: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getFront</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;    &quot;</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;back: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getBack</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;front: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getFront</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;    back: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getBack</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
     <span class="n">q</span><span class="p">.</span><span class="n">Pop</span><span class="p">();</span>
     <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">After pop the front element: </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;front: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getFront</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;    &quot;</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;back: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getBack</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;front: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getFront</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;    back: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getBack</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
     <span class="n">q</span><span class="p">.</span><span class="n">Pop</span><span class="p">();</span>
     <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">After pop the front element: </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
     <span class="n">q</span><span class="p">.</span><span class="n">Pop</span><span class="p">();</span>
@@ -316,40 +316,28 @@
 
 
 <p>output:</p>
-<div class="highlight"><pre><span class="n">Queue</span> <span class="n">is</span> <span class="n">empty</span><span class="p">.</span>
-
-<span class="n">After</span> <span class="n">push</span> <span class="mi">24</span><span class="o">:</span> 
-<span class="nl">front</span><span class="p">:</span> <span class="mi">24</span>    <span class="nl">back</span><span class="p">:</span> <span class="mi">24</span>
-
-<span class="n">After</span> <span class="n">push</span> <span class="mi">8</span><span class="o">:</span> 
-<span class="nl">front</span><span class="p">:</span> <span class="mi">24</span>    <span class="nl">back</span><span class="p">:</span> <span class="mi">8</span>
-
-<span class="n">After</span> <span class="n">push</span> <span class="mi">23</span><span class="o">:</span> 
-<span class="nl">front</span><span class="p">:</span> <span class="mi">24</span>    <span class="nl">back</span><span class="p">:</span> <span class="mi">23</span>
-
-<span class="n">After</span> <span class="n">push</span> <span class="mi">13</span><span class="o">:</span> 
-<span class="nl">front</span><span class="p">:</span> <span class="mi">24</span>    <span class="nl">back</span><span class="p">:</span> <span class="mi">13</span>
-
-<span class="n">After</span> <span class="n">pop</span> <span class="n">the</span> <span class="n">front</span> <span class="nl">element</span><span class="p">:</span> 
-<span class="nl">front</span><span class="p">:</span> <span class="mi">8</span>     <span class="nl">back</span><span class="p">:</span> <span class="mi">13</span>
-
-<span class="n">After</span> <span class="n">push</span> <span class="mi">35</span><span class="o">:</span> 
-<span class="nl">front</span><span class="p">:</span> <span class="mi">8</span>     <span class="nl">back</span><span class="p">:</span> <span class="mi">35</span>
-
-<span class="n">After</span> <span class="n">pop</span> <span class="n">the</span> <span class="n">front</span> <span class="nl">element</span><span class="p">:</span> 
-<span class="nl">front</span><span class="p">:</span> <span class="mi">23</span>    <span class="nl">back</span><span class="p">:</span> <span class="mi">35</span>
-
-<span class="n">After</span> <span class="n">pop</span> <span class="n">the</span> <span class="n">front</span> <span class="nl">element</span><span class="p">:</span> 
-<span class="nl">front</span><span class="p">:</span> <span class="mi">13</span>    <span class="nl">back</span><span class="p">:</span> <span class="mi">35</span>
-
-<span class="n">After</span> <span class="n">pop</span> <span class="n">the</span> <span class="n">front</span> <span class="nl">element</span><span class="p">:</span> 
-<span class="nl">front</span><span class="p">:</span> <span class="mi">35</span>    <span class="nl">back</span><span class="p">:</span> <span class="mi">35</span>
-
-<span class="n">After</span> <span class="n">pop</span> <span class="n">the</span> <span class="n">front</span> <span class="nl">element</span><span class="p">:</span> 
-<span class="n">Queue</span> <span class="n">is</span> <span class="n">empty</span><span class="p">.</span>
-</pre></div>
-
-
+<p>```cpp
+Queue is empty.</p>
+<p>After push 24: 
+front: 24    back: 24</p>
+<p>After push 8: 
+front: 24    back: 8</p>
+<p>After push 23: 
+front: 24    back: 23</p>
+<p>After push 13: 
+front: 24    back: 13</p>
+<p>After pop the front element: 
+front: 8     back: 13</p>
+<p>After push 35: 
+front: 8     back: 35</p>
+<p>After pop the front element: 
+front: 23    back: 35</p>
+<p>After pop the front element: 
+front: 13    back: 35</p>
+<p>After pop the front element: 
+front: 35    back: 35</p>
+<p>After pop the front element: 
+Queue is empty.```</p>
 <p></br>  </p>
 <p>以上是<strong>Queue</strong>的基本介紹。  </p>
 <p></br></p>
@@ -367,7 +355,7 @@
 <p><a name="series"></a></p>
 <p></br></p>
 <h3>Queue系列文章</h3>
-<p><a href="http://alrightchiu.github.io/SecondRound/queue-introjian-jie.html">Queue: Intro(簡介)</a>    </p>
+<p><a href="http://alrightchiu.github.io/SecondRound/queue-introjian-jie.html">Queue: Intro(簡介)，並以Linked list實作</a>    </p>
 <p>回到目錄：</p>
 <p><a href="http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html">目錄：演算法與資料結構</a></p>
 <p></br></p>
