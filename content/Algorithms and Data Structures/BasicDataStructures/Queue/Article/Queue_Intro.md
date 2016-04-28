@@ -1,4 +1,4 @@
-Title: Queue: Intro(簡介)    
+Title: Queue: Intro(簡介)，並以Linked list實作    
 Date: 2016-4-27 18:01   
 Category: 演算法與資料結構  
 Tags: C++, Intro, Queue, Linked List   
@@ -212,31 +212,31 @@ int main(){
     }
     q.Push(24);
     std::cout<< "\nAfter push 24: \n";
-    std::cout << "front: " << q.getFront() << "    " << "back: " << q.getBack() << "\n";
+    std::cout << "front: " << q.getFront() << "    back: " << q.getBack() << "\n";
     q.Push(8);
     std::cout<< "\nAfter push 8: \n";
-    std::cout << "front: " << q.getFront() << "    " << "back: " << q.getBack() << "\n";
+    std::cout << "front: " << q.getFront() << "    back: " << q.getBack() << "\n";
     q.Push(23);
     std::cout<< "\nAfter push 23: \n";
-    std::cout << "front: " << q.getFront() << "    " << "back: " << q.getBack() << "\n";
+    std::cout << "front: " << q.getFront() << "    back: " << q.getBack() << "\n";
     q.Push(13);
     std::cout<< "\nAfter push 13: \n";
-    std::cout << "front: " << q.getFront() << "    " << "back: " << q.getBack() << "\n";
+    std::cout << "front: " << q.getFront() << "    back: " << q.getBack() << "\n";
     q.Pop();
     std::cout<< "\nAfter pop the front element: \n";
-    std::cout << "front: " << q.getFront() << "     " << "back: " << q.getBack() << "\n";
+    std::cout << "front: " << q.getFront() << "     back: " << q.getBack() << "\n";
     q.Push(35);
     std::cout<< "\nAfter push 35: \n";
-    std::cout << "front: " << q.getFront() << "     " << "back: " << q.getBack() << "\n";
+    std::cout << "front: " << q.getFront() << "     back: " << q.getBack() << "\n";
     q.Pop();
     std::cout<< "\nAfter pop the front element: \n";
-    std::cout << "front: " << q.getFront() << "    " << "back: " << q.getBack() << "\n";
+    std::cout << "front: " << q.getFront() << "    back: " << q.getBack() << "\n";
     q.Pop();
     std::cout<< "\nAfter pop the front element: \n";
-    std::cout << "front: " << q.getFront() << "    " << "back: " << q.getBack() << "\n";
+    std::cout << "front: " << q.getFront() << "    back: " << q.getBack() << "\n";
     q.Pop();
     std::cout<< "\nAfter pop the front element: \n";
-    std::cout << "front: " << q.getFront() << "    " << "back: " << q.getBack() << "\n";
+    std::cout << "front: " << q.getFront() << "    back: " << q.getBack() << "\n";
     q.Pop();
     std::cout<< "\nAfter pop the front element: \n";
     q.Pop();
@@ -277,8 +277,7 @@ After pop the front element:
 front: 35    back: 35
 
 After pop the front element: 
-Queue is empty.
-```
+Queue is empty.```
 
 
 
@@ -324,7 +323,7 @@ Queue is empty.
 
 ###Queue系列文章
 
-[Queue: Intro(簡介)](http://alrightchiu.github.io/SecondRound/queue-introjian-jie.html)    
+[Queue: Intro(簡介)，並以Linked list實作](http://alrightchiu.github.io/SecondRound/queue-introjian-jie.html)    
  
 
 
