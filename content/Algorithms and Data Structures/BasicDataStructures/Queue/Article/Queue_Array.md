@@ -17,7 +17,7 @@ Summary: 以Array實作Queue(佇列)之介紹。
 
 ##目錄
 
-* [浪費記憶體空間的Array實作](#sequential)
+* [浪費記憶體空間的Array實作：Sequential Queue](#sequential)
 * [節省記憶體空間的Array實作：Circular Queue](#circular)
 * [參考資料](#ref)
 * [Queue系列文章](#series)
@@ -28,7 +28,7 @@ Summary: 以Array實作Queue(佇列)之介紹。
 
 <a name="sequential"></a>
 
-##浪費記憶體空間的Array實作
+##浪費記憶體空間的Array實作：Sequential Queue
 
 以圖一為例，將Array的開頭(index為$0$)設為Queue的**front**，反方向為**back**。
 
