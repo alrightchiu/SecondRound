@@ -503,13 +503,13 @@ capacity: 10  number of elements: 5
 
 
 
-[SequentialQueue]: SequentialQueue.gif
-[CircularQueue]: CircularQueue.gif
-[f60]: f60.png
-[f61]: f61.png
-[f62]: f62.png
-[f80]: f80.png
-[f81]: f81.png
+[SequentialQueue]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/Queue/Array/SequentialQueue.gif?raw=true
+[CircularQueue]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/Queue/Array/CircularQueue.gif?raw=true
+[f60]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/Queue/Array/f60.png?raw=true
+[f61]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/Queue/Array/f61.png?raw=true
+[f62]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/Queue/Array/f62.png?raw=true
+[f80]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/Queue/Array/f80.png?raw=true
+[f81]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/Queue/Array/f81.png?raw=true
 
 
 
