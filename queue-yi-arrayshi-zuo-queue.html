@@ -139,7 +139,7 @@
 </center></p>
 <p>以上介紹的方法會有記憶體空間浪費的問題。<br />
 由於圖一的<strong>Push</strong>是不斷往Queue的<strong>back</strong>新增資料，因此Array的前兩個位置一旦被「想像地<strong>Pop</strong>」後，會一直閒置到整個Array的記憶體被釋放為止，無法有效利用。</p>
-<p>下一小節將提出另一種以Array實作Queue的方法，將能夠有效利用圖二中Array的前兩個位置。</p>
+<p>下一小節將提出另一種以Array實作Queue的方法，將能夠有效利用Array中曾經被<strong>Pop</strong>過的記憶體位置。</p>
 <p><center>
 <img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/Queue/Array/f60.png?raw=true" /></p>
 <p><strong>圖二。</strong>
