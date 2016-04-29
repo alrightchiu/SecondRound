@@ -117,14 +117,14 @@
 <hr />
 <h2>目錄</h2>
 <ul>
-<li><a href="#sequential">浪費記憶體空間的Array實作</a></li>
+<li><a href="#sequential">浪費記憶體空間的Array實作：Sequential Queue</a></li>
 <li><a href="#circular">節省記憶體空間的Array實作：Circular Queue</a></li>
 <li><a href="#ref">參考資料</a></li>
 <li><a href="#series">Queue系列文章</a></li>
 </ul>
 <p></br></p>
 <p><a name="sequential"></a></p>
-<h2>浪費記憶體空間的Array實作</h2>
+<h2>浪費記憶體空間的Array實作：Sequential Queue</h2>
 <p>以圖一為例，將Array的開頭(index為<span class="math">\(0\)</span>)設為Queue的<strong>front</strong>，反方向為<strong>back</strong>。</p>
 <ul>
 <li><strong>Push</strong>：若要新增資料，按照Array的index順序：<span class="math">\(0、1、2...\)</span>，將Queue的<strong>back</strong>新增資料。</li>

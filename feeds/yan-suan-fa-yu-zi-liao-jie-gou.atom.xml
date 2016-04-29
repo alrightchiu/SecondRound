@@ -67,14 +67,14 @@
 &lt;hr /&gt;
 &lt;h2&gt;目錄&lt;/h2&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href="#sequential"&gt;浪費記憶體空間的Array實作&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#sequential"&gt;浪費記憶體空間的Array實作：Sequential Queue&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="#circular"&gt;節省記憶體空間的Array實作：Circular Queue&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="#ref"&gt;參考資料&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="#series"&gt;Queue系列文章&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a name="sequential"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;浪費記憶體空間的Array實作&lt;/h2&gt;
+&lt;h2&gt;浪費記憶體空間的Array實作：Sequential Queue&lt;/h2&gt;
 &lt;p&gt;以圖一為例，將Array的開頭(index為&lt;span class="math"&gt;\(0\)&lt;/span&gt;)設為Queue的&lt;strong&gt;front&lt;/strong&gt;，反方向為&lt;strong&gt;back&lt;/strong&gt;。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;Push&lt;/strong&gt;：若要新增資料，按照Array的index順序：&lt;span class="math"&gt;\(0、1、2...\)&lt;/span&gt;，將Queue的&lt;strong&gt;back&lt;/strong&gt;新增資料。&lt;/li&gt;
