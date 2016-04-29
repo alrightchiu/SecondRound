@@ -480,7 +480,7 @@ After push 9:
 front: 23    back: 9
 capacity: 5  number of elements: 4
 
-After push 10: 
+After push 64: 
 front: 8    back: 64
 capacity: 10  number of elements: 5
 ```
