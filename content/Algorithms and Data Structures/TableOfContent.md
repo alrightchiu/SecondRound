@@ -30,6 +30,10 @@ Summary: 請先閱讀本篇目錄。
 ###Queue
 
 [Queue: Intro(簡介)，並以Linked list實作](http://alrightchiu.github.io/SecondRound/queue-introjian-jie-bing-yi-linked-listshi-zuo.html)    
+[Queue: 以Array實作Queue](http://alrightchiu.github.io/SecondRound/queue-yi-arrayshi-zuo-queue.html)  
+
+
+
 
 </br>
 

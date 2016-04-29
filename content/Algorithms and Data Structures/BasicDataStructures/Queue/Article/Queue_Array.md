@@ -1,5 +1,5 @@
 Title: Queue: 以Array實作Queue    
-Date: 2016-4-22 20:23   
+Date: 2016-4-29 21:42   
 Category: 演算法與資料結構  
 Tags: C++, Queue, Array   
 Summary: 以Array實作Queue(佇列)之介紹。
@@ -542,8 +542,8 @@ capacity: 10  number of elements: 5
 
 ###Queue系列文章
 
-[Queue: Intro(簡介)，並以Linked list實作](http://alrightchiu.github.io/SecondRound/queue-introjian-jie-bing-yi-linked-listshi-zuo.html)  
-[Queue: 以Array實作Queue]() 
+[Queue: Intro(簡介)，並以Linked list實作](http://alrightchiu.github.io/SecondRound/queue-introjian-jie-bing-yi-linked-listshi-zuo.html)   
+[Queue: 以Array實作Queue](http://alrightchiu.github.io/SecondRound/queue-yi-arrayshi-zuo-queue.html)  
 
 
 
