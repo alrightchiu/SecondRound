@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="zh-hant">
+
+<head>
+            <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+
+        <title>Queue: 以Array實作Queue</title>
+
+            <link href="http://alrightchiu.github.io/SecondRound/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Second Round Full Atom Feed" />
+            <link href="http://alrightchiu.github.io/SecondRound/feeds/yan-suan-fa-yu-zi-liao-jie-gou.atom.xml" type="application/atom+xml" rel="alternate" title="Second Round Categories Atom Feed" />
+
+        <!-- Bootstrap Core CSS -->
+        <link href="http://alrightchiu.github.io/SecondRound/theme/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="http://alrightchiu.github.io/SecondRound/theme/css/clean-blog.min.css" rel="stylesheet">
+
+        <!-- Code highlight color scheme -->
+            <link href="http://alrightchiu.github.io/SecondRound/theme/css/code_blocks/darkly.css" rel="stylesheet">
+
+
+        <!-- Custom Fonts -->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+
+
+
+        <meta name="tags" contents="C++" />
+        <meta name="tags" contents="Queue" />
+        <meta name="tags" contents="Array" />
+
+
+	                <meta property="og:locale" content="">
+		<meta property="og:site_name" content="Second Round">
+
+	<meta property="og:type" content="article">
+	<meta property="article:author" content="">
+	<meta property="og:url" content="http://alrightchiu.github.io/SecondRound/queue-yi-arrayshi-zuo-queue.html">
+	<meta property="og:title" content="Queue: 以Array實作Queue">
+	<meta property="og:description" content="">
+	<meta property="og:image" content="http://alrightchiu.github.io/SecondRound/">
+	<meta property="article:published_time" content="2016-04-22 20:23:00+08:00">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://alrightchiu.github.io/SecondRound/">Second Round</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a href="http://alrightchiu.github.io/SecondRound/archives.html">Archives</a></li>
+                        <li><a href="http://alrightchiu.github.io/SecondRound/tags.html">Tags</a></li>
+
+                            <li><a href="http://alrightchiu.github.io/SecondRound/pages/about.html">About</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+        <header class="intro-header" style="background-image: url('http://alrightchiu.github.io/SecondRound/theme/images/post-bg.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>Queue: 以Array實作Queue</h1>
+                        <span class="meta">Posted by
+                                <a href="http://alrightchiu.github.io/SecondRound/author/chiu-cc.html">Chiu CC</a>
+                             on  4 22, 2016
+                        </span>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    <!-- Post Content -->
+    <article>
+        <p></br></p>
+<h3>先備知識與注意事項</h3>
+<p>本篇文章將接續<a href="http://alrightchiu.github.io/SecondRound/queue-introjian-jie-bing-yi-linked-listshi-zuo.html">Queue: Intro(簡介)，並以Linked list實作</a>，介紹以Array實作Queue的方法。</p>
+<p>關於Queue對資料的基本處理方法如<code>Push()</code>、<code>Pop()</code>等等，請參考<a href="http://alrightchiu.github.io/SecondRound/queue-introjian-jie-bing-yi-linked-listshi-zuo.html">Intro篇</a>的介紹。</p>
+<hr />
+<h2>目錄</h2>
+<ul>
+<li><a href="#sequential">浪費記憶體空間的Array實作</a></li>
+<li><a href="#circular">節省記憶體空間的Array實作：Circular Queue</a></li>
+<li><a href="#ref">參考資料</a></li>
+<li><a href="#series">Queue系列文章</a></li>
+</ul>
+<p></br></p>
+<p><a name="sequential"></a></p>
+<h2>浪費記憶體空間的Array實作</h2>
+<p>以圖一為例，將Array的開頭(index為<span class="math">\(0\)</span>)設為Queue的<strong>front</strong>，反方向為<strong>back</strong>。</p>
+<ul>
+<li><strong>Push</strong>：若要新增資料，按照Array的index順序：<span class="math">\(0、1、2...\)</span>，將Queue的<strong>back</strong>新增資料。</li>
+<li><strong>Pop</strong>：若要刪除資料，按照Array的index順序：<span class="math">\(0、1、2...\)</span>，從Queue的<strong>front</strong>刪除資料。<ul>
+<li><strong>Pop</strong>並沒有真正把Array的記憶體位置釋放，只是調整<strong>front</strong>，使得Queue「看起來」有刪除資料。</li>
+</ul>
+</li>
+</ul>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/Queue/Array/SequentialQueue.gif?raw=true" /></p>
+<p><strong>圖一。</strong>
+</center></p>
+<p>以上介紹的方法會有記憶體空間浪費的問題。<br />
+由於圖一的<strong>Push</strong>是不斷往Queue的<strong>back</strong>新增資料，因此Array的前兩個位置一旦被「想像地<strong>Pop</strong>」後，會一直閒置到整個Array的記憶體被釋放為止，無法有效利用。</p>
+<p>下一小節將提出另一種以Array實作Queue的方法，將能夠有效利用圖二中Array的前兩個位置。</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/Queue/Array/f60.png?raw=true" /></p>
+<p><strong>圖二。</strong>
+</center></p>
+<p>另外，圖二的Array顯然已經填滿，若要在此Queue繼續增加資料，就需要重新配置一個容量更大的Array，方法如圖三，將資料複製到新的Array上，並且調整<strong>front</strong>與<strong>back</strong>。</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/Queue/Array/f61.png?raw=true" /></p>
+<p><strong>圖三。</strong>
+</center></p>
+<p>完整的程式範例如下：</p>
+<div class="highlight"><pre><span class="c1">// C++ code</span>
+
+<span class="cp">#include &lt;iostream&gt;</span>
+<span class="k">using</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">QueueArraySequential</span><span class="p">{</span>
+<span class="k">private</span><span class="o">:</span>
+    <span class="kt">int</span> <span class="n">capacity</span><span class="p">,</span> <span class="n">front</span><span class="p">,</span> <span class="n">back</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="o">*</span><span class="n">queue</span><span class="p">;</span>
+    <span class="kt">void</span> <span class="nf">DoubleCapacity</span><span class="p">();</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">QueueArraySequential</span><span class="p">()</span><span class="o">:</span><span class="n">capacity</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span><span class="n">front</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span><span class="n">back</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">){</span>
+        <span class="n">queue</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">[</span><span class="n">capacity</span><span class="p">];</span>
+    <span class="p">};</span>
+    <span class="kt">void</span> <span class="nf">Push</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="nf">Pop</span><span class="p">();</span>
+    <span class="kt">bool</span> <span class="nf">IsEmpty</span><span class="p">();</span>
+    <span class="kt">bool</span> <span class="nf">IsFull</span><span class="p">();</span>
+    <span class="kt">int</span> <span class="nf">getFront</span><span class="p">();</span>
+    <span class="kt">int</span> <span class="nf">getBack</span><span class="p">();</span>
+    <span class="kt">int</span> <span class="nf">getSize</span><span class="p">();</span>
+    <span class="kt">int</span> <span class="nf">getCapacity</span><span class="p">();</span>    <span class="c1">// 驗證用, 可有可無</span>
+<span class="p">};</span>
+
+<span class="kt">void</span> <span class="n">QueueArraySequential</span><span class="o">::</span><span class="n">DoubleCapacity</span><span class="p">(){</span>
+
+    <span class="n">capacity</span> <span class="o">*=</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="o">*</span><span class="n">newQueue</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">[</span><span class="n">capacity</span><span class="p">];</span>
+
+    <span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">front</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">back</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">j</span><span class="o">++</span><span class="p">;</span>
+        <span class="n">newQueue</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">queue</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+    <span class="p">}</span>
+    <span class="n">front</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>       <span class="c1">// 新的array從0開始, 把舊的array&quot;整段平移&quot;, front跟back要更新</span>
+    <span class="n">back</span> <span class="o">=</span> <span class="n">j</span><span class="p">;</span>
+    <span class="k">delete</span> <span class="p">[]</span> <span class="n">queue</span><span class="p">;</span>
+    <span class="n">queue</span> <span class="o">=</span> <span class="n">newQueue</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="n">QueueArraySequential</span><span class="o">::</span><span class="n">Push</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">){</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">IsFull</span><span class="p">())</span> <span class="p">{</span>
+        <span class="n">DoubleCapacity</span><span class="p">();</span>
+    <span class="p">}</span>
+    <span class="n">queue</span><span class="p">[</span><span class="o">++</span><span class="n">back</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="n">QueueArraySequential</span><span class="o">::</span><span class="n">Pop</span><span class="p">(){</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">IsEmpty</span><span class="p">())</span> <span class="p">{</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Queue is empty.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">front</span><span class="o">++</span><span class="p">;</span>        
+<span class="p">}</span>
+<span class="kt">bool</span> <span class="n">QueueArraySequential</span><span class="o">::</span><span class="n">IsFull</span><span class="p">(){</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">back</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">==</span> <span class="n">capacity</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="kt">bool</span> <span class="n">QueueArraySequential</span><span class="o">::</span><span class="n">IsEmpty</span><span class="p">(){</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">front</span>  <span class="o">==</span> <span class="n">back</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="kt">int</span> <span class="n">QueueArraySequential</span><span class="o">::</span><span class="n">getFront</span><span class="p">(){</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">IsEmpty</span><span class="p">())</span> <span class="p">{</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Queue is empty.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">queue</span><span class="p">[</span><span class="n">front</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span>
+<span class="p">}</span>
+<span class="kt">int</span> <span class="n">QueueArraySequential</span><span class="o">::</span><span class="n">getBack</span><span class="p">(){</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">IsEmpty</span><span class="p">())</span> <span class="p">{</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Queue is empty.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">queue</span><span class="p">[</span><span class="n">back</span><span class="p">];</span>
+<span class="p">}</span>
+<span class="kt">int</span> <span class="n">QueueArraySequential</span><span class="o">::</span><span class="n">getSize</span><span class="p">(){</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">back</span> <span class="o">-</span> <span class="n">front</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="kt">int</span> <span class="n">QueueArraySequential</span><span class="o">::</span><span class="n">getCapacity</span><span class="p">(){</span>
+
+    <span class="k">return</span> <span class="n">capacity</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+
+    <span class="n">QueueArraySequential</span> <span class="n">q</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">q</span><span class="p">.</span><span class="n">IsEmpty</span><span class="p">())</span> <span class="p">{</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Queue is empty.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">q</span><span class="p">.</span><span class="n">Push</span><span class="p">(</span><span class="mi">24</span><span class="p">);</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">After push 24: </span><span class="se">\n</span><span class="s">&quot;</span>
+         <span class="o">&lt;&lt;</span> <span class="s">&quot;front: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getFront</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;    back: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getBack</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span>
+         <span class="o">&lt;&lt;</span> <span class="s">&quot;capacity: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getCapacity</span><span class="p">()</span>
+         <span class="o">&lt;&lt;</span> <span class="s">&quot;  number of elements: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getSize</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">q</span><span class="p">.</span><span class="n">Push</span><span class="p">(</span><span class="mi">8</span><span class="p">);</span>
+    <span class="n">q</span><span class="p">.</span><span class="n">Push</span><span class="p">(</span><span class="mi">23</span><span class="p">);</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">After push 8, 23: </span><span class="se">\n</span><span class="s">&quot;</span>
+         <span class="o">&lt;&lt;</span> <span class="s">&quot;front: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getFront</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;    back: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getBack</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span>
+         <span class="o">&lt;&lt;</span> <span class="s">&quot;capacity: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getCapacity</span><span class="p">()</span>
+         <span class="o">&lt;&lt;</span> <span class="s">&quot;  number of elements: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getSize</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">q</span><span class="p">.</span><span class="n">Pop</span><span class="p">();</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">After pop 24: </span><span class="se">\n</span><span class="s">&quot;</span>
+         <span class="o">&lt;&lt;</span> <span class="s">&quot;front: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getFront</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;    back: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getBack</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span>
+         <span class="o">&lt;&lt;</span> <span class="s">&quot;capacity: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getCapacity</span><span class="p">()</span>
+         <span class="o">&lt;&lt;</span> <span class="s">&quot;  number of elements: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getSize</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">q</span><span class="p">.</span><span class="n">Push</span><span class="p">(</span><span class="mi">13</span><span class="p">);</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">After push 13: </span><span class="se">\n</span><span class="s">&quot;</span>
+         <span class="o">&lt;&lt;</span> <span class="s">&quot;front: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getFront</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;    back: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getBack</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span>
+         <span class="o">&lt;&lt;</span> <span class="s">&quot;capacity: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getCapacity</span><span class="p">()</span>
+         <span class="o">&lt;&lt;</span> <span class="s">&quot;  number of elements: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getSize</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">q</span><span class="p">.</span><span class="n">Pop</span><span class="p">();</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">After pop 8: </span><span class="se">\n</span><span class="s">&quot;</span>
+         <span class="o">&lt;&lt;</span> <span class="s">&quot;front: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getFront</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;    back: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getBack</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span>
+         <span class="o">&lt;&lt;</span> <span class="s">&quot;capacity: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getCapacity</span><span class="p">()</span>
+         <span class="o">&lt;&lt;</span> <span class="s">&quot;  number of elements: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getSize</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">q</span><span class="p">.</span><span class="n">Push</span><span class="p">(</span><span class="mi">35</span><span class="p">);</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">After push 35: </span><span class="se">\n</span><span class="s">&quot;</span>
+         <span class="o">&lt;&lt;</span> <span class="s">&quot;front: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getFront</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;    back: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getBack</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span>
+         <span class="o">&lt;&lt;</span> <span class="s">&quot;capacity: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getCapacity</span><span class="p">()</span>
+         <span class="o">&lt;&lt;</span> <span class="s">&quot;  number of elements: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getSize</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">q</span><span class="p">.</span><span class="n">Push</span><span class="p">(</span><span class="mi">9</span><span class="p">);</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">After push 9: </span><span class="se">\n</span><span class="s">&quot;</span>
+         <span class="o">&lt;&lt;</span> <span class="s">&quot;front: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getFront</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;    back: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getBack</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span>
+         <span class="o">&lt;&lt;</span> <span class="s">&quot;capacity: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getCapacity</span><span class="p">()</span>
+         <span class="o">&lt;&lt;</span> <span class="s">&quot;  number of elements: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getSize</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>output:</p>
+<div class="highlight"><pre><span class="n">Queue</span> <span class="n">is</span> <span class="n">empty</span><span class="p">.</span>
+
+<span class="n">After</span> <span class="n">push</span> <span class="mi">24</span><span class="o">:</span> 
+<span class="nl">front</span><span class="p">:</span> <span class="mi">24</span>    <span class="nl">back</span><span class="p">:</span> <span class="mi">24</span>
+<span class="nl">capacity</span><span class="p">:</span> <span class="mi">5</span>  <span class="n">number</span> <span class="n">of</span> <span class="nl">elements</span><span class="p">:</span> <span class="mi">1</span>
+
+<span class="n">After</span> <span class="n">push</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">23</span><span class="o">:</span> 
+<span class="nl">front</span><span class="p">:</span> <span class="mi">24</span>    <span class="nl">back</span><span class="p">:</span> <span class="mi">23</span>
+<span class="nl">capacity</span><span class="p">:</span> <span class="mi">5</span>  <span class="n">number</span> <span class="n">of</span> <span class="nl">elements</span><span class="p">:</span> <span class="mi">3</span>
+
+<span class="n">After</span> <span class="n">pop</span> <span class="mi">24</span><span class="o">:</span> 
+<span class="nl">front</span><span class="p">:</span> <span class="mi">8</span>    <span class="nl">back</span><span class="p">:</span> <span class="mi">23</span>
+<span class="nl">capacity</span><span class="p">:</span> <span class="mi">5</span>  <span class="n">number</span> <span class="n">of</span> <span class="nl">elements</span><span class="p">:</span> <span class="mi">2</span>
+
+<span class="n">After</span> <span class="n">push</span> <span class="mi">13</span><span class="o">:</span> 
+<span class="nl">front</span><span class="p">:</span> <span class="mi">8</span>    <span class="nl">back</span><span class="p">:</span> <span class="mi">13</span>
+<span class="nl">capacity</span><span class="p">:</span> <span class="mi">5</span>  <span class="n">number</span> <span class="n">of</span> <span class="nl">elements</span><span class="p">:</span> <span class="mi">3</span>
+
+<span class="n">After</span> <span class="n">pop</span> <span class="mi">8</span><span class="o">:</span> 
+<span class="nl">front</span><span class="p">:</span> <span class="mi">23</span>    <span class="nl">back</span><span class="p">:</span> <span class="mi">13</span>
+<span class="nl">capacity</span><span class="p">:</span> <span class="mi">5</span>  <span class="n">number</span> <span class="n">of</span> <span class="nl">elements</span><span class="p">:</span> <span class="mi">2</span>
+
+<span class="n">After</span> <span class="n">push</span> <span class="mi">35</span><span class="o">:</span> 
+<span class="nl">front</span><span class="p">:</span> <span class="mi">23</span>    <span class="nl">back</span><span class="p">:</span> <span class="mi">35</span>
+<span class="nl">capacity</span><span class="p">:</span> <span class="mi">5</span>  <span class="n">number</span> <span class="n">of</span> <span class="nl">elements</span><span class="p">:</span> <span class="mi">3</span>
+
+<span class="n">After</span> <span class="n">push</span> <span class="mi">9</span><span class="o">:</span> 
+<span class="nl">front</span><span class="p">:</span> <span class="mi">23</span>    <span class="nl">back</span><span class="p">:</span> <span class="mi">9</span>
+<span class="nl">capacity</span><span class="p">:</span> <span class="mi">10</span>  <span class="n">number</span> <span class="n">of</span> <span class="nl">elements</span><span class="p">:</span> <span class="mi">4</span>
+</pre></div>
+
+
+<p>在<code>main()</code>的測試中，最重要的是執行<code>Push(9)</code>的前後。</p>
+<p>在<code>Push(9)</code>之前，Array的狀況如圖四(a)：</p>
+<ul>
+<li>此時，Queue其實只有<span class="math">\(3\)</span>筆資料，理論上，具有大小為<span class="math">\(5\)</span>的Array應該要能夠再新增一筆資料。</li>
+<li>但是因為上述的<code>Push()</code>與<code>Pop()</code>，Array的前兩個記憶體位置無法重複利用。</li>
+</ul>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/Queue/Array/f60.png?raw=true" /></p>
+<p><strong>圖四(a)。</strong>
+</center></p>
+<p>因此，若要<code>Push(9)</code>，就需要重新配置容量更大的Array，才能在Queue中新增<span class="math">\(9\)</span>，見圖四(b)：</p>
+<ul>
+<li>此時，Queue其實只有<span class="math">\(4\)</span>筆資料，但是使用了<code>capacity</code>為<span class="math">\(10\)</span>的Array。<ul>
+<li>這裡的<code>capacity</code>更新成<span class="math">\(10\)</span>是因為程式範例中<code>DoubleCapacity()</code>的寫法。</li>
+<li>根據不同「重新配置Array」的寫法，更新後的<code>capacity</code>大小可能會有所不同。</li>
+</ul>
+</li>
+</ul>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/Queue/Array/f62.png?raw=true" /></p>
+<p><strong>圖四(b)。</strong>
+</center></p>
+<p>根據以上說明，第一種方法不只是記憶體空間的浪費，還有「重新配置Array」的運算成本浪費。</p>
+<p>接下來便介紹第二種以Array實作Queue的方法，能夠較為有效地利用Array的記憶體位置。</p>
+<p></br></p>
+<p><a name="circular"></a></p>
+<h2>節省記憶體空間的Array實作：Circular Queue</h2>
+<p>第二種方法做出來的Queue又稱為<strong>Circular Queue</strong>，環狀(circular)的意思就是能夠「繞回Array的前端」，重複利用Array的記憶體空間，見圖五：</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/Queue/Array/CircularQueue.gif?raw=true" /></p>
+<p><strong>圖五。</strong>
+</center></p>
+<p>比較圖一的<strong>Sequential Queue</strong>與圖五的<strong>Circular Queue</strong>之差異：</p>
+<ul>
+<li>
+<p><strong>Sequential Queue</strong>：</p>
+<ul>
+<li><strong>front</strong>與<strong>back</strong>之初始值為<span class="math">\(-1\)</span>。</li>
+<li>一但被<strong>Pop</strong>後的記憶體空間將閒置到Queue的物件(object)被釋放。</li>
+</ul>
+</li>
+<li>
+<p><strong>Circular Queue</strong>：</p>
+<ul>
+<li><strong>front</strong>與<strong>back</strong>之初始值為<span class="math">\(0\)</span>，因此會犧牲Array中的其中一個記憶體位置。</li>
+<li>被<strong>Pop</strong>後的記憶體空間將會重複使用，將會用上餘數(mod)來計算index。</li>
+</ul>
+</li>
+</ul>
+<p>完整的程式範例如下：</p>
+<div class="highlight"><pre><span class="c1">// C++ code</span>
+
+<span class="cp">#include &lt;iostream&gt;</span>
+<span class="k">using</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">QueueArrayCircular</span><span class="p">{</span>
+<span class="k">private</span><span class="o">:</span>
+    <span class="kt">int</span> <span class="n">capacity</span><span class="p">,</span> <span class="n">front</span><span class="p">,</span> <span class="n">back</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="o">*</span><span class="n">queue</span><span class="p">;</span>
+    <span class="kt">void</span> <span class="nf">DoubleCapacity</span><span class="p">();</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">QueueArrayCircular</span><span class="p">()</span><span class="o">:</span><span class="n">capacity</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span><span class="n">front</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="n">back</span><span class="p">(</span><span class="mi">0</span><span class="p">){</span>     <span class="c1">// 從0開始, 第一個位置放掉</span>
+        <span class="n">queue</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">[</span><span class="n">capacity</span><span class="p">];</span>
+    <span class="p">}</span>
+    <span class="kt">void</span> <span class="n">Push</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="nf">Pop</span><span class="p">();</span>
+    <span class="kt">bool</span> <span class="nf">IsEmpty</span><span class="p">();</span>
+    <span class="kt">bool</span> <span class="nf">IsFull</span><span class="p">();</span>
+    <span class="kt">int</span> <span class="nf">getFront</span><span class="p">();</span>
+    <span class="kt">int</span> <span class="nf">getBack</span><span class="p">();</span>
+    <span class="kt">int</span> <span class="nf">getSize</span><span class="p">();</span>
+    <span class="kt">int</span> <span class="nf">getCapacity</span><span class="p">();</span>    <span class="c1">// 驗證用, 可有可無</span>
+<span class="p">};</span>
+
+<span class="kt">void</span> <span class="n">QueueArrayCircular</span><span class="o">::</span><span class="n">DoubleCapacity</span><span class="p">(){</span>
+
+    <span class="kt">int</span> <span class="o">*</span><span class="n">newQueue</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">[</span><span class="n">capacity</span><span class="o">*</span><span class="mi">2</span><span class="p">];</span>
+
+    <span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">front</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">getSize</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">newQueue</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">queue</span><span class="p">[(</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="n">capacity</span><span class="p">];</span>
+    <span class="p">}</span>
+    <span class="n">capacity</span> <span class="o">*=</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="n">back</span> <span class="o">=</span> <span class="n">getSize</span><span class="p">();</span>
+    <span class="n">front</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">delete</span> <span class="p">[]</span> <span class="n">queue</span><span class="p">;</span>
+    <span class="n">queue</span> <span class="o">=</span> <span class="n">newQueue</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="n">QueueArrayCircular</span><span class="o">::</span><span class="n">Push</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">){</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">IsFull</span><span class="p">())</span> <span class="p">{</span>
+        <span class="n">DoubleCapacity</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="n">back</span> <span class="o">=</span> <span class="p">(</span><span class="n">back</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="n">capacity</span><span class="p">;</span>
+    <span class="n">queue</span><span class="p">[</span><span class="n">back</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="n">QueueArrayCircular</span><span class="o">::</span><span class="n">Pop</span><span class="p">(){</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">IsEmpty</span><span class="p">())</span> <span class="p">{</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Queue is empty.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">front</span> <span class="o">=</span> <span class="p">(</span><span class="n">front</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="n">capacity</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kt">bool</span> <span class="n">QueueArrayCircular</span><span class="o">::</span><span class="n">IsEmpty</span><span class="p">(){</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">front</span> <span class="o">==</span> <span class="n">back</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="kt">bool</span> <span class="n">QueueArrayCircular</span><span class="o">::</span><span class="n">IsFull</span><span class="p">(){</span>
+
+    <span class="k">return</span> <span class="p">((</span><span class="n">back</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="n">capacity</span> <span class="o">==</span> <span class="n">front</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="kt">int</span> <span class="n">QueueArrayCircular</span><span class="o">::</span><span class="n">getFront</span><span class="p">(){</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">IsEmpty</span><span class="p">())</span> <span class="p">{</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Queue is empty.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">queue</span><span class="p">[(</span><span class="n">front</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="n">capacity</span><span class="p">];</span>
+<span class="p">}</span>
+<span class="kt">int</span> <span class="n">QueueArrayCircular</span><span class="o">::</span><span class="n">getBack</span><span class="p">(){</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">IsEmpty</span><span class="p">())</span> <span class="p">{</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Queue is empty.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">queue</span><span class="p">[</span><span class="n">back</span><span class="p">];</span>
+<span class="p">}</span>
+<span class="kt">int</span> <span class="n">QueueArrayCircular</span><span class="o">::</span><span class="n">getSize</span><span class="p">(){</span>
+
+    <span class="kt">int</span> <span class="n">size</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">front</span> <span class="o">&lt;</span> <span class="n">back</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">size</span> <span class="o">=</span> <span class="n">back</span> <span class="o">-</span> <span class="n">front</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="p">{</span>
+        <span class="n">size</span> <span class="o">=</span> <span class="n">capacity</span> <span class="o">-</span> <span class="p">(</span><span class="n">front</span> <span class="o">-</span> <span class="n">back</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">size</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kt">int</span> <span class="n">QueueArrayCircular</span><span class="o">::</span><span class="n">getCapacity</span><span class="p">(){</span>
+
+    <span class="k">return</span> <span class="n">capacity</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+
+    <span class="n">QueueArrayCircular</span> <span class="n">q</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">q</span><span class="p">.</span><span class="n">IsEmpty</span><span class="p">())</span> <span class="p">{</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Queue is empty.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">q</span><span class="p">.</span><span class="n">Push</span><span class="p">(</span><span class="mi">24</span><span class="p">);</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">After push 24: </span><span class="se">\n</span><span class="s">&quot;</span>
+         <span class="o">&lt;&lt;</span> <span class="s">&quot;front: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getFront</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;    back: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getBack</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span>
+         <span class="o">&lt;&lt;</span> <span class="s">&quot;capacity: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getCapacity</span><span class="p">()</span>
+         <span class="o">&lt;&lt;</span> <span class="s">&quot;  number of elements: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getSize</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">q</span><span class="p">.</span><span class="n">Push</span><span class="p">(</span><span class="mi">8</span><span class="p">);</span>
+    <span class="n">q</span><span class="p">.</span><span class="n">Push</span><span class="p">(</span><span class="mi">23</span><span class="p">);</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">After push 8, 23: </span><span class="se">\n</span><span class="s">&quot;</span>
+         <span class="o">&lt;&lt;</span> <span class="s">&quot;front: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getFront</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;    back: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getBack</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span>
+         <span class="o">&lt;&lt;</span> <span class="s">&quot;capacity: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getCapacity</span><span class="p">()</span>
+         <span class="o">&lt;&lt;</span> <span class="s">&quot;  number of elements: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getSize</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">q</span><span class="p">.</span><span class="n">Pop</span><span class="p">();</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">After pop 24: </span><span class="se">\n</span><span class="s">&quot;</span>
+         <span class="o">&lt;&lt;</span> <span class="s">&quot;front: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getFront</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;    back: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getBack</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span>
+         <span class="o">&lt;&lt;</span> <span class="s">&quot;capacity: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getCapacity</span><span class="p">()</span>
+         <span class="o">&lt;&lt;</span> <span class="s">&quot;  number of elements: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getSize</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">q</span><span class="p">.</span><span class="n">Push</span><span class="p">(</span><span class="mi">13</span><span class="p">);</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">After push 13: </span><span class="se">\n</span><span class="s">&quot;</span>
+         <span class="o">&lt;&lt;</span> <span class="s">&quot;front: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getFront</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;    back: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getBack</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span>
+         <span class="o">&lt;&lt;</span> <span class="s">&quot;capacity: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getCapacity</span><span class="p">()</span>
+         <span class="o">&lt;&lt;</span> <span class="s">&quot;  number of elements: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getSize</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">q</span><span class="p">.</span><span class="n">Pop</span><span class="p">();</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">After pop 8: </span><span class="se">\n</span><span class="s">&quot;</span>
+         <span class="o">&lt;&lt;</span> <span class="s">&quot;front: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getFront</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;    back: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getBack</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span>
+         <span class="o">&lt;&lt;</span> <span class="s">&quot;capacity: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getCapacity</span><span class="p">()</span>
+         <span class="o">&lt;&lt;</span> <span class="s">&quot;  number of elements: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getSize</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">q</span><span class="p">.</span><span class="n">Push</span><span class="p">(</span><span class="mi">35</span><span class="p">);</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">After push 35: </span><span class="se">\n</span><span class="s">&quot;</span>
+         <span class="o">&lt;&lt;</span> <span class="s">&quot;front: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getFront</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;    back: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getBack</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span>
+         <span class="o">&lt;&lt;</span> <span class="s">&quot;capacity: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getCapacity</span><span class="p">()</span>
+         <span class="o">&lt;&lt;</span> <span class="s">&quot;  number of elements: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getSize</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">q</span><span class="p">.</span><span class="n">Push</span><span class="p">(</span><span class="mi">9</span><span class="p">);</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">After push 9: </span><span class="se">\n</span><span class="s">&quot;</span>
+         <span class="o">&lt;&lt;</span> <span class="s">&quot;front: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getFront</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;    back: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getBack</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span>
+         <span class="o">&lt;&lt;</span> <span class="s">&quot;capacity: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getCapacity</span><span class="p">()</span>
+         <span class="o">&lt;&lt;</span> <span class="s">&quot;  number of elements: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getSize</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">q</span><span class="p">.</span><span class="n">Push</span><span class="p">(</span><span class="mi">64</span><span class="p">);</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">After push 10: </span><span class="se">\n</span><span class="s">&quot;</span>
+         <span class="o">&lt;&lt;</span> <span class="s">&quot;front: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getFront</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;    back: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getBack</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span>
+         <span class="o">&lt;&lt;</span> <span class="s">&quot;capacity: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getCapacity</span><span class="p">()</span>
+         <span class="o">&lt;&lt;</span> <span class="s">&quot;  number of elements: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">getSize</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>output:</p>
+<div class="highlight"><pre><span class="n">Queue</span> <span class="n">is</span> <span class="n">empty</span><span class="p">.</span>
+
+<span class="n">After</span> <span class="n">push</span> <span class="mi">24</span><span class="o">:</span> 
+<span class="nl">front</span><span class="p">:</span> <span class="mi">24</span>    <span class="nl">back</span><span class="p">:</span> <span class="mi">24</span>
+<span class="nl">capacity</span><span class="p">:</span> <span class="mi">5</span>  <span class="n">number</span> <span class="n">of</span> <span class="nl">elements</span><span class="p">:</span> <span class="mi">1</span>
+
+<span class="n">After</span> <span class="n">push</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">23</span><span class="o">:</span> 
+<span class="nl">front</span><span class="p">:</span> <span class="mi">24</span>    <span class="nl">back</span><span class="p">:</span> <span class="mi">23</span>
+<span class="nl">capacity</span><span class="p">:</span> <span class="mi">5</span>  <span class="n">number</span> <span class="n">of</span> <span class="nl">elements</span><span class="p">:</span> <span class="mi">3</span>
+
+<span class="n">After</span> <span class="n">pop</span> <span class="mi">24</span><span class="o">:</span> 
+<span class="nl">front</span><span class="p">:</span> <span class="mi">8</span>    <span class="nl">back</span><span class="p">:</span> <span class="mi">23</span>
+<span class="nl">capacity</span><span class="p">:</span> <span class="mi">5</span>  <span class="n">number</span> <span class="n">of</span> <span class="nl">elements</span><span class="p">:</span> <span class="mi">2</span>
+
+<span class="n">After</span> <span class="n">push</span> <span class="mi">13</span><span class="o">:</span> 
+<span class="nl">front</span><span class="p">:</span> <span class="mi">8</span>    <span class="nl">back</span><span class="p">:</span> <span class="mi">13</span>
+<span class="nl">capacity</span><span class="p">:</span> <span class="mi">5</span>  <span class="n">number</span> <span class="n">of</span> <span class="nl">elements</span><span class="p">:</span> <span class="mi">3</span>
+
+<span class="n">After</span> <span class="n">pop</span> <span class="mi">8</span><span class="o">:</span> 
+<span class="nl">front</span><span class="p">:</span> <span class="mi">23</span>    <span class="nl">back</span><span class="p">:</span> <span class="mi">13</span>
+<span class="nl">capacity</span><span class="p">:</span> <span class="mi">5</span>  <span class="n">number</span> <span class="n">of</span> <span class="nl">elements</span><span class="p">:</span> <span class="mi">2</span>
+
+<span class="n">After</span> <span class="n">push</span> <span class="mi">35</span><span class="o">:</span> 
+<span class="nl">front</span><span class="p">:</span> <span class="mi">23</span>    <span class="nl">back</span><span class="p">:</span> <span class="mi">35</span>
+<span class="nl">capacity</span><span class="p">:</span> <span class="mi">5</span>  <span class="n">number</span> <span class="n">of</span> <span class="nl">elements</span><span class="p">:</span> <span class="mi">3</span>
+
+<span class="n">After</span> <span class="n">push</span> <span class="mi">9</span><span class="o">:</span> 
+<span class="nl">front</span><span class="p">:</span> <span class="mi">23</span>    <span class="nl">back</span><span class="p">:</span> <span class="mi">9</span>
+<span class="nl">capacity</span><span class="p">:</span> <span class="mi">5</span>  <span class="n">number</span> <span class="n">of</span> <span class="nl">elements</span><span class="p">:</span> <span class="mi">4</span>
+
+<span class="n">After</span> <span class="n">push</span> <span class="mi">10</span><span class="o">:</span> 
+<span class="nl">front</span><span class="p">:</span> <span class="mi">8</span>    <span class="nl">back</span><span class="p">:</span> <span class="mi">64</span>
+<span class="nl">capacity</span><span class="p">:</span> <span class="mi">10</span>  <span class="n">number</span> <span class="n">of</span> <span class="nl">elements</span><span class="p">:</span> <span class="mi">5</span>
+</pre></div>
+
+
+<p>在<code>main()</code>中的測試結果可以看出，<strong>Circular Queue</strong>確實有效地利用了Array的記憶體空間，與<strong>Sequential Queue</strong>比較，在<code>Push(9)</code>時，並沒有呼叫<code>DoubleCapacity()</code>，因為<strong>Circular Queue</strong>的<code>Push()</code>會將資料新增至Array的開頭，如圖六：</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/Queue/Array/f80.png?raw=true" /></p>
+<p><strong>圖六。</strong>
+</center></p>
+<p>而接續圖六的狀態後，再繼續<code>Push(10)</code>就會呼叫<code>DoubleCapacity()</code>，如圖七，要注意的是必須按照<strong>front</strong>到<strong>back</strong>的順序複製資料，並且更新<strong>front</strong>與<strong>back</strong>所代表的index：</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/Queue/Array/f81.png?raw=true" /></p>
+<p><strong>圖七。</strong>
+</center></p>
+<p></br>  </p>
+<p>以上是以Array實作<strong>Sequential Queue</strong>與<strong>Circular Queue</strong>的介紹。  </p>
+<p></br></p>
+<hr />
+<p><a name="ref"></a></p>
+<h3>參考資料：</h3>
+<ul>
+<li><a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844">Introduction to Algorithms, Ch10</a> </li>
+<li><a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376">Fundamentals of Data Structures in C++, Ch3</a></li>
+</ul>
+<p><a name="series"></a></p>
+<p></br></p>
+<h3>Queue系列文章</h3>
+<p><a href="http://alrightchiu.github.io/SecondRound/queue-introjian-jie-bing-yi-linked-listshi-zuo.html">Queue: Intro(簡介)，並以Linked list實作</a><br />
+<a href="">Queue: 以Array實作Queue</a> </p>
+<p>回到目錄：</p>
+<p><a href="http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html">目錄：演算法與資料結構</a></p>
+<p></br></p>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' && location_protocol !== 'https') location_protocol = 'https:';
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+    </article>
+
+        <div class="tags">
+            <p>tags: <a href="http://alrightchiu.github.io/SecondRound/tag/c.html">C++</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/queue.html">Queue</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/array.html">Array</a>, </p>
+        </div>
+
+<hr>
+<div class="sharing">
+</div>
+    <hr>
+
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                            <li>
+                                <a href="https://github.com/alrightchiu">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                    </ul>
+<p class="copyright text-muted">
+    Blog powered by <a href="http://getpelican.com">Pelican</a>,
+    which takes great advantage of <a href="http://python.org">Python</a>.
+</p>                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="http://alrightchiu.github.io/SecondRound/theme/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="http://alrightchiu.github.io/SecondRound/theme/js/bootstrap.min.js"></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script src="http://alrightchiu.github.io/SecondRound/theme/js/clean-blog.min.js"></script>
+
+</body>
+
+</html>
