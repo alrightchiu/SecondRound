@@ -439,7 +439,7 @@ int main(){
          << "capacity: " << q.getCapacity()
          << "  number of elements: " << q.getSize() << "\n";
     q.Push(64);
-    cout << "\nAfter push 10: \n"
+    cout << "\nAfter push 64: \n"
          << "front: " << q.getFront() << "    back: " << q.getBack() << "\n"
          << "capacity: " << q.getCapacity()
          << "  number of elements: " << q.getSize() << "\n";
