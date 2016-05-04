@@ -535,7 +535,7 @@ void BinaryHeap::DecreaseKey(int node, int newKey){
 
 ###函式：MinHeapInsert
 
-有了`DecreaseKey()`後，要在Min Heap中新增資料會容易許多容易：  
+有了`DecreaseKey()`後，要在Min Heap中新增資料會容易許多：  
 (若恰好以`std::vector`建立`heap[]`，簡直只要兩行程式碼)
 
 * 在Heap中多配置一塊新的記憶體位置，也就是把用來儲存Heap之矩陣`heap[]`拉長，存放新的資料；
