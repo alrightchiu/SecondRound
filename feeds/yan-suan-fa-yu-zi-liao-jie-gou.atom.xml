@@ -5873,7 +5873,7 @@ $$&lt;/div&gt;
 
 &lt;p&gt;&lt;a name="MinHeapInsert"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h3&gt;函式：MinHeapInsert&lt;/h3&gt;
-&lt;p&gt;有了&lt;code&gt;DecreaseKey()&lt;/code&gt;後，要在Min Heap中新增資料會容易許多容易：&lt;br /&gt;
+&lt;p&gt;有了&lt;code&gt;DecreaseKey()&lt;/code&gt;後，要在Min Heap中新增資料會容易許多：&lt;br /&gt;
 (若恰好以&lt;code&gt;std::vector&lt;/code&gt;建立&lt;code&gt;heap[]&lt;/code&gt;，簡直只要兩行程式碼)&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;在Heap中多配置一塊新的記憶體位置，也就是把用來儲存Heap之矩陣&lt;code&gt;heap[]&lt;/code&gt;拉長，存放新的資料；&lt;/li&gt;
