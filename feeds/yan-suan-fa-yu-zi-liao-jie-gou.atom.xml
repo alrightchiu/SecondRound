@@ -7840,7 +7840,7 @@ $$&lt;/div&gt;
 &lt;h3&gt;先備知識與注意事項&lt;/h3&gt;
 &lt;p&gt;在上一篇文章&lt;a href="http://alrightchiu.github.io/SecondRound/minimum-spanning-treeintrojian-jie.html"&gt;Minimum Spanning Tree：Intro(簡介)&lt;/a&gt;介紹過MST的問題情境以及演算法概念，這篇文章要接著介紹尋找MST的演算法之一：&lt;strong&gt;Kruskal's Algorithm&lt;/strong&gt;。&lt;/p&gt;
 &lt;p&gt;說明演算法時將會用上專有名詞如「light edge」、「cross」，如果不太熟悉，可以參考&lt;a href="http://alrightchiu.github.io/SecondRound/minimum-spanning-treeintrojian-jie.html"&gt;上一篇文章&lt;/a&gt;。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Kruskal's Algorithm&lt;/strong&gt;將會用到&lt;strong&gt;Set&lt;/strong&gt;的概念來收集MST中的edge，建議讀者可以先閱讀&lt;a href="http://alrightchiu.github.io/SecondRound/setyi-arraybiao-shi.html"&gt;Set：以Array表示&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Kruskal's Algorithm&lt;/strong&gt;將會用到&lt;strong&gt;Set&lt;/strong&gt;的概念來收集MST中的edge，建議讀者可以先閱讀&lt;a href="http://alrightchiu.github.io/SecondRound/setyi-arraybiao-shi.html"&gt;Set：以Array表示&lt;/a&gt;複習一下&lt;strong&gt;Set&lt;/strong&gt;之表示法。&lt;/p&gt;
 &lt;hr /&gt;
 &lt;h2&gt;目錄&lt;/h2&gt;
 &lt;ul&gt;
