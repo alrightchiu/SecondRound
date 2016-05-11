@@ -1,27 +1,28 @@
-Title: Set：表示法(representation)     
-Date: 2016-5-11 20:50  
+Title: Set：表示法(Representation)     
+Date: 2016-5-11 20:31 
 Category: 演算法與資料結構  
 Tags: C++, Set(Find and Union)  
-Summary: 介紹Set的表示方法。
+Summary: 介紹Set(集合)的表示方法。
 
 
 </br>
 ###先備知識與注意事項
 
-// 比較 Set 與 Sequence
 
-Sequense(序列)是
+Sequense(序列)是一組「順序有意義」的資料，例如暢銷排行榜的名次，或者到郵局等候時領的號碼牌。
 
-例如某堂課的期末報告要分組時，組員之間不會有「順序」的差別，
+而Set(集合)是「順序沒有意義」的資料，例如某堂課的期末報告要分組時，組員之間不會有「順序」的差別(但是可能會有「小隊長」)，又或者買樂透時，哪個號碼「先對中」並不影響最後的中獎結果。
+
+本篇文章將介紹以Array(矩陣)表示Set(集合)的表示法。
 
 ***
 
 ##目錄
 
 * [Set表示法](#set)
-    * [函式：FindSet](#find)
-    * [函式：Collapsing](#Collapsing)
-    * [函式：UnionSet](#union)
+* [FindSet](#find)
+    * [Collapsing](#Collapsing)
+* [UnionSet](#union)
 * [程式碼](#code)
 * [參考資料](#ref)
 * [Set系列文章](#series)
