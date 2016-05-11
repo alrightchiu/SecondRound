@@ -13,7 +13,7 @@ Sequense(序列)是一組「順序有意義」的資料，例如暢銷排行榜�
 
 而Set(集合)是「順序沒有意義」的資料，例如某堂課的期末報告要分組時，組員之間不會有「順序」的差別(但是可能會有「小隊長」)，又或者買樂透時，哪個號碼「先對中」並不影響最後的中獎結果。
 
-本篇文章將介紹以Array(矩陣)表示Set(集合)的表示法。
+本篇文章將介紹以Array(矩陣)表示Set(集合)的方法。
 
 ***
 
@@ -291,12 +291,12 @@ After collapsing:
 
 
  
-以上便是其中一種Set表示法之介紹。
+以上便是以Array表示Set之介紹。
 
-其他表示法可以參考以下連結：
+其他表示法(不同的Array表示法，或者以Linked list表示)可以參考以下連結：
 
 * [HackerEarth：Disjoint Set Union (Union Find)](https://www.hackerearth.com/notes/disjoint-set-union-union-find/)
-
+* [Introduction to Algorithms, Ch21](http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844) 
 
 
 
