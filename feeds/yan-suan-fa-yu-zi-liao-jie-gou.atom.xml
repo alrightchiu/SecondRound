@@ -14,7 +14,7 @@
 &lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/queue-introjian-jie-bing-yi-linked-listshi-zuo.html"&gt;Queue: Intro(簡介)，並以Linked list實作&lt;/a&gt;  &lt;br /&gt;
 &lt;a href="http://alrightchiu.github.io/SecondRound/queue-yi-arrayshi-zuo-queue.html"&gt;Queue: 以Array實作Queue&lt;/a&gt;  &lt;/p&gt;
 &lt;h3&gt;Set&lt;/h3&gt;
-&lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/setbiao-shi-fa-representation.html"&gt;Set：表示法(representation)&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/setyi-arraybiao-shi.html"&gt;Set：以Array表示&lt;/a&gt;  &lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h2&gt;Sort系列文章&lt;/h2&gt;
 &lt;h3&gt;Comparison Sort&lt;/h3&gt;
@@ -313,7 +313,7 @@
 &lt;p&gt;&lt;a name="series"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h3&gt;Set系列文章&lt;/h3&gt;
-&lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/setbiao-shi-fa-representation.html"&gt;Set：表示法(representation)&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/setyi-arraybiao-shi.html"&gt;Set：以Array表示&lt;/a&gt;  &lt;/p&gt;
 &lt;p&gt;回到目錄：&lt;/p&gt;
 &lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html"&gt;目錄：演算法與資料結構&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
