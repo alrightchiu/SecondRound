@@ -321,7 +321,7 @@ After collapsing:
 
 ###Set系列文章
 
-[Set：表示法(representation)](http://alrightchiu.github.io/SecondRound/setbiao-shi-fa-representation.html)
+[Set：以Array表示](http://alrightchiu.github.io/SecondRound/setyi-arraybiao-shi.html)  
 
 
 回到目錄：

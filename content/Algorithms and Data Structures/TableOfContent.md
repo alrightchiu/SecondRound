@@ -35,7 +35,7 @@ Summary: 請先閱讀本篇目錄。
 
 ###Set
 
-[Set：表示法(representation)](http://alrightchiu.github.io/SecondRound/setbiao-shi-fa-representation.html)
+[Set：以Array表示](http://alrightchiu.github.io/SecondRound/setyi-arraybiao-shi.html)  
 
 
 </br>
