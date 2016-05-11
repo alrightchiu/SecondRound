@@ -33,6 +33,9 @@ Summary: 請先閱讀本篇目錄。
 [Queue: 以Array實作Queue](http://alrightchiu.github.io/SecondRound/queue-yi-arrayshi-zuo-queue.html)  
 
 
+###Set
+
+[Set：表示法(representation)](http://alrightchiu.github.io/SecondRound/setbiao-shi-fa-representation.html)
 
 
 </br>

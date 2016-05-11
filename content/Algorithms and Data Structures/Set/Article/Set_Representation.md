@@ -1,8 +1,8 @@
-Title: Set：表示法(Representation)     
+Title: Set：以Array表示     
 Date: 2016-5-11 20:31 
 Category: 演算法與資料結構  
-Tags: C++, Set(Find and Union)  
-Summary: 介紹Set(集合)的表示方法。
+Tags: C++, Set(Find and Union), Array  
+Summary: 介紹以Array表示Set(集合)的方法。
 
 
 </br>
@@ -308,8 +308,8 @@ After collapsing:
 
 ###參考資料：
 
-* [Introduction to Algorithms, Ch23](http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844) 
-* [Fundamentals of Data Structures in C++, Ch6](http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376)
+* [Introduction to Algorithms, Ch21](http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844) 
+* [Fundamentals of Data Structures in C++, Ch5](http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376)
 * [Dickson Tsai：Disjoint Sets - Data Structures in 5 Minutes](https://www.youtube.com/watch?v=gcmjC-OcWpI)
 * [HackerEarth：Disjoint Set Union (Union Find)](https://www.hackerearth.com/notes/disjoint-set-union-union-find/)
 * [Graph: 利用DFS和BFS尋找Connected Component](http://alrightchiu.github.io/SecondRound/graph-li-yong-dfshe-bfsxun-zhao-connected-component.html#algorithm)
@@ -321,7 +321,7 @@ After collapsing:
 
 ###Set系列文章
 
-[Set：表示法(representation)]()
+[Set：表示法(representation)](http://alrightchiu.github.io/SecondRound/setbiao-shi-fa-representation.html)
 
 
 回到目錄：
