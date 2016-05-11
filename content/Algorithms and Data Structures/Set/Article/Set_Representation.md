@@ -280,9 +280,9 @@ After collapsing:
 
 
 [f2]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_Kruskal_fig/f2.png?raw=true
-[f3]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/
-[f6]: f6.png
-[SetUnion]: SetUnion.gif
+[f3]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_Kruskal_fig/f3.png?raw=true
+[f6]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Set/Representation/f6.png?raw=true
+[SetUnion]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Set/Representation/SetUnion.gif?raw=true
 
 
 
