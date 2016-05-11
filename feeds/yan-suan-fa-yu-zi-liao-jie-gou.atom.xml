@@ -13,6 +13,8 @@
 &lt;h3&gt;Queue&lt;/h3&gt;
 &lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/queue-introjian-jie-bing-yi-linked-listshi-zuo.html"&gt;Queue: Intro(簡介)，並以Linked list實作&lt;/a&gt;  &lt;br /&gt;
 &lt;a href="http://alrightchiu.github.io/SecondRound/queue-yi-arrayshi-zuo-queue.html"&gt;Queue: 以Array實作Queue&lt;/a&gt;  &lt;/p&gt;
+&lt;h3&gt;Set&lt;/h3&gt;
+&lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/setbiao-shi-fa-representation.html"&gt;Set：表示法(representation)&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h2&gt;Sort系列文章&lt;/h2&gt;
 &lt;h3&gt;Comparison Sort&lt;/h3&gt;
@@ -60,7 +62,7 @@
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h2&gt;Priority Queue系列文章&lt;/h2&gt;
 &lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/priority-queueintrojian-jie-binary-heap.html"&gt;Priority Queue：Intro(簡介) &amp;amp; Binary Heap&lt;/a&gt;  &lt;/p&gt;
-&lt;p&gt;&lt;/br&gt;&lt;/p&gt;</summary><category term="C++"></category></entry><entry><title>Set：表示法(Representation)</title><link href="http://alrightchiu.github.io/SecondRound/setbiao-shi-fa-representation.html" rel="alternate"></link><updated>2016-05-11T20:31:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-05-11:SecondRound/setbiao-shi-fa-representation.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;</summary><category term="C++"></category></entry><entry><title>Set：以Array表示</title><link href="http://alrightchiu.github.io/SecondRound/setyi-arraybiao-shi.html" rel="alternate"></link><updated>2016-05-11T20:31:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-05-11:SecondRound/setyi-arraybiao-shi.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h3&gt;先備知識與注意事項&lt;/h3&gt;
 &lt;p&gt;Sequense(序列)是一組「順序有意義」的資料，例如暢銷排行榜的名次，或者到郵局等候時領的號碼牌。&lt;/p&gt;
 &lt;p&gt;而Set(集合)是「順序沒有意義」的資料，例如某堂課的期末報告要分組時，組員之間不會有「順序」的差別(但是可能會有「小隊長」)，又或者買樂透時，哪個號碼「先對中」並不影響最後的中獎結果。&lt;/p&gt;
@@ -302,8 +304,8 @@
 &lt;p&gt;&lt;a name="ref"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h3&gt;參考資料：&lt;/h3&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844"&gt;Introduction to Algorithms, Ch23&lt;/a&gt; &lt;/li&gt;
-&lt;li&gt;&lt;a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376"&gt;Fundamentals of Data Structures in C++, Ch6&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844"&gt;Introduction to Algorithms, Ch21&lt;/a&gt; &lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376"&gt;Fundamentals of Data Structures in C++, Ch5&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://www.youtube.com/watch?v=gcmjC-OcWpI"&gt;Dickson Tsai：Disjoint Sets - Data Structures in 5 Minutes&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://www.hackerearth.com/notes/disjoint-set-union-union-find/"&gt;HackerEarth：Disjoint Set Union (Union Find)&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/graph-li-yong-dfshe-bfsxun-zhao-connected-component.html#algorithm"&gt;Graph: 利用DFS和BFS尋找Connected Component&lt;/a&gt;&lt;/li&gt;
@@ -311,7 +313,7 @@
 &lt;p&gt;&lt;a name="series"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h3&gt;Set系列文章&lt;/h3&gt;
-&lt;p&gt;&lt;a href=""&gt;Set：表示法(representation)&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/setbiao-shi-fa-representation.html"&gt;Set：表示法(representation)&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;回到目錄：&lt;/p&gt;
 &lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html"&gt;目錄：演算法與資料結構&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
@@ -371,7 +373,7 @@
         "}";
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
-&lt;/script&gt;</summary><category term="C++"></category><category term="Set(Find and Union)"></category></entry><entry><title>Queue: 以Array實作Queue</title><link href="http://alrightchiu.github.io/SecondRound/queue-yi-arrayshi-zuo-queue.html" rel="alternate"></link><updated>2016-04-29T21:42:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-04-29:SecondRound/queue-yi-arrayshi-zuo-queue.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;/script&gt;</summary><category term="C++"></category><category term="Set(Find and Union)"></category><category term="Array"></category></entry><entry><title>Queue: 以Array實作Queue</title><link href="http://alrightchiu.github.io/SecondRound/queue-yi-arrayshi-zuo-queue.html" rel="alternate"></link><updated>2016-04-29T21:42:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-04-29:SecondRound/queue-yi-arrayshi-zuo-queue.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h3&gt;先備知識與注意事項&lt;/h3&gt;
 &lt;p&gt;本篇文章將接續&lt;a href="http://alrightchiu.github.io/SecondRound/queue-introjian-jie-bing-yi-linked-listshi-zuo.html"&gt;Queue: Intro(簡介)，並以Linked list實作&lt;/a&gt;，介紹以Array實作Queue的方法。&lt;/p&gt;
 &lt;p&gt;關於Queue對資料的基本處理方法如&lt;code&gt;Push()&lt;/code&gt;、&lt;code&gt;Pop()&lt;/code&gt;等等，請參考&lt;a href="http://alrightchiu.github.io/SecondRound/queue-introjian-jie-bing-yi-linked-listshi-zuo.html"&gt;Intro篇&lt;/a&gt;的介紹。&lt;/p&gt;
