@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="zh-hant">
+
+<head>
+            <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+
+        <title>Set：表示法(representation)</title>
+
+            <link href="http://alrightchiu.github.io/SecondRound/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Second Round Full Atom Feed" />
+            <link href="http://alrightchiu.github.io/SecondRound/feeds/yan-suan-fa-yu-zi-liao-jie-gou.atom.xml" type="application/atom+xml" rel="alternate" title="Second Round Categories Atom Feed" />
+
+        <!-- Bootstrap Core CSS -->
+        <link href="http://alrightchiu.github.io/SecondRound/theme/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="http://alrightchiu.github.io/SecondRound/theme/css/clean-blog.min.css" rel="stylesheet">
+
+        <!-- Code highlight color scheme -->
+            <link href="http://alrightchiu.github.io/SecondRound/theme/css/code_blocks/darkly.css" rel="stylesheet">
+
+
+        <!-- Custom Fonts -->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+
+
+
+        <meta name="tags" contents="C++" />
+        <meta name="tags" contents="Set(Find and Union)" />
+
+
+	                <meta property="og:locale" content="">
+		<meta property="og:site_name" content="Second Round">
+
+	<meta property="og:type" content="article">
+	<meta property="article:author" content="">
+	<meta property="og:url" content="http://alrightchiu.github.io/SecondRound/setbiao-shi-fa-representation.html">
+	<meta property="og:title" content="Set：表示法(representation)">
+	<meta property="og:description" content="">
+	<meta property="og:image" content="http://alrightchiu.github.io/SecondRound/">
+	<meta property="article:published_time" content="2016-05-11 20:50:00+08:00">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://alrightchiu.github.io/SecondRound/">Second Round</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a href="http://alrightchiu.github.io/SecondRound/archives.html">Archives</a></li>
+                        <li><a href="http://alrightchiu.github.io/SecondRound/tags.html">Tags</a></li>
+
+                            <li><a href="http://alrightchiu.github.io/SecondRound/pages/about.html">About</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+        <header class="intro-header" style="background-image: url('http://alrightchiu.github.io/SecondRound/theme/images/post-bg.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>Set：表示法(representation)</h1>
+                        <span class="meta">Posted by
+                                <a href="http://alrightchiu.github.io/SecondRound/author/chiu-cc.html">Chiu CC</a>
+                             on  5 11, 2016
+                        </span>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    <!-- Post Content -->
+    <article>
+        <p></br></p>
+<h3>先備知識與注意事項</h3>
+<p>// 比較 Set 與 Sequence</p>
+<p>Sequense(序列)是</p>
+<p>例如某堂課的期末報告要分組時，組員之間不會有「順序」的差別，</p>
+<hr />
+<h2>目錄</h2>
+<ul>
+<li><a href="#set">Set表示法</a><ul>
+<li><a href="#find">函式：FindSet</a></li>
+<li><a href="#Collapsing">函式：Collapsing</a></li>
+<li><a href="#union">函式：UnionSet</a></li>
+</ul>
+</li>
+<li><a href="#code">程式碼</a></li>
+<li><a href="#ref">參考資料</a></li>
+<li><a href="#series">Set系列文章</a></li>
+</ul>
+<p></br></p>
+<p><a name="set"></a></p>
+<h2>Set表示法</h2>
+<p>Set是不講求順序(order)的資料彙集(collection)，其概念可以使用類似Tree的資料結構來實現：</p>
+<ul>
+<li>以<strong>root</strong>來代表不同的Set；</li>
+<li>Set中的其餘element之<strong>parent/predecessor</strong>指向<strong>root</strong>。</li>
+</ul>
+<p>本篇文章介紹的表示法將以矩陣(array)處理與Set有關的兩件事：</p>
+<ol>
+<li>判斷哪些element屬於同一個subset；</li>
+<li>判斷每個subset中各有幾個element。</li>
+</ol>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_Kruskal_fig/f2.png?raw=true" /></p>
+<p><strong>圖一(a)：共有三個Set。</strong>
+</center></p>
+<p>配合圖一(a)：</p>
+<ul>
+<li>若element(X)之「矩陣值」為負值(negative value)，即表示element(X)「沒有predecessor」，element(X)就是其所屬於的subset的root。<ul>
+<li>root就像每個subset的門牌，可以用來分辨某兩個element是否屬於同一個subset。</li>
+<li>見圖一(a)，element(1)、element(4)、element(7)皆為各自所代表的Set之root。</li>
+</ul>
+</li>
+<li>若element(Y)之「矩陣值」為正值(positive value)，該數值即為element(Y)的predecessor。<ul>
+<li>見圖一(a)，element(0)之predecessor為element(7)，即表示element(0)與element(7)屬於同一個subset。</li>
+<li>從element(5)一路往predecessor方向找，會先找到element(3)，再找到element(1)，而element(2)也會找到element(1)，即表示element<span class="math">\(:1、2、3、5\)</span>皆屬於同一個subset。</li>
+<li>同理，element<span class="math">\(:0、6、7\)</span>屬於同一個subset。而element(4)自成一個subset。</li>
+</ul>
+</li>
+<li>若element(X)是某個subset的root，其矩陣數值的絕對值(absolute value)即代表該subset中的「element數目」。<ul>
+<li>見圖一(a)，element(1)之矩陣數值為<span class="math">\(-4\)</span>，取絕對值為<span class="math">\(4\)</span>，即表示element(1)所在的subset中共有4個element。</li>
+<li>同理，element(7)所在的subset中共有<span class="math">\(3\)</span>個element。</li>
+</ul>
+</li>
+</ul>
+<p></br><br />
+在處理<strong>Disjoint Set</strong>的問題時，經常要處理兩個問題：</p>
+<ul>
+<li><code>FindSet(element)</code>：確認某個element所隸屬的subset為何。</li>
+<li><code>UnionSet(X,Y)</code>：將element(X)與element(Y)合併放進同一個Set。</li>
+</ul>
+<p></br>  </p>
+<p><a name="find"></a></p>
+<h3>FindSet</h3>
+<p>若利用上述的Set表示法，當進行<code>FindSet(element)</code>時，便以每個subset之root作為判斷的依據，只要在矩陣中一路回溯<code>predecessor</code>，直到root(矩陣值為負值)後，回傳root，就代表了該element所在的subset。</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_Kruskal_fig/f2.png?raw=true" /></p>
+<p><strong>圖一(a)：共有三個Set。</strong>
+</center></p>
+<p>以圖一(a)為例，觀察<code>FindSet(6)</code>：</p>
+<ul>
+<li><code>Array[6]</code>為<span class="math">\(0\)</span></li>
+<li><code>Array[0]</code>為<span class="math">\(7\)</span></li>
+<li><code>Array[7]</code>為<span class="math">\(-3\)</span></li>
+</ul>
+<p>由此可以確定：element(6)屬於「以element(7)作為代表」的subset。</p>
+<p>再看<code>FindSet(5)</code>：</p>
+<ul>
+<li><code>Array[5]</code>為<span class="math">\(3\)</span></li>
+<li><code>Array[3]</code>為<span class="math">\(1\)</span></li>
+<li><code>Array[1]</code>為<span class="math">\(-4\)</span></li>
+</ul>
+<p>也就表示，element(5)屬於「以element(1)作為代表」的subset。</p>
+<p>所以element(5)與element(6)屬於不同subset。<br />
+</br>    </p>
+<p><a name="Collapsing"></a></p>
+<h3>Collapsing</h3>
+<p>另外，有個提升演算法效率的概念稱為<strong>Set Collapsing</strong>，目的是要讓<code>FindSet()</code>能夠在時間複雜度O(<span class="math">\(1\)</span>)完成。</p>
+<p>本篇文章的<a href="#code">範例程式</a>中，將「執行<code>FindSet()</code>時，順便進行<strong>Set Collapsing</strong>」定義成<code>FindSetCollapsing()</code>：</p>
+<ul>
+<li>如圖一(b)，<code>FindSetCollapsing(5)</code>會將element(5)的predecessor調整成element(1)，那麼下次想要知道element(5)屬於哪個subset時，就不需要經過element(3)，便能夠以時間複雜度：<span class="math">\(O(1)\)</span>完成。</li>
+<li>參考<a href="http://alrightchiu.github.io/SecondRound/graph-li-yong-dfshe-bfsxun-zhao-connected-component.html#algorithm">Graph: 利用DFS和BFS尋找Connected Component</a>對<code>SetCollapsing()</code>的介紹。</li>
+</ul>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_Kruskal_fig/f3.png?raw=true" /></p>
+<p><strong>圖一(b)。</strong>
+</center></p>
+<p></br>  </p>
+<p><a name="union"></a></p>
+<h3>UnionSet</h3>
+<p>進行<code>UnionSet(X,Y)</code>時，只要將element(X)所在的Set之root指向element(Y)所在的Set之root即可(或者相反指向，將Set(Y)之root指向Set(X)之root)，見圖二。</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Set/Representation/f6.png?raw=true" /></p>
+<p><strong>圖二。</strong>
+</center></p>
+<p>一般而言，<code>UnionSet(X,Y)</code>會利用「Set中element的個數」來判斷要以Set(X)的root還是Set(Y)的root作為合併後的Set之代表root。</p>
+<ul>
+<li>通常「Set中element個數越多」，那麼該Set之<strong>height</strong>會比較大(此處的height表示Set中，root與距離其最遠的vertex之間的edge數)，進行<code>FindSet(element)</code>時的時間複雜度也較大。  </li>
+<li>因此，若把「Set中element個數較少」的Set併進「Set中element個數較多」的Set，一般情況下，最後合併好的Set之<strong>height</strong>不會變，但是相反的情況，會使<strong>height</strong>增加，而<strong>height</strong>增加會影響<code>FindSet()</code>的效率。</li>
+<li>試比較圖二中的兩種合併準則：<ul>
+<li>將Set(4)併進Set(1)後，新的Set之<strong>height</strong>不變。</li>
+<li>反之，將Set(1)併進Set(4)時，新的Set之<strong>height</strong>比原先的Set(1)還大。</li>
+</ul>
+</li>
+</ul>
+<p></br></p>
+<p><a name="code"></a></p>
+<h2>程式碼</h2>
+<p>範例程式碼包含：</p>
+<ul>
+<li>函式<code>FindSetCollapsing()</code>與<code>UnionSet()</code>如上一小節介紹。</li>
+<li><code>PrintArray()</code>印出Array元素。</li>
+<li>在<code>main()</code>中，進行簡單的測試。</li>
+</ul>
+<div class="highlight"><pre><span class="c1">// C++ code</span>
+<span class="cp">#include &lt;iostream&gt;</span>
+<span class="cp">#include &lt;iomanip&gt;      </span><span class="c1">// for std::setw()</span>
+
+<span class="kt">int</span> <span class="nf">FindSetCollapsing</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">subset</span><span class="p">,</span> <span class="kt">int</span> <span class="n">i</span><span class="p">){</span>      
+
+    <span class="kt">int</span> <span class="n">root</span><span class="p">;</span>  
+    <span class="k">for</span> <span class="p">(</span><span class="n">root</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span> <span class="n">subset</span><span class="p">[</span><span class="n">root</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">root</span> <span class="o">=</span> <span class="n">subset</span><span class="p">[</span><span class="n">root</span><span class="p">]);</span>  <span class="c1">// 找到root</span>
+
+    <span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="o">!=</span> <span class="n">root</span><span class="p">)</span> <span class="p">{</span>             <span class="c1">// 進行collapsing</span>
+        <span class="kt">int</span> <span class="n">parent</span> <span class="o">=</span> <span class="n">subset</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+        <span class="n">subset</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">root</span><span class="p">;</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="n">parent</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">root</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">UnionSet</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">subset</span><span class="p">,</span> <span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">){</span>
+
+    <span class="kt">int</span> <span class="n">xroot</span> <span class="o">=</span> <span class="n">FindSetCollapsing</span><span class="p">(</span><span class="n">subset</span><span class="p">,</span> <span class="n">x</span><span class="p">),</span>
+        <span class="n">yroot</span> <span class="o">=</span> <span class="n">FindSetCollapsing</span><span class="p">(</span><span class="n">subset</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span>
+
+    <span class="c1">// 用rank比較, 負越多表示set越多element, 所以是值比較小的element比較多</span>
+    <span class="c1">// xroot, yroot的subset[]一定都是負值</span>
+
+    <span class="c1">// x比較多element或是一樣多的時候, 以x作為root</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">subset</span><span class="p">[</span><span class="n">xroot</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">subset</span><span class="p">[</span><span class="n">yroot</span><span class="p">])</span> <span class="p">{</span>     
+        <span class="n">subset</span><span class="p">[</span><span class="n">xroot</span><span class="p">]</span> <span class="o">+=</span> <span class="n">subset</span><span class="p">[</span><span class="n">yroot</span><span class="p">];</span>
+        <span class="n">subset</span><span class="p">[</span><span class="n">yroot</span><span class="p">]</span> <span class="o">=</span> <span class="n">xroot</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="p">{</span>    <span class="c1">//  subset[xroot] &gt; subset[yroot], 表示y比較多element</span>
+        <span class="n">subset</span><span class="p">[</span><span class="n">yroot</span><span class="p">]</span> <span class="o">+=</span> <span class="n">subset</span><span class="p">[</span><span class="n">xroot</span><span class="p">];</span>
+        <span class="n">subset</span><span class="p">[</span><span class="n">xroot</span><span class="p">]</span> <span class="o">=</span> <span class="n">yroot</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">PrintArray</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">array</span><span class="p">,</span> <span class="kt">int</span> <span class="n">size</span><span class="p">){</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">size</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>   
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setw</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">i</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">size</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>   
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setw</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+    <span class="p">}</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+
+    <span class="k">const</span> <span class="kt">int</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">6</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">array</span><span class="p">[</span><span class="n">size</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">};</span>
+    <span class="n">PrintArray</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">size</span><span class="p">);</span>
+
+    <span class="n">UnionSet</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;After union(1,2):</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">PrintArray</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">size</span><span class="p">);</span>
+
+    <span class="n">UnionSet</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;After union(0,2):</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">PrintArray</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">size</span><span class="p">);</span>
+
+    <span class="n">UnionSet</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;After union(3,5):</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">PrintArray</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">size</span><span class="p">);</span>
+
+    <span class="n">UnionSet</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;After union(2,5):</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">PrintArray</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">size</span><span class="p">);</span>
+
+
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;element(5) belongs to Set(&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">FindSetCollapsing</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;).</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;After collapsing:</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">PrintArray</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">size</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>output:</p>
+<div class="highlight"><pre>  <span class="mi">0</span>  <span class="mi">1</span>  <span class="mi">2</span>  <span class="mi">3</span>  <span class="mi">4</span>  <span class="mi">5</span>
+ <span class="o">-</span><span class="mi">1</span> <span class="o">-</span><span class="mi">1</span> <span class="o">-</span><span class="mi">1</span> <span class="o">-</span><span class="mi">1</span> <span class="o">-</span><span class="mi">1</span> <span class="o">-</span><span class="mi">1</span>
+<span class="n">After</span> <span class="k">union</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="o">:</span>
+  <span class="mi">0</span>  <span class="mi">1</span>  <span class="mi">2</span>  <span class="mi">3</span>  <span class="mi">4</span>  <span class="mi">5</span>
+ <span class="o">-</span><span class="mi">1</span> <span class="o">-</span><span class="mi">2</span>  <span class="mi">1</span> <span class="o">-</span><span class="mi">1</span> <span class="o">-</span><span class="mi">1</span> <span class="o">-</span><span class="mi">1</span>
+<span class="n">After</span> <span class="k">union</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="o">:</span>
+  <span class="mi">0</span>  <span class="mi">1</span>  <span class="mi">2</span>  <span class="mi">3</span>  <span class="mi">4</span>  <span class="mi">5</span>
+  <span class="mi">1</span> <span class="o">-</span><span class="mi">3</span>  <span class="mi">1</span> <span class="o">-</span><span class="mi">1</span> <span class="o">-</span><span class="mi">1</span> <span class="o">-</span><span class="mi">1</span>
+<span class="n">After</span> <span class="k">union</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span><span class="o">:</span>
+  <span class="mi">0</span>  <span class="mi">1</span>  <span class="mi">2</span>  <span class="mi">3</span>  <span class="mi">4</span>  <span class="mi">5</span>
+  <span class="mi">1</span> <span class="o">-</span><span class="mi">3</span>  <span class="mi">1</span> <span class="o">-</span><span class="mi">2</span> <span class="o">-</span><span class="mi">1</span>  <span class="mi">3</span>
+<span class="n">After</span> <span class="k">union</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span><span class="o">:</span>
+  <span class="mi">0</span>  <span class="mi">1</span>  <span class="mi">2</span>  <span class="mi">3</span>  <span class="mi">4</span>  <span class="mi">5</span>
+  <span class="mi">1</span> <span class="o">-</span><span class="mi">5</span>  <span class="mi">1</span>  <span class="mi">1</span> <span class="o">-</span><span class="mi">1</span>  <span class="mi">3</span>
+<span class="n">element</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="n">belongs</span> <span class="n">to</span> <span class="n">Set</span><span class="p">(</span><span class="mi">1</span><span class="p">).</span>
+<span class="n">After</span> <span class="nl">collapsing</span><span class="p">:</span>
+  <span class="mi">0</span>  <span class="mi">1</span>  <span class="mi">2</span>  <span class="mi">3</span>  <span class="mi">4</span>  <span class="mi">5</span>
+  <span class="mi">1</span> <span class="o">-</span><span class="mi">5</span>  <span class="mi">1</span>  <span class="mi">1</span> <span class="o">-</span><span class="mi">1</span>  <span class="mi">1</span>
+</pre></div>
+
+
+<p><code>main()</code>中測試結果如圖三：</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Set/Representation/SetUnion.gif?raw=true" /></p>
+<p><strong>圖三。</strong>
+</center></p>
+<p></br>  </p>
+<p>以上便是其中一種Set表示法之介紹。</p>
+<p>其他表示法可以參考以下連結：</p>
+<ul>
+<li><a href="https://www.hackerearth.com/notes/disjoint-set-union-union-find/">HackerEarth：Disjoint Set Union (Union Find)</a></li>
+</ul>
+<p></br></p>
+<hr />
+<p><a name="ref"></a></p>
+<h3>參考資料：</h3>
+<ul>
+<li><a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844">Introduction to Algorithms, Ch23</a> </li>
+<li><a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376">Fundamentals of Data Structures in C++, Ch6</a></li>
+<li><a href="https://www.youtube.com/watch?v=gcmjC-OcWpI">Dickson Tsai：Disjoint Sets - Data Structures in 5 Minutes</a></li>
+<li><a href="https://www.hackerearth.com/notes/disjoint-set-union-union-find/">HackerEarth：Disjoint Set Union (Union Find)</a></li>
+<li><a href="http://alrightchiu.github.io/SecondRound/graph-li-yong-dfshe-bfsxun-zhao-connected-component.html#algorithm">Graph: 利用DFS和BFS尋找Connected Component</a></li>
+</ul>
+<p><a name="series"></a></p>
+<p></br></p>
+<h3>Set系列文章</h3>
+<p><a href="">Set：表示法(representation)</a></p>
+<p>回到目錄：</p>
+<p><a href="http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html">目錄：演算法與資料結構</a></p>
+<p></br></p>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' && location_protocol !== 'https') location_protocol = 'https:';
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+    </article>
+
+        <div class="tags">
+            <p>tags: <a href="http://alrightchiu.github.io/SecondRound/tag/c.html">C++</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/setfind-and-union.html">Set(Find and Union)</a>, </p>
+        </div>
+
+<hr>
+<div class="sharing">
+</div>
+    <hr>
+
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                            <li>
+                                <a href="https://github.com/alrightchiu">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                    </ul>
+<p class="copyright text-muted">
+    Blog powered by <a href="http://getpelican.com">Pelican</a>,
+    which takes great advantage of <a href="http://python.org">Python</a>.
+</p>                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="http://alrightchiu.github.io/SecondRound/theme/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="http://alrightchiu.github.io/SecondRound/theme/js/bootstrap.min.js"></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script src="http://alrightchiu.github.io/SecondRound/theme/js/clean-blog.min.js"></script>
+
+</body>
+
+</html>
