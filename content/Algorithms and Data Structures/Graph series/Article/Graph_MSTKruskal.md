@@ -17,87 +17,17 @@ Summary: 介紹於Graph中，利用Kruskal's Algorithm求得Minimum Spanning Tre
 說明演算法時將會用上專有名詞如「light edge」、「cross」，如果不太熟悉，可以參考[上一篇文章](http://alrightchiu.github.io/SecondRound/minimum-spanning-treeintrojian-jie.html)。
 
 
+**Kruskal's Algorithm**將會用到**Set**的概念來收集MST中的edge，建議讀者可以先閱讀[Set：以Array表示](http://alrightchiu.github.io/SecondRound/setyi-arraybiao-shi.html)。
 
 
 ***
 
 ##目錄
 
-* [Set表示法](#set)
 * [Kruskal's Algorithm](#algorithm)
 * [程式碼](#code)
 * [參考資料](#ref)
 * [MST系列文章](#series)
-
-
-</br>
-
-<a name="set"></a>
-
-##Set表示法
-
-稍後介紹的**Kruskal's Algorithm**會利用**Disjoint Set(互斥集合)**來收集MST中的edge，而Set的表示方法有非常多種，這裡先簡單介紹即將使用的表示法。  
-(參考影片教學：[Disjoint Sets - Data Structures in 5 Minutes](https://www.youtube.com/watch?v=gcmjC-OcWpI))
-
-
-
-Set是不講求順序(order)的資料彙集(collection)，其資料結構可以使用類似Tree的概念來實現：
-
-* 以**root**來代表不同的Set；
-* Set中的其餘element之**parent/predecessor**指向**root**。
-
-而此處使用的表示法如下，配合圖一(a)：
-
-* 以矩陣來表示所有subset。
-* 若vertex(X)之矩陣值為負值(negative value)，即表示vertex(X)「沒有predecessor」，vertex(X)就是Set的root，用以代表一個獨立的Set。
-    * 見圖一(a)，vertex(1)、vertex(4)、vertex(7)皆為各自所代表的Set之root。
-* 若vertex(Y)之矩陣值為正值(positive value)，該數值即為vertex(Y)的predecessor。
-    * 見圖一(a)，vertex(0)之predecessor為vertex(7)，而vertex(7)正好是此Set的root，即表示vertex(0)與vertex(7)屬於同一個Set。
-    * 從vertex(5)一路往predecessor方向找，會找到vertex(1)，同理，vertex(2)、vertex(3)也會找到vertex(1)，即表示vertex$:1、2、3、5$皆屬於同一個Set。
-* 若vertex(X)是Set的root，其矩陣數值的絕對值(absolute value)即代表該Set中的「vertex數目」。
-    * 見圖一(a)，vertex(1)之矩陣數值為$-4$，取絕對值為$4$，即表示vertex(1)所在的Set中共有4個element。
-    * 同理，vertex(7)所在的Set中共有$3$個element。
-
-<center>
-![cc][f2]
-
-**圖一(a)。**
-</center>
-
-在處理**Disjoint Set**的問題時，經常要處理兩個問題：
-
-* `FindSet(vertex)`：確認某個vertex所隸屬的Set為何。
-* `UnionSet(X,Y)`：將vertex(X)與vertex(Y)合併進同一個Set。
-
-若利用上述的Set表示法，當進行`FindSet(vertex)`時，只要在矩陣中一路回溯`predecessor`，直到root(矩陣值為負值)即可。
-
-* 若同時進行**SetCollapsing**，即可把剛才找過的vertex的predecessor都調整成該Set的root，使得之後要再`FindSet()`時，能夠以時間複雜度：$O(1)$完成。  
-(參考[Graph: 利用DFS和BFS尋找Connected Component](http://alrightchiu.github.io/SecondRound/graph-li-yong-dfshe-bfsxun-zhao-connected-component.html#algorithm)對`SetCollapsing()`的介紹)
-* 本篇文章的[範例程式](#code)中，將此函式定義成`FindSetCollapsing()`。  
-* 如圖一(b)，`FindSetCollapsing(5)`會將vertex(5)的predecessor調整成vertex(1)。
-
-
-<center>
-![cc][f3]
-
-**圖一(b)。**
-</center>
-
-進行`UnionSet(X,Y)`時，只要將vertex(X)所在的Set之root指向vertex(Y)所在的Set之root即可(或者相反指向)。
-
-* 通常`UnionSet(X,Y)`會利用「Set中element的個數」來判斷要以Set(X)的root還是Set(Y)的root作為合併後的Set之代表root，原因是，通常「Set中element個數越多」，那麼未經過「SetCollapsing」的Set之**height**會比較大(此處的height表示Set中，root與距離其最遠的vertex之間的edge數)，進行`FindSet(vertex)`時的時間複雜度也較大。  
-* 若把「Set中element個數較少」的Set併進「Set中element個數較多」的Set，一般情況下，最後合併好的Set之height不會變，但是相反的情況，會使height增加。見圖一(c)，將圖一(a)中的Set(1)與Set(4)合併，試比較兩種合併方式得到的Set之**height**。
-
-<center>
-![cc][f4]
-
-**圖一(c)。**
-</center>
-
-其他表示法可以參考以下連結：
-
-* [GeeksforGeeks：Greedy Algorithms | Set 2 (Kruskal’s Minimum Spanning Tree Algorithm)](http://www.geeksforgeeks.org/greedy-algorithms-set-2-kruskals-minimum-spanning-tree-mst/)
-* [HackerEarth：Disjoint Set Union (Union Find)](https://www.hackerearth.com/notes/disjoint-set-union-union-find/)
 
 
 </br>
