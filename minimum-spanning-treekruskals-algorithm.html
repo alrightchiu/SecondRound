@@ -117,76 +117,14 @@
 <h3>先備知識與注意事項</h3>
 <p>在上一篇文章<a href="http://alrightchiu.github.io/SecondRound/minimum-spanning-treeintrojian-jie.html">Minimum Spanning Tree：Intro(簡介)</a>介紹過MST的問題情境以及演算法概念，這篇文章要接著介紹尋找MST的演算法之一：<strong>Kruskal's Algorithm</strong>。</p>
 <p>說明演算法時將會用上專有名詞如「light edge」、「cross」，如果不太熟悉，可以參考<a href="http://alrightchiu.github.io/SecondRound/minimum-spanning-treeintrojian-jie.html">上一篇文章</a>。</p>
+<p><strong>Kruskal's Algorithm</strong>將會用到<strong>Set</strong>的概念來收集MST中的edge，建議讀者可以先閱讀<a href="http://alrightchiu.github.io/SecondRound/setyi-arraybiao-shi.html">Set：以Array表示</a>。</p>
 <hr />
 <h2>目錄</h2>
 <ul>
-<li><a href="#set">Set表示法</a></li>
 <li><a href="#algorithm">Kruskal's Algorithm</a></li>
 <li><a href="#code">程式碼</a></li>
 <li><a href="#ref">參考資料</a></li>
 <li><a href="#series">MST系列文章</a></li>
-</ul>
-<p></br></p>
-<p><a name="set"></a></p>
-<h2>Set表示法</h2>
-<p>稍後介紹的<strong>Kruskal's Algorithm</strong>會利用<strong>Disjoint Set(互斥集合)</strong>來收集MST中的edge，而Set的表示方法有非常多種，這裡先簡單介紹即將使用的表示法。<br />
-(參考影片教學：<a href="https://www.youtube.com/watch?v=gcmjC-OcWpI">Disjoint Sets - Data Structures in 5 Minutes</a>)</p>
-<p>Set是不講求順序(order)的資料彙集(collection)，其資料結構可以使用類似Tree的概念來實現：</p>
-<ul>
-<li>以<strong>root</strong>來代表不同的Set；</li>
-<li>Set中的其餘element之<strong>parent/predecessor</strong>指向<strong>root</strong>。</li>
-</ul>
-<p>而此處使用的表示法如下，配合圖一(a)：</p>
-<ul>
-<li>以矩陣來表示所有subset。</li>
-<li>若vertex(X)之矩陣值為負值(negative value)，即表示vertex(X)「沒有predecessor」，vertex(X)就是Set的root，用以代表一個獨立的Set。<ul>
-<li>見圖一(a)，vertex(1)、vertex(4)、vertex(7)皆為各自所代表的Set之root。</li>
-</ul>
-</li>
-<li>若vertex(Y)之矩陣值為正值(positive value)，該數值即為vertex(Y)的predecessor。<ul>
-<li>見圖一(a)，vertex(0)之predecessor為vertex(7)，而vertex(7)正好是此Set的root，即表示vertex(0)與vertex(7)屬於同一個Set。</li>
-<li>從vertex(5)一路往predecessor方向找，會找到vertex(1)，同理，vertex(2)、vertex(3)也會找到vertex(1)，即表示vertex<span class="math">\(:1、2、3、5\)</span>皆屬於同一個Set。</li>
-</ul>
-</li>
-<li>若vertex(X)是Set的root，其矩陣數值的絕對值(absolute value)即代表該Set中的「vertex數目」。<ul>
-<li>見圖一(a)，vertex(1)之矩陣數值為<span class="math">\(-4\)</span>，取絕對值為<span class="math">\(4\)</span>，即表示vertex(1)所在的Set中共有4個element。</li>
-<li>同理，vertex(7)所在的Set中共有<span class="math">\(3\)</span>個element。</li>
-</ul>
-</li>
-</ul>
-<p><center>
-<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_Kruskal_fig/f2.png?raw=true" /></p>
-<p><strong>圖一(a)。</strong>
-</center></p>
-<p>在處理<strong>Disjoint Set</strong>的問題時，經常要處理兩個問題：</p>
-<ul>
-<li><code>FindSet(vertex)</code>：確認某個vertex所隸屬的Set為何。</li>
-<li><code>UnionSet(X,Y)</code>：將vertex(X)與vertex(Y)合併進同一個Set。</li>
-</ul>
-<p>若利用上述的Set表示法，當進行<code>FindSet(vertex)</code>時，只要在矩陣中一路回溯<code>predecessor</code>，直到root(矩陣值為負值)即可。</p>
-<ul>
-<li>若同時進行<strong>SetCollapsing</strong>，即可把剛才找過的vertex的predecessor都調整成該Set的root，使得之後要再<code>FindSet()</code>時，能夠以時間複雜度：<span class="math">\(O(1)\)</span>完成。<br />
-(參考<a href="http://alrightchiu.github.io/SecondRound/graph-li-yong-dfshe-bfsxun-zhao-connected-component.html#algorithm">Graph: 利用DFS和BFS尋找Connected Component</a>對<code>SetCollapsing()</code>的介紹)</li>
-<li>本篇文章的<a href="#code">範例程式</a>中，將此函式定義成<code>FindSetCollapsing()</code>。  </li>
-<li>如圖一(b)，<code>FindSetCollapsing(5)</code>會將vertex(5)的predecessor調整成vertex(1)。</li>
-</ul>
-<p><center>
-<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_Kruskal_fig/f3.png?raw=true" /></p>
-<p><strong>圖一(b)。</strong>
-</center></p>
-<p>進行<code>UnionSet(X,Y)</code>時，只要將vertex(X)所在的Set之root指向vertex(Y)所在的Set之root即可(或者相反指向)。</p>
-<ul>
-<li>通常<code>UnionSet(X,Y)</code>會利用「Set中element的個數」來判斷要以Set(X)的root還是Set(Y)的root作為合併後的Set之代表root，原因是，通常「Set中element個數越多」，那麼未經過「SetCollapsing」的Set之<strong>height</strong>會比較大(此處的height表示Set中，root與距離其最遠的vertex之間的edge數)，進行<code>FindSet(vertex)</code>時的時間複雜度也較大。  </li>
-<li>若把「Set中element個數較少」的Set併進「Set中element個數較多」的Set，一般情況下，最後合併好的Set之height不會變，但是相反的情況，會使height增加。見圖一(c)，將圖一(a)中的Set(1)與Set(4)合併，試比較兩種合併方式得到的Set之<strong>height</strong>。</li>
-</ul>
-<p><center>
-<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_Kruskal_fig/f4.png?raw=true" /></p>
-<p><strong>圖一(c)。</strong>
-</center></p>
-<p>其他表示法可以參考以下連結：</p>
-<ul>
-<li><a href="http://www.geeksforgeeks.org/greedy-algorithms-set-2-kruskals-minimum-spanning-tree-mst/">GeeksforGeeks：Greedy Algorithms | Set 2 (Kruskal’s Minimum Spanning Tree Algorithm)</a></li>
-<li><a href="https://www.hackerearth.com/notes/disjoint-set-union-union-find/">HackerEarth：Disjoint Set Union (Union Find)</a></li>
 </ul>
 <p></br></p>
 <p><a name="algorithm"></a></p>
