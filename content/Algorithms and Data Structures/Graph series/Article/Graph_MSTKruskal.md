@@ -17,7 +17,7 @@ Summary: 介紹於Graph中，利用Kruskal's Algorithm求得Minimum Spanning Tre
 說明演算法時將會用上專有名詞如「light edge」、「cross」，如果不太熟悉，可以參考[上一篇文章](http://alrightchiu.github.io/SecondRound/minimum-spanning-treeintrojian-jie.html)。
 
 
-**Kruskal's Algorithm**將會用到**Set**的概念來收集MST中的edge，建議讀者可以先閱讀[Set：以Array表示](http://alrightchiu.github.io/SecondRound/setyi-arraybiao-shi.html)。
+**Kruskal's Algorithm**將會用到**Set**的概念來收集MST中的edge，建議讀者可以先閱讀[Set：以Array表示](http://alrightchiu.github.io/SecondRound/setyi-arraybiao-shi.html)複習一下**Set**之表示法。
 
 
 ***
