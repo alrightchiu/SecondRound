@@ -16,11 +16,11 @@ Summary: 介紹用來分析Complexity(複雜度)的Asymptotic Notation(漸進符
 ##目錄
 
 * [使用Asymptotic Notation的優點](#an)
-* [$\Theta-Notation$](#tight)
+* [$\Theta$-Notation](#tight)
 * [$O-Notation$](#bo)
-* [$\Omega-Notation$](#bw)
+* [$\Omega-$Notation](#bw)
 * [$o-Notation$](#so)
-* [$\omega-Notation$](#sw)
+* [$\omega$-Notation](#sw)
 * [參考資料](#ref)
 * [Set系列文章](#series)
 
@@ -54,7 +54,7 @@ Summary: 介紹用來分析Complexity(複雜度)的Asymptotic Notation(漸進符
 
 <a name="bo"></a>
 
-###$O-Notation$
+###$O$-Notation
 
 
 
@@ -62,7 +62,7 @@ Summary: 介紹用來分析Complexity(複雜度)的Asymptotic Notation(漸進符
 
 <a name="bw"></a>
 
-###$\Omega-Notation$
+###$\Omega$-Notation
 
 
 
@@ -70,14 +70,14 @@ Summary: 介紹用來分析Complexity(複雜度)的Asymptotic Notation(漸進符
 
 <a name="so"></a>
 
-###$o-Notation$
+###$o$-Notation
 
 
 </br>
 
 <a name="sw"></a>
 
-###$\omega-Notation$
+###$\omega$-Notation
 
 
 
