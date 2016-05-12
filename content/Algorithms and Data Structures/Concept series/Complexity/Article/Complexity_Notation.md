@@ -16,11 +16,11 @@ Summary: 介紹用來分析Complexity(複雜度)的Asymptotic Notation(漸進符
 ##目錄
 
 * [使用Asymptotic Notation的優點](#an)
-* [$1\leq \lg{N}$](#tight)
-* [](#bo)
-* [](#bw)
-* [](#so)
-* [](#sw)
+* [$\Theta-Notation$](#tight)
+* [$O-Notation$](#bo)
+* [$\Omega-Notation$](#bw)
+* [$o-Notation$](#so)
+* [$\omega-Notation$](#sw)
 * [參考資料](#ref)
 * [Set系列文章](#series)
 
@@ -45,7 +45,7 @@ Summary: 介紹用來分析Complexity(複雜度)的Asymptotic Notation(漸進符
 
 <a name="find"></a>
 
-##$1\leq \lg{N}$
+###$1\leq \lg{N}$
 
 
 
