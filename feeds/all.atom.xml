@@ -69,11 +69,11 @@
 &lt;h2&gt;目錄&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="#an"&gt;使用Asymptotic Notation的優點&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="#tight"&gt;&lt;span class="math"&gt;\(1\leq \lg{N}\)&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="#bo"&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="#bw"&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="#so"&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="#sw"&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#tight"&gt;&lt;span class="math"&gt;\(\Theta-Notation\)&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#bo"&gt;&lt;span class="math"&gt;\(O-Notation\)&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#bw"&gt;&lt;span class="math"&gt;\(\Omega-Notation\)&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#so"&gt;&lt;span class="math"&gt;\(o-Notation\)&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#sw"&gt;&lt;span class="math"&gt;\(\omega-Notation\)&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="#ref"&gt;參考資料&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="#series"&gt;Set系列文章&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
@@ -86,7 +86,7 @@
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;  &lt;/p&gt;
 &lt;p&gt;&lt;a name="find"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;&lt;span class="math"&gt;\(1\leq \lg{N}\)&lt;/span&gt;&lt;/h2&gt;
+&lt;h3&gt;&lt;span class="math"&gt;\(1\leq \lg{N}\)&lt;/span&gt;&lt;/h3&gt;
 &lt;p&gt;&lt;/br&gt;    &lt;/p&gt;
 &lt;p&gt;&lt;a name="Collapsing"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h3&gt;Collapsing&lt;/h3&gt;
