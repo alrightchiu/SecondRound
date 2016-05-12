@@ -43,35 +43,41 @@ Summary: 介紹用來分析Complexity(複雜度)的Asymptotic Notation(漸進符
 
 </br>  
 
-<a name="find"></a>
+<a name="tight"></a>
 
-###$1\leq \lg{N}$
+###$\Theta-Notation$
 
 
 
 
 </br>    
 
-<a name="Collapsing"></a>
+<a name="bo"></a>
 
-###Collapsing
+###$O-Notation$
 
 
 
 </br>  
 
-<a name="union"></a>
+<a name="bw"></a>
 
-###UnionSet
-
+###$\Omega-Notation$
 
 
 
 </br>
 
-<a name="code"></a>
+<a name="so"></a>
 
-##程式碼
+###$o-Notation$
+
+
+</br>
+
+<a name="sw"></a>
+
+###$\omega-Notation$
 
 
 
