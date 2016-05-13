@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="zh-hant">
+
+<head>
+            <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+
+        <title>Complexity：Asymptotic Notation(漸進符號)</title>
+
+            <link href="http://alrightchiu.github.io/SecondRound/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Second Round Full Atom Feed" />
+            <link href="http://alrightchiu.github.io/SecondRound/feeds/yan-suan-fa-yu-zi-liao-jie-gou.atom.xml" type="application/atom+xml" rel="alternate" title="Second Round Categories Atom Feed" />
+
+        <!-- Bootstrap Core CSS -->
+        <link href="http://alrightchiu.github.io/SecondRound/theme/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="http://alrightchiu.github.io/SecondRound/theme/css/clean-blog.min.css" rel="stylesheet">
+
+        <!-- Code highlight color scheme -->
+            <link href="http://alrightchiu.github.io/SecondRound/theme/css/code_blocks/darkly.css" rel="stylesheet">
+
+
+        <!-- Custom Fonts -->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+
+
+
+        <meta name="tags" contents="C++" />
+        <meta name="tags" contents="Intro" />
+        <meta name="tags" contents="Complexity" />
+        <meta name="tags" contents="Big-O" />
+
+
+	                <meta property="og:locale" content="">
+		<meta property="og:site_name" content="Second Round">
+
+	<meta property="og:type" content="article">
+	<meta property="article:author" content="">
+	<meta property="og:url" content="http://alrightchiu.github.io/SecondRound/complexityasymptotic-notationjian-jin-fu-hao.html">
+	<meta property="og:title" content="Complexity：Asymptotic Notation(漸進符號)">
+	<meta property="og:description" content="">
+	<meta property="og:image" content="http://alrightchiu.github.io/SecondRound/">
+	<meta property="article:published_time" content="2016-05-11 20:31:00+08:00">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://alrightchiu.github.io/SecondRound/">Second Round</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a href="http://alrightchiu.github.io/SecondRound/archives.html">Archives</a></li>
+                        <li><a href="http://alrightchiu.github.io/SecondRound/tags.html">Tags</a></li>
+
+                            <li><a href="http://alrightchiu.github.io/SecondRound/pages/about.html">About</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+        <header class="intro-header" style="background-image: url('http://alrightchiu.github.io/SecondRound/theme/images/post-bg.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>Complexity：Asymptotic Notation(漸進符號)</h1>
+                        <span class="meta">Posted by
+                                <a href="http://alrightchiu.github.io/SecondRound/author/chiu-cc.html">Chiu CC</a>
+                             on  5 11, 2016
+                        </span>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    <!-- Post Content -->
+    <article>
+        <p></br></p>
+<h3>先備知識與注意事項</h3>
+<hr />
+<h2>目錄</h2>
+<ul>
+<li><a href="#com">Complexity(複雜度)</a></li>
+<li><a href="#an">使用Asymptotic Notation的優點</a><ul>
+<li><a href="#tight"><span class="math">\(\Theta-\)</span>Notation</a></li>
+<li><a href="#bo"><span class="math">\(O-\)</span>Notation，Big-O</a></li>
+<li><a href="#bw"><span class="math">\(\Omega-\)</span>Notation</a></li>
+<li><a href="#so"><span class="math">\(o-\)</span>Notation</a></li>
+<li><a href="#sw"><span class="math">\(\omega-\)</span>Notation</a></li>
+</ul>
+</li>
+<li><a href="#ref">參考資料</a></li>
+<li><a href="#series">Complexity系列文章</a></li>
+</ul>
+<p></br></p>
+<p><a name="com"></a></p>
+<h2>Complexity(複雜度)</h2>
+<p><center>
+<img alt="cc" src="f1.png" /></p>
+<p><strong>圖一：。</strong>
+</center></p>
+<p>假設某間出版社想要印書，找到一間印刷廠，廠房內共有六台機器，每台機器的工作效率分別如圖一的六個函數，橫軸表示「書的數量」，縱軸表示「需要的工作天」。</p>
+<p><center></p>
+<table>
+<thead>
+<tr>
+<th align="left"></th>
+<th align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><span class="math">\(N!\)</span></strong></th>
+<th align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><span class="math">\(2^N\)</span></strong></th>
+<th align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><span class="math">\(N^2\)</span></strong></th>
+<th align="center">&nbsp;&nbsp;<strong><span class="math">\(N\ln{N}\)</span></strong></th>
+<th align="center">&nbsp;&nbsp;&nbsp;<strong><span class="math">\(N\)</span></strong></th>
+<th align="center">&nbsp;&nbsp;<strong><span class="math">\(\ln{N}\)</span></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><span class="math">\(N=5\)</span></td>
+<td align="center"><span class="math">\(120\)</span></td>
+<td align="center"><span class="math">\(32\)</span></td>
+<td align="center"><span class="math">\(25\)</span></td>
+<td align="center"><span class="math">\(8.05\)</span></td>
+<td align="center"><span class="math">\(5\)</span></td>
+<td align="center"><span class="math">\(1.6\)</span></td>
+</tr>
+<tr>
+<td align="left"><span class="math">\(N=100\)</span></td>
+<td align="center">&nbsp;&nbsp;&nbsp;&nbsp;<span class="math">\(9\times10^{157}\)</span></td>
+<td align="center">&nbsp;&nbsp;<span class="math">\(1.3\times10^{30}\)</span></td>
+<td align="center">&nbsp;&nbsp;<span class="math">\(10000\)</span></td>
+<td align="center"><span class="math">\(460\)</span></td>
+<td align="center">&nbsp;<span class="math">\(100\)</span></td>
+<td align="center"><span class="math">\(4.6\)</span></td>
+</tr>
+</tbody>
+</table>
+<p><strong>表一：。</strong>
+</center></p>
+<p>根據表一可以看出，若要印<span class="math">\(N=5\)</span>本書：</p>
+<ul>
+<li>使用「機器<strong><span class="math">\(\ln{N}\)</span></strong>」需要<span class="math">\(1.6\)</span>個工作天。</li>
+<li>使用「機器<strong><span class="math">\(N^2\)</span></strong>」需要<span class="math">\(25\)</span>個工作天；</li>
+<li>使用「機器<strong><span class="math">\(N!\)</span></strong>」需要<span class="math">\(120\)</span>個工作天；</li>
+</ul>
+<p>當問題的資料量不大時，「有效率」的機器和「沒有效率」的機器在成本消耗上可能差異不大，但是當資料量增加時，成本會變得非常可觀。</p>
+<p>若考慮印<span class="math">\(N=100\)</span>本書：</p>
+<ul>
+<li>使用「機器<strong><span class="math">\(\ln{N}\)</span></strong>」需要<span class="math">\(4.6\)</span>個工作天。</li>
+<li>使用「機器<strong><span class="math">\(N^2\)</span></strong>」需要<span class="math">\(10000\)</span>個工作天，大約是<span class="math">\(27\)</span>年；</li>
+<li>使用「機器<strong><span class="math">\(N!\)</span></strong>」需要<span class="math">\(9\times10^{157}\)</span>個工作天，是個天文數字；</li>
+</ul>
+<p>由以上可以看出，成本(包含運算時間與記憶體空間)，通常會和「待處理的資料量」有關，當資料量越大，成本會以某種關係(線性、指數等等，見圖一)跟著提高。</p>
+<p>而圖一中，描述每一種<strong>演算法</strong>(一台機器代表一種<strong>演算法</strong>)的「工作效率之函數」，就稱為此演算法之<strong>Complexity(複雜度)</strong>。</p>
+<p></br></p>
+<p><a name="an"></a></p>
+<h2>使用Asymptotic Notation的優點</h2>
+<p>若能得知各個演算法的<strong>Complexity(複雜度)</strong>，便能決定哪個演算法較有效率。<br />
+但是並非所有演算法都像<a href="https://www.youtube.com/watch?v=i-SKeOcBwko">只有兩個迴圈的Insertion Sort</a>那麼簡潔而容易分析，所以在評估演算法之<strong>Complexity(複雜度)</strong>時，常使用<strong>Asymptotic Notation(漸進符號)</strong>，其概念為：</p>
+<ul>
+<li>希望能以簡單的函數(例如：<span class="math">\(N^{2}、N\ln{N}\)</span>等等)來描述<strong>Complexity(複雜度)</strong>的「趨勢」，特別是針對資料量非常大的時候。</li>
+</ul>
+<p>以下分別介紹五個<strong>Asymptotic Notation(漸進符號)</strong>之定義。</p>
+<p></br>  </p>
+<p><a name="tight"></a></p>
+<h3><span class="math">\(\Theta-\)</span>Notation</h3>
+<p>// 定義</p>
+<p>// 範例, 繪圖</p>
+<p></br>    </p>
+<p><a name="bo"></a></p>
+<h3><span class="math">\(O-\)</span>Notation，Big-O</h3>
+<p></br>  </p>
+<p><a name="bw"></a></p>
+<h3><span class="math">\(\Omega-\)</span>Notation</h3>
+<p></br></p>
+<p><a name="so"></a></p>
+<h3><span class="math">\(o-\)</span>Notation</h3>
+<p></br></p>
+<p><a name="sw"></a></p>
+<h3><span class="math">\(\omega-\)</span>Notation</h3>
+<p></br>  </p>
+<p>以上便是以Array表示Set之介紹。</p>
+<p></br></p>
+<hr />
+<p><a name="ref"></a></p>
+<h3>參考資料：</h3>
+<ul>
+<li><a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844">Introduction to Algorithms, Ch3</a> </li>
+<li><a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376">Fundamentals of Data Structures in C++, Ch1</a></li>
+<li><a href="http://bigocheatsheet.com/">Big-O Algorithm Complexity Cheat Sheet</a></li>
+<li><a href="http://program-lover.blogspot.tw/2008/10/complexity-analysis.html">Infinite Loop：複雜度分析 - Complexity Analysis</a></li>
+<li><a href="https://www.youtube.com/watch?v=i-SKeOcBwko">MyCodeSchool：Insertion sort algorithm</a></li>
+</ul>
+<p><a name="series"></a></p>
+<p></br></p>
+<h3>Complexity系列文章</h3>
+<p><a href="">Complexity：Asymptotic Notation(漸進符號)</a>  </p>
+<p>回到目錄：</p>
+<p><a href="http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html">目錄：演算法與資料結構</a></p>
+<p></br></p>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' && location_protocol !== 'https') location_protocol = 'https:';
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+    </article>
+
+        <div class="tags">
+            <p>tags: <a href="http://alrightchiu.github.io/SecondRound/tag/c.html">C++</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/intro.html">Intro</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/complexity.html">Complexity</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/big-o.html">Big-O</a>, </p>
+        </div>
+
+<hr>
+<div class="sharing">
+</div>
+    <hr>
+
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                            <li>
+                                <a href="https://github.com/alrightchiu">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                    </ul>
+<p class="copyright text-muted">
+    Blog powered by <a href="http://getpelican.com">Pelican</a>,
+    which takes great advantage of <a href="http://python.org">Python</a>.
+</p>                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="http://alrightchiu.github.io/SecondRound/theme/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="http://alrightchiu.github.io/SecondRound/theme/js/bootstrap.min.js"></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script src="http://alrightchiu.github.io/SecondRound/theme/js/clean-blog.min.js"></script>
+
+</body>
+
+</html>
