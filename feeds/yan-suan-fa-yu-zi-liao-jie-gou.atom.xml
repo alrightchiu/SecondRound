@@ -83,7 +83,7 @@
 &lt;p&gt;&lt;a name="com"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;Complexity(複雜度)&lt;/h2&gt;
 &lt;p&gt;&lt;center&gt;
-&lt;img alt="cc" src="f1.png" /&gt;&lt;/p&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Concept%20series/Complexity/Asymptotic%20Notation/f1.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖一：。&lt;/strong&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;假設某間出版社想要印書，找到一間印刷廠，廠房內共有六台機器，每台機器的工作效率分別如圖一的六個函數，橫軸表示「書的數量」，縱軸表示「需要的工作天」。&lt;/p&gt;
