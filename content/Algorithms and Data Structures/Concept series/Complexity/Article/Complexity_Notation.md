@@ -19,7 +19,7 @@ Summary: 介紹用來分析Complexity(複雜度)的Asymptotic Notation(漸進符
 
 <center>
 
-|       |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$N!$ |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$2^N$|&nbsp;&nbsp;&nbsp;&nbsp;$N^2$|&nbsp;&nbsp;$N\log{N}$|&nbsp;&nbsp;&nbsp;$N$  |&nbsp;&nbsp;$\log{N}$|
+|       |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$N!$ |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$2^N$|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$N^2$|&nbsp;&nbsp;$N\log{N}$|&nbsp;&nbsp;&nbsp;$N$  |&nbsp;&nbsp;$\log{N}$|
 |:---   |:---:|:---:|:---:|:---:|:---:|:---:|
 |$N=5$  |$120$  |$32$ |$25$|$8.05$ |$5$  |$1.6$|
 |$N=100$|&nbsp;&nbsp;&nbsp;&nbsp;$9\times10^{157}$|&nbsp;&nbsp;$1.3\times10^{30}$|&nbsp;&nbsp;$10000$|$460$ |&nbsp;&nbsp;$100$|$4.6$|
