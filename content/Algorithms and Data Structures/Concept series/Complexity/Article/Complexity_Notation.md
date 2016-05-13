@@ -134,7 +134,7 @@ Summary: 介紹用來分析Complexity(複雜度)的Asymptotic Notation(漸進符
 
 
 
-[f1]: f1.png
+[f1]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Concept%20series/Complexity/Asymptotic%20Notation/f1.png?raw=true
 [f2]: f2.png
 
 
