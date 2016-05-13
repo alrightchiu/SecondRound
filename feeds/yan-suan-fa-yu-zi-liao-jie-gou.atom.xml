@@ -69,15 +69,16 @@
 &lt;img alt="cc" src="f1.png" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖一：。&lt;/strong&gt;
 &lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
 &lt;th align="left"&gt;&lt;/th&gt;
-&lt;th align="center"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span class="math"&gt;\(N!\)&lt;/span&gt;&lt;/th&gt;
-&lt;th align="center"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span class="math"&gt;\(2^N\)&lt;/span&gt;&lt;/th&gt;
-&lt;th align="center"&gt;&lt;span class="math"&gt;\(N^2\)&lt;/span&gt;&lt;/th&gt;
+&lt;th align="center"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span class="math"&gt;\(N!\)&lt;/span&gt;&lt;/th&gt;
+&lt;th align="center"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span class="math"&gt;\(2^N\)&lt;/span&gt;&lt;/th&gt;
+&lt;th align="center"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span class="math"&gt;\(N^2\)&lt;/span&gt;&lt;/th&gt;
 &lt;th align="center"&gt;&amp;nbsp;&amp;nbsp;&lt;span class="math"&gt;\(N\log{N}\)&lt;/span&gt;&lt;/th&gt;
-&lt;th align="center"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span class="math"&gt;\(N\)&lt;/span&gt;&lt;/th&gt;
+&lt;th align="center"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span class="math"&gt;\(N\)&lt;/span&gt;&lt;/th&gt;
 &lt;th align="center"&gt;&amp;nbsp;&amp;nbsp;&lt;span class="math"&gt;\(\log{N}\)&lt;/span&gt;&lt;/th&gt;
 &lt;/tr&gt;
 &lt;/thead&gt;
@@ -102,6 +103,7 @@
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
+&lt;p&gt;&lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;// 放數據&lt;/p&gt;
 &lt;p&gt;印刷機器比較老舊，處理資料的速度&lt;/p&gt;
 &lt;p&gt;處理5本書，要120天，
