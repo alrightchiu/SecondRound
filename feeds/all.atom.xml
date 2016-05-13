@@ -76,7 +76,7 @@
 &lt;th align="left"&gt;&lt;/th&gt;
 &lt;th align="center"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span class="math"&gt;\(N!\)&lt;/span&gt;&lt;/th&gt;
 &lt;th align="center"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span class="math"&gt;\(2^N\)&lt;/span&gt;&lt;/th&gt;
-&lt;th align="center"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span class="math"&gt;\(N^2\)&lt;/span&gt;&lt;/th&gt;
+&lt;th align="center"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span class="math"&gt;\(N^2\)&lt;/span&gt;&lt;/th&gt;
 &lt;th align="center"&gt;&amp;nbsp;&amp;nbsp;&lt;span class="math"&gt;\(N\log{N}\)&lt;/span&gt;&lt;/th&gt;
 &lt;th align="center"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span class="math"&gt;\(N\)&lt;/span&gt;&lt;/th&gt;
 &lt;th align="center"&gt;&amp;nbsp;&amp;nbsp;&lt;span class="math"&gt;\(\log{N}\)&lt;/span&gt;&lt;/th&gt;
