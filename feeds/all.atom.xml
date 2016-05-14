@@ -166,7 +166,7 @@
 $$&lt;/div&gt;
 &lt;p&gt;表示&lt;span class="math"&gt;\(g(n)\)&lt;/span&gt;為&lt;span class="math"&gt;\(f(n)\)&lt;/span&gt;趨勢之「邊界」(bound)，即可使用&lt;span class="math"&gt;\(g(n)\)&lt;/span&gt;來描述&lt;span class="math"&gt;\(f(n)\)&lt;/span&gt;之趨勢，以&lt;span class="math"&gt;\(f(n)\in\Theta(g(n))\)&lt;/span&gt;表示。&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
-&lt;img alt="cc" src="f2.png" /&gt;&lt;/p&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Concept%20series/Complexity/Asymptotic%20Notation/f2.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖二：。&lt;/strong&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;舉例來說，若現有一個演算法之趨勢可以用&lt;span class="math"&gt;\(f(n)=6n+4\)&lt;/span&gt;代表，那麼以下兩個&lt;span class="math"&gt;\(g(n)\)&lt;/span&gt;都能夠在&lt;span class="math"&gt;\(\Theta(g(n))\)&lt;/span&gt;的定義下視為&lt;span class="math"&gt;\(f(n)\)&lt;/span&gt;的「邊界」：&lt;/p&gt;
