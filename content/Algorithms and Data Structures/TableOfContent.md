@@ -9,6 +9,11 @@ Summary: 請先閱讀本篇目錄。
 
 介紹演算法與資料結構的基本概念。
 
+</br>
+
+##Complexity系列文章
+
+[Complexity：Asymptotic Notation(漸進符號)](http://alrightchiu.github.io/SecondRound/complexityasymptotic-notationjian-jin-fu-hao.html)  
 
 
 </br>

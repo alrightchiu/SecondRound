@@ -1,5 +1,5 @@
 Title: Complexity：Asymptotic Notation(漸進符號)  
-Date: 2016-5-11 20:31 
+Date: 2016-5-14 17:59 
 Category: 演算法與資料結構  
 Tags: C++, Intro, Complexity, Big-O,  
 Summary: 介紹用來分析Complexity(複雜度)的Asymptotic Notation(漸進符號)。
