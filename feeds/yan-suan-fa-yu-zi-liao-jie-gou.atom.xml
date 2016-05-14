@@ -62,7 +62,192 @@
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h2&gt;Priority Queue系列文章&lt;/h2&gt;
 &lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/priority-queueintrojian-jie-binary-heap.html"&gt;Priority Queue：Intro(簡介) &amp;amp; Binary Heap&lt;/a&gt;  &lt;/p&gt;
-&lt;p&gt;&lt;/br&gt;&lt;/p&gt;</summary><category term="C++"></category></entry><entry><title>Set：以Array表示</title><link href="http://alrightchiu.github.io/SecondRound/setyi-arraybiao-shi.html" rel="alternate"></link><updated>2016-05-11T20:31:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-05-11:SecondRound/setyi-arraybiao-shi.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;</summary><category term="C++"></category></entry><entry><title>Complexity：Asymptotic Notation(漸進符號)</title><link href="http://alrightchiu.github.io/SecondRound/complexityasymptotic-notationjian-jin-fu-hao.html" rel="alternate"></link><updated>2016-05-11T20:31:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-05-11:SecondRound/complexityasymptotic-notationjian-jin-fu-hao.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;h3&gt;先備知識與注意事項&lt;/h3&gt;
+&lt;p&gt;// dominant term&lt;/p&gt;
+&lt;hr /&gt;
+&lt;h2&gt;目錄&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="#com"&gt;Complexity(複雜度)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#an"&gt;使用Asymptotic Notation的優點&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href="#tight"&gt;&lt;span class="math"&gt;\(\Theta-\)&lt;/span&gt;Notation&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#bo"&gt;&lt;span class="math"&gt;\(O-\)&lt;/span&gt;Notation，Big-O&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#bw"&gt;&lt;span class="math"&gt;\(\Omega-\)&lt;/span&gt;Notation&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#so"&gt;&lt;span class="math"&gt;\(o-\)&lt;/span&gt;Notation&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#sw"&gt;&lt;span class="math"&gt;\(\omega-\)&lt;/span&gt;Notation&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href="#ref"&gt;參考資料&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#series"&gt;Complexity系列文章&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a name="com"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;Complexity(複雜度)&lt;/h2&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Concept%20series/Complexity/Asymptotic%20Notation/f1.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖一：。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;假設某間出版社想要印書，找到一間印刷廠，廠房內共有六台機器，每台機器的工作效率分別如圖一的六個函數，橫軸表示「書的數量」，縱軸表示「需要的工作天」。&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align="left"&gt;&lt;/th&gt;
+&lt;th align="center"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;strong&gt;&lt;span class="math"&gt;\(N!\)&lt;/span&gt;&lt;/strong&gt;&lt;/th&gt;
+&lt;th align="center"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;strong&gt;&lt;span class="math"&gt;\(2^N\)&lt;/span&gt;&lt;/strong&gt;&lt;/th&gt;
+&lt;th align="center"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;strong&gt;&lt;span class="math"&gt;\(N^2\)&lt;/span&gt;&lt;/strong&gt;&lt;/th&gt;
+&lt;th align="center"&gt;&amp;nbsp;&amp;nbsp;&lt;strong&gt;&lt;span class="math"&gt;\(N\ln{N}\)&lt;/span&gt;&lt;/strong&gt;&lt;/th&gt;
+&lt;th align="center"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;strong&gt;&lt;span class="math"&gt;\(N\)&lt;/span&gt;&lt;/strong&gt;&lt;/th&gt;
+&lt;th align="center"&gt;&amp;nbsp;&amp;nbsp;&lt;strong&gt;&lt;span class="math"&gt;\(\ln{N}\)&lt;/span&gt;&lt;/strong&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align="left"&gt;&lt;span class="math"&gt;\(N=5\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(120\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(32\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(25\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(8.05\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(5\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(1.6\)&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="left"&gt;&lt;span class="math"&gt;\(N=100\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span class="math"&gt;\(9\times10^{157}\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&amp;nbsp;&amp;nbsp;&lt;span class="math"&gt;\(1.3\times10^{30}\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&amp;nbsp;&amp;nbsp;&lt;span class="math"&gt;\(10000\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(460\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&amp;nbsp;&lt;span class="math"&gt;\(100\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(4.6\)&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;strong&gt;表一：。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;根據表一可以看出，若要印&lt;span class="math"&gt;\(N=5\)&lt;/span&gt;本書：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;使用「機器&lt;strong&gt;&lt;span class="math"&gt;\(\ln{N}\)&lt;/span&gt;&lt;/strong&gt;」需要&lt;span class="math"&gt;\(1.6\)&lt;/span&gt;個工作天。&lt;/li&gt;
+&lt;li&gt;使用「機器&lt;strong&gt;&lt;span class="math"&gt;\(N^2\)&lt;/span&gt;&lt;/strong&gt;」需要&lt;span class="math"&gt;\(25\)&lt;/span&gt;個工作天；&lt;/li&gt;
+&lt;li&gt;使用「機器&lt;strong&gt;&lt;span class="math"&gt;\(N!\)&lt;/span&gt;&lt;/strong&gt;」需要&lt;span class="math"&gt;\(120\)&lt;/span&gt;個工作天；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;當問題的資料量不大時，「有效率」的機器和「沒有效率」的機器在成本消耗上可能差異不大，但是當資料量增加時，成本會變得非常可觀。&lt;/p&gt;
+&lt;p&gt;若考慮印&lt;span class="math"&gt;\(N=100\)&lt;/span&gt;本書：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;使用「機器&lt;strong&gt;&lt;span class="math"&gt;\(\ln{N}\)&lt;/span&gt;&lt;/strong&gt;」需要&lt;span class="math"&gt;\(4.6\)&lt;/span&gt;個工作天。&lt;/li&gt;
+&lt;li&gt;使用「機器&lt;strong&gt;&lt;span class="math"&gt;\(N^2\)&lt;/span&gt;&lt;/strong&gt;」需要&lt;span class="math"&gt;\(10000\)&lt;/span&gt;個工作天，大約是&lt;span class="math"&gt;\(27\)&lt;/span&gt;年；&lt;/li&gt;
+&lt;li&gt;使用「機器&lt;strong&gt;&lt;span class="math"&gt;\(N!\)&lt;/span&gt;&lt;/strong&gt;」需要&lt;span class="math"&gt;\(9\times10^{157}\)&lt;/span&gt;個工作天，是個天文數字；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;由以上可以看出：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;成本(包含運算時間與記憶體空間)，通常會和「待處理的資料量」有關，當資料量越大，成本會以某種關係(線性、指數等等，見圖一)跟著提高。&lt;/li&gt;
+&lt;li&gt;當資料量大時，演算法的效率很重要。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;而圖一中，描述每一種&lt;strong&gt;演算法&lt;/strong&gt;(一台機器代表一種&lt;strong&gt;演算法&lt;/strong&gt;)的「工作效率之函數」，就稱為此演算法之&lt;strong&gt;Complexity(複雜度)&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a name="an"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;使用Asymptotic Notation的優點&lt;/h2&gt;
+&lt;p&gt;若能得知各個演算法的&lt;strong&gt;Complexity(複雜度)&lt;/strong&gt;，便能決定哪個演算法較有效率。 &lt;/p&gt;
+&lt;p&gt;但是並非所有演算法都像&lt;a href="https://www.youtube.com/watch?v=i-SKeOcBwko"&gt;只有兩個迴圈的Insertion Sort&lt;/a&gt;那麼簡潔而容易分析，所以在評估演算法之&lt;strong&gt;Complexity(複雜度)&lt;/strong&gt;時，常使用&lt;strong&gt;Asymptotic Notation(漸進符號)&lt;/strong&gt;，其概念為：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;希望能以簡單的函數(例如：&lt;span class="math"&gt;\(N^{2}、\ln{N}\)&lt;/span&gt;等等)來描述&lt;strong&gt;Complexity(複雜度)&lt;/strong&gt;的「趨勢」，特別是針對資料量非常大的時候。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;因此，&lt;strong&gt;Asymptotic Notation(漸進符號)&lt;/strong&gt;是所有能夠描述趨勢的「函數的集合」。&lt;/p&gt;
+&lt;p&gt;以下分別介紹五個&lt;strong&gt;Asymptotic Notation(漸進符號)&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;  &lt;/p&gt;
+&lt;p&gt;&lt;a name="tight"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;&lt;span class="math"&gt;\(\Theta-\)&lt;/span&gt;Notation&lt;/h3&gt;
+&lt;div class="math"&gt;$$
+\Theta(g(n))=\{\,f(n)\,|\,\exists{c_1,c_2,n_0} \, ,\, s.t. 0\leq c_{1}g(n)\leq f(n) \leq c_{2}g(n)\, , \,\forall n\geq n_0 \}
+$$&lt;/div&gt;
+&lt;p&gt;&lt;/br&gt;    &lt;/p&gt;
+&lt;p&gt;&lt;a name="bo"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;&lt;span class="math"&gt;\(O-\)&lt;/span&gt;Notation，Big-O&lt;/h3&gt;
+&lt;p&gt;&lt;/br&gt;  &lt;/p&gt;
+&lt;p&gt;&lt;a name="bw"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;&lt;span class="math"&gt;\(\Omega-\)&lt;/span&gt;Notation&lt;/h3&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a name="so"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;&lt;span class="math"&gt;\(o-\)&lt;/span&gt;Notation&lt;/h3&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a name="sw"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;&lt;span class="math"&gt;\(\omega-\)&lt;/span&gt;Notation&lt;/h3&gt;
+&lt;p&gt;&lt;/br&gt;  &lt;/p&gt;
+&lt;p&gt;以上便是以Array表示Set之介紹。&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;&lt;a name="ref"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;參考資料：&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844"&gt;Introduction to Algorithms, Ch3&lt;/a&gt; &lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376"&gt;Fundamentals of Data Structures in C++, Ch1&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://bigocheatsheet.com/"&gt;Big-O Algorithm Complexity Cheat Sheet&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://program-lover.blogspot.tw/2008/10/complexity-analysis.html"&gt;Infinite Loop：複雜度分析 - Complexity Analysis&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://www.youtube.com/watch?v=i-SKeOcBwko"&gt;MyCodeSchool：Insertion sort algorithm&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a name="series"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;h3&gt;Complexity系列文章&lt;/h3&gt;
+&lt;p&gt;&lt;a href=""&gt;Complexity：Asymptotic Notation(漸進符號)&lt;/a&gt;  &lt;/p&gt;
+&lt;p&gt;回到目錄：&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html"&gt;目錄：演算法與資料結構&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;script type="text/javascript"&gt;if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width &lt; 768) ? "left" : align;
+        indent = (screen.width &lt; 768) ? "0em" : indent;
+        linebreak = (screen.width &lt; 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' &amp;&amp; location_protocol !== 'https') location_protocol = 'https:';
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+&lt;/script&gt;</summary><category term="C++"></category><category term="Intro"></category><category term="Complexity"></category><category term="Big-O"></category></entry><entry><title>Set：以Array表示</title><link href="http://alrightchiu.github.io/SecondRound/setyi-arraybiao-shi.html" rel="alternate"></link><updated>2016-05-11T20:31:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-05-11:SecondRound/setyi-arraybiao-shi.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h3&gt;先備知識與注意事項&lt;/h3&gt;
 &lt;p&gt;Sequense(序列)是一組「順序有意義」的資料，例如暢銷排行榜的名次，或者到郵局等候時領的號碼牌。&lt;/p&gt;
 &lt;p&gt;而Set(集合)是「順序沒有意義」的資料，例如某堂課的期末報告要分組時，組員之間不會有「順序」的差別(但是可能會有「小隊長」)，又或者買樂透時，哪個號碼「先對中」並不影響最後的中獎結果。&lt;/p&gt;
