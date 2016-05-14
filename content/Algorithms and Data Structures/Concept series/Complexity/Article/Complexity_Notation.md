@@ -107,7 +107,7 @@ Summary: 介紹用來分析Complexity(複雜度)的Asymptotic Notation(漸進符
 
 
 $$
-\Theta(g(n))=\{\,f(n)\,|\,\exists{c_1,c_2,n_0} \, ,\, s.t. 0\leq c_{1}g(n)\leq f(n) \leq c_{2}g(n)\, , \,\forall n\geq n_0 \}
+\Theta(g(n))=\{\,f(n)\,|\,there\:exist\:positive\:c_1,c_2\:and\:n_0 \, ,\, s.t. 0\leq c_{1}g(n)\leq f(n) \leq c_{2}g(n)\, , \,for \: all\: n\geq n_0 \}
 $$
 
 
