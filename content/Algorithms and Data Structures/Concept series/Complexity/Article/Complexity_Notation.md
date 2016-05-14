@@ -89,7 +89,7 @@ Summary: 介紹用來分析Complexity(複雜度)的Asymptotic Notation(漸進符
  
 但是並非所有演算法都像[只有兩個迴圈的Insertion Sort](https://www.youtube.com/watch?v=i-SKeOcBwko)那麼簡潔而容易分析，所以在評估演算法之**Complexity(複雜度)**時，常使用**Asymptotic Notation(漸進符號)**，其概念為：
 
-* 希望能以簡單的函數(例如：$N^{2}、\ln{N}$等等)來描述**Complexity(複雜度)**的「趨勢」，特別是針對資料量非常大的時候。
+* 希望能以「簡單的函數」(例如：$N^{2}、\ln{N}$等等)來描述**Complexity(複雜度)**的「趨勢」，特別是針對資料量非常大的時候。
 
 以下分別介紹五個**Asymptotic Notation(漸進符號)**。
 
@@ -135,20 +135,22 @@ $$
 
 根據定義，既然係數($c_{1},c_{2}$)可以任選，那麼以上兩個$g(n)$函數其實可以把係數都提到$c_{1},c_{2}$裡，以同一個函數：$g(n)=n$表示即可。  
 
-因此，若一個演算法之「趨勢」為$f(n)=6n+4$，那麼其複雜度即為$\Theta(n)$，可以表示成：
+* 由此可以確認，$\Theta(g(n))$是多個函數的「集合」。
+
+若一個演算法之「趨勢」為$f(n)=6n+4$，那麼其複雜度即為$\Theta(n)$，可以表示成：
 
 * $f(n)\in\Theta(n)$，或者
 * $f(n)=\Theta(n)$。
 
   
-以上情況可以推廣至所有的**多項式(polynomial)**，以$f(n)=3n^{3}+4n^{2}+5$為例，當$n$越來越大時，對$f(n)$之趨勢具有決定性影響力的是「最高次項」，此例為「三次方項」，所以，$f(n)$的複雜度為$\Theta(n^{3})$(係數拿進$c_{1},c_{2}$)，以
+以上情況可以推廣至所有的**多項式(polynomial)**，以$f(n)=3n^{3}+4n^{2}+5$為例，當$n$越來越大時，對$f(n)$之趨勢具有決定性影響力的是「最高次項」，此例為「三次方項」，所以，$f(n)$的複雜度為$\Theta(n^{3})$，將係數拿進$c_{1},c_{2}$，便以
 
 * $f(n)\in\Theta(n^{3})$，或者
 * $f(n)=\Theta(n^{3})$表示。
 
 </br>  
 
-Big-Theta($\Theta(·)$)是同時找到$f(n)$的「上界」與「下界」，像是三明治一樣把$f(n)$夾住。  
+**Big-Theta($\Theta(·)$)**是同時找到$f(n)$的「上界(upper bound)」與「下界(lower bound)」，像是三明治一樣把$f(n)$夾住。  
 
 若把「上界」與「下界」分開來看，就是下面要介紹的**Big-O**與**Big-Omega**。
 
@@ -159,6 +161,34 @@ Big-Theta($\Theta(·)$)是同時找到$f(n)$的「上界」與「下界」，像
 
 ###$O-$Notation，Big-O
 
+一般談論的演算法之複雜度，經常是指**Big-O**，因為在估算成本時，最想知道的是「上界(upper bound)」，以[第一小節的範例](#com)來說，就是要知道印$N$本書，每台機器「最久」要花多少時間。
+
+**Big-O**定義如下：
+
+$$
+O(g(n))=\{\,f(n)：存在正整數\:c,n_0 \,,並且對於所有n\geq n_0,\,滿足 0\leq f(n) \leq cg(n)\:\}
+$$
+
+根據定義，可以將**Big-O**視為**Big-Theta($\Theta(·)$)**的「上半部」，其以「簡單函數$g(n)$」描述$f(n)$在資料量夠大時，「最多」會達到怎麼樣的趨勢。
+
+
+<center>
+![cc][f3]
+
+**圖三：。**
+</center>
+
+繼續以$f(n)=6n+4$為例，若選$g(n)=n,c=7,n_{0}=4$，即可滿足：
+
+* $0\leq 6n+4 \leq 7n \,, \forall n\geq 4$，見圖三。
+* 表示$f(n)$之「上界」趨勢能夠以$g(n)=7n$描述。
+
+同樣的，把係數放進正整數$c$裡面，$f(n)$之複雜度在**Big-O**的定義下，可以用簡單函數$g(n)=n$表示：
+
+* $f(n)\in O(n)$，或者
+* $f(n)=O(n)$。
+
+
 
 
 </br>  
@@ -167,6 +197,24 @@ Big-Theta($\Theta(·)$)是同時找到$f(n)$的「上界」與「下界」，像
 
 ###$\Omega-$Notation，Big-Omega
 
+若想知道某個演算法「至少」需要多少時間時，便可以**Big-Omega**來估算「下界(lower bound)」。
+
+**Big-Omega**的定義如下：
+
+$$
+\Omega(g(n))=\{\,f(n)：存在正整數\:c,n_0 \,,並且對於所有n\geq n_0,\,滿足 0\leq  cg(n) \leq f(n)\:\}
+$$
+
+**Big-Omega**可以視為**Big-Theta($\Theta(·)$)**的「下半部」，其以「簡單函數$g(n)$」描述$f(n)$在資料量夠大時，「至少」會達到怎麼樣的趨勢。
+
+繼續以$f(n)=6n+4$為例，$f(n)$之複雜度在**Big-Omega**的定義下，可以用簡單函數$g(n)=n$表示：
+
+* $f(n)\in \Omega(n)$，或者
+* $f(n)=\Omega(n)$。
+
+
+</br>  
+以上介紹的**Big-O($O(·)$)**與**Big-Omega($\Omega(·)$)**是夾得「比較緊的(tight)」上界和下界，接下來還有兩個符號：**Littel-o($o(·)$)**與**Littel-omega($\omega(·)$)**，表示「沒有那麼緊的」上下界。
 
 
 </br>
@@ -175,6 +223,27 @@ Big-Theta($\Theta(·)$)是同時找到$f(n)$的「上界」與「下界」，像
 
 ###$o-$Notation，Littel-o
 
+**Littel-o($o(·)$)**的定義如下：
+
+$$
+o(g(n))=\{\,f(n)：對於所有正整數\:c,存在正整數\:n_0\,,使得對於所有n\geq n_0,\, 0\leq f(n) \leq cg(n)\:\}
+$$
+
+怎麼說**Littel-o($o(·)$)**比較「不緊」呢？因為定義中是「對於所有正整數$c$」，因此$f(n)=o(g(n))$務必要求$g(n)$的「成長率」遠遠大於$f(n)$，等同於滿足以下極限關係式：
+
+$$
+\lim_{n->\infty}\frac{f(n)}{g(n)}=0
+$$
+
+
+比較**Big-O($O(·)$)**與**Littel-o($o(·)$)**：
+
+* $2n=o(n^{2})$
+* $2n=O(n)$
+* $2n^{2}=o(n!)$
+* $2n^{2}=O(n^{2})$
+
+
 
 </br>
 
@@ -182,11 +251,33 @@ Big-Theta($\Theta(·)$)是同時找到$f(n)$的「上界」與「下界」，像
 
 ###$\omega-$Notation，Littel-omega
 
+**Littel-omega($\omega(·)$)**的定義如下：
+
+$$
+\omega(g(n))=\{\,f(n)：對於所有正整數\:c,存在正整數\:n_0\,,使得對於所有n\geq n_0,\, 0\leq  cg(n) \leq f(n)\:\}
+$$
+
+同理，$f(n)=\omega(g(n))$要求$g(n)$的「成長率」遠遠小於$f(n)$，等同於滿足以下極限關係式：
+
+$$
+\lim_{n->\infty}\frac{f(n)}{g(n)}=\infty
+$$
+
+比較**Big-Omega($\Omega(·)$)**與**Littel-omega($\omega(·)$)**：
+
+* $4n^{2}=\omega(n)$
+* $4n^{2}=\omega(\log{n})$
+* $4n^{2}=\Omega(n^{2})$
 
 
 
 [f1]: f1.png
 [f2]: f2.png
+[f3]: f3.png
+
+
+
+
 
 
 
@@ -194,7 +285,7 @@ Big-Theta($\Theta(·)$)是同時找到$f(n)$的「上界」與「下界」，像
 
 
  
-以上便是以Array表示Set之介紹。
+以上便是演算法之**Complexity(複雜度)**以及經常使用的**Asymptotic Notation(漸進符號)**之介紹。
 
 
 </br>
@@ -207,6 +298,7 @@ Big-Theta($\Theta(·)$)是同時找到$f(n)$的「上界」與「下界」，像
 
 * [Introduction to Algorithms, Ch3](http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844) 
 * [Fundamentals of Data Structures in C++, Ch1](http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376)
+* [KhanAcademy：Asymptotic notation](https://www.khanacademy.org/computing/computer-science/algorithms/asymptotic-notation/a/asymptotic-notation)
 * [Big-O Algorithm Complexity Cheat Sheet](http://bigocheatsheet.com/)
 * [Infinite Loop：複雜度分析 - Complexity Analysis](http://program-lover.blogspot.tw/2008/10/complexity-analysis.html)
 * [MyCodeSchool：Insertion sort algorithm](https://www.youtube.com/watch?v=i-SKeOcBwko)
