@@ -2,6 +2,9 @@
 <feed xmlns="http://www.w3.org/2005/Atom"><title>Second Round</title><link href="http://alrightchiu.github.io/SecondRound/" rel="alternate"></link><link href="http://alrightchiu.github.io/SecondRound/feeds/all.atom.xml" rel="self"></link><id>http://alrightchiu.github.io/SecondRound/</id><updated>2099-12-31T23:59:00+08:00</updated><entry><title>目錄：演算法與資料結構</title><link href="http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html" rel="alternate"></link><updated>2099-12-31T23:59:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2099-12-31:SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html</id><summary type="html">&lt;h2&gt;演算法與資料結構&lt;/h2&gt;
 &lt;p&gt;介紹演算法與資料結構的基本概念。&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;h2&gt;Complexity系列文章&lt;/h2&gt;
+&lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/complexityasymptotic-notationjian-jin-fu-hao.html"&gt;Complexity：Asymptotic Notation(漸進符號)&lt;/a&gt;  &lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h2&gt;基本資料結構系列文章&lt;/h2&gt;
 &lt;h3&gt;Linked List&lt;/h3&gt;
 &lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/linked-list-introjian-jie.html"&gt;Linked List: Intro(簡介)&lt;/a&gt;&lt;br /&gt;
@@ -62,7 +65,7 @@
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h2&gt;Priority Queue系列文章&lt;/h2&gt;
 &lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/priority-queueintrojian-jie-binary-heap.html"&gt;Priority Queue：Intro(簡介) &amp;amp; Binary Heap&lt;/a&gt;  &lt;/p&gt;
-&lt;p&gt;&lt;/br&gt;&lt;/p&gt;</summary><category term="C++"></category></entry><entry><title>Complexity：Asymptotic Notation(漸進符號)</title><link href="http://alrightchiu.github.io/SecondRound/complexityasymptotic-notationjian-jin-fu-hao.html" rel="alternate"></link><updated>2016-05-11T20:31:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-05-11:SecondRound/complexityasymptotic-notationjian-jin-fu-hao.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;</summary><category term="C++"></category></entry><entry><title>Complexity：Asymptotic Notation(漸進符號)</title><link href="http://alrightchiu.github.io/SecondRound/complexityasymptotic-notationjian-jin-fu-hao.html" rel="alternate"></link><updated>2016-05-14T17:59:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-05-14:SecondRound/complexityasymptotic-notationjian-jin-fu-hao.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h3&gt;先備知識與注意事項&lt;/h3&gt;
 &lt;p&gt;本篇文章將介紹&lt;strong&gt;Complexity(複雜度)&lt;/strong&gt;，以及用來分析&lt;strong&gt;Complexity(複雜度)&lt;/strong&gt;的&lt;strong&gt;Asymptotic Notation(漸進符號)&lt;/strong&gt;。&lt;/p&gt;
 &lt;hr /&gt;
