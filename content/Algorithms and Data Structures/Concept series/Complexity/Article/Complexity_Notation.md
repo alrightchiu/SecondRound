@@ -20,11 +20,11 @@ Summary: 介紹用來分析Complexity(複雜度)的Asymptotic Notation(漸進符
 
 * [Complexity(複雜度)](#com)
 * [使用Asymptotic Notation的優點](#an)
-    * [$\Theta-$Notation](#tight)
+    * [$\Theta-$Notation，Big-Theta](#tight)
     * [$O-$Notation，Big-O](#bo)
-    * [$\Omega-$Notation](#bw)
-    * [$o-$Notation](#so)
-    * [$\omega-$Notation](#sw)
+    * [$\Omega-$Notation，Big-Omega](#bw)
+    * [$o-$Notation，Littel-O](#so)
+    * [$\omega-$Notation，Littel-Omega](#sw)
 * [參考資料](#ref)
 * [Complexity系列文章](#series)
 
@@ -69,7 +69,7 @@ Summary: 介紹用來分析Complexity(複雜度)的Asymptotic Notation(漸進符
 * 使用「機器**$N^2$**」需要$10000$個工作天，大約是$27$年；
 * 使用「機器**$N!$**」需要$9\times10^{157}$個工作天，是個天文數字；
 
-由以上可以看出：
+根據以上描述：
 
 1. 成本(包含運算時間與記憶體空間)，通常會和「待處理的資料量」有關，當資料量越大，成本會以某種關係(線性、指數等等，見圖一)跟著提高。
 2. 當資料量大時，演算法的效率很重要。
@@ -98,7 +98,7 @@ Summary: 介紹用來分析Complexity(複雜度)的Asymptotic Notation(漸進符
 
 <a name="tight"></a>
 
-###$\Theta-$Notation
+###$\Theta-$Notation，Big-Theta
 
 
 **Asymptotic Notation(漸進符號)**是所有能夠描述演算法趨勢的「函數之集合」，給定：
@@ -112,7 +112,7 @@ $$
 \Theta(g(n))=\{\,f(n)：存在正整數\:c_1,c_2,n_0 \,,並且對於所有n\geq n_0,\,滿足 0\leq c_{1}g(n)\leq f(n) \leq c_{2}g(n)\:\}
 $$
 
-表示$g(n)$為$f(n)$趨勢之「邊界」(bound)，即可使用$g(n)$來描述$f(n)$之趨勢，以$f(n)\in\Theta(g(n))$表示。
+表示$g(n)$為$f(n)$趨勢之「邊界」(bound)，即可使用$g(n)$來描述$f(n)$之趨勢，以$f(n)\in\Theta(g(n))$表示(也會看到$f(n)=\Theta(g(n))$，但切記，$\Theta(g(n))$是一個集合)。
 
 
 <center>
@@ -133,12 +133,24 @@ $$
     同理，當資料量$n\geq 1$，$f(n)=6n+4$的值往上不會超過$10n$，往下不會低於$5n$。
 
 
-根據定義，既然係數($c_{1},c_{2}$)可以任選，那麼以上兩個$g(n)$函數其實可以視為同一個函數：$g(n)=n$。  
+根據定義，既然係數($c_{1},c_{2}$)可以任選，那麼以上兩個$g(n)$函數其實可以把係數都提到$c_{1},c_{2}$裡，以同一個函數：$g(n)=n$表示即可。  
+
 因此，若一個演算法之「趨勢」為$f(n)=6n+4$，那麼其複雜度即為$\Theta(n)$，可以表示成：
 
 * $f(n)\in\Theta(n)$，或者
 * $f(n)=\Theta(n)$。
 
+  
+以上情況可以推廣至所有的**多項式(polynomial)**，以$f(n)=3n^{3}+4n^{2}+5$為例，當$n$越來越大時，對$f(n)$之趨勢具有決定性影響力的是「最高次項」，此例為「三次方項」，所以，$f(n)$的複雜度為$\Theta(n^{3})$(係數拿進$c_{1},c_{2}$)，以
+
+* $f(n)\in\Theta(n^{3})$，或者
+* $f(n)=\Theta(n^{3})$表示。
+
+</br>  
+
+Big-Theta($\Theta(·)$)是同時找到$f(n)$的「上界」與「下界」，像是三明治一樣把$f(n)$夾住。  
+
+若把「上界」與「下界」分開來看，就是下面要介紹的**Big-O**與**Big-Omega**。
 
 
 </br>    
@@ -153,7 +165,7 @@ $$
 
 <a name="bw"></a>
 
-###$\Omega-$Notation
+###$\Omega-$Notation，Big-Omega
 
 
 
@@ -161,20 +173,20 @@ $$
 
 <a name="so"></a>
 
-###$o-$Notation
+###$o-$Notation，Littel-o
 
 
 </br>
 
 <a name="sw"></a>
 
-###$\omega-$Notation
+###$\omega-$Notation，Littel-omega
 
 
 
 
-[f1]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Concept%20series/Complexity/Asymptotic%20Notation/f1.png?raw=true
-[f2]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Concept%20series/Complexity/Asymptotic%20Notation/f2.png?raw=true
+[f1]: f1.png
+[f2]: f2.png
 
 
 
