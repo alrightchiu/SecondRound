@@ -64,7 +64,7 @@
 &lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/priority-queueintrojian-jie-binary-heap.html"&gt;Priority Queue：Intro(簡介) &amp;amp; Binary Heap&lt;/a&gt;  &lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;</summary><category term="C++"></category></entry><entry><title>Complexity：Asymptotic Notation(漸進符號)</title><link href="http://alrightchiu.github.io/SecondRound/complexityasymptotic-notationjian-jin-fu-hao.html" rel="alternate"></link><updated>2016-05-11T20:31:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-05-11:SecondRound/complexityasymptotic-notationjian-jin-fu-hao.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h3&gt;先備知識與注意事項&lt;/h3&gt;
-&lt;p&gt;// dominant term&lt;/p&gt;
+&lt;p&gt;本篇文章將介紹&lt;strong&gt;Complexity(複雜度)&lt;/strong&gt;，以及用來分析&lt;strong&gt;Complexity(複雜度)&lt;/strong&gt;的&lt;strong&gt;Asymptotic Notation(漸進符號)&lt;/strong&gt;。&lt;/p&gt;
 &lt;hr /&gt;
 &lt;h2&gt;目錄&lt;/h2&gt;
 &lt;ul&gt;
@@ -84,7 +84,7 @@
 &lt;p&gt;&lt;a name="com"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;Complexity(複雜度)&lt;/h2&gt;
 &lt;p&gt;&lt;center&gt;
-&lt;img alt="cc" src="f1.png" /&gt;&lt;/p&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Concept%20series/Complexity/Asymptotic%20Notation/f1.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖一：。&lt;/strong&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;假設某間出版社想要印書，找到一間印刷廠，廠房內共有六台機器，每台機器的工作效率分別如圖一的六個函數，橫軸表示「書的數量」，縱軸表示「需要的工作天」。&lt;/p&gt;
@@ -166,7 +166,7 @@
 $$&lt;/div&gt;
 &lt;p&gt;表示&lt;span class="math"&gt;\(g(n)\)&lt;/span&gt;為&lt;span class="math"&gt;\(f(n)\)&lt;/span&gt;趨勢之「邊界」(bound)，即可使用&lt;span class="math"&gt;\(g(n)\)&lt;/span&gt;來描述&lt;span class="math"&gt;\(f(n)\)&lt;/span&gt;之趨勢，以&lt;span class="math"&gt;\(f(n)\in\Theta(g(n))\)&lt;/span&gt;表示(也會看到&lt;span class="math"&gt;\(f(n)=\Theta(g(n))\)&lt;/span&gt;，但切記，&lt;span class="math"&gt;\(\Theta(g(n))\)&lt;/span&gt;是一個集合)。&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
-&lt;img alt="cc" src="f2.png" /&gt;&lt;/p&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Concept%20series/Complexity/Asymptotic%20Notation/f2.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖二：。&lt;/strong&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;舉例來說，若現有一個演算法之趨勢可以用&lt;span class="math"&gt;\(f(n)=6n+4\)&lt;/span&gt;代表，那麼以下兩個&lt;span class="math"&gt;\(g(n)\)&lt;/span&gt;都能夠在&lt;span class="math"&gt;\(\Theta(g(n))\)&lt;/span&gt;的定義下視為&lt;span class="math"&gt;\(f(n)\)&lt;/span&gt;的「邊界」：&lt;/p&gt;
@@ -213,7 +213,7 @@ O(g(n))=\{\,f(n)：存在正整數\:c,n_0 \,,並且對於所有n\geq n_0,\,滿�
 $$&lt;/div&gt;
 &lt;p&gt;根據定義，可以將&lt;strong&gt;Big-O&lt;/strong&gt;視為&lt;strong&gt;Big-Theta(&lt;span class="math"&gt;\(\Theta(·)\)&lt;/span&gt;)&lt;/strong&gt;的「上半部」，其以「簡單函數&lt;span class="math"&gt;\(g(n)\)&lt;/span&gt;」描述&lt;span class="math"&gt;\(f(n)\)&lt;/span&gt;在資料量夠大時，「最多」會達到怎麼樣的趨勢。&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
-&lt;img alt="cc" src="f3.png" /&gt;&lt;/p&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Concept%20series/Complexity/Asymptotic%20Notation/f3.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖三：。&lt;/strong&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;繼續以&lt;span class="math"&gt;\(f(n)=6n+4\)&lt;/span&gt;為例，若選&lt;span class="math"&gt;\(g(n)=n,c=7,n_{0}=4\)&lt;/span&gt;，即可滿足：&lt;/p&gt;
@@ -294,7 +294,7 @@ $$&lt;/div&gt;
 &lt;p&gt;&lt;a name="series"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h3&gt;Complexity系列文章&lt;/h3&gt;
-&lt;p&gt;&lt;a href=""&gt;Complexity：Asymptotic Notation(漸進符號)&lt;/a&gt;  &lt;/p&gt;
+&lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/complexityasymptotic-notationjian-jin-fu-hao.html"&gt;Complexity：Asymptotic Notation(漸進符號)&lt;/a&gt;  &lt;/p&gt;
 &lt;p&gt;回到目錄：&lt;/p&gt;
 &lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html"&gt;目錄：演算法與資料結構&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;

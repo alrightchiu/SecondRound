@@ -113,7 +113,7 @@
     <article>
         <p></br></p>
 <h3>先備知識與注意事項</h3>
-<p>// dominant term</p>
+<p>本篇文章將介紹<strong>Complexity(複雜度)</strong>，以及用來分析<strong>Complexity(複雜度)</strong>的<strong>Asymptotic Notation(漸進符號)</strong>。</p>
 <hr />
 <h2>目錄</h2>
 <ul>
@@ -133,7 +133,7 @@
 <p><a name="com"></a></p>
 <h2>Complexity(複雜度)</h2>
 <p><center>
-<img alt="cc" src="f1.png" /></p>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Concept%20series/Complexity/Asymptotic%20Notation/f1.png?raw=true" /></p>
 <p><strong>圖一：。</strong>
 </center></p>
 <p>假設某間出版社想要印書，找到一間印刷廠，廠房內共有六台機器，每台機器的工作效率分別如圖一的六個函數，橫軸表示「書的數量」，縱軸表示「需要的工作天」。</p>
@@ -215,7 +215,7 @@
 $$</div>
 <p>表示<span class="math">\(g(n)\)</span>為<span class="math">\(f(n)\)</span>趨勢之「邊界」(bound)，即可使用<span class="math">\(g(n)\)</span>來描述<span class="math">\(f(n)\)</span>之趨勢，以<span class="math">\(f(n)\in\Theta(g(n))\)</span>表示(也會看到<span class="math">\(f(n)=\Theta(g(n))\)</span>，但切記，<span class="math">\(\Theta(g(n))\)</span>是一個集合)。</p>
 <p><center>
-<img alt="cc" src="f2.png" /></p>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Concept%20series/Complexity/Asymptotic%20Notation/f2.png?raw=true" /></p>
 <p><strong>圖二：。</strong>
 </center></p>
 <p>舉例來說，若現有一個演算法之趨勢可以用<span class="math">\(f(n)=6n+4\)</span>代表，那麼以下兩個<span class="math">\(g(n)\)</span>都能夠在<span class="math">\(\Theta(g(n))\)</span>的定義下視為<span class="math">\(f(n)\)</span>的「邊界」：</p>
@@ -262,7 +262,7 @@ O(g(n))=\{\,f(n)：存在正整數\:c,n_0 \,,並且對於所有n\geq n_0,\,滿�
 $$</div>
 <p>根據定義，可以將<strong>Big-O</strong>視為<strong>Big-Theta(<span class="math">\(\Theta(·)\)</span>)</strong>的「上半部」，其以「簡單函數<span class="math">\(g(n)\)</span>」描述<span class="math">\(f(n)\)</span>在資料量夠大時，「最多」會達到怎麼樣的趨勢。</p>
 <p><center>
-<img alt="cc" src="f3.png" /></p>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Concept%20series/Complexity/Asymptotic%20Notation/f3.png?raw=true" /></p>
 <p><strong>圖三：。</strong>
 </center></p>
 <p>繼續以<span class="math">\(f(n)=6n+4\)</span>為例，若選<span class="math">\(g(n)=n,c=7,n_{0}=4\)</span>，即可滿足：</p>
@@ -343,7 +343,7 @@ $$</div>
 <p><a name="series"></a></p>
 <p></br></p>
 <h3>Complexity系列文章</h3>
-<p><a href="">Complexity：Asymptotic Notation(漸進符號)</a>  </p>
+<p><a href="http://alrightchiu.github.io/SecondRound/complexityasymptotic-notationjian-jin-fu-hao.html">Complexity：Asymptotic Notation(漸進符號)</a>  </p>
 <p>回到目錄：</p>
 <p><a href="http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html">目錄：演算法與資料結構</a></p>
 <p></br></p>
