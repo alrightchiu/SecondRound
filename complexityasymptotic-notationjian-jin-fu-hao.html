@@ -171,7 +171,7 @@
 </tr>
 </tbody>
 </table>
-<p><strong>表一：。</strong>
+<p><strong>表一</strong>
 </center></p>
 <p>根據表一可以看出，若要印<span class="math">\(N=5\)</span>本書：</p>
 <ul>
@@ -200,14 +200,35 @@
 <ul>
 <li>希望能以簡單的函數(例如：<span class="math">\(N^{2}、\ln{N}\)</span>等等)來描述<strong>Complexity(複雜度)</strong>的「趨勢」，特別是針對資料量非常大的時候。</li>
 </ul>
-<p>因此，<strong>Asymptotic Notation(漸進符號)</strong>是所有能夠描述趨勢的「函數的集合」。</p>
 <p>以下分別介紹五個<strong>Asymptotic Notation(漸進符號)</strong>。</p>
 <p></br>  </p>
 <p><a name="tight"></a></p>
 <h3><span class="math">\(\Theta-\)</span>Notation</h3>
+<p><strong>Asymptotic Notation(漸進符號)</strong>是所有能夠描述演算法趨勢的「函數之集合」，給定：</p>
+<ul>
+<li>非負函數<span class="math">\(f(n)\)</span>：描述演算法之趨勢，也就是Complexity(複雜度)。</li>
+<li>非負函數<span class="math">\(g(n)\)</span>：簡單函數。</li>
+</ul>
+<p>那麼，若滿足以下定義：</p>
 <div class="math">$$
 \Theta(g(n))=\{\,f(n)：存在正整數\:c_1,c_2,n_0 \,,並且對於所有n\geq n_0,\,滿足 0\leq c_{1}g(n)\leq f(n) \leq c_{2}g(n)\:\}
 $$</div>
+<p>表示<span class="math">\(g(n)\)</span>為<span class="math">\(f(n)\)</span>趨勢之「邊界」(tight bound)，即可使用<span class="math">\(g(n)\)</span>來描述<span class="math">\(f(n)\)</span>之趨勢，以<span class="math">\(f(n)\in \Theta(g(n))\)</span>表示。</p>
+<p>舉例來說，若現有一個演算法之趨勢可以用<span class="math">\(f(n)=7n+4\)</span>代表，那麼以下兩個<span class="math">\(g(n)\)</span>都能夠在<span class="math">\(\Theta(g(n))\)</span>的定義下視為<span class="math">\(f(n)\)</span>的「邊界」：</p>
+<ol>
+<li>若<span class="math">\(g(n)=2n\)</span>，取<span class="math">\(c_{1}=1,c_{2}=4,n_{0}=4\)</span>，則滿足：<ul>
+<li><span class="math">\(0\leq 1(2n)\leq 7n+4 \leq 4(2n) \,, \forall n\geq 4\)</span>，見圖二左。   </li>
+</ul>
+</li>
+<li>若<span class="math">\(g(n)=3n\)</span>，取<span class="math">\(c_{1}=2,c_{2}=3,n_{0}=2\)</span>，則滿足：<ul>
+<li><span class="math">\(0\leq 2(3n)\leq 7n+4 \leq 3(3n) \,, \forall n\geq 2\)</span>，見圖二右。 </li>
+</ul>
+</li>
+</ol>
+<p><center>
+<img alt="cc" src="f2.png" /></p>
+<p><strong>圖二：。</strong>
+</center></p>
 <p></br>    </p>
 <p><a name="bo"></a></p>
 <h3><span class="math">\(O-\)</span>Notation，Big-O</h3>
