@@ -174,7 +174,7 @@ $$
 
 
 [f1]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Concept%20series/Complexity/Asymptotic%20Notation/f1.png?raw=true
-[f2]: f2.png
+[f2]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Concept%20series/Complexity/Asymptotic%20Notation/f2.png?raw=true
 
 
 
