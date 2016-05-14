@@ -186,7 +186,10 @@ $$
 * $f(n)\in O(n)$，或者
 * $f(n)=O(n)$。
 
+再多看幾個例子：
 
+* 若$f(n)=6n^{3}+5n^{2}-4n\log{n}+3$，那麼此函數之複雜度為$f(n)=O(n^{3})$。
+* 若$f(n)=2$，此函數之複雜度為**$f(n)=O(1)$**，表示此演算法之效率「與資料量多寡無關」，又稱為**常數時間(constant time)**的複雜度。
 
 
 </br>  
@@ -284,6 +287,12 @@ $$
 
  
 以上便是演算法之**Complexity(複雜度)**以及經常使用的**Asymptotic Notation(漸進符號)**之介紹。
+
+各個常見演算法的時間複雜度(**Big-O**)可以參考：
+
+* [Big-O Algorithm Complexity Cheat Sheet](http://bigocheatsheet.com/)
+
+
 
 
 </br>
