@@ -149,7 +149,7 @@
 &lt;p&gt;若能得知各個演算法的&lt;strong&gt;Complexity(複雜度)&lt;/strong&gt;，便能決定哪個演算法較有效率。 &lt;/p&gt;
 &lt;p&gt;但是並非所有演算法都像&lt;a href="https://www.youtube.com/watch?v=i-SKeOcBwko"&gt;只有兩個迴圈的Insertion Sort&lt;/a&gt;那麼簡潔而容易分析，所以在評估演算法之&lt;strong&gt;Complexity(複雜度)&lt;/strong&gt;時，常使用&lt;strong&gt;Asymptotic Notation(漸進符號)&lt;/strong&gt;，其概念為：&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;希望能以簡單的函數(例如：&lt;span class="math"&gt;\(N^{2}、\ln{N}\)&lt;/span&gt;等等)來描述&lt;strong&gt;Complexity(複雜度)&lt;/strong&gt;的「趨勢」，特別是針對資料量非常大的時候。&lt;/li&gt;
+&lt;li&gt;希望能以「簡單的函數」(例如：&lt;span class="math"&gt;\(N^{2}、\ln{N}\)&lt;/span&gt;等等)來描述&lt;strong&gt;Complexity(複雜度)&lt;/strong&gt;的「趨勢」，特別是針對資料量非常大的時候。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;以下分別介紹五個&lt;strong&gt;Asymptotic Notation(漸進符號)&lt;/strong&gt;。&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;  &lt;/p&gt;
@@ -187,33 +187,98 @@ $$&lt;/div&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;根據定義，既然係數(&lt;span class="math"&gt;\(c_{1},c_{2}\)&lt;/span&gt;)可以任選，那麼以上兩個&lt;span class="math"&gt;\(g(n)\)&lt;/span&gt;函數其實可以把係數都提到&lt;span class="math"&gt;\(c_{1},c_{2}\)&lt;/span&gt;裡，以同一個函數：&lt;span class="math"&gt;\(g(n)=n\)&lt;/span&gt;表示即可。  &lt;/p&gt;
-&lt;p&gt;因此，若一個演算法之「趨勢」為&lt;span class="math"&gt;\(f(n)=6n+4\)&lt;/span&gt;，那麼其複雜度即為&lt;span class="math"&gt;\(\Theta(n)\)&lt;/span&gt;，可以表示成：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;由此可以確認，&lt;span class="math"&gt;\(\Theta(g(n))\)&lt;/span&gt;是多個函數的「集合」。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;若一個演算法之「趨勢」為&lt;span class="math"&gt;\(f(n)=6n+4\)&lt;/span&gt;，那麼其複雜度即為&lt;span class="math"&gt;\(\Theta(n)\)&lt;/span&gt;，可以表示成：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;span class="math"&gt;\(f(n)\in\Theta(n)\)&lt;/span&gt;，或者&lt;/li&gt;
 &lt;li&gt;&lt;span class="math"&gt;\(f(n)=\Theta(n)\)&lt;/span&gt;。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;以上情況可以推廣至所有的&lt;strong&gt;多項式(polynomial)&lt;/strong&gt;，以&lt;span class="math"&gt;\(f(n)=3n^{3}+4n^{2}+5\)&lt;/span&gt;為例，當&lt;span class="math"&gt;\(n\)&lt;/span&gt;越來越大時，對&lt;span class="math"&gt;\(f(n)\)&lt;/span&gt;之趨勢具有決定性影響力的是「最高次項」，此例為「三次方項」，所以，&lt;span class="math"&gt;\(f(n)\)&lt;/span&gt;的複雜度為&lt;span class="math"&gt;\(\Theta(n^{3})\)&lt;/span&gt;(係數拿進&lt;span class="math"&gt;\(c_{1},c_{2}\)&lt;/span&gt;)，以&lt;/p&gt;
+&lt;p&gt;以上情況可以推廣至所有的&lt;strong&gt;多項式(polynomial)&lt;/strong&gt;，以&lt;span class="math"&gt;\(f(n)=3n^{3}+4n^{2}+5\)&lt;/span&gt;為例，當&lt;span class="math"&gt;\(n\)&lt;/span&gt;越來越大時，對&lt;span class="math"&gt;\(f(n)\)&lt;/span&gt;之趨勢具有決定性影響力的是「最高次項」，此例為「三次方項」，所以，&lt;span class="math"&gt;\(f(n)\)&lt;/span&gt;的複雜度為&lt;span class="math"&gt;\(\Theta(n^{3})\)&lt;/span&gt;，將係數拿進&lt;span class="math"&gt;\(c_{1},c_{2}\)&lt;/span&gt;，便以&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;span class="math"&gt;\(f(n)\in\Theta(n^{3})\)&lt;/span&gt;，或者&lt;/li&gt;
 &lt;li&gt;&lt;span class="math"&gt;\(f(n)=\Theta(n^{3})\)&lt;/span&gt;表示。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;/br&gt;  &lt;/p&gt;
-&lt;p&gt;Big-Theta(&lt;span class="math"&gt;\(\Theta(·)\)&lt;/span&gt;)是同時找到&lt;span class="math"&gt;\(f(n)\)&lt;/span&gt;的「上界」與「下界」，像是三明治一樣把&lt;span class="math"&gt;\(f(n)\)&lt;/span&gt;夾住。  &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Big-Theta(&lt;span class="math"&gt;\(\Theta(·)\)&lt;/span&gt;)&lt;/strong&gt;是同時找到&lt;span class="math"&gt;\(f(n)\)&lt;/span&gt;的「上界(upper bound)」與「下界(lower bound)」，像是三明治一樣把&lt;span class="math"&gt;\(f(n)\)&lt;/span&gt;夾住。  &lt;/p&gt;
 &lt;p&gt;若把「上界」與「下界」分開來看，就是下面要介紹的&lt;strong&gt;Big-O&lt;/strong&gt;與&lt;strong&gt;Big-Omega&lt;/strong&gt;。&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;    &lt;/p&gt;
 &lt;p&gt;&lt;a name="bo"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h3&gt;&lt;span class="math"&gt;\(O-\)&lt;/span&gt;Notation，Big-O&lt;/h3&gt;
+&lt;p&gt;一般談論的演算法之複雜度，經常是指&lt;strong&gt;Big-O&lt;/strong&gt;，因為在估算成本時，最想知道的是「上界(upper bound)」，以&lt;a href="#com"&gt;第一小節的範例&lt;/a&gt;來說，就是要知道印&lt;span class="math"&gt;\(N\)&lt;/span&gt;本書，每台機器「最久」要花多少時間。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Big-O&lt;/strong&gt;定義如下：&lt;/p&gt;
+&lt;div class="math"&gt;$$
+O(g(n))=\{\,f(n)：存在正整數\:c,n_0 \,,並且對於所有n\geq n_0,\,滿足 0\leq f(n) \leq cg(n)\:\}
+$$&lt;/div&gt;
+&lt;p&gt;根據定義，可以將&lt;strong&gt;Big-O&lt;/strong&gt;視為&lt;strong&gt;Big-Theta(&lt;span class="math"&gt;\(\Theta(·)\)&lt;/span&gt;)&lt;/strong&gt;的「上半部」，其以「簡單函數&lt;span class="math"&gt;\(g(n)\)&lt;/span&gt;」描述&lt;span class="math"&gt;\(f(n)\)&lt;/span&gt;在資料量夠大時，「最多」會達到怎麼樣的趨勢。&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="f3.png" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖三：。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;繼續以&lt;span class="math"&gt;\(f(n)=6n+4\)&lt;/span&gt;為例，若選&lt;span class="math"&gt;\(g(n)=n,c=7,n_{0}=4\)&lt;/span&gt;，即可滿足：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(0\leq 6n+4 \leq 7n \,, \forall n\geq 4\)&lt;/span&gt;，見圖三。&lt;/li&gt;
+&lt;li&gt;表示&lt;span class="math"&gt;\(f(n)\)&lt;/span&gt;之「上界」趨勢能夠以&lt;span class="math"&gt;\(g(n)=7n\)&lt;/span&gt;描述。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;同樣的，把係數放進正整數&lt;span class="math"&gt;\(c\)&lt;/span&gt;裡面，&lt;span class="math"&gt;\(f(n)\)&lt;/span&gt;之複雜度在&lt;strong&gt;Big-O&lt;/strong&gt;的定義下，可以用簡單函數&lt;span class="math"&gt;\(g(n)=n\)&lt;/span&gt;表示：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(f(n)\in O(n)\)&lt;/span&gt;，或者&lt;/li&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(f(n)=O(n)\)&lt;/span&gt;。&lt;/li&gt;
+&lt;/ul&gt;
 &lt;p&gt;&lt;/br&gt;  &lt;/p&gt;
 &lt;p&gt;&lt;a name="bw"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h3&gt;&lt;span class="math"&gt;\(\Omega-\)&lt;/span&gt;Notation，Big-Omega&lt;/h3&gt;
+&lt;p&gt;若想知道某個演算法「至少」需要多少時間時，便可以&lt;strong&gt;Big-Omega&lt;/strong&gt;來估算「下界(lower bound)」。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Big-Omega&lt;/strong&gt;的定義如下：&lt;/p&gt;
+&lt;div class="math"&gt;$$
+\Omega(g(n))=\{\,f(n)：存在正整數\:c,n_0 \,,並且對於所有n\geq n_0,\,滿足 0\leq  cg(n) \leq f(n)\:\}
+$$&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Big-Omega&lt;/strong&gt;可以視為&lt;strong&gt;Big-Theta(&lt;span class="math"&gt;\(\Theta(·)\)&lt;/span&gt;)&lt;/strong&gt;的「下半部」，其以「簡單函數&lt;span class="math"&gt;\(g(n)\)&lt;/span&gt;」描述&lt;span class="math"&gt;\(f(n)\)&lt;/span&gt;在資料量夠大時，「至少」會達到怎麼樣的趨勢。&lt;/p&gt;
+&lt;p&gt;繼續以&lt;span class="math"&gt;\(f(n)=6n+4\)&lt;/span&gt;為例，&lt;span class="math"&gt;\(f(n)\)&lt;/span&gt;之複雜度在&lt;strong&gt;Big-Omega&lt;/strong&gt;的定義下，可以用簡單函數&lt;span class="math"&gt;\(g(n)=n\)&lt;/span&gt;表示：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(f(n)\in \Omega(n)\)&lt;/span&gt;，或者&lt;/li&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(f(n)=\Omega(n)\)&lt;/span&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;/br&gt;&lt;br /&gt;
+以上介紹的&lt;strong&gt;Big-O(&lt;span class="math"&gt;\(O(·)\)&lt;/span&gt;)&lt;/strong&gt;與&lt;strong&gt;Big-Omega(&lt;span class="math"&gt;\(\Omega(·)\)&lt;/span&gt;)&lt;/strong&gt;是夾得「比較緊的(tight)」上界和下界，接下來還有兩個符號：&lt;strong&gt;Littel-o(&lt;span class="math"&gt;\(o(·)\)&lt;/span&gt;)&lt;/strong&gt;與&lt;strong&gt;Littel-omega(&lt;span class="math"&gt;\(\omega(·)\)&lt;/span&gt;)&lt;/strong&gt;，表示「沒有那麼緊的」上下界。&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a name="so"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h3&gt;&lt;span class="math"&gt;\(o-\)&lt;/span&gt;Notation，Littel-o&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Littel-o(&lt;span class="math"&gt;\(o(·)\)&lt;/span&gt;)&lt;/strong&gt;的定義如下：&lt;/p&gt;
+&lt;div class="math"&gt;$$
+o(g(n))=\{\,f(n)：對於所有正整數\:c,存在正整數\:n_0\,,使得對於所有n\geq n_0,\, 0\leq f(n) \leq cg(n)\:\}
+$$&lt;/div&gt;
+&lt;p&gt;怎麼說&lt;strong&gt;Littel-o(&lt;span class="math"&gt;\(o(·)\)&lt;/span&gt;)&lt;/strong&gt;比較「不緊」呢？因為定義中是「對於所有正整數&lt;span class="math"&gt;\(c\)&lt;/span&gt;」，因此&lt;span class="math"&gt;\(f(n)=o(g(n))\)&lt;/span&gt;務必要求&lt;span class="math"&gt;\(g(n)\)&lt;/span&gt;的「成長率」遠遠大於&lt;span class="math"&gt;\(f(n)\)&lt;/span&gt;，等同於滿足以下極限關係式：&lt;/p&gt;
+&lt;div class="math"&gt;$$
+\lim_{n-&amp;gt;\infty}\frac{f(n)}{g(n)}=0
+$$&lt;/div&gt;
+&lt;p&gt;比較&lt;strong&gt;Big-O(&lt;span class="math"&gt;\(O(·)\)&lt;/span&gt;)&lt;/strong&gt;與&lt;strong&gt;Littel-o(&lt;span class="math"&gt;\(o(·)\)&lt;/span&gt;)&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(2n=o(n^{2})\)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(2n=O(n)\)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(2n^{2}=o(n!)\)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(2n^{2}=O(n^{2})\)&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a name="sw"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h3&gt;&lt;span class="math"&gt;\(\omega-\)&lt;/span&gt;Notation，Littel-omega&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Littel-omega(&lt;span class="math"&gt;\(\omega(·)\)&lt;/span&gt;)&lt;/strong&gt;的定義如下：&lt;/p&gt;
+&lt;div class="math"&gt;$$
+\omega(g(n))=\{\,f(n)：對於所有正整數\:c,存在正整數\:n_0\,,使得對於所有n\geq n_0,\, 0\leq  cg(n) \leq f(n)\:\}
+$$&lt;/div&gt;
+&lt;p&gt;同理，&lt;span class="math"&gt;\(f(n)=\omega(g(n))\)&lt;/span&gt;要求&lt;span class="math"&gt;\(g(n)\)&lt;/span&gt;的「成長率」遠遠小於&lt;span class="math"&gt;\(f(n)\)&lt;/span&gt;，等同於滿足以下極限關係式：&lt;/p&gt;
+&lt;div class="math"&gt;$$
+\lim_{n-&amp;gt;\infty}\frac{f(n)}{g(n)}=\infty
+$$&lt;/div&gt;
+&lt;p&gt;比較&lt;strong&gt;Big-Omega(&lt;span class="math"&gt;\(\Omega(·)\)&lt;/span&gt;)&lt;/strong&gt;與&lt;strong&gt;Littel-omega(&lt;span class="math"&gt;\(\omega(·)\)&lt;/span&gt;)&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(4n^{2}=\omega(n)\)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(4n^{2}=\omega(\log{n})\)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(4n^{2}=\Omega(n^{2})\)&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
 &lt;p&gt;&lt;/br&gt;  &lt;/p&gt;
-&lt;p&gt;以上便是以Array表示Set之介紹。&lt;/p&gt;
+&lt;p&gt;以上便是演算法之&lt;strong&gt;Complexity(複雜度)&lt;/strong&gt;以及經常使用的&lt;strong&gt;Asymptotic Notation(漸進符號)&lt;/strong&gt;之介紹。&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;hr /&gt;
 &lt;p&gt;&lt;a name="ref"&gt;&lt;/a&gt;&lt;/p&gt;
@@ -221,6 +286,7 @@ $$&lt;/div&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844"&gt;Introduction to Algorithms, Ch3&lt;/a&gt; &lt;/li&gt;
 &lt;li&gt;&lt;a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376"&gt;Fundamentals of Data Structures in C++, Ch1&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://www.khanacademy.org/computing/computer-science/algorithms/asymptotic-notation/a/asymptotic-notation"&gt;KhanAcademy：Asymptotic notation&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://bigocheatsheet.com/"&gt;Big-O Algorithm Complexity Cheat Sheet&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://program-lover.blogspot.tw/2008/10/complexity-analysis.html"&gt;Infinite Loop：複雜度分析 - Complexity Analysis&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://www.youtube.com/watch?v=i-SKeOcBwko"&gt;MyCodeSchool：Insertion sort algorithm&lt;/a&gt;&lt;/li&gt;
