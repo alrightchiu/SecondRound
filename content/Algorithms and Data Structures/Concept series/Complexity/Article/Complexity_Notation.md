@@ -52,7 +52,7 @@ Summary: 介紹用來分析Complexity(複雜度)的Asymptotic Notation(漸進符
 |$N=5$  |$120$  |$32$ |$25$|$8.05$ |$5$  |$1.6$|
 |$N=100$|&nbsp;&nbsp;&nbsp;&nbsp;$9\times10^{157}$|&nbsp;&nbsp;$1.3\times10^{30}$|&nbsp;&nbsp;$10000$|$460$ |&nbsp;$100$|$4.6$|
 
-**表一：。**
+**表一**
 </center>
 
 根據表一可以看出，若要印$N=5$本書：
@@ -91,8 +91,6 @@ Summary: 介紹用來分析Complexity(複雜度)的Asymptotic Notation(漸進符
 
 * 希望能以簡單的函數(例如：$N^{2}、\ln{N}$等等)來描述**Complexity(複雜度)**的「趨勢」，特別是針對資料量非常大的時候。
 
-因此，**Asymptotic Notation(漸進符號)**是所有能夠描述趨勢的「函數的集合」。
-
 以下分別介紹五個**Asymptotic Notation(漸進符號)**。
 
 
@@ -103,12 +101,32 @@ Summary: 介紹用來分析Complexity(複雜度)的Asymptotic Notation(漸進符
 ###$\Theta-$Notation
 
 
+**Asymptotic Notation(漸進符號)**是所有能夠描述演算法趨勢的「函數之集合」，給定：
 
+* 非負函數$f(n)$：描述演算法之趨勢，也就是Complexity(複雜度)。
+* 非負函數$g(n)$：簡單函數。
 
+那麼，若滿足以下定義：
 
 $$
 \Theta(g(n))=\{\,f(n)：存在正整數\:c_1,c_2,n_0 \,,並且對於所有n\geq n_0,\,滿足 0\leq c_{1}g(n)\leq f(n) \leq c_{2}g(n)\:\}
 $$
+
+表示$g(n)$為$f(n)$趨勢之「邊界」(tight bound)，即可使用$g(n)$來描述$f(n)$之趨勢，以$f(n)\in \Theta(g(n))$表示。
+
+舉例來說，若現有一個演算法之趨勢可以用$f(n)=7n+4$代表，那麼以下兩個$g(n)$都能夠在$\Theta(g(n))$的定義下視為$f(n)$的「邊界」：
+
+1. 若$g(n)=2n$，取$c_{1}=1,c_{2}=4,n_{0}=4$，則滿足：
+    * $0\leq 1(2n)\leq 7n+4 \leq 4(2n) \,, \forall n\geq 4$，見圖二左。   
+2. 若$g(n)=3n$，取$c_{1}=2,c_{2}=3,n_{0}=2$，則滿足：
+    * $0\leq 2(3n)\leq 7n+4 \leq 3(3n) \,, \forall n\geq 2$，見圖二右。 
+
+
+<center>
+![cc][f2]
+
+**圖二：。**
+</center>
 
 
 
