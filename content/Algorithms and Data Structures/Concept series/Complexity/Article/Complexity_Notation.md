@@ -21,8 +21,8 @@ Summary: 介紹用來分析Complexity(複雜度)的Asymptotic Notation(漸進符
     * [$\Theta-$Notation，Big-Theta](#tight)
     * [$O-$Notation，Big-O](#bo)
     * [$\Omega-$Notation，Big-Omega](#bw)
-    * [$o-$Notation，Littel-O](#so)
-    * [$\omega-$Notation，Littel-Omega](#sw)
+    * [$o-$Notation，Littel-o](#so)
+    * [$\omega-$Notation，Littel-omega](#sw)
 * [參考資料](#ref)
 * [Complexity系列文章](#series)
 
