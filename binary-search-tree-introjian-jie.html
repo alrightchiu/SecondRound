@@ -139,13 +139,13 @@
 <p>而更多時候，node所攜帶的資料項目(在此為<code>char data</code>)可能更複雜，也許是一個姓名、一組帳戶資料、一本照片集、一組科學資料等等，然而，要使用這些資料進行「比大小」必須而外自行定義規則，例如：「姓氏照字母順序排序，字母越前面值越大；若第一個字相同，則依序往下比較；若姓名中所有字母之順序皆相同則...」，非常不實際，因此，不用再則了，變通的方法便是直接在資料上加上「編號」(也可以想成，把資料對應(mapping)到特定編號)，以編號做排序，並且能夠以特定編號搜尋其所對應之資料項目，即可避開上述麻煩。  </p>
 <p>如此概念便是Dictionary，稱上述的「編號」為「Key(鍵值)」，稱「資料項目」為「Element(元素)」，則稱一組「Key-Element pairs」的集合為「Dictionary」。  </p>
 <p>如圖一所示，若將先前的字母視為「Element」並加上「Key」，則(Key, Element)可以表示成(編號, A)，若處理學生資料，將編號視為學號，資料視為姓名，則能夠將(Key, Element)可以表示成(學號, 姓名)。</p>
-<p></br>
+<p></br><br />
 <center>
 <img alt="dictionary1" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/Intro/f1.png?raw=true" /></p>
 <p><strong>圖一：。</strong><br />
 </center> </p>
 <p>在接下來的篇幅裡，將使用七龍珠的角色(悟空)作為Element，角色的戰鬥力視為Key：</p>
-<p></br>
+<p></br><br />
 <center>
 <img alt="dictionary2" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/Intro/f2.png?raw=true" /></p>
 <p><strong>圖二：。</strong><br />
@@ -210,7 +210,7 @@
 <h3>search(搜尋資料)</h3>
 <p>在處理資料時，時常需要尋找某特定資料，是否存在資料結構中。以BST處理資料，最簡單的方式便是用Key尋找。<br />
 以圖六為例，故事推進到納美克星弗力札大王篇，若想要確認基紐隊長的資料是否已經建立完成，只要記住隊長的戰鬥力為「627」，進入BST中，便能夠找到隊長，必且回傳(return)隊長的node。<br />
-有時會出現欲搜尋的資料尚未被建立進BST中、或者已經從BST中移除的情況，例如，若要在悟空變成超級賽亞人之前找克林，以克林的戰鬥力「2」來搜尋，但是發現找不到，便回傳(return)<code>NULL</code>。</p>
+有時會出現欲搜尋的資料尚未被建立進BST中、或者已經從BST中移除的情況，例如，若要在悟空變成超級賽亞人之前找克林，以克林的戰鬥力「2」來搜尋，但是發現找不到，便回傳<code>NULL</code>。</p>
 <p>因為克林被弗力札大王給殺死了啊啊阿啊(變身超級賽亞人)。</p>
 <p><center>
 <img alt="search" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/Intro/f16.png?raw=true" /></p>
@@ -222,7 +222,7 @@
 <p>故事來到了魔人普烏篇，因為角色有點多，有點混亂，此時，若想要知道各角色戰鬥力的大小排序，只要按照<strong>Inorder Traversal</strong>即可按照戰鬥力(Key)高低列出所有資料：</p>
 <p><center>
 <img alt="sort" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/Intro/f17.png?raw=true" /></p>
-<p><strong>圖七：。</strong><br />
+<p><strong>圖七：藍色數字為戰鬥力(key)，紅色數字表示「戰鬥力由小到大」之順序。</strong><br />
 </center></p>
 <p><a name="delete"></a></p>
 <h3>delete(刪除資料)</h3>
