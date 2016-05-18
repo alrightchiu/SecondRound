@@ -44,7 +44,7 @@ Summary: 謹以Binary Search Tree(二元搜尋樹)向拯救90後的童年的鉅�
 
 如圖一所示，若將先前的字母視為「Element」並加上「Key」，則(Key, Element)可以表示成(編號, A)，若處理學生資料，將編號視為學號，資料視為姓名，則能夠將(Key, Element)可以表示成(學號, 姓名)。
 
-</br>  
+ 
 <center>
 ![dictionary1][dictionary1]
 
@@ -53,7 +53,7 @@ Summary: 謹以Binary Search Tree(二元搜尋樹)向拯救90後的童年的鉅�
 
 在接下來的篇幅裡，將使用七龍珠的角色(悟空)作為Element，角色的戰鬥力視為Key：
 
-</br>  
+
 <center>
 ![dictionary2][dictionary2]
 
