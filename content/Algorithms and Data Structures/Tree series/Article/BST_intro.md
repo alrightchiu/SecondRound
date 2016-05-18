@@ -1,7 +1,7 @@
 Title: Binary Search Tree: Intro(簡介)    
 Date: 2016-1-2 12:15  
 Category: 演算法與資料結構  
-Tags: C++, Binary Search Tree(二元搜尋樹), Intro  
+Tags: C++, Binary Search Tree(二元搜尋樹), Intro, Dictionary,  
 Summary: 謹以Binary Search Tree(二元搜尋樹)向拯救90後的童年的鉅作《七龍珠》以及鳥山明老師致敬。
 
 </br>
@@ -18,7 +18,7 @@ Summary: 謹以Binary Search Tree(二元搜尋樹)向拯救90後的童年的鉅�
 
 ##目錄
 
-* [引入dictionary](#dictionary)
+* [引入Dictionary](#dictionary)
 * [Binary Search Tree的特徵](#bst)
 * [在Binary Search Tree中管理資料](#operation)
     * [insert(新增資料)](#insert) 
@@ -32,7 +32,7 @@ Summary: 謹以Binary Search Tree(二元搜尋樹)向拯救90後的童年的鉅�
 
 <a name="dictionary"></a>
 
-##引入dictionary
+##引入Dictionary
 
 搜尋與排序都需要「比大小」，欲執行「比大小」，就要使用「能夠比大小」的資料形態(亦即：兩個比較之物只能唯一滿足於「大於」、「小於」或「等於」之關係)，最直觀的便是使用整數(integer)。  
 
@@ -40,7 +40,7 @@ Summary: 謹以Binary Search Tree(二元搜尋樹)向拯救90後的童年的鉅�
 
 而更多時候，node所攜帶的資料項目(在此為`char data`)可能更複雜，也許是一個姓名、一組帳戶資料、一本照片集、一組科學資料等等，然而，要使用這些資料進行「比大小」必須而外自行定義規則，例如：「姓氏照字母順序排序，字母越前面值越大；若第一個字相同，則依序往下比較；若姓名中所有字母之順序皆相同則...」，非常不實際，因此，不用再則了，變通的方法便是直接在資料上加上「編號」(也可以想成，把資料對應(mapping)到特定編號)，以編號做排序，並且能夠以特定編號搜尋其所對應之資料項目，即可避開上述麻煩。  
 
-如此概念便是Dictionary，稱上述的「編號」為「Key(鍵值)」，稱「資料項目」為「Element(元素)」，則稱一組「Key-Element pairs」的集合為「Dictionary」。  
+如此概念便是**Dictionary**，稱上述的「編號」為「Key(鍵值)」，稱「資料項目」為「Element(元素)」，則稱一組「Key-Element pairs」的集合為**Dictionary**。  
 
 如圖一所示，若將先前的字母視為「Element」並加上「Key」，則(Key, Element)可以表示成(編號, A)，若處理學生資料，將編號視為學號，資料視為姓名，則能夠將(Key, Element)可以表示成(學號, 姓名)。
 
