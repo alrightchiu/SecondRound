@@ -288,6 +288,28 @@ $$
  
 以上便是演算法之**Complexity(複雜度)**以及經常使用的**Asymptotic Notation(漸進符號)**之介紹。
 
+最後再看一次常見的時間複雜度之效率比較：
+
+<center>
+![cc][f1]
+
+**圖一：。**
+</center>
+
+根據圖一，若同樣處理$N$筆資料，那麼各個時間複雜度之成本如下：  
+(成本越高，表示效率越差)
+
+
+$$
+O(1)<O(\log{N})<O(N)<O(N\log{N})<O(N^{2})<O(2^{N})<O(N!)
+$$
+
+最有效率的是**常數的時間複雜度**($O(1)$)，意思其「運算成本與資料量無關」，所以不管資料量多大，保證能夠在「可數(countable)、有限(finite)」的時間內完成，例如：
+
+* 不管矩陣大小(size)有多大，一定能夠利用**index**在$O(1)$時間，對矩陣的元素做存取，例如`Array[index]=5`。
+* 不管Linked list長度有多長，一定能夠在$O(1)$時間，在list的**front**指標後新增節點(insert node at the front)，參考：[Linked List: 新增資料、刪除資料、反轉](http://alrightchiu.github.io/SecondRound/linked-list-xin-zeng-zi-liao-shan-chu-zi-liao-fan-zhuan.html#front)。
+
+
 各個常見演算法的時間複雜度(**Big-O**)可以參考：
 
 * [Big-O Algorithm Complexity Cheat Sheet](http://bigocheatsheet.com/)
