@@ -287,6 +287,21 @@ $$&lt;/div&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;/br&gt;  &lt;/p&gt;
 &lt;p&gt;以上便是演算法之&lt;strong&gt;Complexity(複雜度)&lt;/strong&gt;以及經常使用的&lt;strong&gt;Asymptotic Notation(漸進符號)&lt;/strong&gt;之介紹。&lt;/p&gt;
+&lt;p&gt;最後再看一次常見的時間複雜度之效率比較：&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Concept%20series/Complexity/Asymptotic%20Notation/f1.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖一：。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;根據圖一，若同樣處理&lt;span class="math"&gt;\(N\)&lt;/span&gt;筆資料，那麼各個時間複雜度之成本如下：&lt;br /&gt;
+(成本越高，表示效率越差)&lt;/p&gt;
+&lt;div class="math"&gt;$$
+O(1)&amp;lt;O(\log{N})&amp;lt;O(N)&amp;lt;O(N\log{N})&amp;lt;O(N^{2})&amp;lt;O(2^{N})&amp;lt;O(N!)
+$$&lt;/div&gt;
+&lt;p&gt;最有效率的是&lt;strong&gt;常數的時間複雜度&lt;/strong&gt;(&lt;span class="math"&gt;\(O(1)\)&lt;/span&gt;)，意思其「運算成本與資料量無關」，所以不管資料量多大，保證能夠在「可數(countable)、有限(finite)」的時間內完成，例如：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;不管矩陣大小(size)有多大，一定能夠利用&lt;strong&gt;index&lt;/strong&gt;在&lt;span class="math"&gt;\(O(1)\)&lt;/span&gt;時間，對矩陣的元素做存取，例如&lt;code&gt;Array[index]=5&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;不管Linked list長度有多長，一定能夠在&lt;span class="math"&gt;\(O(1)\)&lt;/span&gt;時間，在list的&lt;strong&gt;front&lt;/strong&gt;指標後新增節點(insert node at the front)，參考：&lt;a href="http://alrightchiu.github.io/SecondRound/linked-list-xin-zeng-zi-liao-shan-chu-zi-liao-fan-zhuan.html#front"&gt;Linked List: 新增資料、刪除資料、反轉&lt;/a&gt;。&lt;/li&gt;
+&lt;/ul&gt;
 &lt;p&gt;各個常見演算法的時間複雜度(&lt;strong&gt;Big-O&lt;/strong&gt;)可以參考：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="http://bigocheatsheet.com/"&gt;Big-O Algorithm Complexity Cheat Sheet&lt;/a&gt;&lt;/li&gt;

@@ -333,6 +333,21 @@ $$</div>
 </ul>
 <p></br>  </p>
 <p>以上便是演算法之<strong>Complexity(複雜度)</strong>以及經常使用的<strong>Asymptotic Notation(漸進符號)</strong>之介紹。</p>
+<p>最後再看一次常見的時間複雜度之效率比較：</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Concept%20series/Complexity/Asymptotic%20Notation/f1.png?raw=true" /></p>
+<p><strong>圖一：。</strong>
+</center></p>
+<p>根據圖一，若同樣處理<span class="math">\(N\)</span>筆資料，那麼各個時間複雜度之成本如下：<br />
+(成本越高，表示效率越差)</p>
+<div class="math">$$
+O(1)&lt;O(\log{N})&lt;O(N)&lt;O(N\log{N})&lt;O(N^{2})&lt;O(2^{N})&lt;O(N!)
+$$</div>
+<p>最有效率的是<strong>常數的時間複雜度</strong>(<span class="math">\(O(1)\)</span>)，意思其「運算成本與資料量無關」，所以不管資料量多大，保證能夠在「可數(countable)、有限(finite)」的時間內完成，例如：</p>
+<ul>
+<li>不管矩陣大小(size)有多大，一定能夠利用<strong>index</strong>在<span class="math">\(O(1)\)</span>時間，對矩陣的元素做存取，例如<code>Array[index]=5</code>。</li>
+<li>不管Linked list長度有多長，一定能夠在<span class="math">\(O(1)\)</span>時間，在list的<strong>front</strong>指標後新增節點(insert node at the front)，參考：<a href="http://alrightchiu.github.io/SecondRound/linked-list-xin-zeng-zi-liao-shan-chu-zi-liao-fan-zhuan.html#front">Linked List: 新增資料、刪除資料、反轉</a>。</li>
+</ul>
 <p>各個常見演算法的時間複雜度(<strong>Big-O</strong>)可以參考：</p>
 <ul>
 <li><a href="http://bigocheatsheet.com/">Big-O Algorithm Complexity Cheat Sheet</a></li>
