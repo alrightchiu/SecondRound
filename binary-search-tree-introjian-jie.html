@@ -42,6 +42,7 @@
         <meta name="tags" contents="C++" />
         <meta name="tags" contents="Binary Search Tree(二元搜尋樹)" />
         <meta name="tags" contents="Intro" />
+        <meta name="tags" contents="Dictionary" />
 
 
 	                <meta property="og:locale" content="">
@@ -119,7 +120,7 @@
 <hr />
 <h2>目錄</h2>
 <ul>
-<li><a href="#dictionary">引入dictionary</a></li>
+<li><a href="#dictionary">引入Dictionary</a></li>
 <li><a href="#bst">Binary Search Tree的特徵</a></li>
 <li><a href="#operation">在Binary Search Tree中管理資料</a><ul>
 <li><a href="#insert">insert(新增資料)</a> </li>
@@ -133,11 +134,11 @@
 </ul>
 <p></br></p>
 <p><a name="dictionary"></a></p>
-<h2>引入dictionary</h2>
+<h2>引入Dictionary</h2>
 <p>搜尋與排序都需要「比大小」，欲執行「比大小」，就要使用「能夠比大小」的資料形態(亦即：兩個比較之物只能唯一滿足於「大於」、「小於」或「等於」之關係)，最直觀的便是使用整數(integer)。  </p>
 <p>在先前的文章中，<code>class TreeNode</code>包含了指向child的pointer、指向parent的pointer，以及一個<code>char data</code>來儲存字母。  </p>
 <p>而更多時候，node所攜帶的資料項目(在此為<code>char data</code>)可能更複雜，也許是一個姓名、一組帳戶資料、一本照片集、一組科學資料等等，然而，要使用這些資料進行「比大小」必須而外自行定義規則，例如：「姓氏照字母順序排序，字母越前面值越大；若第一個字相同，則依序往下比較；若姓名中所有字母之順序皆相同則...」，非常不實際，因此，不用再則了，變通的方法便是直接在資料上加上「編號」(也可以想成，把資料對應(mapping)到特定編號)，以編號做排序，並且能夠以特定編號搜尋其所對應之資料項目，即可避開上述麻煩。  </p>
-<p>如此概念便是Dictionary，稱上述的「編號」為「Key(鍵值)」，稱「資料項目」為「Element(元素)」，則稱一組「Key-Element pairs」的集合為「Dictionary」。  </p>
+<p>如此概念便是<strong>Dictionary</strong>，稱上述的「編號」為「Key(鍵值)」，稱「資料項目」為「Element(元素)」，則稱一組「Key-Element pairs」的集合為<strong>Dictionary</strong>。  </p>
 <p>如圖一所示，若將先前的字母視為「Element」並加上「Key」，則(Key, Element)可以表示成(編號, A)，若處理學生資料，將編號視為學號，資料視為姓名，則能夠將(Key, Element)可以表示成(學號, 姓名)。</p>
 <p><center>
 <img alt="dictionary1" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/Intro/f1.png?raw=true" /></p>
@@ -316,7 +317,7 @@
     </article>
 
         <div class="tags">
-            <p>tags: <a href="http://alrightchiu.github.io/SecondRound/tag/c.html">C++</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/binary-search-treeer-yuan-sou-xun-shu.html">Binary Search Tree(二元搜尋樹)</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/intro.html">Intro</a>, </p>
+            <p>tags: <a href="http://alrightchiu.github.io/SecondRound/tag/c.html">C++</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/binary-search-treeer-yuan-sou-xun-shu.html">Binary Search Tree(二元搜尋樹)</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/intro.html">Intro</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/dictionary.html">Dictionary</a>, </p>
         </div>
 
 <hr>
