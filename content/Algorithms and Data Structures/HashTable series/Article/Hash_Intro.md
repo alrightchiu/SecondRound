@@ -135,8 +135,8 @@ Summary: 介紹Hash Table(雜湊表)的基本概念。
 優良的**Hash Function**($h()$)應具備以下特徵：
 
 * $h()$的定義域為整個**Key**的宇集合$U$，值域應小於**Table**的大小$m$：  
-$h:U\rightarrow \{\,0,1,...,m-1\,\},\:where |U|\gg m$
-* 盡可能讓**Key**在經過**Hash Function**($h()$)後，在值域(domain)能夠平均分佈(uniform distributed)，如此才不會有「兩筆資料存進同一個**Table**空格(稱為**slot**)」的情況。
+$h:U\rightarrow \{\,0,1,...,m-1\,\},\:where \:|U|\gg m$
+* 盡可能讓**Key**在經過**Hash Function**後，在值域(domain)能夠平均分佈(uniform distributed)，如此才不會有「兩筆資料存進同一個**Table**空格(稱為**slot**)」的情況。
 
 可惜事與願違，因為$|U|\gg m$，再加上**Hash Function**設計不易，所以一定會發生**Collision**。
 
@@ -159,7 +159,7 @@ $h:U\rightarrow \{\,0,1,...,m-1\,\},\:where |U|\gg m$
 * $h(16)=16 \bmod{6}=4$
 * $h(71)=71 \bmod{6}=5$
 
-「item26」與「item50」經過**Hash Function**後同時想要將資料存進`Table[2]`，這就是**Collision**。
+「item26」與「item50」經過**Hash Function**後，同時想要將資料存進`Table[2]`，這就是**Collision**。
 
 <center>
 ![cc][f5]
