@@ -164,7 +164,7 @@ $h:U\rightarrow \{\,0,1,...,m-1\,\},\:where \:|U|\gg m$
 <center>
 ![cc][f5]
 
-**圖三：。**
+**圖五：。**
 </center>
 
 
