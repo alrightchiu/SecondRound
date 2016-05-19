@@ -1,5 +1,5 @@
 Title: Hash Table：Intro(簡介)  
-Date: 2016-5-14 17:59 
+Date: 2016-5-19 23:01 
 Category: 演算法與資料結構  
 Tags: C++, Intro, Dictionary,  
 Summary: 介紹Hash Table(雜湊表)的基本概念。
@@ -179,11 +179,11 @@ $h:U\rightarrow \{\,0,1,...,m-1\,\},\:where |U|\gg m$
 
 
 
-[f1]: f1.png
-[f2]: f2.png
-[f3]: f3.png
-[f4]: f4.png
-[f5]: f5.png
+[f1]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/HashTable%20series/Intro/f1.png?raw=true
+[f2]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/HashTable%20series/Intro/f2.png?raw=true
+[f3]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/HashTable%20series/Intro/f3.png?raw=true
+[f4]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/HashTable%20series/Intro/f4.png?raw=true
+[f5]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/HashTable%20series/Intro/f5.png?raw=true
 
 
 
