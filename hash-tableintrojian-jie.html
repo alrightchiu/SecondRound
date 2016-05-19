@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="zh-hant">
+
+<head>
+            <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+
+        <title>Hash Table：Intro(簡介)</title>
+
+            <link href="http://alrightchiu.github.io/SecondRound/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Second Round Full Atom Feed" />
+            <link href="http://alrightchiu.github.io/SecondRound/feeds/yan-suan-fa-yu-zi-liao-jie-gou.atom.xml" type="application/atom+xml" rel="alternate" title="Second Round Categories Atom Feed" />
+
+        <!-- Bootstrap Core CSS -->
+        <link href="http://alrightchiu.github.io/SecondRound/theme/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="http://alrightchiu.github.io/SecondRound/theme/css/clean-blog.min.css" rel="stylesheet">
+
+        <!-- Code highlight color scheme -->
+            <link href="http://alrightchiu.github.io/SecondRound/theme/css/code_blocks/darkly.css" rel="stylesheet">
+
+
+        <!-- Custom Fonts -->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+
+
+
+        <meta name="tags" contents="C++" />
+        <meta name="tags" contents="Intro" />
+        <meta name="tags" contents="Dictionary" />
+
+
+	                <meta property="og:locale" content="">
+		<meta property="og:site_name" content="Second Round">
+
+	<meta property="og:type" content="article">
+	<meta property="article:author" content="">
+	<meta property="og:url" content="http://alrightchiu.github.io/SecondRound/hash-tableintrojian-jie.html">
+	<meta property="og:title" content="Hash Table：Intro(簡介)">
+	<meta property="og:description" content="">
+	<meta property="og:image" content="http://alrightchiu.github.io/SecondRound/">
+	<meta property="article:published_time" content="2016-05-19 23:01:00+08:00">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://alrightchiu.github.io/SecondRound/">Second Round</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a href="http://alrightchiu.github.io/SecondRound/archives.html">Archives</a></li>
+                        <li><a href="http://alrightchiu.github.io/SecondRound/tags.html">Tags</a></li>
+
+                            <li><a href="http://alrightchiu.github.io/SecondRound/pages/about.html">About</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+        <header class="intro-header" style="background-image: url('http://alrightchiu.github.io/SecondRound/theme/images/post-bg.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>Hash Table：Intro(簡介)</h1>
+                        <span class="meta">Posted by
+                                <a href="http://alrightchiu.github.io/SecondRound/author/chiu-cc.html">Chiu CC</a>
+                             on  5 19, 2016
+                        </span>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    <!-- Post Content -->
+    <article>
+        <p></br></p>
+<h3>先備知識與注意事項</h3>
+<p>在做資料處理時，常常需要「查詢資料」，譬如線上購物平台有會員登入時，首先確認輸入的帳號密碼是否在資料庫裡，如果是，便從資料庫裡找出此會員的資料，如購物記錄、暫存購物清單等等。</p>
+<p>想到「查詢資料」，可能會想到能夠在<a href="http://alrightchiu.github.io/SecondRound/binary-search-tree-introjian-jie.html">時間複雜度為<span class="math">\(O(\log{N})\)</span>完成查詢的<strong>平衡的</strong>Binary Search Tree(二元搜尋樹)</a>，如圖一。</p>
+<ul>
+<li>在圖一的BST中，要找到Key(17)的資料，需要比較<span class="math">\(4=\lfloor{\log_{2}{15}\rfloor+1}\)</span>次，時間複雜度可以視為<strong>height(樹高)</strong>。</li>
+</ul>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/HashTable%20series/Intro/f1.png?raw=true" /></p>
+<p><strong>圖一：若為平衡的BST，查詢資料之時間複雜度為<span class="math">\(O(\log{N})\)</span>。</strong>
+</center></p>
+<p>但是若資料量非常龐大(例如社交平台的註冊會員資料庫)，即使是<span class="math">\(O(\log{N})\)</span>也非常可觀。</p>
+<p>如果能在時間複雜度為常數的<span class="math">\(O(1)\)</span>完成查詢該有多好。</p>
+<p>本篇文章便要介紹能夠在<span class="math">\(O(1)\)</span>完成查詢的<strong>Hash Table(雜湊表)</strong>。</p>
+<hr />
+<h2>目錄</h2>
+<ul>
+<li><a href="#dict">簡介：Dictionary(字典)</a></li>
+<li><a href="#dat">以Array實現的Direct Access Table</a></li>
+<li><a href="#ht">Hash Table的概念</a></li>
+<li><a href="#collision">出事了：Collision</a></li>
+<li><a href="#ref">參考資料</a></li>
+<li><a href="#series">Hash Table系列文章</a></li>
+</ul>
+<p></br></p>
+<p><a name="dict"></a></p>
+<h2>簡介：Dictionary(字典)</h2>
+<p><strong>Dictionary</strong>是以「鍵值-資料對」(<strong>Key-Value</strong> pair)來描述資料的抽象資料形態(Abstract Data Type)。</p>
+<p>舉例來說：</p>
+<ul>
+<li>電話簿裡的Dictionary即是將「姓名」視為<strong>Key</strong>，「電話號碼」視為<strong>Value</strong>。</li>
+<li>學校學籍系統的Dictionary將「學號」視為<strong>Key</strong>，「學生資料」(如姓名、修課記錄)視為<strong>Value</strong>。</li>
+</ul>
+<p>所以，任何具有辨別功能、可以用在「查詢資料」的「符號」(像是姓名、學號、網址等等)都能夠視為<strong>Key</strong>。<br />
+而<strong>Value</strong>代表著較為廣義的「資料」，例如電話號碼、學籍資料、IP位置等等。</p>
+<p>只要在系統輸入<strong>Key</strong>，便能找到相對應的<strong>Value</strong>，這就是<strong>Dictionary</strong>的基本概念。</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/HashTable%20series/Intro/f2.png?raw=true" /></p>
+<p><strong>圖二：。</strong>
+</center></p>
+<p>一般<strong>Dictionary</strong>會支援三個操作：</p>
+<ol>
+<li>新增資料(insert)</li>
+<li>刪除資料(delete)</li>
+<li>查詢資料(search)</li>
+</ol>
+<p>以上三個操作：</p>
+<ul>
+<li>若以<strong>平衡的BST</strong>(例如AVL樹、<a href="http://alrightchiu.github.io/SecondRound/red-black-tree-introjian-jie.html">Red Black Tree</a>)便能在<span class="math">\(O(\log{N})\)</span>完成。</li>
+<li>「理想情況」的<strong>Hash Table</strong>希望能夠以<span class="math">\(O(1)\)</span>完成。</li>
+</ul>
+<p></br></p>
+<p><a name="dat"></a></p>
+<h2>以Array實現的Direct Access Table</h2>
+<p>若要在<span class="math">\(O(1)\)</span>對資料進行「新增」、「刪除」以及「查詢」，沒有比Array(矩陣)更適合的人選了：</p>
+<ul>
+<li>若直接把<strong>Key</strong>當作Array的<strong>index</strong>，並將<strong>Value</strong>存放進Array，這樣的實作稱為<strong>Direct Access Table</strong>。</li>
+</ul>
+<p>但是<strong>Direct Access Table</strong>有兩個重大缺陷：</p>
+<ol>
+<li><strong>Key</strong>一定要是「非負整數(non-negative integer)」，才能作為Array的<strong>index</strong>。</li>
+<li>若<strong>Key</strong>的「範圍」非常大，可是<strong>Key</strong>的「數量」相對很少，那麼會非常浪費記憶體空間。<ul>
+<li>以圖三為例，因為<strong>Key</strong>的範圍從<span class="math">\(2\)</span>到<span class="math">\(47\)</span>，所以Array的大小(size)至少要「<span class="math">\(48\)</span>」，因此<span class="math">\(15\)</span>筆資料用了<span class="math">\(48\)</span>單位的記憶體空間，也就浪費超過三分之二的記憶體空間。若<strong>Key</strong>的範圍更大，浪費的程度將非常可觀。</li>
+</ul>
+</li>
+</ol>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/HashTable%20series/Intro/f3.png?raw=true" /></p>
+<p><strong>圖三：。</strong>
+</center></p>
+<p>關於第一點「<strong>Key</strong>不是非負整數」的缺陷，可以先利用一個「一對一函數(one-to-one function)」將<strong>Key</strong>對應到非負整數，問題即可解決。</p>
+<p>例如，若<strong>Key</strong>是英文名字，那便利用「ASCII編碼」將字串轉換成非負整數。現要存放「T-MAC」與「KOBE」兩位球員的資料：</p>
+<ul>
+<li>「T-MAC」<span class="math">\(=84*10^4+45*10^3+77*10^2+65*10+67=893417\)</span></li>
+<li>「KOBE」<span class="math">\(=75*10^3+79*10^2+66*10+69=83629\)</span></li>
+</ul>
+<p>以上的範例，至少需要一個大小為<span class="math">\(893418\)</span>的Array，可是只有存放兩個英文名字，不划算。</p>
+<p><strong>Hash Table</strong>的核心概念就是要解決第二個缺陷：避免記憶體空間浪費。</p>
+<p></br>  </p>
+<p><a name="ht"></a></p>
+<h2>Hash Table的概念</h2>
+<p><strong>Hash Table</strong>希望能夠將存放資料的「Table」的大小(size)降到「真正會存放進Table的資料的數量」，也就是「有用到的<strong>Key</strong>的數量」：</p>
+<ul>
+<li>若有用到的<strong>Key</strong>之數量為<span class="math">\(n\)</span>，<strong>Table</strong>的大小為<span class="math">\(m\)</span>，那麼目標就是<span class="math">\(m=\Theta (n)\)</span>。</li>
+</ul>
+<p>要達到這個目標，必須引入<strong>Hash Function</strong>，將<strong>Key</strong>對應到符合<strong>Table</strong>大小<span class="math">\(m\)</span>的範圍內，<span class="math">\(index=h(Key)\)</span>，即可成為<strong>Hash Table</strong>的<strong>index</strong>，如圖四。</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/HashTable%20series/Intro/f4.png?raw=true" /></p>
+<p><strong>圖四：Hash Table和Direct Access Table的差別在於Hash Function。</strong>
+</center></p>
+<p>優良的<strong>Hash Function</strong>(<span class="math">\(h()\)</span>)應具備以下特徵：</p>
+<ul>
+<li><span class="math">\(h()\)</span>的定義域為整個<strong>Key</strong>的宇集合<span class="math">\(U\)</span>，值域應小於<strong>Table</strong>的大小<span class="math">\(m\)</span>：<br />
+<span class="math">\(h:U\rightarrow \{\,0,1,...,m-1\,\},\:where |U|\gg m\)</span></li>
+<li>盡可能讓<strong>Key</strong>在經過<strong>Hash Function</strong>(<span class="math">\(h()\)</span>)後，在值域(domain)能夠平均分佈(uniform distributed)，如此才不會有「兩筆資料存進同一個<strong>Table</strong>空格(稱為<strong>slot</strong>)」的情況。</li>
+</ul>
+<p>可惜事與願違，因為<span class="math">\(|U|\gg m\)</span>，再加上<strong>Hash Function</strong>設計不易，所以一定會發生<strong>Collision</strong>。</p>
+<p></br>    </p>
+<p><a name="collision"></a></p>
+<h2>出事了：Collision</h2>
+<p><strong>Collision</strong>就是兩筆資料存進同一個<strong>Table</strong>之<strong>slot</strong>的情形，這將會使得查詢資料失敗(例如：使用item1的<strong>Key</strong>，卻回傳item2的資料)。</p>
+<p>假設<strong>Hash Function</strong>為<span class="math">\(h(Key)=Key \bmod{m}\)</span>，<strong>Table</strong>大小為<span class="math">\(m=6\)</span>，目前要處理的資料之<strong>Key</strong>有<span class="math">\(67,26,50,33,16,71\)</span>，那麼各個Key將被對應到的<strong>index</strong>如下，同時參考圖五：</p>
+<ul>
+<li><span class="math">\(h(67)=67 \bmod{6}=1\)</span></li>
+<li><span class="math">\(h(26)=26 \bmod{6}=2\)</span></li>
+<li><span class="math">\(h(50)=50 \bmod{6}=2\)</span></li>
+<li><span class="math">\(h(33)=33 \bmod{6}=3\)</span></li>
+<li><span class="math">\(h(16)=16 \bmod{6}=4\)</span></li>
+<li><span class="math">\(h(71)=71 \bmod{6}=5\)</span></li>
+</ul>
+<p>「item26」與「item50」經過<strong>Hash Function</strong>後同時想要將資料存進<code>Table[2]</code>，這就是<strong>Collision</strong>。</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/HashTable%20series/Intro/f5.png?raw=true" /></p>
+<p><strong>圖三：。</strong>
+</center></p>
+<p><strong>Collision</strong>在「可能使用到的<strong>Key</strong>」之數量遠大於<strong>Table</strong>大小(亦即<span class="math">\(|U|\gg m\)</span>)的情況下，無可避免。</p>
+<p>解決的辦法有二：</p>
+<ol>
+<li><strong>Chaining</strong>：使用Linked list把「Hashing到同一個slot」的資料串起來。</li>
+<li><strong>Open Addressing</strong>：使用<strong>Probing Method</strong>來尋找<strong>Table</strong>中「空的slot」存放資料。</li>
+</ol>
+<p>這兩個方法將分別在後續文章介紹。</p>
+<p></br>  </p>
+<p>以上是<strong>Hash Table</strong>之基本概念介紹。</p>
+<p>接下來兩篇將介紹<strong>Chaining</strong>與<strong>Open Addressing</strong>解決<strong>Collision</strong>。</p>
+<p></br></p>
+<hr />
+<p><a name="ref"></a></p>
+<h3>參考資料：</h3>
+<ul>
+<li><a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844">Introduction to Algorithms, Ch11</a> </li>
+<li><a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376">Fundamentals of Data Structures in C++, Ch8</a></li>
+<li><a href="http://www.arl.wustl.edu/projects/fpx/cse535/lecture/cse535_lecture6_Hash_Functions.pdf">John W Lockwood：Lecture 6 - Hash Functions</a></li>
+<li><a href="http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-006-introduction-to-algorithms-fall-2011/lecture-videos/lecture-8-hashing-with-chaining/">MIT 6.006：Lecture 8: Hashing with Chaining</a></li>
+</ul>
+<p><a name="series"></a></p>
+<p></br></p>
+<h3>Hash Table系列文章</h3>
+<p><a href="">Hash Table：Intro(簡介)</a>  </p>
+<p>回到目錄：</p>
+<p><a href="http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html">目錄：演算法與資料結構</a></p>
+<p></br></p>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' && location_protocol !== 'https') location_protocol = 'https:';
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+    </article>
+
+        <div class="tags">
+            <p>tags: <a href="http://alrightchiu.github.io/SecondRound/tag/c.html">C++</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/intro.html">Intro</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/dictionary.html">Dictionary</a>, </p>
+        </div>
+
+<hr>
+<div class="sharing">
+</div>
+    <hr>
+
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                            <li>
+                                <a href="https://github.com/alrightchiu">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                    </ul>
+<p class="copyright text-muted">
+    Blog powered by <a href="http://getpelican.com">Pelican</a>,
+    which takes great advantage of <a href="http://python.org">Python</a>.
+</p>                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="http://alrightchiu.github.io/SecondRound/theme/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="http://alrightchiu.github.io/SecondRound/theme/js/bootstrap.min.js"></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script src="http://alrightchiu.github.io/SecondRound/theme/js/clean-blog.min.js"></script>
+
+</body>
+
+</html>

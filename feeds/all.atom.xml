@@ -65,7 +65,205 @@
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h2&gt;Priority Queue系列文章&lt;/h2&gt;
 &lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/priority-queueintrojian-jie-binary-heap.html"&gt;Priority Queue：Intro(簡介) &amp;amp; Binary Heap&lt;/a&gt;  &lt;/p&gt;
-&lt;p&gt;&lt;/br&gt;&lt;/p&gt;</summary><category term="C++"></category></entry><entry><title>Complexity：Asymptotic Notation(漸進符號)</title><link href="http://alrightchiu.github.io/SecondRound/complexityasymptotic-notationjian-jin-fu-hao.html" rel="alternate"></link><updated>2016-05-14T17:59:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-05-14:SecondRound/complexityasymptotic-notationjian-jin-fu-hao.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;</summary><category term="C++"></category></entry><entry><title>Hash Table：Intro(簡介)</title><link href="http://alrightchiu.github.io/SecondRound/hash-tableintrojian-jie.html" rel="alternate"></link><updated>2016-05-19T23:01:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-05-19:SecondRound/hash-tableintrojian-jie.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;h3&gt;先備知識與注意事項&lt;/h3&gt;
+&lt;p&gt;在做資料處理時，常常需要「查詢資料」，譬如線上購物平台有會員登入時，首先確認輸入的帳號密碼是否在資料庫裡，如果是，便從資料庫裡找出此會員的資料，如購物記錄、暫存購物清單等等。&lt;/p&gt;
+&lt;p&gt;想到「查詢資料」，可能會想到能夠在&lt;a href="http://alrightchiu.github.io/SecondRound/binary-search-tree-introjian-jie.html"&gt;時間複雜度為&lt;span class="math"&gt;\(O(\log{N})\)&lt;/span&gt;完成查詢的&lt;strong&gt;平衡的&lt;/strong&gt;Binary Search Tree(二元搜尋樹)&lt;/a&gt;，如圖一。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;在圖一的BST中，要找到Key(17)的資料，需要比較&lt;span class="math"&gt;\(4=\lfloor{\log_{2}{15}\rfloor+1}\)&lt;/span&gt;次，時間複雜度可以視為&lt;strong&gt;height(樹高)&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/HashTable%20series/Intro/f1.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖一：若為平衡的BST，查詢資料之時間複雜度為&lt;span class="math"&gt;\(O(\log{N})\)&lt;/span&gt;。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;但是若資料量非常龐大(例如社交平台的註冊會員資料庫)，即使是&lt;span class="math"&gt;\(O(\log{N})\)&lt;/span&gt;也非常可觀。&lt;/p&gt;
+&lt;p&gt;如果能在時間複雜度為常數的&lt;span class="math"&gt;\(O(1)\)&lt;/span&gt;完成查詢該有多好。&lt;/p&gt;
+&lt;p&gt;本篇文章便要介紹能夠在&lt;span class="math"&gt;\(O(1)\)&lt;/span&gt;完成查詢的&lt;strong&gt;Hash Table(雜湊表)&lt;/strong&gt;。&lt;/p&gt;
+&lt;hr /&gt;
+&lt;h2&gt;目錄&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="#dict"&gt;簡介：Dictionary(字典)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#dat"&gt;以Array實現的Direct Access Table&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#ht"&gt;Hash Table的概念&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#collision"&gt;出事了：Collision&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#ref"&gt;參考資料&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#series"&gt;Hash Table系列文章&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a name="dict"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;簡介：Dictionary(字典)&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Dictionary&lt;/strong&gt;是以「鍵值-資料對」(&lt;strong&gt;Key-Value&lt;/strong&gt; pair)來描述資料的抽象資料形態(Abstract Data Type)。&lt;/p&gt;
+&lt;p&gt;舉例來說：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;電話簿裡的Dictionary即是將「姓名」視為&lt;strong&gt;Key&lt;/strong&gt;，「電話號碼」視為&lt;strong&gt;Value&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;學校學籍系統的Dictionary將「學號」視為&lt;strong&gt;Key&lt;/strong&gt;，「學生資料」(如姓名、修課記錄)視為&lt;strong&gt;Value&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;所以，任何具有辨別功能、可以用在「查詢資料」的「符號」(像是姓名、學號、網址等等)都能夠視為&lt;strong&gt;Key&lt;/strong&gt;。&lt;br /&gt;
+而&lt;strong&gt;Value&lt;/strong&gt;代表著較為廣義的「資料」，例如電話號碼、學籍資料、IP位置等等。&lt;/p&gt;
+&lt;p&gt;只要在系統輸入&lt;strong&gt;Key&lt;/strong&gt;，便能找到相對應的&lt;strong&gt;Value&lt;/strong&gt;，這就是&lt;strong&gt;Dictionary&lt;/strong&gt;的基本概念。&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/HashTable%20series/Intro/f2.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖二：。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;一般&lt;strong&gt;Dictionary&lt;/strong&gt;會支援三個操作：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;新增資料(insert)&lt;/li&gt;
+&lt;li&gt;刪除資料(delete)&lt;/li&gt;
+&lt;li&gt;查詢資料(search)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;以上三個操作：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;若以&lt;strong&gt;平衡的BST&lt;/strong&gt;(例如AVL樹、&lt;a href="http://alrightchiu.github.io/SecondRound/red-black-tree-introjian-jie.html"&gt;Red Black Tree&lt;/a&gt;)便能在&lt;span class="math"&gt;\(O(\log{N})\)&lt;/span&gt;完成。&lt;/li&gt;
+&lt;li&gt;「理想情況」的&lt;strong&gt;Hash Table&lt;/strong&gt;希望能夠以&lt;span class="math"&gt;\(O(1)\)&lt;/span&gt;完成。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a name="dat"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;以Array實現的Direct Access Table&lt;/h2&gt;
+&lt;p&gt;若要在&lt;span class="math"&gt;\(O(1)\)&lt;/span&gt;對資料進行「新增」、「刪除」以及「查詢」，沒有比Array(矩陣)更適合的人選了：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;若直接把&lt;strong&gt;Key&lt;/strong&gt;當作Array的&lt;strong&gt;index&lt;/strong&gt;，並將&lt;strong&gt;Value&lt;/strong&gt;存放進Array，這樣的實作稱為&lt;strong&gt;Direct Access Table&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;但是&lt;strong&gt;Direct Access Table&lt;/strong&gt;有兩個重大缺陷：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Key&lt;/strong&gt;一定要是「非負整數(non-negative integer)」，才能作為Array的&lt;strong&gt;index&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;若&lt;strong&gt;Key&lt;/strong&gt;的「範圍」非常大，可是&lt;strong&gt;Key&lt;/strong&gt;的「數量」相對很少，那麼會非常浪費記憶體空間。&lt;ul&gt;
+&lt;li&gt;以圖三為例，因為&lt;strong&gt;Key&lt;/strong&gt;的範圍從&lt;span class="math"&gt;\(2\)&lt;/span&gt;到&lt;span class="math"&gt;\(47\)&lt;/span&gt;，所以Array的大小(size)至少要「&lt;span class="math"&gt;\(48\)&lt;/span&gt;」，因此&lt;span class="math"&gt;\(15\)&lt;/span&gt;筆資料用了&lt;span class="math"&gt;\(48\)&lt;/span&gt;單位的記憶體空間，也就浪費超過三分之二的記憶體空間。若&lt;strong&gt;Key&lt;/strong&gt;的範圍更大，浪費的程度將非常可觀。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/HashTable%20series/Intro/f3.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖三：。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;關於第一點「&lt;strong&gt;Key&lt;/strong&gt;不是非負整數」的缺陷，可以先利用一個「一對一函數(one-to-one function)」將&lt;strong&gt;Key&lt;/strong&gt;對應到非負整數，問題即可解決。&lt;/p&gt;
+&lt;p&gt;例如，若&lt;strong&gt;Key&lt;/strong&gt;是英文名字，那便利用「ASCII編碼」將字串轉換成非負整數。現要存放「T-MAC」與「KOBE」兩位球員的資料：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;「T-MAC」&lt;span class="math"&gt;\(=84*10^4+45*10^3+77*10^2+65*10+67=893417\)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;「KOBE」&lt;span class="math"&gt;\(=75*10^3+79*10^2+66*10+69=83629\)&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;以上的範例，至少需要一個大小為&lt;span class="math"&gt;\(893418\)&lt;/span&gt;的Array，可是只有存放兩個英文名字，不划算。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Hash Table&lt;/strong&gt;的核心概念就是要解決第二個缺陷：避免記憶體空間浪費。&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;  &lt;/p&gt;
+&lt;p&gt;&lt;a name="ht"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;Hash Table的概念&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Hash Table&lt;/strong&gt;希望能夠將存放資料的「Table」的大小(size)降到「真正會存放進Table的資料的數量」，也就是「有用到的&lt;strong&gt;Key&lt;/strong&gt;的數量」：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;若有用到的&lt;strong&gt;Key&lt;/strong&gt;之數量為&lt;span class="math"&gt;\(n\)&lt;/span&gt;，&lt;strong&gt;Table&lt;/strong&gt;的大小為&lt;span class="math"&gt;\(m\)&lt;/span&gt;，那麼目標就是&lt;span class="math"&gt;\(m=\Theta (n)\)&lt;/span&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;要達到這個目標，必須引入&lt;strong&gt;Hash Function&lt;/strong&gt;，將&lt;strong&gt;Key&lt;/strong&gt;對應到符合&lt;strong&gt;Table&lt;/strong&gt;大小&lt;span class="math"&gt;\(m\)&lt;/span&gt;的範圍內，&lt;span class="math"&gt;\(index=h(Key)\)&lt;/span&gt;，即可成為&lt;strong&gt;Hash Table&lt;/strong&gt;的&lt;strong&gt;index&lt;/strong&gt;，如圖四。&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/HashTable%20series/Intro/f4.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖四：Hash Table和Direct Access Table的差別在於Hash Function。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;優良的&lt;strong&gt;Hash Function&lt;/strong&gt;(&lt;span class="math"&gt;\(h()\)&lt;/span&gt;)應具備以下特徵：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(h()\)&lt;/span&gt;的定義域為整個&lt;strong&gt;Key&lt;/strong&gt;的宇集合&lt;span class="math"&gt;\(U\)&lt;/span&gt;，值域應小於&lt;strong&gt;Table&lt;/strong&gt;的大小&lt;span class="math"&gt;\(m\)&lt;/span&gt;：&lt;br /&gt;
+&lt;span class="math"&gt;\(h:U\rightarrow \{\,0,1,...,m-1\,\},\:where |U|\gg m\)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;盡可能讓&lt;strong&gt;Key&lt;/strong&gt;在經過&lt;strong&gt;Hash Function&lt;/strong&gt;(&lt;span class="math"&gt;\(h()\)&lt;/span&gt;)後，在值域(domain)能夠平均分佈(uniform distributed)，如此才不會有「兩筆資料存進同一個&lt;strong&gt;Table&lt;/strong&gt;空格(稱為&lt;strong&gt;slot&lt;/strong&gt;)」的情況。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;可惜事與願違，因為&lt;span class="math"&gt;\(|U|\gg m\)&lt;/span&gt;，再加上&lt;strong&gt;Hash Function&lt;/strong&gt;設計不易，所以一定會發生&lt;strong&gt;Collision&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;    &lt;/p&gt;
+&lt;p&gt;&lt;a name="collision"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;出事了：Collision&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Collision&lt;/strong&gt;就是兩筆資料存進同一個&lt;strong&gt;Table&lt;/strong&gt;之&lt;strong&gt;slot&lt;/strong&gt;的情形，這將會使得查詢資料失敗(例如：使用item1的&lt;strong&gt;Key&lt;/strong&gt;，卻回傳item2的資料)。&lt;/p&gt;
+&lt;p&gt;假設&lt;strong&gt;Hash Function&lt;/strong&gt;為&lt;span class="math"&gt;\(h(Key)=Key \bmod{m}\)&lt;/span&gt;，&lt;strong&gt;Table&lt;/strong&gt;大小為&lt;span class="math"&gt;\(m=6\)&lt;/span&gt;，目前要處理的資料之&lt;strong&gt;Key&lt;/strong&gt;有&lt;span class="math"&gt;\(67,26,50,33,16,71\)&lt;/span&gt;，那麼各個Key將被對應到的&lt;strong&gt;index&lt;/strong&gt;如下，同時參考圖五：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(h(67)=67 \bmod{6}=1\)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(h(26)=26 \bmod{6}=2\)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(h(50)=50 \bmod{6}=2\)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(h(33)=33 \bmod{6}=3\)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(h(16)=16 \bmod{6}=4\)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(h(71)=71 \bmod{6}=5\)&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;「item26」與「item50」經過&lt;strong&gt;Hash Function&lt;/strong&gt;後同時想要將資料存進&lt;code&gt;Table[2]&lt;/code&gt;，這就是&lt;strong&gt;Collision&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/HashTable%20series/Intro/f5.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖三：。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Collision&lt;/strong&gt;在「可能使用到的&lt;strong&gt;Key&lt;/strong&gt;」之數量遠大於&lt;strong&gt;Table&lt;/strong&gt;大小(亦即&lt;span class="math"&gt;\(|U|\gg m\)&lt;/span&gt;)的情況下，無可避免。&lt;/p&gt;
+&lt;p&gt;解決的辦法有二：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Chaining&lt;/strong&gt;：使用Linked list把「Hashing到同一個slot」的資料串起來。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Open Addressing&lt;/strong&gt;：使用&lt;strong&gt;Probing Method&lt;/strong&gt;來尋找&lt;strong&gt;Table&lt;/strong&gt;中「空的slot」存放資料。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;這兩個方法將分別在後續文章介紹。&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;  &lt;/p&gt;
+&lt;p&gt;以上是&lt;strong&gt;Hash Table&lt;/strong&gt;之基本概念介紹。&lt;/p&gt;
+&lt;p&gt;接下來兩篇將介紹&lt;strong&gt;Chaining&lt;/strong&gt;與&lt;strong&gt;Open Addressing&lt;/strong&gt;解決&lt;strong&gt;Collision&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;&lt;a name="ref"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;參考資料：&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844"&gt;Introduction to Algorithms, Ch11&lt;/a&gt; &lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376"&gt;Fundamentals of Data Structures in C++, Ch8&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.arl.wustl.edu/projects/fpx/cse535/lecture/cse535_lecture6_Hash_Functions.pdf"&gt;John W Lockwood：Lecture 6 - Hash Functions&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-006-introduction-to-algorithms-fall-2011/lecture-videos/lecture-8-hashing-with-chaining/"&gt;MIT 6.006：Lecture 8: Hashing with Chaining&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a name="series"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;h3&gt;Hash Table系列文章&lt;/h3&gt;
+&lt;p&gt;&lt;a href=""&gt;Hash Table：Intro(簡介)&lt;/a&gt;  &lt;/p&gt;
+&lt;p&gt;回到目錄：&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html"&gt;目錄：演算法與資料結構&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;script type="text/javascript"&gt;if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width &lt; 768) ? "left" : align;
+        indent = (screen.width &lt; 768) ? "0em" : indent;
+        linebreak = (screen.width &lt; 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' &amp;&amp; location_protocol !== 'https') location_protocol = 'https:';
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+&lt;/script&gt;</summary><category term="C++"></category><category term="Intro"></category><category term="Dictionary"></category></entry><entry><title>Complexity：Asymptotic Notation(漸進符號)</title><link href="http://alrightchiu.github.io/SecondRound/complexityasymptotic-notationjian-jin-fu-hao.html" rel="alternate"></link><updated>2016-05-14T17:59:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-05-14:SecondRound/complexityasymptotic-notationjian-jin-fu-hao.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h3&gt;先備知識與注意事項&lt;/h3&gt;
 &lt;p&gt;本篇文章將介紹&lt;strong&gt;Complexity(複雜度)&lt;/strong&gt;，以及用來分析&lt;strong&gt;Complexity(複雜度)&lt;/strong&gt;的&lt;strong&gt;Asymptotic Notation(漸進符號)&lt;/strong&gt;。&lt;/p&gt;
 &lt;hr /&gt;
