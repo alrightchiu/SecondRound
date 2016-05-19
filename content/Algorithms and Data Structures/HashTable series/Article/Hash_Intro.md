@@ -220,7 +220,7 @@ $h:U\rightarrow \{\,0,1,...,m-1\,\},\:where |U|\gg m$
 
 ###Hash Table系列文章
 
-[Hash Table：Intro(簡介)]()  
+[Hash Table：Intro(簡介)](http://alrightchiu.github.io/SecondRound/hash-tableintrojian-jie.html)   
 
 
 回到目錄：

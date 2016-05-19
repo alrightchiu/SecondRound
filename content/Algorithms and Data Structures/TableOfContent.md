@@ -84,6 +84,14 @@ Summary: 請先閱讀本篇目錄。
 
 </br>
 
+##Hash Table系列文章
+
+[Hash Table：Intro(簡介)](http://alrightchiu.github.io/SecondRound/hash-tableintrojian-jie.html)   
+
+
+
+</br>
+
 ##Graph系列文章
 
 [Graph: Intro(簡介)](http://alrightchiu.github.io/SecondRound/graph-introjian-jie.html)
