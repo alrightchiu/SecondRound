@@ -42,6 +42,9 @@
 &lt;a href="http://alrightchiu.github.io/SecondRound/red-black-tree-insertxin-zeng-zi-liao-yu-fixupxiu-zheng.html"&gt;Red Black Tree: Insert(新增資料)與Fixup(修正)&lt;/a&gt;&lt;br /&gt;
 &lt;a href="http://alrightchiu.github.io/SecondRound/red-black-tree-deleteshan-chu-zi-liao-yu-fixupxiu-zheng.html"&gt;Red Black Tree: Delete(刪除資料)與Fixup(修正)&lt;/a&gt;  &lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;h2&gt;Hash Table系列文章&lt;/h2&gt;
+&lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/hash-tableintrojian-jie.html"&gt;Hash Table：Intro(簡介)&lt;/a&gt;   &lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h2&gt;Graph系列文章&lt;/h2&gt;
 &lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/graph-introjian-jie.html"&gt;Graph: Intro(簡介)&lt;/a&gt;&lt;/p&gt;
 &lt;h3&gt;Breadth-First Search與Depth-First Search&lt;/h3&gt;
@@ -203,7 +206,7 @@
 &lt;p&gt;&lt;a name="series"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h3&gt;Hash Table系列文章&lt;/h3&gt;
-&lt;p&gt;&lt;a href=""&gt;Hash Table：Intro(簡介)&lt;/a&gt;  &lt;/p&gt;
+&lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/hash-tableintrojian-jie.html"&gt;Hash Table：Intro(簡介)&lt;/a&gt;   &lt;/p&gt;
 &lt;p&gt;回到目錄：&lt;/p&gt;
 &lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html"&gt;目錄：演算法與資料結構&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
