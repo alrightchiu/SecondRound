@@ -161,8 +161,8 @@
 &lt;p&gt;優良的&lt;strong&gt;Hash Function&lt;/strong&gt;(&lt;span class="math"&gt;\(h()\)&lt;/span&gt;)應具備以下特徵：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;span class="math"&gt;\(h()\)&lt;/span&gt;的定義域為整個&lt;strong&gt;Key&lt;/strong&gt;的宇集合&lt;span class="math"&gt;\(U\)&lt;/span&gt;，值域應小於&lt;strong&gt;Table&lt;/strong&gt;的大小&lt;span class="math"&gt;\(m\)&lt;/span&gt;：&lt;br /&gt;
-&lt;span class="math"&gt;\(h:U\rightarrow \{\,0,1,...,m-1\,\},\:where |U|\gg m\)&lt;/span&gt;&lt;/li&gt;
-&lt;li&gt;盡可能讓&lt;strong&gt;Key&lt;/strong&gt;在經過&lt;strong&gt;Hash Function&lt;/strong&gt;(&lt;span class="math"&gt;\(h()\)&lt;/span&gt;)後，在值域(domain)能夠平均分佈(uniform distributed)，如此才不會有「兩筆資料存進同一個&lt;strong&gt;Table&lt;/strong&gt;空格(稱為&lt;strong&gt;slot&lt;/strong&gt;)」的情況。&lt;/li&gt;
+&lt;span class="math"&gt;\(h:U\rightarrow \{\,0,1,...,m-1\,\},\:where \:|U|\gg m\)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;盡可能讓&lt;strong&gt;Key&lt;/strong&gt;在經過&lt;strong&gt;Hash Function&lt;/strong&gt;後，在值域(domain)能夠平均分佈(uniform distributed)，如此才不會有「兩筆資料存進同一個&lt;strong&gt;Table&lt;/strong&gt;空格(稱為&lt;strong&gt;slot&lt;/strong&gt;)」的情況。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;可惜事與願違，因為&lt;span class="math"&gt;\(|U|\gg m\)&lt;/span&gt;，再加上&lt;strong&gt;Hash Function&lt;/strong&gt;設計不易，所以一定會發生&lt;strong&gt;Collision&lt;/strong&gt;。&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;    &lt;/p&gt;
@@ -178,7 +178,7 @@
 &lt;li&gt;&lt;span class="math"&gt;\(h(16)=16 \bmod{6}=4\)&lt;/span&gt;&lt;/li&gt;
 &lt;li&gt;&lt;span class="math"&gt;\(h(71)=71 \bmod{6}=5\)&lt;/span&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;「item26」與「item50」經過&lt;strong&gt;Hash Function&lt;/strong&gt;後同時想要將資料存進&lt;code&gt;Table[2]&lt;/code&gt;，這就是&lt;strong&gt;Collision&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;「item26」與「item50」經過&lt;strong&gt;Hash Function&lt;/strong&gt;後，同時想要將資料存進&lt;code&gt;Table[2]&lt;/code&gt;，這就是&lt;strong&gt;Collision&lt;/strong&gt;。&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/HashTable%20series/Intro/f5.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖三：。&lt;/strong&gt;

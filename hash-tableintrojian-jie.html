@@ -203,8 +203,8 @@
 <p>優良的<strong>Hash Function</strong>(<span class="math">\(h()\)</span>)應具備以下特徵：</p>
 <ul>
 <li><span class="math">\(h()\)</span>的定義域為整個<strong>Key</strong>的宇集合<span class="math">\(U\)</span>，值域應小於<strong>Table</strong>的大小<span class="math">\(m\)</span>：<br />
-<span class="math">\(h:U\rightarrow \{\,0,1,...,m-1\,\},\:where |U|\gg m\)</span></li>
-<li>盡可能讓<strong>Key</strong>在經過<strong>Hash Function</strong>(<span class="math">\(h()\)</span>)後，在值域(domain)能夠平均分佈(uniform distributed)，如此才不會有「兩筆資料存進同一個<strong>Table</strong>空格(稱為<strong>slot</strong>)」的情況。</li>
+<span class="math">\(h:U\rightarrow \{\,0,1,...,m-1\,\},\:where \:|U|\gg m\)</span></li>
+<li>盡可能讓<strong>Key</strong>在經過<strong>Hash Function</strong>後，在值域(domain)能夠平均分佈(uniform distributed)，如此才不會有「兩筆資料存進同一個<strong>Table</strong>空格(稱為<strong>slot</strong>)」的情況。</li>
 </ul>
 <p>可惜事與願違，因為<span class="math">\(|U|\gg m\)</span>，再加上<strong>Hash Function</strong>設計不易，所以一定會發生<strong>Collision</strong>。</p>
 <p></br>    </p>
@@ -220,7 +220,7 @@
 <li><span class="math">\(h(16)=16 \bmod{6}=4\)</span></li>
 <li><span class="math">\(h(71)=71 \bmod{6}=5\)</span></li>
 </ul>
-<p>「item26」與「item50」經過<strong>Hash Function</strong>後同時想要將資料存進<code>Table[2]</code>，這就是<strong>Collision</strong>。</p>
+<p>「item26」與「item50」經過<strong>Hash Function</strong>後，同時想要將資料存進<code>Table[2]</code>，這就是<strong>Collision</strong>。</p>
 <p><center>
 <img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/HashTable%20series/Intro/f5.png?raw=true" /></p>
 <p><strong>圖三：。</strong>
