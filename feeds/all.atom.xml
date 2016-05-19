@@ -181,7 +181,7 @@
 &lt;p&gt;「item26」與「item50」經過&lt;strong&gt;Hash Function&lt;/strong&gt;後，同時想要將資料存進&lt;code&gt;Table[2]&lt;/code&gt;，這就是&lt;strong&gt;Collision&lt;/strong&gt;。&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/HashTable%20series/Intro/f5.png?raw=true" /&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;圖三：。&lt;/strong&gt;
+&lt;p&gt;&lt;strong&gt;圖五：。&lt;/strong&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Collision&lt;/strong&gt;在「可能使用到的&lt;strong&gt;Key&lt;/strong&gt;」之數量遠大於&lt;strong&gt;Table&lt;/strong&gt;大小(亦即&lt;span class="math"&gt;\(|U|\gg m\)&lt;/span&gt;)的情況下，無可避免。&lt;/p&gt;
 &lt;p&gt;解決的辦法有二：&lt;/p&gt;
