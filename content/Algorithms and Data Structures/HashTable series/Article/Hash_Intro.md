@@ -1,7 +1,7 @@
 Title: Hash Table：Intro(簡介)  
 Date: 2016-5-19 23:01 
 Category: 演算法與資料結構  
-Tags: C++, Intro, Dictionary,  
+Tags: C++, Intro, Dictionary, Hash Table,   
 Summary: 介紹Hash Table(雜湊表)的基本概念。
 
 
