@@ -266,7 +266,7 @@
         "}";
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
-&lt;/script&gt;</summary><category term="C++"></category><category term="Intro"></category><category term="Dictionary"></category></entry><entry><title>Complexity：Asymptotic Notation(漸進符號)</title><link href="http://alrightchiu.github.io/SecondRound/complexityasymptotic-notationjian-jin-fu-hao.html" rel="alternate"></link><updated>2016-05-14T17:59:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-05-14:SecondRound/complexityasymptotic-notationjian-jin-fu-hao.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;/script&gt;</summary><category term="C++"></category><category term="Intro"></category><category term="Dictionary"></category><category term="Hash Table"></category></entry><entry><title>Complexity：Asymptotic Notation(漸進符號)</title><link href="http://alrightchiu.github.io/SecondRound/complexityasymptotic-notationjian-jin-fu-hao.html" rel="alternate"></link><updated>2016-05-14T17:59:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-05-14:SecondRound/complexityasymptotic-notationjian-jin-fu-hao.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h3&gt;先備知識與注意事項&lt;/h3&gt;
 &lt;p&gt;本篇文章將介紹&lt;strong&gt;Complexity(複雜度)&lt;/strong&gt;，以及用來分析&lt;strong&gt;Complexity(複雜度)&lt;/strong&gt;的&lt;strong&gt;Asymptotic Notation(漸進符號)&lt;/strong&gt;。&lt;/p&gt;
 &lt;hr /&gt;
