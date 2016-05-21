@@ -196,7 +196,7 @@
 &lt;h2&gt;Hash Function介紹&lt;/h2&gt;
 &lt;p&gt;優秀的&lt;strong&gt;Hash Function&lt;/strong&gt;(&lt;span class="math"&gt;\(h()\)&lt;/span&gt;)應具備以下特徵：&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;span class="math"&gt;\(h()\)&lt;/span&gt;的定義域(domain)為整個&lt;strong&gt;Key&lt;/strong&gt;的宇集合&lt;span class="math"&gt;\(U\)&lt;/span&gt;，值域(range)應小於&lt;strong&gt;Table&lt;/strong&gt;的大小&lt;span class="math"&gt;\(m\)&lt;/span&gt;：&lt;br /&gt;
+&lt;li&gt;定義&lt;span class="math"&gt;\(h()\)&lt;/span&gt;的定義域(domain)為整個&lt;strong&gt;Key&lt;/strong&gt;的宇集合&lt;span class="math"&gt;\(U\)&lt;/span&gt;，值域(range)應小於&lt;strong&gt;Table&lt;/strong&gt;的大小&lt;span class="math"&gt;\(m\)&lt;/span&gt;：&lt;br /&gt;
 &lt;span class="math"&gt;\(h:U\rightarrow \{\,0,1,...,m-1\,\},\:where \:|U|\gg m\)&lt;/span&gt;&lt;/li&gt;
 &lt;li&gt;盡可能讓&lt;strong&gt;Key&lt;/strong&gt;在經過&lt;strong&gt;Hash Function&lt;/strong&gt;後，在值域(也就是&lt;strong&gt;Table&lt;/strong&gt;的&lt;strong&gt;index&lt;/strong&gt;)能夠平均分佈(uniform distributed)，如此才不會有「兩筆資料存進同一個&lt;strong&gt;Table&lt;/strong&gt;空格(稱為&lt;strong&gt;slot&lt;/strong&gt;)」的情況。&lt;/li&gt;
 &lt;/ul&gt;
@@ -210,7 +210,7 @@
 &lt;p&gt;&lt;/br&gt;  &lt;/p&gt;
 &lt;p&gt;&lt;a name="dm"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h3&gt;Division Method&lt;/h3&gt;
-&lt;p&gt;要把大範圍的&lt;span class="math"&gt;\(|U|\)&lt;/span&gt;對應到較小範圍的&lt;span class="math"&gt;\(\{0,1,...,m-1\}\)&lt;/span&gt;，最直覺的做法就是利用&lt;strong&gt;Modulus&lt;/strong&gt;(&lt;span class="math"&gt;\(\bmod\)&lt;/span&gt;)取餘數。&lt;br /&gt;
+&lt;p&gt;要把大範圍的&lt;span class="math"&gt;\(|U|\)&lt;/span&gt;對應到較小範圍的&lt;span class="math"&gt;\(\{0,1,...,m-1\}\)&lt;/span&gt;，最直覺的做法就是利用&lt;strong&gt;Modulus&lt;/strong&gt;(mod)取餘數。&lt;br /&gt;
 假設&lt;strong&gt;Table&lt;/strong&gt;大小為&lt;span class="math"&gt;\(m\)&lt;/span&gt;，定義&lt;strong&gt;Hash Function&lt;/strong&gt;為：&lt;/p&gt;
 &lt;div class="math"&gt;$$
 h(Key)=Key \bmod{m}

@@ -239,7 +239,7 @@
 <h2>Hash Function介紹</h2>
 <p>優秀的<strong>Hash Function</strong>(<span class="math">\(h()\)</span>)應具備以下特徵：</p>
 <ul>
-<li><span class="math">\(h()\)</span>的定義域(domain)為整個<strong>Key</strong>的宇集合<span class="math">\(U\)</span>，值域(range)應小於<strong>Table</strong>的大小<span class="math">\(m\)</span>：<br />
+<li>定義<span class="math">\(h()\)</span>的定義域(domain)為整個<strong>Key</strong>的宇集合<span class="math">\(U\)</span>，值域(range)應小於<strong>Table</strong>的大小<span class="math">\(m\)</span>：<br />
 <span class="math">\(h:U\rightarrow \{\,0,1,...,m-1\,\},\:where \:|U|\gg m\)</span></li>
 <li>盡可能讓<strong>Key</strong>在經過<strong>Hash Function</strong>後，在值域(也就是<strong>Table</strong>的<strong>index</strong>)能夠平均分佈(uniform distributed)，如此才不會有「兩筆資料存進同一個<strong>Table</strong>空格(稱為<strong>slot</strong>)」的情況。</li>
 </ul>
@@ -253,7 +253,7 @@
 <p></br>  </p>
 <p><a name="dm"></a></p>
 <h3>Division Method</h3>
-<p>要把大範圍的<span class="math">\(|U|\)</span>對應到較小範圍的<span class="math">\(\{0,1,...,m-1\}\)</span>，最直覺的做法就是利用<strong>Modulus</strong>(<span class="math">\(\bmod\)</span>)取餘數。<br />
+<p>要把大範圍的<span class="math">\(|U|\)</span>對應到較小範圍的<span class="math">\(\{0,1,...,m-1\}\)</span>，最直覺的做法就是利用<strong>Modulus</strong>(mod)取餘數。<br />
 假設<strong>Table</strong>大小為<span class="math">\(m\)</span>，定義<strong>Hash Function</strong>為：</p>
 <div class="math">$$
 h(Key)=Key \bmod{m}
