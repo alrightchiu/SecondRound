@@ -223,13 +223,13 @@ $$
 
 ###優點
 
-以**Division Method**實現**Hash Function**的優點就是非常快，只要取一次餘數(一次除法)即可。
+以**Division Method**實現**Hash Function**的優點就是非常快，只要做一次餘數(一次除法)運算即可。
 
 ###缺點
 
 但是缺點需要特別注意：**Table**的大小$m$必須慎選，要儘量避開「2的指數($2^{p}$)」，否則就只有「最低位的p-bit」會影響**Hash Function**的結果。  
 
-轉換成二進位會更容易看出，以$m=8=2^{3}$為例，$h(Key)=Key \bmod{2^{3}}$的意思就是，只取「以二進位表示的**Key**的最低位的**3個bit**」來決定**Key**對應到的**Table**之**index**，見圖六。
+轉換成二進位會更容易看出，以$m=8=2^{3}$為例，$h(Key)=Key \bmod{2^{3}}$的意思就是，只取「以二進位表示的**Key**的最低位的**$3$個bit**」來決定**Key**對應到的**Table**之**index**，見圖六。
 
 <center>
 ![cc][f6]
@@ -249,7 +249,7 @@ $$
 
 ###Multiplication Method
 
-而**Multiplication Method**便能夠「盡可能」把越多**Key**的bit都納入考慮。
+**Multiplication Method**便能夠「盡可能」把越多**Key**的bit都納入考慮。
 
 步驟如下：
 
