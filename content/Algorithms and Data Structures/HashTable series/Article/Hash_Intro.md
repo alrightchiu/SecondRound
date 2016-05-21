@@ -377,6 +377,7 @@ $$
 * [Wikipedia：Universal Hashing](https://en.wikipedia.org/wiki/Universal_hashing)
 * [CMU14-451,Algorithms：Universal and Perfect Hashing](https://www.cs.cmu.edu/~avrim/451f11/lectures/lect1004.pdf)
 * [Sarah Adel Bargal：Universal Hashing](http://cs-www.bu.edu/faculty/homer/537/talks/SarahAdelBargal_UniversalHashingnotes.pdf)
+* [Explanation from Ou-Yang,Hui](https://www.facebook.com/profile.php?id=100000181170314&fref=ts)
 
 
 
