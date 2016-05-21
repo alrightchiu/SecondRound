@@ -321,9 +321,7 @@ $$
 
 
   
-至於程式的實作上，利用**bit-shift**會更有效率，請參考：  
-
-* [Geoff Kuenning：Hash Functions](https://www.cs.hmc.edu/~geoff/classes/hmc.cs070.200101/homework10/hashfuncs.html)
+至於程式的實作上，利用**bit-shift**會更有效率，請參考：[Geoff Kuenning：Hash Functions](https://www.cs.hmc.edu/~geoff/classes/hmc.cs070.200101/homework10/hashfuncs.html)
 
 
 </br>  
