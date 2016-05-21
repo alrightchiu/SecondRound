@@ -184,7 +184,7 @@ Summary: 介紹Hash Table(雜湊表)的基本概念。
 
 優秀的**Hash Function**($h()$)應具備以下特徵：
 
-* $h()$的定義域(domain)為整個**Key**的宇集合$U$，值域(range)應小於**Table**的大小$m$：  
+* 定義$h()$的定義域(domain)為整個**Key**的宇集合$U$，值域(range)應小於**Table**的大小$m$：  
 $h:U\rightarrow \{\,0,1,...,m-1\,\},\:where \:|U|\gg m$
 * 盡可能讓**Key**在經過**Hash Function**後，在值域(也就是**Table**的**index**)能夠平均分佈(uniform distributed)，如此才不會有「兩筆資料存進同一個**Table**空格(稱為**slot**)」的情況。
 
@@ -203,7 +203,7 @@ $h:U\rightarrow \{\,0,1,...,m-1\,\},\:where \:|U|\gg m$
 
 ###Division Method
 
-要把大範圍的$|U|$對應到較小範圍的$\{0,1,...,m-1\}$，最直覺的做法就是利用**Modulus**($\bmod$)取餘數。  
+要把大範圍的$|U|$對應到較小範圍的$\{0,1,...,m-1\}$，最直覺的做法就是利用**Modulus**(mod)取餘數。  
 假設**Table**大小為$m$，定義**Hash Function**為：
 
 $$
