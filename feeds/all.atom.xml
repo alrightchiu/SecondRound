@@ -71,7 +71,7 @@
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;</summary><category term="C++"></category></entry><entry><title>Hash Table：Intro(簡介)</title><link href="http://alrightchiu.github.io/SecondRound/hash-tableintrojian-jie.html" rel="alternate"></link><updated>2016-05-19T23:01:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-05-19:SecondRound/hash-tableintrojian-jie.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h3&gt;先備知識與注意事項&lt;/h3&gt;
 &lt;p&gt;在做資料處理時，常常需要「查詢資料」，譬如線上購物平台有會員登入時，首先確認輸入的帳號密碼是否在資料庫裡，如果是，便從資料庫裡找出此會員的資料，如購物記錄、暫存購物清單等等。&lt;/p&gt;
-&lt;p&gt;想到「查詢資料」，可能會想到能夠在&lt;a href="http://alrightchiu.github.io/SecondRound/binary-search-tree-introjian-jie.html"&gt;時間複雜度為&lt;span class="math"&gt;\(O(\log{N})\)&lt;/span&gt;完成查詢的&lt;strong&gt;平衡的&lt;/strong&gt;Binary Search Tree(二元搜尋樹)&lt;/a&gt;，如圖一。&lt;/p&gt;
+&lt;p&gt;想到「查詢資料」，可能會想到能夠在時間複雜度為&lt;span class="math"&gt;\(O(\log{N})\)&lt;/span&gt;完成查詢的&lt;strong&gt;平衡的&lt;/strong&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/binary-search-tree-introjian-jie.html"&gt;Binary Search Tree(二元搜尋樹)&lt;/a&gt;，如圖一。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;在圖一的BST中，要找到Key(17)的資料，需要比較&lt;span class="math"&gt;\(4=\lfloor{\log_{2}{15}\rfloor+1}\)&lt;/span&gt;次，時間複雜度可以視為&lt;strong&gt;height(樹高)&lt;/strong&gt;。&lt;/li&gt;
 &lt;/ul&gt;
