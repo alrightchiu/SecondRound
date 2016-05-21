@@ -291,10 +291,7 @@ $$&lt;/div&gt;
 &lt;div class="math"&gt;$$
 A=\frac{\sqrt{5}-1}{2}\approx 0.6180339887...  
 $$&lt;/div&gt;
-&lt;p&gt;至於程式的實作上，利用&lt;strong&gt;bit-shift&lt;/strong&gt;會更有效率，請參考：  &lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href="https://www.cs.hmc.edu/~geoff/classes/hmc.cs070.200101/homework10/hashfuncs.html"&gt;Geoff Kuenning：Hash Functions&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;至於程式的實作上，利用&lt;strong&gt;bit-shift&lt;/strong&gt;會更有效率，請參考：&lt;a href="https://www.cs.hmc.edu/~geoff/classes/hmc.cs070.200101/homework10/hashfuncs.html"&gt;Geoff Kuenning：Hash Functions&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;br /&gt;
 最後，在Hashing的議題裡，還有兩位大魔王叫做&lt;strong&gt;Universal Hashing&lt;/strong&gt;以及&lt;strong&gt;Perfect Hashing&lt;/strong&gt;(有鑒於筆者可能一輩子都看不懂，所以這裡就放個連結)，據說可以產生最低限度的&lt;strong&gt;Collision&lt;/strong&gt;，請參考：&lt;/p&gt;
 &lt;ul&gt;
