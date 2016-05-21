@@ -10,7 +10,7 @@ Summary: 介紹Hash Table(雜湊表)的基本概念。
 
 在做資料處理時，常常需要「查詢資料」，譬如線上購物平台有會員登入時，首先確認輸入的帳號密碼是否在資料庫裡，如果是，便從資料庫裡找出此會員的資料，如購物記錄、暫存購物清單等等。
 
-想到「查詢資料」，可能會想到能夠在[時間複雜度為$O(\log{N})$完成查詢的**平衡的**Binary Search Tree(二元搜尋樹)](http://alrightchiu.github.io/SecondRound/binary-search-tree-introjian-jie.html)，如圖一。
+想到「查詢資料」，可能會想到能夠在時間複雜度為$O(\log{N})$完成查詢的**平衡的**[Binary Search Tree(二元搜尋樹)](http://alrightchiu.github.io/SecondRound/binary-search-tree-introjian-jie.html)，如圖一。
 
 * 在圖一的BST中，要找到Key(17)的資料，需要比較$4=\lfloor{\log_{2}{15}\rfloor+1}$次，時間複雜度可以視為**height(樹高)**。
 
