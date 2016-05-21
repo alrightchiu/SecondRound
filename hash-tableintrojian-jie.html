@@ -317,7 +317,13 @@ $$</div>
 <p><center>
 <img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/HashTable%20series/Intro/f11.png?raw=true" /></p>
 <p></center></p>
-<p>到這裡，再看一次圖七(b)，可以發現，決定出<span class="math">\(h(21)=4\)</span>的過程當中，以二進位表示的<strong>Key</strong><span class="math">\(=21\)</span>的「每一個部分的bit」都用上了，二進位的<span class="math">\(4\)</span>是由以二進位表示的<span class="math">\(Key=21\)</span>之「頭：<span class="math">\(101\)</span>」加上「中：<span class="math">\(101\)</span>」再加上「尾：<span class="math">\(010\)</span>」得到的，因為參與的「部位」變多了，那麼隨機性也就增加了，如此<span class="math">\(h(Key)\)</span>便能得到較為隨機的結果。  </p>
+<p>到這裡，再看一次圖七(b)，可以發現，決定出<span class="math">\(h(21)=4\)</span>的過程當中，以二進位表示的<strong>Key</strong><span class="math">\(=21\)</span>的「每一個部分的bit」都用上了，二進位的<span class="math">\(4\)</span>是由以二進位的<span class="math">\(Key=21\)</span>之：</p>
+<ul>
+<li>頭：<span class="math">\(101\)</span></li>
+<li>中：<span class="math">\(101\)</span></li>
+<li>尾：<span class="math">\(010\)</span></li>
+</ul>
+<p>三者相加得到的，因為參與的「部位」變多了，那麼隨機性也就增加了，如此<span class="math">\(h(Key)\)</span>便能得到較為隨機的結果。  </p>
 <p><center>
 <img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/HashTable%20series/Intro/f7.png?raw=true" /></p>
 <p><strong>圖七(b)：。</strong>
