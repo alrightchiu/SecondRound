@@ -165,7 +165,7 @@
 &lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/HashTable%20series/Intro/f4.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖四：Hash Table和Direct Access Table的差別在於Hash Function。&lt;/strong&gt;
 &lt;/center&gt;&lt;/p&gt;
-&lt;p&gt;可惜事與願違，因為&lt;span class="math"&gt;\(|U|\gg m\)&lt;/span&gt;，再加上&lt;strong&gt;Hash Function&lt;/strong&gt;設計不易，所以一定會發生&lt;strong&gt;Collision&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;可惜事與願違，因為&lt;span class="math"&gt;\(|U|\gg m\)&lt;/span&gt;，再加上&lt;strong&gt;Hash Function&lt;/strong&gt;設計不易，所以很可能發生&lt;strong&gt;Collision&lt;/strong&gt;。&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;    &lt;/p&gt;
 &lt;p&gt;&lt;a name="collision"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h3&gt;很可能發生Collision&lt;/h3&gt;
