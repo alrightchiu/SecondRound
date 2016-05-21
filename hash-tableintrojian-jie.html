@@ -130,8 +130,15 @@
 <ul>
 <li><a href="#dict">簡介：Dictionary(字典)</a></li>
 <li><a href="#dat">以Array實現的Direct Access Table</a></li>
-<li><a href="#ht">Hash Table的概念</a></li>
-<li><a href="#collision">出事了：Collision</a></li>
+<li><a href="#ht">Hash Table的概念</a><ul>
+<li><a href="#collision">很可能發生Collision</a></li>
+</ul>
+</li>
+<li><a href="#hf">Hash Function介紹</a><ul>
+<li><a href="#dm">Division Method</a></li>
+<li><a href="#mm">Multiplication Method</a></li>
+</ul>
+</li>
 <li><a href="#ref">參考資料</a></li>
 <li><a href="#series">Hash Table系列文章</a></li>
 </ul>
@@ -181,7 +188,7 @@
 <img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/HashTable%20series/Intro/f3.png?raw=true" /></p>
 <p><strong>圖三：。</strong>
 </center></p>
-<p>關於第一點「<strong>Key</strong>不是非負整數」的缺陷，可以先利用一個「一對一函數(one-to-one function)」將<strong>Key</strong>對應到非負整數，問題即可解決。</p>
+<p>關於第一點「<strong>Key</strong>不是非負整數」的缺陷，可以先利用一個「一對一函數(one-to-one function)」將<strong>Key</strong>對應到非負整數，問題即可解決，稱為<strong>prehash</strong>。</p>
 <p>例如，若<strong>Key</strong>是英文名字，那便利用「ASCII編碼」將字串轉換成非負整數。現要存放「T-MAC」與「KOBE」兩位球員的資料：</p>
 <ul>
 <li>「T-MAC」<span class="math">\(=84*10^4+45*10^3+77*10^2+65*10+67=893417\)</span></li>
@@ -201,18 +208,12 @@
 <img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/HashTable%20series/Intro/f4.png?raw=true" /></p>
 <p><strong>圖四：Hash Table和Direct Access Table的差別在於Hash Function。</strong>
 </center></p>
-<p>優良的<strong>Hash Function</strong>(<span class="math">\(h()\)</span>)應具備以下特徵：</p>
-<ul>
-<li><span class="math">\(h()\)</span>的定義域為整個<strong>Key</strong>的宇集合<span class="math">\(U\)</span>，值域應小於<strong>Table</strong>的大小<span class="math">\(m\)</span>：<br />
-<span class="math">\(h:U\rightarrow \{\,0,1,...,m-1\,\},\:where \:|U|\gg m\)</span></li>
-<li>盡可能讓<strong>Key</strong>在經過<strong>Hash Function</strong>後，在值域(domain)能夠平均分佈(uniform distributed)，如此才不會有「兩筆資料存進同一個<strong>Table</strong>空格(稱為<strong>slot</strong>)」的情況。</li>
-</ul>
 <p>可惜事與願違，因為<span class="math">\(|U|\gg m\)</span>，再加上<strong>Hash Function</strong>設計不易，所以一定會發生<strong>Collision</strong>。</p>
 <p></br>    </p>
 <p><a name="collision"></a></p>
-<h2>出事了：Collision</h2>
+<h3>很可能發生Collision</h3>
 <p><strong>Collision</strong>就是兩筆資料存進同一個<strong>Table</strong>之<strong>slot</strong>的情形，這將會使得查詢資料失敗(例如：使用item1的<strong>Key</strong>，卻回傳item2的資料)。</p>
-<p>假設<strong>Hash Function</strong>為<span class="math">\(h(Key)=Key \bmod{m}\)</span>，<strong>Table</strong>大小為<span class="math">\(m=6\)</span>，目前要處理的資料之<strong>Key</strong>有<span class="math">\(67,26,50,33,16,71\)</span>，那麼各個Key將被對應到的<strong>index</strong>如下，同時參考圖五：</p>
+<p>若以<a href="#dm"><strong>Division Method</strong></a>實作<strong>Hash Function</strong>，定義<span class="math">\(h(Key)=Key \bmod{m}\)</span>，<strong>Table</strong>大小為<span class="math">\(m=6\)</span>，目前要處理的資料之<strong>Key</strong>有<span class="math">\(67,26,50,33,16,71\)</span>，那麼各個Key將被對應到的<strong>index</strong>如下，同時參考圖五：</p>
 <ul>
 <li><span class="math">\(h(67)=67 \bmod{6}=1\)</span></li>
 <li><span class="math">\(h(26)=26 \bmod{6}=2\)</span></li>
@@ -233,6 +234,110 @@
 <li><strong>Open Addressing</strong>：使用<strong>Probing Method</strong>來尋找<strong>Table</strong>中「空的slot」存放資料。</li>
 </ol>
 <p>這兩個方法將分別在後續文章介紹。</p>
+<p></br></p>
+<p><a name="hf"></a></p>
+<h2>Hash Function介紹</h2>
+<p>優秀的<strong>Hash Function</strong>(<span class="math">\(h()\)</span>)應具備以下特徵：</p>
+<ul>
+<li><span class="math">\(h()\)</span>的定義域(domain)為整個<strong>Key</strong>的宇集合<span class="math">\(U\)</span>，值域(range)應小於<strong>Table</strong>的大小<span class="math">\(m\)</span>：<br />
+<span class="math">\(h:U\rightarrow \{\,0,1,...,m-1\,\},\:where \:|U|\gg m\)</span></li>
+<li>盡可能讓<strong>Key</strong>在經過<strong>Hash Function</strong>後，在值域(也就是<strong>Table</strong>的<strong>index</strong>)能夠平均分佈(uniform distributed)，如此才不會有「兩筆資料存進同一個<strong>Table</strong>空格(稱為<strong>slot</strong>)」的情況。</li>
+</ul>
+<p>若把<strong>Table</strong>想像成「書桌」，<strong>slot</strong>想像成書桌的「抽屜」，那麼為了要能更快速找到物品，當然是希望「每一個抽屜只放一個物品」，如此一來，只要拿著<strong>Key</strong>，透過<strong>Hash Function</strong>找到對應的抽屜(<strong>Hash Function</strong>的功能是指出「第幾個」抽屜，也就是抽屜的<strong>index</strong>)，就能保證是該<strong>Key</strong>所要找的物品。<br />
+反之，如果同一個抽屜裡有兩個以上的物品時，便有可能找錯物品。</p>
+<p>以下介紹兩種<strong>Hash Function</strong>的基本款：</p>
+<ol>
+<li>Division Method</li>
+<li>Multiplication Method</li>
+</ol>
+<p></br>  </p>
+<p><a name="dm"></a></p>
+<h3>Division Method</h3>
+<p>要把大範圍的<span class="math">\(|U|\)</span>對應到較小範圍的<span class="math">\(\{0,1,...,m-1\}\)</span>，最直覺的做法就是利用<strong>Modulus</strong>(<span class="math">\(\bmod\)</span>)取餘數。<br />
+假設<strong>Table</strong>大小為<span class="math">\(m\)</span>，定義<strong>Hash Function</strong>為：</p>
+<div class="math">$$
+h(Key)=Key \bmod{m}
+$$</div>
+<p>例如，選定<strong>Table</strong>大小為<span class="math">\(m=8\)</span>，那麼以下的<strong>Key</strong>與<strong>Table</strong>之<strong>index</strong>將有對應關係如下：</p>
+<ul>
+<li><span class="math">\(h(14)=14 \bmod{8}=6\)</span><ul>
+<li>代表「編號<span class="math">\(14\)</span>」的物品要放進「第<span class="math">\(6\)</span>格」抽屜。</li>
+</ul>
+</li>
+<li><span class="math">\(h(23)=23 \bmod{8}=7\)</span><ul>
+<li>代表「編號<span class="math">\(23\)</span>」的物品要放進「第<span class="math">\(7\)</span>格」抽屜。</li>
+</ul>
+</li>
+<li><span class="math">\(h(46)=46 \bmod{8}=6\)</span><ul>
+<li>代表「編號<span class="math">\(46\)</span>」的物品要放進「第<span class="math">\(6\)</span>格」抽屜。</li>
+</ul>
+</li>
+<li><span class="math">\(h(50)=50 \bmod{8}=2\)</span><ul>
+<li>代表「編號<span class="math">\(50\)</span>」的物品要放進「第<span class="math">\(2\)</span>格」抽屜。</li>
+</ul>
+</li>
+</ul>
+<h3>優點</h3>
+<p>以<strong>Division Method</strong>實現<strong>Hash Function</strong>的優點就是非常快，只要取一次餘數(一次除法)即可。</p>
+<h3>缺點</h3>
+<p>但是缺點需要特別注意：<strong>Table</strong>的大小<span class="math">\(m\)</span>必須慎選，要儘量避開「2的指數(<span class="math">\(2^{p}\)</span>)」，否則就只有「最低位的p-bit」會影響<strong>Hash Function</strong>的結果。  </p>
+<p>轉換成二進位會更容易看出，以<span class="math">\(m=8=2^{3}\)</span>為例，<span class="math">\(h(Key)=Key \bmod{2^{3}}\)</span>的意思就是，只取「以二進位表示的<strong>Key</strong>的最低位的<strong>3個bit</strong>」來決定<strong>Key</strong>對應到的<strong>Table</strong>之<strong>index</strong>，見圖六。</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/HashTable%20series/Intro/f6.png?raw=true" /></p>
+<p><strong>圖六：。</strong>
+</center></p>
+<p>這種情況下，若有大量變數以相同的命名規則，例如「<code>a_count</code>、<code>b_count</code>、<code>c_count</code>」，很有可能在<strong>prehash</strong>(在<strong>Direct Access Table</strong>提過的「T-MAC」與「KOBE」)將字串轉換成<strong>Key</strong>時，得到「低位bit」完全相同的<strong>key</strong>，因為以上三個變數的結尾都是<code>_count</code>，那麼<strong>Division Method</strong>就會把這三個變數都放進同一個<strong>slot</strong>，造成<strong>Collision</strong>。</p>
+<p>所以，優秀的<strong>Hash Function</strong>應該要「盡可能」把越多<strong>Key</strong>的bit都納入考慮，如此才能儘量把<strong>Key</strong>分配到不同<strong>slot</strong>(最好的情況就是把「所有bit」都納入考慮，不過這就回到<strong>Direct Access Table</strong>的問題)。</p>
+<p></br>  </p>
+<p><a name="mm"></a></p>
+<h3>Multiplication Method</h3>
+<p>而<strong>Multiplication Method</strong>便能夠「盡可能」把越多<strong>Key</strong>的bit都納入考慮。</p>
+<p>步驟如下：</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/HashTable%20series/Intro/f8.png?raw=true" /></p>
+<p><strong>圖七(a)：。</strong>
+</center></p>
+<p>怎麼說以上這個將「<strong>Key</strong>乘上<span class="math">\(A\)</span>、取小數點部分、再乘上<span class="math">\(m\)</span>、再取整數部分」的<strong>Hash Function</strong>就能夠考慮更多的<strong>Key</strong>的bit呢？</p>
+<p>轉換成二進位會更容易看出來。</p>
+<p>先把圖七(a)中的「<span class="math">\(constant\:A=\frac{13}{32}\)</span>」轉換成二進位：</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/HashTable%20series/Intro/f9.png?raw=true" /></p>
+<p></center></p>
+<p>再把「<span class="math">\(K\)</span>乘上<span class="math">\(A\)</span>」以二進位表示，見圖七(b)：</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/HashTable%20series/Intro/f12.png?raw=true" /></p>
+<p><strong>圖七(b)：。</strong>
+</center></p>
+<p>得到的<span class="math">\(r_{0}=\frac{17}{32}\)</span>其實就是<span class="math">\(KA\)</span>的小數部分(fractional part)，亦即<span class="math">\(r_{0}=KA-\lfloor KA \rfloor\)</span>，也就等於圖七(a)中的「f」。</p>
+<p>那麼，接下來對「<span class="math">\(KA\)</span>的小數部分乘上<span class="math">\(m=2^{3}\)</span>」，以二進位表示法解讀，就會是把「小數點往右移<span class="math">\(3\)</span>位」：</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/HashTable%20series/Intro/f10.png?raw=true" /></p>
+<p></center></p>
+<p>最後一步：<span class="math">\(h(K)=\lfloor m(KA-\lfloor KA \rfloor) \rfloor\)</span>，其實就是取<span class="math">\(m\times r_{0}\)</span>的整數部分，結果與圖七(a)吻合。</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/HashTable%20series/Intro/f11.png?raw=true" /></p>
+<p></center></p>
+<p>到這裡，再看一次圖七(b)，可以發現，決定出<span class="math">\(h(21)=4\)</span>的過程當中，以二進位表示的<strong>Key</strong><span class="math">\(=21\)</span>的「每一個部分的bit」都用上了，二進位的<span class="math">\(4\)</span>是由以二進位表示的<span class="math">\(Key=21\)</span>之「頭：<span class="math">\(101\)</span>」加上「中：<span class="math">\(101\)</span>」再加上「尾：<span class="math">\(010\)</span>」得到的，因為參與的「部位」變多了，那麼隨機性也就增加了，如此<span class="math">\(h(Key)\)</span>便能得到較為隨機的結果。  </p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/HashTable%20series/Intro/f7.png?raw=true" /></p>
+<p><strong>圖七(b)：。</strong>
+</center></p>
+<p>以上範例是將<strong>Key</strong>以<span class="math">\(5\)</span>-bit表示，試想，若以<span class="math">\(32\)</span>-bit表示，並且增加<strong>Key</strong>的範圍，那麼可以預期「參與並相加出最後<span class="math">\(h(Key)\)</span>」的部分會更加「隨機」，也就能夠將不同<strong>Key</strong>「更隨機地」對應到不同的值(也就是不同的<strong>slot</strong>)，有效降低<strong>Collision</strong>的發生。</p>
+<p>還有一個小議題是，如何找到「<span class="math">\(constant\:A\)</span>」？</p>
+<p>根據<a href="https://en.wikipedia.org/wiki/Donald_Knuth">Knuth</a>的說法，選擇黃金比例還不錯：</p>
+<div class="math">$$
+A=\frac{\sqrt{5}-1}{2}\approx 0.6180339887...  
+$$</div>
+<p></br><br />
+至於程式的實作上，利用<strong>bit-shift</strong>會更有效率，請參考：</p>
+<p><a href="https://www.cs.hmc.edu/~geoff/classes/hmc.cs070.200101/homework10/hashfuncs.html">Geoff Kuenning：Hash Functions</a></p>
+<p></br><br />
+最後，在Hashing的議題裡，還有兩位大魔王叫做<strong>Universal Hashing</strong>以及<strong>Perfect Hashing</strong>(有鑒於筆者可能一輩子都看不懂，所以這裡就放個連結)，據說可以產生最低限度的<strong>Collision</strong>，請參考：</p>
+<ul>
+<li><a href="https://www.cs.cmu.edu/~avrim/451f11/lectures/lect1004.pdf">CMU14-451,Algorithms：Universal and Perfect Hashing</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Universal_hashing">Wikipedia：Universal Hashing</a></li>
+<li><a href="http://cs-www.bu.edu/faculty/homer/537/talks/SarahAdelBargal_UniversalHashingnotes.pdf">Sarah Adel Bargal：Universal Hashing</a></li>
+</ul>
 <p></br>  </p>
 <p>以上是<strong>Hash Table</strong>之基本概念介紹。</p>
 <p>接下來兩篇將介紹<strong>Chaining</strong>與<strong>Open Addressing</strong>解決<strong>Collision</strong>。</p>
@@ -243,8 +348,13 @@
 <ul>
 <li><a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844">Introduction to Algorithms, Ch11</a> </li>
 <li><a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376">Fundamentals of Data Structures in C++, Ch8</a></li>
+<li><a href="http://www.cs.ntou.edu.tw/lincc/courses/al99/pdf/Algorithm-Ch11-Hash%20Tables.pdf">林清池：Algorithms Chapter 11 Hash Tables</a></li>
 <li><a href="http://www.arl.wustl.edu/projects/fpx/cse535/lecture/cse535_lecture6_Hash_Functions.pdf">John W Lockwood：Lecture 6 - Hash Functions</a></li>
+<li><a href="https://www.cs.hmc.edu/~geoff/classes/hmc.cs070.200101/homework10/hashfuncs.html">Geoff Kuenning：Hash Functions </a></li>
 <li><a href="http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-006-introduction-to-algorithms-fall-2011/lecture-videos/lecture-8-hashing-with-chaining/">MIT 6.006：Lecture 8: Hashing with Chaining</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Universal_hashing">Wikipedia：Universal Hashing</a></li>
+<li><a href="https://www.cs.cmu.edu/~avrim/451f11/lectures/lect1004.pdf">CMU14-451,Algorithms：Universal and Perfect Hashing</a></li>
+<li><a href="http://cs-www.bu.edu/faculty/homer/537/talks/SarahAdelBargal_UniversalHashingnotes.pdf">Sarah Adel Bargal：Universal Hashing</a></li>
 </ul>
 <p><a name="series"></a></p>
 <p></br></p>
