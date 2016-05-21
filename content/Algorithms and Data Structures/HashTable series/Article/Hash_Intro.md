@@ -294,11 +294,11 @@ $$
 
 </center>
 
-到這裡，再看一次圖七(b)，可以發現，決定出$h(21)=4$的過程當中，以二進位表示的**Key**$=21$的「每一個部分的bit」都用上了，二進位的$4$是由以二進位的$Key=21$之：
+到這裡，再看一次圖七(b)，可以發現，決定出$h(21)=4$的過程當中，以二進位表示的**Key**$=21$的「每一個部分的bit」都用上了，二進位的$4$是由二進位的$Key=21$之：
 
 * 頭：$101$
 * 中：$101$
-* 尾：$010$
+* 尾：$01$
 
 三者相加得到的，因為參與的「部位」變多了，那麼隨機性也就增加了，如此$h(Key)$便能得到較為隨機的結果。  
 
@@ -312,8 +312,7 @@ $$
 
 以上範例是將**Key**以$5$-bit表示，試想，若以$32$-bit表示，並且增加**Key**的範圍，那麼可以預期「參與並相加出最後$h(Key)$」的部分會更加「隨機」，也就能夠將不同**Key**「更隨機地」對應到不同的值(也就是不同的**slot**)，有效降低**Collision**的發生。
 
-還有一個小議題是，如何找到「$constant\:A$」？
-
+還有一個小議題是，如何找到「$constant\:A$」？  
 根據[Knuth](https://en.wikipedia.org/wiki/Donald_Knuth)的說法，選擇黃金比例還不錯：
 
 $$
@@ -322,9 +321,9 @@ $$
 
 
 </br>  
-至於程式的實作上，利用**bit-shift**會更有效率，請參考：
+至於程式的實作上，利用**bit-shift**會更有效率，請參考：  
 
-[Geoff Kuenning：Hash Functions](https://www.cs.hmc.edu/~geoff/classes/hmc.cs070.200101/homework10/hashfuncs.html)
+* [Geoff Kuenning：Hash Functions](https://www.cs.hmc.edu/~geoff/classes/hmc.cs070.200101/homework10/hashfuncs.html)
 
 
 </br>  
