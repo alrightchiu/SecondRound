@@ -278,10 +278,10 @@ $$</div>
 </li>
 </ul>
 <h3>優點</h3>
-<p>以<strong>Division Method</strong>實現<strong>Hash Function</strong>的優點就是非常快，只要取一次餘數(一次除法)即可。</p>
+<p>以<strong>Division Method</strong>實現<strong>Hash Function</strong>的優點就是非常快，只要做一次餘數(一次除法)運算即可。</p>
 <h3>缺點</h3>
 <p>但是缺點需要特別注意：<strong>Table</strong>的大小<span class="math">\(m\)</span>必須慎選，要儘量避開「2的指數(<span class="math">\(2^{p}\)</span>)」，否則就只有「最低位的p-bit」會影響<strong>Hash Function</strong>的結果。  </p>
-<p>轉換成二進位會更容易看出，以<span class="math">\(m=8=2^{3}\)</span>為例，<span class="math">\(h(Key)=Key \bmod{2^{3}}\)</span>的意思就是，只取「以二進位表示的<strong>Key</strong>的最低位的<strong>3個bit</strong>」來決定<strong>Key</strong>對應到的<strong>Table</strong>之<strong>index</strong>，見圖六。</p>
+<p>轉換成二進位會更容易看出，以<span class="math">\(m=8=2^{3}\)</span>為例，<span class="math">\(h(Key)=Key \bmod{2^{3}}\)</span>的意思就是，只取「以二進位表示的<strong>Key</strong>的最低位的<strong><span class="math">\(3\)</span>個bit</strong>」來決定<strong>Key</strong>對應到的<strong>Table</strong>之<strong>index</strong>，見圖六。</p>
 <p><center>
 <img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/HashTable%20series/Intro/f6.png?raw=true" /></p>
 <p><strong>圖六：。</strong>
@@ -291,7 +291,7 @@ $$</div>
 <p></br>  </p>
 <p><a name="mm"></a></p>
 <h3>Multiplication Method</h3>
-<p>而<strong>Multiplication Method</strong>便能夠「盡可能」把越多<strong>Key</strong>的bit都納入考慮。</p>
+<p><strong>Multiplication Method</strong>便能夠「盡可能」把越多<strong>Key</strong>的bit都納入考慮。</p>
 <p>步驟如下：</p>
 <p><center>
 <img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/HashTable%20series/Intro/f8.png?raw=true" /></p>
