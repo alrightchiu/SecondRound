@@ -136,7 +136,7 @@ Summary: 介紹Hash Table(雜湊表)的基本概念。
 **圖四：Hash Table和Direct Access Table的差別在於Hash Function。**
 </center>
 
-可惜事與願違，因為$|U|\gg m$，再加上**Hash Function**設計不易，所以一定會發生**Collision**。
+可惜事與願違，因為$|U|\gg m$，再加上**Hash Function**設計不易，所以很可能發生**Collision**。
 
 
 </br>    
