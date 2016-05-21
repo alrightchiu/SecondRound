@@ -320,7 +320,7 @@ A=\frac{\sqrt{5}-1}{2}\approx 0.6180339887...
 $$
 
 
-</br>  
+  
 至於程式的實作上，利用**bit-shift**會更有效率，請參考：  
 
 * [Geoff Kuenning：Hash Functions](https://www.cs.hmc.edu/~geoff/classes/hmc.cs070.200101/homework10/hashfuncs.html)
