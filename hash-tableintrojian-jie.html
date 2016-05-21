@@ -317,11 +317,11 @@ $$</div>
 <p><center>
 <img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/HashTable%20series/Intro/f11.png?raw=true" /></p>
 <p></center></p>
-<p>到這裡，再看一次圖七(b)，可以發現，決定出<span class="math">\(h(21)=4\)</span>的過程當中，以二進位表示的<strong>Key</strong><span class="math">\(=21\)</span>的「每一個部分的bit」都用上了，二進位的<span class="math">\(4\)</span>是由以二進位的<span class="math">\(Key=21\)</span>之：</p>
+<p>到這裡，再看一次圖七(b)，可以發現，決定出<span class="math">\(h(21)=4\)</span>的過程當中，以二進位表示的<strong>Key</strong><span class="math">\(=21\)</span>的「每一個部分的bit」都用上了，二進位的<span class="math">\(4\)</span>是由二進位的<span class="math">\(Key=21\)</span>之：</p>
 <ul>
 <li>頭：<span class="math">\(101\)</span></li>
 <li>中：<span class="math">\(101\)</span></li>
-<li>尾：<span class="math">\(010\)</span></li>
+<li>尾：<span class="math">\(01\)</span></li>
 </ul>
 <p>三者相加得到的，因為參與的「部位」變多了，那麼隨機性也就增加了，如此<span class="math">\(h(Key)\)</span>便能得到較為隨機的結果。  </p>
 <p><center>
@@ -329,14 +329,16 @@ $$</div>
 <p><strong>圖七(b)：。</strong>
 </center></p>
 <p>以上範例是將<strong>Key</strong>以<span class="math">\(5\)</span>-bit表示，試想，若以<span class="math">\(32\)</span>-bit表示，並且增加<strong>Key</strong>的範圍，那麼可以預期「參與並相加出最後<span class="math">\(h(Key)\)</span>」的部分會更加「隨機」，也就能夠將不同<strong>Key</strong>「更隨機地」對應到不同的值(也就是不同的<strong>slot</strong>)，有效降低<strong>Collision</strong>的發生。</p>
-<p>還有一個小議題是，如何找到「<span class="math">\(constant\:A\)</span>」？</p>
-<p>根據<a href="https://en.wikipedia.org/wiki/Donald_Knuth">Knuth</a>的說法，選擇黃金比例還不錯：</p>
+<p>還有一個小議題是，如何找到「<span class="math">\(constant\:A\)</span>」？<br />
+根據<a href="https://en.wikipedia.org/wiki/Donald_Knuth">Knuth</a>的說法，選擇黃金比例還不錯：</p>
 <div class="math">$$
 A=\frac{\sqrt{5}-1}{2}\approx 0.6180339887...  
 $$</div>
 <p></br><br />
-至於程式的實作上，利用<strong>bit-shift</strong>會更有效率，請參考：</p>
-<p><a href="https://www.cs.hmc.edu/~geoff/classes/hmc.cs070.200101/homework10/hashfuncs.html">Geoff Kuenning：Hash Functions</a></p>
+至於程式的實作上，利用<strong>bit-shift</strong>會更有效率，請參考：  </p>
+<ul>
+<li><a href="https://www.cs.hmc.edu/~geoff/classes/hmc.cs070.200101/homework10/hashfuncs.html">Geoff Kuenning：Hash Functions</a></li>
+</ul>
 <p></br><br />
 最後，在Hashing的議題裡，還有兩位大魔王叫做<strong>Universal Hashing</strong>以及<strong>Perfect Hashing</strong>(有鑒於筆者可能一輩子都看不懂，所以這裡就放個連結)，據說可以產生最低限度的<strong>Collision</strong>，請參考：</p>
 <ul>
