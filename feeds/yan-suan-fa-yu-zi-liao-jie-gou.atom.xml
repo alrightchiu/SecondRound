@@ -3825,7 +3825,7 @@ Queue is empty.```&lt;/p&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/HeapSort/f1.png?raw=true" /&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;圖一(a)。&lt;/strong&gt;
+&lt;p&gt;&lt;strong&gt;圖一(a)：黑色數字是index，藍色數字是value。&lt;/strong&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;特徵二&lt;/strong&gt;：若將位於index(&lt;span class="math"&gt;\(i\)&lt;/span&gt;)之node視為subtree之&lt;strong&gt;root&lt;/strong&gt;，那麼，可將此Binary Heap分為兩類：&lt;/p&gt;
 &lt;ul&gt;
