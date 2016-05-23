@@ -105,7 +105,7 @@ Priority Queue(優先權佇列)就像在處理「待辦事項」，能夠在眾�
 ##Binary Heap(二元堆積)
 
 為處理廣義情形，建議將Binary Heap中的元素定義為**Dictionary**，每個資料項目皆有其對應的**Key**值，也就是Priority Queue將使用的**Key**。  
-(關於Dictionary，請參考：[Binary Search Tree: Intro(簡介)](http://alrightchiu.github.io/SecondRound/binary-search-tree-introjian-jie.html#dictionary))
+(關於Dictionary，請參考：[Hash Table：Intro(簡介)](http://alrightchiu.github.io/SecondRound/hash-tableintrojian-jie.html#dict)以及[Binary Search Tree: Intro(簡介)](http://alrightchiu.github.io/SecondRound/binary-search-tree-introjian-jie.html#dictionary))
 
 Binary Heap有兩項基本特徵：
 
