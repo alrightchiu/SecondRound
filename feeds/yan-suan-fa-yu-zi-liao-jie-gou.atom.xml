@@ -250,7 +250,7 @@ $$&lt;/div&gt;
 &lt;p&gt;&lt;/br&gt;  &lt;/p&gt;
 &lt;p&gt;&lt;a name="mm"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h3&gt;Multiplication Method&lt;/h3&gt;
-&lt;p&gt;由於在實際面對資料時，時常無法預先得知「&lt;strong&gt;Key&lt;/strong&gt;的範圍」以及「在該範圍內&lt;strong&gt;Key&lt;/strong&gt;的分佈情形」，因此，在這個前提下，不需要避開特定&lt;span class="math"&gt;\(m\)&lt;/span&gt;的&lt;strong&gt;Multiplication Method&lt;/strong&gt;可能會比較優秀。&lt;/p&gt;
+&lt;p&gt;由於在實際面對資料時，時常無法預先得知「&lt;strong&gt;Key&lt;/strong&gt;的範圍」以及「在該範圍內&lt;strong&gt;Key&lt;/strong&gt;的分佈情形」，在這個前提下，不需要避開特定&lt;span class="math"&gt;\(m\)&lt;/span&gt;的&lt;strong&gt;Multiplication Method&lt;/strong&gt;可能會比較優秀。&lt;/p&gt;
 &lt;p&gt;步驟如下：&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/HashTable%20series/Intro/f8.png?raw=true" /&gt;&lt;/p&gt;
