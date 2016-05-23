@@ -193,8 +193,9 @@ $h:U\rightarrow \{\,0,1,...,m-1\,\},\:where \:|U|\gg m$
 
 以下介紹兩種**Hash Function**的基本款：
 
-1. Division Method
-2. Multiplication Method
+1. **Division Method**：$m$有限制，但是比較快。
+2. **Multiplication Method**：$m$沒有限制，但是比較慢。
+
 
 
 </br>  
@@ -227,7 +228,9 @@ $$
 
 ###缺點
 
-但是缺點需要特別注意：**Table**的大小$m$必須慎選，要儘量避開「2的指數($2^{p}$)」，否則就只有「最低位的p-bit」會影響**Hash Function**的結果。  
+較為理想的**Table**大小$m$是「距離$2^{p}$夠遠」的質數，像是$701$。換句話說，**Table**大小$m$必須慎選。  
+
+例如，要儘量避開「2的指數($2^{p}$)」，否則就只有「最低位的p-bit」會影響**Hash Function**的結果。
 
 轉換成二進位會更容易看出，以$m=8=2^{3}$為例，$h(Key)=Key \bmod{2^{3}}$的意思就是，只取「以二進位表示的**Key**的最低位的**$3$個bit**」來決定**Key**對應到的**Table**之**index**，見圖六。
 
@@ -239,9 +242,7 @@ $$
 
 這種情況下，若有大量變數以相同的命名規則，例如「`a_count`、`b_count`、`c_count`」，很有可能在**prehash**(在**Direct Access Table**提過的「T-MAC」與「KOBE」)將字串轉換成**Key**時，得到「低位bit」完全相同的**key**，因為以上三個變數的結尾都是`_count`，那麼**Division Method**就會把這三個變數都放進同一個**slot**，造成**Collision**。
 
-所以，優秀的**Hash Function**應該要「盡可能」把越多**Key**的bit都納入考慮，如此才能儘量把**Key**分配到不同**slot**(最好的情況就是把「所有bit」都納入考慮，不過這就回到**Direct Access Table**的問題)。
-
-
+再者，若要避開特定$m$，那麼當**Table**裝滿資料，要加大尺寸($m$)的時候，需要再找一個更大的「距離$2^{P}$夠遠的質數」，顯然不太有效率。
 
 </br>  
 
@@ -249,7 +250,7 @@ $$
 
 ###Multiplication Method
 
-**Multiplication Method**便能夠「盡可能」把越多**Key**的bit都納入考慮。
+由於在實際面對資料時，時常無法預先得知「**Key**的範圍」以及「在該範圍內**Key**的分佈情形」，因此，在這個前提下，不需要避開特定$m$的**Multiplication Method**可能會比較優秀。
 
 步驟如下：
 
@@ -259,8 +260,7 @@ $$
 **圖七(a)：。**
 </center>
 
-怎麼說以上這個將「**Key**乘上$A$、取小數點部分、再乘上$m$、再取整數部分」的**Hash Function**就能夠考慮更多的**Key**的bit呢？
-
+而且這個將「**Key**乘上$A$、取小數點部分、再乘上$m$、再取整數部分」的**Hash Function**能夠儘量把更多的**Key**的bit納入考慮，來得到$h(Key)$。  
 轉換成二進位會更容易看出來。
 
 先把圖七(a)中的「$constant\:A=\frac{13}{32}$」轉換成二進位：
@@ -321,7 +321,7 @@ $$
 
 
   
-至於程式的實作上，利用**bit-shift**會更有效率，請參考：[Geoff Kuenning：Hash Functions](https://www.cs.hmc.edu/~geoff/classes/hmc.cs070.200101/homework10/hashfuncs.html)
+至於程式的實作上，利用**bit-shifting**會更有效率，請參考：[Geoff Kuenning：Hash Functions](https://www.cs.hmc.edu/~geoff/classes/hmc.cs070.200101/homework10/hashfuncs.html)
 
 
 </br>  
@@ -396,5 +396,4 @@ $$
 [目錄：演算法與資料結構](http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html)
 
 </br>
-
 
