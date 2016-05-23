@@ -6463,7 +6463,7 @@ $$&lt;/div&gt;
 &lt;p&gt;&lt;a name="bh"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;Binary Heap(二元堆積)&lt;/h2&gt;
 &lt;p&gt;為處理廣義情形，建議將Binary Heap中的元素定義為&lt;strong&gt;Dictionary&lt;/strong&gt;，每個資料項目皆有其對應的&lt;strong&gt;Key&lt;/strong&gt;值，也就是Priority Queue將使用的&lt;strong&gt;Key&lt;/strong&gt;。&lt;br /&gt;
-(關於Dictionary，請參考：&lt;a href="http://alrightchiu.github.io/SecondRound/binary-search-tree-introjian-jie.html#dictionary"&gt;Binary Search Tree: Intro(簡介)&lt;/a&gt;)&lt;/p&gt;
+(關於Dictionary，請參考：&lt;a href="http://alrightchiu.github.io/SecondRound/hash-tableintrojian-jie.html#dict"&gt;Hash Table：Intro(簡介)&lt;/a&gt;以及&lt;a href="http://alrightchiu.github.io/SecondRound/binary-search-tree-introjian-jie.html#dictionary"&gt;Binary Search Tree: Intro(簡介)&lt;/a&gt;)&lt;/p&gt;
 &lt;p&gt;Binary Heap有兩項基本特徵：&lt;/p&gt;
 &lt;p&gt;特徵一：Binary Heap之結構可以視作&lt;strong&gt;Complete Binary Tree&lt;/strong&gt;。&lt;/p&gt;
 &lt;ul&gt;
