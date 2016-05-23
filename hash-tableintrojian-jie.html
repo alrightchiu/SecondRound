@@ -280,10 +280,10 @@ $$</div>
 <h3>優點</h3>
 <p>以<strong>Division Method</strong>實現<strong>Hash Function</strong>的優點就是非常快，只要做一次餘數(一次除法)運算即可。</p>
 <h3>缺點</h3>
-<p>較為理想的<strong>Table</strong>大小<span class="math">\(m\)</span>是「距離<span class="math">\(2^{p}\)</span>夠遠」的質數，像是<span class="math">\(701\)</span>。<br />
-換句話說，<strong>Table</strong>大小<span class="math">\(m\)</span>必須慎選。  </p>
-<p>例如，要儘量避開「2的指數(<span class="math">\(2^{p}\)</span>)」，否則就只有「最低位的p-bit」會影響<strong>Hash Function</strong>的結果。</p>
-<p>轉換成二進位會更容易看出，以<span class="math">\(m=8=2^{3}\)</span>為例，<span class="math">\(h(Key)=Key \bmod{2^{3}}\)</span>的意思就是，只取「以二進位表示的<strong>Key</strong>的最低位的<strong><span class="math">\(3\)</span>個bit</strong>」來決定<strong>Key</strong>對應到的<strong>Table</strong>之<strong>index</strong>，見圖六。</p>
+<p>較為理想的<strong>Table</strong>大小<span class="math">\(m\)</span>是「距離<span class="math">\(2^{p}\)</span>夠遠」的質數，像是<span class="math">\(701\)</span>。  </p>
+<p>換句話說，<strong>Table</strong>大小<span class="math">\(m\)</span>必須慎選。<br />
+例如，要儘量避開「2的指數(<span class="math">\(2^{p}\)</span>)」，否則就只有「最低位的p-bit」會影響<strong>Hash Function</strong>的結果。<br />
+轉換成二進位會更容易看出，以<span class="math">\(m=8=2^{3}\)</span>為例，<span class="math">\(h(Key)=Key \bmod{2^{3}}\)</span>的意思就是，只取「以二進位表示的<strong>Key</strong>的最低位的<strong><span class="math">\(3\)</span>個bit</strong>」來決定<strong>Key</strong>對應到的<strong>Table</strong>之<strong>index</strong>，見圖六。</p>
 <p><center>
 <img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/HashTable%20series/Intro/f6.png?raw=true" /></p>
 <p><strong>圖六：。</strong>
