@@ -72,7 +72,7 @@ Binary Heap有兩項基本特徵：
 <center>
 ![cc][f1]
 
-**圖一(a)。**
+**圖一(a)：黑色數字是index，藍色數字是value。**
 </center>
 
 **特徵二**：若將位於index($i$)之node視為subtree之**root**，那麼，可將此Binary Heap分為兩類：
