@@ -247,8 +247,8 @@
 反之，如果同一個抽屜裡有兩個以上的物品時，便有可能找錯物品。</p>
 <p>以下介紹兩種<strong>Hash Function</strong>的基本款：</p>
 <ol>
-<li>Division Method</li>
-<li>Multiplication Method</li>
+<li><strong>Division Method</strong>：<span class="math">\(m\)</span>有限制，但是比較快。</li>
+<li><strong>Multiplication Method</strong>：<span class="math">\(m\)</span>沒有限制，但是比較慢。</li>
 </ol>
 <p></br>  </p>
 <p><a name="dm"></a></p>
@@ -280,25 +280,26 @@ $$</div>
 <h3>優點</h3>
 <p>以<strong>Division Method</strong>實現<strong>Hash Function</strong>的優點就是非常快，只要做一次餘數(一次除法)運算即可。</p>
 <h3>缺點</h3>
-<p>但是缺點需要特別注意：<strong>Table</strong>的大小<span class="math">\(m\)</span>必須慎選，要儘量避開「2的指數(<span class="math">\(2^{p}\)</span>)」，否則就只有「最低位的p-bit」會影響<strong>Hash Function</strong>的結果。  </p>
+<p>較為理想的<strong>Table</strong>大小<span class="math">\(m\)</span>是「距離<span class="math">\(2^{p}\)</span>夠遠」的質數，像是<span class="math">\(701\)</span>。換句話說，<strong>Table</strong>大小<span class="math">\(m\)</span>必須慎選。  </p>
+<p>例如，要儘量避開「2的指數(<span class="math">\(2^{p}\)</span>)」，否則就只有「最低位的p-bit」會影響<strong>Hash Function</strong>的結果。</p>
 <p>轉換成二進位會更容易看出，以<span class="math">\(m=8=2^{3}\)</span>為例，<span class="math">\(h(Key)=Key \bmod{2^{3}}\)</span>的意思就是，只取「以二進位表示的<strong>Key</strong>的最低位的<strong><span class="math">\(3\)</span>個bit</strong>」來決定<strong>Key</strong>對應到的<strong>Table</strong>之<strong>index</strong>，見圖六。</p>
 <p><center>
 <img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/HashTable%20series/Intro/f6.png?raw=true" /></p>
 <p><strong>圖六：。</strong>
 </center></p>
 <p>這種情況下，若有大量變數以相同的命名規則，例如「<code>a_count</code>、<code>b_count</code>、<code>c_count</code>」，很有可能在<strong>prehash</strong>(在<strong>Direct Access Table</strong>提過的「T-MAC」與「KOBE」)將字串轉換成<strong>Key</strong>時，得到「低位bit」完全相同的<strong>key</strong>，因為以上三個變數的結尾都是<code>_count</code>，那麼<strong>Division Method</strong>就會把這三個變數都放進同一個<strong>slot</strong>，造成<strong>Collision</strong>。</p>
-<p>所以，優秀的<strong>Hash Function</strong>應該要「盡可能」把越多<strong>Key</strong>的bit都納入考慮，如此才能儘量把<strong>Key</strong>分配到不同<strong>slot</strong>(最好的情況就是把「所有bit」都納入考慮，不過這就回到<strong>Direct Access Table</strong>的問題)。</p>
+<p>再者，若要避開特定<span class="math">\(m\)</span>，那麼當<strong>Table</strong>裝滿資料，要加大尺寸(<span class="math">\(m\)</span>)的時候，需要再找一個更大的「距離<span class="math">\(2^{P}\)</span>夠遠的質數」，顯然不太有效率。</p>
 <p></br>  </p>
 <p><a name="mm"></a></p>
 <h3>Multiplication Method</h3>
-<p><strong>Multiplication Method</strong>便能夠「盡可能」把越多<strong>Key</strong>的bit都納入考慮。</p>
+<p>由於在實際面對資料時，時常無法預先得知「<strong>Key</strong>的範圍」以及「在該範圍內<strong>Key</strong>的分佈情形」，因此，在這個前提下，不需要避開特定<span class="math">\(m\)</span>的<strong>Multiplication Method</strong>可能會比較優秀。</p>
 <p>步驟如下：</p>
 <p><center>
 <img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/HashTable%20series/Intro/f8.png?raw=true" /></p>
 <p><strong>圖七(a)：。</strong>
 </center></p>
-<p>怎麼說以上這個將「<strong>Key</strong>乘上<span class="math">\(A\)</span>、取小數點部分、再乘上<span class="math">\(m\)</span>、再取整數部分」的<strong>Hash Function</strong>就能夠考慮更多的<strong>Key</strong>的bit呢？</p>
-<p>轉換成二進位會更容易看出來。</p>
+<p>而且這個將「<strong>Key</strong>乘上<span class="math">\(A\)</span>、取小數點部分、再乘上<span class="math">\(m\)</span>、再取整數部分」的<strong>Hash Function</strong>能夠儘量把更多的<strong>Key</strong>的bit納入考慮，來得到<span class="math">\(h(Key)\)</span>。<br />
+轉換成二進位會更容易看出來。</p>
 <p>先把圖七(a)中的「<span class="math">\(constant\:A=\frac{13}{32}\)</span>」轉換成二進位：</p>
 <p><center>
 <img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/HashTable%20series/Intro/f9.png?raw=true" /></p>
@@ -334,7 +335,7 @@ $$</div>
 <div class="math">$$
 A=\frac{\sqrt{5}-1}{2}\approx 0.6180339887...  
 $$</div>
-<p>至於程式的實作上，利用<strong>bit-shift</strong>會更有效率，請參考：<a href="https://www.cs.hmc.edu/~geoff/classes/hmc.cs070.200101/homework10/hashfuncs.html">Geoff Kuenning：Hash Functions</a></p>
+<p>至於程式的實作上，利用<strong>bit-shifting</strong>會更有效率，請參考：<a href="https://www.cs.hmc.edu/~geoff/classes/hmc.cs070.200101/homework10/hashfuncs.html">Geoff Kuenning：Hash Functions</a></p>
 <p></br><br />
 最後，在Hashing的議題裡，還有兩位大魔王叫做<strong>Universal Hashing</strong>以及<strong>Perfect Hashing</strong>(有鑒於筆者可能一輩子都看不懂，所以這裡就放個連結)，據說可以產生最低限度的<strong>Collision</strong>，請參考：</p>
 <ul>
