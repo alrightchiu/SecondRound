@@ -312,7 +312,7 @@ slot#4: (Davis,Clippers)
 * 為什麼選擇$\alpha=\frac{n}{m}<\frac{1}{4}$而不是$\alpha=\frac{n}{m}<\frac{1}{2}$？  
 為了避免資料量在「臨界點」增增減減，造成不斷地動態配置記憶體(成本相當高)。
 * 例如：起初$n=8,m=8$，現增加一筆資料，變成$n=9,m=8$，將會觸發一次`TableDoubling()`，變成$n=9,m=16$。    
-若接下來連續刪除兩筆資料，變成$n=7,m=16$，因為$n/m<\frac{1}{2}$，將會觸發一次`TableShrinking()`，變成$n=7,m=8$。  
+若接下來連續刪除兩筆資料，變成$n=7,m=16$，因為$\frac{n}{m}<\frac{1}{2}$，將會觸發一次`TableShrinking()`，變成$n=7,m=8$。  
 若接下來又連續增加兩筆資料...依此類推，為了避免這種情況發生，寧可犧牲一點記憶體空間，等到$n/m<\frac{1}{4}$再觸發`TableShrinking()`，重新為Table配置新的記憶體位置。
 
 `Rehashing()`：當`TableDoubling()`/`TableShrinking()`增加/減半Table大小$m$後，需要把舊的Table上的資料(node)搬到新的Table上，過程將會透過Hash Function根據各筆資料的**key**重新分配一次**index**(因此稱為**Rehashing**)，此**index**即為資料在新的Table上的位置，如圖三。
@@ -757,6 +757,7 @@ After deleting key(6594), evoke TableShrinking():
 * [Abdullah Ozturk：Simple Hash Map (Hash Table) Implementation in C++](https://medium.com/@aozturk/simple-hash-map-hash-table-implementation-in-c-931965904250#.du6lwge1u)
 * [Pumpkin Programmer：C++ Tutorial: Intro to Hash Tables](http://pumpkinprogrammer.com/2014/06/21/c-tutorial-intro-to-hash-tables/)
 * [Adnan Aziz：Hash Tables](http://users.ece.utexas.edu/~adnan/360C/hash.pdf)
+* [MIT 6.006：Lecture 9: Table Doubling, Karp-Rabin](http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-006-introduction-to-algorithms-fall-2011/lecture-videos/lecture-9-table-doubling-karp-rabin/)
 * [Linked List: Intro(簡介)](http://alrightchiu.github.io/SecondRound/linked-list-introjian-jie.html)
 * [Linked List: 新增資料、刪除資料、反轉](http://alrightchiu.github.io/SecondRound/linked-list-xin-zeng-zi-liao-shan-chu-zi-liao-fan-zhuan.html)
 
