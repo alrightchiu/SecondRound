@@ -1,7 +1,7 @@
 Title: Hash Table：Chaining  
 Date: 2016-5-25 21:32 
 Category: 演算法與資料結構  
-Tags: C++, Intro, Dictionary, Hash Table, Linked List,   
+Tags: C++, Dictionary, Hash Table, Linked List,   
 Summary: 介紹Chaining解決Collision。
 
 
