@@ -478,10 +478,10 @@ void HashChainNode::Rehashing(int size_orig){
         Node *curr_orig = table[i],        // curr_orig: current node in original table
              *prev_orig = NULL;            // prev_orig: following curr_orig 
 
-        while (curr_orig != NULL) {        // traversal in list of each slot in original table
+        while (curr_orig != NULL) {      // traversal in list of each slot in original table
             
-            prev_orig = curr_orig->next;   // curr_orig will be directly move to new table
-                                           // need prev_orig to keep pointer in original table
+            prev_orig = curr_orig->next; // curr_orig will be directly move to new table
+                                         // need prev_orig to keep pointer in original table
             
             int index = HashFunction(curr_orig->key);    // get index of slot in new table
             
