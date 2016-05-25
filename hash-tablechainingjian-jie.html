@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="zh-hant">
+
+<head>
+            <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+
+        <title>Hash Table：Chaining(簡介)</title>
+
+            <link href="http://alrightchiu.github.io/SecondRound/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Second Round Full Atom Feed" />
+            <link href="http://alrightchiu.github.io/SecondRound/feeds/yan-suan-fa-yu-zi-liao-jie-gou.atom.xml" type="application/atom+xml" rel="alternate" title="Second Round Categories Atom Feed" />
+
+        <!-- Bootstrap Core CSS -->
+        <link href="http://alrightchiu.github.io/SecondRound/theme/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="http://alrightchiu.github.io/SecondRound/theme/css/clean-blog.min.css" rel="stylesheet">
+
+        <!-- Code highlight color scheme -->
+            <link href="http://alrightchiu.github.io/SecondRound/theme/css/code_blocks/darkly.css" rel="stylesheet">
+
+
+        <!-- Custom Fonts -->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+
+
+
+        <meta name="tags" contents="C++" />
+        <meta name="tags" contents="Intro" />
+        <meta name="tags" contents="Dictionary" />
+        <meta name="tags" contents="Hash Table" />
+
+
+	                <meta property="og:locale" content="">
+		<meta property="og:site_name" content="Second Round">
+
+	<meta property="og:type" content="article">
+	<meta property="article:author" content="">
+	<meta property="og:url" content="http://alrightchiu.github.io/SecondRound/hash-tablechainingjian-jie.html">
+	<meta property="og:title" content="Hash Table：Chaining(簡介)">
+	<meta property="og:description" content="">
+	<meta property="og:image" content="http://alrightchiu.github.io/SecondRound/">
+	<meta property="article:published_time" content="2016-05-25 23:01:00+08:00">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://alrightchiu.github.io/SecondRound/">Second Round</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a href="http://alrightchiu.github.io/SecondRound/archives.html">Archives</a></li>
+                        <li><a href="http://alrightchiu.github.io/SecondRound/tags.html">Tags</a></li>
+
+                            <li><a href="http://alrightchiu.github.io/SecondRound/pages/about.html">About</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+        <header class="intro-header" style="background-image: url('http://alrightchiu.github.io/SecondRound/theme/images/post-bg.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>Hash Table：Chaining(簡介)</h1>
+                        <span class="meta">Posted by
+                                <a href="http://alrightchiu.github.io/SecondRound/author/chiu-cc.html">Chiu CC</a>
+                             on  5 25, 2016
+                        </span>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    <!-- Post Content -->
+    <article>
+        <p></br></p>
+<h3>先備知識與注意事項</h3>
+<p>本篇文章將延續<a href="http://alrightchiu.github.io/SecondRound/hash-tableintrojian-jie.html">Hash Table：Intro(簡介)</a>的議題，介紹<strong>Chaining</strong>來解決<strong>Collision</strong>。</p>
+<p>其中將會用到Linked list的概念，若不熟悉請參考：<a href="http://alrightchiu.github.io/SecondRound/linked-list-introjian-jie.html">Linked List: Intro(簡介)</a>。</p>
+<hr />
+<h2>目錄</h2>
+<ul>
+<li><a href="#chaining">Chaining的概念</a></li>
+<li><a href="#code">程式碼</a><ul>
+<li><a href="#stl">偷懶：使用STL</a></li>
+<li><a href="#ll">不偷懶：用Node串出Linked list</a></li>
+</ul>
+</li>
+<li><a href="#ref">參考資料</a></li>
+<li><a href="#series">Hash Table系列文章</a></li>
+</ul>
+<p></br></p>
+<p><a name="chaining"></a></p>
+<h2>Chaining的概念</h2>
+<p>如果利用<strong>Division Method</strong>實作Hash Function：</p>
+<div class="math">$$
+h(Key)=Key\bmod m
+$$</div>
+<p>若選擇<span class="math">\(m=6\)</span>，那麼對於<strong>Key</strong>為<span class="math">\(14,16,26,36,47,50,71,90\)</span>的item，進行<strong>Hashing</strong>後將會有如圖一的<strong>Collision</strong>發生。</p>
+<p>解決的辦法，就是將被分配到同一個slot的item用<strong>Linked list</strong>串起來，這就是<strong>Chaining</strong>。</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/HashTable%20series/Chaining/f1.png?raw=true" /></p>
+<p><strong>圖一：。</strong>
+</center></p>
+<p>有了Linked list處理被分配到同ㄧ個slot的item，Hash Table的三項資料處理分別修正成：</p>
+<p><strong>Insert</strong>：</p>
+<ul>
+<li>先利用Hash Function取得<strong>Table</strong>的<strong>index</strong>。</li>
+<li>接著，只要在每一個slot的list之<strong>front</strong>加入item，即可保證在<span class="math">\(O(1)\)</span>的時間複雜度完成。<ul>
+<li>參考：<a href="http://alrightchiu.github.io/SecondRound/linked-list-xin-zeng-zi-liao-shan-chu-zi-liao-fan-zhuan.html#front">Linked list:push_front()</a></li>
+</ul>
+</li>
+</ul>
+<p><strong>Serach</strong>：</p>
+<ul>
+<li>先利用Hash Function取得<strong>Table</strong>的<strong>index</strong>。</li>
+<li>再利用Linked list的<strong>traversal</strong>尋找item。</li>
+</ul>
+<p><strong>Delete</strong>：</p>
+<ul>
+<li>先利用Hash Function取得<strong>Table</strong>的<strong>index</strong>。</li>
+<li>再利用Linked list的<strong>traversal</strong>尋找欲刪除的item。</li>
+</ul>
+<p>關於<strong>Search</strong>與<strong>Delete</strong>的時間複雜度：</p>
+<p><strong>worst case</strong>：<span class="math">\(O(n)\)</span>，所有item都被很遜的Hash Function分配到同一個slot。</p>
+<p><strong>average case</strong>：<span class="math">\(O(1+\alpha)\)</span>，其中<span class="math">\(\alpha=\frac{n}{m}\)</span>稱為<strong>load factor</strong>，其物理意義為：</p>
+<ul>
+<li>「資料數量(<span class="math">\(n\)</span>)」與「slot個數(<span class="math">\(m\)</span>)」的比例。</li>
+<li>也會是list的<strong>expected length</strong>(list的平均長度)。</li>
+</ul>
+<p>以圖二為例，若<span class="math">\(m=3,n=6\)</span>，那麼<span class="math">\(\alpha=n\m=2\)</span>，也就是「平均」每個list會被分配到<span class="math">\(\alpha=2\)</span>個item，所以<strong>Search</strong>的時間複雜度就是list長度<span class="math">\(O(\alpha)\)</span>，再加上Hash Function的時間複雜度<span class="math">\(O(1)\)</span>，便得到<span class="math">\(O(1+\alpha)\)</span>。</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/HashTable%20series/Chaining/f2.png?raw=true" /></p>
+<p><strong>圖二：以上四種皆為可能的情形，其中右下圖為平均的/期望值結果。</strong>
+</center></p>
+<p>若「資料數量(<span class="math">\(n\)</span>)」與「slot個數(<span class="math">\(m\)</span>)」的比例具有<span class="math">\(n=O(m)\)</span>的關係，再加上一個不會把所有item分配到同一個slot的正常Hash Function，那麼可以想像，<strong>Search</strong>與<strong>Delete</strong>的時間可以在接近</p>
+<div class="math">$$
+O(1+\alpha)=O(1+constant)=O(1)
+$$</div>
+<p>的情況下完成。詳細證明請參考：<a href="http://users.ece.utexas.edu/~adnan/360C/hash.pdf">Adnan Aziz：Hash Tables</a></p>
+<p></br>    </p>
+<p><a name="code"></a></p>
+<h2>程式碼</h2>
+<p>// 兩份, 一份用vector<list<pair<>&gt;&gt;, 一份用node+pointer</p>
+<p></br>    </p>
+<p><a name="stl"></a></p>
+<h3>偷懶：STL</h3>
+<p>// 介紹基本三個操作, 印output講解, 視情況作圖</p>
+<div class="highlight"><pre><span class="c1">// C++ code</span>
+<span class="cp">#include &lt;iostream&gt;</span>
+<span class="cp">#include &lt;vector&gt;</span>
+<span class="cp">#include &lt;list&gt;</span>
+<span class="cp">#include &lt;string&gt;</span>
+
+<span class="k">using</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="p">;</span>
+<span class="k">using</span> <span class="n">std</span><span class="o">::</span><span class="n">list</span><span class="p">;</span>
+<span class="k">using</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">;</span>
+<span class="k">using</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="p">;</span>
+<span class="k">using</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+<span class="k">struct</span> <span class="n">dict</span><span class="p">{</span>
+    <span class="n">string</span> <span class="n">key</span><span class="p">;</span>                 <span class="c1">// Name</span>
+    <span class="n">string</span> <span class="n">value</span><span class="p">;</span>               <span class="c1">// Team</span>
+    <span class="n">dict</span><span class="p">()</span><span class="o">:</span><span class="n">key</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">),</span><span class="n">value</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">){};</span>
+    <span class="n">dict</span><span class="p">(</span><span class="n">string</span> <span class="n">Key</span><span class="p">,</span> <span class="n">string</span> <span class="n">Value</span><span class="p">)</span><span class="o">:</span><span class="n">key</span><span class="p">(</span><span class="n">Key</span><span class="p">),</span><span class="n">value</span><span class="p">(</span><span class="n">Value</span><span class="p">){};</span>
+
+<span class="p">};</span>
+
+<span class="k">class</span> <span class="nc">HashChain_std</span><span class="p">{</span>
+<span class="k">private</span><span class="o">:</span>
+    <span class="kt">int</span> <span class="n">size</span><span class="p">,</span> <span class="n">count</span><span class="p">;</span>    <span class="c1">// size是table大小, count記錄幾筆資料, count/size=load factor</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="n">list</span><span class="o">&lt;</span><span class="n">dict</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">table</span><span class="p">;</span>
+
+    <span class="kt">int</span> <span class="nf">PreHashing</span><span class="p">(</span><span class="n">string</span> <span class="n">key_str</span><span class="p">);</span>                 <span class="c1">// turn key_string to key_int</span>
+    <span class="kt">int</span> <span class="nf">HashFunction</span><span class="p">(</span><span class="n">string</span> <span class="n">key_str</span><span class="p">);</span>               <span class="c1">// Division method</span>
+
+    <span class="kt">void</span> <span class="nf">TableDoubling</span><span class="p">(){};</span>                     <span class="c1">// load factor</span>
+    <span class="kt">void</span> <span class="nf">TableShrinking</span><span class="p">(){};</span>                    <span class="c1">// load factor</span>
+    <span class="kt">void</span> <span class="nf">Rehashing</span><span class="p">();</span>                           <span class="c1">// change size</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">HashChain_std</span><span class="p">()</span><span class="o">:</span><span class="n">size</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span><span class="n">count</span><span class="p">(</span><span class="mi">0</span><span class="p">){</span>
+        <span class="n">table</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">size</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="n">HashChain_std</span><span class="p">(</span><span class="kt">int</span> <span class="n">m</span><span class="p">)</span><span class="o">:</span><span class="n">size</span><span class="p">(</span><span class="n">m</span><span class="p">),</span><span class="n">count</span><span class="p">(</span><span class="mi">0</span><span class="p">){</span>
+        <span class="n">table</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">size</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="kt">void</span> <span class="n">Insert</span><span class="p">(</span><span class="n">dict</span> <span class="n">data</span><span class="p">);</span>         <span class="c1">// consider TableDoubling()</span>
+    <span class="kt">void</span> <span class="nf">Delete</span><span class="p">(</span><span class="n">string</span> <span class="n">key</span><span class="p">);</span>        <span class="c1">// consider TableShrinking()</span>
+    <span class="n">string</span> <span class="nf">Search</span><span class="p">(</span><span class="n">string</span> <span class="n">key</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="nf">DisplayTable</span><span class="p">();</span>
+<span class="p">};</span>
+
+<span class="n">string</span> <span class="n">HashChain_std</span><span class="o">::</span><span class="n">Search</span><span class="p">(</span><span class="n">string</span> <span class="n">key_str</span><span class="p">){</span>
+
+    <span class="kt">int</span> <span class="n">index</span> <span class="o">=</span> <span class="n">HashFunction</span><span class="p">(</span><span class="n">key_str</span><span class="p">);</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">list</span><span class="o">&lt;</span><span class="n">dict</span><span class="o">&gt;::</span><span class="n">iterator</span> <span class="n">itr</span> <span class="o">=</span> <span class="n">table</span><span class="p">[</span><span class="n">index</span><span class="p">].</span><span class="n">begin</span><span class="p">();</span> <span class="n">itr</span> <span class="o">!=</span> <span class="n">table</span><span class="p">[</span><span class="n">index</span><span class="p">].</span><span class="n">end</span><span class="p">();</span> <span class="n">itr</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">((</span><span class="o">*</span><span class="n">itr</span><span class="p">).</span><span class="n">key</span> <span class="o">==</span> <span class="n">key_str</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="p">(</span><span class="o">*</span><span class="n">itr</span><span class="p">).</span><span class="n">value</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="s">&quot;...</span><span class="se">\n</span><span class="s">no such data&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">HashChain_std</span><span class="o">::</span><span class="n">Delete</span><span class="p">(</span><span class="n">string</span> <span class="n">key_str</span><span class="p">){</span>
+
+    <span class="kt">int</span> <span class="n">index</span> <span class="o">=</span> <span class="n">HashFunction</span><span class="p">(</span><span class="n">key_str</span><span class="p">);</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">list</span><span class="o">&lt;</span><span class="n">dict</span><span class="o">&gt;::</span><span class="n">iterator</span> <span class="n">itr</span> <span class="o">=</span> <span class="n">table</span><span class="p">[</span><span class="n">index</span><span class="p">].</span><span class="n">begin</span><span class="p">();</span> <span class="n">itr</span> <span class="o">!=</span> <span class="n">table</span><span class="p">[</span><span class="n">index</span><span class="p">].</span><span class="n">end</span><span class="p">();</span> <span class="n">itr</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">((</span><span class="o">*</span><span class="n">itr</span><span class="p">).</span><span class="n">key</span> <span class="o">==</span> <span class="n">key_str</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">table</span><span class="p">[</span><span class="n">index</span><span class="p">].</span><span class="n">erase</span><span class="p">(</span><span class="n">itr</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+
+<span class="kt">void</span> <span class="n">HashChain_std</span><span class="o">::</span><span class="n">Insert</span><span class="p">(</span><span class="n">dict</span> <span class="n">data</span><span class="p">){</span>
+
+    <span class="kt">int</span> <span class="n">index</span> <span class="o">=</span> <span class="n">HashFunction</span><span class="p">(</span><span class="n">data</span><span class="p">.</span><span class="n">key</span><span class="p">);</span>
+    <span class="n">table</span><span class="p">[</span><span class="n">index</span><span class="p">].</span><span class="n">push_front</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>             <span class="c1">// 在第index個slot, 串上data</span>
+<span class="p">}</span>
+
+
+<span class="kt">int</span> <span class="n">HashChain_std</span><span class="o">::</span><span class="n">PreHashing</span><span class="p">(</span><span class="n">string</span> <span class="n">key_str</span><span class="p">){</span>
+
+    <span class="kt">int</span> <span class="n">exp</span> <span class="o">=</span> <span class="mi">9</span><span class="p">,</span>
+        <span class="n">key_int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">key_str</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="p">;</span> <span class="n">i</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">key_int</span> <span class="o">+=</span> <span class="n">key_str</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">p</span><span class="p">;</span>
+        <span class="n">p</span> <span class="o">*=</span> <span class="n">exp</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">key_int</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">HashChain_std</span><span class="o">::</span><span class="n">HashFunction</span><span class="p">(</span><span class="n">string</span> <span class="n">key_str</span><span class="p">){</span>
+
+    <span class="kt">int</span> <span class="n">key_int</span> <span class="o">=</span> <span class="n">PreHashing</span><span class="p">(</span><span class="n">key_str</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="p">(</span> <span class="n">key_int</span> <span class="o">%</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">HashChain_std</span><span class="o">::</span><span class="n">DisplayTable</span><span class="p">(){</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">table</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;slot#&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;: &quot;</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">list</span><span class="o">&lt;</span><span class="n">dict</span><span class="o">&gt;::</span><span class="n">iterator</span> <span class="n">itr</span> <span class="o">=</span> <span class="n">table</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">begin</span><span class="p">();</span> <span class="n">itr</span> <span class="o">!=</span> <span class="n">table</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">end</span><span class="p">();</span> <span class="n">itr</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;(&quot;</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="o">*</span><span class="n">itr</span><span class="p">).</span><span class="n">key</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;,&quot;</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="o">*</span><span class="n">itr</span><span class="p">).</span><span class="n">value</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;) &quot;</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="n">HashChain_std</span> <span class="n">hash</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+    <span class="n">hash</span><span class="p">.</span><span class="n">Insert</span><span class="p">(</span><span class="n">dict</span><span class="p">(</span><span class="s">&quot;T-Mac&quot;</span><span class="p">,</span><span class="s">&quot;Magic&quot;</span><span class="p">));</span>
+    <span class="n">hash</span><span class="p">.</span><span class="n">Insert</span><span class="p">(</span><span class="n">dict</span><span class="p">(</span><span class="s">&quot;Bryant&quot;</span><span class="p">,</span><span class="s">&quot;Lakers&quot;</span><span class="p">));</span>
+    <span class="n">hash</span><span class="p">.</span><span class="n">Insert</span><span class="p">(</span><span class="n">dict</span><span class="p">(</span><span class="s">&quot;Webber&quot;</span><span class="p">,</span><span class="s">&quot;Kings&quot;</span><span class="p">));</span>
+    <span class="n">hash</span><span class="p">.</span><span class="n">Insert</span><span class="p">(</span><span class="n">dict</span><span class="p">(</span><span class="s">&quot;Arenas&quot;</span><span class="p">,</span> <span class="s">&quot;Wizards&quot;</span><span class="p">));</span>
+    <span class="n">hash</span><span class="p">.</span><span class="n">Insert</span><span class="p">(</span><span class="n">dict</span><span class="p">(</span><span class="s">&quot;Davis&quot;</span><span class="p">,</span><span class="s">&quot;Clippers&quot;</span><span class="p">));</span>
+    <span class="n">hash</span><span class="p">.</span><span class="n">Insert</span><span class="p">(</span><span class="n">dict</span><span class="p">(</span><span class="s">&quot;Kidd&quot;</span><span class="p">,</span><span class="s">&quot;Nets&quot;</span><span class="p">));</span>
+    <span class="n">hash</span><span class="p">.</span><span class="n">DisplayTable</span><span class="p">();</span>
+
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;T-Mac is in &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">hash</span><span class="p">.</span><span class="n">Search</span><span class="p">(</span><span class="s">&quot;T-Mac&quot;</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;. &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Arenas is in &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">hash</span><span class="p">.</span><span class="n">Search</span><span class="p">(</span><span class="s">&quot;Arenas&quot;</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;. &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">After deleing Kidd and T-Mac:</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">hash</span><span class="p">.</span><span class="n">Delete</span><span class="p">(</span><span class="s">&quot;Kidd&quot;</span><span class="p">);</span>
+    <span class="n">hash</span><span class="p">.</span><span class="n">Delete</span><span class="p">(</span><span class="s">&quot;T-Mac&quot;</span><span class="p">);</span>
+
+    <span class="n">hash</span><span class="p">.</span><span class="n">DisplayTable</span><span class="p">();</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>output:</p>
+<div class="highlight"><pre><span class="n">slot</span><span class="err">#</span><span class="mi">1</span><span class="o">:</span> <span class="p">(</span><span class="n">Kidd</span><span class="p">,</span><span class="n">Nets</span><span class="p">)</span> <span class="p">(</span><span class="n">Bryant</span><span class="p">,</span><span class="n">Lakers</span><span class="p">)</span> 
+<span class="n">slot</span><span class="err">#</span><span class="mi">2</span><span class="o">:</span> <span class="p">(</span><span class="n">Arenas</span><span class="p">,</span><span class="n">Wizards</span><span class="p">)</span> 
+<span class="n">slot</span><span class="err">#</span><span class="mi">3</span><span class="o">:</span> <span class="p">(</span><span class="n">Webber</span><span class="p">,</span><span class="n">Kings</span><span class="p">)</span> 
+<span class="n">slot</span><span class="err">#</span><span class="mi">4</span><span class="o">:</span> <span class="p">(</span><span class="n">T</span><span class="o">-</span><span class="n">Mac</span><span class="p">,</span><span class="n">Magic</span><span class="p">)</span> 
+<span class="n">slot</span><span class="err">#</span><span class="mi">5</span><span class="o">:</span> <span class="p">(</span><span class="n">Davis</span><span class="p">,</span><span class="n">Clippers</span><span class="p">)</span> 
+
+<span class="n">T</span><span class="o">-</span><span class="n">Mac</span> <span class="n">is</span> <span class="n">in</span> <span class="n">Magic</span><span class="p">.</span> 
+<span class="n">Arenas</span> <span class="n">is</span> <span class="n">in</span> <span class="n">Wizards</span><span class="p">.</span> 
+
+<span class="n">After</span> <span class="n">deleing</span> <span class="n">Kidd</span> <span class="n">and</span> <span class="n">T</span><span class="o">-</span><span class="nl">Mac</span><span class="p">:</span>
+<span class="n">slot</span><span class="err">#</span><span class="mi">1</span><span class="o">:</span> <span class="p">(</span><span class="n">Bryant</span><span class="p">,</span><span class="n">Lakers</span><span class="p">)</span> 
+<span class="n">slot</span><span class="err">#</span><span class="mi">2</span><span class="o">:</span> <span class="p">(</span><span class="n">Arenas</span><span class="p">,</span><span class="n">Wizards</span><span class="p">)</span> 
+<span class="n">slot</span><span class="err">#</span><span class="mi">3</span><span class="o">:</span> <span class="p">(</span><span class="n">Webber</span><span class="p">,</span><span class="n">Kings</span><span class="p">)</span> 
+<span class="n">slot</span><span class="err">#</span><span class="mi">4</span><span class="o">:</span> 
+<span class="n">slot</span><span class="err">#</span><span class="mi">5</span><span class="o">:</span> <span class="p">(</span><span class="n">Davis</span><span class="p">,</span><span class="n">Clippers</span><span class="p">)</span> 
+</pre></div>
+
+
+<p></br>    </p>
+<p><a name="ll"></a></p>
+<h3>不偷懶：實作Linked list</h3>
+<p>// 強調 Rehashing(), TableDoubling(), TableShrinking()</p>
+<div class="highlight"><pre><span class="c1">// C++ code</span>
+<span class="cp">#include &lt;iostream&gt;</span>
+<span class="cp">#include &lt;vector&gt;</span>
+<span class="cp">#include &lt;string&gt;</span>
+<span class="cp">#include &lt;math.h&gt;       </span><span class="c1">// floor()</span>
+
+<span class="k">using</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="p">;</span>
+<span class="k">using</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">;</span>
+<span class="k">using</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="p">;</span>
+<span class="k">using</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+<span class="k">struct</span> <span class="n">Node</span><span class="p">{</span>
+    <span class="kt">int</span> <span class="n">key</span><span class="p">;</span>                    <span class="c1">// number</span>
+    <span class="n">string</span> <span class="n">value</span><span class="p">;</span>               <span class="c1">// genre</span>
+    <span class="n">Node</span> <span class="o">*</span><span class="n">next</span><span class="p">;</span>
+    <span class="n">Node</span><span class="p">()</span><span class="o">:</span><span class="n">key</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="n">value</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">),</span><span class="n">next</span><span class="p">(</span><span class="mi">0</span><span class="p">){};</span>
+    <span class="n">Node</span><span class="p">(</span><span class="kt">int</span> <span class="n">Key</span><span class="p">,</span> <span class="n">string</span> <span class="n">Value</span><span class="p">)</span><span class="o">:</span><span class="n">key</span><span class="p">(</span><span class="n">Key</span><span class="p">),</span><span class="n">value</span><span class="p">(</span><span class="n">Value</span><span class="p">),</span><span class="n">next</span><span class="p">(</span><span class="mi">0</span><span class="p">){};</span>
+    <span class="n">Node</span><span class="p">(</span><span class="n">Node</span> <span class="k">const</span> <span class="o">&amp;</span><span class="n">data</span><span class="p">)</span><span class="o">:</span><span class="n">key</span><span class="p">(</span><span class="n">data</span><span class="p">.</span><span class="n">key</span><span class="p">),</span><span class="n">value</span><span class="p">(</span><span class="n">data</span><span class="p">.</span><span class="n">value</span><span class="p">),</span><span class="n">next</span><span class="p">(</span><span class="n">data</span><span class="p">.</span><span class="n">next</span><span class="p">){};</span>
+<span class="p">};</span>
+
+<span class="k">class</span> <span class="nc">HashChainNode</span><span class="p">{</span>
+<span class="k">private</span><span class="o">:</span>
+    <span class="kt">int</span> <span class="n">size</span><span class="p">,</span> <span class="n">count</span><span class="p">;</span>                <span class="c1">// size: size of table, count: #data</span>
+    <span class="n">Node</span> <span class="o">**</span><span class="n">table</span><span class="p">;</span>
+
+    <span class="kt">int</span> <span class="nf">HashFunction</span><span class="p">(</span><span class="kt">int</span> <span class="n">key</span><span class="p">);</span>      <span class="c1">// Multiplication method</span>
+    <span class="kt">void</span> <span class="nf">TableDoubling</span><span class="p">();</span>           <span class="c1">// load factor</span>
+    <span class="kt">void</span> <span class="nf">TableShrinking</span><span class="p">();</span>          <span class="c1">// load factor</span>
+    <span class="kt">void</span> <span class="nf">Rehashing</span><span class="p">(</span><span class="kt">int</span> <span class="n">size_orig</span><span class="p">);</span>  <span class="c1">// change size</span>
+
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">HashChainNode</span><span class="p">(){};</span>
+    <span class="n">HashChainNode</span><span class="p">(</span><span class="kt">int</span> <span class="n">m</span><span class="p">)</span><span class="o">:</span><span class="n">size</span><span class="p">(</span><span class="n">m</span><span class="p">),</span><span class="n">count</span><span class="p">(</span><span class="mi">0</span><span class="p">){</span>
+        <span class="n">table</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Node</span> <span class="o">*</span><span class="p">[</span><span class="n">size</span><span class="p">];</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">size</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>    <span class="c1">// initialization</span>
+            <span class="n">table</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="o">~</span><span class="n">HashChainNode</span><span class="p">();</span>
+
+    <span class="kt">void</span> <span class="nf">Insert</span><span class="p">(</span><span class="n">Node</span> <span class="n">data</span><span class="p">);</span>         <span class="c1">// consider TableDoubling()</span>
+    <span class="kt">void</span> <span class="nf">Delete</span><span class="p">(</span><span class="kt">int</span> <span class="n">key</span><span class="p">);</span>           <span class="c1">// consider TableShrinking()</span>
+    <span class="n">string</span> <span class="nf">Search</span><span class="p">(</span><span class="kt">int</span> <span class="n">key</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="nf">DisplayTable</span><span class="p">();</span>
+<span class="p">};</span>
+
+<span class="n">HashChainNode</span><span class="o">::~</span><span class="n">HashChainNode</span><span class="p">(){</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">size</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+
+        <span class="n">Node</span> <span class="o">*</span><span class="n">current</span> <span class="o">=</span> <span class="n">table</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">current</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">Node</span> <span class="o">*</span><span class="n">previous</span> <span class="o">=</span> <span class="n">current</span><span class="p">;</span>
+            <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+            <span class="k">delete</span> <span class="n">previous</span><span class="p">;</span>
+            <span class="n">previous</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">delete</span> <span class="p">[]</span> <span class="n">table</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">HashChainNode</span><span class="o">::</span><span class="n">Insert</span><span class="p">(</span><span class="n">Node</span> <span class="n">data</span><span class="p">){</span>
+
+    <span class="n">count</span><span class="o">++</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">count</span> <span class="o">&gt;</span> <span class="n">size</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">TableDoubling</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="kt">int</span> <span class="n">index</span> <span class="o">=</span> <span class="n">HashFunction</span><span class="p">(</span><span class="n">data</span><span class="p">.</span><span class="n">key</span><span class="p">);</span>
+
+    <span class="n">Node</span> <span class="o">*</span><span class="n">newNode</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Node</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>     <span class="c1">// 吃data創造新node</span>
+    <span class="n">Node</span> <span class="o">*</span><span class="n">current</span> <span class="o">=</span> <span class="n">table</span><span class="p">[</span><span class="n">index</span><span class="p">];</span>           <span class="c1">// 取得table的slot的head pointer</span>
+
+    <span class="c1">// push_front()</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">current</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">table</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">newNode</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="p">{</span>
+        <span class="n">Node</span> <span class="o">*</span><span class="n">next</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+        <span class="n">current</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">newNode</span><span class="p">;</span>
+        <span class="n">newNode</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">next</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// push_back()</span>
+<span class="c1">//    while (current != NULL) {                   // assume key is unique</span>
+<span class="c1">//        previous = current;</span>
+<span class="c1">//        current = current-&gt;next;</span>
+<span class="c1">//    }</span>
+<span class="c1">//    </span>
+<span class="c1">//    if ( previous == NULL) {              // 表示table[index]沒東西</span>
+<span class="c1">//        table[index] = newNode;</span>
+<span class="c1">//    }</span>
+<span class="c1">//    else {</span>
+<span class="c1">//        previous-&gt;next = newNode;</span>
+<span class="c1">//    }</span>
+
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">HashChainNode</span><span class="o">::</span><span class="n">Delete</span><span class="p">(</span><span class="kt">int</span> <span class="n">key</span><span class="p">){</span>
+
+    <span class="kt">int</span> <span class="n">index</span> <span class="o">=</span> <span class="n">HashFunction</span><span class="p">(</span><span class="n">key</span><span class="p">);</span>
+    <span class="n">Node</span> <span class="o">*</span><span class="n">current</span> <span class="o">=</span> <span class="n">table</span><span class="p">[</span><span class="n">index</span><span class="p">],</span>
+         <span class="o">*</span><span class="n">previous</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+
+    <span class="k">while</span> <span class="p">(</span><span class="n">current</span> <span class="o">!=</span> <span class="nb">NULL</span> <span class="o">&amp;&amp;</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">key</span> <span class="o">!=</span> <span class="n">key</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">previous</span> <span class="o">=</span> <span class="n">current</span><span class="p">;</span>
+        <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">current</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;data not found.</span><span class="se">\n\n</span><span class="s">&quot;</span><span class="p">;</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">previous</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">table</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="p">{</span>
+            <span class="n">previous</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">delete</span> <span class="n">current</span><span class="p">;</span>
+        <span class="n">current</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">count</span><span class="o">--</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">count</span> <span class="o">&lt;</span> <span class="n">size</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">TableShrinking</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">string</span> <span class="n">HashChainNode</span><span class="o">::</span><span class="n">Search</span><span class="p">(</span><span class="kt">int</span> <span class="n">key</span><span class="p">){</span>
+
+    <span class="kt">int</span> <span class="n">index</span> <span class="o">=</span> <span class="n">HashFunction</span><span class="p">(</span><span class="n">key</span><span class="p">);</span>
+    <span class="n">Node</span> <span class="o">*</span><span class="n">current</span> <span class="o">=</span> <span class="n">table</span><span class="p">[</span><span class="n">index</span><span class="p">];</span>
+
+    <span class="k">while</span> <span class="p">(</span><span class="n">current</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">key</span> <span class="o">==</span> <span class="n">key</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="s">&quot;...</span><span class="se">\n</span><span class="s">no such data&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">HashChainNode</span><span class="o">::</span><span class="n">HashFunction</span><span class="p">(</span><span class="kt">int</span> <span class="n">key</span><span class="p">){</span>
+    <span class="c1">// Multiplication method</span>
+    <span class="kt">double</span> <span class="n">A</span> <span class="o">=</span> <span class="mf">0.6180339887</span><span class="p">,</span>
+           <span class="n">frac</span> <span class="o">=</span> <span class="n">key</span><span class="o">*</span><span class="n">A</span><span class="o">-</span><span class="n">floor</span><span class="p">(</span><span class="n">key</span><span class="o">*</span><span class="n">A</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="nf">floor</span><span class="p">(</span><span class="n">size</span><span class="o">*</span><span class="n">frac</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">HashChainNode</span><span class="o">::</span><span class="n">TableDoubling</span><span class="p">(){</span>
+
+    <span class="kt">int</span> <span class="n">size_orig</span> <span class="o">=</span> <span class="n">size</span><span class="p">;</span>
+    <span class="n">size</span> <span class="o">*=</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="n">Rehashing</span><span class="p">(</span><span class="n">size_orig</span><span class="p">);;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">HashChainNode</span><span class="o">::</span><span class="n">TableShrinking</span><span class="p">(){</span>
+
+    <span class="kt">int</span> <span class="n">size_orig</span> <span class="o">=</span> <span class="n">size</span><span class="p">;</span>
+    <span class="n">size</span> <span class="o">/=</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="n">Rehashing</span><span class="p">(</span><span class="n">size_orig</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">HashChainNode</span><span class="o">::</span><span class="n">Rehashing</span><span class="p">(</span><span class="kt">int</span> <span class="n">size_orig</span><span class="p">){</span>
+
+    <span class="n">Node</span> <span class="o">**</span><span class="n">newtable</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Node</span> <span class="o">*</span><span class="p">[</span><span class="n">size</span><span class="p">];</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">size</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>        <span class="c1">// 這三行超關鍵！因為 新new 出來的 newtable, 每個node可能不是NULL</span>
+        <span class="n">newtable</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">size_orig</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">Node</span> <span class="o">*</span><span class="n">curr_orig</span> <span class="o">=</span> <span class="n">table</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="o">*</span><span class="n">previous</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">curr_orig</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+
+            <span class="n">previous</span> <span class="o">=</span> <span class="n">curr_orig</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>  <span class="c1">// 因為curr_orig會被移到newtable上, 所以要previous記住原先table</span>
+
+            <span class="kt">int</span> <span class="n">index</span> <span class="o">=</span> <span class="n">HashFunction</span><span class="p">(</span><span class="n">curr_orig</span><span class="o">-&gt;</span><span class="n">key</span><span class="p">);</span>
+
+            <span class="c1">// push_front(), 把原來的table中的node接到newtable上, 不需要配置新的記憶體</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">newtable</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">newtable</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">curr_orig</span><span class="p">;</span>
+                <span class="n">newtable</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>      <span class="c1">// equivalent to curr_orig-&gt;next = 0;</span>
+            <span class="p">}</span>
+            <span class="k">else</span> <span class="p">{</span>                <span class="c1">// 如果沒有對 newtable 的元素做initialization, 可能跑進來這個 else{}, 會爆炸</span>
+                <span class="n">Node</span> <span class="o">*</span><span class="n">next</span> <span class="o">=</span> <span class="n">newtable</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+                <span class="n">newtable</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">curr_orig</span><span class="p">;</span>
+                <span class="n">curr_orig</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">next</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="n">curr_orig</span> <span class="o">=</span> <span class="n">previous</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">delete</span> <span class="p">[]</span> <span class="n">table</span><span class="p">;</span>
+    <span class="n">table</span> <span class="o">=</span> <span class="n">newtable</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">HashChainNode</span><span class="o">::</span><span class="n">DisplayTable</span><span class="p">(){</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">size</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;#slot#&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;: &quot;</span><span class="p">;</span>
+        <span class="n">Node</span> <span class="o">*</span><span class="n">current</span> <span class="o">=</span> <span class="n">table</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">current</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;(&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">key</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;,&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">value</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;) &quot;</span><span class="p">;</span>
+            <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+
+    <span class="n">HashChainNode</span> <span class="n">hash</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+
+    <span class="n">hash</span><span class="p">.</span><span class="n">Insert</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="s">&quot;post rock&quot;</span><span class="p">));</span>
+    <span class="n">hash</span><span class="p">.</span><span class="n">Insert</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="mi">592</span><span class="p">,</span><span class="s">&quot;shoegaze&quot;</span><span class="p">));</span>
+    <span class="n">hash</span><span class="p">.</span><span class="n">Insert</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="mi">6594</span><span class="p">,</span><span class="s">&quot;blues&quot;</span><span class="p">));</span>        <span class="c1">// evoke TableDoubling()</span>
+    <span class="n">hash</span><span class="p">.</span><span class="n">Insert</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="mi">49593</span><span class="p">,</span><span class="s">&quot;folk&quot;</span><span class="p">));</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;After inserting key(12),key(592),key(6594),key(49593):</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">hash</span><span class="p">.</span><span class="n">DisplayTable</span><span class="p">();</span>
+    <span class="n">hash</span><span class="p">.</span><span class="n">Insert</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="mi">123596</span><span class="p">,</span><span class="s">&quot;hiphop&quot;</span><span class="p">));</span>     <span class="c1">// evoke TableDoubling()</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;After inserting key(123596):</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">hash</span><span class="p">.</span><span class="n">DisplayTable</span><span class="p">();</span>
+    <span class="n">hash</span><span class="p">.</span><span class="n">Insert</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="mi">93</span><span class="p">,</span><span class="s">&quot;soul&quot;</span><span class="p">));</span>
+    <span class="n">hash</span><span class="p">.</span><span class="n">Insert</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="mi">2288</span><span class="p">,</span><span class="s">&quot;indie&quot;</span><span class="p">));</span>
+    <span class="n">hash</span><span class="p">.</span><span class="n">Insert</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="mi">793</span><span class="p">,</span><span class="s">&quot;jazz&quot;</span><span class="p">));</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;After inserting key(93),key(2288),key(793):</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">hash</span><span class="p">.</span><span class="n">DisplayTable</span><span class="p">();</span>
+    <span class="n">hash</span><span class="p">.</span><span class="n">Insert</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="mi">8491</span><span class="p">,</span><span class="s">&quot;electro&quot;</span><span class="p">));</span>      <span class="c1">// evoke TableDoubling()</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;After inserting key(8491):</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">hash</span><span class="p">.</span><span class="n">DisplayTable</span><span class="p">();</span>
+    <span class="n">hash</span><span class="p">.</span><span class="n">Insert</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="mi">323359</span><span class="p">,</span><span class="s">&quot;pop&quot;</span><span class="p">));</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;After inserting key(323359):</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">hash</span><span class="p">.</span><span class="n">DisplayTable</span><span class="p">();</span>
+
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Searching: genre(8491) is &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">hash</span><span class="p">.</span><span class="n">Search</span><span class="p">(</span><span class="mi">8491</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;.</span><span class="se">\n\n</span><span class="s">&quot;</span><span class="p">;</span>
+
+    <span class="n">hash</span><span class="p">.</span><span class="n">Delete</span><span class="p">(</span><span class="mi">49593</span><span class="p">);</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;After deleting key(49593):</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Searching: genre(49593) is &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">hash</span><span class="p">.</span><span class="n">Search</span><span class="p">(</span><span class="mi">49593</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;.</span><span class="se">\n\n</span><span class="s">&quot;</span><span class="p">;</span>
+
+    <span class="n">hash</span><span class="p">.</span><span class="n">Delete</span><span class="p">(</span><span class="mi">592</span><span class="p">);</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;After deleting key(592):</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">hash</span><span class="p">.</span><span class="n">DisplayTable</span><span class="p">();</span>
+
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Want to  delete key(592) again:</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">hash</span><span class="p">.</span><span class="n">Delete</span><span class="p">(</span><span class="mi">592</span><span class="p">);</span>
+
+    <span class="n">hash</span><span class="p">.</span><span class="n">Delete</span><span class="p">(</span><span class="mi">123596</span><span class="p">);</span>
+    <span class="n">hash</span><span class="p">.</span><span class="n">Delete</span><span class="p">(</span><span class="mi">323359</span><span class="p">);</span>
+    <span class="n">hash</span><span class="p">.</span><span class="n">Delete</span><span class="p">(</span><span class="mi">793</span><span class="p">);</span>
+    <span class="n">hash</span><span class="p">.</span><span class="n">Delete</span><span class="p">(</span><span class="mi">93</span><span class="p">);</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;After deleting key(123596),key(323359),key(793),key(93):</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">hash</span><span class="p">.</span><span class="n">DisplayTable</span><span class="p">();</span>
+
+    <span class="n">hash</span><span class="p">.</span><span class="n">Delete</span><span class="p">(</span><span class="mi">6594</span><span class="p">);</span>      <span class="c1">// evoke TableShrinking()</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;After deleting key(6594):</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">hash</span><span class="p">.</span><span class="n">DisplayTable</span><span class="p">();</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>output:</p>
+<div class="highlight"><pre><span class="n">After</span> <span class="n">inserting</span> <span class="n">key</span><span class="p">(</span><span class="mi">12</span><span class="p">),</span><span class="n">key</span><span class="p">(</span><span class="mi">592</span><span class="p">),</span><span class="n">key</span><span class="p">(</span><span class="mi">6594</span><span class="p">),</span><span class="n">key</span><span class="p">(</span><span class="mi">49593</span><span class="p">)</span><span class="o">:</span>
+<span class="cp">#slot#0: (49593,folk) </span>
+<span class="cp">#slot#1: (12,post rock) (6594,blues) </span>
+<span class="cp">#slot#2: </span>
+<span class="cp">#slot#3: (592,shoegaze) </span>
+
+<span class="n">After</span> <span class="n">inserting</span> <span class="n">key</span><span class="p">(</span><span class="mi">123596</span><span class="p">)</span><span class="o">:</span>
+<span class="cp">#slot#0: </span>
+<span class="cp">#slot#1: (49593,folk) </span>
+<span class="cp">#slot#2: (6594,blues) </span>
+<span class="cp">#slot#3: (12,post rock) </span>
+<span class="cp">#slot#4: (123596,hiphop) </span>
+<span class="cp">#slot#5: </span>
+<span class="cp">#slot#6: </span>
+<span class="cp">#slot#7: (592,shoegaze) </span>
+
+<span class="n">After</span> <span class="n">inserting</span> <span class="n">key</span><span class="p">(</span><span class="mi">93</span><span class="p">),</span><span class="n">key</span><span class="p">(</span><span class="mi">2288</span><span class="p">),</span><span class="n">key</span><span class="p">(</span><span class="mi">793</span><span class="p">)</span><span class="o">:</span>
+<span class="cp">#slot#0: (2288,indie) (793,jazz) </span>
+<span class="cp">#slot#1: (49593,folk) </span>
+<span class="cp">#slot#2: (6594,blues) </span>
+<span class="cp">#slot#3: (12,post rock) (93,soul) </span>
+<span class="cp">#slot#4: (123596,hiphop) </span>
+<span class="cp">#slot#5: </span>
+<span class="cp">#slot#6: </span>
+<span class="cp">#slot#7: (592,shoegaze) </span>
+
+<span class="n">After</span> <span class="n">inserting</span> <span class="n">key</span><span class="p">(</span><span class="mi">8491</span><span class="p">)</span><span class="o">:</span>
+<span class="cp">#slot#0: (2288,indie) </span>
+<span class="cp">#slot#1: (793,jazz) </span>
+<span class="cp">#slot#2: (49593,folk) </span>
+<span class="cp">#slot#3: </span>
+<span class="cp">#slot#4: </span>
+<span class="cp">#slot#5: (6594,blues) </span>
+<span class="cp">#slot#6: (12,post rock) </span>
+<span class="cp">#slot#7: (93,soul) </span>
+<span class="cp">#slot#8: (123596,hiphop) </span>
+<span class="cp">#slot#9: </span>
+<span class="cp">#slot#10: </span>
+<span class="cp">#slot#11: (8491,electro) </span>
+<span class="cp">#slot#12: </span>
+<span class="cp">#slot#13: </span>
+<span class="cp">#slot#14: (592,shoegaze) </span>
+<span class="cp">#slot#15: </span>
+
+<span class="n">After</span> <span class="n">inserting</span> <span class="n">key</span><span class="p">(</span><span class="mi">323359</span><span class="p">)</span><span class="o">:</span>
+<span class="cp">#slot#0: (2288,indie) </span>
+<span class="cp">#slot#1: (793,jazz) </span>
+<span class="cp">#slot#2: (49593,folk) </span>
+<span class="cp">#slot#3: </span>
+<span class="cp">#slot#4: </span>
+<span class="cp">#slot#5: (6594,blues) </span>
+<span class="cp">#slot#6: (12,post rock) </span>
+<span class="cp">#slot#7: (93,soul) </span>
+<span class="cp">#slot#8: (123596,hiphop) </span>
+<span class="cp">#slot#9: </span>
+<span class="cp">#slot#10: </span>
+<span class="cp">#slot#11: (8491,electro) </span>
+<span class="cp">#slot#12: </span>
+<span class="cp">#slot#13: (323359,pop) </span>
+<span class="cp">#slot#14: (592,shoegaze) </span>
+<span class="cp">#slot#15: </span>
+
+<span class="nl">Searching</span><span class="p">:</span> <span class="n">genre</span><span class="p">(</span><span class="mi">8491</span><span class="p">)</span> <span class="n">is</span> <span class="n">electro</span><span class="p">.</span>
+
+<span class="n">After</span> <span class="n">deleting</span> <span class="n">key</span><span class="p">(</span><span class="mi">49593</span><span class="p">)</span><span class="o">:</span>
+<span class="nl">Searching</span><span class="p">:</span> <span class="n">genre</span><span class="p">(</span><span class="mi">49593</span><span class="p">)</span> <span class="n">is</span> <span class="p">...</span>
+<span class="n">no</span> <span class="n">such</span> <span class="n">data</span><span class="p">.</span>
+
+<span class="n">After</span> <span class="n">deleting</span> <span class="n">key</span><span class="p">(</span><span class="mi">592</span><span class="p">)</span><span class="o">:</span>
+<span class="cp">#slot#0: (2288,indie) </span>
+<span class="cp">#slot#1: (793,jazz) </span>
+<span class="cp">#slot#2: </span>
+<span class="cp">#slot#3: </span>
+<span class="cp">#slot#4: </span>
+<span class="cp">#slot#5: (6594,blues) </span>
+<span class="cp">#slot#6: (12,post rock) </span>
+<span class="cp">#slot#7: (93,soul) </span>
+<span class="cp">#slot#8: (123596,hiphop) </span>
+<span class="cp">#slot#9: </span>
+<span class="cp">#slot#10: </span>
+<span class="cp">#slot#11: (8491,electro) </span>
+<span class="cp">#slot#12: </span>
+<span class="cp">#slot#13: (323359,pop) </span>
+<span class="cp">#slot#14: </span>
+<span class="cp">#slot#15: </span>
+
+<span class="n">Want</span> <span class="n">to</span>  <span class="k">delete</span> <span class="n">key</span><span class="p">(</span><span class="mi">592</span><span class="p">)</span> <span class="nl">again</span><span class="p">:</span>
+<span class="n">data</span> <span class="n">not</span> <span class="n">found</span><span class="p">.</span>
+
+<span class="n">After</span> <span class="n">deleting</span> <span class="n">key</span><span class="p">(</span><span class="mi">123596</span><span class="p">),</span><span class="n">key</span><span class="p">(</span><span class="mi">323359</span><span class="p">),</span><span class="n">key</span><span class="p">(</span><span class="mi">793</span><span class="p">),</span><span class="n">key</span><span class="p">(</span><span class="mi">93</span><span class="p">)</span><span class="o">:</span>
+<span class="cp">#slot#0: (2288,indie) </span>
+<span class="cp">#slot#1: </span>
+<span class="cp">#slot#2: </span>
+<span class="cp">#slot#3: </span>
+<span class="cp">#slot#4: </span>
+<span class="cp">#slot#5: (6594,blues) </span>
+<span class="cp">#slot#6: (12,post rock) </span>
+<span class="cp">#slot#7: </span>
+<span class="cp">#slot#8: </span>
+<span class="cp">#slot#9: </span>
+<span class="cp">#slot#10: </span>
+<span class="cp">#slot#11: (8491,electro) </span>
+<span class="cp">#slot#12: </span>
+<span class="cp">#slot#13: </span>
+<span class="cp">#slot#14: </span>
+<span class="cp">#slot#15: </span>
+
+<span class="n">After</span> <span class="n">deleting</span> <span class="n">key</span><span class="p">(</span><span class="mi">6594</span><span class="p">)</span><span class="o">:</span>
+<span class="cp">#slot#0: (2288,indie) </span>
+<span class="cp">#slot#1: </span>
+<span class="cp">#slot#2: </span>
+<span class="cp">#slot#3: (12,post rock) </span>
+<span class="cp">#slot#4: </span>
+<span class="cp">#slot#5: (8491,electro) </span>
+<span class="cp">#slot#6: </span>
+<span class="cp">#slot#7: </span>
+</pre></div>
+
+
+<p></br>  </p>
+<p>以上是以<strong>Chaining</strong>解決<strong>Collision</strong>之介紹。</p>
+<p></br></p>
+<hr />
+<p><a name="ref"></a></p>
+<h3>參考資料：</h3>
+<ul>
+<li><a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844">Introduction to Algorithms, Ch11</a> </li>
+<li><a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376">Fundamentals of Data Structures in C++, Ch8</a></li>
+<li><a href="https://medium.com/@aozturk/simple-hash-map-hash-table-implementation-in-c-931965904250#.du6lwge1u">Abdullah Ozturk：Simple Hash Map (Hash Table) Implementation in C++</a></li>
+<li><a href="http://pumpkinprogrammer.com/2014/06/21/c-tutorial-intro-to-hash-tables/">Pumpkin Programmer：C++ Tutorial: Intro to Hash Tables</a></li>
+<li><a href="http://users.ece.utexas.edu/~adnan/360C/hash.pdf">Adnan Aziz：Hash Tables</a></li>
+<li><a href="http://alrightchiu.github.io/SecondRound/linked-list-introjian-jie.html">Linked List: Intro(簡介)</a></li>
+</ul>
+<p><a name="series"></a></p>
+<p></br></p>
+<h3>Hash Table系列文章</h3>
+<p><a href="http://alrightchiu.github.io/SecondRound/hash-tableintrojian-jie.html">Hash Table：Intro(簡介)</a>   </p>
+<p>回到目錄：</p>
+<p><a href="http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html">目錄：演算法與資料結構</a></p>
+<p></br></p>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' && location_protocol !== 'https') location_protocol = 'https:';
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+    </article>
+
+        <div class="tags">
+            <p>tags: <a href="http://alrightchiu.github.io/SecondRound/tag/c.html">C++</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/intro.html">Intro</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/dictionary.html">Dictionary</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/hash-table.html">Hash Table</a>, </p>
+        </div>
+
+<hr>
+<div class="sharing">
+</div>
+    <hr>
+
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                            <li>
+                                <a href="https://github.com/alrightchiu">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                    </ul>
+<p class="copyright text-muted">
+    Blog powered by <a href="http://getpelican.com">Pelican</a>,
+    which takes great advantage of <a href="http://python.org">Python</a>.
+</p>                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="http://alrightchiu.github.io/SecondRound/theme/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="http://alrightchiu.github.io/SecondRound/theme/js/bootstrap.min.js"></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script src="http://alrightchiu.github.io/SecondRound/theme/js/clean-blog.min.js"></script>
+
+</body>
+
+</html>
