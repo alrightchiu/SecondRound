@@ -298,6 +298,8 @@ slot#4: (Davis,Clippers)
 
 以下的範例程式碼紮紮實實用pointer串出Linked list，其中的`Insert()`、`Delete()`、`Search()`、`DisplayTable()`與上一小節大同小異，只是要加入Linked list的手法(改變**pointer**指向)。
 
+`HashFunction()`採取**Multiplication method**，詳細討論請參考：[Hash Table：Intro(簡介)/Multiplication Method](http://alrightchiu.github.io/SecondRound/hash-tableintrojian-jie.html#mm)。
+
 比較酷的是因應**load factor($\alpha=\frac{n}{m}$)**改變Table大小，以及改變之後把node從舊的Table搬到新的Table的`Rehashing()`：
 
 `TableDoubling()`：當$\alpha=\frac{n}{m}>1$時，表示資料量大於slot數量，就把Table大小$m$加倍(並配置$m$加倍後的Table)，如此在理論上可以儘量避免**Collision**發生，增加搜尋資料的效率。
@@ -768,6 +770,7 @@ After deleting key(6594), evoke TableShrinking():
 ###Hash Table系列文章
 
 [Hash Table：Intro(簡介)](http://alrightchiu.github.io/SecondRound/hash-tableintrojian-jie.html)   
+[Hash Table：Chaining](http://alrightchiu.github.io/SecondRound/hash-tablechaining.html)  
 
 
 回到目錄：
