@@ -820,7 +820,7 @@ $$&lt;/div&gt;
         "}";
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
-&lt;/script&gt;</summary><category term="C++"></category><category term="Intro"></category><category term="Dictionary"></category><category term="Hash Table"></category><category term="Linked List"></category></entry><entry><title>Hash Table：Intro(簡介)</title><link href="http://alrightchiu.github.io/SecondRound/hash-tableintrojian-jie.html" rel="alternate"></link><updated>2016-05-19T23:01:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-05-19:SecondRound/hash-tableintrojian-jie.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;/script&gt;</summary><category term="C++"></category><category term="Dictionary"></category><category term="Hash Table"></category><category term="Linked List"></category></entry><entry><title>Hash Table：Intro(簡介)</title><link href="http://alrightchiu.github.io/SecondRound/hash-tableintrojian-jie.html" rel="alternate"></link><updated>2016-05-19T23:01:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-05-19:SecondRound/hash-tableintrojian-jie.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h3&gt;先備知識與注意事項&lt;/h3&gt;
 &lt;p&gt;在做資料處理時，常常需要「查詢資料」，譬如線上購物平台有會員登入時，首先確認輸入的帳號密碼是否在資料庫裡，如果是，便從資料庫裡找出此會員的資料，如購物記錄、暫存購物清單等等。&lt;/p&gt;
 &lt;p&gt;想到「查詢資料」，可能會想到能夠在時間複雜度為&lt;span class="math"&gt;\(O(\log{N})\)&lt;/span&gt;完成查詢的&lt;strong&gt;平衡的&lt;/strong&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/binary-search-tree-introjian-jie.html"&gt;Binary Search Tree(二元搜尋樹)&lt;/a&gt;，如圖一。&lt;/p&gt;
