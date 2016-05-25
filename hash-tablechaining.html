@@ -535,10 +535,10 @@ $$</div>
         <span class="n">Node</span> <span class="o">*</span><span class="n">curr_orig</span> <span class="o">=</span> <span class="n">table</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>        <span class="c1">// curr_orig: current node in original table</span>
              <span class="o">*</span><span class="n">prev_orig</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>            <span class="c1">// prev_orig: following curr_orig </span>
 
-        <span class="k">while</span> <span class="p">(</span><span class="n">curr_orig</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>        <span class="c1">// traversal in list of each slot in original table</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">curr_orig</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>      <span class="c1">// traversal in list of each slot in original table</span>
 
-            <span class="n">prev_orig</span> <span class="o">=</span> <span class="n">curr_orig</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>   <span class="c1">// curr_orig will be directly move to new table</span>
-                                           <span class="c1">// need prev_orig to keep pointer in original table</span>
+            <span class="n">prev_orig</span> <span class="o">=</span> <span class="n">curr_orig</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span> <span class="c1">// curr_orig will be directly move to new table</span>
+                                         <span class="c1">// need prev_orig to keep pointer in original table</span>
 
             <span class="kt">int</span> <span class="n">index</span> <span class="o">=</span> <span class="n">HashFunction</span><span class="p">(</span><span class="n">curr_orig</span><span class="o">-&gt;</span><span class="n">key</span><span class="p">);</span>    <span class="c1">// get index of slot in new table</span>
 
