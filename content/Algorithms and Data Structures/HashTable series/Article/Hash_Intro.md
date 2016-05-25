@@ -243,7 +243,6 @@ $$
 
 這種情況下，若有大量變數以相同的命名規則，例如「`a_count`、`b_count`、`c_count`」，很有可能在**prehash**(在**Direct Access Table**提過的「T-MAC」與「KOBE」)將字串轉換成**Key**時，得到「低位bit」完全相同的**key**，因為以上三個變數的結尾都是`_count`，那麼**Division Method**就會把這三個變數都放進同一個**slot**，造成**Collision**。
 
-再者，若要避開特定$m$，那麼當**Table**裝滿資料，要加大尺寸($m$)的時候，需要再找一個更大的「距離$2^{P}$夠遠的質數」，顯然不太有效率。
 
 </br>  
 
