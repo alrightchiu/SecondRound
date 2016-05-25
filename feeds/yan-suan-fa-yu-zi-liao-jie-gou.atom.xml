@@ -609,134 +609,134 @@ $$&lt;/div&gt;
 
 
 &lt;p&gt;output:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;After&lt;/span&gt; &lt;span class="n"&gt;inserting&lt;/span&gt; &lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;12&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;592&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#0: (12,post rock)&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#1: (592,shoegaze)&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;After inserting key(12),key(592):
+#slot#0: (12,post rock)
+#slot#1: (592,shoegaze)
 
-&lt;span class="n"&gt;After&lt;/span&gt; &lt;span class="n"&gt;inserting&lt;/span&gt; &lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;6594&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="n"&gt;evoke&lt;/span&gt; &lt;span class="n"&gt;TableDoubling&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#0:&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#1: (12,post rock) (6594,blues)&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#2:&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#3: (592,shoegaze)&lt;/span&gt;
+After inserting key(6594), evoke TableDoubling():
+#slot#0:
+#slot#1: (12,post rock) (6594,blues)
+#slot#2:
+#slot#3: (592,shoegaze)
 
-&lt;span class="n"&gt;After&lt;/span&gt; &lt;span class="n"&gt;inserting&lt;/span&gt; &lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;7&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#0:&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#1: (12,post rock) (7,folk) (6594,blues)&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#2:&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#3: (592,shoegaze)&lt;/span&gt;
+After inserting key(7):
+#slot#0:
+#slot#1: (12,post rock) (7,folk) (6594,blues)
+#slot#2:
+#slot#3: (592,shoegaze)
 
-&lt;span class="n"&gt;After&lt;/span&gt; &lt;span class="n"&gt;inserting&lt;/span&gt; &lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;123596&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="n"&gt;evoke&lt;/span&gt; &lt;span class="n"&gt;TableDoubling&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#0:&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#1:&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#2: (7,folk) (6594,blues)&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#3: (12,post rock)&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#4: (123596,hiphop)&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#5:&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#6:&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#7: (592,shoegaze)&lt;/span&gt;
+After inserting key(123596), evoke TableDoubling():
+#slot#0:
+#slot#1:
+#slot#2: (7,folk) (6594,blues)
+#slot#3: (12,post rock)
+#slot#4: (123596,hiphop)
+#slot#5:
+#slot#6:
+#slot#7: (592,shoegaze)
 
-&lt;span class="n"&gt;After&lt;/span&gt; &lt;span class="n"&gt;inserting&lt;/span&gt; &lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;93&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;2288&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;793&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#0: (2288,indie) (793,jazz)&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#1:&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#2: (7,folk) (6594,blues)&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#3: (12,post rock) (93,soul)&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#4: (123596,hiphop)&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#5:&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#6:&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#7: (592,shoegaze)&lt;/span&gt;
+After inserting key(93),key(2288),key(793):
+#slot#0: (2288,indie) (793,jazz)
+#slot#1:
+#slot#2: (7,folk) (6594,blues)
+#slot#3: (12,post rock) (93,soul)
+#slot#4: (123596,hiphop)
+#slot#5:
+#slot#6:
+#slot#7: (592,shoegaze)
 
-&lt;span class="n"&gt;After&lt;/span&gt; &lt;span class="n"&gt;inserting&lt;/span&gt; &lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;8491&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="n"&gt;evoke&lt;/span&gt; &lt;span class="n"&gt;TableDoubling&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#0: (2288,indie)&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#1: (793,jazz)&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#2:&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#3:&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#4:&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#5: (7,folk) (6594,blues)&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#6: (12,post rock)&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#7: (93,soul)&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#8: (123596,hiphop)&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#9:&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#10:&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#11: (8491,electro)&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#12:&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#13:&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#14: (592,shoegaze)&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#15:&lt;/span&gt;
+After inserting key(8491), evoke TableDoubling():
+#slot#0: (2288,indie)
+#slot#1: (793,jazz)
+#slot#2:
+#slot#3:
+#slot#4:
+#slot#5: (7,folk) (6594,blues)
+#slot#6: (12,post rock)
+#slot#7: (93,soul)
+#slot#8: (123596,hiphop)
+#slot#9:
+#slot#10:
+#slot#11: (8491,electro)
+#slot#12:
+#slot#13:
+#slot#14: (592,shoegaze)
+#slot#15:
 
-&lt;span class="n"&gt;After&lt;/span&gt; &lt;span class="n"&gt;inserting&lt;/span&gt; &lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;323359&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#0: (2288,indie)&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#1: (793,jazz)&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#2:&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#3:&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#4:&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#5: (7,folk) (6594,blues)&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#6: (12,post rock)&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#7: (93,soul)&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#8: (123596,hiphop)&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#9:&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#10:&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#11: (8491,electro)&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#12:&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#13: (323359,pop)&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#14: (592,shoegaze)&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#15:&lt;/span&gt;
+After inserting key(323359):
+#slot#0: (2288,indie)
+#slot#1: (793,jazz)
+#slot#2:
+#slot#3:
+#slot#4:
+#slot#5: (7,folk) (6594,blues)
+#slot#6: (12,post rock)
+#slot#7: (93,soul)
+#slot#8: (123596,hiphop)
+#slot#9:
+#slot#10:
+#slot#11: (8491,electro)
+#slot#12:
+#slot#13: (323359,pop)
+#slot#14: (592,shoegaze)
+#slot#15:
 
-&lt;span class="nl"&gt;Searching&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;genre&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;8491&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;is&lt;/span&gt; &lt;span class="n"&gt;electro&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;
+Searching: genre(8491) is electro.
 
-&lt;span class="nl"&gt;Searching&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;genre&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;7&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;is&lt;/span&gt; &lt;span class="n"&gt;folk&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;
+Searching: genre(7) is folk.
 
-&lt;span class="n"&gt;After&lt;/span&gt; &lt;span class="n"&gt;deleting&lt;/span&gt; &lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;7&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
-&lt;span class="nl"&gt;Searching&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;genre&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;7&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;is&lt;/span&gt; &lt;span class="p"&gt;...&lt;/span&gt;
-&lt;span class="n"&gt;no&lt;/span&gt; &lt;span class="n"&gt;such&lt;/span&gt; &lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;
+After deleting key(7):
+Searching: genre(7) is ...
+no such data.
 
-&lt;span class="n"&gt;After&lt;/span&gt; &lt;span class="n"&gt;deleting&lt;/span&gt; &lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;592&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#0: (2288,indie)&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#1: (793,jazz)&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#2:&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#3:&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#4:&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#5: (6594,blues)&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#6: (12,post rock)&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#7: (93,soul)&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#8: (123596,hiphop)&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#9:&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#10:&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#11: (8491,electro)&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#12:&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#13: (323359,pop)&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#14:&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#15:&lt;/span&gt;
+After deleting key(592):
+#slot#0: (2288,indie)
+#slot#1: (793,jazz)
+#slot#2:
+#slot#3:
+#slot#4:
+#slot#5: (6594,blues)
+#slot#6: (12,post rock)
+#slot#7: (93,soul)
+#slot#8: (123596,hiphop)
+#slot#9:
+#slot#10:
+#slot#11: (8491,electro)
+#slot#12:
+#slot#13: (323359,pop)
+#slot#14:
+#slot#15:
 
-&lt;span class="n"&gt;Want&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt;  &lt;span class="k"&gt;delete&lt;/span&gt; &lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;592&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="nl"&gt;again&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
-&lt;span class="n"&gt;data&lt;/span&gt; &lt;span class="n"&gt;not&lt;/span&gt; &lt;span class="n"&gt;found&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;
+Want to  delete key(592) again:
+data not found.
 
-&lt;span class="n"&gt;After&lt;/span&gt; &lt;span class="n"&gt;deleting&lt;/span&gt; &lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;123596&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;323359&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;793&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;93&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#0: (2288,indie)&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#1:&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#2:&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#3:&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#4:&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#5: (6594,blues)&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#6: (12,post rock)&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#7:&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#8:&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#9:&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#10:&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#11: (8491,electro)&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#12:&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#13:&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#14:&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#15:&lt;/span&gt;
+After deleting key(123596),key(323359),key(793),key(93):
+#slot#0: (2288,indie)
+#slot#1:
+#slot#2:
+#slot#3:
+#slot#4:
+#slot#5: (6594,blues)
+#slot#6: (12,post rock)
+#slot#7:
+#slot#8:
+#slot#9:
+#slot#10:
+#slot#11: (8491,electro)
+#slot#12:
+#slot#13:
+#slot#14:
+#slot#15:
 
-&lt;span class="n"&gt;After&lt;/span&gt; &lt;span class="n"&gt;deleting&lt;/span&gt; &lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;6594&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="n"&gt;evoke&lt;/span&gt; &lt;span class="n"&gt;TableShrinking&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#0: (2288,indie)&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#1:&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#2:&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#3: (12,post rock)&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#4:&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#5: (8491,electro)&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#6:&lt;/span&gt;
-&lt;span class="cp"&gt;#slot#7:&lt;/span&gt;
+After deleting key(6594), evoke TableShrinking():
+#slot#0: (2288,indie)
+#slot#1:
+#slot#2:
+#slot#3: (12,post rock)
+#slot#4:
+#slot#5: (8491,electro)
+#slot#6:
+#slot#7:
 &lt;/pre&gt;&lt;/div&gt;
 
 
