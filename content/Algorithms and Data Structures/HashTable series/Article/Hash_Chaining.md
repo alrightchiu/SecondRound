@@ -595,7 +595,7 @@ int main(){
 
 output:
 
-```
+```cpp
 After inserting key(12),key(592):
 #slot#0: (12,post rock)
 #slot#1: (592,shoegaze)
