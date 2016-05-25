@@ -373,7 +373,7 @@ $$</div>
 <li>為什麼選擇<span class="math">\(\alpha=\frac{n}{m}&lt;\frac{1}{4}\)</span>而不是<span class="math">\(\alpha=\frac{n}{m}&lt;\frac{1}{2}\)</span>？<br />
 為了避免資料量在「臨界點」增增減減，造成不斷地動態配置記憶體(成本相當高)。</li>
 <li>例如：起初<span class="math">\(n=8,m=8\)</span>，現增加一筆資料，變成<span class="math">\(n=9,m=8\)</span>，將會觸發一次<code>TableDoubling()</code>，變成<span class="math">\(n=9,m=16\)</span>。  <br />
-若接下來連續刪除兩筆資料，變成<span class="math">\(n=7,m=16\)</span>，因為<span class="math">\(n/m&lt;\frac{1}{2}\)</span>，將會觸發一次<code>TableShrinking()</code>，變成<span class="math">\(n=7,m=8\)</span>。<br />
+若接下來連續刪除兩筆資料，變成<span class="math">\(n=7,m=16\)</span>，因為<span class="math">\(\frac{n}{m}&lt;\frac{1}{2}\)</span>，將會觸發一次<code>TableShrinking()</code>，變成<span class="math">\(n=7,m=8\)</span>。<br />
 若接下來又連續增加兩筆資料...依此類推，為了避免這種情況發生，寧可犧牲一點記憶體空間，等到<span class="math">\(n/m&lt;\frac{1}{4}\)</span>再觸發<code>TableShrinking()</code>，重新為Table配置新的記憶體位置。</li>
 </ul>
 <p><code>Rehashing()</code>：當<code>TableDoubling()</code>/<code>TableShrinking()</code>增加/減半Table大小<span class="math">\(m\)</span>後，需要把舊的Table上的資料(node)搬到新的Table上，過程將會透過Hash Function根據各筆資料的<strong>key</strong>重新分配一次<strong>index</strong>(因此稱為<strong>Rehashing</strong>)，此<strong>index</strong>即為資料在新的Table上的位置，如圖三。</p>
@@ -795,6 +795,7 @@ $$</div>
 <li><a href="https://medium.com/@aozturk/simple-hash-map-hash-table-implementation-in-c-931965904250#.du6lwge1u">Abdullah Ozturk：Simple Hash Map (Hash Table) Implementation in C++</a></li>
 <li><a href="http://pumpkinprogrammer.com/2014/06/21/c-tutorial-intro-to-hash-tables/">Pumpkin Programmer：C++ Tutorial: Intro to Hash Tables</a></li>
 <li><a href="http://users.ece.utexas.edu/~adnan/360C/hash.pdf">Adnan Aziz：Hash Tables</a></li>
+<li><a href="http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-006-introduction-to-algorithms-fall-2011/lecture-videos/lecture-9-table-doubling-karp-rabin/">MIT 6.006：Lecture 9: Table Doubling, Karp-Rabin</a></li>
 <li><a href="http://alrightchiu.github.io/SecondRound/linked-list-introjian-jie.html">Linked List: Intro(簡介)</a></li>
 <li><a href="http://alrightchiu.github.io/SecondRound/linked-list-xin-zeng-zi-liao-shan-chu-zi-liao-fan-zhuan.html">Linked List: 新增資料、刪除資料、反轉</a></li>
 </ul>
