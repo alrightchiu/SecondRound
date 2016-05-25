@@ -246,7 +246,6 @@ $$&lt;/div&gt;
 &lt;p&gt;&lt;strong&gt;圖六：。&lt;/strong&gt;
 &lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;這種情況下，若有大量變數以相同的命名規則，例如「&lt;code&gt;a_count&lt;/code&gt;、&lt;code&gt;b_count&lt;/code&gt;、&lt;code&gt;c_count&lt;/code&gt;」，很有可能在&lt;strong&gt;prehash&lt;/strong&gt;(在&lt;strong&gt;Direct Access Table&lt;/strong&gt;提過的「T-MAC」與「KOBE」)將字串轉換成&lt;strong&gt;Key&lt;/strong&gt;時，得到「低位bit」完全相同的&lt;strong&gt;key&lt;/strong&gt;，因為以上三個變數的結尾都是&lt;code&gt;_count&lt;/code&gt;，那麼&lt;strong&gt;Division Method&lt;/strong&gt;就會把這三個變數都放進同一個&lt;strong&gt;slot&lt;/strong&gt;，造成&lt;strong&gt;Collision&lt;/strong&gt;。&lt;/p&gt;
-&lt;p&gt;再者，若要避開特定&lt;span class="math"&gt;\(m\)&lt;/span&gt;，那麼當&lt;strong&gt;Table&lt;/strong&gt;裝滿資料，要加大尺寸(&lt;span class="math"&gt;\(m\)&lt;/span&gt;)的時候，需要再找一個更大的「距離&lt;span class="math"&gt;\(2^{P}\)&lt;/span&gt;夠遠的質數」，顯然不太有效率。&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;  &lt;/p&gt;
 &lt;p&gt;&lt;a name="mm"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h3&gt;Multiplication Method&lt;/h3&gt;

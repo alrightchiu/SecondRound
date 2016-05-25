@@ -289,7 +289,6 @@ $$</div>
 <p><strong>圖六：。</strong>
 </center></p>
 <p>這種情況下，若有大量變數以相同的命名規則，例如「<code>a_count</code>、<code>b_count</code>、<code>c_count</code>」，很有可能在<strong>prehash</strong>(在<strong>Direct Access Table</strong>提過的「T-MAC」與「KOBE」)將字串轉換成<strong>Key</strong>時，得到「低位bit」完全相同的<strong>key</strong>，因為以上三個變數的結尾都是<code>_count</code>，那麼<strong>Division Method</strong>就會把這三個變數都放進同一個<strong>slot</strong>，造成<strong>Collision</strong>。</p>
-<p>再者，若要避開特定<span class="math">\(m\)</span>，那麼當<strong>Table</strong>裝滿資料，要加大尺寸(<span class="math">\(m\)</span>)的時候，需要再找一個更大的「距離<span class="math">\(2^{P}\)</span>夠遠的質數」，顯然不太有效率。</p>
 <p></br>  </p>
 <p><a name="mm"></a></p>
 <h3>Multiplication Method</h3>
