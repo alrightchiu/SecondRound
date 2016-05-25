@@ -361,6 +361,7 @@ $$</div>
 <p><a name="ll"></a></p>
 <h3>不偷懶：用pointer串出Linked list</h3>
 <p>以下的範例程式碼紮紮實實用pointer串出Linked list，其中的<code>Insert()</code>、<code>Delete()</code>、<code>Search()</code>、<code>DisplayTable()</code>與上一小節大同小異，只是要加入Linked list的手法(改變<strong>pointer</strong>指向)。</p>
+<p><code>HashFunction()</code>採取<strong>Multiplication method</strong>，詳細討論請參考：<a href="http://alrightchiu.github.io/SecondRound/hash-tableintrojian-jie.html#mm">Hash Table：Intro(簡介)/Multiplication Method</a>。</p>
 <p>比較酷的是因應<strong>load factor(<span class="math">\(\alpha=\frac{n}{m}\)</span>)</strong>改變Table大小，以及改變之後把node從舊的Table搬到新的Table的<code>Rehashing()</code>：</p>
 <p><code>TableDoubling()</code>：當<span class="math">\(\alpha=\frac{n}{m}&gt;1\)</span>時，表示資料量大於slot數量，就把Table大小<span class="math">\(m\)</span>加倍(並配置<span class="math">\(m\)</span>加倍後的Table)，如此在理論上可以儘量避免<strong>Collision</strong>發生，增加搜尋資料的效率。</p>
 <ul>
@@ -800,7 +801,8 @@ $$</div>
 <p><a name="series"></a></p>
 <p></br></p>
 <h3>Hash Table系列文章</h3>
-<p><a href="http://alrightchiu.github.io/SecondRound/hash-tableintrojian-jie.html">Hash Table：Intro(簡介)</a>   </p>
+<p><a href="http://alrightchiu.github.io/SecondRound/hash-tableintrojian-jie.html">Hash Table：Intro(簡介)</a> <br />
+<a href="http://alrightchiu.github.io/SecondRound/hash-tablechaining.html">Hash Table：Chaining</a>  </p>
 <p>回到目錄：</p>
 <p><a href="http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html">目錄：演算法與資料結構</a></p>
 <p></br></p>
