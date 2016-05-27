@@ -240,7 +240,10 @@
 <p>優秀的<strong>Hash Function</strong>(<span class="math">\(h()\)</span>)應具備以下特徵：</p>
 <ul>
 <li>定義<span class="math">\(h()\)</span>的定義域(domain)為整個<strong>Key</strong>的宇集合<span class="math">\(U\)</span>，值域(range)應小於<strong>Table</strong>的大小<span class="math">\(m\)</span>：<br />
-<span class="math">\(h:U\rightarrow \{\,0,1,...,m-1\,\},\:where \:|U|\gg m\)</span></li>
+<div class="math">$$
+h:U\rightarrow \{\,0,1,...,m-1\,\},\:where \:|U|\gg m
+$$</div>
+</li>
 <li>盡可能讓<strong>Key</strong>在經過<strong>Hash Function</strong>後，在值域(也就是<strong>Table</strong>的<strong>index</strong>)能夠平均分佈(uniform distributed)，如此才不會有「兩筆資料存進同一個<strong>Table</strong>空格(稱為<strong>slot</strong>)」的情況。</li>
 </ul>
 <p>若把<strong>Table</strong>想像成「書桌」，<strong>slot</strong>想像成書桌的「抽屜」，那麼為了要能更快速找到物品，當然是希望「每一個抽屜只放一個物品」，如此一來，只要拿著<strong>Key</strong>，透過<strong>Hash Function</strong>找到對應的抽屜(<strong>Hash Function</strong>的功能是指出「第幾個」抽屜，也就是抽屜的<strong>index</strong>)，就能保證是該<strong>Key</strong>所要找的物品。<br />
