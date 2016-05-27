@@ -185,7 +185,9 @@ Summary: 介紹Hash Table(雜湊表)的基本概念。
 優秀的**Hash Function**($h()$)應具備以下特徵：
 
 * 定義$h()$的定義域(domain)為整個**Key**的宇集合$U$，值域(range)應小於**Table**的大小$m$：  
-$h:U\rightarrow \{\,0,1,...,m-1\,\},\:where \:|U|\gg m$
+$$
+h:U\rightarrow \{\,0,1,...,m-1\,\},\:where \:|U|\gg m
+$$
 * 盡可能讓**Key**在經過**Hash Function**後，在值域(也就是**Table**的**index**)能夠平均分佈(uniform distributed)，如此才不會有「兩筆資料存進同一個**Table**空格(稱為**slot**)」的情況。
 
 若把**Table**想像成「書桌」，**slot**想像成書桌的「抽屜」，那麼為了要能更快速找到物品，當然是希望「每一個抽屜只放一個物品」，如此一來，只要拿著**Key**，透過**Hash Function**找到對應的抽屜(**Hash Function**的功能是指出「第幾個」抽屜，也就是抽屜的**index**)，就能保證是該**Key**所要找的物品。  
