@@ -429,12 +429,12 @@ output:
 所以這兩種處理**Collision**的方法沒有絕對的好壞，應該要是情況而定。
 
 
-[f1]: f1.png
-[f2]: f2.png
-[f3]: f3.png
-[f4]: f4.png
-[f5]: f5.png
-[f6]: f6.png
+[f1]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/HashTable%20series/OpenAddressing/f1.png?raw=true
+[f2]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/HashTable%20series/OpenAddressing/f2.png?raw=true
+[f3]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/HashTable%20series/OpenAddressing/f3.png?raw=true
+[f4]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/HashTable%20series/OpenAddressing/f4.png?raw=true
+[f5]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/HashTable%20series/OpenAddressing/f5.png?raw=true
+[f6]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/HashTable%20series/OpenAddressing/f6.png?raw=true
 
 
 
