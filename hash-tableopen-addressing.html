@@ -135,7 +135,7 @@
 <p>相較於<strong>Chaining</strong>提供額外空間(node)來存放被分配到相同slot的資料，<strong>Open Addressing</strong>則是將每筆資料都放在書桌(Table)本身配備的抽屜(slot)，一格抽屜只能放一個物品，如果抽屜都滿了，就得換張書桌(重新配置記憶體給新的Table)。  </p>
 <p>因此，<strong>load factor</strong>(<span class="math">\(\alpha=\frac{n}{m}\)</span>)不能超過<span class="math">\(1\)</span>。</p>
 <p><center>
-<img alt="cc" src="f1.png" /></p>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/HashTable%20series/OpenAddressing/f1.png?raw=true" /></p>
 <p><strong>圖一：Chaining vs Open Addressing。</strong>
 </center></p>
 <p>既然沒有額外的空間存放資料，當Hash Function把具有不同<strong>Key</strong>的資料分配到同一個slot時怎麼辦呢？</p>
@@ -160,7 +160,7 @@
 <p>可以想像的是，若對於所有item都只有一種<strong>Probing</strong>順序，那麼在加入(insert)第一個item時，只需要<span class="math">\(O(1)\)</span>的時間，但是再繼續加入item時，就必須考慮「現有的item數」，時間複雜度增加為<span class="math">\(O(\#items\:in\:slots)\)</span>。</p>
 <p>由此可見，<strong>Probing</strong>順序會影響到Hash Table的操作(<strong>insert</strong>、<strong>delete</strong>、<strong>search</strong>)之時間複雜度。</p>
 <p><center>
-<img alt="cc" src="f2.png" /></p>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/HashTable%20series/OpenAddressing/f2.png?raw=true" /></p>
 <p><strong>圖二：。</strong>
 </center></p>
 <p>圖二中，<strong>Probing</strong>之Hash Function的定義域(domain)有兩個參數，一個是<strong>Key</strong>，另一個是<strong>Probing</strong>的「次數」，而值域(range)即為Table的<strong>index</strong>範圍：</p>
@@ -227,7 +227,7 @@ $$</div>
 <li><span class="math">\(k=74\)</span>，<span class="math">\(h'(74)=2\)</span>，<strong>Probing Sequence</strong>為<span class="math">\(\{2,3,4,5,6,7,0,1\}\)</span></li>
 </ul>
 <p><center>
-<img alt="cc" src="f3.png" /></p>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/HashTable%20series/OpenAddressing/f3.png?raw=true" /></p>
 <p><strong>圖三：。</strong>
 </center></p>
 <h4>缺點</h4>
@@ -279,7 +279,7 @@ $$</div>
 <li><span class="math">\(k=25\)</span>，<span class="math">\(h'(k)=1\)</span>，<strong>Probing Sequence</strong>：<span class="math">\(\{1,2,4,7,3,0,6,5\}\)</span></li>
 </ul>
 <p><center>
-<img alt="cc" src="f4.png" /></p>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/HashTable%20series/OpenAddressing/f4.png?raw=true" /></p>
 <p><strong>圖四(a)：。</strong>
 </center></p>
 <p></br><br />
@@ -312,7 +312,7 @@ $$</div>
 <li><span class="math">\(k=19\)</span>，<span class="math">\(h'(k)=5\)</span>，<strong>Probing Sequence</strong>：<span class="math">\(\{5,6,4,2,1,0,3\}\)</span></li>
 </ul>
 <p><center>
-<img alt="cc" src="f5.png" /></p>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/HashTable%20series/OpenAddressing/f5.png?raw=true" /></p>
 <p><strong>圖四(b)：。</strong>
 </center></p>
 <p>整體而言，<strong>Quadratic Probing</strong>的優缺點：</p>
@@ -360,7 +360,7 @@ $$</div>
 <li>由圖五的範例可以觀察出，即使不同的<strong>Key</strong>被<span class="math">\(h_{1}(k)\)</span>分配到相同的起點slot，但是<span class="math">\(h_{2}()\)</span>有很大的機會調整出不同的「跨距」(<span class="math">\(i\)</span>的係數)，使得兩個不同<strong>Key</strong>的item有不同的<strong>Probing Sequence</strong>。</li>
 </ul>
 <p><center>
-<img alt="cc" src="f6.png" /></p>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/HashTable%20series/OpenAddressing/f6.png?raw=true" /></p>
 <p><strong>圖五：。</strong>
 </center></p>
 <p><strong>第三種：</strong><span class="math">\(m\)</span>是質數，<span class="math">\(h_{2}(k)=R-k%R\)</span>，<span class="math">\(R\)</span>也是質數，並且<span class="math">\(R&lt;m\)</span>。</p>
