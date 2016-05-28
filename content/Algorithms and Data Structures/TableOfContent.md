@@ -88,6 +88,8 @@ Summary: 請先閱讀本篇目錄。
 
 [Hash Table：Intro(簡介)](http://alrightchiu.github.io/SecondRound/hash-tableintrojian-jie.html)   
 [Hash Table：Chaining](http://alrightchiu.github.io/SecondRound/hash-tablechaining.html)   
+[Hash Table：Open Addressing](http://alrightchiu.github.io/SecondRound/hash-tableopen-addressing.html)  
+
 
 
 </br>

@@ -426,7 +426,7 @@ output:
 
 不過前面提到，**Open Addressing**考慮**load factor**儘量不要超過$0.5$，因此將有近一半的記憶體位置閒置。
 
-所以這兩種處理**Collision**的方法沒有絕對的好壞，應該要是情況而定。
+這兩種處理**Collision**的方法沒有絕對的好壞，需要視情況而定。
 
 
 [f1]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/HashTable%20series/OpenAddressing/f1.png?raw=true
@@ -476,7 +476,7 @@ output:
 
 [Hash Table：Intro(簡介)](http://alrightchiu.github.io/SecondRound/hash-tableintrojian-jie.html)   
 [Hash Table：Chaining](http://alrightchiu.github.io/SecondRound/hash-tablechaining.html)  
-[Hash Table：Open Addressing]()
+[Hash Table：Open Addressing](http://alrightchiu.github.io/SecondRound/hash-tableopen-addressing.html)  
 
 
 回到目錄：
