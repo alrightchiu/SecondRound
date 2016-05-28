@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="zh-hant">
+
+<head>
+            <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+
+        <title>Hash Table：Open Addressing</title>
+
+            <link href="http://alrightchiu.github.io/SecondRound/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Second Round Full Atom Feed" />
+            <link href="http://alrightchiu.github.io/SecondRound/feeds/yan-suan-fa-yu-zi-liao-jie-gou.atom.xml" type="application/atom+xml" rel="alternate" title="Second Round Categories Atom Feed" />
+
+        <!-- Bootstrap Core CSS -->
+        <link href="http://alrightchiu.github.io/SecondRound/theme/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="http://alrightchiu.github.io/SecondRound/theme/css/clean-blog.min.css" rel="stylesheet">
+
+        <!-- Code highlight color scheme -->
+            <link href="http://alrightchiu.github.io/SecondRound/theme/css/code_blocks/darkly.css" rel="stylesheet">
+
+
+        <!-- Custom Fonts -->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+
+
+
+        <meta name="tags" contents="C++" />
+        <meta name="tags" contents="Dictionary" />
+        <meta name="tags" contents="Hash Table" />
+
+
+	                <meta property="og:locale" content="">
+		<meta property="og:site_name" content="Second Round">
+
+	<meta property="og:type" content="article">
+	<meta property="article:author" content="">
+	<meta property="og:url" content="http://alrightchiu.github.io/SecondRound/hash-tableopen-addressing.html">
+	<meta property="og:title" content="Hash Table：Open Addressing">
+	<meta property="og:description" content="">
+	<meta property="og:image" content="http://alrightchiu.github.io/SecondRound/">
+	<meta property="article:published_time" content="2016-05-29 21:32:00+08:00">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://alrightchiu.github.io/SecondRound/">Second Round</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a href="http://alrightchiu.github.io/SecondRound/archives.html">Archives</a></li>
+                        <li><a href="http://alrightchiu.github.io/SecondRound/tags.html">Tags</a></li>
+
+                            <li><a href="http://alrightchiu.github.io/SecondRound/pages/about.html">About</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+        <header class="intro-header" style="background-image: url('http://alrightchiu.github.io/SecondRound/theme/images/post-bg.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>Hash Table：Open Addressing</h1>
+                        <span class="meta">Posted by
+                                <a href="http://alrightchiu.github.io/SecondRound/author/chiu-cc.html">Chiu CC</a>
+                             on  5 29, 2016
+                        </span>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    <!-- Post Content -->
+    <article>
+        <p></br></p>
+<h3>先備知識與注意事項</h3>
+<p>本篇文章將延續<a href="http://alrightchiu.github.io/SecondRound/hash-tableintrojian-jie.html">Hash Table：Intro(簡介)</a>的議題，介紹<strong>Open Addressing</strong>來解決<strong>Collision</strong>。</p>
+<hr />
+<h2>目錄</h2>
+<ul>
+<li><a href="#oa">Open Addressing的概念</a></li>
+<li><a href="#probing">利用Probing</a><ul>
+<li><a href="#lp">Linear Probing</a></li>
+<li><a href="#qp">Quadratic Probing</a></li>
+<li><a href="#dh">Double Hashing</a></li>
+</ul>
+</li>
+<li><a href="#code">程式碼</a></li>
+<li><a href="#comp">比較Open Addressing與Chaining</a></li>
+<li><a href="#ref">參考資料</a></li>
+<li><a href="#series">Hash Table系列文章</a></li>
+</ul>
+<p></br></p>
+<p><a name="oa"></a></p>
+<h2>Open Addressing的概念</h2>
+<p>當發生<strong>Collision</strong>時，<strong>Chaining</strong>會將所有被Hash Function分配到同一格slot的資料透過Linked list串起來，像是在書桌的抽屜下面綁繩子般，把所有被分配到同一格抽屜的物品都用繩子吊在抽屜下面。</p>
+<p>相較於<strong>Chaining</strong>提供額外空間(node)來存放被分配到相同slot的資料，<strong>Open Addressing</strong>則是將每筆資料都放在書桌(Table)本身配備的抽屜(slot)，一格抽屜只能放一個物品，如果抽屜都滿了，就得換張書桌(重新配置記憶體給新的Table)。  </p>
+<p>因此，<strong>load factor</strong>(<span class="math">\(\alpha=\frac{n}{m}\)</span>)不能超過<span class="math">\(1\)</span>。</p>
+<p><center>
+<img alt="cc" src="f1.png" /></p>
+<p><strong>圖一：Chaining vs Open Addressing。</strong>
+</center></p>
+<p>既然沒有額外的空間存放資料，當Hash Function把具有不同<strong>Key</strong>的資料分配到同一個slot時怎麼辦呢？</p>
+<p>那就繼續「尋找下一格空的slot」，直到</p>
+<ol>
+<li>終於找到空的slot，或者</li>
+<li>所有slot都滿了</li>
+</ol>
+<p>為止，如圖一，這種「尋找下一格空的slot」的方式就稱為<strong>Probing</strong>。<br />
+(probe有探測的意思，在這裏可以解讀成：不斷探測下一個slot是否為空的。)</p>
+<p></br>   </p>
+<p><a name="probing"></a></p>
+<h2>利用Probing</h2>
+<p><strong>Probing</strong>就是「尋找下一格空的slot」，如果沒找到，就要繼續「往下找」，因此，<strong>Probing</strong>的精髓就是要製造出「往下找的順序」，這個順序盡可能越不規則越好，如此可確保Hash Function不會一直找到同一個slot：</p>
+<ul>
+<li>假設Table大小為<span class="math">\(6\)</span>，對於itemA而言，<strong>Probing</strong>順序是{<span class="math">\(3,5,0,1,2,4\)</span>}，就表示itemA會先被分配到第<span class="math">\(3\)</span>個slot，如果第<span class="math">\(3\)</span>個slot已經有其他item，就往下找第<span class="math">\(5\)</span>個slot；如果第<span class="math">\(5\)</span>個slot也有item了，就再找第<span class="math">\(0\)</span>個slot，依此類推，按照其<strong>Probing</strong>順序逐一檢查是否有空的slot，如果<span class="math">\(6\)</span>個slot都滿了，便宣告失敗，需要調整Table大小。</li>
+<li>若有另一個itemB，其<strong>Probing</strong>順序與itemA完全相同({<span class="math">\(3,5,0,1,2,4\)</span>})，那麼在加入(insert)itemB時，必須再完整經歷一次itemA的過程，見圖二：<ul>
+<li>假設itemA最後被放在第<span class="math">\(1\)</span>個slot，表示前面的第<span class="math">\(3\)</span>、第<span class="math">\(5\)</span>、第<span class="math">\(0\)</span>個slot都已經有item，那麼在加入itemB時，就需要經歷「<span class="math">\(4\)</span>次」失敗，才終於在第<span class="math">\(2\)</span>個slot找到位置存放。</li>
+</ul>
+</li>
+</ul>
+<p>可以想像的是，若對於所有item都只有一種<strong>Probing</strong>順序，那麼在加入(insert)第一個item時，只需要<span class="math">\(O(1)\)</span>的時間，但是再繼續加入item時，就必須考慮「現有的item數」，時間複雜度增加為<span class="math">\(O(\#items\:in\:slots)\)</span>。</p>
+<p>由此可見，<strong>Probing</strong>順序會影響到Hash Table的操作(<strong>insert</strong>、<strong>delete</strong>、<strong>search</strong>)之時間複雜度。</p>
+<p><center>
+<img alt="cc" src="f2.png" /></p>
+<p><strong>圖二：。</strong>
+</center></p>
+<p>圖二中，<strong>Probing</strong>之Hash Function的定義域(domain)有兩個參數，一個是<strong>Key</strong>，另一個是<strong>Probing</strong>的「次數」，而值域(range)即為Table的<strong>index</strong>範圍：</p>
+<div class="math">$$
+h:U\times\{0,1,...,m-1\}\rightarrow\{0,1,...m-1\}
+$$</div>
+<ul>
+<li><span class="math">\(U\)</span>是所有可能的<strong>Key</strong>的宇集合(universal set)。</li>
+<li><strong>Probing</strong>的次數最多不會超過Table大小<span class="math">\(m\)</span>，定義從第<span class="math">\(0\)</span>次到第<span class="math">\(m-1\)</span>次。</li>
+<li>隨著「次數增加」，Hash Function的值域可以視為<span class="math">\(\{0,1,...,m-1\}\)</span>的排列組合(permutation)，亦即：</li>
+</ul>
+<div class="math">$$
+\{h(k,0),h(k,1)...,h(k,m-1)\}=permutation\:of\:\{0,1,...,m-1\}
+$$</div>
+<p>如此便可確保<strong>Probing</strong>會檢查Table中的每一個slot。</p>
+<p></br><br />
+接下來介紹三種常見的<strong>Probing method</strong>：</p>
+<ol>
+<li>Linear Probing</li>
+<li>Quadratic Probing</li>
+<li>Double Hashing</li>
+</ol>
+<p>特別注意，<strong>Probing</strong>的Hash Function與<strong>Chaining</strong>的Hash Function略有不同(雖然都稱為Hash Function)：</p>
+<ol>
+<li><strong>Chaining</strong>使用的Hash Function只有一個參數，就是資料的<strong>Key</strong>。</li>
+<li><strong>Open Addressing</strong>使用的Hash Function有兩個參數，一個是資料的<strong>Key</strong>，另一個是<strong>Probing</strong>的「次數」。</li>
+</ol>
+<p></br>    </p>
+<p><a name="lp"></a></p>
+<h3>Linear Probing</h3>
+<p><strong>Linear Probing</strong>定義為：</p>
+<div class="math">$$
+h(k,i)=(h'(k)+i)\bmod m
+$$</div>
+<p>其中：</p>
+<ul>
+<li><span class="math">\(h'(k)\)</span>即可視為<strong>Chaining</strong>用的Hash Function，其值域(range)在<span class="math">\(0\sim m-1\)</span>之間：<ul>
+<li><span class="math">\(h'(k)\)</span>可以使用Division Method、Multiplication Method或Universal Hashing等等。</li>
+<li><span class="math">\(h'(k)\)</span>的結果就是<strong>Probing</strong>的起點。</li>
+</ul>
+</li>
+<li><span class="math">\(i\)</span>表示<strong>Probing</strong>的「次數」，在此因為<span class="math">\(i\)</span>的係數為<span class="math">\(1\)</span>，因此<span class="math">\(i\)</span>也會是影響到<strong>Probing</strong>順序的參數。</li>
+</ul>
+<p>由於<span class="math">\(i\)</span>是線性成長，產生的<strong>Probing Sequence</strong>也會是線性的：</p>
+<ul>
+<li>
+<p>由於<span class="math">\(i=0\sim m-1\)</span>，對每個Key而言，<strong>Probing Sequence</strong>為
+<div class="math">$$
+\{h'(k),h'(k)+1,h'(k)+2,...,h'(k)+(m-1)\}\bmod m
+$$</div>
+</p>
+</li>
+<li>
+<p>以上數列確實是一種<span class="math">\(\{0,1,...,m-1\}\)</span>的排列組合(permutation)。<br />
+觀察方法：因為<span class="math">\(\bmod m\)</span>會循環，所以可以先忽略<span class="math">\(h'(k)\)</span>，看剩下的值是否沒有重複地涵蓋了<span class="math">\(0\sim m-1\)</span>的每一個值。</p>
+</li>
+</ul>
+<p>意思是若第<span class="math">\(1\)</span>個slot滿了，就找第<span class="math">\(2\)</span>個slot；若第<span class="math">\(2\)</span>個slot滿了，就找第<span class="math">\(3\)</span>個slot，依此類推，當目前的slot已經有item時，就找繼續找「下一個<strong>index</strong>」的slot，檢查其是否是空的。</p>
+<p>舉例來說，若<span class="math">\(m=8\)</span>，<span class="math">\(h'(k)=k\bmod m\)</span>，<span class="math">\(h(k,i)=((k\bmod m)+i)\bmod m\)</span>：</p>
+<ul>
+<li><span class="math">\(k=7\)</span>，<span class="math">\(h'(7)=7\)</span>，<strong>Probing Sequence</strong>為<span class="math">\(\{7,0,1,2,3,4,5,6\}\)</span></li>
+<li><span class="math">\(k=13\)</span>，<span class="math">\(h'(13)=5\)</span>，<strong>Probing Sequence</strong>為<span class="math">\(\{5,6,7,0,1,2,3,4\}\)</span></li>
+<li><span class="math">\(k=50\)</span>，<span class="math">\(h'(50)=2\)</span>，<strong>Probing Sequence</strong>為<span class="math">\(\{2,3,4,5,6,7,0,1\}\)</span></li>
+<li><span class="math">\(k=74\)</span>，<span class="math">\(h'(74)=2\)</span>，<strong>Probing Sequence</strong>為<span class="math">\(\{2,3,4,5,6,7,0,1\}\)</span></li>
+</ul>
+<p><center>
+<img alt="cc" src="f3.png" /></p>
+<p><strong>圖三：。</strong>
+</center></p>
+<h4>缺點</h4>
+<p>由以上可以觀察出，<strong>Linear Probing</strong>只有<span class="math">\(m\)</span>個<strong>Probing Sequence</strong>，而且很規律：</p>
+<ul>
+<li>只要「起點」決定，<strong>Probing Sequence</strong>就決定(<span class="math">\(i\)</span>不斷加一)。</li>
+<li><span class="math">\(h'(k)=k\bmod m\)</span>會產生<span class="math">\(0\sim m-1\)</span>的值，一共是<span class="math">\(m\)</span>個值作為起點。</li>
+</ul>
+<p>因為<strong>Linear Probing</strong>是「找下一個<strong>index</strong>」的slot，所以如果Table中某個區塊已經擠滿了item，若有某個<strong>Key</strong>又被<span class="math">\(h'(k)\)</span>分配到該區塊的附近，就會使得該區塊「越來越擠」，這種現象稱為<strong>primary clustering</strong>：</p>
+<ul>
+<li>如圖三，<code>Table[2,3,4,5]</code>已經有item，再來一個<span class="math">\(k=2\)</span>，經過<strong>Probing</strong>被分配到<code>Table[6]</code>，使得<code>Table[2,3,4,5,6]</code>的區塊變得更擠。</li>
+</ul>
+<p>這使得之後被分配到這個區塊的item之<strong>insert</strong>、<strong>delete</strong>、<strong>search</strong>的時間複雜度將會受到「前面擋住的item數量」影響。</p>
+<ul>
+<li>圖三的<span class="math">\(k=2\)</span>經過<span class="math">\(5\)</span>次<strong>Probing</strong>才順利找到空的slot存進Hash Table。</li>
+</ul>
+<p>所以，如果能夠產生一個「比較不規律」的<strong>Probing Sequence</strong>，例如<span class="math">\(\{0,1,3,6,2,7,5,4\}\)</span>，就能儘量避免把「某個區塊變得更擠」，減少<strong>primary clustering</strong>發生的可能。</p>
+<p>接下來介紹的<strong>Quadratic Probing</strong>即可產生「比較亂的」<strong>Probing Sequence</strong>。</p>
+<p></br>    </p>
+<p><a name="qp"></a></p>
+<h3>Quadratic Probing</h3>
+<p><strong>Quadratic Probing</strong>定義為：</p>
+<div class="math">$$
+h(k,i)=(h'(k)+c_{1}i+c_{2}i^{2})\bmod m\,, c_{2}\neq 0
+$$</div>
+<p>與<strong>Linear Probing</strong>相比，多了<span class="math">\(i\)</span>的二次項及係數(<span class="math">\(c_{2}i^{2}\)</span>)，並且一次項也多了係數<span class="math">\(c_{1}\)</span>，有機會產生「較為分散」的<strong>Probing Sequence</strong>。</p>
+<p>不過並不是任意的<span class="math">\(c_{1}\)</span>、<span class="math">\(c_{2}\)</span>及<span class="math">\(m\)</span>都能夠使<span class="math">\(h(k,i)\)</span>產生<span class="math">\(\{0,1,...,m-1\}\)</span>的排列組合(permutation)，以下提供兩種常見的選法：</p>
+<p><strong>第一種：</strong></p>
+<p>選擇<span class="math">\(c_{1}=c_{2}=0.5, m=2^{P}\)</span>：
+</p>
+<div class="math">$$
+h(k,i)=(h'(k)+0.5i+0.5i^{2})\bmod m
+$$</div>
+<p>產生的<strong>Probing Sequence</strong>為：</p>
+<div class="math">$$
+\{h'(k),h'(k)+1,h'(k)+3,h'(k)+6,h'(k)+10,h'(k)+15,h'(k)+21,h'(k)+28...\}\bmod m
+$$</div>
+<p>每一次在找下一格slot時，「跨距」都會再增加一，第一次跨「<span class="math">\(1\)</span>格」，下一次跨「<span class="math">\(2\)</span>格」，再下一次跨「<span class="math">\(3\)</span>格」，依此類推。</p>
+<p>例如，若考慮<span class="math">\(m=8\)</span>，<strong>Probing Sequence</strong>為：</p>
+<div class="math">$$
+\{h'(k),h'(k)+1,h'(k)+3,h'(k)+6,h'(k)+2,h'(k)+7,h'(k)+5,h'(k)+4\}\bmod 8
+$$</div>
+<p>確認其確實是<span class="math">\(\{0,1,...,7\}\)</span>的排列組合，並且是比<strong>Linear Probing</strong>更跳躍的方式找下一格slot。<br />
+幾個範例如下，考慮<span class="math">\(h'(k)=k\bmod 8\)</span>，見圖四(a)：</p>
+<ul>
+<li><span class="math">\(k=2\)</span>，<span class="math">\(h'(k)=2\)</span>，<strong>Probing Sequence</strong>：<span class="math">\(\{2,3,5,0,4,1,7,6\}\)</span></li>
+<li><span class="math">\(k=6\)</span>，<span class="math">\(h'(k)=6\)</span>，<strong>Probing Sequence</strong>：<span class="math">\(\{6,7,1,4,0,5,3,2\}\)</span></li>
+<li><span class="math">\(k=9\)</span>，<span class="math">\(h'(k)=1\)</span>，<strong>Probing Sequence</strong>：<span class="math">\(\{1,2,4,7,3,0,6,5\}\)</span></li>
+<li><span class="math">\(k=25\)</span>，<span class="math">\(h'(k)=1\)</span>，<strong>Probing Sequence</strong>：<span class="math">\(\{1,2,4,7,3,0,6,5\}\)</span></li>
+</ul>
+<p><center>
+<img alt="cc" src="f4.png" /></p>
+<p><strong>圖四(a)：。</strong>
+</center></p>
+<p></br><br />
+<strong>第二種：</strong></p>
+<div class="math">$$
+h(k,i)=(h'(k)-(-1)^{i}{\lceil{\frac{i}{2}}\rceil}^{2})\bmod m\\where\:m\:be\:prime\:and\:m=4n+3,\:for\:some\:n
+$$</div>
+<p>產生的<strong>Probing Sequence</strong>為：</p>
+<div class="math">$$
+\{h'(k),h'(k)+1,h'(k)-1,h'(k)+4,h'(k)-4,h'(k)+9,h'(k)-9,h'(k)+16,h'(k)-16...\}\bmod m
+$$</div>
+<p>這種方式很有創意地在正負<span class="math">\(i^{2}\)</span>跳躍，並且要求：</p>
+<ol>
+<li><span class="math">\(m\)</span>是質數；</li>
+<li>滿足<span class="math">\(m=4n+3\)</span>，其中<span class="math">\(n\)</span>是某些能夠另<span class="math">\(m\)</span>成為質數的正整數。<ul>
+<li>例如：<span class="math">\((m,n)=(7,1),(11,2),(19,4),(23,5)...\)</span>。</li>
+</ul>
+</li>
+</ol>
+<p>例如，選擇<span class="math">\(m=7\)</span>，那麼<strong>Probing Sequence</strong>即為：</p>
+<div class="math">$$
+\{h'(k),h'(k)+1,h'(k)-1,h'(k)+4,h'(k)-4,h'(k)+9,h'(k)-9\}\bmod 7\\
+=\{h'(k),h'(k)+1,h'(k)+6,h'(k)+4,h'(k)+3,h'(k)+2,h'(k)+5\}\bmod 7
+$$</div>
+<p>確認其確實是<span class="math">\(\{0,1,...,6\}\)</span>的排列組合，並且是比<strong>Linear Probing</strong>更跳躍的方式找下一格slot。<br />
+幾個範例如下，考慮<span class="math">\(h'(k)=k\bmod 7\)</span>，見圖四(b)：</p>
+<ul>
+<li><span class="math">\(k=2\)</span>，<span class="math">\(h'(k)=2\)</span>，<strong>Probing Sequence</strong>：<span class="math">\(\{2,3,1,6,5,4,0\}\)</span></li>
+<li><span class="math">\(k=6\)</span>，<span class="math">\(h'(k)=6\)</span>，<strong>Probing Sequence</strong>：<span class="math">\(\{6,0,5,3,2,1,4\}\)</span></li>
+<li><span class="math">\(k=19\)</span>，<span class="math">\(h'(k)=5\)</span>，<strong>Probing Sequence</strong>：<span class="math">\(\{5,6,4,2,1,0,3\}\)</span></li>
+</ul>
+<p><center>
+<img alt="cc" src="f5.png" /></p>
+<p><strong>圖四(b)：。</strong>
+</center></p>
+<p>整體而言，<strong>Quadratic Probing</strong>的優缺點：</p>
+<p><strong>優點：</strong></p>
+<p>透過較為跳躍的方式找下一格空的slot，<strong>Quadratic Probing</strong>可以有效避免<strong>primary clustering</strong>。</p>
+<p><strong>缺點：</strong></p>
+<p>並不是任意的<span class="math">\(c_{1},c_{2},m\)</span>都可以產生<span class="math">\(\{0,1,...,m-1\}\)</span>的排列組合(permutation)，所以參數需要慎選。</p>
+<p>並且，如同<strong>Linear Probing</strong>，一旦「起點<span class="math">\(h'(k)\)</span>」決定好，<strong>Probing Sequence</strong>就決定好了，因此：</p>
+<ul>
+<li>同樣只有<span class="math">\(m\)</span>個不同的<strong>Probing Sequence</strong>。</li>
+<li>如果<span class="math">\(h'(k_{1})=h'(k_{2})\,,k_{1}\neq k_{2}\)</span>，那麼這兩個item會有同樣的<strong>Probing</strong>順序。</li>
+<li>可以想像的是，若<span class="math">\(h'(k)\)</span>一直把item分配到同一格slot起點，那麼較晚加入Table的item之<strong>insert</strong>、<strong>search</strong>、<strong>delete</strong>的時間複雜度仍然會增加，這稱為<strong>secondary clustering</strong>。</li>
+</ul>
+<p></br>    </p>
+<p><a name="dh"></a></p>
+<h3>Double Hashing</h3>
+<p>根據上面兩種<strong>Probing Method</strong>可以看出，透過調整「次數<span class="math">\(i\)</span>」的函式形式，也就調整了「跨距」方式，便能夠製造出「較為分散」的<strong>Probing Sequence</strong>。</p>
+<p>而<strong>Double Hashing</strong>就直接加入「第二個Hash Function」來影響「次數<span class="math">\(i\)</span>」，定義為：</p>
+<div class="math">$$
+h(k,i)=(h_{1}(k)+ih_{2}(k)) \bmod m 
+$$</div>
+<p>並且要求，<span class="math">\(h_{2}(k)\)</span>一定要與<span class="math">\(m\)</span>互質(<span class="math">\(h_{2}(k)\)</span> be relatively prime to <span class="math">\(m\)</span>)。</p>
+<p>這裡有項神奇的事實：若<span class="math">\(a\)</span>與<span class="math">\(b\)</span>互質，那麼<span class="math">\((a\times i)\bmod b\,,\:for\:i=0,1...,b-1\)</span>，正好可以形成<span class="math">\(\{0,1,...,b-1\}\)</span>的排列組合(permutation)。</p>
+<p>舉例來說，若<span class="math">\(a=5,b=8\)</span>，那麼：</p>
+<ul>
+<li><span class="math">\(i=0\)</span>，<span class="math">\((5\times 0)\bmod 8=0\)</span></li>
+<li><span class="math">\(i=1\)</span>，<span class="math">\((5\times 1)\bmod 8=5\)</span></li>
+<li><span class="math">\(i=2\)</span>，<span class="math">\((5\times 2)\bmod 8=2\)</span></li>
+<li><span class="math">\(i=3\)</span>，<span class="math">\((5\times 3)\bmod 8=7\)</span></li>
+<li><span class="math">\(i=4\)</span>，<span class="math">\((5\times 4)\bmod 8=4\)</span></li>
+<li><span class="math">\(i=5\)</span>，<span class="math">\((5\times 5)\bmod 8=1\)</span></li>
+<li><span class="math">\(i=6\)</span>，<span class="math">\((5\times 6)\bmod 8=6\)</span></li>
+<li><span class="math">\(i=7\)</span>，<span class="math">\((5\times 7)\bmod 8=3\)</span></li>
+</ul>
+<p>因此，要求<span class="math">\(h_{2}(k)\)</span>與<span class="math">\(m\)</span>互質確實可以產生<span class="math">\(\{0,1,...,m-1\}\)</span>的排列組合。</p>
+<p>以下提供幾種常見的<span class="math">\(h_{2}(k)\)</span>選擇：</p>
+<p><strong>第一種：</strong><span class="math">\(m=2^{P}\)</span>，<span class="math">\(h_{2}(k)\)</span>的值域(range)為奇數(odd number)，<span class="math">\(h_{2}(k)=2n+1\)</span>。</p>
+<ul>
+<li>因為奇數一定與<span class="math">\(2^{P}\)</span>互質，所以滿足。</li>
+<li>不過由於<span class="math">\(h_{2}(k)\)</span>的值域(range)只有奇數(odd number)，可能不能視為在<strong>Chainine</strong>所使用的Hash Function。</li>
+</ul>
+<p><strong>第二種：</strong><span class="math">\(m\)</span>是質數，<span class="math">\(h_{2}(k)\)</span>的值域(range)介於<span class="math">\(1\sim m-1\)</span>，<span class="math">\(0&lt;h_{2}(k)&lt;m-1\)</span>。</p>
+<ul>
+<li>若<span class="math">\(m\)</span>是質數，那麼<span class="math">\(m\)</span>必定與<span class="math">\(1\sim m-1\)</span>的任何數互質。</li>
+<li>由圖五的範例可以觀察出，即使不同的<strong>Key</strong>被<span class="math">\(h_{1}(k)\)</span>分配到相同的起點slot，但是<span class="math">\(h_{2}()\)</span>有很大的機會調整出不同的「跨距」(<span class="math">\(i\)</span>的係數)，使得兩個不同<strong>Key</strong>的item有不同的<strong>Probing Sequence</strong>。</li>
+</ul>
+<p><center>
+<img alt="cc" src="f6.png" /></p>
+<p><strong>圖五：。</strong>
+</center></p>
+<p><strong>第三種：</strong><span class="math">\(m\)</span>是質數，<span class="math">\(h_{2}(k)=R-k%R\)</span>，<span class="math">\(R\)</span>也是質數，並且<span class="math">\(R&lt;m\)</span>。</p>
+<ul>
+<li>與第二種類似的概念產生<span class="math">\(m\)</span>與<span class="math">\(h_{2}(k)\)</span>互質，不過可以製造出不同的<strong>Probing Sequence</strong>。</li>
+</ul>
+<p></br><br />
+<strong>Double Hashing的優點：</strong></p>
+<p>因為同時有兩個Hash Function(<span class="math">\(h_{1}(k),h_{2}(k)\)</span>)，若兩者個值域都是<span class="math">\(\{0,1,...,m-1\}\)</span>，那麼<strong>Double Hashing</strong>一共可以產生<span class="math">\(m^{2}\)</span>種不同的<strong>Probing Sequence</strong>，因此可以大大減緩<strong>clustering</strong>。</p>
+<ul>
+<li>除非<span class="math">\((h_{1}(k_{1}),h_{2}(k_{1}))=(h_{1}(k_{2}),h_{2}(k_{2}))\)</span>的情況才會發生兩個<strong>Key</strong>有完全相同的<strong>Probing Sequence</strong>，機率較低。</li>
+</ul>
+<p></br>    </p>
+<p><a name="code"></a></p>
+<h2>程式碼</h2>
+<div class="highlight"><pre><span class="c1">// C++ code</span>
+</pre></div>
+
+
+<p>output:</p>
+<div class="highlight"><pre>
+</pre></div>
+
+
+<p></br>    </p>
+<p><a name="comp"></a></p>
+<h2>比較Open Addressing與Chaining</h2>
+<h3>time complxity</h3>
+<p>對於<strong>Open Addressing</strong>：</p>
+<ul>
+<li>insert：要找到空的slot才能<code>insert()</code>。<ul>
+<li>找到空的slot，稱為<strong>Unsuccessful Search</strong>。</li>
+</ul>
+</li>
+<li>delete：要找到與<strong>Key</strong>相符合的item才能<code>delete()</code>。<ul>
+<li>找到與<strong>Key</strong>相符合的item，稱為<strong>Successful Search</strong>。</li>
+</ul>
+</li>
+</ul>
+<p>以上兩者都需要進行<code>search</code>。</p>
+<p>對於<strong>Chaining</strong>：</p>
+<ul>
+<li>insert：可以透過Linked list的<code>push_front()</code>以<span class="math">\(O(1)\)</span>完成。</li>
+<li>delete：需要在Linked list進行<strong>traversal</strong>，如同<code>search</code>。</li>
+</ul>
+<p>不論是「搜尋成功」還是「搜尋不成功」，時間複雜度都與Linked list的長度有關。</p>
+<p>表一是<strong>Open Addressing</strong>與<strong>Chaining</strong>針對「搜尋」的時間複雜度比較，分成「搜尋成功」與「搜尋不成功」：</p>
+<p><center></p>
+<table>
+<thead>
+<tr>
+<th align="left"></th>
+<th align="center">Open Addressing</th>
+<th align="center">&nbsp;&nbsp;&nbsp;&nbsp;Chaining</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Unsuccessful Search&nbsp;&nbsp;&nbsp;</td>
+<td align="center"><span class="math">\(\frac{1}{1-\alpha}\)</span></td>
+<td align="center"><span class="math">\(1+\alpha\)</span></td>
+</tr>
+<tr>
+<td align="left">Successful Search</td>
+<td align="center"><span class="math">\(\frac{1}{\alpha}\ln{\frac{1}{1-\alpha}}\)</span></td>
+<td align="center"><span class="math">\(1+\alpha\)</span></td>
+</tr>
+</tbody>
+</table>
+<p><strong>表一：Open Addressing</strong></p>
+<p></center></p>
+<p>關於<strong>Open Addressing</strong>之時間複雜度證明，請參考：<a href="http://fmt.cs.utwente.nl/courses/adc/lec5.pdf">Joost-Pieter Katoen：Hashing/page35、36</a>。</p>
+<h3>效率：考慮load factor<span class="math">\(\alpha\)</span></h3>
+<p>以<strong>Open Addressing</strong>之<strong>Unsuccessful Search</strong>為例，<span class="math">\(O(\frac{1}{1-\alpha})\)</span>，根據其時間複雜度可以觀察出，當<strong>load factor</strong><span class="math">\(\alpha=\frac{n}{m}\)</span>趨近於<span class="math">\(1\)</span>時(Table快被放滿)，那麼時間複雜度會趨近無限大<span class="math">\(\lim_{\alpha\rightarrow1}O(\frac{1}{1-\alpha})\rightarrow O(\infty)\)</span>，這種情況便不適合使用<strong>Open Addressing</strong>。</p>
+<p>不過<strong>Open Addressing</strong>使用Array存放資料，不需要頻繁使用動態記憶體配置(<code>new</code>/<code>delete</code>/<code>malloc</code>/<code>free</code>)，所以如果<strong>load factor</strong>沒有超過<span class="math">\(0.5\)</span>(有些使用<span class="math">\(0.7\)</span>)，那麼<strong>Open Addressing</strong>會是不錯的選擇。</p>
+<h3>memory使用</h3>
+<p><strong>Chaining</strong>使用Linked list，每個node裡面會帶一個<strong>pointer</strong>記錄下一個node的記憶體位置，因此會比純粹使用Array存放資料的<strong>Open Addressing</strong>多花一點記憶體空間。</p>
+<p>不過前面提到，<strong>Open Addressing</strong>考慮<strong>load factor</strong>儘量不要超過<span class="math">\(0.5\)</span>，因此將有近一半的記憶體位置閒置。</p>
+<p>所以這兩種處理<strong>Collision</strong>的方法沒有絕對的好壞，應該要是情況而定。</p>
+<p></br>  </p>
+<p>以上是以<strong>Open Addressing</strong>解決<strong>Collision</strong>之介紹。</p>
+<p></br></p>
+<hr />
+<p><a name="ref"></a></p>
+<h3>參考資料：</h3>
+<ul>
+<li><a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844">Introduction to Algorithms, Ch11</a> </li>
+<li><a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376">Fundamentals of Data Structures in C++, Ch8</a></li>
+<li><a href="http://www.cs.ntou.edu.tw/lincc/courses/al99/pdf/Algorithm-Ch11-Hash%20Tables.pdf">林清池：Algorithms Chapter 11 Hash Tables</a></li>
+<li><a href="http://faculty.kfupm.edu.sa/ICS/saquib/ICS202/Unit30_Hashing3.pdf">Collision Resolution: Open Addressing</a></li>
+<li><a href="http://gki.informatik.uni-freiburg.de/teaching/ss11/theoryI/08_Open_Addressing.pdf">Jan-Georg Smaus：8 Hashing: Open addressing</a></li>
+<li><a href="http://fmt.cs.utwente.nl/courses/adc/lec5.pdf">Joost-Pieter Katoen：Hashing/page35、36</a></li>
+</ul>
+<p><a name="series"></a></p>
+<p></br></p>
+<h3>Hash Table系列文章</h3>
+<p><a href="http://alrightchiu.github.io/SecondRound/hash-tableintrojian-jie.html">Hash Table：Intro(簡介)</a> <br />
+<a href="http://alrightchiu.github.io/SecondRound/hash-tablechaining.html">Hash Table：Chaining</a><br />
+<a href="">Hash Table：Open Addressing</a></p>
+<p>回到目錄：</p>
+<p><a href="http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html">目錄：演算法與資料結構</a></p>
+<p></br></p>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' && location_protocol !== 'https') location_protocol = 'https:';
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+    </article>
+
+        <div class="tags">
+            <p>tags: <a href="http://alrightchiu.github.io/SecondRound/tag/c.html">C++</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/dictionary.html">Dictionary</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/hash-table.html">Hash Table</a>, </p>
+        </div>
+
+<hr>
+<div class="sharing">
+</div>
+    <hr>
+
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                            <li>
+                                <a href="https://github.com/alrightchiu">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                    </ul>
+<p class="copyright text-muted">
+    Blog powered by <a href="http://getpelican.com">Pelican</a>,
+    which takes great advantage of <a href="http://python.org">Python</a>.
+</p>                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="http://alrightchiu.github.io/SecondRound/theme/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="http://alrightchiu.github.io/SecondRound/theme/js/bootstrap.min.js"></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script src="http://alrightchiu.github.io/SecondRound/theme/js/clean-blog.min.js"></script>
+
+</body>
+
+</html>

@@ -69,7 +69,416 @@
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h2&gt;Priority Queue系列文章&lt;/h2&gt;
 &lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/priority-queueintrojian-jie-binary-heap.html"&gt;Priority Queue：Intro(簡介) &amp;amp; Binary Heap&lt;/a&gt;  &lt;/p&gt;
-&lt;p&gt;&lt;/br&gt;&lt;/p&gt;</summary><category term="C++"></category></entry><entry><title>Hash Table：Chaining</title><link href="http://alrightchiu.github.io/SecondRound/hash-tablechaining.html" rel="alternate"></link><updated>2016-05-25T21:32:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-05-25:SecondRound/hash-tablechaining.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;</summary><category term="C++"></category></entry><entry><title>Hash Table：Open Addressing</title><link href="http://alrightchiu.github.io/SecondRound/hash-tableopen-addressing.html" rel="alternate"></link><updated>2016-05-29T21:32:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-05-29:SecondRound/hash-tableopen-addressing.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;h3&gt;先備知識與注意事項&lt;/h3&gt;
+&lt;p&gt;本篇文章將延續&lt;a href="http://alrightchiu.github.io/SecondRound/hash-tableintrojian-jie.html"&gt;Hash Table：Intro(簡介)&lt;/a&gt;的議題，介紹&lt;strong&gt;Open Addressing&lt;/strong&gt;來解決&lt;strong&gt;Collision&lt;/strong&gt;。&lt;/p&gt;
+&lt;hr /&gt;
+&lt;h2&gt;目錄&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="#oa"&gt;Open Addressing的概念&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#probing"&gt;利用Probing&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href="#lp"&gt;Linear Probing&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#qp"&gt;Quadratic Probing&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#dh"&gt;Double Hashing&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href="#code"&gt;程式碼&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#comp"&gt;比較Open Addressing與Chaining&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#ref"&gt;參考資料&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#series"&gt;Hash Table系列文章&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a name="oa"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;Open Addressing的概念&lt;/h2&gt;
+&lt;p&gt;當發生&lt;strong&gt;Collision&lt;/strong&gt;時，&lt;strong&gt;Chaining&lt;/strong&gt;會將所有被Hash Function分配到同一格slot的資料透過Linked list串起來，像是在書桌的抽屜下面綁繩子般，把所有被分配到同一格抽屜的物品都用繩子吊在抽屜下面。&lt;/p&gt;
+&lt;p&gt;相較於&lt;strong&gt;Chaining&lt;/strong&gt;提供額外空間(node)來存放被分配到相同slot的資料，&lt;strong&gt;Open Addressing&lt;/strong&gt;則是將每筆資料都放在書桌(Table)本身配備的抽屜(slot)，一格抽屜只能放一個物品，如果抽屜都滿了，就得換張書桌(重新配置記憶體給新的Table)。  &lt;/p&gt;
+&lt;p&gt;因此，&lt;strong&gt;load factor&lt;/strong&gt;(&lt;span class="math"&gt;\(\alpha=\frac{n}{m}\)&lt;/span&gt;)不能超過&lt;span class="math"&gt;\(1\)&lt;/span&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="f1.png" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖一：Chaining vs Open Addressing。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;既然沒有額外的空間存放資料，當Hash Function把具有不同&lt;strong&gt;Key&lt;/strong&gt;的資料分配到同一個slot時怎麼辦呢？&lt;/p&gt;
+&lt;p&gt;那就繼續「尋找下一格空的slot」，直到&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;終於找到空的slot，或者&lt;/li&gt;
+&lt;li&gt;所有slot都滿了&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;為止，如圖一，這種「尋找下一格空的slot」的方式就稱為&lt;strong&gt;Probing&lt;/strong&gt;。&lt;br /&gt;
+(probe有探測的意思，在這裏可以解讀成：不斷探測下一個slot是否為空的。)&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;   &lt;/p&gt;
+&lt;p&gt;&lt;a name="probing"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;利用Probing&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Probing&lt;/strong&gt;就是「尋找下一格空的slot」，如果沒找到，就要繼續「往下找」，因此，&lt;strong&gt;Probing&lt;/strong&gt;的精髓就是要製造出「往下找的順序」，這個順序盡可能越不規則越好，如此可確保Hash Function不會一直找到同一個slot：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;假設Table大小為&lt;span class="math"&gt;\(6\)&lt;/span&gt;，對於itemA而言，&lt;strong&gt;Probing&lt;/strong&gt;順序是{&lt;span class="math"&gt;\(3,5,0,1,2,4\)&lt;/span&gt;}，就表示itemA會先被分配到第&lt;span class="math"&gt;\(3\)&lt;/span&gt;個slot，如果第&lt;span class="math"&gt;\(3\)&lt;/span&gt;個slot已經有其他item，就往下找第&lt;span class="math"&gt;\(5\)&lt;/span&gt;個slot；如果第&lt;span class="math"&gt;\(5\)&lt;/span&gt;個slot也有item了，就再找第&lt;span class="math"&gt;\(0\)&lt;/span&gt;個slot，依此類推，按照其&lt;strong&gt;Probing&lt;/strong&gt;順序逐一檢查是否有空的slot，如果&lt;span class="math"&gt;\(6\)&lt;/span&gt;個slot都滿了，便宣告失敗，需要調整Table大小。&lt;/li&gt;
+&lt;li&gt;若有另一個itemB，其&lt;strong&gt;Probing&lt;/strong&gt;順序與itemA完全相同({&lt;span class="math"&gt;\(3,5,0,1,2,4\)&lt;/span&gt;})，那麼在加入(insert)itemB時，必須再完整經歷一次itemA的過程，見圖二：&lt;ul&gt;
+&lt;li&gt;假設itemA最後被放在第&lt;span class="math"&gt;\(1\)&lt;/span&gt;個slot，表示前面的第&lt;span class="math"&gt;\(3\)&lt;/span&gt;、第&lt;span class="math"&gt;\(5\)&lt;/span&gt;、第&lt;span class="math"&gt;\(0\)&lt;/span&gt;個slot都已經有item，那麼在加入itemB時，就需要經歷「&lt;span class="math"&gt;\(4\)&lt;/span&gt;次」失敗，才終於在第&lt;span class="math"&gt;\(2\)&lt;/span&gt;個slot找到位置存放。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;可以想像的是，若對於所有item都只有一種&lt;strong&gt;Probing&lt;/strong&gt;順序，那麼在加入(insert)第一個item時，只需要&lt;span class="math"&gt;\(O(1)\)&lt;/span&gt;的時間，但是再繼續加入item時，就必須考慮「現有的item數」，時間複雜度增加為&lt;span class="math"&gt;\(O(\#items\:in\:slots)\)&lt;/span&gt;。&lt;/p&gt;
+&lt;p&gt;由此可見，&lt;strong&gt;Probing&lt;/strong&gt;順序會影響到Hash Table的操作(&lt;strong&gt;insert&lt;/strong&gt;、&lt;strong&gt;delete&lt;/strong&gt;、&lt;strong&gt;search&lt;/strong&gt;)之時間複雜度。&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="f2.png" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖二：。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;圖二中，&lt;strong&gt;Probing&lt;/strong&gt;之Hash Function的定義域(domain)有兩個參數，一個是&lt;strong&gt;Key&lt;/strong&gt;，另一個是&lt;strong&gt;Probing&lt;/strong&gt;的「次數」，而值域(range)即為Table的&lt;strong&gt;index&lt;/strong&gt;範圍：&lt;/p&gt;
+&lt;div class="math"&gt;$$
+h:U\times\{0,1,...,m-1\}\rightarrow\{0,1,...m-1\}
+$$&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(U\)&lt;/span&gt;是所有可能的&lt;strong&gt;Key&lt;/strong&gt;的宇集合(universal set)。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Probing&lt;/strong&gt;的次數最多不會超過Table大小&lt;span class="math"&gt;\(m\)&lt;/span&gt;，定義從第&lt;span class="math"&gt;\(0\)&lt;/span&gt;次到第&lt;span class="math"&gt;\(m-1\)&lt;/span&gt;次。&lt;/li&gt;
+&lt;li&gt;隨著「次數增加」，Hash Function的值域可以視為&lt;span class="math"&gt;\(\{0,1,...,m-1\}\)&lt;/span&gt;的排列組合(permutation)，亦即：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="math"&gt;$$
+\{h(k,0),h(k,1)...,h(k,m-1)\}=permutation\:of\:\{0,1,...,m-1\}
+$$&lt;/div&gt;
+&lt;p&gt;如此便可確保&lt;strong&gt;Probing&lt;/strong&gt;會檢查Table中的每一個slot。&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;br /&gt;
+接下來介紹三種常見的&lt;strong&gt;Probing method&lt;/strong&gt;：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Linear Probing&lt;/li&gt;
+&lt;li&gt;Quadratic Probing&lt;/li&gt;
+&lt;li&gt;Double Hashing&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;特別注意，&lt;strong&gt;Probing&lt;/strong&gt;的Hash Function與&lt;strong&gt;Chaining&lt;/strong&gt;的Hash Function略有不同(雖然都稱為Hash Function)：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Chaining&lt;/strong&gt;使用的Hash Function只有一個參數，就是資料的&lt;strong&gt;Key&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Open Addressing&lt;/strong&gt;使用的Hash Function有兩個參數，一個是資料的&lt;strong&gt;Key&lt;/strong&gt;，另一個是&lt;strong&gt;Probing&lt;/strong&gt;的「次數」。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;/br&gt;    &lt;/p&gt;
+&lt;p&gt;&lt;a name="lp"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;Linear Probing&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Linear Probing&lt;/strong&gt;定義為：&lt;/p&gt;
+&lt;div class="math"&gt;$$
+h(k,i)=(h'(k)+i)\bmod m
+$$&lt;/div&gt;
+&lt;p&gt;其中：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(h'(k)\)&lt;/span&gt;即可視為&lt;strong&gt;Chaining&lt;/strong&gt;用的Hash Function，其值域(range)在&lt;span class="math"&gt;\(0\sim m-1\)&lt;/span&gt;之間：&lt;ul&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(h'(k)\)&lt;/span&gt;可以使用Division Method、Multiplication Method或Universal Hashing等等。&lt;/li&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(h'(k)\)&lt;/span&gt;的結果就是&lt;strong&gt;Probing&lt;/strong&gt;的起點。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(i\)&lt;/span&gt;表示&lt;strong&gt;Probing&lt;/strong&gt;的「次數」，在此因為&lt;span class="math"&gt;\(i\)&lt;/span&gt;的係數為&lt;span class="math"&gt;\(1\)&lt;/span&gt;，因此&lt;span class="math"&gt;\(i\)&lt;/span&gt;也會是影響到&lt;strong&gt;Probing&lt;/strong&gt;順序的參數。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;由於&lt;span class="math"&gt;\(i\)&lt;/span&gt;是線性成長，產生的&lt;strong&gt;Probing Sequence&lt;/strong&gt;也會是線性的：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;由於&lt;span class="math"&gt;\(i=0\sim m-1\)&lt;/span&gt;，對每個Key而言，&lt;strong&gt;Probing Sequence&lt;/strong&gt;為
+&lt;div class="math"&gt;$$
+\{h'(k),h'(k)+1,h'(k)+2,...,h'(k)+(m-1)\}\bmod m
+$$&lt;/div&gt;
+&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;以上數列確實是一種&lt;span class="math"&gt;\(\{0,1,...,m-1\}\)&lt;/span&gt;的排列組合(permutation)。&lt;br /&gt;
+觀察方法：因為&lt;span class="math"&gt;\(\bmod m\)&lt;/span&gt;會循環，所以可以先忽略&lt;span class="math"&gt;\(h'(k)\)&lt;/span&gt;，看剩下的值是否沒有重複地涵蓋了&lt;span class="math"&gt;\(0\sim m-1\)&lt;/span&gt;的每一個值。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;意思是若第&lt;span class="math"&gt;\(1\)&lt;/span&gt;個slot滿了，就找第&lt;span class="math"&gt;\(2\)&lt;/span&gt;個slot；若第&lt;span class="math"&gt;\(2\)&lt;/span&gt;個slot滿了，就找第&lt;span class="math"&gt;\(3\)&lt;/span&gt;個slot，依此類推，當目前的slot已經有item時，就找繼續找「下一個&lt;strong&gt;index&lt;/strong&gt;」的slot，檢查其是否是空的。&lt;/p&gt;
+&lt;p&gt;舉例來說，若&lt;span class="math"&gt;\(m=8\)&lt;/span&gt;，&lt;span class="math"&gt;\(h'(k)=k\bmod m\)&lt;/span&gt;，&lt;span class="math"&gt;\(h(k,i)=((k\bmod m)+i)\bmod m\)&lt;/span&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(k=7\)&lt;/span&gt;，&lt;span class="math"&gt;\(h'(7)=7\)&lt;/span&gt;，&lt;strong&gt;Probing Sequence&lt;/strong&gt;為&lt;span class="math"&gt;\(\{7,0,1,2,3,4,5,6\}\)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(k=13\)&lt;/span&gt;，&lt;span class="math"&gt;\(h'(13)=5\)&lt;/span&gt;，&lt;strong&gt;Probing Sequence&lt;/strong&gt;為&lt;span class="math"&gt;\(\{5,6,7,0,1,2,3,4\}\)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(k=50\)&lt;/span&gt;，&lt;span class="math"&gt;\(h'(50)=2\)&lt;/span&gt;，&lt;strong&gt;Probing Sequence&lt;/strong&gt;為&lt;span class="math"&gt;\(\{2,3,4,5,6,7,0,1\}\)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(k=74\)&lt;/span&gt;，&lt;span class="math"&gt;\(h'(74)=2\)&lt;/span&gt;，&lt;strong&gt;Probing Sequence&lt;/strong&gt;為&lt;span class="math"&gt;\(\{2,3,4,5,6,7,0,1\}\)&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="f3.png" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖三：。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;h4&gt;缺點&lt;/h4&gt;
+&lt;p&gt;由以上可以觀察出，&lt;strong&gt;Linear Probing&lt;/strong&gt;只有&lt;span class="math"&gt;\(m\)&lt;/span&gt;個&lt;strong&gt;Probing Sequence&lt;/strong&gt;，而且很規律：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;只要「起點」決定，&lt;strong&gt;Probing Sequence&lt;/strong&gt;就決定(&lt;span class="math"&gt;\(i\)&lt;/span&gt;不斷加一)。&lt;/li&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(h'(k)=k\bmod m\)&lt;/span&gt;會產生&lt;span class="math"&gt;\(0\sim m-1\)&lt;/span&gt;的值，一共是&lt;span class="math"&gt;\(m\)&lt;/span&gt;個值作為起點。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;因為&lt;strong&gt;Linear Probing&lt;/strong&gt;是「找下一個&lt;strong&gt;index&lt;/strong&gt;」的slot，所以如果Table中某個區塊已經擠滿了item，若有某個&lt;strong&gt;Key&lt;/strong&gt;又被&lt;span class="math"&gt;\(h'(k)\)&lt;/span&gt;分配到該區塊的附近，就會使得該區塊「越來越擠」，這種現象稱為&lt;strong&gt;primary clustering&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;如圖三，&lt;code&gt;Table[2,3,4,5]&lt;/code&gt;已經有item，再來一個&lt;span class="math"&gt;\(k=2\)&lt;/span&gt;，經過&lt;strong&gt;Probing&lt;/strong&gt;被分配到&lt;code&gt;Table[6]&lt;/code&gt;，使得&lt;code&gt;Table[2,3,4,5,6]&lt;/code&gt;的區塊變得更擠。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;這使得之後被分配到這個區塊的item之&lt;strong&gt;insert&lt;/strong&gt;、&lt;strong&gt;delete&lt;/strong&gt;、&lt;strong&gt;search&lt;/strong&gt;的時間複雜度將會受到「前面擋住的item數量」影響。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;圖三的&lt;span class="math"&gt;\(k=2\)&lt;/span&gt;經過&lt;span class="math"&gt;\(5\)&lt;/span&gt;次&lt;strong&gt;Probing&lt;/strong&gt;才順利找到空的slot存進Hash Table。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;所以，如果能夠產生一個「比較不規律」的&lt;strong&gt;Probing Sequence&lt;/strong&gt;，例如&lt;span class="math"&gt;\(\{0,1,3,6,2,7,5,4\}\)&lt;/span&gt;，就能儘量避免把「某個區塊變得更擠」，減少&lt;strong&gt;primary clustering&lt;/strong&gt;發生的可能。&lt;/p&gt;
+&lt;p&gt;接下來介紹的&lt;strong&gt;Quadratic Probing&lt;/strong&gt;即可產生「比較亂的」&lt;strong&gt;Probing Sequence&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;    &lt;/p&gt;
+&lt;p&gt;&lt;a name="qp"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;Quadratic Probing&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Quadratic Probing&lt;/strong&gt;定義為：&lt;/p&gt;
+&lt;div class="math"&gt;$$
+h(k,i)=(h'(k)+c_{1}i+c_{2}i^{2})\bmod m\,, c_{2}\neq 0
+$$&lt;/div&gt;
+&lt;p&gt;與&lt;strong&gt;Linear Probing&lt;/strong&gt;相比，多了&lt;span class="math"&gt;\(i\)&lt;/span&gt;的二次項及係數(&lt;span class="math"&gt;\(c_{2}i^{2}\)&lt;/span&gt;)，並且一次項也多了係數&lt;span class="math"&gt;\(c_{1}\)&lt;/span&gt;，有機會產生「較為分散」的&lt;strong&gt;Probing Sequence&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;不過並不是任意的&lt;span class="math"&gt;\(c_{1}\)&lt;/span&gt;、&lt;span class="math"&gt;\(c_{2}\)&lt;/span&gt;及&lt;span class="math"&gt;\(m\)&lt;/span&gt;都能夠使&lt;span class="math"&gt;\(h(k,i)\)&lt;/span&gt;產生&lt;span class="math"&gt;\(\{0,1,...,m-1\}\)&lt;/span&gt;的排列組合(permutation)，以下提供兩種常見的選法：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;第一種：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;選擇&lt;span class="math"&gt;\(c_{1}=c_{2}=0.5, m=2^{P}\)&lt;/span&gt;：
+&lt;/p&gt;
+&lt;div class="math"&gt;$$
+h(k,i)=(h'(k)+0.5i+0.5i^{2})\bmod m
+$$&lt;/div&gt;
+&lt;p&gt;產生的&lt;strong&gt;Probing Sequence&lt;/strong&gt;為：&lt;/p&gt;
+&lt;div class="math"&gt;$$
+\{h'(k),h'(k)+1,h'(k)+3,h'(k)+6,h'(k)+10,h'(k)+15,h'(k)+21,h'(k)+28...\}\bmod m
+$$&lt;/div&gt;
+&lt;p&gt;每一次在找下一格slot時，「跨距」都會再增加一，第一次跨「&lt;span class="math"&gt;\(1\)&lt;/span&gt;格」，下一次跨「&lt;span class="math"&gt;\(2\)&lt;/span&gt;格」，再下一次跨「&lt;span class="math"&gt;\(3\)&lt;/span&gt;格」，依此類推。&lt;/p&gt;
+&lt;p&gt;例如，若考慮&lt;span class="math"&gt;\(m=8\)&lt;/span&gt;，&lt;strong&gt;Probing Sequence&lt;/strong&gt;為：&lt;/p&gt;
+&lt;div class="math"&gt;$$
+\{h'(k),h'(k)+1,h'(k)+3,h'(k)+6,h'(k)+2,h'(k)+7,h'(k)+5,h'(k)+4\}\bmod 8
+$$&lt;/div&gt;
+&lt;p&gt;確認其確實是&lt;span class="math"&gt;\(\{0,1,...,7\}\)&lt;/span&gt;的排列組合，並且是比&lt;strong&gt;Linear Probing&lt;/strong&gt;更跳躍的方式找下一格slot。&lt;br /&gt;
+幾個範例如下，考慮&lt;span class="math"&gt;\(h'(k)=k\bmod 8\)&lt;/span&gt;，見圖四(a)：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(k=2\)&lt;/span&gt;，&lt;span class="math"&gt;\(h'(k)=2\)&lt;/span&gt;，&lt;strong&gt;Probing Sequence&lt;/strong&gt;：&lt;span class="math"&gt;\(\{2,3,5,0,4,1,7,6\}\)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(k=6\)&lt;/span&gt;，&lt;span class="math"&gt;\(h'(k)=6\)&lt;/span&gt;，&lt;strong&gt;Probing Sequence&lt;/strong&gt;：&lt;span class="math"&gt;\(\{6,7,1,4,0,5,3,2\}\)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(k=9\)&lt;/span&gt;，&lt;span class="math"&gt;\(h'(k)=1\)&lt;/span&gt;，&lt;strong&gt;Probing Sequence&lt;/strong&gt;：&lt;span class="math"&gt;\(\{1,2,4,7,3,0,6,5\}\)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(k=25\)&lt;/span&gt;，&lt;span class="math"&gt;\(h'(k)=1\)&lt;/span&gt;，&lt;strong&gt;Probing Sequence&lt;/strong&gt;：&lt;span class="math"&gt;\(\{1,2,4,7,3,0,6,5\}\)&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="f4.png" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖四(a)：。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;br /&gt;
+&lt;strong&gt;第二種：&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="math"&gt;$$
+h(k,i)=(h'(k)-(-1)^{i}{\lceil{\frac{i}{2}}\rceil}^{2})\bmod m\\where\:m\:be\:prime\:and\:m=4n+3,\:for\:some\:n
+$$&lt;/div&gt;
+&lt;p&gt;產生的&lt;strong&gt;Probing Sequence&lt;/strong&gt;為：&lt;/p&gt;
+&lt;div class="math"&gt;$$
+\{h'(k),h'(k)+1,h'(k)-1,h'(k)+4,h'(k)-4,h'(k)+9,h'(k)-9,h'(k)+16,h'(k)-16...\}\bmod m
+$$&lt;/div&gt;
+&lt;p&gt;這種方式很有創意地在正負&lt;span class="math"&gt;\(i^{2}\)&lt;/span&gt;跳躍，並且要求：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(m\)&lt;/span&gt;是質數；&lt;/li&gt;
+&lt;li&gt;滿足&lt;span class="math"&gt;\(m=4n+3\)&lt;/span&gt;，其中&lt;span class="math"&gt;\(n\)&lt;/span&gt;是某些能夠另&lt;span class="math"&gt;\(m\)&lt;/span&gt;成為質數的正整數。&lt;ul&gt;
+&lt;li&gt;例如：&lt;span class="math"&gt;\((m,n)=(7,1),(11,2),(19,4),(23,5)...\)&lt;/span&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;例如，選擇&lt;span class="math"&gt;\(m=7\)&lt;/span&gt;，那麼&lt;strong&gt;Probing Sequence&lt;/strong&gt;即為：&lt;/p&gt;
+&lt;div class="math"&gt;$$
+\{h'(k),h'(k)+1,h'(k)-1,h'(k)+4,h'(k)-4,h'(k)+9,h'(k)-9\}\bmod 7\\
+=\{h'(k),h'(k)+1,h'(k)+6,h'(k)+4,h'(k)+3,h'(k)+2,h'(k)+5\}\bmod 7
+$$&lt;/div&gt;
+&lt;p&gt;確認其確實是&lt;span class="math"&gt;\(\{0,1,...,6\}\)&lt;/span&gt;的排列組合，並且是比&lt;strong&gt;Linear Probing&lt;/strong&gt;更跳躍的方式找下一格slot。&lt;br /&gt;
+幾個範例如下，考慮&lt;span class="math"&gt;\(h'(k)=k\bmod 7\)&lt;/span&gt;，見圖四(b)：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(k=2\)&lt;/span&gt;，&lt;span class="math"&gt;\(h'(k)=2\)&lt;/span&gt;，&lt;strong&gt;Probing Sequence&lt;/strong&gt;：&lt;span class="math"&gt;\(\{2,3,1,6,5,4,0\}\)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(k=6\)&lt;/span&gt;，&lt;span class="math"&gt;\(h'(k)=6\)&lt;/span&gt;，&lt;strong&gt;Probing Sequence&lt;/strong&gt;：&lt;span class="math"&gt;\(\{6,0,5,3,2,1,4\}\)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(k=19\)&lt;/span&gt;，&lt;span class="math"&gt;\(h'(k)=5\)&lt;/span&gt;，&lt;strong&gt;Probing Sequence&lt;/strong&gt;：&lt;span class="math"&gt;\(\{5,6,4,2,1,0,3\}\)&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="f5.png" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖四(b)：。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;整體而言，&lt;strong&gt;Quadratic Probing&lt;/strong&gt;的優缺點：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;優點：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;透過較為跳躍的方式找下一格空的slot，&lt;strong&gt;Quadratic Probing&lt;/strong&gt;可以有效避免&lt;strong&gt;primary clustering&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;缺點：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;並不是任意的&lt;span class="math"&gt;\(c_{1},c_{2},m\)&lt;/span&gt;都可以產生&lt;span class="math"&gt;\(\{0,1,...,m-1\}\)&lt;/span&gt;的排列組合(permutation)，所以參數需要慎選。&lt;/p&gt;
+&lt;p&gt;並且，如同&lt;strong&gt;Linear Probing&lt;/strong&gt;，一旦「起點&lt;span class="math"&gt;\(h'(k)\)&lt;/span&gt;」決定好，&lt;strong&gt;Probing Sequence&lt;/strong&gt;就決定好了，因此：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;同樣只有&lt;span class="math"&gt;\(m\)&lt;/span&gt;個不同的&lt;strong&gt;Probing Sequence&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;如果&lt;span class="math"&gt;\(h'(k_{1})=h'(k_{2})\,,k_{1}\neq k_{2}\)&lt;/span&gt;，那麼這兩個item會有同樣的&lt;strong&gt;Probing&lt;/strong&gt;順序。&lt;/li&gt;
+&lt;li&gt;可以想像的是，若&lt;span class="math"&gt;\(h'(k)\)&lt;/span&gt;一直把item分配到同一格slot起點，那麼較晚加入Table的item之&lt;strong&gt;insert&lt;/strong&gt;、&lt;strong&gt;search&lt;/strong&gt;、&lt;strong&gt;delete&lt;/strong&gt;的時間複雜度仍然會增加，這稱為&lt;strong&gt;secondary clustering&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;/br&gt;    &lt;/p&gt;
+&lt;p&gt;&lt;a name="dh"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;Double Hashing&lt;/h3&gt;
+&lt;p&gt;根據上面兩種&lt;strong&gt;Probing Method&lt;/strong&gt;可以看出，透過調整「次數&lt;span class="math"&gt;\(i\)&lt;/span&gt;」的函式形式，也就調整了「跨距」方式，便能夠製造出「較為分散」的&lt;strong&gt;Probing Sequence&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;而&lt;strong&gt;Double Hashing&lt;/strong&gt;就直接加入「第二個Hash Function」來影響「次數&lt;span class="math"&gt;\(i\)&lt;/span&gt;」，定義為：&lt;/p&gt;
+&lt;div class="math"&gt;$$
+h(k,i)=(h_{1}(k)+ih_{2}(k)) \bmod m 
+$$&lt;/div&gt;
+&lt;p&gt;並且要求，&lt;span class="math"&gt;\(h_{2}(k)\)&lt;/span&gt;一定要與&lt;span class="math"&gt;\(m\)&lt;/span&gt;互質(&lt;span class="math"&gt;\(h_{2}(k)\)&lt;/span&gt; be relatively prime to &lt;span class="math"&gt;\(m\)&lt;/span&gt;)。&lt;/p&gt;
+&lt;p&gt;這裡有項神奇的事實：若&lt;span class="math"&gt;\(a\)&lt;/span&gt;與&lt;span class="math"&gt;\(b\)&lt;/span&gt;互質，那麼&lt;span class="math"&gt;\((a\times i)\bmod b\,,\:for\:i=0,1...,b-1\)&lt;/span&gt;，正好可以形成&lt;span class="math"&gt;\(\{0,1,...,b-1\}\)&lt;/span&gt;的排列組合(permutation)。&lt;/p&gt;
+&lt;p&gt;舉例來說，若&lt;span class="math"&gt;\(a=5,b=8\)&lt;/span&gt;，那麼：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(i=0\)&lt;/span&gt;，&lt;span class="math"&gt;\((5\times 0)\bmod 8=0\)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(i=1\)&lt;/span&gt;，&lt;span class="math"&gt;\((5\times 1)\bmod 8=5\)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(i=2\)&lt;/span&gt;，&lt;span class="math"&gt;\((5\times 2)\bmod 8=2\)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(i=3\)&lt;/span&gt;，&lt;span class="math"&gt;\((5\times 3)\bmod 8=7\)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(i=4\)&lt;/span&gt;，&lt;span class="math"&gt;\((5\times 4)\bmod 8=4\)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(i=5\)&lt;/span&gt;，&lt;span class="math"&gt;\((5\times 5)\bmod 8=1\)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(i=6\)&lt;/span&gt;，&lt;span class="math"&gt;\((5\times 6)\bmod 8=6\)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(i=7\)&lt;/span&gt;，&lt;span class="math"&gt;\((5\times 7)\bmod 8=3\)&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;因此，要求&lt;span class="math"&gt;\(h_{2}(k)\)&lt;/span&gt;與&lt;span class="math"&gt;\(m\)&lt;/span&gt;互質確實可以產生&lt;span class="math"&gt;\(\{0,1,...,m-1\}\)&lt;/span&gt;的排列組合。&lt;/p&gt;
+&lt;p&gt;以下提供幾種常見的&lt;span class="math"&gt;\(h_{2}(k)\)&lt;/span&gt;選擇：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;第一種：&lt;/strong&gt;&lt;span class="math"&gt;\(m=2^{P}\)&lt;/span&gt;，&lt;span class="math"&gt;\(h_{2}(k)\)&lt;/span&gt;的值域(range)為奇數(odd number)，&lt;span class="math"&gt;\(h_{2}(k)=2n+1\)&lt;/span&gt;。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;因為奇數一定與&lt;span class="math"&gt;\(2^{P}\)&lt;/span&gt;互質，所以滿足。&lt;/li&gt;
+&lt;li&gt;不過由於&lt;span class="math"&gt;\(h_{2}(k)\)&lt;/span&gt;的值域(range)只有奇數(odd number)，可能不能視為在&lt;strong&gt;Chainine&lt;/strong&gt;所使用的Hash Function。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;第二種：&lt;/strong&gt;&lt;span class="math"&gt;\(m\)&lt;/span&gt;是質數，&lt;span class="math"&gt;\(h_{2}(k)\)&lt;/span&gt;的值域(range)介於&lt;span class="math"&gt;\(1\sim m-1\)&lt;/span&gt;，&lt;span class="math"&gt;\(0&amp;lt;h_{2}(k)&amp;lt;m-1\)&lt;/span&gt;。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;若&lt;span class="math"&gt;\(m\)&lt;/span&gt;是質數，那麼&lt;span class="math"&gt;\(m\)&lt;/span&gt;必定與&lt;span class="math"&gt;\(1\sim m-1\)&lt;/span&gt;的任何數互質。&lt;/li&gt;
+&lt;li&gt;由圖五的範例可以觀察出，即使不同的&lt;strong&gt;Key&lt;/strong&gt;被&lt;span class="math"&gt;\(h_{1}(k)\)&lt;/span&gt;分配到相同的起點slot，但是&lt;span class="math"&gt;\(h_{2}()\)&lt;/span&gt;有很大的機會調整出不同的「跨距」(&lt;span class="math"&gt;\(i\)&lt;/span&gt;的係數)，使得兩個不同&lt;strong&gt;Key&lt;/strong&gt;的item有不同的&lt;strong&gt;Probing Sequence&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="cc" src="f6.png" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖五：。&lt;/strong&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;第三種：&lt;/strong&gt;&lt;span class="math"&gt;\(m\)&lt;/span&gt;是質數，&lt;span class="math"&gt;\(h_{2}(k)=R-k%R\)&lt;/span&gt;，&lt;span class="math"&gt;\(R\)&lt;/span&gt;也是質數，並且&lt;span class="math"&gt;\(R&amp;lt;m\)&lt;/span&gt;。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;與第二種類似的概念產生&lt;span class="math"&gt;\(m\)&lt;/span&gt;與&lt;span class="math"&gt;\(h_{2}(k)\)&lt;/span&gt;互質，不過可以製造出不同的&lt;strong&gt;Probing Sequence&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;/br&gt;&lt;br /&gt;
+&lt;strong&gt;Double Hashing的優點：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;因為同時有兩個Hash Function(&lt;span class="math"&gt;\(h_{1}(k),h_{2}(k)\)&lt;/span&gt;)，若兩者個值域都是&lt;span class="math"&gt;\(\{0,1,...,m-1\}\)&lt;/span&gt;，那麼&lt;strong&gt;Double Hashing&lt;/strong&gt;一共可以產生&lt;span class="math"&gt;\(m^{2}\)&lt;/span&gt;種不同的&lt;strong&gt;Probing Sequence&lt;/strong&gt;，因此可以大大減緩&lt;strong&gt;clustering&lt;/strong&gt;。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;除非&lt;span class="math"&gt;\((h_{1}(k_{1}),h_{2}(k_{1}))=(h_{1}(k_{2}),h_{2}(k_{2}))\)&lt;/span&gt;的情況才會發生兩個&lt;strong&gt;Key&lt;/strong&gt;有完全相同的&lt;strong&gt;Probing Sequence&lt;/strong&gt;，機率較低。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;/br&gt;    &lt;/p&gt;
+&lt;p&gt;&lt;a name="code"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;程式碼&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// C++ code&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;output:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;/br&gt;    &lt;/p&gt;
+&lt;p&gt;&lt;a name="comp"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;比較Open Addressing與Chaining&lt;/h2&gt;
+&lt;h3&gt;time complxity&lt;/h3&gt;
+&lt;p&gt;對於&lt;strong&gt;Open Addressing&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;insert：要找到空的slot才能&lt;code&gt;insert()&lt;/code&gt;。&lt;ul&gt;
+&lt;li&gt;找到空的slot，稱為&lt;strong&gt;Unsuccessful Search&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;delete：要找到與&lt;strong&gt;Key&lt;/strong&gt;相符合的item才能&lt;code&gt;delete()&lt;/code&gt;。&lt;ul&gt;
+&lt;li&gt;找到與&lt;strong&gt;Key&lt;/strong&gt;相符合的item，稱為&lt;strong&gt;Successful Search&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;以上兩者都需要進行&lt;code&gt;search&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;對於&lt;strong&gt;Chaining&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;insert：可以透過Linked list的&lt;code&gt;push_front()&lt;/code&gt;以&lt;span class="math"&gt;\(O(1)\)&lt;/span&gt;完成。&lt;/li&gt;
+&lt;li&gt;delete：需要在Linked list進行&lt;strong&gt;traversal&lt;/strong&gt;，如同&lt;code&gt;search&lt;/code&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;不論是「搜尋成功」還是「搜尋不成功」，時間複雜度都與Linked list的長度有關。&lt;/p&gt;
+&lt;p&gt;表一是&lt;strong&gt;Open Addressing&lt;/strong&gt;與&lt;strong&gt;Chaining&lt;/strong&gt;針對「搜尋」的時間複雜度比較，分成「搜尋成功」與「搜尋不成功」：&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align="left"&gt;&lt;/th&gt;
+&lt;th align="center"&gt;Open Addressing&lt;/th&gt;
+&lt;th align="center"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Chaining&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align="left"&gt;Unsuccessful Search&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\frac{1}{1-\alpha}\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(1+\alpha\)&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="left"&gt;Successful Search&lt;/td&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\frac{1}{\alpha}\ln{\frac{1}{1-\alpha}}\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(1+\alpha\)&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;strong&gt;表一：Open Addressing&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;關於&lt;strong&gt;Open Addressing&lt;/strong&gt;之時間複雜度證明，請參考：&lt;a href="http://fmt.cs.utwente.nl/courses/adc/lec5.pdf"&gt;Joost-Pieter Katoen：Hashing/page35、36&lt;/a&gt;。&lt;/p&gt;
+&lt;h3&gt;效率：考慮load factor&lt;span class="math"&gt;\(\alpha\)&lt;/span&gt;&lt;/h3&gt;
+&lt;p&gt;以&lt;strong&gt;Open Addressing&lt;/strong&gt;之&lt;strong&gt;Unsuccessful Search&lt;/strong&gt;為例，&lt;span class="math"&gt;\(O(\frac{1}{1-\alpha})\)&lt;/span&gt;，根據其時間複雜度可以觀察出，當&lt;strong&gt;load factor&lt;/strong&gt;&lt;span class="math"&gt;\(\alpha=\frac{n}{m}\)&lt;/span&gt;趨近於&lt;span class="math"&gt;\(1\)&lt;/span&gt;時(Table快被放滿)，那麼時間複雜度會趨近無限大&lt;span class="math"&gt;\(\lim_{\alpha\rightarrow1}O(\frac{1}{1-\alpha})\rightarrow O(\infty)\)&lt;/span&gt;，這種情況便不適合使用&lt;strong&gt;Open Addressing&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;不過&lt;strong&gt;Open Addressing&lt;/strong&gt;使用Array存放資料，不需要頻繁使用動態記憶體配置(&lt;code&gt;new&lt;/code&gt;/&lt;code&gt;delete&lt;/code&gt;/&lt;code&gt;malloc&lt;/code&gt;/&lt;code&gt;free&lt;/code&gt;)，所以如果&lt;strong&gt;load factor&lt;/strong&gt;沒有超過&lt;span class="math"&gt;\(0.5\)&lt;/span&gt;(有些使用&lt;span class="math"&gt;\(0.7\)&lt;/span&gt;)，那麼&lt;strong&gt;Open Addressing&lt;/strong&gt;會是不錯的選擇。&lt;/p&gt;
+&lt;h3&gt;memory使用&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Chaining&lt;/strong&gt;使用Linked list，每個node裡面會帶一個&lt;strong&gt;pointer&lt;/strong&gt;記錄下一個node的記憶體位置，因此會比純粹使用Array存放資料的&lt;strong&gt;Open Addressing&lt;/strong&gt;多花一點記憶體空間。&lt;/p&gt;
+&lt;p&gt;不過前面提到，&lt;strong&gt;Open Addressing&lt;/strong&gt;考慮&lt;strong&gt;load factor&lt;/strong&gt;儘量不要超過&lt;span class="math"&gt;\(0.5\)&lt;/span&gt;，因此將有近一半的記憶體位置閒置。&lt;/p&gt;
+&lt;p&gt;所以這兩種處理&lt;strong&gt;Collision&lt;/strong&gt;的方法沒有絕對的好壞，應該要是情況而定。&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;  &lt;/p&gt;
+&lt;p&gt;以上是以&lt;strong&gt;Open Addressing&lt;/strong&gt;解決&lt;strong&gt;Collision&lt;/strong&gt;之介紹。&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;&lt;a name="ref"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;參考資料：&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844"&gt;Introduction to Algorithms, Ch11&lt;/a&gt; &lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376"&gt;Fundamentals of Data Structures in C++, Ch8&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.cs.ntou.edu.tw/lincc/courses/al99/pdf/Algorithm-Ch11-Hash%20Tables.pdf"&gt;林清池：Algorithms Chapter 11 Hash Tables&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://faculty.kfupm.edu.sa/ICS/saquib/ICS202/Unit30_Hashing3.pdf"&gt;Collision Resolution: Open Addressing&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://gki.informatik.uni-freiburg.de/teaching/ss11/theoryI/08_Open_Addressing.pdf"&gt;Jan-Georg Smaus：8 Hashing: Open addressing&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://fmt.cs.utwente.nl/courses/adc/lec5.pdf"&gt;Joost-Pieter Katoen：Hashing/page35、36&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a name="series"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;h3&gt;Hash Table系列文章&lt;/h3&gt;
+&lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/hash-tableintrojian-jie.html"&gt;Hash Table：Intro(簡介)&lt;/a&gt; &lt;br /&gt;
+&lt;a href="http://alrightchiu.github.io/SecondRound/hash-tablechaining.html"&gt;Hash Table：Chaining&lt;/a&gt;&lt;br /&gt;
+&lt;a href=""&gt;Hash Table：Open Addressing&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;回到目錄：&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html"&gt;目錄：演算法與資料結構&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;script type="text/javascript"&gt;if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width &lt; 768) ? "left" : align;
+        indent = (screen.width &lt; 768) ? "0em" : indent;
+        linebreak = (screen.width &lt; 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' &amp;&amp; location_protocol !== 'https') location_protocol = 'https:';
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+&lt;/script&gt;</summary><category term="C++"></category><category term="Dictionary"></category><category term="Hash Table"></category></entry><entry><title>Hash Table：Chaining</title><link href="http://alrightchiu.github.io/SecondRound/hash-tablechaining.html" rel="alternate"></link><updated>2016-05-25T21:32:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-05-25:SecondRound/hash-tablechaining.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h3&gt;先備知識與注意事項&lt;/h3&gt;
 &lt;p&gt;本篇文章將延續&lt;a href="http://alrightchiu.github.io/SecondRound/hash-tableintrojian-jie.html"&gt;Hash Table：Intro(簡介)&lt;/a&gt;的議題，介紹&lt;strong&gt;Chaining&lt;/strong&gt;來解決&lt;strong&gt;Collision&lt;/strong&gt;。&lt;/p&gt;
 &lt;p&gt;其中將會用到Linked list的概念，若不熟悉請參考：&lt;/p&gt;
