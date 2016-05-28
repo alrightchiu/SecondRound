@@ -373,7 +373,6 @@ $$
 * [Introduction to Algorithms, Ch11](http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844) 
 * [Fundamentals of Data Structures in C++, Ch8](http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376)
 * [林清池：Algorithms Chapter 11 Hash Tables](http://www.cs.ntou.edu.tw/lincc/courses/al99/pdf/Algorithm-Ch11-Hash%20Tables.pdf)
-* [John W Lockwood：Lecture 6 - Hash Functions](http://www.arl.wustl.edu/projects/fpx/cse535/lecture/cse535_lecture6_Hash_Functions.pdf)
 * [Geoff Kuenning：Hash Functions ](https://www.cs.hmc.edu/~geoff/classes/hmc.cs070.200101/homework10/hashfuncs.html)
 * [MIT 6.006：Lecture 8: Hashing with Chaining](http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-006-introduction-to-algorithms-fall-2011/lecture-videos/lecture-8-hashing-with-chaining/)
 * [Wikipedia：Universal Hashing](https://en.wikipedia.org/wiki/Universal_hashing)
