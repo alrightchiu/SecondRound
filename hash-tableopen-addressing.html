@@ -552,7 +552,7 @@ $$</div>
 <p>對於<strong>Open Addressing</strong>：</p>
 <ul>
 <li>insert：要找到空的slot才能<code>insert()</code>。<ul>
-<li>找到空的slot，稱為<strong>Unsuccessful Search</strong>。</li>
+<li>找到空的slot，也就是沒有找到與<strong>Key</strong>相符合的item，稱為<strong>Unsuccessful Search</strong>。</li>
 </ul>
 </li>
 <li>delete：要找到與<strong>Key</strong>相符合的item才能<code>delete()</code>。<ul>
@@ -565,8 +565,8 @@ $$</div>
 <ul>
 <li>insert：可以透過Linked list的<code>push_front()</code>以<span class="math">\(O(1)\)</span>完成。</li>
 <li>delete：需要在Linked list進行<strong>traversal</strong>，如同<code>search</code>。</li>
+<li>不論是「搜尋成功」還是「搜尋不成功」，時間複雜度都與Linked list的長度有關。</li>
 </ul>
-<p>不論是「搜尋成功」還是「搜尋不成功」，時間複雜度都與Linked list的長度有關。</p>
 <p>表一是<strong>Open Addressing</strong>與<strong>Chaining</strong>針對「搜尋」的時間複雜度比較，分成「搜尋成功」與「搜尋不成功」：</p>
 <p><center></p>
 <table>
@@ -594,7 +594,7 @@ $$</div>
 <p></center></p>
 <p>關於<strong>Open Addressing</strong>之時間複雜度證明，請參考：<a href="http://fmt.cs.utwente.nl/courses/adc/lec5.pdf">Joost-Pieter Katoen：Hashing/page35、36</a>。</p>
 <h3>效率：考慮load factor<span class="math">\(\alpha\)</span></h3>
-<p>以<strong>Open Addressing</strong>之<strong>Unsuccessful Search</strong>為例，<span class="math">\(O(\frac{1}{1-\alpha})\)</span>，根據其時間複雜度可以觀察出，當<strong>load factor</strong><span class="math">\(\alpha=\frac{n}{m}\)</span>趨近於<span class="math">\(1\)</span>時(Table快被放滿)，那麼時間複雜度會趨近無限大<span class="math">\(\lim_{\alpha\rightarrow1}O(\frac{1}{1-\alpha})\rightarrow O(\infty)\)</span>，這種情況便不適合使用<strong>Open Addressing</strong>。</p>
+<p>以<strong>Open Addressing</strong>之<strong>Unsuccessful Search</strong>為例，<span class="math">\(O(\frac{1}{1-\alpha})\)</span>，根據其時間複雜度可以觀察出，當<strong>load factor</strong><span class="math">\(\alpha=\frac{n}{m}\)</span>趨近於<span class="math">\(1\)</span>時(Table快被放滿)，那麼時間複雜度會趨近無限大：<span class="math">\(\lim_{\alpha\rightarrow1}O(\frac{1}{1-\alpha})\rightarrow O(\infty)\)</span>，這種情況便不適合使用<strong>Open Addressing</strong>。</p>
 <p>不過<strong>Open Addressing</strong>使用Array存放資料，不需要頻繁使用動態記憶體配置(<code>new</code>/<code>delete</code>/<code>malloc</code>/<code>free</code>)，所以如果<strong>load factor</strong>沒有超過<span class="math">\(0.5\)</span>(有些使用<span class="math">\(0.7\)</span>)，那麼<strong>Open Addressing</strong>會是不錯的選擇。</p>
 <h3>memory使用</h3>
 <p><strong>Chaining</strong>使用Linked list，每個node裡面會帶一個<strong>pointer</strong>記錄下一個node的記憶體位置，因此會比純粹使用Array存放資料的<strong>Open Addressing</strong>多花一點記憶體空間。</p>
