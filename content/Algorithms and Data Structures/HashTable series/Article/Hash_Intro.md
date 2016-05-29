@@ -390,6 +390,8 @@ $$
 ###Hash Table系列文章
 
 [Hash Table：Intro(簡介)](http://alrightchiu.github.io/SecondRound/hash-tableintrojian-jie.html)   
+[Hash Table：Chaining](http://alrightchiu.github.io/SecondRound/hash-tablechaining.html)  
+[Hash Table：Open Addressing](http://alrightchiu.github.io/SecondRound/hash-tableopen-addressing.html)  
 
 
 回到目錄：
