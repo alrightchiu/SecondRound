@@ -543,7 +543,7 @@ slot#7: (47,gray)
 對於**Open Addressing**：
 
 * insert：要找到空的slot才能`insert()`。
-    * 找到空的slot，稱為**Unsuccessful Search**。
+    * 找到空的slot，也就是沒有找到與**Key**相符合的item，稱為**Unsuccessful Search**。
 * delete：要找到與**Key**相符合的item才能`delete()`。
     * 找到與**Key**相符合的item，稱為**Successful Search**。
 
@@ -553,10 +553,9 @@ slot#7: (47,gray)
 
 * insert：可以透過Linked list的`push_front()`以$O(1)$完成。
 * delete：需要在Linked list進行**traversal**，如同`search`。
+* 不論是「搜尋成功」還是「搜尋不成功」，時間複雜度都與Linked list的長度有關。
 
-不論是「搜尋成功」還是「搜尋不成功」，時間複雜度都與Linked list的長度有關。
-
-
+  
 表一是**Open Addressing**與**Chaining**針對「搜尋」的時間複雜度比較，分成「搜尋成功」與「搜尋不成功」：
 
 <center>
@@ -575,7 +574,7 @@ slot#7: (47,gray)
 
 ###效率：考慮load factor$\alpha$
 
-以**Open Addressing**之**Unsuccessful Search**為例，$O(\frac{1}{1-\alpha})$，根據其時間複雜度可以觀察出，當**load factor**$\alpha=\frac{n}{m}$趨近於$1$時(Table快被放滿)，那麼時間複雜度會趨近無限大$\lim_{\alpha\rightarrow1}O(\frac{1}{1-\alpha})\rightarrow O(\infty)$，這種情況便不適合使用**Open Addressing**。
+以**Open Addressing**之**Unsuccessful Search**為例，$O(\frac{1}{1-\alpha})$，根據其時間複雜度可以觀察出，當**load factor**$\alpha=\frac{n}{m}$趨近於$1$時(Table快被放滿)，那麼時間複雜度會趨近無限大：$\lim_{\alpha\rightarrow1}O(\frac{1}{1-\alpha})\rightarrow O(\infty)$，這種情況便不適合使用**Open Addressing**。
 
 
 不過**Open Addressing**使用Array存放資料，不需要頻繁使用動態記憶體配置(`new`/`delete`/`malloc`/`free`)，所以如果**load factor**沒有超過$0.5$(有些使用$0.7$)，那麼**Open Addressing**會是不錯的選擇。
