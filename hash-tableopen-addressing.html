@@ -376,12 +376,172 @@ $$</div>
 <p></br>    </p>
 <p><a name="code"></a></p>
 <h2>程式碼</h2>
+<p>範例程式碼簡單地以<strong>Quadratic Probing</strong>(<span class="math">\(c_{1}=c_{2}=0.5\)</span>，<span class="math">\(m=2^{P}\)</span>)實作出<strong>Open Addressing</strong>的Hash Table。</p>
+<p>關於<strong>Rehashing</strong>、調整Table大小的議題與<a href="http://alrightchiu.github.io/SecondRound/hash-tablechaining.html#ll">Hash Table：Chaining</a>的方法大同小異，不過<strong>load factor</strong>可能要限制得更嚴謹(請看下一小節的挑論)，這裡就不再贅述。</p>
 <div class="highlight"><pre><span class="c1">// C++ code</span>
+<span class="cp">#include &lt;iostream&gt;</span>
+<span class="cp">#include &lt;string&gt;</span>
+
+<span class="k">using</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">;</span>
+<span class="k">using</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="p">;</span>
+<span class="k">using</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+<span class="k">struct</span> <span class="n">dict</span><span class="p">{</span>
+    <span class="kt">int</span> <span class="n">key</span><span class="p">;</span>
+    <span class="n">string</span> <span class="n">value</span><span class="p">;</span>
+    <span class="n">dict</span><span class="p">()</span><span class="o">:</span><span class="n">key</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="n">value</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">){};</span>
+    <span class="n">dict</span><span class="p">(</span><span class="kt">int</span> <span class="n">k</span><span class="p">,</span> <span class="n">string</span> <span class="n">s</span><span class="p">)</span><span class="o">:</span><span class="n">key</span><span class="p">(</span><span class="n">k</span><span class="p">),</span><span class="n">value</span><span class="p">(</span><span class="n">s</span><span class="p">){};</span>
+<span class="p">};</span>
+
+<span class="k">class</span> <span class="nc">HashOpenAddress</span><span class="p">{</span>
+<span class="k">private</span><span class="o">:</span>
+    <span class="kt">int</span> <span class="n">size</span><span class="p">,</span> <span class="n">count</span><span class="p">;</span>
+    <span class="n">dict</span> <span class="o">*</span><span class="n">table</span><span class="p">;</span>
+
+    <span class="kt">int</span> <span class="nf">QuadraticProbing</span><span class="p">(</span><span class="kt">int</span> <span class="n">key</span><span class="p">,</span> <span class="kt">int</span> <span class="n">i</span><span class="p">);</span>
+
+    <span class="c1">// TableDoubling()</span>
+    <span class="c1">// TableShrinking()</span>
+    <span class="c1">// Rehashing()</span>
+
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">HashOpenAddress</span><span class="p">()</span><span class="o">:</span><span class="n">size</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="n">count</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="n">table</span><span class="p">(</span><span class="mi">0</span><span class="p">){};</span>
+    <span class="n">HashOpenAddress</span><span class="p">(</span><span class="kt">int</span> <span class="n">m</span><span class="p">)</span><span class="o">:</span><span class="n">size</span><span class="p">(</span><span class="n">m</span><span class="p">),</span><span class="n">count</span><span class="p">(</span><span class="mi">0</span><span class="p">){</span>
+        <span class="n">table</span> <span class="o">=</span> <span class="k">new</span> <span class="n">dict</span><span class="p">[</span><span class="n">size</span><span class="p">];</span>
+    <span class="p">}</span>
+    <span class="kt">void</span> <span class="n">Insert</span><span class="p">(</span><span class="kt">int</span> <span class="n">key</span><span class="p">,</span> <span class="n">string</span> <span class="n">value</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="nf">Delete</span><span class="p">(</span><span class="kt">int</span> <span class="n">key</span><span class="p">);</span>
+    <span class="n">string</span> <span class="nf">Search</span><span class="p">(</span><span class="kt">int</span> <span class="n">key</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="nf">Display</span><span class="p">();</span>
+<span class="p">};</span>
+
+<span class="n">string</span> <span class="n">HashOpenAddress</span><span class="o">::</span><span class="n">Search</span><span class="p">(</span><span class="kt">int</span> <span class="n">key</span><span class="p">){</span>
+
+    <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="o">!=</span> <span class="n">size</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">QuadraticProbing</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="n">j</span><span class="p">].</span><span class="n">key</span> <span class="o">==</span> <span class="n">key</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="n">table</span><span class="p">[</span><span class="n">j</span><span class="p">].</span><span class="n">value</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="p">{</span>
+            <span class="n">i</span><span class="o">++</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="s">&quot;...data not found</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">HashOpenAddress</span><span class="o">::</span><span class="n">Delete</span><span class="p">(</span><span class="kt">int</span> <span class="n">key</span><span class="p">){</span>
+
+    <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="o">!=</span> <span class="n">size</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">QuadraticProbing</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="n">j</span><span class="p">].</span><span class="n">key</span> <span class="o">==</span> <span class="n">key</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">table</span><span class="p">[</span><span class="n">j</span><span class="p">].</span><span class="n">key</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+            <span class="n">table</span><span class="p">[</span><span class="n">j</span><span class="p">].</span><span class="n">value</span> <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">;</span>
+            <span class="n">count</span><span class="o">--</span><span class="p">;</span>
+            <span class="k">return</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="p">{</span>
+            <span class="n">i</span><span class="o">++</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;...data not found</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">HashOpenAddress</span><span class="o">::</span><span class="n">Insert</span><span class="p">(</span><span class="kt">int</span> <span class="n">key</span><span class="p">,</span> <span class="n">string</span> <span class="n">value</span><span class="p">){</span>
+
+    <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="o">!=</span> <span class="n">size</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">QuadraticProbing</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="n">j</span><span class="p">].</span><span class="n">value</span> <span class="o">==</span> <span class="s">&quot;&quot;</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">table</span><span class="p">[</span><span class="n">j</span><span class="p">].</span><span class="n">key</span> <span class="o">=</span> <span class="n">key</span><span class="p">;</span>
+            <span class="n">table</span><span class="p">[</span><span class="n">j</span><span class="p">].</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span><span class="p">;</span>
+            <span class="n">count</span><span class="o">++</span><span class="p">;</span>
+            <span class="k">return</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="p">{</span>
+            <span class="n">i</span><span class="o">++</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Hash Table Overflow</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">HashOpenAddress</span><span class="o">::</span><span class="n">QuadraticProbing</span><span class="p">(</span><span class="kt">int</span> <span class="n">key</span><span class="p">,</span> <span class="kt">int</span> <span class="n">i</span><span class="p">){</span>
+    <span class="c1">// c1 = c2 = 0.5</span>
+    <span class="k">return</span> <span class="p">((</span><span class="kt">int</span><span class="p">)(</span> <span class="p">(</span><span class="n">key</span> <span class="o">%</span> <span class="n">size</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">i</span> <span class="o">+</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">i</span><span class="o">*</span><span class="n">i</span> <span class="p">)</span> <span class="o">%</span> <span class="n">size</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">HashOpenAddress</span><span class="o">::</span><span class="n">Display</span><span class="p">(){</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">size</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;slot#&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;: (&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">table</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">key</span>
+             <span class="o">&lt;&lt;</span> <span class="s">&quot;,&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">table</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">value</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;)&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+
+    <span class="n">HashOpenAddress</span> <span class="n">hash</span><span class="p">(</span><span class="mi">8</span><span class="p">);</span>          <span class="c1">// probing sequence:</span>
+    <span class="n">hash</span><span class="p">.</span><span class="n">Insert</span><span class="p">(</span><span class="mi">33</span><span class="p">,</span> <span class="s">&quot;blue&quot;</span><span class="p">);</span>          <span class="c1">// 1,2,4,7,3,0,6,5 -&gt; 1</span>
+    <span class="n">hash</span><span class="p">.</span><span class="n">Insert</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="s">&quot;yellow&quot;</span><span class="p">);</span>        <span class="c1">// 2,3,5,0,4,1,7,6 -&gt; 2</span>
+    <span class="n">hash</span><span class="p">.</span><span class="n">Insert</span><span class="p">(</span><span class="mi">77</span><span class="p">,</span> <span class="s">&quot;red&quot;</span><span class="p">);</span>           <span class="c1">// 5,6,0,3,7,4,2,1 -&gt; 5</span>
+    <span class="n">hash</span><span class="p">.</span><span class="n">Insert</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s">&quot;white&quot;</span><span class="p">);</span>          <span class="c1">// 2,3,5,0,4,1,7,6 -&gt; 3</span>
+    <span class="n">hash</span><span class="p">.</span><span class="n">Display</span><span class="p">();</span>
+    <span class="n">hash</span><span class="p">.</span><span class="n">Insert</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="s">&quot;black&quot;</span><span class="p">);</span>          <span class="c1">// 0,1,3,6,2,7,5,4 -&gt; 0</span>
+    <span class="n">hash</span><span class="p">.</span><span class="n">Insert</span><span class="p">(</span><span class="mi">47</span><span class="p">,</span> <span class="s">&quot;gray&quot;</span><span class="p">);</span>          <span class="c1">// 7,0,2,5,1,6,4,3 -&gt; 7</span>
+    <span class="n">hash</span><span class="p">.</span><span class="n">Insert</span><span class="p">(</span><span class="mi">90</span><span class="p">,</span> <span class="s">&quot;purple&quot;</span><span class="p">);</span>        <span class="c1">// 2,3,5,0,4,1,7,6 -&gt; 4</span>
+    <span class="n">hash</span><span class="p">.</span><span class="n">Insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s">&quot;deep purple&quot;</span><span class="p">);</span>    <span class="c1">// 4,5,7,2,6,3,1,0 -&gt; 6</span>
+    <span class="n">hash</span><span class="p">.</span><span class="n">Display</span><span class="p">();</span>
+    <span class="n">hash</span><span class="p">.</span><span class="n">Insert</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="s">&quot;green&quot;</span><span class="p">);</span>         <span class="c1">// hash table overflow</span>
+
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;number#90 is &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">hash</span><span class="p">.</span><span class="n">Search</span><span class="p">(</span><span class="mi">90</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n\n</span><span class="s">&quot;</span><span class="p">;</span>
+
+    <span class="n">hash</span><span class="p">.</span><span class="n">Delete</span><span class="p">(</span><span class="mi">90</span><span class="p">);</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;after deleting (90,purple):</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;number#90 is &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">hash</span><span class="p">.</span><span class="n">Search</span><span class="p">(</span><span class="mi">90</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+
+    <span class="n">hash</span><span class="p">.</span><span class="n">Insert</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="s">&quot;orange&quot;</span><span class="p">);</span>        <span class="c1">// 4,5,7,2,6,3,1,0 -&gt; 4</span>
+    <span class="n">hash</span><span class="p">.</span><span class="n">Display</span><span class="p">();</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 
 
 <p>output:</p>
-<div class="highlight"><pre>
+<div class="highlight"><pre><span class="n">slot</span><span class="err">#</span><span class="mi">0</span><span class="o">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,)</span>
+<span class="n">slot</span><span class="err">#</span><span class="mi">1</span><span class="o">:</span> <span class="p">(</span><span class="mi">33</span><span class="p">,</span><span class="n">blue</span><span class="p">)</span>
+<span class="n">slot</span><span class="err">#</span><span class="mi">2</span><span class="o">:</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="n">yellow</span><span class="p">)</span>
+<span class="n">slot</span><span class="err">#</span><span class="mi">3</span><span class="o">:</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="n">white</span><span class="p">)</span>
+<span class="n">slot</span><span class="err">#</span><span class="mi">4</span><span class="o">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,)</span>
+<span class="n">slot</span><span class="err">#</span><span class="mi">5</span><span class="o">:</span> <span class="p">(</span><span class="mi">77</span><span class="p">,</span><span class="n">red</span><span class="p">)</span>
+<span class="n">slot</span><span class="err">#</span><span class="mi">6</span><span class="o">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,)</span>
+<span class="n">slot</span><span class="err">#</span><span class="mi">7</span><span class="o">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,)</span>
+
+<span class="n">slot</span><span class="err">#</span><span class="mi">0</span><span class="o">:</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="n">black</span><span class="p">)</span>
+<span class="n">slot</span><span class="err">#</span><span class="mi">1</span><span class="o">:</span> <span class="p">(</span><span class="mi">33</span><span class="p">,</span><span class="n">blue</span><span class="p">)</span>
+<span class="n">slot</span><span class="err">#</span><span class="mi">2</span><span class="o">:</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="n">yellow</span><span class="p">)</span>
+<span class="n">slot</span><span class="err">#</span><span class="mi">3</span><span class="o">:</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="n">white</span><span class="p">)</span>
+<span class="n">slot</span><span class="err">#</span><span class="mi">4</span><span class="o">:</span> <span class="p">(</span><span class="mi">90</span><span class="p">,</span><span class="n">purple</span><span class="p">)</span>
+<span class="n">slot</span><span class="err">#</span><span class="mi">5</span><span class="o">:</span> <span class="p">(</span><span class="mi">77</span><span class="p">,</span><span class="n">red</span><span class="p">)</span>
+<span class="n">slot</span><span class="err">#</span><span class="mi">6</span><span class="o">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">deep</span> <span class="n">purple</span><span class="p">)</span>
+<span class="n">slot</span><span class="err">#</span><span class="mi">7</span><span class="o">:</span> <span class="p">(</span><span class="mi">47</span><span class="p">,</span><span class="n">gray</span><span class="p">)</span>
+
+<span class="n">Hash</span> <span class="n">Table</span> <span class="n">Overflow</span>
+
+<span class="n">number</span><span class="err">#</span><span class="mi">90</span> <span class="n">is</span> <span class="n">purple</span>
+
+<span class="n">after</span> <span class="n">deleting</span> <span class="p">(</span><span class="mi">90</span><span class="p">,</span><span class="n">purple</span><span class="p">)</span><span class="o">:</span>
+<span class="n">number</span><span class="err">#</span><span class="mi">90</span> <span class="n">is</span> <span class="p">...</span><span class="n">data</span> <span class="n">not</span> <span class="n">found</span>
+
+<span class="n">slot</span><span class="err">#</span><span class="mi">0</span><span class="o">:</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="n">black</span><span class="p">)</span>
+<span class="n">slot</span><span class="err">#</span><span class="mi">1</span><span class="o">:</span> <span class="p">(</span><span class="mi">33</span><span class="p">,</span><span class="n">blue</span><span class="p">)</span>
+<span class="n">slot</span><span class="err">#</span><span class="mi">2</span><span class="o">:</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="n">yellow</span><span class="p">)</span>
+<span class="n">slot</span><span class="err">#</span><span class="mi">3</span><span class="o">:</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="n">white</span><span class="p">)</span>
+<span class="n">slot</span><span class="err">#</span><span class="mi">4</span><span class="o">:</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="n">orange</span><span class="p">)</span>
+<span class="n">slot</span><span class="err">#</span><span class="mi">5</span><span class="o">:</span> <span class="p">(</span><span class="mi">77</span><span class="p">,</span><span class="n">red</span><span class="p">)</span>
+<span class="n">slot</span><span class="err">#</span><span class="mi">6</span><span class="o">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">deep</span> <span class="n">purple</span><span class="p">)</span>
+<span class="n">slot</span><span class="err">#</span><span class="mi">7</span><span class="o">:</span> <span class="p">(</span><span class="mi">47</span><span class="p">,</span><span class="n">gray</span><span class="p">)</span>
 </pre></div>
 
 
@@ -439,7 +599,7 @@ $$</div>
 <h3>memory使用</h3>
 <p><strong>Chaining</strong>使用Linked list，每個node裡面會帶一個<strong>pointer</strong>記錄下一個node的記憶體位置，因此會比純粹使用Array存放資料的<strong>Open Addressing</strong>多花一點記憶體空間。</p>
 <p>不過前面提到，<strong>Open Addressing</strong>考慮<strong>load factor</strong>儘量不要超過<span class="math">\(0.5\)</span>，因此將有近一半的記憶體位置閒置。</p>
-<p>這兩種處理<strong>Collision</strong>的方法沒有絕對的好壞，需要視情況而定。</p>
+<p>所以這兩種處理<strong>Collision</strong>的方法沒有絕對的好壞，應該要是情況而定。</p>
 <p></br>  </p>
 <p>以上是以<strong>Open Addressing</strong>解決<strong>Collision</strong>之介紹。</p>
 <p></br></p>
