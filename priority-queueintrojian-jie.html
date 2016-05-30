@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="zh-hant">
+
+<head>
+            <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+
+        <title>Priority Queue：Intro(簡介)</title>
+
+            <link href="http://alrightchiu.github.io/SecondRound/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Second Round Full Atom Feed" />
+            <link href="http://alrightchiu.github.io/SecondRound/feeds/yan-suan-fa-yu-zi-liao-jie-gou.atom.xml" type="application/atom+xml" rel="alternate" title="Second Round Categories Atom Feed" />
+
+        <!-- Bootstrap Core CSS -->
+        <link href="http://alrightchiu.github.io/SecondRound/theme/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="http://alrightchiu.github.io/SecondRound/theme/css/clean-blog.min.css" rel="stylesheet">
+
+        <!-- Code highlight color scheme -->
+            <link href="http://alrightchiu.github.io/SecondRound/theme/css/code_blocks/darkly.css" rel="stylesheet">
+
+
+        <!-- Custom Fonts -->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+
+
+
+        <meta name="tags" contents="C++" />
+        <meta name="tags" contents="Intro" />
+        <meta name="tags" contents="Priority Queue" />
+        <meta name="tags" contents="Heap" />
+        <meta name="tags" contents="Binary Tree" />
+
+
+	                <meta property="og:locale" content="">
+		<meta property="og:site_name" content="Second Round">
+
+	<meta property="og:type" content="article">
+	<meta property="article:author" content="">
+	<meta property="og:url" content="http://alrightchiu.github.io/SecondRound/priority-queueintrojian-jie.html">
+	<meta property="og:title" content="Priority Queue：Intro(簡介)">
+	<meta property="og:description" content="">
+	<meta property="og:image" content="http://alrightchiu.github.io/SecondRound/">
+	<meta property="article:published_time" content="2016-03-05 21:25:00+08:00">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://alrightchiu.github.io/SecondRound/">Second Round</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a href="http://alrightchiu.github.io/SecondRound/archives.html">Archives</a></li>
+                        <li><a href="http://alrightchiu.github.io/SecondRound/tags.html">Tags</a></li>
+
+                            <li><a href="http://alrightchiu.github.io/SecondRound/pages/about.html">About</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+        <header class="intro-header" style="background-image: url('http://alrightchiu.github.io/SecondRound/theme/images/post-bg.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>Priority Queue：Intro(簡介)</h1>
+                        <span class="meta">Posted by
+                                <a href="http://alrightchiu.github.io/SecondRound/author/chiu-cc.html">Chiu CC</a>
+                             on  3 05, 2016
+                        </span>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    <!-- Post Content -->
+    <article>
+        <p></br></p>
+<h3>先備知識與注意事項</h3>
+<p>本篇文章將介紹抽象的資料結構：Priority Queue(優先權佇列)的基本概念。  </p>
+<hr />
+<h2>目錄</h2>
+<ul>
+<li><a href="#pq">簡介：Priority Queue(優先權佇列)</a></li>
+<li><a href="#ref">參考資料</a></li>
+<li><a href="#series">Priority Queue系列文章</a></li>
+</ul>
+<p></br></p>
+<p><a name="pq"></a></p>
+<h2>簡介：Priority Queue(優先權佇列)</h2>
+<p>「待辦事項」通常是表面上看起來沒有順序、但其實具有「執行時的優先順序」的一堆事情。</p>
+<p>Priority Queue(優先權佇列)就像在處理「待辦事項」，能夠在眾多各自具有優先順序之資料堆中，取出「最重要/最不重要」的項目：</p>
+<p><strong>Priority</strong>：對資料項目賦予「權重/優先權」，用以表示資料的重要程度。<br />
+<strong>Queue</strong>：隊伍、佇列、順序，意味著把資料整理成「某種順序」的資料結構。</p>
+<ul>
+<li>所謂的「某種順序」，可能是「先進先出(First-In-First-Out)」順序：每次要從此資料結構讀取資料時，必定是拿到「先進入」的資料。<br />
+    (請參考：<a href="https://en.wikipedia.org/wiki/Queue_%28abstract_data_type%29">Wikipedia：Queue</a>)</li>
+<li>也有可能是額外賦予資料的「權重/優先權」順序：每次要從此資料結構讀取資料時，必定會拿到具有「最大值/最小值權重」的資料。</li>
+</ul>
+<p>如果每次要從Priority Queue讀取資料時，都拿到「權重最大」的資料，則稱此為<strong>Max-Priority Queue</strong>。<br />
+反之，若每次讀取資料，都拿到「權重最小」的資料，則稱此為<strong>Min-Priority Queue</strong>。</p>
+<p>舉例來說，如果每天起床固定要：</p>
+<ul>
+<li>削鉛筆，重要性<span class="math">\(2\)</span>分；</li>
+<li>梳洗，重要性<span class="math">\(10\)</span>分；</li>
+<li>剪指甲，重要性<span class="math">\(4\)</span>分；</li>
+</ul>
+<p>那麼，以一個Max-Priority Queue來管理「每天起床的待辦事項」，第一件事情要先刷牙上廁所，然後是剪指甲，最後再削一些無關緊要的鉛筆。<br />
+反之，若以一個Min-Priority Queue來管理「每天起床的待辦事項」，第一件事情要先削鉛筆，然後是剪指甲，最後才能去刷牙。</p>
+<p>一個Max-Priority Queue，最基本會有三種操作：</p>
+<ol>
+<li><strong>Insert</strong>：將資料加入Queue中。<ul>
+<li>例如，把「削鉛筆」、「梳洗」、「剪指甲」三件事情寫進Queue裡。 </li>
+</ul>
+</li>
+<li><strong>IncreaseKey</strong>：當某項資料的「重要性提高」時，需要在Queue中改變資料的權重，以下將以Key代表權重。<ul>
+<li>例如，最近突變出某種藉由指甲垢傳遞的流感病毒，使得「剪指甲」的重要性提高，便需要增加「剪指甲」的Key，假設Key提高到<span class="math">\(11\)</span>分，那麼每天起床的工作順序就變成：「剪指甲」、「梳洗」、「削鉛筆」。 </li>
+</ul>
+</li>
+<li><strong>ExtractMax</strong>：取得最重要(Key最大)的資料，並將其從Queue中移除。<ul>
+<li>每天起床後，先從「待辦事項」得知，最重要的事情是「梳洗」，並在完成之後，將其從「待辦事項」移除，避免重複執行。 </li>
+</ul>
+</li>
+</ol>
+<p>與之對應的Min-Priority Queue之基本操作則是：</p>
+<ol>
+<li><strong>Insert</strong>：將資料加入Queue中。 </li>
+<li><strong>DecreaseKey</strong>：當某項資料的「重要性降低」時，需要改變在Queue中資料的Key。</li>
+<li><strong>ExtractMin</strong>：取得重要性最低(Key最小)的資料，並將其從Queue中移除。</li>
+</ol>
+<p></br><br />
+為了替<strong>Prim's Algorithm</strong>以及<strong>Dijkstra's Algorithm</strong>鋪路，本系列文章將以Min-Priority Queue作為代表。<br />
+不過只要掌握Priority Queue的概念，Max-Priority Queue就只是桌上的一塊小蛋糕。</p>
+<p>稍微困難的是實現方法，<a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376">Fundamentals of Data Structures in C++, Ch9</a>一共列出了六種實現方法(可能還有更多)：</p>
+<ol>
+<li>Leftist Tree(左傾樹)</li>
+<li>Binomial Heap(二項式堆積)</li>
+<li>Fibonacci Heap(費式堆積)</li>
+<li>Pairing Heap(成對堆積)</li>
+<li>Symmetric Min-Max Heap(對稱式最小-最大堆積)</li>
+<li>Interval Heap(區間堆積)</li>
+</ol>
+<p>前四種資料結構稱為<strong>Single-End Priority Queue(SEPQ)</strong>，亦即，該資料結構只能取得「最大」或是「最小」權重的資料。<br />
+後兩種資料結構稱為<strong>Double-End Priority Queue(DEPQ)</strong>，可以同時取得「權重最大」以及「權重最小」的資料。</p>
+<p>下ㄧ篇文章，將介紹比上述六種資料結構更初級的<strong>Binary Heap</strong>來實現Min-Priority Queue。</p>
+<p></br></p>
+<hr />
+<p><a name="ref"></a></p>
+<h3>參考資料：</h3>
+<ul>
+<li><a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844">Introduction to Algorithms, Ch6</a> </li>
+<li><a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376">Fundamentals of Data Structures in C++, Ch5, Ch9</a></li>
+<li><a href="https://www.cs.bris.ac.uk/~montanar/teaching/dsa/dijkstra-handout.pdf">Ashley Montanaro：Priority queues and Dijkstra’s algorithm</a></li>
+<li><a href="http://blog.yam.com/rockmanray/article/44952434">禪心劍氣相思骨：Priority Queue 解析1 - 從binary heap開始</a></li>
+<li><a href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathdijkstras-algorithm.html">Single-Source Shortest Path：Dijkstra's Algorithm</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Priority_queue">Wikipedia：Priority Queue</a></li>
+</ul>
+<p><a name="series"></a></p>
+<p></br></p>
+<h3>Priority Queue系列文章</h3>
+<p><a href="http://alrightchiu.github.io/SecondRound/priority-queueintrojian-jie.html">Priority Queue：Intro(簡介)</a>  </p>
+<p>回到目錄：</p>
+<p><a href="http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html">目錄：演算法與資料結構</a></p>
+<p></br></p>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' && location_protocol !== 'https') location_protocol = 'https:';
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+    </article>
+
+        <div class="tags">
+            <p>tags: <a href="http://alrightchiu.github.io/SecondRound/tag/c.html">C++</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/intro.html">Intro</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/priority-queue.html">Priority Queue</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/heap.html">Heap</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/binary-tree.html">Binary Tree</a>, </p>
+        </div>
+
+<hr>
+<div class="sharing">
+</div>
+    <hr>
+
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                            <li>
+                                <a href="https://github.com/alrightchiu">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                    </ul>
+<p class="copyright text-muted">
+    Blog powered by <a href="http://getpelican.com">Pelican</a>,
+    which takes great advantage of <a href="http://python.org">Python</a>.
+</p>                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="http://alrightchiu.github.io/SecondRound/theme/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="http://alrightchiu.github.io/SecondRound/theme/js/bootstrap.min.js"></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script src="http://alrightchiu.github.io/SecondRound/theme/js/clean-blog.min.js"></script>
+
+</body>
+
+</html>
