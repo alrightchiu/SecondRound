@@ -228,8 +228,8 @@
 <p><strong>圖三(a)。</strong>
 </center></p>
 <p>關鍵是，為什麼從<strong>Q</strong>中挑選<code>distance</code>最小的vertex(X)，就能肯定已經找到「從起點vertex走到vertex(X)之最短路徑」，<code>distance[X]</code><span class="math">\(=\delta(0,X)\)</span>？</p>
-<p>這裡不進行嚴謹證明(請參考：<a href="https://www.cs.bris.ac.uk/~montanar/teaching/dsa/dijkstra-handout.pdf">Ashley Montanaro：Priority queues and Dijkstra’s algorithm</a>)，只就基本條件推論。</p>
-<p>前面提到，<strong>Dijkstra's Algorithm</strong>的使用時機是，當Graph中的weight皆為非負實數(<span class="math">\(weight\geq 0\)</span>)，因此：</p>
+<p>這裡不進行嚴謹證明(證明請參考：<a href="https://www.cs.bris.ac.uk/~montanar/teaching/dsa/dijkstra-handout.pdf">Ashley Montanaro：Priority queues and Dijkstra’s algorithm</a>)，只就基本條件推論。</p>
+<p>前面提到，<strong>Dijkstra's Algorithm</strong>的使用時機是，當Graph中的weight皆為非負實數(<span class="math">\(weight\geq 0\)</span>)，此時：</p>
 <ul>
 <li>Graph中的所有<strong>cycle</strong>之wieght總和必定是正值(positive value)；</li>
 <li>亦即，路徑中的edge越多，其weight總和只會增加或持平，不可能減少。</li>
@@ -305,31 +305,7 @@
 <span class="cp">#include &lt;utility&gt;          </span><span class="c1">// for std::pair&lt;&gt;</span>
 <span class="cp">#include &lt;iomanip&gt;          </span><span class="c1">// for std::setw()</span>
 <span class="cp">#include &lt;cmath&gt;            </span><span class="c1">// for std::floor</span>
-
-<span class="k">struct</span> <span class="n">HeapNode</span><span class="p">{</span>
-    <span class="kt">int</span> <span class="n">element</span><span class="p">,</span> <span class="n">key</span><span class="p">;</span>               <span class="c1">// element代表vertex, key代表distance</span>
-    <span class="n">HeapNode</span><span class="p">()</span><span class="o">:</span><span class="n">element</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="n">key</span><span class="p">(</span><span class="mi">0</span><span class="p">){};</span>
-    <span class="n">HeapNode</span><span class="p">(</span><span class="kt">int</span> <span class="n">node</span><span class="p">,</span> <span class="kt">int</span> <span class="n">key</span><span class="p">)</span><span class="o">:</span><span class="n">element</span><span class="p">(</span><span class="n">node</span><span class="p">),</span> <span class="n">key</span><span class="p">(</span><span class="n">key</span><span class="p">){};</span>
-<span class="p">};</span>
-<span class="k">class</span> <span class="nc">BinaryHeap</span><span class="p">{</span>
-<span class="k">private</span><span class="o">:</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">HeapNode</span><span class="o">&gt;</span> <span class="n">heap</span><span class="p">;</span>            <span class="c1">// 存放HeapNode之vertex及distance的矩陣</span>
-    <span class="kt">void</span> <span class="nf">swap</span><span class="p">(</span><span class="k">struct</span> <span class="n">HeapNode</span> <span class="o">&amp;</span><span class="n">p1</span><span class="p">,</span> <span class="k">struct</span> <span class="n">HeapNode</span> <span class="o">&amp;</span><span class="n">p2</span><span class="p">);</span>
-    <span class="kt">int</span> <span class="nf">FindPosition</span><span class="p">(</span><span class="kt">int</span> <span class="n">node</span><span class="p">);</span>
-    <span class="kt">int</span> <span class="nf">GetParentNode</span><span class="p">(</span><span class="kt">int</span> <span class="n">node</span><span class="p">){</span><span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">floor</span><span class="p">(</span><span class="n">node</span><span class="o">/</span><span class="mi">2</span><span class="p">);};</span>
-<span class="k">public</span><span class="o">:</span>
-    <span class="n">BinaryHeap</span><span class="p">(){</span><span class="n">heap</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="mi">1</span><span class="p">);};</span>
-    <span class="n">BinaryHeap</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">){</span><span class="n">heap</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);}</span>          
-    <span class="kt">bool</span> <span class="n">IsHeapEmpty</span><span class="p">(){</span><span class="k">return</span> <span class="p">(</span><span class="n">heap</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">&lt;</span><span class="mi">1</span><span class="p">);};</span>
-
-    <span class="c1">// Min-Priority Queue</span>
-    <span class="kt">void</span> <span class="nf">MinHeapify</span><span class="p">(</span><span class="kt">int</span> <span class="n">node</span><span class="p">,</span> <span class="kt">int</span> <span class="n">length</span><span class="p">);</span>
-    <span class="kt">void</span> <span class="nf">BuildMinHeap</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">array</span><span class="p">);</span>                               
-    <span class="kt">void</span> <span class="nf">DecreaseKey</span><span class="p">(</span><span class="kt">int</span> <span class="n">node</span><span class="p">,</span> <span class="kt">int</span> <span class="n">newKey</span><span class="p">);</span>
-    <span class="kt">void</span> <span class="nf">MinHeapInsert</span><span class="p">(</span><span class="kt">int</span> <span class="n">node</span><span class="p">,</span> <span class="kt">int</span> <span class="n">key</span><span class="p">);</span>
-    <span class="kt">int</span> <span class="nf">Minimum</span><span class="p">();</span>         
-    <span class="kt">int</span> <span class="nf">ExtractMin</span><span class="p">();</span>
-<span class="p">};</span>
+<span class="cp">#include &quot;Priority_Queue_BinaryHeap.h&quot;</span>
 
 <span class="k">const</span> <span class="kt">int</span> <span class="n">Max_Distance</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
 <span class="k">class</span> <span class="nc">Graph_SP</span><span class="p">{</span>             <span class="c1">// SP serves as Shortest Path</span>
@@ -337,6 +313,7 @@
     <span class="kt">int</span> <span class="n">num_vertex</span><span class="p">;</span>
     <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">list</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;&gt;&gt;</span> <span class="n">AdjList</span><span class="p">;</span>
     <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">predecessor</span><span class="p">,</span> <span class="n">distance</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span> <span class="n">visited</span><span class="p">;</span>
 <span class="k">public</span><span class="o">:</span>
     <span class="n">Graph_SP</span><span class="p">()</span><span class="o">:</span><span class="n">num_vertex</span><span class="p">(</span><span class="mi">0</span><span class="p">){};</span>
     <span class="n">Graph_SP</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span><span class="o">:</span><span class="n">num_vertex</span><span class="p">(</span><span class="n">n</span><span class="p">){</span>
@@ -356,8 +333,10 @@
 
     <span class="n">InitializeSingleSource</span><span class="p">(</span><span class="n">Start</span><span class="p">);</span>
 
-    <span class="n">BinaryHeap</span> <span class="nf">minQueue</span><span class="p">(</span><span class="n">num_vertex</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>   <span class="c1">// object of min queue</span>
+    <span class="n">BinaryHeap</span> <span class="nf">minQueue</span><span class="p">(</span><span class="n">num_vertex</span><span class="p">);</span>   <span class="c1">// object of min queue</span>
     <span class="n">minQueue</span><span class="p">.</span><span class="n">BuildMinHeap</span><span class="p">(</span><span class="n">distance</span><span class="p">);</span>
+
+    <span class="n">visited</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">num_vertex</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>   <span class="c1">// initializa visited[] as {0,0,0,...,0}</span>
 
     <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">minQueue</span><span class="p">.</span><span class="n">IsHeapEmpty</span><span class="p">())</span> <span class="p">{</span>
         <span class="kt">int</span> <span class="n">u</span> <span class="o">=</span> <span class="n">minQueue</span><span class="p">.</span><span class="n">ExtractMin</span><span class="p">();</span>
@@ -433,12 +412,17 @@
 </pre></div>
 
 
-<p>備註：output中的「new key is larger than current key」是因為嘗試把Min-Priority Queue中的Key「增加」，也就是當vertex(X)對vertex(Y)進行Relax失敗的時候，以此例而言：</p>
+<p>小小備註(可能不是很重要)：</p>
+<p>output中的「new key is larger than current key」來自於Min-Priority Queue中的<code>DecreaseKey()</code>。<br />
+<code>DecreaseKey()</code>只允許將Min-Priority Queue中的node之Key「降低」，不能「增加」，所以當要求「增加」時，便中止該函式。</p>
+<p>那麼以此例而言，什麼時候會出現「new key is larger than current key」呢？</p>
+<p>就是當vertex(X)想要對vertex(Y)進行<strong>Relaxation</strong>卻失敗的時候，以此例而言：</p>
 <ul>
-<li>第一次發生在圖四(a)與圖四(b)，要以vertex(3)對其他與之相連的vertex進行Relax時，因為vertex(4)目前具有較小的「distance」(從vertex(5)走到vertex(4)成本較低)，所以vertex(5)</li>
-<li>第二次發生在圖六(a)與圖六(b)，以vertex(2)對vertex(4)進行Relax時</li>
+<li>第一次發生在圖四(a)與圖四(b)，要以vertex(3)對其他「還存在Min-Priority Queue中」而且「與vertex(3)相連」的vertex進行<strong>Relaxation</strong>時(在vertex(3)因為<code>distance</code>最小而被當作起點之前，vertex(0)與vertex(5)已經從<strong>Q</strong>中移除了，因此目前只剩下vertex(1)、vertex(2)、vertex(4)與之相連)，因為vertex(4)當下的<code>distance</code>(從vertex(5)走到vertex(4)的成本)會比從vertex(3)走到vertex(4)還低(成本<code>distance[3]+weight(3,4)</code>為<span class="math">\(3+7=10\)</span>)，所以在<strong>Relaxation</strong>後，<code>distance[4]</code>維持不變，那麼在<code>minQueue</code>進行<code>DecreaseKey()</code>時，就不會對vertex(4)的Key(也就是<code>distance[4]</code>)進行調整。</li>
+<li>第二次發生在圖六(a)與圖六(b)，以vertex(2)對vertex(4)進行<strong>Relaxation</strong>時，理由與第一次一樣：「從vertex(2)走到vertex(4)的成本」比「從vertex(5)走到vertex(4)的成本」還高，所以不更新<code>distance[4]</code>。</li>
 </ul>
-<p>最後，關於<strong>Dijkstra's Algorithm</strong>之時間複雜度，會因為Min-Priority Queue所使用的資料結構(例如，Binary Heap或是Fibonacci Heap)而有所差異，可能最差從<span class="math">\(O(V^2+E)\)</span>到最好<span class="math">\(O(V\log V+E)\)</span>，請參考以下連結之討論：</p>
+<p></br><br />
+最後，關於<strong>Dijkstra's Algorithm</strong>之時間複雜度，會因為Min-Priority Queue所使用的資料結構(例如，Binary Heap或是Fibonacci Heap)而有所差異，可能最差從<span class="math">\(O(V^2+E)\)</span>到最好<span class="math">\(O(V\log V+E)\)</span>，請參考以下連結之討論：</p>
 <ul>
 <li><a href="https://www.cs.bris.ac.uk/~montanar/teaching/dsa/dijkstra-handout.pdf">Ashley Montanaro：Priority queues and Dijkstra’s algorithm</a></li>
 <li><a href="http://www.personal.kent.edu/~rmuhamma/Algorithms/MyAlgorithms/GraphAlgor/dijkstraAlgor.htm">Rashid Bin Muhammad：Dijkstra's Algorithm</a></li>
@@ -446,7 +430,7 @@
 </ul>
 <p></br>  </p>
 <p>以上便是<strong>Dijkstra's Algorithm</strong>之介紹。  </p>
-<p>讀者不妨嘗試比較<strong>Dijkstra's Algorithm</strong>與<strong>Bellman-Ford Algorithm</strong>之差異，一般情況下，<strong>Dijkstra's Algorithm</strong>應該會較有效率，不過限制是Graph之weight必須是非負實數，若遇到weight為負數時，仍需使用<strong>Bellman-Ford Algorithm</strong>。</p>
+<p>讀者不妨嘗試比較<strong>Dijkstra's Algorithm</strong>與<strong>Bellman-Ford Algorithm</strong>之差異，一般情況下，<strong>Dijkstra's Algorithm</strong>應該會較有效率，不過限制是Graph之weight必須是非負實數(nonnegative real number)，若遇到weight為負數時，仍需使用<strong>Bellman-Ford Algorithm</strong>。</p>
 <p></br></p>
 <hr />
 <p><a name="ref"></a></p>
