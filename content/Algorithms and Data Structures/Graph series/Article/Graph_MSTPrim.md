@@ -154,7 +154,7 @@ Summary: 介紹於Graph中，利用Prim's Algorithm求得Minimum Spanning Tree(M
 ![cc][f8]
 
 **圖一(h)：從vertex(4)探索vertex(1)、vertex(5)、vertex(6)。  
-成功更新vertex(1)、vertex(5)、vertex(6)之`key[]`與`predecessor[]`。**
+更新vertex(1)、vertex(5)、vertex(6)之`key[]`與`predecessor[]`。**
 </center>
 
 
@@ -169,7 +169,8 @@ Summary: 介紹於Graph中，利用Prim's Algorithm求得Minimum Spanning Tree(M
 <center>
 ![cc][f10]
 
-**圖一(j)：從vertex(1)探索vertex(0)、vertex(2)、vertex(4)、vertex(6)。**
+**圖一(j)：從vertex(1)探索vertex(0)、vertex(2)、vertex(4)、vertex(6)。  
+更新vertex(0)的`key[]`與`predecessor[]`。**
 </center>
 
 
@@ -192,7 +193,8 @@ Summary: 介紹於Graph中，利用Prim's Algorithm求得Minimum Spanning Tree(M
 <center>
 ![cc][f13]
 
-**圖一(m)：從vertex(0)探索vertex(1)、vertex(5)。**
+**圖一(m)：從vertex(0)探索vertex(1)、vertex(5)。  
+更新vertex(5)的`key[]`與`predecessor[]`。**
 </center>
 
 
