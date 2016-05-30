@@ -9,7 +9,7 @@
         <meta name="author" content="">
 
 
-        <title>Priority Queue：Intro(簡介) & Binary Heap</title>
+        <title>Priority Queue：Binary Heap</title>
 
             <link href="http://alrightchiu.github.io/SecondRound/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Second Round Full Atom Feed" />
             <link href="http://alrightchiu.github.io/SecondRound/feeds/yan-suan-fa-yu-zi-liao-jie-gou.atom.xml" type="application/atom+xml" rel="alternate" title="Second Round Categories Atom Feed" />
@@ -44,6 +44,7 @@
         <meta name="tags" contents="Priority Queue" />
         <meta name="tags" contents="Heap" />
         <meta name="tags" contents="Binary Tree" />
+        <meta name="tags" contents="Dictionary" />
 
 
 	                <meta property="og:locale" content="">
@@ -51,11 +52,11 @@
 
 	<meta property="og:type" content="article">
 	<meta property="article:author" content="">
-	<meta property="og:url" content="http://alrightchiu.github.io/SecondRound/priority-queueintrojian-jie-binary-heap.html">
-	<meta property="og:title" content="Priority Queue：Intro(簡介) & Binary Heap">
+	<meta property="og:url" content="http://alrightchiu.github.io/SecondRound/priority-queuebinary-heap.html">
+	<meta property="og:title" content="Priority Queue：Binary Heap">
 	<meta property="og:description" content="">
 	<meta property="og:image" content="http://alrightchiu.github.io/SecondRound/">
-	<meta property="article:published_time" content="2016-03-05 21:25:00+08:00">
+	<meta property="article:published_time" content="2016-03-05 21:26:00+08:00">
 </head>
 
 <body>
@@ -94,7 +95,7 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="post-heading">
-                        <h1>Priority Queue：Intro(簡介) & Binary Heap</h1>
+                        <h1>Priority Queue：Binary Heap</h1>
                         <span class="meta">Posted by
                                 <a href="http://alrightchiu.github.io/SecondRound/author/chiu-cc.html">Chiu CC</a>
                              on  3 05, 2016
@@ -114,13 +115,11 @@
     <article>
         <p></br></p>
 <h3>先備知識與注意事項</h3>
-<p>本篇文章將介紹抽象的資料結構：Priority Queue(優先權佇列)，並且以Binary Heap(二元堆積)來實現Min-Priority Queue。  </p>
-<p>Binary Heap的概念源自Binary Tree，若讀者有興趣，不妨回顧一下何謂<strong>Complete Binary Tree</strong>暖暖身。<br />
-(請參考：<a href="http://alrightchiu.github.io/SecondRound/binary-tree-introjian-jie.html">Binary Tree: Intro(簡介)</a>)</p>
+<p>本篇文章將接續<a href="http://alrightchiu.github.io/SecondRound/priority-queueintrojian-jie.html">Priority Queue：Intro(簡介)</a>，介紹Binary Heap(二元堆積)，並用以實現Min-Priority Queue。  </p>
+<p>Binary Heap的概念與Binary Tree密切相關，若讀者有興趣，不妨回顧一下何謂<strong>Complete Binary Tree</strong>暖暖身，請參考：<a href="http://alrightchiu.github.io/SecondRound/binary-tree-introjian-jie.html">Binary Tree: Intro(簡介)</a>。</p>
 <hr />
 <h2>目錄</h2>
 <ul>
-<li><a href="#pq">簡介：Priority Queue(優先權佇列)</a></li>
 <li><a href="#bh">Binary Heap(二元堆積)</a></li>
 <li><a href="#operation">Binary Heap之Operation(函式)</a> <ul>
 <li><a href="#MinHeapify">函式：MinHeapify</a></li>
@@ -135,65 +134,6 @@
 <li><a href="#ref">參考資料</a></li>
 <li><a href="#series">Priority Queue系列文章</a></li>
 </ul>
-<p></br></p>
-<p><a name="pq"></a></p>
-<h2>簡介：Priority Queue(優先權佇列)</h2>
-<p>「待辦事項」通常是表面上看起來沒有順序、但其實具有「執行時的優先順序」的一堆事情。</p>
-<p>Priority Queue(優先權佇列)就像在處理「待辦事項」，能夠在眾多各自具有優先順序之資料堆中，取出「最重要/最不重要」的項目：</p>
-<p><strong>Priority</strong>：對資料項目賦予「權重/優先權」，用以表示資料的重要程度。<br />
-<strong>Queue</strong>：隊伍、佇列、順序，意味著把資料整理成「某種順序」的資料結構。</p>
-<ul>
-<li>所謂的「某種順序」，可能是「先進先出(First-In-First-Out)」順序：每次要從此資料結構讀取資料時，必定是拿到「先進入」的資料。<br />
-    (請參考：<a href="https://en.wikipedia.org/wiki/Queue_%28abstract_data_type%29">Wikipedia：Queue</a>)</li>
-<li>也有可能是額外賦予資料的「權重/優先權」順序：每次要從此資料結構讀取資料時，必定會拿到具有「最大值/最小值權重」的資料。</li>
-</ul>
-<p>如果每次要從Priority Queue讀取資料時，都拿到「權重最大」的資料，則稱此為<strong>Max-Priority Queue</strong>。<br />
-反之，若每次讀取資料，都拿到「權重最小」的資料，則稱此為<strong>Min-Priority Queue</strong>。</p>
-<p>舉例來說，如果每天起床固定要：</p>
-<ul>
-<li>削鉛筆，重要性<span class="math">\(2\)</span>分；</li>
-<li>梳洗，重要性<span class="math">\(10\)</span>分；</li>
-<li>剪指甲，重要性<span class="math">\(4\)</span>分；</li>
-</ul>
-<p>那麼，以一個Max-Priority Queue來管理「每天起床的待辦事項」，第一件事情要先刷牙上廁所，然後是剪指甲，最後再削一些無關緊要的鉛筆。<br />
-反之，若以一個Min-Priority Queue來管理「每天起床的待辦事項」，第一件事情要先削鉛筆，然後是剪指甲，最後才能去刷牙。</p>
-<p>一個Max-Priority Queue，最基本會有三種操作：</p>
-<ol>
-<li><strong>Insert</strong>：將資料加入Queue中。<ul>
-<li>例如，把「削鉛筆」、「梳洗」、「剪指甲」三件事情寫進Queue裡。 </li>
-</ul>
-</li>
-<li><strong>IncreaseKey</strong>：當某項資料的「重要性提高」時，需要在Queue中改變資料的權重，以下將以Key代表權重。<ul>
-<li>例如，最近突變出某種藉由指甲垢傳遞的流感病毒，使得「剪指甲」的重要性提高，便需要增加「剪指甲」的Key，假設Key提高到<span class="math">\(11\)</span>分，那麼每天起床的工作順序就變成：「剪指甲」、「梳洗」、「削鉛筆」。 </li>
-</ul>
-</li>
-<li><strong>ExtractMax</strong>：取得最重要(Key最大)的資料，並將其從Queue中移除。<ul>
-<li>每天起床後，先從「待辦事項」得知，最重要的事情是「梳洗」，並在完成之後，將其從「待辦事項」移除，避免重複執行。 </li>
-</ul>
-</li>
-</ol>
-<p>與之對應的Min-Priority Queue之基本操作則是：</p>
-<ol>
-<li><strong>Insert</strong>：將資料加入Queue中。 </li>
-<li><strong>DecreaseKey</strong>：當某項資料的「重要性降低」時，需要改變在Queue中資料的Key。</li>
-<li><strong>ExtractMin</strong>：取得重要性最低(Key最小)的資料，並將其從Queue中移除。</li>
-</ol>
-<p></br>
-為了替<strong>Prim's Algorithm</strong>以及<strong>Dijkstra's Algorithm</strong>鋪路，以下將介紹Min-Priority Queue做代表。<br />
-不過只要掌握Priority Queue的概念，Max-Priority Queue就只是桌上的一塊小蛋糕。</p>
-<p>稍微困難的是實現方法。<br />
-<a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376">Fundamentals of Data Structures in C++, Ch9</a>一共列出了六種實現方法(可能還有更多)：</p>
-<ol>
-<li>Leftist Tree(左傾樹)</li>
-<li>Binomial Heap(二項式堆積)</li>
-<li>Fibonacci Heap(費式堆積)</li>
-<li>Pairing Heap(成對堆積)</li>
-<li>Symmetric Min-Max Heap(對稱式最小-最大堆積)</li>
-<li>Interval Heap(區間堆積)</li>
-</ol>
-<p>前四種資料結構稱為<strong>Single-End Priority Queue(SEPQ)</strong>，亦即，該資料結構只能取得「最大」或是「最小」權重的資料。<br />
-後兩種資料結構稱為<strong>Double-End Priority Queue(DEPQ)</strong>，可以同時取得「權重最大」以及「權重最小」的資料。</p>
-<p>而下ㄧ小節，將介紹比上述六種資料結構更初級的<strong>Binary Heap</strong>來實現Min-Priority Queue。</p>
 <p></br></p>
 <p><a name="bh"></a></p>
 <h2>Binary Heap(二元堆積)</h2>
@@ -611,7 +551,8 @@
 <p><a name="series"></a></p>
 <p></br></p>
 <h3>Priority Queue系列文章</h3>
-<p><a href="http://alrightchiu.github.io/SecondRound/priority-queueintrojian-jie-binary-heap.html">Priority Queue：Intro(簡介) &amp; Binary Heap</a>  </p>
+<p><a href="http://alrightchiu.github.io/SecondRound/priority-queueintrojian-jie.html">Priority Queue：Intro(簡介)</a><br />
+<a href="">Priority Queue：Binary Heap</a></p>
 <p>回到目錄：</p>
 <p><a href="http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html">目錄：演算法與資料結構</a></p>
 <p></br></p>
@@ -675,7 +616,7 @@
     </article>
 
         <div class="tags">
-            <p>tags: <a href="http://alrightchiu.github.io/SecondRound/tag/c.html">C++</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/intro.html">Intro</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/priority-queue.html">Priority Queue</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/heap.html">Heap</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/binary-tree.html">Binary Tree</a>, </p>
+            <p>tags: <a href="http://alrightchiu.github.io/SecondRound/tag/c.html">C++</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/intro.html">Intro</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/priority-queue.html">Priority Queue</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/heap.html">Heap</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/binary-tree.html">Binary Tree</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/dictionary.html">Dictionary</a>, </p>
         </div>
 
 <hr>

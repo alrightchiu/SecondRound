@@ -7703,158 +7703,13 @@ $$&lt;/div&gt;
         "}";
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
-&lt;/script&gt;</summary><category term="C++"></category><category term="Graph"></category><category term="Shortest Path"></category><category term="Relaxation"></category><category term="Priority Queue"></category><category term="Greedy Algorithm"></category></entry><entry><title>Priority Queue：Intro(簡介)</title><link href="http://alrightchiu.github.io/SecondRound/priority-queueintrojian-jie.html" rel="alternate"></link><updated>2016-03-05T21:25:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-03-05:SecondRound/priority-queueintrojian-jie.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;/script&gt;</summary><category term="C++"></category><category term="Graph"></category><category term="Shortest Path"></category><category term="Relaxation"></category><category term="Priority Queue"></category><category term="Greedy Algorithm"></category></entry><entry><title>Priority Queue：Binary Heap</title><link href="http://alrightchiu.github.io/SecondRound/priority-queuebinary-heap.html" rel="alternate"></link><updated>2016-03-05T21:26:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-03-05:SecondRound/priority-queuebinary-heap.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h3&gt;先備知識與注意事項&lt;/h3&gt;
-&lt;p&gt;本篇文章將介紹抽象的資料結構：Priority Queue(優先權佇列)的基本概念。  &lt;/p&gt;
+&lt;p&gt;本篇文章將接續&lt;a href="http://alrightchiu.github.io/SecondRound/priority-queueintrojian-jie.html"&gt;Priority Queue：Intro(簡介)&lt;/a&gt;，介紹Binary Heap(二元堆積)，並用以實現Min-Priority Queue。  &lt;/p&gt;
+&lt;p&gt;Binary Heap的概念與Binary Tree密切相關，若讀者有興趣，不妨回顧一下何謂&lt;strong&gt;Complete Binary Tree&lt;/strong&gt;暖暖身，請參考：&lt;a href="http://alrightchiu.github.io/SecondRound/binary-tree-introjian-jie.html"&gt;Binary Tree: Intro(簡介)&lt;/a&gt;。&lt;/p&gt;
 &lt;hr /&gt;
 &lt;h2&gt;目錄&lt;/h2&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href="#pq"&gt;簡介：Priority Queue(優先權佇列)&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="#ref"&gt;參考資料&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="#series"&gt;Priority Queue系列文章&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a name="pq"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;簡介：Priority Queue(優先權佇列)&lt;/h2&gt;
-&lt;p&gt;「待辦事項」通常是表面上看起來沒有順序、但其實具有「執行時的優先順序」的一堆事情。&lt;/p&gt;
-&lt;p&gt;Priority Queue(優先權佇列)就像在處理「待辦事項」，能夠在眾多各自具有優先順序之資料堆中，取出「最重要/最不重要」的項目：&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Priority&lt;/strong&gt;：對資料項目賦予「權重/優先權」，用以表示資料的重要程度。&lt;br /&gt;
-&lt;strong&gt;Queue&lt;/strong&gt;：隊伍、佇列、順序，意味著把資料整理成「某種順序」的資料結構。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;所謂的「某種順序」，可能是「先進先出(First-In-First-Out)」順序：每次要從此資料結構讀取資料時，必定是拿到「先進入」的資料。&lt;br /&gt;
-    (請參考：&lt;a href="https://en.wikipedia.org/wiki/Queue_%28abstract_data_type%29"&gt;Wikipedia：Queue&lt;/a&gt;)&lt;/li&gt;
-&lt;li&gt;也有可能是額外賦予資料的「權重/優先權」順序：每次要從此資料結構讀取資料時，必定會拿到具有「最大值/最小值權重」的資料。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;如果每次要從Priority Queue讀取資料時，都拿到「權重最大」的資料，則稱此為&lt;strong&gt;Max-Priority Queue&lt;/strong&gt;。&lt;br /&gt;
-反之，若每次讀取資料，都拿到「權重最小」的資料，則稱此為&lt;strong&gt;Min-Priority Queue&lt;/strong&gt;。&lt;/p&gt;
-&lt;p&gt;舉例來說，如果每天起床固定要：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;削鉛筆，重要性&lt;span class="math"&gt;\(2\)&lt;/span&gt;分；&lt;/li&gt;
-&lt;li&gt;梳洗，重要性&lt;span class="math"&gt;\(10\)&lt;/span&gt;分；&lt;/li&gt;
-&lt;li&gt;剪指甲，重要性&lt;span class="math"&gt;\(4\)&lt;/span&gt;分；&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;那麼，以一個Max-Priority Queue來管理「每天起床的待辦事項」，第一件事情要先刷牙上廁所，然後是剪指甲，最後再削一些無關緊要的鉛筆。&lt;br /&gt;
-反之，若以一個Min-Priority Queue來管理「每天起床的待辦事項」，第一件事情要先削鉛筆，然後是剪指甲，最後才能去刷牙。&lt;/p&gt;
-&lt;p&gt;一個Max-Priority Queue，最基本會有三種操作：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;Insert&lt;/strong&gt;：將資料加入Queue中。&lt;ul&gt;
-&lt;li&gt;例如，把「削鉛筆」、「梳洗」、「剪指甲」三件事情寫進Queue裡。 &lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;IncreaseKey&lt;/strong&gt;：當某項資料的「重要性提高」時，需要在Queue中改變資料的權重，以下將以Key代表權重。&lt;ul&gt;
-&lt;li&gt;例如，最近突變出某種藉由指甲垢傳遞的流感病毒，使得「剪指甲」的重要性提高，便需要增加「剪指甲」的Key，假設Key提高到&lt;span class="math"&gt;\(11\)&lt;/span&gt;分，那麼每天起床的工作順序就變成：「剪指甲」、「梳洗」、「削鉛筆」。 &lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;ExtractMax&lt;/strong&gt;：取得最重要(Key最大)的資料，並將其從Queue中移除。&lt;ul&gt;
-&lt;li&gt;每天起床後，先從「待辦事項」得知，最重要的事情是「梳洗」，並在完成之後，將其從「待辦事項」移除，避免重複執行。 &lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;與之對應的Min-Priority Queue之基本操作則是：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;Insert&lt;/strong&gt;：將資料加入Queue中。 &lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;DecreaseKey&lt;/strong&gt;：當某項資料的「重要性降低」時，需要改變在Queue中資料的Key。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;ExtractMin&lt;/strong&gt;：取得重要性最低(Key最小)的資料，並將其從Queue中移除。&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;&lt;/br&gt;&lt;br /&gt;
-為了替&lt;strong&gt;Prim's Algorithm&lt;/strong&gt;以及&lt;strong&gt;Dijkstra's Algorithm&lt;/strong&gt;鋪路，本系列文章將以Min-Priority Queue作為代表。&lt;br /&gt;
-不過只要掌握Priority Queue的概念，Max-Priority Queue就只是桌上的一塊小蛋糕。&lt;/p&gt;
-&lt;p&gt;稍微困難的是實現方法，&lt;a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376"&gt;Fundamentals of Data Structures in C++, Ch9&lt;/a&gt;一共列出了六種實現方法(可能還有更多)：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;Leftist Tree(左傾樹)&lt;/li&gt;
-&lt;li&gt;Binomial Heap(二項式堆積)&lt;/li&gt;
-&lt;li&gt;Fibonacci Heap(費式堆積)&lt;/li&gt;
-&lt;li&gt;Pairing Heap(成對堆積)&lt;/li&gt;
-&lt;li&gt;Symmetric Min-Max Heap(對稱式最小-最大堆積)&lt;/li&gt;
-&lt;li&gt;Interval Heap(區間堆積)&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;前四種資料結構稱為&lt;strong&gt;Single-End Priority Queue(SEPQ)&lt;/strong&gt;，亦即，該資料結構只能取得「最大」或是「最小」權重的資料。&lt;br /&gt;
-後兩種資料結構稱為&lt;strong&gt;Double-End Priority Queue(DEPQ)&lt;/strong&gt;，可以同時取得「權重最大」以及「權重最小」的資料。&lt;/p&gt;
-&lt;p&gt;下ㄧ篇文章，將介紹比上述六種資料結構更初級的&lt;strong&gt;Binary Heap&lt;/strong&gt;來實現Min-Priority Queue。&lt;/p&gt;
-&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
-&lt;hr /&gt;
-&lt;p&gt;&lt;a name="ref"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h3&gt;參考資料：&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844"&gt;Introduction to Algorithms, Ch6&lt;/a&gt; &lt;/li&gt;
-&lt;li&gt;&lt;a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376"&gt;Fundamentals of Data Structures in C++, Ch5, Ch9&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://www.cs.bris.ac.uk/~montanar/teaching/dsa/dijkstra-handout.pdf"&gt;Ashley Montanaro：Priority queues and Dijkstra’s algorithm&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="http://blog.yam.com/rockmanray/article/44952434"&gt;禪心劍氣相思骨：Priority Queue 解析1 - 從binary heap開始&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathdijkstras-algorithm.html"&gt;Single-Source Shortest Path：Dijkstra's Algorithm&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://en.wikipedia.org/wiki/Priority_queue"&gt;Wikipedia：Priority Queue&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;a name="series"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
-&lt;h3&gt;Priority Queue系列文章&lt;/h3&gt;
-&lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/priority-queueintrojian-jie.html"&gt;Priority Queue：Intro(簡介)&lt;/a&gt;  &lt;/p&gt;
-&lt;p&gt;回到目錄：&lt;/p&gt;
-&lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html"&gt;目錄：演算法與資料結構&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
-&lt;script type="text/javascript"&gt;if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
-    var align = "center",
-        indent = "0em",
-        linebreak = "false";
-
-    if (false) {
-        align = (screen.width &lt; 768) ? "left" : align;
-        indent = (screen.width &lt; 768) ? "0em" : indent;
-        linebreak = (screen.width &lt; 768) ? 'true' : linebreak;
-    }
-
-    var mathjaxscript = document.createElement('script');
-    var location_protocol = (false) ? 'https' : document.location.protocol;
-    if (location_protocol !== 'http' &amp;&amp; location_protocol !== 'https') location_protocol = 'https:';
-    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
-    mathjaxscript.type = 'text/javascript';
-    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
-    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
-        "MathJax.Hub.Config({" +
-        "    config: ['MMLorHTML.js']," +
-        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
-        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
-        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
-        "    displayAlign: '"+ align +"'," +
-        "    displayIndent: '"+ indent +"'," +
-        "    showMathMenu: true," +
-        "    messageStyle: 'normal'," +
-        "    tex2jax: { " +
-        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
-        "        displayMath: [ ['$$','$$'] ]," +
-        "        processEscapes: true," +
-        "        preview: 'TeX'," +
-        "    }, " +
-        "    'HTML-CSS': { " +
-        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
-        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
-        "    }, " +
-        "}); " +
-        "if ('default' !== 'default') {" +
-            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
-                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
-                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
-                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
-                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
-                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
-            "});" +
-            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
-                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
-                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
-                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
-                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
-                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
-            "});" +
-        "}";
-    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
-}
-&lt;/script&gt;</summary><category term="C++"></category><category term="Intro"></category><category term="Priority Queue"></category><category term="Heap"></category><category term="Binary Tree"></category></entry><entry><title>Priority Queue：Intro(簡介) &amp; Binary Heap</title><link href="http://alrightchiu.github.io/SecondRound/priority-queueintrojian-jie-binary-heap.html" rel="alternate"></link><updated>2016-03-05T21:25:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-03-05:SecondRound/priority-queueintrojian-jie-binary-heap.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
-&lt;h3&gt;先備知識與注意事項&lt;/h3&gt;
-&lt;p&gt;本篇文章將介紹抽象的資料結構：Priority Queue(優先權佇列)，並且以Binary Heap(二元堆積)來實現Min-Priority Queue。  &lt;/p&gt;
-&lt;p&gt;Binary Heap的概念源自Binary Tree，若讀者有興趣，不妨回顧一下何謂&lt;strong&gt;Complete Binary Tree&lt;/strong&gt;暖暖身。&lt;br /&gt;
-(請參考：&lt;a href="http://alrightchiu.github.io/SecondRound/binary-tree-introjian-jie.html"&gt;Binary Tree: Intro(簡介)&lt;/a&gt;)&lt;/p&gt;
-&lt;hr /&gt;
-&lt;h2&gt;目錄&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href="#pq"&gt;簡介：Priority Queue(優先權佇列)&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="#bh"&gt;Binary Heap(二元堆積)&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="#operation"&gt;Binary Heap之Operation(函式)&lt;/a&gt; &lt;ul&gt;
 &lt;li&gt;&lt;a href="#MinHeapify"&gt;函式：MinHeapify&lt;/a&gt;&lt;/li&gt;
@@ -7869,65 +7724,6 @@ $$&lt;/div&gt;
 &lt;li&gt;&lt;a href="#ref"&gt;參考資料&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="#series"&gt;Priority Queue系列文章&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a name="pq"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;簡介：Priority Queue(優先權佇列)&lt;/h2&gt;
-&lt;p&gt;「待辦事項」通常是表面上看起來沒有順序、但其實具有「執行時的優先順序」的一堆事情。&lt;/p&gt;
-&lt;p&gt;Priority Queue(優先權佇列)就像在處理「待辦事項」，能夠在眾多各自具有優先順序之資料堆中，取出「最重要/最不重要」的項目：&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Priority&lt;/strong&gt;：對資料項目賦予「權重/優先權」，用以表示資料的重要程度。&lt;br /&gt;
-&lt;strong&gt;Queue&lt;/strong&gt;：隊伍、佇列、順序，意味著把資料整理成「某種順序」的資料結構。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;所謂的「某種順序」，可能是「先進先出(First-In-First-Out)」順序：每次要從此資料結構讀取資料時，必定是拿到「先進入」的資料。&lt;br /&gt;
-    (請參考：&lt;a href="https://en.wikipedia.org/wiki/Queue_%28abstract_data_type%29"&gt;Wikipedia：Queue&lt;/a&gt;)&lt;/li&gt;
-&lt;li&gt;也有可能是額外賦予資料的「權重/優先權」順序：每次要從此資料結構讀取資料時，必定會拿到具有「最大值/最小值權重」的資料。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;如果每次要從Priority Queue讀取資料時，都拿到「權重最大」的資料，則稱此為&lt;strong&gt;Max-Priority Queue&lt;/strong&gt;。&lt;br /&gt;
-反之，若每次讀取資料，都拿到「權重最小」的資料，則稱此為&lt;strong&gt;Min-Priority Queue&lt;/strong&gt;。&lt;/p&gt;
-&lt;p&gt;舉例來說，如果每天起床固定要：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;削鉛筆，重要性&lt;span class="math"&gt;\(2\)&lt;/span&gt;分；&lt;/li&gt;
-&lt;li&gt;梳洗，重要性&lt;span class="math"&gt;\(10\)&lt;/span&gt;分；&lt;/li&gt;
-&lt;li&gt;剪指甲，重要性&lt;span class="math"&gt;\(4\)&lt;/span&gt;分；&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;那麼，以一個Max-Priority Queue來管理「每天起床的待辦事項」，第一件事情要先刷牙上廁所，然後是剪指甲，最後再削一些無關緊要的鉛筆。&lt;br /&gt;
-反之，若以一個Min-Priority Queue來管理「每天起床的待辦事項」，第一件事情要先削鉛筆，然後是剪指甲，最後才能去刷牙。&lt;/p&gt;
-&lt;p&gt;一個Max-Priority Queue，最基本會有三種操作：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;Insert&lt;/strong&gt;：將資料加入Queue中。&lt;ul&gt;
-&lt;li&gt;例如，把「削鉛筆」、「梳洗」、「剪指甲」三件事情寫進Queue裡。 &lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;IncreaseKey&lt;/strong&gt;：當某項資料的「重要性提高」時，需要在Queue中改變資料的權重，以下將以Key代表權重。&lt;ul&gt;
-&lt;li&gt;例如，最近突變出某種藉由指甲垢傳遞的流感病毒，使得「剪指甲」的重要性提高，便需要增加「剪指甲」的Key，假設Key提高到&lt;span class="math"&gt;\(11\)&lt;/span&gt;分，那麼每天起床的工作順序就變成：「剪指甲」、「梳洗」、「削鉛筆」。 &lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;ExtractMax&lt;/strong&gt;：取得最重要(Key最大)的資料，並將其從Queue中移除。&lt;ul&gt;
-&lt;li&gt;每天起床後，先從「待辦事項」得知，最重要的事情是「梳洗」，並在完成之後，將其從「待辦事項」移除，避免重複執行。 &lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;與之對應的Min-Priority Queue之基本操作則是：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;Insert&lt;/strong&gt;：將資料加入Queue中。 &lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;DecreaseKey&lt;/strong&gt;：當某項資料的「重要性降低」時，需要改變在Queue中資料的Key。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;ExtractMin&lt;/strong&gt;：取得重要性最低(Key最小)的資料，並將其從Queue中移除。&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;&lt;/br&gt;
-為了替&lt;strong&gt;Prim's Algorithm&lt;/strong&gt;以及&lt;strong&gt;Dijkstra's Algorithm&lt;/strong&gt;鋪路，以下將介紹Min-Priority Queue做代表。&lt;br /&gt;
-不過只要掌握Priority Queue的概念，Max-Priority Queue就只是桌上的一塊小蛋糕。&lt;/p&gt;
-&lt;p&gt;稍微困難的是實現方法。&lt;br /&gt;
-&lt;a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376"&gt;Fundamentals of Data Structures in C++, Ch9&lt;/a&gt;一共列出了六種實現方法(可能還有更多)：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;Leftist Tree(左傾樹)&lt;/li&gt;
-&lt;li&gt;Binomial Heap(二項式堆積)&lt;/li&gt;
-&lt;li&gt;Fibonacci Heap(費式堆積)&lt;/li&gt;
-&lt;li&gt;Pairing Heap(成對堆積)&lt;/li&gt;
-&lt;li&gt;Symmetric Min-Max Heap(對稱式最小-最大堆積)&lt;/li&gt;
-&lt;li&gt;Interval Heap(區間堆積)&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;前四種資料結構稱為&lt;strong&gt;Single-End Priority Queue(SEPQ)&lt;/strong&gt;，亦即，該資料結構只能取得「最大」或是「最小」權重的資料。&lt;br /&gt;
-後兩種資料結構稱為&lt;strong&gt;Double-End Priority Queue(DEPQ)&lt;/strong&gt;，可以同時取得「權重最大」以及「權重最小」的資料。&lt;/p&gt;
-&lt;p&gt;而下ㄧ小節，將介紹比上述六種資料結構更初級的&lt;strong&gt;Binary Heap&lt;/strong&gt;來實現Min-Priority Queue。&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a name="bh"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;Binary Heap(二元堆積)&lt;/h2&gt;
@@ -8345,7 +8141,151 @@ $$&lt;/div&gt;
 &lt;p&gt;&lt;a name="series"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h3&gt;Priority Queue系列文章&lt;/h3&gt;
-&lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/priority-queueintrojian-jie-binary-heap.html"&gt;Priority Queue：Intro(簡介) &amp;amp; Binary Heap&lt;/a&gt;  &lt;/p&gt;
+&lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/priority-queueintrojian-jie.html"&gt;Priority Queue：Intro(簡介)&lt;/a&gt;&lt;br /&gt;
+&lt;a href=""&gt;Priority Queue：Binary Heap&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;回到目錄：&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html"&gt;目錄：演算法與資料結構&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;script type="text/javascript"&gt;if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width &lt; 768) ? "left" : align;
+        indent = (screen.width &lt; 768) ? "0em" : indent;
+        linebreak = (screen.width &lt; 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' &amp;&amp; location_protocol !== 'https') location_protocol = 'https:';
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+&lt;/script&gt;</summary><category term="C++"></category><category term="Intro"></category><category term="Priority Queue"></category><category term="Heap"></category><category term="Binary Tree"></category><category term="Dictionary"></category></entry><entry><title>Priority Queue：Intro(簡介)</title><link href="http://alrightchiu.github.io/SecondRound/priority-queueintrojian-jie.html" rel="alternate"></link><updated>2016-03-05T21:25:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-03-05:SecondRound/priority-queueintrojian-jie.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;h3&gt;先備知識與注意事項&lt;/h3&gt;
+&lt;p&gt;本篇文章將介紹抽象的資料結構：Priority Queue(優先權佇列)的基本概念。  &lt;/p&gt;
+&lt;hr /&gt;
+&lt;h2&gt;目錄&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="#pq"&gt;簡介：Priority Queue(優先權佇列)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#ref"&gt;參考資料&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#series"&gt;Priority Queue系列文章&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a name="pq"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;簡介：Priority Queue(優先權佇列)&lt;/h2&gt;
+&lt;p&gt;「待辦事項」通常是表面上看起來沒有順序、但其實具有「執行時的優先順序」的一堆事情。&lt;/p&gt;
+&lt;p&gt;Priority Queue(優先權佇列)就像在處理「待辦事項」，能夠在眾多各自具有優先順序之資料堆中，取出「最重要/最不重要」的項目：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Priority&lt;/strong&gt;：對資料項目賦予「權重/優先權」，用以表示資料的重要程度。&lt;br /&gt;
+&lt;strong&gt;Queue&lt;/strong&gt;：隊伍、佇列、順序，意味著把資料整理成「某種順序」的資料結構。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;所謂的「某種順序」，可能是「先進先出(First-In-First-Out)」順序：每次要從此資料結構讀取資料時，必定是拿到「先進入」的資料。&lt;br /&gt;
+    (請參考：&lt;a href="https://en.wikipedia.org/wiki/Queue_%28abstract_data_type%29"&gt;Wikipedia：Queue&lt;/a&gt;)&lt;/li&gt;
+&lt;li&gt;也有可能是額外賦予資料的「權重/優先權」順序：每次要從此資料結構讀取資料時，必定會拿到具有「最大值/最小值權重」的資料。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;如果每次要從Priority Queue讀取資料時，都拿到「權重最大」的資料，則稱此為&lt;strong&gt;Max-Priority Queue&lt;/strong&gt;。&lt;br /&gt;
+反之，若每次讀取資料，都拿到「權重最小」的資料，則稱此為&lt;strong&gt;Min-Priority Queue&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;舉例來說，如果每天起床固定要：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;削鉛筆，重要性&lt;span class="math"&gt;\(2\)&lt;/span&gt;分；&lt;/li&gt;
+&lt;li&gt;梳洗，重要性&lt;span class="math"&gt;\(10\)&lt;/span&gt;分；&lt;/li&gt;
+&lt;li&gt;剪指甲，重要性&lt;span class="math"&gt;\(4\)&lt;/span&gt;分；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;那麼，以一個Max-Priority Queue來管理「每天起床的待辦事項」，第一件事情要先刷牙上廁所，然後是剪指甲，最後再削一些無關緊要的鉛筆。&lt;br /&gt;
+反之，若以一個Min-Priority Queue來管理「每天起床的待辦事項」，第一件事情要先削鉛筆，然後是剪指甲，最後才能去刷牙。&lt;/p&gt;
+&lt;p&gt;一個Max-Priority Queue，最基本會有三種操作：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Insert&lt;/strong&gt;：將資料加入Queue中。&lt;ul&gt;
+&lt;li&gt;例如，把「削鉛筆」、「梳洗」、「剪指甲」三件事情寫進Queue裡。 &lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;IncreaseKey&lt;/strong&gt;：當某項資料的「重要性提高」時，需要在Queue中改變資料的權重，以下將以Key代表權重。&lt;ul&gt;
+&lt;li&gt;例如，最近突變出某種藉由指甲垢傳遞的流感病毒，使得「剪指甲」的重要性提高，便需要增加「剪指甲」的Key，假設Key提高到&lt;span class="math"&gt;\(11\)&lt;/span&gt;分，那麼每天起床的工作順序就變成：「剪指甲」、「梳洗」、「削鉛筆」。 &lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;ExtractMax&lt;/strong&gt;：取得最重要(Key最大)的資料，並將其從Queue中移除。&lt;ul&gt;
+&lt;li&gt;每天起床後，先從「待辦事項」得知，最重要的事情是「梳洗」，並在完成之後，將其從「待辦事項」移除，避免重複執行。 &lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;與之對應的Min-Priority Queue之基本操作則是：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Insert&lt;/strong&gt;：將資料加入Queue中。 &lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;DecreaseKey&lt;/strong&gt;：當某項資料的「重要性降低」時，需要改變在Queue中資料的Key。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;ExtractMin&lt;/strong&gt;：取得重要性最低(Key最小)的資料，並將其從Queue中移除。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;/br&gt;&lt;br /&gt;
+為了替&lt;strong&gt;Prim's Algorithm&lt;/strong&gt;以及&lt;strong&gt;Dijkstra's Algorithm&lt;/strong&gt;鋪路，本系列文章將以Min-Priority Queue作為代表。&lt;br /&gt;
+不過只要掌握Priority Queue的概念，Max-Priority Queue就只是桌上的一塊小蛋糕。&lt;/p&gt;
+&lt;p&gt;稍微困難的是實現方法，&lt;a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376"&gt;Fundamentals of Data Structures in C++, Ch9&lt;/a&gt;一共列出了六種實現方法(可能還有更多)：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Leftist Tree(左傾樹)&lt;/li&gt;
+&lt;li&gt;Binomial Heap(二項式堆積)&lt;/li&gt;
+&lt;li&gt;Fibonacci Heap(費式堆積)&lt;/li&gt;
+&lt;li&gt;Pairing Heap(成對堆積)&lt;/li&gt;
+&lt;li&gt;Symmetric Min-Max Heap(對稱式最小-最大堆積)&lt;/li&gt;
+&lt;li&gt;Interval Heap(區間堆積)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;前四種資料結構稱為&lt;strong&gt;Single-End Priority Queue(SEPQ)&lt;/strong&gt;，亦即，該資料結構只能取得「最大」或是「最小」權重的資料。&lt;br /&gt;
+後兩種資料結構稱為&lt;strong&gt;Double-End Priority Queue(DEPQ)&lt;/strong&gt;，可以同時取得「權重最大」以及「權重最小」的資料。&lt;/p&gt;
+&lt;p&gt;下ㄧ篇文章，將介紹比上述六種資料結構更初級的&lt;strong&gt;Binary Heap&lt;/strong&gt;來實現Min-Priority Queue。&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;&lt;a name="ref"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;參考資料：&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844"&gt;Introduction to Algorithms, Ch6&lt;/a&gt; &lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376"&gt;Fundamentals of Data Structures in C++, Ch5, Ch9&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://www.cs.bris.ac.uk/~montanar/teaching/dsa/dijkstra-handout.pdf"&gt;Ashley Montanaro：Priority queues and Dijkstra’s algorithm&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://blog.yam.com/rockmanray/article/44952434"&gt;禪心劍氣相思骨：Priority Queue 解析1 - 從binary heap開始&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathdijkstras-algorithm.html"&gt;Single-Source Shortest Path：Dijkstra's Algorithm&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://en.wikipedia.org/wiki/Priority_queue"&gt;Wikipedia：Priority Queue&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a name="series"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;h3&gt;Priority Queue系列文章&lt;/h3&gt;
+&lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/priority-queueintrojian-jie.html"&gt;Priority Queue：Intro(簡介)&lt;/a&gt;  &lt;/p&gt;
 &lt;p&gt;回到目錄：&lt;/p&gt;
 &lt;p&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html"&gt;目錄：演算法與資料結構&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
