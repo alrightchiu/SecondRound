@@ -144,9 +144,9 @@ Summary: 介紹Dijkstra's Algorithm。
 
 關鍵是，為什麼從**Q**中挑選`distance`最小的vertex(X)，就能肯定已經找到「從起點vertex走到vertex(X)之最短路徑」，`distance[X]`$=\delta(0,X)$？
 
-這裡不進行嚴謹證明(請參考：[Ashley Montanaro：Priority queues and Dijkstra’s algorithm](https://www.cs.bris.ac.uk/~montanar/teaching/dsa/dijkstra-handout.pdf))，只就基本條件推論。
+這裡不進行嚴謹證明(證明請參考：[Ashley Montanaro：Priority queues and Dijkstra’s algorithm](https://www.cs.bris.ac.uk/~montanar/teaching/dsa/dijkstra-handout.pdf))，只就基本條件推論。
 
-前面提到，**Dijkstra's Algorithm**的使用時機是，當Graph中的weight皆為非負實數($weight\geq 0$)，因此：
+前面提到，**Dijkstra's Algorithm**的使用時機是，當Graph中的weight皆為非負實數($weight\geq 0$)，此時：
 
 * Graph中的所有**cycle**之wieght總和必定是正值(positive value)；
 * 亦即，路徑中的edge越多，其weight總和只會增加或持平，不可能減少。
@@ -258,31 +258,7 @@ Summary: 介紹Dijkstra's Algorithm。
 #include <utility>          // for std::pair<>
 #include <iomanip>          // for std::setw()
 #include <cmath>            // for std::floor
-
-struct HeapNode{
-    int element, key;               // element代表vertex, key代表distance
-    HeapNode():element(0),key(0){};
-    HeapNode(int node, int key):element(node), key(key){};
-};
-class BinaryHeap{
-private:
-    std::vector<HeapNode> heap;            // 存放HeapNode之vertex及distance的矩陣
-    void swap(struct HeapNode &p1, struct HeapNode &p2);
-    int FindPosition(int node);
-    int GetParentNode(int node){return std::floor(node/2);};
-public:
-    BinaryHeap(){heap.resize(1);};
-    BinaryHeap(int n){heap.resize(n + 1);}          
-    bool IsHeapEmpty(){return (heap.size()<1);};
-    
-    // Min-Priority Queue
-    void MinHeapify(int node, int length);
-    void BuildMinHeap(std::vector<int> array);                               
-    void DecreaseKey(int node, int newKey);
-    void MinHeapInsert(int node, int key);
-    int Minimum();         
-    int ExtractMin();
-};
+#include "Priority_Queue_BinaryHeap.h"
 
 const int Max_Distance = 100;
 class Graph_SP{             // SP serves as Shortest Path
@@ -290,6 +266,7 @@ private:
     int num_vertex;
     std::vector<std::list<std::pair<int,int>>> AdjList;
     std::vector<int> predecessor, distance;
+    std::vector<bool> visited;
 public:
     Graph_SP():num_vertex(0){};
     Graph_SP(int n):num_vertex(n){
@@ -309,8 +286,10 @@ void Graph_SP::Dijkstra(int Start){
     
     InitializeSingleSource(Start);
     
-    BinaryHeap minQueue(num_vertex+1);   // object of min queue
+    BinaryHeap minQueue(num_vertex);   // object of min queue
     minQueue.BuildMinHeap(distance);
+    
+    visited.resize(num_vertex, false);   // initializa visited[] as {0,0,0,...,0}
     
     while (!minQueue.IsHeapEmpty()) {
         int u = minQueue.ExtractMin();
@@ -385,13 +364,21 @@ print distance:
    0   7   8   3   9   1
 ```
 
-備註：output中的「new key is larger than current key」是因為嘗試把Min-Priority Queue中的Key「增加」，也就是當vertex(X)對vertex(Y)進行Relax失敗的時候，以此例而言：
+小小備註(可能不是很重要)：
 
-* 第一次發生在圖四(a)與圖四(b)，要以vertex(3)對其他與之相連的vertex進行Relax時，因為vertex(4)目前具有較小的「distance」(從vertex(5)走到vertex(4)成本較低)，所以vertex(5)
-* 第二次發生在圖六(a)與圖六(b)，以vertex(2)對vertex(4)進行Relax時
+output中的「new key is larger than current key」來自於Min-Priority Queue中的`DecreaseKey()`。  
+`DecreaseKey()`只允許將Min-Priority Queue中的node之Key「降低」，不能「增加」，所以當要求「增加」時，便中止該函式。
 
 
+那麼以此例而言，什麼時候會出現「new key is larger than current key」呢？
 
+就是當vertex(X)想要對vertex(Y)進行**Relaxation**卻失敗的時候，以此例而言：
+
+* 第一次發生在圖四(a)與圖四(b)，要以vertex(3)對其他「還存在Min-Priority Queue中」而且「與vertex(3)相連」的vertex進行**Relaxation**時(在vertex(3)因為`distance`最小而被當作起點之前，vertex(0)與vertex(5)已經從**Q**中移除了，因此目前只剩下vertex(1)、vertex(2)、vertex(4)與之相連)，因為vertex(4)當下的`distance`(從vertex(5)走到vertex(4)的成本)會比從vertex(3)走到vertex(4)還低(成本`distance[3]+weight(3,4)`為$3+7=10$)，所以在**Relaxation**後，`distance[4]`維持不變，那麼在`minQueue`進行`DecreaseKey()`時，就不會對vertex(4)的Key(也就是`distance[4]`)進行調整。
+* 第二次發生在圖六(a)與圖六(b)，以vertex(2)對vertex(4)進行**Relaxation**時，理由與第一次一樣：「從vertex(2)走到vertex(4)的成本」比「從vertex(5)走到vertex(4)的成本」還高，所以不更新`distance[4]`。
+
+
+</br>  
 最後，關於**Dijkstra's Algorithm**之時間複雜度，會因為Min-Priority Queue所使用的資料結構(例如，Binary Heap或是Fibonacci Heap)而有所差異，可能最差從$O(V^2+E)$到最好$O(V\log V+E)$，請參考以下連結之討論：
 
 * [Ashley Montanaro：Priority queues and Dijkstra’s algorithm](https://www.cs.bris.ac.uk/~montanar/teaching/dsa/dijkstra-handout.pdf)
@@ -423,7 +410,7 @@ print distance:
 
 以上便是**Dijkstra's Algorithm**之介紹。  
 
-讀者不妨嘗試比較**Dijkstra's Algorithm**與**Bellman-Ford Algorithm**之差異，一般情況下，**Dijkstra's Algorithm**應該會較有效率，不過限制是Graph之weight必須是非負實數，若遇到weight為負數時，仍需使用**Bellman-Ford Algorithm**。
+讀者不妨嘗試比較**Dijkstra's Algorithm**與**Bellman-Ford Algorithm**之差異，一般情況下，**Dijkstra's Algorithm**應該會較有效率，不過限制是Graph之weight必須是非負實數(nonnegative real number)，若遇到weight為負數時，仍需使用**Bellman-Ford Algorithm**。
 
 
 </br>
