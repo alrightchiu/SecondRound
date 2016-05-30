@@ -129,7 +129,11 @@ Summary: 請先閱讀本篇目錄。
 
 ##Priority Queue系列文章
 
-[Priority Queue：Intro(簡介) & Binary Heap](http://alrightchiu.github.io/SecondRound/priority-queueintrojian-jie-binary-heap.html)  
+[Priority Queue：Intro(簡介)](http://alrightchiu.github.io/SecondRound/priority-queueintrojian-jie.html)  
+[Priority Queue：Binary Heap](http://alrightchiu.github.io/SecondRound/priority-queuebinary-heap.html)  
+
+
+
 
 
 </br>

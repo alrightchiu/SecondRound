@@ -107,6 +107,7 @@ Priority Queue(優先權佇列)就像在處理「待辦事項」，能夠在眾�
 ###Priority Queue系列文章
 
 [Priority Queue：Intro(簡介)](http://alrightchiu.github.io/SecondRound/priority-queueintrojian-jie.html)  
+[Priority Queue：Binary Heap](http://alrightchiu.github.io/SecondRound/priority-queuebinary-heap.html)  
 
 
 

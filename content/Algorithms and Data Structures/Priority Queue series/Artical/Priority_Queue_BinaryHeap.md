@@ -560,7 +560,7 @@ void BinaryHeap::MinHeapInsert(int node, int key){
 ###Priority Queue系列文章
 
 [Priority Queue：Intro(簡介)](http://alrightchiu.github.io/SecondRound/priority-queueintrojian-jie.html)  
-[Priority Queue：Binary Heap]()
+[Priority Queue：Binary Heap](http://alrightchiu.github.io/SecondRound/priority-queuebinary-heap.html)  
 
 
 
