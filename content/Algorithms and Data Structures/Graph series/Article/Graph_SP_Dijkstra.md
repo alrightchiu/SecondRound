@@ -326,7 +326,36 @@ void Graph_SP::Dijkstra(int Start){
     std::cout << "\nprint distance:\n";
     PrintDataArray(distance);
 }
-
+void Graph_SP::InitializeSingleSource(int Start){
+    
+    distance.resize(num_vertex);
+    predecessor.resize(num_vertex);
+    
+    for (int i = 0; i < num_vertex; i++) {
+        distance[i] = Max_Distance;
+        predecessor[i] = -1;
+    }
+    distance[Start] = 0;
+}
+void Graph_SP::Relax(int from, int to, int weight){
+    
+    if (distance[to] > distance[from] + weight) {
+        distance[to] = distance[from] + weight;
+        predecessor[to] = from;
+    }
+}
+void Graph_SP::AddEdge(int from, int to, int weight){
+    
+    AdjList[from].push_back(std::make_pair(to,weight));
+}
+void Graph_SP::PrintDataArray(std::vector<int> array){
+    for (int i = 0; i < num_vertex; i++)
+        std::cout << std::setw(4) << i;
+    std::cout << std::endl;
+    for (int i = 0; i < num_vertex; i++)
+        std::cout << std::setw(4) << array[i];
+    std::cout << std::endl;
+}
 int main(){
     
     Graph_SP g9(6);
@@ -356,7 +385,10 @@ print distance:
    0   7   8   3   9   1
 ```
 
+備註：output中的「new key is larger than current key」是因為嘗試把Min-Priority Queue中的Key「增加」，也就是當vertex(X)對vertex(Y)進行Relax失敗的時候，以此例而言：
 
+* 第一次發生在圖四(a)與圖四(b)，要以vertex(3)對其他與之相連的vertex進行Relax時，因為vertex(4)目前具有較小的「distance」(從vertex(5)走到vertex(4)成本較低)，所以vertex(5)
+* 第二次發生在圖六(a)與圖六(b)，以vertex(2)對vertex(4)進行Relax時
 
 
 

@@ -449,16 +449,16 @@ int BinaryHeap::ExtractMin(){
 // C++ code
 void BinaryHeap::DecreaseKey(int node, int newKey){
     
-    int posi = FindPosition(node);      // 找到node所在的位置index
+    int index_node = FindPosition(node);      // 找到node所在的位置index
     
-    if (newKey > heap[posi].key) {      // 如果不是把node的Key下修, 便終止此函式
+    if (newKey > heap[index_node].key) {      // 如果不是把node的Key下修, 便終止此函式
         std::cout << "new key is larger than current key\n";
         return;
     }
-    heap[posi].key = newKey;            // 更新node之Key後, 需要檢查是否新的subtree滿足Min Heap
-    while (posi > 1 && heap[GetParentNode(posi)].key > heap[posi].key) {
-        swap(heap[posi], heap[GetParentNode(posi)]);
-        posi = GetParentNode(posi);
+    heap[index_node].key = newKey;            // 更新node之Key後, 需要檢查是否新的subtree滿足Min Heap
+    while (index_node > 1 && heap[GetParentNode(index_node)].key > heap[index_node].key) {
+        swap(heap[index_node], heap[GetParentNode(index_node)]);
+        index_node = GetParentNode(index_node);
     }
 }
 ```
