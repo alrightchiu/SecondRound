@@ -373,7 +373,36 @@
     <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">print distance:</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
     <span class="n">PrintDataArray</span><span class="p">(</span><span class="n">distance</span><span class="p">);</span>
 <span class="p">}</span>
+<span class="kt">void</span> <span class="n">Graph_SP</span><span class="o">::</span><span class="n">InitializeSingleSource</span><span class="p">(</span><span class="kt">int</span> <span class="n">Start</span><span class="p">){</span>
 
+    <span class="n">distance</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">num_vertex</span><span class="p">);</span>
+    <span class="n">predecessor</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">num_vertex</span><span class="p">);</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">num_vertex</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">distance</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">Max_Distance</span><span class="p">;</span>
+        <span class="n">predecessor</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">distance</span><span class="p">[</span><span class="n">Start</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="n">Graph_SP</span><span class="o">::</span><span class="n">Relax</span><span class="p">(</span><span class="kt">int</span> <span class="n">from</span><span class="p">,</span> <span class="kt">int</span> <span class="n">to</span><span class="p">,</span> <span class="kt">int</span> <span class="n">weight</span><span class="p">){</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">distance</span><span class="p">[</span><span class="n">to</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">distance</span><span class="p">[</span><span class="n">from</span><span class="p">]</span> <span class="o">+</span> <span class="n">weight</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">distance</span><span class="p">[</span><span class="n">to</span><span class="p">]</span> <span class="o">=</span> <span class="n">distance</span><span class="p">[</span><span class="n">from</span><span class="p">]</span> <span class="o">+</span> <span class="n">weight</span><span class="p">;</span>
+        <span class="n">predecessor</span><span class="p">[</span><span class="n">to</span><span class="p">]</span> <span class="o">=</span> <span class="n">from</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="n">Graph_SP</span><span class="o">::</span><span class="n">AddEdge</span><span class="p">(</span><span class="kt">int</span> <span class="n">from</span><span class="p">,</span> <span class="kt">int</span> <span class="n">to</span><span class="p">,</span> <span class="kt">int</span> <span class="n">weight</span><span class="p">){</span>
+
+    <span class="n">AdjList</span><span class="p">[</span><span class="n">from</span><span class="p">].</span><span class="n">push_back</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">make_pair</span><span class="p">(</span><span class="n">to</span><span class="p">,</span><span class="n">weight</span><span class="p">));</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="n">Graph_SP</span><span class="o">::</span><span class="n">PrintDataArray</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">array</span><span class="p">){</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">num_vertex</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setw</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">i</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">num_vertex</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setw</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
 <span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
 
     <span class="n">Graph_SP</span> <span class="n">g9</span><span class="p">(</span><span class="mi">6</span><span class="p">);</span>
@@ -404,6 +433,11 @@
 </pre></div>
 
 
+<p>備註：output中的「new key is larger than current key」是因為嘗試把Min-Priority Queue中的Key「增加」，也就是當vertex(X)對vertex(Y)進行Relax失敗的時候，以此例而言：</p>
+<ul>
+<li>第一次發生在圖四(a)與圖四(b)，要以vertex(3)對其他與之相連的vertex進行Relax時，因為vertex(4)目前具有較小的「distance」(從vertex(5)走到vertex(4)成本較低)，所以vertex(5)</li>
+<li>第二次發生在圖六(a)與圖六(b)，以vertex(2)對vertex(4)進行Relax時</li>
+</ul>
 <p>最後，關於<strong>Dijkstra's Algorithm</strong>之時間複雜度，會因為Min-Priority Queue所使用的資料結構(例如，Binary Heap或是Fibonacci Heap)而有所差異，可能最差從<span class="math">\(O(V^2+E)\)</span>到最好<span class="math">\(O(V\log V+E)\)</span>，請參考以下連結之討論：</p>
 <ul>
 <li><a href="https://www.cs.bris.ac.uk/~montanar/teaching/dsa/dijkstra-handout.pdf">Ashley Montanaro：Priority queues and Dijkstra’s algorithm</a></li>
