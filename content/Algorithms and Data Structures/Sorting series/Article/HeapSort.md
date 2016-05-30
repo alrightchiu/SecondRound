@@ -29,7 +29,7 @@ Sorting(排序)是基本的資料處理，舉例來說，進入圖書館的查�
 
 本篇文章將介紹以Max Heap實現**Heap Sort(堆積排序法)**的方法。
 
-有關Min Heap的內容，請參考[Priority Queue：Intro(簡介) & Binary Heap](http://alrightchiu.github.io/SecondRound/priority-queueintrojian-jie-binary-heap.html#bh)。
+有關Min Heap的內容，請參考[Priority Queue：Binary Heap](http://alrightchiu.github.io/SecondRound/priority-queuebinary-heap.html)。
 
 ***
 
