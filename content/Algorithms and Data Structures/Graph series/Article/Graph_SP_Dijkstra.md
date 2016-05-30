@@ -24,7 +24,10 @@ Summary: 介紹Dijkstra's Algorithm。
 * `DecreaseKey()`
 * `MinHeapInsert()`，不過本文以`BuildMinHeap()`取代；
 
-若讀者需要稍作複習，請參考[Priority Queue：Intro(簡介) & Binary Heap](http://alrightchiu.github.io/SecondRound/priority-queueintrojian-jie-binary-heap.html)。
+若讀者需要稍作複習，請參考：
+
+* [Priority Queue：Intro(簡介)](http://alrightchiu.github.io/SecondRound/priority-queueintrojian-jie.html)  
+* [Priority Queue：Binary Heap](http://alrightchiu.github.io/SecondRound/priority-queuebinary-heap.html)  
 
 
 ***
@@ -235,7 +238,7 @@ Summary: 介紹Dijkstra's Algorithm。
 
 程式碼包含幾個部分：
 
-`class BinaryHeap`與`struct HeapNode`：以Binary Heap實現Min-Priority Queue，概念與範例程式碼請參考[Priority Queue：Intro(簡介) & Binary Heap](http://alrightchiu.github.io/SecondRound/priority-queueintrojian-jie-binary-heap.html)。
+`class BinaryHeap`與`struct HeapNode`：以Binary Heap實現Min-Priority Queue，概念與範例程式碼請參考[Priority Queue：Binary Heap](http://alrightchiu.github.io/SecondRound/priority-queuebinary-heap.html)。
 
 `class Graph_SP`：
 
