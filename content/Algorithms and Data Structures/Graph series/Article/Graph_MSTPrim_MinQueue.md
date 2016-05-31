@@ -350,7 +350,8 @@ int main(){
     g6.Prim_MinQueue(2);
     
     return 0;
-}```
+}
+```
 output:
 
 ```cpp
