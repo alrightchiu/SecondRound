@@ -12,7 +12,7 @@ Summary: 介紹以Min-Priority Queue實現Prim's Algorithm之方法。
 
 本篇文章將補充以稍微優秀一點的資料結構：**Min-Priority Queue**實現**Prim's Algorithm**中的「取最小值(**ExtractMin**)」的方法。
 
-上一篇文章的` MinKeyExtract()`需要把整個`key[]`走過一次，時間複雜度為$O(|V|)$($|V|$表示vertex的數量)。  
+上一篇文章的` MinKeyExtract()`需要把整個`key[]`走過一次，時間複雜度為$O(|V|)$，其中$|V|$表示vertex的數量。  
 而以Binary Heap實現的**Min-Priority Queue**，在「取最小值」的時候只要$O(\log{|V|})$(也就是以Binary Tree解讀Binary Heap的「樹高」)，理論上應該會比較有效率。
 
 建議讀者可以先閱讀以下文章，：
