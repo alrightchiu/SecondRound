@@ -346,7 +346,7 @@ int main(){
     g6.AddEdge(5, 0, 3);g6.AddEdge(5, 4, 6);
     g6.AddEdge(6, 1, 4);g6.AddEdge(6, 2, 8);g6.AddEdge(6, 3, 9);g6.AddEdge(6, 4, 2);
 
-    cout << "\nMST found by Prim_MinQueue:\n";
+    cout << "MST found by Prim_MinQueue:\n";
     g6.Prim_MinQueue(2);
     
     return 0;
