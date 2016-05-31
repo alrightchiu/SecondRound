@@ -425,7 +425,7 @@ print distance:
 * [Rashid Bin Muhammad：Jarnik's (Prim's) Algorithm](http://www.personal.kent.edu/~rmuhamma/Algorithms/MyAlgorithms/GraphAlgor/primAlgor.htm)
 * [Theory of Programming：Prim's Algorithm](http://theoryofprogramming.com/2015/03/27/prims-algorithm/)
 * [GeeksforGeeks：Greedy Algorithms | Set 6 (Prim’s MST for Adjacency List Representation)](http://www.geeksforgeeks.org/greedy-algorithms-set-5-prims-mst-for-adjacency-list-representation/)
-* [Dijkstra's Algorithm](http://alrightchiu.github.io/SecondRound/single-source-shortest-pathdijkstras-algorithm.html#code)
+* [Single-Source Shortest Path：Dijkstra's Algorithm](http://alrightchiu.github.io/SecondRound/single-source-shortest-pathdijkstras-algorithm.html#code)
 * [Priority Queue：Binary Heap](http://alrightchiu.github.io/SecondRound/priority-queuebinary-heap.html)
 
 
