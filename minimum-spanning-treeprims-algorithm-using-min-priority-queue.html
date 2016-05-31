@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="zh-hant">
+
+<head>
+            <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+
+        <title>Minimum Spanning Tree：Prim's Algorithm using Min-Priority Queue</title>
+
+            <link href="http://alrightchiu.github.io/SecondRound/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Second Round Full Atom Feed" />
+            <link href="http://alrightchiu.github.io/SecondRound/feeds/yan-suan-fa-yu-zi-liao-jie-gou.atom.xml" type="application/atom+xml" rel="alternate" title="Second Round Categories Atom Feed" />
+
+        <!-- Bootstrap Core CSS -->
+        <link href="http://alrightchiu.github.io/SecondRound/theme/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="http://alrightchiu.github.io/SecondRound/theme/css/clean-blog.min.css" rel="stylesheet">
+
+        <!-- Code highlight color scheme -->
+            <link href="http://alrightchiu.github.io/SecondRound/theme/css/code_blocks/darkly.css" rel="stylesheet">
+
+
+        <!-- Custom Fonts -->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+
+
+
+        <meta name="tags" contents="C++" />
+        <meta name="tags" contents="Graph" />
+        <meta name="tags" contents="Minimum Spanning Tree" />
+        <meta name="tags" contents="Greedy Algorithm" />
+        <meta name="tags" contents="Cut(partition)" />
+        <meta name="tags" contents="Priority Queue" />
+        <meta name="tags" contents="Heap" />
+
+
+	                <meta property="og:locale" content="">
+		<meta property="og:site_name" content="Second Round">
+
+	<meta property="og:type" content="article">
+	<meta property="article:author" content="">
+	<meta property="og:url" content="http://alrightchiu.github.io/SecondRound/minimum-spanning-treeprims-algorithm-using-min-priority-queue.html">
+	<meta property="og:title" content="Minimum Spanning Tree：Prim's Algorithm using Min-Priority Queue">
+	<meta property="og:description" content="">
+	<meta property="og:image" content="http://alrightchiu.github.io/SecondRound/">
+	<meta property="article:published_time" content="2016-02-25 20:33:00+08:00">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://alrightchiu.github.io/SecondRound/">Second Round</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a href="http://alrightchiu.github.io/SecondRound/archives.html">Archives</a></li>
+                        <li><a href="http://alrightchiu.github.io/SecondRound/tags.html">Tags</a></li>
+
+                            <li><a href="http://alrightchiu.github.io/SecondRound/pages/about.html">About</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+        <header class="intro-header" style="background-image: url('http://alrightchiu.github.io/SecondRound/theme/images/post-bg.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>Minimum Spanning Tree：Prim's Algorithm using Min-Priority Queue</h1>
+                        <span class="meta">Posted by
+                                <a href="http://alrightchiu.github.io/SecondRound/author/chiu-cc.html">Chiu CC</a>
+                             on  2 25, 2016
+                        </span>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    <!-- Post Content -->
+    <article>
+        <p></br></p>
+<h3>先備知識與注意事項</h3>
+<p>在<a href="http://alrightchiu.github.io/SecondRound/minimum-spanning-treeprims-algorithm.html">Minimum Spanning Tree：Prim's Algorithm</a>中介紹過<strong>Prim's Algorithm</strong>的概念，也提供了範例程式碼。</p>
+<p>本篇文章將補充以稍微優秀一點的資料結構：<strong>Min-Priority Queue</strong>實現<strong>Prim's Algorithm</strong>中的「取最小值(<strong>ExtractMin</strong>)」的方法。</p>
+<p>上一篇文章的<code>MinKeyExtract()</code>需要把整個<code>key[]</code>走過一次，時間複雜度為<span class="math">\(O(|V|)\)</span>(<span class="math">\(|V|\)</span>表示vertex的數量)。<br />
+而以Binary Heap實現的<strong>Min-Priority Queue</strong>，在「取最小值」的時候只要<span class="math">\(O(\log{|V|})\)</span>(也就是以Binary Tree解讀Binary Heap的「樹高」)，理論上應該會比較有效率。</p>
+<p>建議讀者可以先閱讀以下文章，：</p>
+<ul>
+<li><a href="http://alrightchiu.github.io/SecondRound/minimum-spanning-treeintrojian-jie.html">Minimum Spanning Tree：Intro(簡介)</a>：MST的基本概念，以及證明用的<strong>Theorem1</strong>與<strong>Corollary2</strong>。</li>
+<li><a href="http://alrightchiu.github.io/SecondRound/minimum-spanning-treeprims-algorithm.html">Minimum Spanning Tree：Prim's Algorithm</a>：<strong>Prim's Algorithm</strong>的基本概念。</li>
+<li><a href="http://alrightchiu.github.io/SecondRound/priority-queuebinary-heap.html">Priority Queue：Binary Heap</a>：以<strong>Binary Heap</strong>實現<strong>Min-Priority Queue</strong>的方法。</li>
+<li></li>
+</ul>
+<hr />
+<h2>目錄</h2>
+<ul>
+<li><a href="#algorithm">Prim's Algorithm</a></li>
+<li><a href="#code">程式碼</a></li>
+<li><a href="#ref">參考資料</a></li>
+<li><a href="#series">MST系列文章</a></li>
+</ul>
+<p></br></p>
+<p><a name="algorithm"></a></p>
+<h2>Prim's Algorithm</h2>
+<p>以下不再贅述<strong>Prim's Algorithm</strong>的概念，直接以圖示觀察Min-Priority Queue的作用。</p>
+<p>觀察圖一(a)到圖一(m)：</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_Prim_PQ_fig/f1.png?raw=true" /></p>
+<p><strong>圖一(a)。</strong></p>
+<p><img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_Prim_PQ_fig/f2.png?raw=true" /></p>
+<p><strong>圖一(b)。</strong></p>
+<p><img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_Prim_PQ_fig/f3.png?raw=true" /></p>
+<p><strong>圖一(c)。</strong></p>
+<p><img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_Prim_PQ_fig/f4.png?raw=true" /></p>
+<p><strong>圖一(d)。</strong></p>
+<p><img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_Prim_PQ_fig/f5.png?raw=true" /></p>
+<p><strong>圖一(e)。</strong></p>
+<p><img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_Prim_PQ_fig/f6.png?raw=true" /></p>
+<p><strong>圖一(f)。</strong></p>
+<p><img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_Prim_PQ_fig/f7.png?raw=true" /></p>
+<p><strong>圖一(g)。</strong></p>
+<p><img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_Prim_PQ_fig/f8.png?raw=true" /></p>
+<p><strong>圖一(h)。</strong></p>
+<p><img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_Prim_PQ_fig/f9.png?raw=true" /></p>
+<p><strong>圖一(i)。</strong></p>
+<p><img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_Prim_PQ_fig/f10.png?raw=true" /></p>
+<p><strong>圖一(j)。</strong></p>
+<p><img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_Prim_PQ_fig/f11.png?raw=true" /></p>
+<p><strong>圖一(k)。</strong></p>
+<p><img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_Prim_PQ_fig/f12.png?raw=true" /></p>
+<p><strong>圖一(l)。</strong></p>
+<p><img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_Prim_PQ_fig/f13.png?raw=true" /></p>
+<p><strong>圖一(m)。</strong>
+</center></p>
+<p></br></p>
+<p><a name="code"></a></p>
+<h2>程式碼</h2>
+<p>以下的程式範例包含了<code>class BinaryHeap</code>、<code>class Graph_MST</code>與<code>main()</code>。</p>
+<p><code>class BinaryHeap</code>的概念與程式碼與<a href="http://alrightchiu.github.io/SecondRound/priority-queuebinary-heap.html">Priority Queue：Binary Heap</a>的內容相同。</p>
+<p><code>class Graph_MST</code>建立Graph，其中<code>Prim_MinQueue()</code>即為尋找MST的<strong>Prim's Algorithm</strong>之函式主體。</p>
+<p>最後，<code>main()</code>利用<code>AddEdge()</code>建立出Graph的<code>AdjList</code>，並執行<code>Prim_MinQueue()</code>。</p>
+<div class="highlight"><pre><span class="c1">// C++ code</span>
+<span class="cp">#include &lt;iostream&gt;</span>
+<span class="cp">#include &lt;vector&gt;</span>
+<span class="cp">#include &lt;list&gt;</span>
+<span class="cp">#include &lt;utility&gt;          </span><span class="c1">// for std::pair&lt;&gt;</span>
+<span class="cp">#include &lt;iomanip&gt;          </span><span class="c1">// for std::setw()</span>
+<span class="cp">#include &lt;cmath&gt;            </span><span class="c1">// for std::floor</span>
+
+<span class="k">using</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="p">;</span>
+<span class="k">using</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+<span class="c1">/////////////// MinHeap ////////////////</span>
+
+<span class="k">struct</span> <span class="n">HeapNode</span><span class="p">{</span>
+    <span class="kt">int</span> <span class="n">key</span><span class="p">,</span> <span class="n">element</span><span class="p">;</span>
+    <span class="n">HeapNode</span><span class="p">()</span><span class="o">:</span><span class="n">key</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="n">element</span><span class="p">(</span><span class="mi">0</span><span class="p">){};</span>
+    <span class="n">HeapNode</span><span class="p">(</span><span class="kt">int</span> <span class="n">key</span><span class="p">,</span> <span class="kt">int</span> <span class="n">element</span><span class="p">)</span><span class="o">:</span><span class="n">key</span><span class="p">(</span><span class="n">key</span><span class="p">),</span><span class="n">element</span><span class="p">(</span><span class="n">element</span><span class="p">){};</span>
+<span class="p">};</span>
+<span class="k">class</span> <span class="nc">BinaryHeap</span><span class="p">{</span>
+<span class="k">private</span><span class="o">:</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">HeapNode</span><span class="o">&gt;</span> <span class="n">heap</span><span class="p">;</span>
+    <span class="kt">void</span> <span class="nf">swap</span><span class="p">(</span><span class="k">struct</span> <span class="n">HeapNode</span> <span class="o">&amp;</span><span class="n">p1</span><span class="p">,</span> <span class="k">struct</span> <span class="n">HeapNode</span> <span class="o">&amp;</span><span class="n">p2</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="nf">FindPosition</span><span class="p">(</span><span class="kt">int</span> <span class="n">node</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="nf">GetParentNode</span><span class="p">(</span><span class="kt">int</span> <span class="n">node</span><span class="p">){</span><span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">floor</span><span class="p">(</span><span class="n">node</span><span class="o">/</span><span class="mi">2</span><span class="p">);};</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">BinaryHeap</span><span class="p">(){</span><span class="n">heap</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="mi">1</span><span class="p">);};</span>
+    <span class="n">BinaryHeap</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">){</span>
+        <span class="n">heap</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>          <span class="c1">// 主要存放vertex及其distance的vector</span>
+    <span class="p">}</span>
+    <span class="c1">// Min-Priority Queue</span>
+    <span class="kt">void</span> <span class="n">MinHeapify</span><span class="p">(</span><span class="kt">int</span> <span class="n">node</span><span class="p">,</span> <span class="kt">int</span> <span class="n">length</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="nf">BuildMinHeap</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">array</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="nf">DecreaseKey</span><span class="p">(</span><span class="kt">int</span> <span class="n">node</span><span class="p">,</span> <span class="kt">int</span> <span class="n">newKey</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="nf">MinHeapInsert</span><span class="p">(</span><span class="kt">int</span> <span class="n">node</span><span class="p">,</span> <span class="kt">int</span> <span class="n">key</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="nf">ExtractMin</span><span class="p">();</span>                               <span class="c1">// 回傳heap[1]並調整Heap</span>
+    <span class="kt">int</span> <span class="nf">Minimum</span><span class="p">(){</span><span class="k">return</span> <span class="n">heap</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">element</span><span class="p">;};</span>         <span class="c1">// 回傳heap[1]</span>
+
+    <span class="kt">bool</span> <span class="nf">IsHeapEmpty</span><span class="p">(){</span><span class="k">return</span> <span class="p">(</span><span class="n">heap</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">&lt;=</span><span class="mi">1</span><span class="p">);};</span>
+
+<span class="p">};</span>
+
+<span class="kt">int</span> <span class="n">BinaryHeap</span><span class="o">::</span><span class="n">FindPosition</span><span class="p">(</span><span class="kt">int</span> <span class="n">node</span><span class="p">){</span>
+
+    <span class="kt">int</span> <span class="n">idx</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">heap</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">heap</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">element</span> <span class="o">==</span> <span class="n">node</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">idx</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">idx</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="n">BinaryHeap</span><span class="o">::</span><span class="n">MinHeapInsert</span><span class="p">(</span><span class="kt">int</span> <span class="n">node</span><span class="p">,</span> <span class="kt">int</span> <span class="n">key</span><span class="p">){</span>
+
+    <span class="n">heap</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">HeapNode</span><span class="p">(</span><span class="n">node</span><span class="p">,</span><span class="n">key</span><span class="p">));</span>
+    <span class="n">DecreaseKey</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">key</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="n">BinaryHeap</span><span class="o">::</span><span class="n">DecreaseKey</span><span class="p">(</span><span class="kt">int</span> <span class="n">node</span><span class="p">,</span> <span class="kt">int</span> <span class="n">newKey</span><span class="p">){</span>
+
+    <span class="kt">int</span> <span class="n">index_node</span> <span class="o">=</span> <span class="n">FindPosition</span><span class="p">(</span><span class="n">node</span><span class="p">);</span>      <span class="c1">// 找到node所在的位置index</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">newKey</span> <span class="o">&gt;=</span> <span class="n">heap</span><span class="p">[</span><span class="n">index_node</span><span class="p">].</span><span class="n">key</span><span class="p">)</span> <span class="p">{</span>      <span class="c1">// 如果不是把node的Key下修, 便終止此函式</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;new key is not smaller than current key</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">heap</span><span class="p">[</span><span class="n">index_node</span><span class="p">].</span><span class="n">key</span> <span class="o">=</span> <span class="n">newKey</span><span class="p">;</span>            <span class="c1">// 更新node之Key後,   </span>
+                                              <span class="c1">// 需要檢查是否新的subtree滿足Min Heap</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">index_node</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="n">heap</span><span class="p">[</span><span class="n">GetParentNode</span><span class="p">(</span><span class="n">index_node</span><span class="p">)].</span><span class="n">key</span> <span class="o">&gt;</span> <span class="n">heap</span><span class="p">[</span><span class="n">index_node</span><span class="p">].</span><span class="n">key</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">swap</span><span class="p">(</span><span class="n">heap</span><span class="p">[</span><span class="n">index_node</span><span class="p">],</span> <span class="n">heap</span><span class="p">[</span><span class="n">GetParentNode</span><span class="p">(</span><span class="n">index_node</span><span class="p">)]);</span>
+        <span class="n">index_node</span> <span class="o">=</span> <span class="n">GetParentNode</span><span class="p">(</span><span class="n">index_node</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="n">BinaryHeap</span><span class="o">::</span><span class="n">swap</span><span class="p">(</span><span class="k">struct</span> <span class="n">HeapNode</span> <span class="o">&amp;</span><span class="n">p1</span><span class="p">,</span> <span class="k">struct</span> <span class="n">HeapNode</span> <span class="o">&amp;</span><span class="n">p2</span><span class="p">){</span>
+
+    <span class="k">struct</span> <span class="n">HeapNode</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">p1</span><span class="p">;</span>
+    <span class="n">p1</span> <span class="o">=</span> <span class="n">p2</span><span class="p">;</span>
+    <span class="n">p2</span> <span class="o">=</span> <span class="n">temp</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kt">int</span> <span class="n">BinaryHeap</span><span class="o">::</span><span class="n">ExtractMin</span><span class="p">(){</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">IsHeapEmpty</span><span class="p">())</span> <span class="p">{</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;error: heap is empty</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+        <span class="n">exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="kt">int</span> <span class="n">min</span> <span class="o">=</span> <span class="n">heap</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">element</span><span class="p">;</span>    <span class="c1">// 此時heap的第一個node具有最小key值</span>
+    <span class="c1">// 便以min記錄其element, 最後回傳min</span>
+    <span class="c1">// delete the first element/vertex</span>
+    <span class="n">heap</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">heap</span><span class="p">[</span><span class="n">heap</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span><span class="p">];</span>            <span class="c1">// 把最後一個element放到第一個位置,</span>
+    <span class="n">heap</span><span class="p">.</span><span class="n">erase</span><span class="p">(</span><span class="n">heap</span><span class="p">.</span><span class="n">begin</span><span class="p">()</span><span class="o">+</span><span class="n">heap</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>   <span class="c1">// 再刪除最後一個element</span>
+    <span class="n">MinHeapify</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">heap</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>          <span class="c1">// 目前, heap[1]具有最大Key, 需要進行調整</span>
+
+    <span class="k">return</span> <span class="n">min</span><span class="p">;</span>       <span class="c1">// 回傳heap中具有最小key的element</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="n">BinaryHeap</span><span class="o">::</span><span class="n">BuildMinHeap</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">array</span><span class="p">){</span>
+
+    <span class="c1">// 將array[]的資料放進 heap之矩陣中, 並預留 heap[0] 不做使用</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">array</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">heap</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">].</span><span class="n">element</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>                 <span class="c1">// 把array[]的idx視為element</span>
+        <span class="n">heap</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">].</span><span class="n">key</span> <span class="o">=</span> <span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>              <span class="c1">// 把array[]的數值視為key</span>
+    <span class="p">}</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">heap</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">1</span> <span class="p">;</span> <span class="n">i</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">MinHeapify</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">heap</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>     <span class="c1">// length要減一, 因為heap從從1開始存放資料</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="n">BinaryHeap</span><span class="o">::</span><span class="n">MinHeapify</span><span class="p">(</span><span class="kt">int</span> <span class="n">node</span><span class="p">,</span> <span class="kt">int</span> <span class="n">length</span><span class="p">){</span>
+
+    <span class="kt">int</span> <span class="n">left</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">node</span><span class="p">,</span>          <span class="c1">// 取得left child</span>
+        <span class="n">right</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">node</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>     <span class="c1">// 取得right child</span>
+        <span class="n">smallest</span><span class="p">;</span>               <span class="c1">// smallest用來記錄包含root與child, 三者之中Key最小的node</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">left</span> <span class="o">&lt;=</span> <span class="n">length</span> <span class="o">&amp;&amp;</span> <span class="n">heap</span><span class="p">[</span><span class="n">left</span><span class="p">].</span><span class="n">key</span> <span class="o">&lt;</span> <span class="n">heap</span><span class="p">[</span><span class="n">node</span><span class="p">].</span><span class="n">key</span><span class="p">)</span>
+        <span class="n">smallest</span> <span class="o">=</span> <span class="n">left</span><span class="p">;</span>
+    <span class="k">else</span>
+        <span class="n">smallest</span> <span class="o">=</span> <span class="n">node</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">right</span> <span class="o">&lt;=</span> <span class="n">length</span> <span class="o">&amp;&amp;</span> <span class="n">heap</span><span class="p">[</span><span class="n">right</span><span class="p">].</span><span class="n">key</span> <span class="o">&lt;</span> <span class="n">heap</span><span class="p">[</span><span class="n">smallest</span><span class="p">].</span><span class="n">key</span><span class="p">)</span>
+        <span class="n">smallest</span> <span class="o">=</span> <span class="n">right</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">smallest</span> <span class="o">!=</span> <span class="n">node</span><span class="p">)</span> <span class="p">{</span>                 <span class="c1">// 如果目前node的Key不是三者中的最小</span>
+        <span class="n">swap</span><span class="p">(</span><span class="n">heap</span><span class="p">[</span><span class="n">smallest</span><span class="p">],</span> <span class="n">heap</span><span class="p">[</span><span class="n">node</span><span class="p">]);</span>   <span class="c1">// 就調換node與三者中Key最小的node之位置</span>
+        <span class="n">MinHeapify</span><span class="p">(</span><span class="n">smallest</span><span class="p">,</span> <span class="n">length</span><span class="p">);</span>       <span class="c1">// 調整新的subtree成Min Heap</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">/////////////// Prim&#39;s Algorithm /////////////////</span>
+
+<span class="k">static</span> <span class="k">const</span> <span class="kt">int</span> <span class="n">maxDistance</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">Graph_MST</span><span class="p">{</span>
+<span class="k">private</span><span class="o">:</span>
+    <span class="kt">int</span> <span class="n">num_vertex</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">list</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">AdjList</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">predecessor</span><span class="p">,</span> <span class="n">distance</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span> <span class="n">visited</span><span class="p">;</span>
+    <span class="kt">void</span> <span class="nf">InitializeSingleSource</span><span class="p">(</span><span class="kt">int</span> <span class="n">Start</span><span class="p">);</span>       <span class="c1">// 以Start作為起點</span>
+    <span class="kt">void</span> <span class="nf">PrintDataArray</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">array</span><span class="p">);</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">Graph_MST</span><span class="p">()</span><span class="o">:</span><span class="n">num_vertex</span><span class="p">(</span><span class="mi">0</span><span class="p">){};</span>
+    <span class="n">Graph_MST</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span><span class="o">:</span><span class="n">num_vertex</span><span class="p">(</span><span class="n">n</span><span class="p">){</span>
+        <span class="n">AdjList</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">num_vertex</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="kt">void</span> <span class="n">AddEdge</span><span class="p">(</span><span class="kt">int</span> <span class="n">from</span><span class="p">,</span> <span class="kt">int</span> <span class="n">to</span><span class="p">,</span> <span class="kt">int</span> <span class="n">weight</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="nf">Prim_MinQueue</span><span class="p">(</span><span class="kt">int</span> <span class="n">Start</span><span class="p">);</span>
+
+    <span class="k">friend</span> <span class="k">class</span> <span class="nc">BinaryHeap</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="kt">void</span> <span class="n">Graph_MST</span><span class="o">::</span><span class="n">InitializeSingleSource</span><span class="p">(</span><span class="kt">int</span> <span class="n">Start</span><span class="p">){</span>
+
+    <span class="n">distance</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">num_vertex</span><span class="p">);</span>
+    <span class="n">predecessor</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">num_vertex</span><span class="p">);</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">num_vertex</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">distance</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">maxDistance</span><span class="p">;</span>
+        <span class="n">predecessor</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">distance</span><span class="p">[</span><span class="n">Start</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>      <span class="c1">// 起點vertex的distance設為0, ExtractMin就會從起點開始</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">Graph_MST</span><span class="o">::</span><span class="n">Prim_MinQueue</span><span class="p">(</span><span class="kt">int</span> <span class="n">Start</span><span class="p">){</span>
+
+    <span class="n">InitializeSingleSource</span><span class="p">(</span><span class="n">Start</span><span class="p">);</span>
+
+    <span class="n">BinaryHeap</span> <span class="nf">minQueue</span><span class="p">(</span><span class="n">num_vertex</span><span class="p">);</span>
+    <span class="n">minQueue</span><span class="p">.</span><span class="n">BuildMinHeap</span><span class="p">(</span><span class="n">distance</span><span class="p">);</span>      <span class="c1">// use minQueue to handle distance[]</span>
+
+    <span class="n">visited</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">num_vertex</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>    <span class="c1">// initializa visited[] as {0,0,0,...,0}</span>
+
+    <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">minQueue</span><span class="p">.</span><span class="n">IsHeapEmpty</span><span class="p">())</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">u</span> <span class="o">=</span> <span class="n">minQueue</span><span class="p">.</span><span class="n">ExtractMin</span><span class="p">();</span>
+        <span class="n">visited</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">list</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="o">&gt;::</span><span class="n">iterator</span> <span class="n">itr</span> <span class="o">=</span> <span class="n">AdjList</span><span class="p">[</span><span class="n">u</span><span class="p">].</span><span class="n">begin</span><span class="p">();</span>
+             <span class="n">itr</span> <span class="o">!=</span> <span class="n">AdjList</span><span class="p">[</span><span class="n">u</span><span class="p">].</span><span class="n">end</span><span class="p">();</span> <span class="n">itr</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">visited</span><span class="p">[(</span><span class="o">*</span><span class="n">itr</span><span class="p">).</span><span class="n">first</span><span class="p">]</span> <span class="o">==</span> <span class="nb">false</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="o">*</span><span class="n">itr</span><span class="p">).</span><span class="n">second</span> <span class="o">&lt;</span> <span class="n">distance</span><span class="p">[(</span><span class="o">*</span><span class="n">itr</span><span class="p">).</span><span class="n">first</span><span class="p">])</span> <span class="p">{</span>
+
+                <span class="c1">// for edge(X,Y)</span>
+                <span class="c1">// u: X , (*itr).first: Y, (*itr).second: weight(X,Y)</span>
+                <span class="c1">// (*itr).second &lt; distance[(*itr).first]: weight(X,Y) &lt; distance[Y]</span>
+
+                <span class="n">distance</span><span class="p">[(</span><span class="o">*</span><span class="n">itr</span><span class="p">).</span><span class="n">first</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="o">*</span><span class="n">itr</span><span class="p">).</span><span class="n">second</span><span class="p">;</span>
+                <span class="n">predecessor</span><span class="p">[(</span><span class="o">*</span><span class="n">itr</span><span class="p">).</span><span class="n">first</span><span class="p">]</span> <span class="o">=</span> <span class="n">u</span><span class="p">;</span>
+                <span class="n">minQueue</span><span class="p">.</span><span class="n">DecreaseKey</span><span class="p">((</span><span class="o">*</span><span class="n">itr</span><span class="p">).</span><span class="n">first</span><span class="p">,</span> <span class="n">distance</span><span class="p">[(</span><span class="o">*</span><span class="n">itr</span><span class="p">).</span><span class="n">first</span><span class="p">]);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="c1">///////   print result   /////////</span>
+
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;print predecessor[]:</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">PrintDataArray</span><span class="p">(</span><span class="n">predecessor</span><span class="p">);</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;print distance[]:</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">PrintDataArray</span><span class="p">(</span><span class="n">distance</span><span class="p">);</span>
+
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setw</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;v1&quot;</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; - &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setw</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;v2&quot;</span><span class="o">&lt;&lt;</span> <span class="s">&quot; : weight</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="p">(</span><span class="n">Start</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="n">num_vertex</span><span class="p">;</span>   <span class="c1">// 若從4開始, i依序為5,6,0,1,2,3</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="o">!=</span> <span class="n">Start</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setw</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">predecessor</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; - &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setw</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">i</span>
+        <span class="o">&lt;&lt;</span> <span class="s">&quot; : &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setw</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">distance</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;&lt;</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="p">(</span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="o">%</span><span class="n">num_vertex</span><span class="p">;</span>       <span class="c1">// 到了6之後, 6+1 = 7, error:bad_access</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="n">Graph_MST</span><span class="o">::</span><span class="n">PrintDataArray</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">array</span><span class="p">){</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">num_vertex</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setw</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">i</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">num_vertex</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setw</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+    <span class="p">}</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="n">Graph_MST</span><span class="o">::</span><span class="n">AddEdge</span><span class="p">(</span><span class="kt">int</span> <span class="n">from</span><span class="p">,</span> <span class="kt">int</span> <span class="n">to</span><span class="p">,</span> <span class="kt">int</span> <span class="n">weight</span><span class="p">){</span>
+
+    <span class="n">AdjList</span><span class="p">[</span><span class="n">from</span><span class="p">].</span><span class="n">push_back</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">make_pair</span><span class="p">(</span><span class="n">to</span><span class="p">,</span><span class="n">weight</span><span class="p">));</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+
+    <span class="n">Graph_MST</span> <span class="n">g6</span><span class="p">(</span><span class="mi">7</span><span class="p">);</span>
+
+    <span class="n">g6</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span><span class="n">g6</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+    <span class="n">g6</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span><span class="n">g6</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span><span class="n">g6</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span><span class="n">g6</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
+    <span class="n">g6</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span><span class="n">g6</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span><span class="n">g6</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">);</span>
+    <span class="n">g6</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span><span class="n">g6</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">);</span><span class="n">g6</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">);</span>
+    <span class="n">g6</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span><span class="n">g6</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">);</span><span class="n">g6</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">);</span><span class="n">g6</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+    <span class="n">g6</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span><span class="n">g6</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">);</span>
+    <span class="n">g6</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span><span class="n">g6</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">);</span><span class="n">g6</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">9</span><span class="p">);</span><span class="n">g6</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">MST found by Prim_MinQueue:</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">g6</span><span class="p">.</span><span class="n">Prim_MinQueue</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span><span class="err">```</span>
+<span class="nl">output</span><span class="p">:</span>
+
+<span class="err">```</span><span class="n">cpp</span>
+<span class="n">MST</span> <span class="n">found</span> <span class="n">by</span> <span class="nl">Prim_MinQueue</span><span class="p">:</span>
+<span class="n">print</span> <span class="nl">predecessor</span><span class="p">:</span>
+   <span class="mi">0</span>   <span class="mi">1</span>   <span class="mi">2</span>   <span class="mi">3</span>   <span class="mi">4</span>   <span class="mi">5</span>   <span class="mi">6</span>
+   <span class="mi">1</span>   <span class="mi">4</span>  <span class="o">-</span><span class="mi">1</span>   <span class="mi">2</span>   <span class="mi">3</span>   <span class="mi">0</span>   <span class="mi">4</span>
+
+<span class="n">print</span> <span class="nl">distance</span><span class="p">:</span>
+   <span class="mi">0</span>   <span class="mi">1</span>   <span class="mi">2</span>   <span class="mi">3</span>   <span class="mi">4</span>   <span class="mi">5</span>   <span class="mi">6</span>
+   <span class="mi">5</span>   <span class="mi">1</span>   <span class="mi">0</span>   <span class="mi">5</span>   <span class="mi">7</span>   <span class="mi">3</span>   <span class="mi">2</span>
+
+ <span class="n">v1</span> <span class="o">-</span>  <span class="nl">v2</span> <span class="p">:</span> <span class="n">weight</span>
+  <span class="mi">2</span> <span class="o">-</span>   <span class="mi">3</span> <span class="o">:</span>   <span class="mi">5</span>
+  <span class="mi">3</span> <span class="o">-</span>   <span class="mi">4</span> <span class="o">:</span>   <span class="mi">7</span>
+  <span class="mi">0</span> <span class="o">-</span>   <span class="mi">5</span> <span class="o">:</span>   <span class="mi">3</span>
+  <span class="mi">4</span> <span class="o">-</span>   <span class="mi">6</span> <span class="o">:</span>   <span class="mi">2</span>
+  <span class="mi">1</span> <span class="o">-</span>   <span class="mi">0</span> <span class="o">:</span>   <span class="mi">5</span>
+  <span class="mi">4</span> <span class="o">-</span>   <span class="mi">1</span> <span class="o">:</span>   <span class="mi">1</span>
+</pre></div>
+
+
+<p>結果如同圖一(m)：</p>
+<p><center>
+<img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_Prim_PQ_fig/f13.png?raw=true" /></p>
+<p><strong>圖一(m)。</strong>
+</center></p>
+<p></br>  </p>
+<p>以上便是利用<strong>Min-Priority Queue</strong>實作的<strong>Prim's Algorithm</strong>之介紹。  </p>
+<p>建議讀者可以稍微比較一下以下兩者：</p>
+<ul>
+<li>利用<strong>Min-Priority Queue</strong>實作的<strong>Prim's Algorithm</strong>，以及</li>
+<li>利用<strong>Min-Priority Queue</strong>實作的<a href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathdijkstras-algorithm.html#code">Dijkstra's Algorithm</a>。</li>
+</ul>
+<p>根本一模一樣。</p>
+<p></br></p>
+<hr />
+<p><a name="ref"></a></p>
+<h3>參考資料：</h3>
+<ul>
+<li><a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844">Introduction to Algorithms, Ch23</a> </li>
+<li><a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376">Fundamentals of Data Structures in C++, Ch6</a></li>
+<li><a href="http://www.personal.kent.edu/~rmuhamma/Algorithms/MyAlgorithms/GraphAlgor/primAlgor.htm">Rashid Bin Muhammad：Jarnik's (Prim's) Algorithm</a></li>
+<li><a href="http://theoryofprogramming.com/2015/03/27/prims-algorithm/">Theory of Programming：Prim's Algorithm</a></li>
+<li><a href="http://www.geeksforgeeks.org/greedy-algorithms-set-5-prims-mst-for-adjacency-list-representation/">GeeksforGeeks：Greedy Algorithms | Set 6 (Prim’s MST for Adjacency List Representation)</a></li>
+<li><a href="http://alrightchiu.github.io/SecondRound/single-source-shortest-pathdijkstras-algorithm.html#code">Dijkstra's Algorithm</a></li>
+<li><a href="http://alrightchiu.github.io/SecondRound/priority-queuebinary-heap.html">Priority Queue：Binary Heap</a></li>
+</ul>
+<p><a name="series"></a></p>
+<p></br></p>
+<h3>MST系列文章</h3>
+<p><a href="http://alrightchiu.github.io/SecondRound/minimum-spanning-treeintrojian-jie.html">Minimum Spanning Tree：Intro(簡介)</a><br />
+<a href="http://alrightchiu.github.io/SecondRound/minimum-spanning-treekruskals-algorithm.html">Minimum Spanning Tree：Kruskal's Algorithm</a><br />
+<a href="http://alrightchiu.github.io/SecondRound/minimum-spanning-treeprims-algorithm.html">Minimum Spanning Tree：Prim's Algorithm</a><br />
+<a href="">Minimum Spanning Tree：Prim's Algorithm using Min-Priority Queue</a></p>
+<p>回到目錄：</p>
+<p><a href="http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html">目錄：演算法與資料結構</a></p>
+<p></br></p>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' && location_protocol !== 'https') location_protocol = 'https:';
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+    </article>
+
+        <div class="tags">
+            <p>tags: <a href="http://alrightchiu.github.io/SecondRound/tag/c.html">C++</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/graph.html">Graph</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/minimum-spanning-tree.html">Minimum Spanning Tree</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/greedy-algorithm.html">Greedy Algorithm</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/cutpartition.html">Cut(partition)</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/priority-queue.html">Priority Queue</a>, <a href="http://alrightchiu.github.io/SecondRound/tag/heap.html">Heap</a>, </p>
+        </div>
+
+<hr>
+<div class="sharing">
+</div>
+    <hr>
+
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                            <li>
+                                <a href="https://github.com/alrightchiu">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                    </ul>
+<p class="copyright text-muted">
+    Blog powered by <a href="http://getpelican.com">Pelican</a>,
+    which takes great advantage of <a href="http://python.org">Python</a>.
+</p>                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="http://alrightchiu.github.io/SecondRound/theme/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="http://alrightchiu.github.io/SecondRound/theme/js/bootstrap.min.js"></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script src="http://alrightchiu.github.io/SecondRound/theme/js/clean-blog.min.js"></script>
+
+</body>
+
+</html>
