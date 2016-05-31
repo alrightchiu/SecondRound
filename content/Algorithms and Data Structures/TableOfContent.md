@@ -22,20 +22,20 @@ Summary: 請先閱讀本篇目錄。
 
 ###Linked List
 
-[Linked List: Intro(簡介)](http://alrightchiu.github.io/SecondRound/linked-list-introjian-jie.html)  
-[Linked List: 新增資料、刪除資料、反轉](http://alrightchiu.github.io/SecondRound/linked-list-xin-zeng-zi-liao-shan-chu-zi-liao-fan-zhuan.html)    
+[Linked List：Intro(簡介)](http://alrightchiu.github.io/SecondRound/linked-list-introjian-jie.html)  
+[Linked List：新增資料、刪除資料、反轉](http://alrightchiu.github.io/SecondRound/linked-list-xin-zeng-zi-liao-shan-chu-zi-liao-fan-zhuan.html)    
 
 
 ###Stack
 
-[Stack: Intro(簡介)](http://alrightchiu.github.io/SecondRound/stack-introjian-jie.html)  
-[Stack: 以Array與Linked list實作](http://alrightchiu.github.io/SecondRound/stack-yi-arrayyu-linked-listshi-zuo.html)  
-[Stack: 能夠在O(1)取得最小值的MinStack](http://alrightchiu.github.io/SecondRound/stack-neng-gou-zai-o1qu-de-zui-xiao-zhi-de-minstack.html)  
+[Stack：Intro(簡介)](http://alrightchiu.github.io/SecondRound/stack-introjian-jie.html)  
+[Stack：以Array與Linked list實作](http://alrightchiu.github.io/SecondRound/stack-yi-arrayyu-linked-listshi-zuo.html)  
+[Stack：能夠在O(1)取得最小值的MinStack](http://alrightchiu.github.io/SecondRound/stack-neng-gou-zai-o1qu-de-zui-xiao-zhi-de-minstack.html)  
 
 ###Queue
 
-[Queue: Intro(簡介)，並以Linked list實作](http://alrightchiu.github.io/SecondRound/queue-introjian-jie-bing-yi-linked-listshi-zuo.html)    
-[Queue: 以Array實作Queue](http://alrightchiu.github.io/SecondRound/queue-yi-arrayshi-zuo-queue.html)  
+[Queue：Intro(簡介)，並以Linked list實作](http://alrightchiu.github.io/SecondRound/queue-introjian-jie-bing-yi-linked-listshi-zuo.html)    
+[Queue：以Array實作Queue](http://alrightchiu.github.io/SecondRound/queue-yi-arrayshi-zuo-queue.html)  
 
 
 ###Set
@@ -49,10 +49,10 @@ Summary: 請先閱讀本篇目錄。
 
 ###Comparison Sort
 
-[Comparison Sort: Insertion Sort(插入排序法)](http://alrightchiu.github.io/SecondRound/comparison-sort-insertion-sortcha-ru-pai-xu-fa.html)    
-[Comparison Sort: Quick Sort(快速排序法)](http://alrightchiu.github.io/SecondRound/comparison-sort-quick-sortkuai-su-pai-xu-fa.html)  
-[Comparison Sort: Heap Sort(堆積排序法)](http://alrightchiu.github.io/SecondRound/comparison-sort-heap-sortdui-ji-pai-xu-fa.html)  
-[Comparison Sort: Merge Sort(合併排序法)](http://alrightchiu.github.io/SecondRound/comparison-sort-merge-sorthe-bing-pai-xu-fa.html)   
+[Comparison Sort：Insertion Sort(插入排序法)](http://alrightchiu.github.io/SecondRound/comparison-sort-insertion-sortcha-ru-pai-xu-fa.html)    
+[Comparison Sort：Quick Sort(快速排序法)](http://alrightchiu.github.io/SecondRound/comparison-sort-quick-sortkuai-su-pai-xu-fa.html)  
+[Comparison Sort：Heap Sort(堆積排序法)](http://alrightchiu.github.io/SecondRound/comparison-sort-heap-sortdui-ji-pai-xu-fa.html)  
+[Comparison Sort：Merge Sort(合併排序法)](http://alrightchiu.github.io/SecondRound/comparison-sort-merge-sorthe-bing-pai-xu-fa.html)   
 
 
 
@@ -61,26 +61,26 @@ Summary: 請先閱讀本篇目錄。
 
 ##Tree系列文章
 
-[Tree(樹): Intro(簡介)](http://alrightchiu.github.io/SecondRound/treeshu-introjian-jie.html)
+[Tree(樹)：Intro(簡介)](http://alrightchiu.github.io/SecondRound/treeshu-introjian-jie.html)
 
 ###Binary Tree(二元樹)
 
-[Binary Tree: Intro(簡介)](http://alrightchiu.github.io/SecondRound/binary-tree-introjian-jie.html)  
-[Binary Tree: Traversal(尋訪)](http://alrightchiu.github.io/SecondRound/binary-tree-traversalxun-fang.html)  
-[Binary Tree: 建立一棵Binary Tree](http://alrightchiu.github.io/SecondRound/binary-tree-jian-li-yi-ke-binary-tree.html)
+[Binary Tree：Intro(簡介)](http://alrightchiu.github.io/SecondRound/binary-tree-introjian-jie.html)  
+[Binary Tree：Traversal(尋訪)](http://alrightchiu.github.io/SecondRound/binary-tree-traversalxun-fang.html)  
+[Binary Tree：建立一棵Binary Tree](http://alrightchiu.github.io/SecondRound/binary-tree-jian-li-yi-ke-binary-tree.html)
 
 ###Binary Search Tree(二元搜尋樹)
 
-[Binary Search Tree: Intro(簡介)](http://alrightchiu.github.io/SecondRound/binary-search-tree-introjian-jie.html)  
-[Binary Search Tree: Search(搜尋資料)、Insert(新增資料)](http://alrightchiu.github.io/SecondRound/binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao.html)  
-[Binary Search Tree: Sort(排序)、Delete(刪除資料)](http://alrightchiu.github.io/SecondRound/binary-search-tree-sortpai-xu-deleteshan-chu-zi-liao.html)
+[Binary Search Tree：Intro(簡介)](http://alrightchiu.github.io/SecondRound/binary-search-tree-introjian-jie.html)  
+[Binary Search Tree：Search(搜尋資料)、Insert(新增資料)](http://alrightchiu.github.io/SecondRound/binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao.html)  
+[Binary Search Tree：Sort(排序)、Delete(刪除資料)](http://alrightchiu.github.io/SecondRound/binary-search-tree-sortpai-xu-deleteshan-chu-zi-liao.html)
 
 ###Red Black Tree(紅黑樹)
 
-[Red Black Tree: Intro(簡介)](http://alrightchiu.github.io/SecondRound/red-black-tree-introjian-jie.html)  
-[Red Black Tree: Rotation(旋轉)](http://alrightchiu.github.io/SecondRound/red-black-tree-rotationxuan-zhuan.html)  
-[Red Black Tree: Insert(新增資料)與Fixup(修正)](http://alrightchiu.github.io/SecondRound/red-black-tree-insertxin-zeng-zi-liao-yu-fixupxiu-zheng.html)  
-[Red Black Tree: Delete(刪除資料)與Fixup(修正)](http://alrightchiu.github.io/SecondRound/red-black-tree-deleteshan-chu-zi-liao-yu-fixupxiu-zheng.html)  
+[Red Black Tree：Intro(簡介)](http://alrightchiu.github.io/SecondRound/red-black-tree-introjian-jie.html)  
+[Red Black Tree：Rotation(旋轉)](http://alrightchiu.github.io/SecondRound/red-black-tree-rotationxuan-zhuan.html)  
+[Red Black Tree：Insert(新增資料)與Fixup(修正)](http://alrightchiu.github.io/SecondRound/red-black-tree-insertxin-zeng-zi-liao-yu-fixupxiu-zheng.html)  
+[Red Black Tree：Delete(刪除資料)與Fixup(修正)](http://alrightchiu.github.io/SecondRound/red-black-tree-deleteshan-chu-zi-liao-yu-fixupxiu-zheng.html)  
 
 </br>
 
@@ -96,15 +96,15 @@ Summary: 請先閱讀本篇目錄。
 
 ##Graph系列文章
 
-[Graph: Intro(簡介)](http://alrightchiu.github.io/SecondRound/graph-introjian-jie.html)
+[Graph：Intro(簡介)](http://alrightchiu.github.io/SecondRound/graph-introjian-jie.html)
 
 ###Breadth-First Search與Depth-First Search
 
-[Graph: Breadth-First Search(BFS，廣度優先搜尋)](http://alrightchiu.github.io/SecondRound/graph-breadth-first-searchbfsguang-du-you-xian-sou-xun.html)  
-[Graph: Depth-First Search(DFS，深度優先搜尋)](http://alrightchiu.github.io/SecondRound/graph-depth-first-searchdfsshen-du-you-xian-sou-xun.html)  
-[Graph: 利用DFS和BFS尋找Connected Component](http://alrightchiu.github.io/SecondRound/graph-li-yong-dfshe-bfsxun-zhao-connected-component.html)  
-[Grpah: 利用DFS尋找Strongly Connected Component(SCC)](http://alrightchiu.github.io/SecondRound/grpah-li-yong-dfsxun-zhao-strongly-connected-componentscc.html)  
-[Grpah: 利用DFS尋找DAG的Topological Sort(拓撲排序)](http://alrightchiu.github.io/SecondRound/grpah-li-yong-dfsxun-zhao-dagde-topological-sorttuo-pu-pai-xu.html)  
+[Graph：Breadth-First Search(BFS，廣度優先搜尋)](http://alrightchiu.github.io/SecondRound/graph-breadth-first-searchbfsguang-du-you-xian-sou-xun.html)  
+[Graph：Depth-First Search(DFS，深度優先搜尋)](http://alrightchiu.github.io/SecondRound/graph-depth-first-searchdfsshen-du-you-xian-sou-xun.html)  
+[Graph：利用DFS和BFS尋找Connected Component](http://alrightchiu.github.io/SecondRound/graph-li-yong-dfshe-bfsxun-zhao-connected-component.html)  
+[Grpah：利用DFS尋找Strongly Connected Component(SCC)](http://alrightchiu.github.io/SecondRound/grpah-li-yong-dfsxun-zhao-strongly-connected-componentscc.html)  
+[Grpah：利用DFS尋找DAG的Topological Sort(拓撲排序)](http://alrightchiu.github.io/SecondRound/grpah-li-yong-dfsxun-zhao-dagde-topological-sorttuo-pu-pai-xu.html)  
 
 ###Minimum Spanning Tree(最小生成樹)
 
