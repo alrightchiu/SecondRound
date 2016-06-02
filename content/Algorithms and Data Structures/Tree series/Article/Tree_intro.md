@@ -8,9 +8,14 @@ Summary: 介紹資料結構中Tree(樹)的概念。
 </br>
 ###先備知識與注意事項
 
-若熟悉Linked List(連結串列)將會更容易理解樹：Linked list是一維的線性結構(不是往前、就是往後)，而樹(與圖)則推廣成多維的結構。  
-</br>
-<center>![linkedlist][linked_list]
+若熟悉Linked List(連結串列)將會更容易理解樹：Linked list是一維的線性結構(不是往前、就是往後)，而樹(與Graph)則推廣成多維的結構。  
+關於Linked list，請參考：
+
+* [Linked List：Intro(簡介)](http://alrightchiu.github.io/SecondRound/linked-list-introjian-jie.html)  
+* [Linked List：新增資料、刪除資料、反轉](http://alrightchiu.github.io/SecondRound/linked-list-xin-zeng-zi-liao-shan-chu-zi-liao-fan-zhuan.html)    
+
+<center>
+![linkedlist][linked_list]
 
 **圖一：A、B、C、D稱為node(節點)，用以代表資料(data)、狀態(state)。  
 連結各個node之間的連結(link)稱為edge，可能是單方向，或者雙向。**  
@@ -19,8 +24,6 @@ Summary: 介紹資料結構中Tree(樹)的概念。
 [linked_list]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/Tree_fig/linked_list_size.png?raw=true
 
 
-另外則是用詞翻譯的選擇，由於許多名詞時常被設置為程式碼的變數名稱，而且翻譯後將造成理解上的斷層(如node/vertex(節點)、edge(邊緣？)、parent(父還是母？)、child(孩子？)、ancestor(祖先？)、sibling(手足？兄弟姐妹？)...)，所以決定將此類用詞視為專有名詞，不做翻譯。  
-文句中將出現中英夾雜的情形，敬請見諒。
 
   
 [OK Go](https://www.youtube.com/watch?v=u1ZB_rGFyeU).  
