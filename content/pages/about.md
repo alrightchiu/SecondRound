@@ -16,7 +16,7 @@ Title: About
 
 網站利用[Pelican](http://blog.getpelican.com/)和[Github Pages](https://pages.github.com/)建立，主題使用[Pelican Clean Blog Theme](https://github.com/gilsondev/pelican-clean-blog)。
 
-程式範例以C++為主要語言。  
+程式範例以C++為主要語言，不過離C++的精髓還相當遙遠。  
 <br>  
 
 
