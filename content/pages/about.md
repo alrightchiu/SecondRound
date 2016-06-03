@@ -5,8 +5,8 @@ Title: About
 
 <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="創用 CC 授權條款" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />本站內容由<span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">ChiuCC</span>製作，以<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">創用CC 姓名標示-相同方式分享 4.0 國際 授權條款</a>釋出。  
 
-在學習的過程中受惠於網路資源太多(現在也是)，希望本站能夠對讀者有些幫助。
-
+在學習的過程中受惠於網路資源太多(現在也是)，希望本站能夠對讀者有些幫助。  
+<br>  
 
 ###本站內容
 
@@ -15,6 +15,9 @@ Title: About
 不過**Dynamic Programming**、**NP-Completeness**等等大魔王還無法確實掌握，只好遺憾地留待日後。
 
 網站利用[Pelican](http://blog.getpelican.com/)和[Github Pages](https://pages.github.com/)建立，主題使用[Pelican Clean Blog Theme](https://github.com/gilsondev/pelican-clean-blog)。
+
+程式範例以C++為主要語言。  
+<br>  
 
 
 ###筆者的肺腑之言
