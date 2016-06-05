@@ -78,7 +78,7 @@ private:
  
 備註： 
 
-1. Dictionary的概念也出現在**Hash Table**(有天才翻譯成"哈希表"也很酷)、C/C++標準函式庫(Standard Library)中的**container**:`map`等等，有非常多應用。
+1. Dictionary的概念也出現在[Hash Table](http://alrightchiu.github.io/SecondRound/hash-tableintrojian-jie.html)、C/C++標準函式庫(Standard Library)中的**container**:`map`等等，有非常多應用。
 2. 以下角色戰鬥力的絕對值是捏造的，不過相對值盡力維持正確(除了撒旦)，若有疑問，歡迎龍珠粉來信討論。 
 3. 由於故事的角色眾多，以下將挑選具代表性之角色用來說明BST。
 

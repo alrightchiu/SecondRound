@@ -14,7 +14,7 @@ Title: About
 
 不過**Dynamic Programming**、**NP-Completeness**等等大魔王還無法確實掌握，只好遺憾地留待日後。
 
-網站利用[Pelican](http://blog.getpelican.com/)和[Github Pages](https://pages.github.com/)建立，主題使用[Pelican Clean Blog Theme](https://github.com/gilsondev/pelican-clean-blog)。
+網站利用[Pelican](http://blog.getpelican.com/)和[GitHub Pages](https://pages.github.com/)建立，主題使用[Pelican Clean Blog Theme](https://github.com/gilsondev/pelican-clean-blog)。
 
 程式範例以C++為主要語言(不過離C++的精髓還相當遙遠，請見諒)。  
 <br>  
