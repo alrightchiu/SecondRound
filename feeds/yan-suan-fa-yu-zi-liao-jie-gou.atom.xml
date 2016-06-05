@@ -15291,7 +15291,7 @@ $$&lt;/div&gt;
 
 &lt;p&gt;備註： &lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;Dictionary的概念也出現在&lt;strong&gt;Hash Table&lt;/strong&gt;(有天才翻譯成"哈希表"也很酷)、C/C++標準函式庫(Standard Library)中的&lt;strong&gt;container&lt;/strong&gt;:&lt;code&gt;map&lt;/code&gt;等等，有非常多應用。&lt;/li&gt;
+&lt;li&gt;Dictionary的概念也出現在&lt;a href="http://alrightchiu.github.io/SecondRound/hash-tableintrojian-jie.html"&gt;Hash Table&lt;/a&gt;、C/C++標準函式庫(Standard Library)中的&lt;strong&gt;container&lt;/strong&gt;:&lt;code&gt;map&lt;/code&gt;等等，有非常多應用。&lt;/li&gt;
 &lt;li&gt;以下角色戰鬥力的絕對值是捏造的，不過相對值盡力維持正確(除了撒旦)，若有疑問，歡迎龍珠粉來信討論。 &lt;/li&gt;
 &lt;li&gt;由於故事的角色眾多，以下將挑選具代表性之角色用來說明BST。&lt;/li&gt;
 &lt;/ol&gt;
