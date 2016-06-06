@@ -51,9 +51,9 @@ Summary: 介紹Open Addressing解決Collision。
 那就繼續「尋找下一格空的slot」，直到
 
 1. 終於找到空的slot，或者
-2. 所有slot都滿了
+2. 所有slot都滿了為止
 
-為止，如圖一，這種「尋找下一格空的slot」的方式就稱為**Probing**。  
+如圖一，這種「尋找下一格空的slot」的方式就稱為**Probing**。  
 (probe有探測的意思，在這裏可以解讀成：不斷探測下一個slot是否為空的。)
 
 
@@ -308,14 +308,14 @@ $$
 
 舉例來說，若$a=5,b=8$，那麼：
 
-* $i=0$，$(5\times 0)\bmod 8=0$
-* $i=1$，$(5\times 1)\bmod 8=5$
-* $i=2$，$(5\times 2)\bmod 8=2$
-* $i=3$，$(5\times 3)\bmod 8=7$
-* $i=4$，$(5\times 4)\bmod 8=4$
-* $i=5$，$(5\times 5)\bmod 8=1$
-* $i=6$，$(5\times 6)\bmod 8=6$
-* $i=7$，$(5\times 7)\bmod 8=3$
+* $i=0$，$(5\times 0=0)\bmod 8=0$
+* $i=1$，$(5\times 1=5)\bmod 8=5$
+* $i=2$，$(5\times 2=10)\bmod 8=2$
+* $i=3$，$(5\times 3=15)\bmod 8=7$
+* $i=4$，$(5\times 4=20)\bmod 8=4$
+* $i=5$，$(5\times 5=25)\bmod 8=1$
+* $i=6$，$(5\times 6=30)\bmod 8=6$
+* $i=7$，$(5\times 7=35)\bmod 8=3$
 
 因此，要求$h_{2}(k)$與$m$互質確實可以產生$\{0,1,...,m-1\}$的排列組合。
 
