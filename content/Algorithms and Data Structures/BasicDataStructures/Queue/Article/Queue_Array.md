@@ -30,9 +30,14 @@ Summary: 以Array實作Queue(佇列)之介紹。
 
 ##浪費記憶體空間的Array實作：Sequential Queue
 
-以圖一為例，將Array的開頭(index為$0$)設為Queue的**front**，反方向為**back**。
+如圖一，以Array實作Queue(隊伍)時，需定義兩個記住Array之**index**的變數：
 
-* **Push**：若要新增資料，按照Array的index順序：$0、1、2...$，將Queue的**back**新增資料。
+* 以**front**記住隊伍的開頭**index**；
+* 以**back**記住隊伍的尾端**index**；
+
+進行以下操作：
+
+* **Push**：若要新增資料，按照Array的index順序：$0、1、2...$，從Queue的**back**新增資料。
 * **Pop**：若要刪除資料，按照Array的index順序：$0、1、2...$，從Queue的**front**刪除資料。
     * **Pop**並沒有真正把Array的記憶體位置釋放，只是調整**front**，使得Queue「看起來」有刪除資料。
 
