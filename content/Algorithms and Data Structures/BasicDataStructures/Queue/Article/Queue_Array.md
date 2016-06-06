@@ -30,7 +30,7 @@ Summary: 以Array實作Queue(佇列)之介紹。
 
 ##浪費記憶體空間的Array實作：Sequential Queue
 
-如圖一，以Array實作Queue(隊伍)時，需定義兩個記住Array之**index**的變數：
+如圖一，以Array實作Queue(隊伍)時，需定義兩個變數來記住Array的**index**：
 
 * 以**front**記住隊伍的開頭**index**；
 * 以**back**記住隊伍的尾端**index**；
