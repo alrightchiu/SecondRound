@@ -142,9 +142,9 @@
 <p>那就繼續「尋找下一格空的slot」，直到</p>
 <ol>
 <li>終於找到空的slot，或者</li>
-<li>所有slot都滿了</li>
+<li>所有slot都滿了為止</li>
 </ol>
-<p>為止，如圖一，這種「尋找下一格空的slot」的方式就稱為<strong>Probing</strong>。<br />
+<p>如圖一，這種「尋找下一格空的slot」的方式就稱為<strong>Probing</strong>。<br />
 (probe有探測的意思，在這裏可以解讀成：不斷探測下一個slot是否為空的。)</p>
 <p></br>   </p>
 <p><a name="probing"></a></p>
@@ -338,14 +338,14 @@ $$</div>
 <p>這裡有項神奇的事實：若<span class="math">\(a\)</span>與<span class="math">\(b\)</span>互質，那麼<span class="math">\((a\times i)\bmod b\,,\:for\:i=0,1...,b-1\)</span>，正好可以形成<span class="math">\(\{0,1,...,b-1\}\)</span>的排列組合(permutation)。</p>
 <p>舉例來說，若<span class="math">\(a=5,b=8\)</span>，那麼：</p>
 <ul>
-<li><span class="math">\(i=0\)</span>，<span class="math">\((5\times 0)\bmod 8=0\)</span></li>
-<li><span class="math">\(i=1\)</span>，<span class="math">\((5\times 1)\bmod 8=5\)</span></li>
-<li><span class="math">\(i=2\)</span>，<span class="math">\((5\times 2)\bmod 8=2\)</span></li>
-<li><span class="math">\(i=3\)</span>，<span class="math">\((5\times 3)\bmod 8=7\)</span></li>
-<li><span class="math">\(i=4\)</span>，<span class="math">\((5\times 4)\bmod 8=4\)</span></li>
-<li><span class="math">\(i=5\)</span>，<span class="math">\((5\times 5)\bmod 8=1\)</span></li>
-<li><span class="math">\(i=6\)</span>，<span class="math">\((5\times 6)\bmod 8=6\)</span></li>
-<li><span class="math">\(i=7\)</span>，<span class="math">\((5\times 7)\bmod 8=3\)</span></li>
+<li><span class="math">\(i=0\)</span>，<span class="math">\((5\times 0=0)\bmod 8=0\)</span></li>
+<li><span class="math">\(i=1\)</span>，<span class="math">\((5\times 1=5)\bmod 8=5\)</span></li>
+<li><span class="math">\(i=2\)</span>，<span class="math">\((5\times 2=10)\bmod 8=2\)</span></li>
+<li><span class="math">\(i=3\)</span>，<span class="math">\((5\times 3=15)\bmod 8=7\)</span></li>
+<li><span class="math">\(i=4\)</span>，<span class="math">\((5\times 4=20)\bmod 8=4\)</span></li>
+<li><span class="math">\(i=5\)</span>，<span class="math">\((5\times 5=25)\bmod 8=1\)</span></li>
+<li><span class="math">\(i=6\)</span>，<span class="math">\((5\times 6=30)\bmod 8=6\)</span></li>
+<li><span class="math">\(i=7\)</span>，<span class="math">\((5\times 7=35)\bmod 8=3\)</span></li>
 </ul>
 <p>因此，要求<span class="math">\(h_{2}(k)\)</span>與<span class="math">\(m\)</span>互質確實可以產生<span class="math">\(\{0,1,...,m-1\}\)</span>的排列組合。</p>
 <p>以下提供幾種常見的<span class="math">\(h_{2}(k)\)</span>選擇：</p>
