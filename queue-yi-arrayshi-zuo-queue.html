@@ -125,9 +125,14 @@
 <p></br></p>
 <p><a name="sequential"></a></p>
 <h2>浪費記憶體空間的Array實作：Sequential Queue</h2>
-<p>以圖一為例，將Array的開頭(index為<span class="math">\(0\)</span>)設為Queue的<strong>front</strong>，反方向為<strong>back</strong>。</p>
+<p>如圖一，以Array實作Queue(隊伍)時，需定義兩個記住Array之<strong>index</strong>的變數：</p>
 <ul>
-<li><strong>Push</strong>：若要新增資料，按照Array的index順序：<span class="math">\(0、1、2...\)</span>，將Queue的<strong>back</strong>新增資料。</li>
+<li>以<strong>front</strong>記住隊伍的開頭<strong>index</strong>；</li>
+<li>以<strong>back</strong>記住隊伍的尾端<strong>index</strong>；</li>
+</ul>
+<p>進行以下操作：</p>
+<ul>
+<li><strong>Push</strong>：若要新增資料，按照Array的index順序：<span class="math">\(0、1、2...\)</span>，從Queue的<strong>back</strong>新增資料。</li>
 <li><strong>Pop</strong>：若要刪除資料，按照Array的index順序：<span class="math">\(0、1、2...\)</span>，從Queue的<strong>front</strong>刪除資料。<ul>
 <li><strong>Pop</strong>並沒有真正把Array的記憶體位置釋放，只是調整<strong>front</strong>，使得Queue「看起來」有刪除資料。</li>
 </ul>
