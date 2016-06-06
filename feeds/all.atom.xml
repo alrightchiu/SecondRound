@@ -2354,7 +2354,7 @@ $$&lt;/div&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a name="sequential"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;浪費記憶體空間的Array實作：Sequential Queue&lt;/h2&gt;
-&lt;p&gt;如圖一，以Array實作Queue(隊伍)時，需定義兩個記住Array之&lt;strong&gt;index&lt;/strong&gt;的變數：&lt;/p&gt;
+&lt;p&gt;如圖一，以Array實作Queue(隊伍)時，需定義兩個變數來記住Array的&lt;strong&gt;index&lt;/strong&gt;：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;以&lt;strong&gt;front&lt;/strong&gt;記住隊伍的開頭&lt;strong&gt;index&lt;/strong&gt;；&lt;/li&gt;
 &lt;li&gt;以&lt;strong&gt;back&lt;/strong&gt;記住隊伍的尾端&lt;strong&gt;index&lt;/strong&gt;；&lt;/li&gt;
