@@ -198,7 +198,7 @@
 <p>所以，最關鍵的就是如何「調整數列」，江湖上尊稱其為：<strong>Partition</strong>。</p>
 <p></br></p>
 <p><a name="partition"></a></p>
-<h3>介紹：Partition()</h3>
+<h3>介紹：Partition</h3>
 <p>如同圖一(a)，<strong>Partition</strong>的功能就是把數列「區分」成「小於<strong>pivot</strong>」與「大於<strong>pivot</strong>」兩半。</p>
 <p><center>
 <img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/QuickSort/f1.png?raw=true" /></p>
@@ -344,8 +344,7 @@
 <img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/QuickSort/f1.png?raw=true" /></p>
 <p><strong>圖一(a)。</strong><br />
 </center></p>
-<p>接著，只要再對「左數列」與「右數列」，分別重複上述的「選<strong>pivot</strong>、調整數列」步驟，如圖三，直到新數列的<code>front</code><span class="math">\(\geq\)</span><code>end</code>，便能完成對數列的排序。<br />
-(回頭看一眼圖一(b)。)</p>
+<p>接著，只要再對「左數列」與「右數列」，分別重複上述的「選<strong>pivot</strong>、調整數列」步驟，如圖三，直到新數列只剩下一個元素或者沒有元素(亦即：<code>front</code><span class="math">\(\geq\)</span><code>end</code>)，便能完成對數列的排序。  </p>
 <p><center>
 <img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Sorting%20series/ComparisonSort_fig/QuickSort/f13.png?raw=true" /></p>
 <p><strong>圖三：以遞迴的方式，對新的數列做排序。</strong><br />
