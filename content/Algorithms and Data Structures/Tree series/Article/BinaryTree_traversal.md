@@ -415,7 +415,7 @@ A B C D E F G H I
 
 因此，`InorderSuccessor()`與`InorderPredecessor()`便是用來尋找「**以inorder順序**」進行traversal之下一個與前一個node。  
 
-以圖四(c)為例，若CurrentNode站在H(`CurrentNode = H`)，則
+以圖四(c)為例，若CurrentNode站在H(`CurrentNode = nodeH`)，則：
 
 * `CurrentNode = InorderSuccessor(CurrentNode)`會將CurrentNode移動至A；
 * `CurrentNode = InorderPredecessor(CurrentNode)`則會將CurrentNode移動至E。
@@ -426,31 +426,34 @@ A B C D E F G H I
 **圖四(c)：。**  
 </center>
 
-特別介紹inorder，一大原因是為了Binary Search Tree(BST)鋪路，在BST中，照著inorder順序印出node，就會得到「排好序」的資料(詳見：[Binary Search Tree: Sort(排序)、Delete(刪除資料)](http://alrightchiu.github.io/SecondRound/binary-search-tree-sortpai-xu-deleteshan-chu-zi-liao.html#binary-search-tree-sortpai-xu-deleteshan-chu-zi-liao))。  
+特別介紹inorder，一大原因是為了Binary Search Tree(BST)鋪路，在BST中，照著inorder順序印出node，就會得到「排好序」的資料。
 
-另外，若觀察前面提過的遞迴(recursion)形式之inorder traversal，Visiting被包含在遞迴函式內，這表示若要進行多種不同的Visiting，例如print(顯示資料)、assign(賦值、更新資料)，都需要重新寫一個專門功能的遞迴函式。顯然，把Visiting和Traversal獨立開來會更有效率。
+* 詳見：[Binary Search Tree: Sort(排序)、Delete(刪除資料)](http://alrightchiu.github.io/SecondRound/binary-search-tree-sortpai-xu-deleteshan-chu-zi-liao.html#binary-search-tree-sortpai-xu-deleteshan-chu-zi-liao)。
+
+另外，若觀察前面提過的遞迴(recursion)形式之inorder traversal，Visiting被包含在遞迴函式內，這表示若要進行多種不同的Visiting，例如print(顯示資料)、assign(賦值、更新資料)，都需要重新寫一個專門功能的遞迴函式。  
+顯然，把Visiting和Traversal獨立開來會更有效率。
 
 
 
 在看兩個實用的函式之前，有幾件前置作業：  
 
-* 在main()裡建立圖四之Binary Tree的部分，連結node與其parent node之pointer：
+* 在`class BinaryTree`的定義中加入六個member function(成員函式)：
+* 在main()中，把如圖四之Binary Tree的parent pointer建立起來。
 
 ```cpp
 // C++ code
 // inside main()
-    A->leftchild = B; A->rightchild = C; B->parent = A; C->parent = A;
-    B->leftchild = D; B->rightchild = E; D->parent = B; E->parent = B;
-    E->leftchild = G; E->rightchild = H; G->parent = E; H->parent = E;
-    C->leftchild = F; F->parent = C;
-    F->rightchild = I; I->parent = F;
-```
 
-* 並在`class BinaryTree`的定義中加入六個member function(成員函式)：
+    // link parent pointer
+    nodeB->parent = nodeA; nodeC->parent = nodeA;
+    nodeD->parent = nodeB; nodeE->parent = nodeB;
+    nodeG->parent = nodeE; nodeH->parent = nodeE;
+    nodeF->parent = nodeC; 
+    nodeI->parent = nodeF;
 
-```cpp
-// C++ code
+
 // inside definition of class BinaryTree
+
     TreeNode* leftmost(TreeNode *current);
     TreeNode* rightmost(TreeNode *current);
 
@@ -459,10 +462,18 @@ A B C D E F G H I
 
     void Inorder_by_parent(TreeNode *root);
     void Inorder_Reverse(TreeNode *root);
+    
 ```
-其中，除了`InorderSuccessor()`與`InorderPredecessor()`之函式主體外，還有`leftmost()`和`rightmost()`即是找到Binary Tree中最左與最右的node，可有可無，不過學會了很酷；以及`Inorder_by_parent()`與`Inorder_Reverse()`為用以呼叫`InorderSuccessor()`與`InorderPredecessor()`的迴圈主體。
 
-看下去。
+其中包含：
+
+* `InorderSuccessor()`與`InorderPredecessor()`為找到「下一個」與「上一個」的函式主體；
+* `leftmost()`和`rightmost()`即是找到Binary Tree整棵樹中「最左」與「最右」的node；
+* `Inorder_by_parent()`與`Inorder_Reverse()`將利用`InorderSuccessor()`與`InorderPredecessor()`進行一次In-Order Tarversal。
+
+
+看下去。  
+</br>
 
 <a name="successor"></a>
 
@@ -645,8 +656,10 @@ C I F A H E G B D
 
 * [Introduction to Algorithms, Ch12](http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844) 
 * [Fundamentals of Data Structures in C++, Ch5](http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376)
-* [Wikipedia：Stack(abstract data type)](https://en.wikipedia.org/wiki/Stack_%28abstract_data_type%29)
-* [Wikipedia：Queue(abstract data type)](https://en.wikipedia.org/wiki/Queue_%28abstract_data_type%29)
+* [Linked List: 新增資料、刪除資料、反轉](http://alrightchiu.github.io/SecondRound/linked-list-xin-zeng-zi-liao-shan-chu-zi-liao-fan-zhuan.html#print)
+* [Stack: Intro(簡介)](http://alrightchiu.github.io/SecondRound/stack-introjian-jie.html)
+* [Queue: Intro(簡介)，並以Linked list實作](http://alrightchiu.github.io/SecondRound/queue-introjian-jie-bing-yi-linked-listshi-zuo.html)
+* [Binary Search Tree: Sort(排序)、Delete(刪除資料)](http://alrightchiu.github.io/SecondRound/binary-search-tree-sortpai-xu-deleteshan-chu-zi-liao.html#binary-search-tree-sortpai-xu-deleteshan-chu-zi-liao)
 
 
 </br>
