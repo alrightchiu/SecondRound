@@ -149,6 +149,7 @@ class Tree{
 * Binary Space Partition：應用於幾乎所有的3D電玩遊戲以決定哪些物件需要rendered(呈現)。
 * Binary Tries：應用於大多數high-bandwidth router(高頻寬路由器)以儲存router-tables。
 * Heaps：用以實現高效率的priority queues(優先權佇列)，許多作業系統用來安排工作程序。
+    * 請參考：[Priority Queue：Binary Heap](http://alrightchiu.github.io/SecondRound/priority-queuebinary-heap.html)。
 * Huffman Coding Tree：例如.jpeg、.mp3等壓縮技術皆使用Huffman編碼。(在一顆20MB的硬碟要價新台幣一萬元的時代，壓縮技術就是救世主。)  
 
 以及其他應用(記得點進連結瞻仰大神風範)。  
@@ -177,6 +178,7 @@ class Tree{
 * [Wikipedia：Binary tree](https://en.wikipedia.org/wiki/Binary_tree)
 * [Fundamentals of Data Structures in C++, Ch5](http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376)  
 * [StackOverFlow：What are the applications of binary trees?](http://stackoverflow.com/questions/2130416/what-are-the-applications-of-binary-trees)
+* [Priority Queue：Binary Heap](http://alrightchiu.github.io/SecondRound/priority-queuebinary-heap.html)
 
 
 </br>
