@@ -280,7 +280,7 @@ int main() {
 ```cpp
 // C++ code
 void BinaryTree::Preorder(TreeNode *current){
-    if (current) {
+    if (current) {                          // if current != NULL
         std::cout << current->str << " ";   // V
         Preorder(current->leftchild);       // L
         Preorder(current->rightchild);      // R
@@ -307,7 +307,7 @@ A B D E G H C F I
 ```cpp
 // C++ code
 void BinaryTree::Inorder(TreeNode *current){
-    if (current) {
+    if (current) {                          // if current != NULL
         Inorder(current->leftchild);        // L
         std::cout << current->str << " ";   // V
         Inorder(current->rightchild);       // R
@@ -333,7 +333,7 @@ D B G E H A F I C
 ```cpp
 // C++ code
 void BinaryTree::Postorder(TreeNode *current){
-    if (current) {
+    if (current) {                         // if current != NULL
         Postorder(current->leftchild);     // L
         Postorder(current->rightchild);    // R
         std::cout << current->str << " ";  // V
@@ -352,14 +352,16 @@ D G H E B I F C A
 **圖四(d)：。**  
 </center>
 
+</br>    
 <a name="level"></a>
 
 ###Level-Order Traversal
 
-先前介紹了pre-order、in-order、post-order的traversal，而level-order則是照著level由小到大的順序，由上而下，並在同一個level由左至右地依序Visiting每個node。
-以下提供迭代(iteration)配合[queue(佇列)](https://en.wikipedia.org/wiki/Queue_%28abstract_data_type%29)實現level-order traversal之程式碼，其邏輯也非常直觀：
+Level-order是照著「level由小到大」的順序，由上而下，並在同一個level「由左至右」依序Visiting每個node。
 
-* 以圖四(e)為例，當CurrentNode站在A時，先對A作Visiting，接著檢查是否有left child與right child，若不為NULL，則依序push(推)進queue中，又根據queue「先進先出」(first-in-first-out)的特性，先將B(left child)推入queue，再推入C(right child)，便能確保在下一層level時，是由左至右，先Visiting到B，才Visiting到C。
+以下提供以迴圈配合**Queue(佇列)**實現level-order traversal之程式碼，其邏輯也非常直觀：
+
+* 以圖四(e)為例，當CurrentNode站在A時，先對A作Visiting，接著檢查是否有left child與right child，若不為NULL，則「依序」將child pointer 推(push)進queue中，又根據queue「先進先出」(first-in-first-out)的特性，先將B(left child)推入queue，再推入C(right child)，便能確保在下一層level時，是由左至右，先Visiting到B，才Visiting到C。
 
 <center>
 ![ex_level][f21]
@@ -370,9 +372,11 @@ D G H E B I F C A
 ```cpp
 // C++ code
 void BinaryTree::Levelorder(){
-    std::queue<TreeNode*> q;
+
+    std::queue<TreeNode*> q;              // using queue
     TreeNode *current = root;
-    while (current) {
+    
+    while (current) {                     // if current != NULL
         std::cout << current->str << " ";
         if (current->leftchild)
             q.push(current->leftchild);
