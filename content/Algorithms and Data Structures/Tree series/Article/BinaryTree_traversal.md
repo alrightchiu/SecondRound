@@ -15,7 +15,7 @@ Summary: 介紹Binary Tree(二元樹)中的Traversal(尋訪)。
 
 本篇文章將介紹在Binary Tree中的四種traversal方法。  
 
-程式實作上，除了**遞迴(recursion)**，還有可能會使用上stack(堆疊)與queue(佇列)，如果不太熟悉的話，請參考：
+程式實作的部分，除了**遞迴(recursion)**，還有可能會使用上stack(堆疊)與queue(佇列)，如果不太熟悉，請參考：
 
 * [Stack: Intro(簡介)](http://alrightchiu.github.io/SecondRound/stack-introjian-jie.html)
 * [Queue: Intro(簡介)，並以Linked list實作](http://alrightchiu.github.io/SecondRound/queue-introjian-jie-bing-yi-linked-listshi-zuo.html)
@@ -44,12 +44,12 @@ Summary: 介紹Binary Tree(二元樹)中的Traversal(尋訪)。
 ##Traversal in Binary Tree
 
 
-traversal(尋訪)有「站在A地，往所有與A地相連的地方移動」的意思：  
+Traversal(尋訪)有「站在A地，往所有與A地相連的地方移動」的意思：  
 
 * 以Graph(圖)的語言來說，站在vertex(A)上，有一條edge連結vertex(A)與vertex(B)，若能夠由A往B移動，此即可視為traversal；
 * 在以pointer實現之Linked list和Tree中，站在node(A)上，並且node(A)具有指向node(B)之pointer，便能夠由A往B移動，此即可視為traversal。
 
-移動到特定的node之後，通常伴隨著其他行為，例如print out(顯示資料)、assign(賦值)等等，這些操作又稱作**Visiting**。
+移動到特定的node之後，通常伴隨著其他行為，例如print out(顯示資料)、assign(賦值)、刪除資料等等，這些操作又稱作**Visiting**。
 
 Binary Tree的Node具有兩個指向child的pointer，traversal以「當前所在的node」為參考點，所能夠進行的行為有三種：
 
@@ -75,32 +75,28 @@ Binary Tree的Node具有兩個指向child的pointer，traversal以「當前所�
  **圖二(a)-(c) 依序為： (a)pre-order：VLR、(b)in-order：LVR、(c)post-order：LRV**
 </center>
 
+**pre-order(VLR)**：當CurrentNode移動到A時，會先對A進行Visiting，接著前往left child進行Visiting，再前往right child進行Visiting。(若child指向NULL則忽略。)
 
+**in-order(LVR)**：當CurrentNode移動到A時，會先對A的left child(B)進行Visiting，接著回到A進行Visiting，再前往right child(C)進行Visiting。(若child指向NULL則忽略。)
 
+**post-order(LRV)**：當CurrentNode移動到A時，會先對A的left child(B)進行Visiting，再前往right child(C)進行Visiting，接著回到A進行Visiting。(若child指向NULL則忽略。)
 
-* **pre-order(VLR)**：當CurrentNode移動到A時，會先對A進行Visiting，接著前往left child進行Visiting，再前往right child進行Visiting。(若child指向NULL則忽略。)
-* **in-order(LVR)**：當CurrentNode移動到A時，會先對A的left child(B)進行Visiting，接著回到A進行Visiting，再前往right child(C)進行Visiting。(若child指向NULL則忽略。)
-* **post-order(LRV)**：當CurrentNode移動到A時，會先對A的left child(B)進行Visiting，再前往right child(C)進行Visiting，接著回到A進行Visiting。(若child指向NULL則忽略。)
+</br>  
+小小備註：
 
-</br>
-現有一棵樹如圖三(a)，欲進行post-order traversal，並將Visiting用作print(顯示資料)：
+1. 以下圖例中，V表示CurrentNode所在的node，標上數字後表示已經Visiting完成，以print(顯示資料)為例，標上「$1$」表示該node第一個被印出。
+2. 以下文字說明，將使用scope(視野範圍)的概念，用來表示以每個CurrentNode(也就是V)為中心，與其所能夠指向之pointer所構成的範圍(等同於「迴圈」或者「函式呼叫」的scope)。因為每個迴圈都會改變CurrentNode(V)的位置，因此scope會以CurrentNode(V)為中心不停移動，直到迴圈/函式結束。
+
+現有一棵樹如圖三(a)，欲進行post-order traversal，並將Visiting用作print(顯示資料)，流程如下：
 
 <center>
 ![bt_a][f5]
 
 **圖三(a)**  
 </center>   
- 
 
 
-小小備註：
-
-1. 以下圖例中，V表示CurrentNode所在的node，標上數字後表示已經Visiting，以print(顯示資料)為例，標上"1"表示該node第一個被印出。
-2. 以下文字說明，將使用scope(視野範圍)的概念，用來表示以每個V(CurrentNode)為中心，與其所能夠指向之pointer所構成的範圍(等同於迴圈(或者函式呼叫)的scope)。因為每個迴圈都會改變V(CurrentNode)的位置，因此scope會以V(CurrentNode)為中心不停移動，直到迴圈結束。
-
-post-order traversal流程如下：
-
-* 一開始，CurrentNode進到A(root)，按照post-order的順序規則(LRV)，先檢查B(left child)是否為NULL，若不是，則先移動到B(L)：
+一開始，CurrentNode進到A(root)，按照post-order的順序規則(LRV)，先檢查left child：B是否為NULL，若不是，則先將CurrentNode移動到B(L)：
 
 <center>
 ![bt_b][f6]
@@ -108,7 +104,7 @@ post-order traversal流程如下：
 **圖三(b)：scope內：A(V)、B(L)、C(R)。**  
 </center>
 
-* 當CurrentNode移動到B，再一次執行post-order的順序規則，檢查D(left child)是否為NULL，若不是，則移動到D(L)：
+當CurrentNode移動到B，再一次執行post-order的順序規則(LRV)，檢查left child：D是否為NULL，若不是，則將CurrentNode移動到D(L)：
 
 <center>
 ![bt_c][f7]
@@ -116,8 +112,11 @@ post-order traversal流程如下：
 **圖三(c)：scope內：B(V)、D(L)、E(R)。**  
 </center>
 
-* 當CurrentNode移動到D，再一次執行post-order的順序規則，檢查出D的left child與right child皆為NULL，則回到D做Visiting，在此即印出D(print)，並回到B。  
-* 回到B的動作發生，即表示「以D為CurrentNode之迴圈或函式已經結束」，於是回到尚未結束的「以B為CurrentNode」之scope。
+當CurrentNode移動到D，再一次執行post-order的順序規則(LRV)，檢查出D的left child與right child皆為NULL，表示「LRV」的「L」與「R」都已經執行完畢，便「回到D」做Visiting，在此即印出D(print)。
+
+接著，由於「以D為CurrentNode」形成的scope內之node已經全數Visiting完畢，便可回到「以D之parent作為CurrentNode之scope」，於是將CurrentNode移回B。
+
+回到B的動作發生，即表示：以D為CurrentNode之迴圈或函式已經結束。
 
 <center>
 ![bt_d][f8]
@@ -125,7 +124,7 @@ post-order traversal流程如下：
 **圖三(d)：scope內：D(V)。**  
 </center>
 
-* D已經進行過Visiting，便標上數字"1"，表示D為traversal的第一站。  
+D已經進行過Visiting，便標上數字「$1$」，表示D為post-order traversal的第一站。  
 接著，在「以B為CurrentNode」的scope中，根據post-order規則，繼續往E(R)移動。
 
 <center>
@@ -134,9 +133,10 @@ post-order traversal流程如下：
 **圖三(e)：scope內：B(V)、D(L)、E(R)。**  
 </center>
 
-* 進入E後，因為E為leaf node，因此過程如圖三(d)，不會進入NULL。  
-在D(L)與E(R)都Visiting過後，便回到B(V)進行Visiting，並標上數字。  
-* 接著回到「以A為CurrentNode」的程序(procedure)。
+進入E後，因為E為leaf node，因此過程如圖三(d)，不會進入NULL。  
+在D(L)與E(R)都Visiting過後，便回到B(V)進行Visiting，並標上數字。如此便完成「以B為CurrentNode之scope」內的所有node之Visiting。
+
+接著回到「以A為CurrentNode」的scope。
 
 <center>
 ![bt_f][f10]
@@ -144,7 +144,7 @@ post-order traversal流程如下：
 **圖三(f)：scope內：B(V)、D(L)、E(R)。**  
 </center>
 
-* 回到「以A為CurrentNode」的scope後，按照post-order的規則，接著往C(R)移動。
+回到「以A為CurrentNode」的scope後，按照post-order的規則，接著往C(R)移動。
 
 <center>
 ![bt_g][f11]
@@ -152,7 +152,7 @@ post-order traversal流程如下：
 **圖三(g)：scope內：A(V)、B(L)、C(R)。**  
 </center>
 
-* 同樣地步驟，再從C移動至F(L)，並發現F為leaf node，於是對F進行Visiting，並標上數字。
+同樣地步驟，再從C移動至F(L)，並發現F為leaf node，於是對F進行Visiting，並標上數字。
 
 <center>
 ![bt_h][f12]
@@ -160,7 +160,7 @@ post-order traversal流程如下：
 **圖三(h)：scope內：C(V)、F(L)。**  
 </center>
 
-* 列出F後，發現C的right child指向NULL，於是略過right child(R)，回到C(V)，並對C進行Visiting，標上數字。
+列出F後，發現C的right child指向NULL，於是略過right child(R)，回到C(V)，並對C進行Visiting，標上數字。
 
 <center>
 ![bt_i][f13]![bt_j][f14]
@@ -168,7 +168,7 @@ post-order traversal流程如下：
 **圖三(i)-(j)：scope內：C(V)、F(L)。**  
 </center>
 
-* 最後回到「以A為CurrentNode」的scope，對A(V)進行Visiting，便完成了此次post-order traversal，並依序印出`D E B F C A`。
+最後回到「以A為CurrentNode」的scope，對A(V)進行Visiting，便完成了此次post-order traversal，並依序印出`D E B F C A`。
 
 <center>
 ![bt_k][f15]![bt_l][f16]
