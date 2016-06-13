@@ -234,19 +234,19 @@ public:
 // definition of BinaryTree::Levelorder()
 int main() {
     // TreeNode instantiation
-    TreeNode *A = new TreeNode("A"); TreeNode *B = new TreeNode("B"); 
-    TreeNode *C = new TreeNode("C"); TreeNode *D = new TreeNode("D"); 
-    TreeNode *E = new TreeNode("E"); TreeNode *F = new TreeNode("F"); 
-    TreeNode *G = new TreeNode("G"); TreeNode *H = new TreeNode("H"); 
-    TreeNode *I = new TreeNode("I");
+    TreeNode *nodeA = new TreeNode("A"); TreeNode *nodeB = new TreeNode("B"); 
+    TreeNode *nodeC = new TreeNode("C"); TreeNode *nodeD = new TreeNode("D"); 
+    TreeNode *nodeE = new TreeNode("E"); TreeNode *nodeF = new TreeNode("F"); 
+    TreeNode *nodeG = new TreeNode("G"); TreeNode *nodeH = new TreeNode("H"); 
+    TreeNode *nodeI = new TreeNode("I");
     
     // construct the Binary Tree
-    A->leftchild = B; A->rightchild = C; 
-    B->leftchild = D; B->rightchild = E; 
-    E->leftchild = G; E->rightchild = H; 
-    C->leftchild = F; F->rightchild = I;
+    nodeA->leftchild = nodeB; nodeA->rightchild = nodeC; 
+    nodeB->leftchild = nodeD; nodeB->rightchild = nodeE; 
+    nodeE->leftchild = nodeG; nodeE->rightchild = nodeH; 
+    nodeC->leftchild = nodeF; nodeF->rightchild = nodeI;
     
-    BinaryTree T(A);
+    BinaryTree T(nodeA);
     
     T.Preorder(T.root);
     std::cout << std::endl;
@@ -262,15 +262,17 @@ int main() {
 ```
 上面的程式碼包含了幾個部分：
 
-* class TreeNode的定義；
-* class BinaryTree的定義，其中有四個member function分別為四種traversal；
-* main()中建立如圖四(a)的樹，並在**line54 - line61**執行四種traversal。
-
-尚缺的四個函式的定義(definition)請接著看下去。  
+* `class TreeNode`的定義；
+    * 這裡把所有的data與pointer全部設成「public」裸露在外其實不太好，不過為了要能在`main()`裡土法煉鋼建立出一棵如圖四(a)的Binary Tree，只好將就。
+    * 下一篇文章會用比較文明的方式建立Binary Tree，請參考：[Binary Tree: 建立一棵Binary Tree](http://alrightchiu.github.io/SecondRound/binary-tree-jian-li-yi-ke-binary-tree.html)。
+* `class BinaryTree`的定義，其中有四個member function分別為四種traversal；
+    * 四個函式的定義請繼續看下去。
+* main()中建立如圖四(a)的樹，並依序執行四種traversal。
+  
 其中，pre-order、in-order、post-order traversal的邏輯就只是「V」、「L」、「R」誰先誰後的差別，以下程式碼是以較直覺的遞迴(recursion)形式完成，不過，換成迭代(iteration)配合**Stack(堆疊)**在概念上完全相同，實作上即是考慮「V」、「L」、「R」誰先push(推)進stack。  
 
 
-
+</br>  
 <a name="pre"></a>
 
 ###Pre-Order Traversal
