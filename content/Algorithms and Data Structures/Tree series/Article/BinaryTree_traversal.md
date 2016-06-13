@@ -444,15 +444,30 @@ A B C D E F G H I
 // C++ code
 // inside main()
 
+int main(){
+
+    ...
     // link parent pointer
     nodeB->parent = nodeA; nodeC->parent = nodeA;
     nodeD->parent = nodeB; nodeE->parent = nodeB;
     nodeG->parent = nodeE; nodeH->parent = nodeE;
     nodeF->parent = nodeC; 
     nodeI->parent = nodeF;
+    ...
 
+}
 
 // inside definition of class BinaryTree
+class BinaryTree{
+public:
+    TreeNode *root;			// 以root作為存取整棵樹的起點
+    BinaryTree():root(0){};
+    BinaryTree(TreeNode *node):root(node){};
+    
+    void Preorder(TreeNode *current);
+    void Inorder(TreeNode *current);
+    void Postorder(TreeNode *current);
+    void Levelorder();
 
     TreeNode* leftmost(TreeNode *current);
     TreeNode* rightmost(TreeNode *current);
@@ -462,7 +477,7 @@ A B C D E F G H I
 
     void Inorder_by_parent(TreeNode *root);
     void Inorder_Reverse(TreeNode *root);
-    
+};
 ```
 
 其中包含：
@@ -479,28 +494,40 @@ A B C D E F G H I
 
 ###Successor、leftmost
 
-函式`TreeNode* leftmost(TreeNode *current)`的功能為：尋找以`current`為root之subtree中，最左邊的node，最左邊的意思是從`current`開始一路往left child做類似[Linked list之單向traversal](http://alrightchiu.github.io/SecondRound/linked-list-traversal.html)的「一路向左」，而以inorder的順序來說，會找到該subtree中第一個進行Visiting的node。
+函式`leftmost()`的功能為：尋找以`current`為root之subtree中，最左邊的node。
 
-* 以圖四(c)為例，進入以A為root的Binary Tree，`leftmost()`將回傳D。
+* 以圖四(c)為例，進入以A為root的Binary Tree，`leftmost()`將一路往leftchild前進，便回傳D。
+* 而以inorder的順序來說，會找到該subtree中第一個進行Visiting的node。
+
+<center>
+![ex_in][f19]
+
+**圖四(c)：。**  
+</center>
 
 以下為`leftmost()`的範例程式碼：
 
 ```cpp
 // C++ code
 TreeNode* BinaryTree::leftmost(TreeNode *current){
-    while (current->leftchild != NULL)
+    while (current->leftchild != NULL){
         current = current->leftchild;
+    }
     return current;
 }
 ```
+
 </br>  
 接著，觀察在inorder規則下，某一node的「**Successor**」之所在位置有兩種可能：
 
-1. 若CurrentNode的right child不是NULL，則CurrentNode之下一個順序的node即為以「Current->rightchild為root」之subtree中，最左的node。  
-如圖五(a)所示，若CurrentNode站在B上，B的下一個node即為「以B的right child(也就是E)」為root之subtree中的最左node，即為G。
-2. 若CurrentNode沒有right child，則CurrentNode之下一個順序的node是「以left child的身份尋找到的ancestor」。  
-以圖五(a)中的H為例，H沒有right child，因此往上(往root方向)找ancestor，首先找到E，但是H是E的right child，因此再繼續往上找，此時CurrentNode移動到E。而E也是B的right child，再更新CurrentNode為B，往parent找到A，此時，**B為A的left child**，則A即為H的下一個順序的node。
-3. 若整棵樹偏一邊(稱為skewed Binary Tree)，root只有left subtree，沒有right subtree，則回傳NULL，表示root的successor。
+1. 若CurrentNode的right child不是NULL，則CurrentNode之下一個順序的node即為以「Current->rightchild為root」之subtree中，最左的node。
+    * 如圖五(a)所示，若CurrentNode站在B上，B的下一個node即為「以B的right child(也就是E)」為root之subtree中的最左node，即為G。
+2. 若CurrentNode沒有right child，則CurrentNode之下一個順序的node是「以left child的身份尋找到的ancestor」。
+    * 以圖五(a)中的H為例，H沒有right child，因此往上(往root方向)找ancestor。  
+    首先找到E，但是H是E的right child，因此再繼續往上找，此時CurrentNode移動到E。  
+    接著往E的parent找到B，而E是B的right child，再繼續往上找，並更新CurrentNode為B。  
+    接著往B的parent找到A，此時，**B為A的left child**，則A即為H的下一個順序的node。
+3. 若整棵樹偏一邊(稱為skewed Binary Tree)，root只有left subtree，沒有right subtree，那麼，則回傳NULL，表示root的successor。
 
 <center>
 ![successor][f22]
@@ -514,8 +541,9 @@ TreeNode* BinaryTree::leftmost(TreeNode *current){
 ```cpp
 // C++ code
 TreeNode* BinaryTree::InorderSuccessor(TreeNode *current){
-    if (current->rightchild != NULL)
+    if (current->rightchild != NULL){
         return leftmost(current->rightchild);
+    }
     
     TreeNode *new_node = new TreeNode;
     new_node = current->parent;
