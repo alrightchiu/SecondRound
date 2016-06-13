@@ -186,6 +186,8 @@ D已經進行過Visiting，便標上數字「$1$」，表示D為post-order trave
 
 ##Example with Code
 
+(完整範例程式碼在這裡：[BT_Traversal.cpp](https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/ExampleCode/BT_Traversal.cpp))
+
 接下來，再以一棵稍微複雜的Binary Tree作為範例，展示pre-order、in-order、post-order及level-order之traversal。
 
 現有一棵樹如圖四(a)：
