@@ -397,7 +397,7 @@
 <span class="kt">void</span> <span class="n">BinaryTree</span><span class="o">::</span><span class="n">Levelorder</span><span class="p">(){</span>
 
     <span class="n">std</span><span class="o">::</span><span class="n">queue</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">*&gt;</span> <span class="n">q</span><span class="p">;</span>              <span class="c1">// using queue</span>
-    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span> <span class="o">=</span> <span class="n">root</span><span class="p">;</span>
+    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span> <span class="o">=</span> <span class="n">root</span><span class="p">;</span>             <span class="c1">// 以root當作traversal起點</span>
 
     <span class="k">while</span> <span class="p">(</span><span class="n">current</span><span class="p">)</span> <span class="p">{</span>                     <span class="c1">// if current != NULL</span>
         <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">str</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span><span class="p">;</span>
@@ -449,7 +449,7 @@
 <p>在看兩個實用的函式之前，有幾件前置作業：  </p>
 <ul>
 <li>在<code>class BinaryTree</code>的定義中加入六個member function(成員函式)：</li>
-<li>在main()中，把如圖四之Binary Tree的parent pointer建立起來。</li>
+<li>在<code>main()</code>中，把如圖四之Binary Tree的parent pointer建立起來。</li>
 </ul>
 <div class="highlight"><pre><span class="c1">// C++ code</span>
 <span class="c1">// inside main()</span>
@@ -531,10 +531,10 @@
 <ul>
 <li>以圖五(a)中的H為例，H沒有right child，因此往上(往root方向)找ancestor。  </li>
 <li>首先找到E，但是H是E的right child，因此再繼續往上找，此時CurrentNode移動到E。  </li>
-<li>接著往E的parent找到B，而E是B的right child，再繼續往上找，並更新CurrentNode為B。  </li>
+<li>接著往E的parent找到B，由於E是B的right child，所以要再繼續往上找，並更新CurrentNode為B。  </li>
 <li>接著往B的parent找到A，此時，<strong>B為A的left child</strong>，則A即為H的下一個順序的node。</li>
 </ul>
-<p>最後，若整棵樹偏向一邊，root只有left subtree，沒有right subtree，那麼便回傳NULL，表示root沒有successor。</p>
+<p>特例是root，若整棵樹偏向一邊，root只有left subtree，沒有right subtree，那麼便回傳NULL，表示root沒有successor。</p>
 <p><center>
 <img alt="successor" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/f22.png?raw=true" /></p>
 <p><strong>圖五(a)：。</strong><br />
@@ -546,20 +546,19 @@
         <span class="k">return</span> <span class="n">leftmost</span><span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="p">);</span>
     <span class="p">}</span>
 
-    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">new_node</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">;</span>
-    <span class="n">new_node</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">;</span>
+    <span class="c1">// 利用兩個pointer: successor與current做traversal </span>
 
-    <span class="k">while</span> <span class="p">(</span><span class="n">new_node</span> <span class="o">!=</span> <span class="nb">NULL</span> <span class="o">&amp;&amp;</span> <span class="n">current</span> <span class="o">==</span> <span class="n">new_node</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">current</span> <span class="o">=</span> <span class="n">new_node</span><span class="p">;</span>
-        <span class="n">new_node</span> <span class="o">=</span> <span class="n">new_node</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">;</span>
+    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">successor</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">;</span>   
+    <span class="k">while</span> <span class="p">(</span><span class="n">successor</span> <span class="o">!=</span> <span class="nb">NULL</span> <span class="o">&amp;&amp;</span> <span class="n">current</span> <span class="o">==</span> <span class="n">successor</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">current</span> <span class="o">=</span> <span class="n">successor</span><span class="p">;</span>
+        <span class="n">successor</span> <span class="o">=</span> <span class="n">successor</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">;</span>
     <span class="p">}</span>
-
-    <span class="k">return</span> <span class="n">new_node</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">successor</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
 
 
-<p>最後，有了<code>leftmost()</code>與<code>InorderSuccessor()</code>，即能夠以迴圈的方式進行inorder traversal，相較於遞迴形式的函式，具有更大彈性：</p>
+<p>最後，有了<code>leftmost()</code>與<code>InorderSuccessor()</code>，即能夠以迴圈的方式進行inorder traversal，相較於遞迴形式的函式，具有更大彈性，以函式<code>Inorder_by_parent()</code>呈現：</p>
 <div class="highlight"><pre><span class="c1">// C++ code</span>
 <span class="kt">void</span> <span class="n">BinaryTree</span><span class="o">::</span><span class="n">Inorder_by_parent</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">root</span><span class="p">){</span>
     <span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">;</span>
@@ -573,12 +572,22 @@
 </pre></div>
 
 
-<p>output:</p>
+<p>在<code>main()</code>中輸入：</p>
+<div class="highlight"><pre><span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+    <span class="p">...</span>
+    <span class="n">T</span><span class="p">.</span><span class="n">Inorder_by_parent</span><span class="p">(</span><span class="n">T</span><span class="p">.</span><span class="n">root</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>得到output：</p>
 <div class="highlight"><pre><span class="n">D</span> <span class="n">B</span> <span class="n">G</span> <span class="n">E</span> <span class="n">H</span> <span class="n">A</span> <span class="n">F</span> <span class="n">I</span> <span class="n">C</span>
 </pre></div>
 
 
-<p></br>
+<p></br> <br />
 <a name="predecessor"></a></p>
 <h3>Predecessor、rightmost</h3>
 <p>只要把<code>InorderSuccessor()</code>與<code>leftmost()</code>中，所有的left與right互換，就得到<code>InorderPredecessor()</code>與<code>rightmost()</code>，而概念上也確實是如此：</p>

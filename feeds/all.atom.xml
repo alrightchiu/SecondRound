@@ -16089,7 +16089,7 @@ pointer連接完成後，結束迴圈。&lt;/li&gt;
 &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;BinaryTree&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;Levelorder&lt;/span&gt;&lt;span class="p"&gt;(){&lt;/span&gt;
 
     &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;queue&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;TreeNode&lt;/span&gt;&lt;span class="o"&gt;*&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;q&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;              &lt;span class="c1"&gt;// using queue&lt;/span&gt;
-    &lt;span class="n"&gt;TreeNode&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;current&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;root&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;TreeNode&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;current&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;root&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;             &lt;span class="c1"&gt;// 以root當作traversal起點&lt;/span&gt;
 
     &lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;current&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;                     &lt;span class="c1"&gt;// if current != NULL&lt;/span&gt;
         &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;current&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;str&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="s"&gt;&amp;quot; &amp;quot;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
@@ -16141,7 +16141,7 @@ pointer連接完成後，結束迴圈。&lt;/li&gt;
 &lt;p&gt;在看兩個實用的函式之前，有幾件前置作業：  &lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;在&lt;code&gt;class BinaryTree&lt;/code&gt;的定義中加入六個member function(成員函式)：&lt;/li&gt;
-&lt;li&gt;在main()中，把如圖四之Binary Tree的parent pointer建立起來。&lt;/li&gt;
+&lt;li&gt;在&lt;code&gt;main()&lt;/code&gt;中，把如圖四之Binary Tree的parent pointer建立起來。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// C++ code&lt;/span&gt;
 &lt;span class="c1"&gt;// inside main()&lt;/span&gt;
@@ -16223,10 +16223,10 @@ pointer連接完成後，結束迴圈。&lt;/li&gt;
 &lt;ul&gt;
 &lt;li&gt;以圖五(a)中的H為例，H沒有right child，因此往上(往root方向)找ancestor。  &lt;/li&gt;
 &lt;li&gt;首先找到E，但是H是E的right child，因此再繼續往上找，此時CurrentNode移動到E。  &lt;/li&gt;
-&lt;li&gt;接著往E的parent找到B，而E是B的right child，再繼續往上找，並更新CurrentNode為B。  &lt;/li&gt;
+&lt;li&gt;接著往E的parent找到B，由於E是B的right child，所以要再繼續往上找，並更新CurrentNode為B。  &lt;/li&gt;
 &lt;li&gt;接著往B的parent找到A，此時，&lt;strong&gt;B為A的left child&lt;/strong&gt;，則A即為H的下一個順序的node。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;最後，若整棵樹偏向一邊，root只有left subtree，沒有right subtree，那麼便回傳NULL，表示root沒有successor。&lt;/p&gt;
+&lt;p&gt;特例是root，若整棵樹偏向一邊，root只有left subtree，沒有right subtree，那麼便回傳NULL，表示root沒有successor。&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="successor" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/f22.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖五(a)：。&lt;/strong&gt;&lt;br /&gt;
@@ -16238,20 +16238,19 @@ pointer連接完成後，結束迴圈。&lt;/li&gt;
         &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;leftmost&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;current&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;rightchild&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
     &lt;span class="p"&gt;}&lt;/span&gt;
 
-    &lt;span class="n"&gt;TreeNode&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;new_node&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;TreeNode&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-    &lt;span class="n"&gt;new_node&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;current&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="c1"&gt;// 利用兩個pointer: successor與current做traversal &lt;/span&gt;
 
-    &lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;new_node&lt;/span&gt; &lt;span class="o"&gt;!=&lt;/span&gt; &lt;span class="nb"&gt;NULL&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;current&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="n"&gt;new_node&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;rightchild&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-        &lt;span class="n"&gt;current&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;new_node&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-        &lt;span class="n"&gt;new_node&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;new_node&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;TreeNode&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;successor&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;current&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;   
+    &lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;successor&lt;/span&gt; &lt;span class="o"&gt;!=&lt;/span&gt; &lt;span class="nb"&gt;NULL&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;current&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="n"&gt;successor&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;rightchild&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="n"&gt;current&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;successor&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="n"&gt;successor&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;successor&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
     &lt;span class="p"&gt;}&lt;/span&gt;
-
-    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;new_node&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;successor&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;最後，有了&lt;code&gt;leftmost()&lt;/code&gt;與&lt;code&gt;InorderSuccessor()&lt;/code&gt;，即能夠以迴圈的方式進行inorder traversal，相較於遞迴形式的函式，具有更大彈性：&lt;/p&gt;
+&lt;p&gt;最後，有了&lt;code&gt;leftmost()&lt;/code&gt;與&lt;code&gt;InorderSuccessor()&lt;/code&gt;，即能夠以迴圈的方式進行inorder traversal，相較於遞迴形式的函式，具有更大彈性，以函式&lt;code&gt;Inorder_by_parent()&lt;/code&gt;呈現：&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// C++ code&lt;/span&gt;
 &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;BinaryTree&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;Inorder_by_parent&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;TreeNode&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;root&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
     &lt;span class="n"&gt;TreeNode&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;current&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;TreeNode&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
@@ -16265,12 +16264,22 @@ pointer連接完成後，結束迴圈。&lt;/li&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;output:&lt;/p&gt;
+&lt;p&gt;在&lt;code&gt;main()&lt;/code&gt;中輸入：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;(){&lt;/span&gt;
+    &lt;span class="p"&gt;...&lt;/span&gt;
+    &lt;span class="n"&gt;T&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Inorder_by_parent&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;T&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;root&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;得到output：&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;D&lt;/span&gt; &lt;span class="n"&gt;B&lt;/span&gt; &lt;span class="n"&gt;G&lt;/span&gt; &lt;span class="n"&gt;E&lt;/span&gt; &lt;span class="n"&gt;H&lt;/span&gt; &lt;span class="n"&gt;A&lt;/span&gt; &lt;span class="n"&gt;F&lt;/span&gt; &lt;span class="n"&gt;I&lt;/span&gt; &lt;span class="n"&gt;C&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;&lt;/br&gt;
+&lt;p&gt;&lt;/br&gt; &lt;br /&gt;
 &lt;a name="predecessor"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h3&gt;Predecessor、rightmost&lt;/h3&gt;
 &lt;p&gt;只要把&lt;code&gt;InorderSuccessor()&lt;/code&gt;與&lt;code&gt;leftmost()&lt;/code&gt;中，所有的left與right互換，就得到&lt;code&gt;InorderPredecessor()&lt;/code&gt;與&lt;code&gt;rightmost()&lt;/code&gt;，而概念上也確實是如此：&lt;/p&gt;
