@@ -147,7 +147,7 @@ class Tree{
 如果有家長擔心小孩子學了Binary Tree之後對未來的出路沒有幫助，這裡有[網路大神在StackOverFlow](http://stackoverflow.com/questions/2130416/what-are-the-applications-of-binary-trees)開示，以下簡單翻譯幾項Binary Tree的應用：
 
 * Binary Search Tree(BST)：在某些資料經常要增加、刪除的應用中，BST常用來做搜尋，例如許多程式語言的Library中的`map`和`set`。
-* Binary Space Partition：應用於幾乎所有的3D電玩遊戲以決定哪些物件需要rendered(呈現)。
+* Binary Space Partition：應用於幾乎所有的3D電玩遊戲以決定哪些物件需要rendered。
 * Binary Tries：應用於大多數high-bandwidth router(高頻寬路由器)以儲存router-tables。
 * Heaps：用以實現高效率的priority queues(優先權佇列)，許多作業系統用來安排工作程序。
     * 請參考：[Priority Queue：Binary Heap](http://alrightchiu.github.io/SecondRound/priority-queuebinary-heap.html)。
