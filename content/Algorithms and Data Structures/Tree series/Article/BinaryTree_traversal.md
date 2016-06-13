@@ -9,17 +9,17 @@ Summary: 介紹Binary Tree(二元樹)中的Traversal(尋訪)。
 </br>
 ###先備知識與注意事項
 
-traversal(尋訪)有「站在A地，往所有與A地相連的地方移動」的意思：  
 
-* 以Graph(圖)的語言來說，站在vertex A上，有一條edge連結A與B，若能夠由A往B移動，此即可視為traversal；
-* 在以pointer實現之Linked list和Tree中，站在node A上，A具有指向B之pointer，因此能夠由A往B移動，此即可視為traversal。
+在Linked list與Tree中的traversal中對於pointer的操作，在概念上完全相同，不過由於Node的pointer增加了，於是從一維的移動拓展到二維的移動。  
+建議讀者可以先閱讀[Linked List: 新增資料、刪除資料、反轉](http://alrightchiu.github.io/SecondRound/linked-list-xin-zeng-zi-liao-shan-chu-zi-liao-fan-zhuan.html#print)作簡單複習。  
 
-移動到特定的node之後，通常伴隨著其他行為，例如print out(顯示資料)、assign(賦值)等等，這些操作又稱作Visiting。
-
-在閱讀本篇之前，建議先閱讀[Linked List: 新增資料、刪除資料、反轉](http://alrightchiu.github.io/SecondRound/linked-list-xin-zeng-zi-liao-shan-chu-zi-liao-fan-zhuan.html#print)作簡單複習。在Linked list與Tree中的traversal於pointer的操作概念上完全相同，不過由於Node的pointer增加了，於是從一維的移動拓展到二維的移動。  
 本篇文章將介紹在Binary Tree中的四種traversal方法。  
 
-另外，根據不同的程式實作方法，可能會使用上[stack(堆疊)](https://en.wikipedia.org/wiki/Stack_%28abstract_data_type%29)與[queue(佇列)](https://en.wikipedia.org/wiki/Queue_%28abstract_data_type%29)，如果熟悉的話，那就會很酷。
+程式實作上，除了**遞迴(recursion)**，還有可能會使用上stack(堆疊)與queue(佇列)，如果不太熟悉的話，請參考：
+
+* [Stack: Intro(簡介)](http://alrightchiu.github.io/SecondRound/stack-introjian-jie.html)
+* [Queue: Intro(簡介)，並以Linked list實作](http://alrightchiu.github.io/SecondRound/queue-introjian-jie-bing-yi-linked-listshi-zuo.html)
+
 
 ***  
   
@@ -43,7 +43,15 @@ traversal(尋訪)有「站在A地，往所有與A地相連的地方移動」的�
 
 ##Traversal in Binary Tree
 
-Binary Tree的Node具有兩個指向child的pointer，Traversal以「當前所在的node」為參考點，所能夠進行的移動有三種：
+
+traversal(尋訪)有「站在A地，往所有與A地相連的地方移動」的意思：  
+
+* 以Graph(圖)的語言來說，站在vertex(A)上，有一條edge連結vertex(A)與vertex(B)，若能夠由A往B移動，此即可視為traversal；
+* 在以pointer實現之Linked list和Tree中，站在node(A)上，並且node(A)具有指向node(B)之pointer，便能夠由A往B移動，此即可視為traversal。
+
+移動到特定的node之後，通常伴隨著其他行為，例如print out(顯示資料)、assign(賦值)等等，這些操作又稱作**Visiting**。
+
+Binary Tree的Node具有兩個指向child的pointer，traversal以「當前所在的node」為參考點，所能夠進行的行為有三種：
 
 * **V**：Visiting，對當前所在的node進行print、assign或其他操作。
 * **L**：移動到left child。
@@ -51,25 +59,23 @@ Binary Tree的Node具有兩個指向child的pointer，Traversal以「當前所�
 
 
 <center>
-![VLR][VLR]
+![VLR][f1]
 
 **圖一：CurrentNode位在A，leftchild與rightchild分別為B與C。**  
 </center>   
-[VLR]:https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/VLR.png?raw=true
+
 
 
 以圖一為例，假設現在CurrentNode位在A，leftchild與rightchild分別為B與C，並加上一項限制：「L一定在R之前」，便能產生三種相對關係：
 
 
 <center>
-![VLR_pre][VLR_pre] ![LVR_in][LVR_in] ![LRV_post][LRV_post]  
+![VLR_pre][f2]  
 
  **圖二(a)-(c) 依序為： (a)pre-order：VLR、(b)in-order：LVR、(c)post-order：LRV**
 </center>
 
-[VLR_pre]:https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/VLR_pre.png?raw=true
-[LVR_in]:https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/VLR_in.png?raw=true
-[LRV_post]:https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/VLR_post.png?raw=true
+
 
 
 * **pre-order(VLR)**：當CurrentNode移動到A時，會先對A進行Visiting，接著前往left child進行Visiting，再前往right child進行Visiting。(若child指向NULL則忽略。)
@@ -80,7 +86,7 @@ Binary Tree的Node具有兩個指向child的pointer，Traversal以「當前所�
 現有一棵樹如圖三(a)，欲進行post-order traversal，並將Visiting用作print(顯示資料)：
 
 <center>
-![bt_a][bt_0]
+![bt_a][f5]
 
 **圖三(a)**  
 </center>   
@@ -97,7 +103,7 @@ post-order traversal流程如下：
 * 一開始，CurrentNode進到A(root)，按照post-order的順序規則(LRV)，先檢查B(left child)是否為NULL，若不是，則先移動到B(L)：
 
 <center>
-![bt_b][bt_1]
+![bt_b][f6]
 
 **圖三(b)：scope內：A(V)、B(L)、C(R)。**  
 </center>
@@ -105,7 +111,7 @@ post-order traversal流程如下：
 * 當CurrentNode移動到B，再一次執行post-order的順序規則，檢查D(left child)是否為NULL，若不是，則移動到D(L)：
 
 <center>
-![bt_c][bt_2]
+![bt_c][f7]
 
 **圖三(c)：scope內：B(V)、D(L)、E(R)。**  
 </center>
@@ -114,7 +120,7 @@ post-order traversal流程如下：
 * 回到B的動作發生，即表示「以D為CurrentNode之迴圈或函式已經結束」，於是回到尚未結束的「以B為CurrentNode」之scope。
 
 <center>
-![bt_d][bt_3]
+![bt_d][f8]
 
 **圖三(d)：scope內：D(V)。**  
 </center>
@@ -123,7 +129,7 @@ post-order traversal流程如下：
 接著，在「以B為CurrentNode」的scope中，根據post-order規則，繼續往E(R)移動。
 
 <center>
-![bt_e][bt_4]
+![bt_e][f9]
 
 **圖三(e)：scope內：B(V)、D(L)、E(R)。**  
 </center>
@@ -133,7 +139,7 @@ post-order traversal流程如下：
 * 接著回到「以A為CurrentNode」的程序(procedure)。
 
 <center>
-![bt_f][bt_5]
+![bt_f][f10]
 
 **圖三(f)：scope內：B(V)、D(L)、E(R)。**  
 </center>
@@ -141,7 +147,7 @@ post-order traversal流程如下：
 * 回到「以A為CurrentNode」的scope後，按照post-order的規則，接著往C(R)移動。
 
 <center>
-![bt_g][bt_6]
+![bt_g][f11]
 
 **圖三(g)：scope內：A(V)、B(L)、C(R)。**  
 </center>
@@ -149,7 +155,7 @@ post-order traversal流程如下：
 * 同樣地步驟，再從C移動至F(L)，並發現F為leaf node，於是對F進行Visiting，並標上數字。
 
 <center>
-![bt_h][bt_7]
+![bt_h][f12]
 
 **圖三(h)：scope內：C(V)、F(L)。**  
 </center>
@@ -157,7 +163,7 @@ post-order traversal流程如下：
 * 列出F後，發現C的right child指向NULL，於是略過right child(R)，回到C(V)，並對C進行Visiting，標上數字。
 
 <center>
-![bt_i][bt_8]![bt_j][bt_9]
+![bt_i][f13]![bt_j][f14]
 
 **圖三(i)-(j)：scope內：C(V)、F(L)。**  
 </center>
@@ -165,25 +171,14 @@ post-order traversal流程如下：
 * 最後回到「以A為CurrentNode」的scope，對A(V)進行Visiting，便完成了此次post-order traversal，並依序印出`D E B F C A`。
 
 <center>
-![bt_k][bt_10]![bt_l][bt_11]
+![bt_k][f15]![bt_l][f16]
 
 **圖三(k)-(l)：scope內：A(V)、B(L)、C(R)。**  
 </center>
 
 以上說明了post-order traversal之過程，另外兩種pre-order與in-order在概念上皆相同，只要把握順序規則即可。
 
-[bt_0]:https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/bt_0.png?raw=true 
-[bt_1]:https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/bt_1.png?raw=true
-[bt_2]:https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/bt_2.png?raw=true
-[bt_3]:https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/bt_3.png?raw=true
-[bt_4]:https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/bt_4.png?raw=true
-[bt_5]:https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/bt_5.png?raw=true
-[bt_6]:https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/bt_6.png?raw=true
-[bt_7]:https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/bt_7.png?raw=true
-[bt_8]:https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/bt_8.png?raw=true
-[bt_9]:https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/bt_9.png?raw=true
-[bt_10]:https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/bt_10.png?raw=true
-[bt_11]:https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/bt_11.png?raw=true
+
 
 </br>
 
@@ -196,7 +191,7 @@ post-order traversal流程如下：
 現有一棵樹如圖四(a)：
 
 <center>
-![ex][ex]
+![ex][f17]
 
 **圖四(a)：。**  
 </center>
@@ -302,7 +297,7 @@ A B D E G H C F I
 
 
 <center>
-![ex_pre][ex_pre]
+![ex_pre][f18]
 
 **圖四(b)：。**  
 </center>
@@ -328,7 +323,7 @@ D B G E H A F I C
 ```
 
 <center>
-![ex_in][ex_in]
+![ex_in][f19]
 
 **圖四(c)：。**  
 </center>
@@ -354,7 +349,7 @@ D G H E B I F C A
 ```
 
 <center>
-![ex_post][ex_post]
+![ex_post][f20]
 
 **圖四(d)：。**  
 </center>
@@ -369,7 +364,7 @@ D G H E B I F C A
 * 以圖四(e)為例，當CurrentNode站在A時，先對A作Visiting，接著檢查是否有left child與right child，若不為NULL，則依序push(推)進queue中，又根據queue「先進先出」(first-in-first-out)的特性，先將B(left child)推入queue，再推入C(right child)，便能確保在下一層level時，是由左至右，先Visiting到B，才Visiting到C。
 
 <center>
-![ex_level][ex_level]
+![ex_level][f21]
 
 **圖四(e)：。**  
 </center>
@@ -401,17 +396,14 @@ A B C D E F G H I
 ```
 
 
-[ex]:https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/ex.png?raw=true
-[ex_pre]:https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/ex_pre.png?raw=true
-[ex_in]:https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/ex_in.png?raw=true
-[ex_post]:https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/ex_post.png?raw=true
-[ex_level]:https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/ex_level.png?raw=true
+
 
 </br>
 
 <a name="in_parent"></a>
 
 ##In-Order Traversal by Parent Field
+
 在[Binary Tree：Intro](http://alrightchiu.github.io/SecondRound/binary-tree-intro.html#code)提到，若在`class TreeNode`加入pointer指向其parent node會非常有幫助，其中一項理由正是接下來要介紹的兩個函式：`InorderSuccessor()`與`InorderPredecessor()`。  
 說文解字時間：  
 
@@ -425,7 +417,7 @@ A B C D E F G H I
 * `CurrentNode = InorderPredecessor(CurrentNode)`則會將CurrentNode移動至E。
 
 <center>
-![ex_in][ex_in]
+![ex_in][f19]
 
 **圖四(c)：。**  
 </center>
@@ -493,11 +485,11 @@ TreeNode* BinaryTree::leftmost(TreeNode *current){
 3. 若整棵樹偏一邊(稱為skewed Binary Tree)，root只有left subtree，沒有right subtree，則回傳NULL，表示root的successor。
 
 <center>
-![successor][successor]
+![successor][f22]
 
 **圖五(a)：。**  
 </center>
-[successor]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/successor.png?raw=true
+
 
 以下為`InorderSuccessor()`的範例程式碼：
 
@@ -556,12 +548,12 @@ D B G E H A F I C
     3. 同樣地，若整棵樹為skewed Binary Tree，root只有right subtree，沒有left subtree，則回傳NULL，表示root的predecessor。
 
 <center>
-![predecessor][predecessor]
+![predecessor][f23]
 
 **圖五(b)：。**  
 </center>
 
-[predecessor]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/predecessor.png?raw=true
+
 
 以下為`rightmost()`與`InorderPredecessor()`的範例程式碼：
 
@@ -609,6 +601,32 @@ C I F A H E G B D
 ```
 </br>  
 `InorderSuccessor()`和`InorderPredecessor()`在Binary Search Tree的部分會再次出現，並且出現在基本操作：deletion(刪除node)中，因此學起來不止酷，還很實用的啊。
+
+
+
+[f1]:https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/VLR.png?raw=true
+[f2]:https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/VLR_pre.png?raw=true
+[f5]:https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/bt_0.png?raw=true 
+[f6]:https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/bt_1.png?raw=true
+[f7]:https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/bt_2.png?raw=true
+[f8]:https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/bt_3.png?raw=true
+[f9]:https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/bt_4.png?raw=true
+[f10]:https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/bt_5.png?raw=true
+[f11]:https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/bt_6.png?raw=true
+[f12]:https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/bt_7.png?raw=true
+[f13]:https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/bt_8.png?raw=true
+[f14]:https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/bt_9.png?raw=true
+[f15]:https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/bt_10.png?raw=true
+[f16]:https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/bt_11.png?raw=true
+[f17]:https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/ex.png?raw=true
+[f18]:https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/ex_pre.png?raw=true
+[f19]:https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/ex_in.png?raw=true
+[f20]:https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/ex_post.png?raw=true
+[f21]:https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/ex_level.png?raw=true
+[f22]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/successor.png?raw=true
+[f23]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/predecessor.png?raw=true
+
+
 
 </br>
 
