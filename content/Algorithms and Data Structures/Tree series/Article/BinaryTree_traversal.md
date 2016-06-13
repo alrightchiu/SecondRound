@@ -374,7 +374,7 @@ Level-order是照著「level由小到大」的順序，由上而下，並在同�
 void BinaryTree::Levelorder(){
 
     std::queue<TreeNode*> q;              // using queue
-    TreeNode *current = root;
+    TreeNode *current = root;             // 以root當作traversal起點
     
     while (current) {                     // if current != NULL
         std::cout << current->str << " ";
@@ -438,7 +438,7 @@ A B C D E F G H I
 在看兩個實用的函式之前，有幾件前置作業：  
 
 * 在`class BinaryTree`的定義中加入六個member function(成員函式)：
-* 在main()中，把如圖四之Binary Tree的parent pointer建立起來。
+* 在`main()`中，把如圖四之Binary Tree的parent pointer建立起來。
 
 ```cpp
 // C++ code
@@ -529,10 +529,10 @@ TreeNode* BinaryTree::leftmost(TreeNode *current){
 
 * 以圖五(a)中的H為例，H沒有right child，因此往上(往root方向)找ancestor。  
 * 首先找到E，但是H是E的right child，因此再繼續往上找，此時CurrentNode移動到E。  
-* 接著往E的parent找到B，而E是B的right child，再繼續往上找，並更新CurrentNode為B。  
+* 接著往E的parent找到B，由於E是B的right child，所以要再繼續往上找，並更新CurrentNode為B。  
 * 接著往B的parent找到A，此時，**B為A的left child**，則A即為H的下一個順序的node。
 
-最後，若整棵樹偏向一邊，root只有left subtree，沒有right subtree，那麼便回傳NULL，表示root沒有successor。
+特例是root，若整棵樹偏向一邊，root只有left subtree，沒有right subtree，那麼便回傳NULL，表示root沒有successor。
 
 <center>
 ![successor][f22]
@@ -550,19 +550,18 @@ TreeNode* BinaryTree::InorderSuccessor(TreeNode *current){
         return leftmost(current->rightchild);
     }
     
-    TreeNode *new_node = new TreeNode;
-    new_node = current->parent;
+    // 利用兩個pointer: successor與current做traversal 
     
-    while (new_node != NULL && current == new_node->rightchild) {
-        current = new_node;
-        new_node = new_node->parent;
+    TreeNode *successor = current->parent;   
+    while (successor != NULL && current == successor->rightchild) {
+        current = successor;
+        successor = successor->parent;
     }
-    
-    return new_node;
+    return successor;
 }
 ```
 
-最後，有了`leftmost()`與`InorderSuccessor()`，即能夠以迴圈的方式進行inorder traversal，相較於遞迴形式的函式，具有更大彈性：
+最後，有了`leftmost()`與`InorderSuccessor()`，即能夠以迴圈的方式進行inorder traversal，相較於遞迴形式的函式，具有更大彈性，以函式`Inorder_by_parent()`呈現：
 
 ```cpp
 // C++ code
@@ -577,12 +576,24 @@ void BinaryTree::Inorder_by_parent(TreeNode *root){
 }
 ```
 
-output:
+在`main()`中輸入：
+
+```cpp
+int main(){
+	...
+	T.Inorder_by_parent(T.root);
+	
+	return 0;
+}
+```
+
+得到output：
 
 ```cpp
 D B G E H A F I C
 ```
-</br>
+
+</br>   
 <a name="predecessor"></a>
 
 ###Predecessor、rightmost
