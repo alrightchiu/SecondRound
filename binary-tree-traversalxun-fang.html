@@ -315,8 +315,7 @@
 <li>main()中建立如圖四(a)的樹，並依序執行四種traversal。</li>
 </ul>
 <p>其中，pre-order、in-order、post-order traversal的邏輯就只是「V」、「L」、「R」誰先誰後的差別，以下程式碼是以較直覺的遞迴(recursion)形式完成，不過，換成迭代(iteration)配合<strong>Stack(堆疊)</strong>在概念上完全相同，實作上即是考慮「V」、「L」、「R」誰先push(推)進stack。  </p>
-<p></br><br />
-<a name="pre"></a></p>
+<p><a name="pre"></a></p>
 <h3>Pre-Order Traversal</h3>
 <div class="highlight"><pre><span class="c1">// C++ code</span>
 <span class="kt">void</span> <span class="n">BinaryTree</span><span class="o">::</span><span class="n">Preorder</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">){</span>
@@ -382,8 +381,7 @@
 <img alt="ex_post" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/f20.png?raw=true" /></p>
 <p><strong>圖四(d)：。</strong><br />
 </center></p>
-<p></br>  <br />
-<a name="level"></a></p>
+<p><a name="level"></a></p>
 <h3>Level-Order Traversal</h3>
 <p>Level-order是照著「level由小到大」的順序，由上而下，並在同一個level「由左至右」依序Visiting每個node。</p>
 <p>以下提供以迴圈配合<strong>Queue(佇列)</strong>實現level-order traversal之程式碼，其邏輯也非常直觀：</p>
@@ -575,7 +573,9 @@
 
 <p>在<code>main()</code>中輸入：</p>
 <div class="highlight"><pre><span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+
     <span class="p">...</span>
+
     <span class="n">T</span><span class="p">.</span><span class="n">Inorder_by_parent</span><span class="p">(</span><span class="n">T</span><span class="p">.</span><span class="n">root</span><span class="p">);</span>
 
     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
@@ -650,7 +650,9 @@
 
 <p>在<code>main()</code>中輸入：</p>
 <div class="highlight"><pre><span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+
     <span class="p">...</span>
+
     <span class="n">T</span><span class="p">.</span><span class="n">Inorder_Reverse</span><span class="p">(</span><span class="n">T</span><span class="p">.</span><span class="n">root</span><span class="p">);</span>
 
     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
