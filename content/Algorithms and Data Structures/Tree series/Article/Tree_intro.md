@@ -82,18 +82,19 @@ Summary: 介紹資料結構中Tree(樹)的概念。
 
 後者的箭頭即違反了最初「包龍星是宋世傑的爸爸」的命題，此即稱為cycle，也就是著名的「雞生蛋」與「蛋生雞」。  
 
+<center>
+![cycle][f4]  
+
+**圖三：包龍星若是宋世傑的parent(父)，又同時為其child(子)，即形成cycle。**
+</center>
+
 而樹的最根本特徵就是：**在樹的結構裡，只有一個root(樹根)，並且不存在cycle**。  
 此特徵將衍生出另外兩項等價的性質：
 
 1. 在樹中若要從root尋找特定node，一定只存在一條路徑(path)。  
 2. 每個node只會有一個parent。
 
-</br>    
-<center>
-![cycle][f4]  
 
-**圖三：包龍星若是宋世傑的parent(父)，又同時為其child(子)，即形成cycle。**
-</center>
 
 
 </br> 
