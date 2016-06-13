@@ -593,21 +593,29 @@ int main(){
 D B G E H A F I C
 ```
 
-</br>   
+
+
 <a name="predecessor"></a>
 
 ###Predecessor、rightmost
 
 只要把`InorderSuccessor()`與`leftmost()`中，所有的left與right互換，就得到`InorderPredecessor()`與`rightmost()`，而概念上也確實是如此：
 
-* **rightmost**：從「以CurrentNode為subtree」的root一路向右做Linked list的單向traversal。
-* **Predecessor**：某一CurrentNode的「前一個順序的node」之位置有兩種可能：
+**rightmost**：從「以CurrentNode為subtree」的root一路向右做Linked list的單向traversal。
 
-    1. 若CurrentNode的left child不是NULL，則CurrentNode之前一個順序的node即為以「Current->lefttchild為root」之subtree中，最右的node。  
-如圖五(b)所示，若CurrentNode站在C上，C的前一個node即為「以C的right child(也就是F)」為root之subtree中的最右node，即為I。
-    2. 若CurrentNode沒有left child，則CurrentNode之前一個順序的node是「以right child的身份尋找到的ancestor」。  
-以圖五(b)中的F為例，F沒有left child，因此往上(往root方向)找ancestor，首先找到C，但是F是C的left child，因此再繼續往上找，此時CurrentNode為C，往parent找到A，此時，**C為A的right child**，則A即為F的前一個順序的node。
-    3. 同樣地，若整棵樹為skewed Binary Tree，root只有right subtree，沒有left subtree，則回傳NULL，表示root的predecessor。
+**Predecessor**：某一CurrentNode的「前一個順序的node」之位置有兩種可能：
+
+**第一種**：若CurrentNode的left child不是NULL，則CurrentNode之前一個順序的node即為以「Current->lefttchild為root」之subtree中，最右的node。  
+
+* 如圖五(b)所示，若CurrentNode站在C上，C的前一個node即為「以C的right child(也就是F)」為root之subtree中的最右node，即為I。
+    
+**第二種**：若CurrentNode沒有left child，則CurrentNode之前一個順序的node是「以right child的身份尋找到的ancestor」。  
+
+* 以圖五(b)中的F為例，F沒有left child，因此往上(往root方向)找ancestor。
+* 首先找到C，但是F是C的left child，因此再繼續往上找，此時CurrentNode更新成C。
+* 再往C的parent找到A，此時，**C為A的right child**，則A即為F的前一個順序的node。
+
+同樣地，若整棵樹偏向一邊，root只有right subtree，沒有left subtree，則回傳NULL，表示root沒有predecessor。
 
 <center>
 ![predecessor][f23]
@@ -622,26 +630,28 @@ D B G E H A F I C
 ```cpp
 // C++ code
 TreeNode* BinaryTree::rightmost(TreeNode *current){
-    while (current->rightchild != NULL)
+    while (current->rightchild != NULL){
         current = current->rightchild;
+    }
     return current;
 }
 TreeNode* BinaryTree::InorderPredecessor(TreeNode *current){
-    if (current->leftchild != NULL)
+    if (current->leftchild != NULL){
         return rightmost(current->leftchild);
+    }
+    // 利用兩個pointer: predecessor與current做traversal
+    TreeNode *predecessor = current->parent;
     
-    TreeNode *new_node = new TreeNode;
-    new_node = current->parent;
-    
-    while (new_node != NULL && current == new_node->leftchild) {
-        current = new_node;
-        new_node = new_node->parent;
+    while (predecessor != NULL && current == predecessor->leftchild) {
+        current = predecessor;
+        predecessor = predecessor->parent;
     }
     
-    return new_node;
+    return predecessor;
 }
 ```
-有了`rightmost()`與`InorderPredecessor()`，便能夠照inorder traversal的相反順序對樹的node做Visiting：
+
+有了`rightmost()`與`InorderPredecessor()`，便能夠照inorder traversal的相反順序對樹的node做Visiting，以函式`Inorder_Reverse`呈現：
 
 ```cpp
 // C++ code
@@ -656,12 +666,24 @@ void BinaryTree::Inorder_Reverse(TreeNode *root){
 }
 ```
 
-output:
+在`main()`中輸入：
+
+```cpp
+int main(){
+	...
+	T.Inorder_Reverse(T.root);
+	
+	return 0;
+}
+```
+
+得到output：
 
 ```cpp
 C I F A H E G B D
 ```
-</br>  
+
+</br>   
 `InorderSuccessor()`和`InorderPredecessor()`在Binary Search Tree的部分會再次出現，並且出現在基本操作：deletion(刪除node)中，因此學起來不止酷，還很實用的啊。
 
 
