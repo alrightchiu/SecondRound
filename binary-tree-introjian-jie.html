@@ -112,7 +112,7 @@
     <article>
         <p></br></p>
 <h3>先備知識與注意事項</h3>
-<p>接續上一篇談到的<a href="http://alrightchiu.github.io/SecondRound/treeshu.html">Tree(樹)</a>，這篇文章將介紹樹這個大集合裡的其中一支大宗：<strong>Binary Tree</strong>。</p>
+<p>接續上一篇談到的<a href="http://alrightchiu.github.io/SecondRound/treeshu.html">Tree(樹)</a>，這篇文章將介紹Tree的其中一支大宗：<strong>Binary Tree</strong>。</p>
 <hr />
 <h2>目錄</h2>
 <ul>
@@ -142,7 +142,8 @@
 <p>修改在<a href="http://alrightchiu.github.io/SecondRound/treeshu.html#code">Tree(樹)</a>提供的程式實作方式，將node的child pointer設為left child與right child，以滿足Binary Tree的形式。  </p>
 <p>另外，在class TreeNode有個<code>TreeNode *parent</code>，顧名思義，即是指向該node之parent的pointer，以圖二為例，B的parent pointer即指向A。  </p>
 <ul>
-<li>Binary Tree的node未必需要parent pointer(或稱為parent field)，不過加入parent後，對樹的資料處理如inorder traversal(中序尋訪)、node deletion(刪除node)、以及任何需要back-tracing(回溯路徑)的操作時，會更加有效率。</li>
+<li>Binary Tree的node未必需要parent pointer(或稱為parent field)，不過加入parent後，對樹的資料處理如inorder traversal(中序尋訪)、node deletion(刪除node)、以及任何需要back-tracing(回溯路徑)的操作時，會更加有效率。<br />
+</br>  </li>
 </ul>
 <div class="highlight"><pre><span class="c1">// 以C++為例</span>
 <span class="k">class</span> <span class="nc">Tree</span><span class="p">;</span>
