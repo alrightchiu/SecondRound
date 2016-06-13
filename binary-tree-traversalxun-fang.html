@@ -114,7 +114,7 @@
 <p>在Linked list與Tree中的traversal中對於pointer的操作，在概念上完全相同，不過由於Node的pointer增加了，於是從一維的移動拓展到二維的移動。<br />
 建議讀者可以先閱讀<a href="http://alrightchiu.github.io/SecondRound/linked-list-xin-zeng-zi-liao-shan-chu-zi-liao-fan-zhuan.html#print">Linked List: 新增資料、刪除資料、反轉</a>作簡單複習。  </p>
 <p>本篇文章將介紹在Binary Tree中的四種traversal方法。  </p>
-<p>程式實作上，除了<strong>遞迴(recursion)</strong>，還有可能會使用上stack(堆疊)與queue(佇列)，如果不太熟悉的話，請參考：</p>
+<p>程式實作的部分，除了<strong>遞迴(recursion)</strong>，還有可能會使用上stack(堆疊)與queue(佇列)，如果不太熟悉，請參考：</p>
 <ul>
 <li><a href="http://alrightchiu.github.io/SecondRound/stack-introjian-jie.html">Stack: Intro(簡介)</a></li>
 <li><a href="http://alrightchiu.github.io/SecondRound/queue-introjian-jie-bing-yi-linked-listshi-zuo.html">Queue: Intro(簡介)，並以Linked list實作</a></li>
@@ -141,12 +141,12 @@
 <p></br></p>
 <p><a name="bttraversal"></a></p>
 <h2>Traversal in Binary Tree</h2>
-<p>traversal(尋訪)有「站在A地，往所有與A地相連的地方移動」的意思：  </p>
+<p>Traversal(尋訪)有「站在A地，往所有與A地相連的地方移動」的意思：  </p>
 <ul>
 <li>以Graph(圖)的語言來說，站在vertex(A)上，有一條edge連結vertex(A)與vertex(B)，若能夠由A往B移動，此即可視為traversal；</li>
 <li>在以pointer實現之Linked list和Tree中，站在node(A)上，並且node(A)具有指向node(B)之pointer，便能夠由A往B移動，此即可視為traversal。</li>
 </ul>
-<p>移動到特定的node之後，通常伴隨著其他行為，例如print out(顯示資料)、assign(賦值)等等，這些操作又稱作<strong>Visiting</strong>。</p>
+<p>移動到特定的node之後，通常伴隨著其他行為，例如print out(顯示資料)、assign(賦值)、刪除資料等等，這些操作又稱作<strong>Visiting</strong>。</p>
 <p>Binary Tree的Node具有兩個指向child的pointer，traversal以「當前所在的node」為參考點，所能夠進行的行為有三種：</p>
 <ul>
 <li><strong>V</strong>：Visiting，對當前所在的node進行print、assign或其他操作。</li>
@@ -162,86 +162,66 @@
 <img alt="VLR_pre" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/f2.png?raw=true" />  </p>
 <p><strong>圖二(a)-(c) 依序為： (a)pre-order：VLR、(b)in-order：LVR、(c)post-order：LRV</strong>
 </center></p>
-<ul>
-<li><strong>pre-order(VLR)</strong>：當CurrentNode移動到A時，會先對A進行Visiting，接著前往left child進行Visiting，再前往right child進行Visiting。(若child指向NULL則忽略。)</li>
-<li><strong>in-order(LVR)</strong>：當CurrentNode移動到A時，會先對A的left child(B)進行Visiting，接著回到A進行Visiting，再前往right child(C)進行Visiting。(若child指向NULL則忽略。)</li>
-<li><strong>post-order(LRV)</strong>：當CurrentNode移動到A時，會先對A的left child(B)進行Visiting，再前往right child(C)進行Visiting，接著回到A進行Visiting。(若child指向NULL則忽略。)</li>
-</ul>
-<p></br>
-現有一棵樹如圖三(a)，欲進行post-order traversal，並將Visiting用作print(顯示資料)：</p>
+<p><strong>pre-order(VLR)</strong>：當CurrentNode移動到A時，會先對A進行Visiting，接著前往left child進行Visiting，再前往right child進行Visiting。(若child指向NULL則忽略。)</p>
+<p><strong>in-order(LVR)</strong>：當CurrentNode移動到A時，會先對A的left child(B)進行Visiting，接著回到A進行Visiting，再前往right child(C)進行Visiting。(若child指向NULL則忽略。)</p>
+<p><strong>post-order(LRV)</strong>：當CurrentNode移動到A時，會先對A的left child(B)進行Visiting，再前往right child(C)進行Visiting，接著回到A進行Visiting。(若child指向NULL則忽略。)</p>
+<p></br><br />
+小小備註：</p>
+<ol>
+<li>以下圖例中，V表示CurrentNode所在的node，標上數字後表示已經Visiting完成，以print(顯示資料)為例，標上「<span class="math">\(1\)</span>」表示該node第一個被印出。</li>
+<li>以下文字說明，將使用scope(視野範圍)的概念，用來表示以每個CurrentNode(也就是V)為中心，與其所能夠指向之pointer所構成的範圍(等同於「迴圈」或者「函式呼叫」的scope)。因為每個迴圈都會改變CurrentNode(V)的位置，因此scope會以CurrentNode(V)為中心不停移動，直到迴圈/函式結束。</li>
+</ol>
+<p>現有一棵樹如圖三(a)，欲進行post-order traversal，並將Visiting用作print(顯示資料)，流程如下：</p>
 <p><center>
 <img alt="bt_a" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/f5.png?raw=true" /></p>
 <p><strong>圖三(a)</strong><br />
 </center>   </p>
-<p>小小備註：</p>
-<ol>
-<li>以下圖例中，V表示CurrentNode所在的node，標上數字後表示已經Visiting，以print(顯示資料)為例，標上"1"表示該node第一個被印出。</li>
-<li>以下文字說明，將使用scope(視野範圍)的概念，用來表示以每個V(CurrentNode)為中心，與其所能夠指向之pointer所構成的範圍(等同於迴圈(或者函式呼叫)的scope)。因為每個迴圈都會改變V(CurrentNode)的位置，因此scope會以V(CurrentNode)為中心不停移動，直到迴圈結束。</li>
-</ol>
-<p>post-order traversal流程如下：</p>
-<ul>
-<li>一開始，CurrentNode進到A(root)，按照post-order的順序規則(LRV)，先檢查B(left child)是否為NULL，若不是，則先移動到B(L)：</li>
-</ul>
+<p>一開始，CurrentNode進到A(root)，按照post-order的順序規則(LRV)，先檢查left child：B是否為NULL，若不是，則先將CurrentNode移動到B(L)：</p>
 <p><center>
 <img alt="bt_b" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/f6.png?raw=true" /></p>
 <p><strong>圖三(b)：scope內：A(V)、B(L)、C(R)。</strong><br />
 </center></p>
-<ul>
-<li>當CurrentNode移動到B，再一次執行post-order的順序規則，檢查D(left child)是否為NULL，若不是，則移動到D(L)：</li>
-</ul>
+<p>當CurrentNode移動到B，再一次執行post-order的順序規則(LRV)，檢查left child：D是否為NULL，若不是，則將CurrentNode移動到D(L)：</p>
 <p><center>
 <img alt="bt_c" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/f7.png?raw=true" /></p>
 <p><strong>圖三(c)：scope內：B(V)、D(L)、E(R)。</strong><br />
 </center></p>
-<ul>
-<li>當CurrentNode移動到D，再一次執行post-order的順序規則，檢查出D的left child與right child皆為NULL，則回到D做Visiting，在此即印出D(print)，並回到B。  </li>
-<li>回到B的動作發生，即表示「以D為CurrentNode之迴圈或函式已經結束」，於是回到尚未結束的「以B為CurrentNode」之scope。</li>
-</ul>
+<p>當CurrentNode移動到D，再一次執行post-order的順序規則(LRV)，檢查出D的left child與right child皆為NULL，表示「LRV」的「L」與「R」都已經執行完畢，便「回到D」做Visiting，在此即印出D(print)。</p>
+<p>接著，由於「以D為CurrentNode」形成的scope內之node已經全數Visiting完畢，便可回到「以D之parent作為CurrentNode之scope」，於是將CurrentNode移回B。</p>
+<p>回到B的動作發生，即表示：以D為CurrentNode之迴圈或函式已經結束。</p>
 <p><center>
 <img alt="bt_d" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/f8.png?raw=true" /></p>
 <p><strong>圖三(d)：scope內：D(V)。</strong><br />
 </center></p>
-<ul>
-<li>D已經進行過Visiting，便標上數字"1"，表示D為traversal的第一站。<br />
-接著，在「以B為CurrentNode」的scope中，根據post-order規則，繼續往E(R)移動。</li>
-</ul>
+<p>D已經進行過Visiting，便標上數字「<span class="math">\(1\)</span>」，表示D為post-order traversal的第一站。<br />
+接著，在「以B為CurrentNode」的scope中，根據post-order規則，繼續往E(R)移動。</p>
 <p><center>
 <img alt="bt_e" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/f9.png?raw=true" /></p>
 <p><strong>圖三(e)：scope內：B(V)、D(L)、E(R)。</strong><br />
 </center></p>
-<ul>
-<li>進入E後，因為E為leaf node，因此過程如圖三(d)，不會進入NULL。<br />
-在D(L)與E(R)都Visiting過後，便回到B(V)進行Visiting，並標上數字。  </li>
-<li>接著回到「以A為CurrentNode」的程序(procedure)。</li>
-</ul>
+<p>進入E後，因為E為leaf node，因此過程如圖三(d)，不會進入NULL。<br />
+在D(L)與E(R)都Visiting過後，便回到B(V)進行Visiting，並標上數字。如此便完成「以B為CurrentNode之scope」內的所有node之Visiting。</p>
+<p>接著回到「以A為CurrentNode」的scope。</p>
 <p><center>
 <img alt="bt_f" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/f10.png?raw=true" /></p>
 <p><strong>圖三(f)：scope內：B(V)、D(L)、E(R)。</strong><br />
 </center></p>
-<ul>
-<li>回到「以A為CurrentNode」的scope後，按照post-order的規則，接著往C(R)移動。</li>
-</ul>
+<p>回到「以A為CurrentNode」的scope後，按照post-order的規則，接著往C(R)移動。</p>
 <p><center>
 <img alt="bt_g" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/f11.png?raw=true" /></p>
 <p><strong>圖三(g)：scope內：A(V)、B(L)、C(R)。</strong><br />
 </center></p>
-<ul>
-<li>同樣地步驟，再從C移動至F(L)，並發現F為leaf node，於是對F進行Visiting，並標上數字。</li>
-</ul>
+<p>同樣地步驟，再從C移動至F(L)，並發現F為leaf node，於是對F進行Visiting，並標上數字。</p>
 <p><center>
 <img alt="bt_h" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/f12.png?raw=true" /></p>
 <p><strong>圖三(h)：scope內：C(V)、F(L)。</strong><br />
 </center></p>
-<ul>
-<li>列出F後，發現C的right child指向NULL，於是略過right child(R)，回到C(V)，並對C進行Visiting，標上數字。</li>
-</ul>
+<p>列出F後，發現C的right child指向NULL，於是略過right child(R)，回到C(V)，並對C進行Visiting，標上數字。</p>
 <p><center>
 <img alt="bt_i" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/f13.png?raw=true" /><img alt="bt_j" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/f14.png?raw=true" /></p>
 <p><strong>圖三(i)-(j)：scope內：C(V)、F(L)。</strong><br />
 </center></p>
-<ul>
-<li>最後回到「以A為CurrentNode」的scope，對A(V)進行Visiting，便完成了此次post-order traversal，並依序印出<code>D E B F C A</code>。</li>
-</ul>
+<p>最後回到「以A為CurrentNode」的scope，對A(V)進行Visiting，便完成了此次post-order traversal，並依序印出<code>D E B F C A</code>。</p>
 <p><center>
 <img alt="bt_k" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/f15.png?raw=true" /><img alt="bt_l" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/f16.png?raw=true" /></p>
 <p><strong>圖三(k)-(l)：scope內：A(V)、B(L)、C(R)。</strong><br />
@@ -640,6 +620,63 @@
 <p>回到目錄：</p>
 <p><a href="http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html">目錄：演算法與資料結構</a></p>
 <p></br></p>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' && location_protocol !== 'https') location_protocol = 'https:';
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
     </article>
 
         <div class="tags">
