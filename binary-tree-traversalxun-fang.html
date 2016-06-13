@@ -114,7 +114,7 @@
 <p>在Linked list與Tree中的traversal中對於pointer的操作，在概念上完全相同，不過由於Node的pointer增加了，於是從一維的移動拓展到二維的移動。<br />
 建議讀者可以先閱讀<a href="http://alrightchiu.github.io/SecondRound/linked-list-xin-zeng-zi-liao-shan-chu-zi-liao-fan-zhuan.html#print">Linked List: 新增資料、刪除資料、反轉</a>作簡單複習。  </p>
 <p>本篇文章將介紹在Binary Tree中的四種traversal方法。  </p>
-<p>程式實作的部分，除了<strong>遞迴(recursion)</strong>，還有可能會使用上stack(堆疊)與queue(佇列)，如果不太熟悉，請參考：</p>
+<p>程式實作的部分，除了<strong>遞迴(recursion)</strong>，還有可能會使用上Stack(堆疊)與Queue(佇列)，如果不太熟悉，請參考：</p>
 <ul>
 <li><a href="http://alrightchiu.github.io/SecondRound/stack-introjian-jie.html">Stack: Intro(簡介)</a></li>
 <li><a href="http://alrightchiu.github.io/SecondRound/queue-introjian-jie-bing-yi-linked-listshi-zuo.html">Queue: Intro(簡介)，並以Linked list實作</a></li>
@@ -250,23 +250,15 @@
     <span class="n">TreeNode</span> <span class="o">*</span><span class="n">parent</span><span class="p">;</span>
     <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">str</span><span class="p">;</span>
 
-    <span class="n">TreeNode</span><span class="p">(){</span>
-        <span class="n">leftchild</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="n">rightchild</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="n">parent</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="p">};</span>
-    <span class="n">TreeNode</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">s</span><span class="p">)</span><span class="o">:</span><span class="n">str</span><span class="p">(</span><span class="n">s</span><span class="p">){</span>
-        <span class="n">leftchild</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="n">rightchild</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="n">parent</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="p">};</span>
+    <span class="n">TreeNode</span><span class="p">()</span><span class="o">:</span><span class="n">leftchild</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="n">rightchild</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="n">parent</span><span class="p">(</span><span class="mi">0</span><span class="p">){};</span>
+    <span class="n">TreeNode</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">s</span><span class="p">)</span><span class="o">:</span><span class="n">str</span><span class="p">(</span><span class="n">s</span><span class="p">),</span><span class="n">leftchild</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="n">rightchild</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="n">parent</span><span class="p">(</span><span class="mi">0</span><span class="p">){};</span>
 
     <span class="k">friend</span> <span class="k">class</span> <span class="nc">BinaryTree</span><span class="p">;</span>
 <span class="p">};</span>
 <span class="k">class</span> <span class="nc">BinaryTree</span><span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
     <span class="n">TreeNode</span> <span class="o">*</span><span class="n">root</span><span class="p">;</span>         <span class="c1">// 以root作為存取整棵樹的起點</span>
-    <span class="n">BinaryTree</span><span class="p">(){</span> <span class="n">root</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;};</span>
+    <span class="n">BinaryTree</span><span class="p">()</span><span class="o">:</span><span class="n">root</span><span class="p">(</span><span class="mi">0</span><span class="p">){};</span>
     <span class="n">BinaryTree</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">node</span><span class="p">)</span><span class="o">:</span><span class="n">root</span><span class="p">(</span><span class="n">node</span><span class="p">){};</span>
 
     <span class="kt">void</span> <span class="nf">Preorder</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">);</span>
@@ -280,7 +272,11 @@
 <span class="c1">// definition of BinaryTree::Levelorder()</span>
 <span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="c1">// TreeNode instantiation</span>
-    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">A</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">(</span><span class="s">&quot;A&quot;</span><span class="p">);</span> <span class="n">TreeNode</span> <span class="o">*</span><span class="n">B</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">(</span><span class="s">&quot;B&quot;</span><span class="p">);</span> <span class="n">TreeNode</span> <span class="o">*</span><span class="n">C</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">(</span><span class="s">&quot;C&quot;</span><span class="p">);</span> <span class="n">TreeNode</span> <span class="o">*</span><span class="n">D</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">(</span><span class="s">&quot;D&quot;</span><span class="p">);</span> <span class="n">TreeNode</span> <span class="o">*</span><span class="n">E</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">(</span><span class="s">&quot;E&quot;</span><span class="p">);</span> <span class="n">TreeNode</span> <span class="o">*</span><span class="n">F</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">(</span><span class="s">&quot;F&quot;</span><span class="p">);</span> <span class="n">TreeNode</span> <span class="o">*</span><span class="n">G</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">(</span><span class="s">&quot;G&quot;</span><span class="p">);</span> <span class="n">TreeNode</span> <span class="o">*</span><span class="n">H</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">(</span><span class="s">&quot;H&quot;</span><span class="p">);</span> <span class="n">TreeNode</span> <span class="o">*</span><span class="n">I</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">(</span><span class="s">&quot;I&quot;</span><span class="p">);</span>
+    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">A</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">(</span><span class="s">&quot;A&quot;</span><span class="p">);</span> <span class="n">TreeNode</span> <span class="o">*</span><span class="n">B</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">(</span><span class="s">&quot;B&quot;</span><span class="p">);</span> 
+    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">C</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">(</span><span class="s">&quot;C&quot;</span><span class="p">);</span> <span class="n">TreeNode</span> <span class="o">*</span><span class="n">D</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">(</span><span class="s">&quot;D&quot;</span><span class="p">);</span> 
+    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">E</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">(</span><span class="s">&quot;E&quot;</span><span class="p">);</span> <span class="n">TreeNode</span> <span class="o">*</span><span class="n">F</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">(</span><span class="s">&quot;F&quot;</span><span class="p">);</span> 
+    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">G</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">(</span><span class="s">&quot;G&quot;</span><span class="p">);</span> <span class="n">TreeNode</span> <span class="o">*</span><span class="n">H</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">(</span><span class="s">&quot;H&quot;</span><span class="p">);</span> 
+    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">I</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">(</span><span class="s">&quot;I&quot;</span><span class="p">);</span>
 
     <span class="c1">// construct the Binary Tree</span>
     <span class="n">A</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">=</span> <span class="n">B</span><span class="p">;</span> <span class="n">A</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">=</span> <span class="n">C</span><span class="p">;</span> 
@@ -311,7 +307,7 @@
 <li>main()中建立如圖四(a)的樹，並在<strong>line54 - line61</strong>執行四種traversal。</li>
 </ul>
 <p>尚缺的四個函式的定義(definition)請接著看下去。<br />
-其中，pre-order、in-order、post-order traversal的邏輯就只是「V」、「L」、「R」誰先誰後的差別，以下程式碼是以較直覺的遞迴(recursion)形式完成，不過，換成迭代(iteration)配合<a href="https://en.wikipedia.org/wiki/Stack_%28abstract_data_type%29">stack(堆疊)</a>在概念上完全相同，實作上即是考慮「V」、「L」、「R」誰先push(推)進stack。  </p>
+其中，pre-order、in-order、post-order traversal的邏輯就只是「V」、「L」、「R」誰先誰後的差別，以下程式碼是以較直覺的遞迴(recursion)形式完成，不過，換成迭代(iteration)配合<strong>Stack(堆疊)</strong>在概念上完全相同，實作上即是考慮「V」、「L」、「R」誰先push(推)進stack。  </p>
 <p><a name="pre"></a></p>
 <h3>Pre-Order Traversal</h3>
 <div class="highlight"><pre><span class="c1">// C++ code</span>
