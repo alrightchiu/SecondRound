@@ -406,13 +406,15 @@ A B C D E F G H I
 
 ##In-Order Traversal by Parent Field
 
-在[Binary Tree：Intro](http://alrightchiu.github.io/SecondRound/binary-tree-intro.html#code)提到，若在`class TreeNode`加入pointer指向其parent node會非常有幫助，其中一項理由正是接下來要介紹的兩個函式：`InorderSuccessor()`與`InorderPredecessor()`。  
+在[Binary Tree: Intro(簡介)](http://alrightchiu.github.io/SecondRound/binary-tree-introjian-jie.html#code)提到，若在`class TreeNode`加入pointer指向其parent node會非常有幫助，其中一項理由正是接下來要介紹的兩個函式：`InorderSuccessor()`與`InorderPredecessor()`。  
+
 說文解字時間：  
 
-* 字首Inorder-，即是按照inorder之順序規則並應用於inorder traversal；
+* 字首Inorder-，即是按照inorder traversal之規則(LVR)；
 * 字尾Successor/ Predecessor，即是「下一個」與「前一個」。
 
 因此，`InorderSuccessor()`與`InorderPredecessor()`便是用來尋找「**以inorder順序**」進行traversal之下一個與前一個node。  
+
 以圖四(c)為例，若CurrentNode站在H(`CurrentNode = H`)，則
 
 * `CurrentNode = InorderSuccessor(CurrentNode)`會將CurrentNode移動至A；
@@ -424,8 +426,11 @@ A B C D E F G H I
 **圖四(c)：。**  
 </center>
 
-特別介紹inorder，一大原因是為了Binary Search Tree(BST)鋪路，在BST中，照著inorder順序印出node，就會得到排序過的資訊(詳見：[Binary Search Tree: Sort(排序)、Delete(刪除資料)](http://alrightchiu.github.io/SecondRound/binary-search-tree-sortpai-xu-deleteshan-chu-zi-liao.html#binary-search-tree-sortpai-xu-deleteshan-chu-zi-liao))。  
+特別介紹inorder，一大原因是為了Binary Search Tree(BST)鋪路，在BST中，照著inorder順序印出node，就會得到「排好序」的資料(詳見：[Binary Search Tree: Sort(排序)、Delete(刪除資料)](http://alrightchiu.github.io/SecondRound/binary-search-tree-sortpai-xu-deleteshan-chu-zi-liao.html#binary-search-tree-sortpai-xu-deleteshan-chu-zi-liao))。  
+
 另外，若觀察前面提過的遞迴(recursion)形式之inorder traversal，Visiting被包含在遞迴函式內，這表示若要進行多種不同的Visiting，例如print(顯示資料)、assign(賦值、更新資料)，都需要重新寫一個專門功能的遞迴函式。顯然，把Visiting和Traversal獨立開來會更有效率。
+
+
 
 在看兩個實用的函式之前，有幾件前置作業：  
 
