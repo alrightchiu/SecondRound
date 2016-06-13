@@ -372,23 +372,23 @@ Level-order是照著「level由小到大」的順序，由上而下，並在同�
 ```cpp
 // C++ code
 void BinaryTree::Levelorder(){
-
-    std::queue<TreeNode*> q;              // using queue
-    TreeNode *current = root;             // 以root當作traversal起點
     
-    while (current) {                     // if current != NULL
-        std::cout << current->str << " ";
-        if (current->leftchild)
+    std::queue<TreeNode*> q;
+    q.push(this->root);                     // 把root作為level-order traversal之起點
+                                            // 推進queue中
+    while (!q.empty()){                     // 若queue不是空的, 表示還有node沒有visiting
+
+        TreeNode *current = q.front();      // 取出先進入queue的node
+        q.pop();                          
+        std::cout << current->str << " ";   // 進行visiting
+
+        if (current->leftchild != NULL){    // 若leftchild有資料, 將其推進queue
             q.push(current->leftchild);
-        if (current->rightchild)
+        }
+        if (current->rightchild != NULL){   // 若rightchild有資料, 將其推進queue
             q.push(current->rightchild);
-        
-        if (q.empty())
-            break;
-        
-        current = q.front();
-        q.pop();
-    }  
+        }
+    }
 }
 ```
 output:
@@ -594,7 +594,7 @@ D B G E H A F I C
 ```
 
 
-
+</br>  
 <a name="predecessor"></a>
 
 ###Predecessor、rightmost
