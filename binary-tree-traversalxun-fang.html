@@ -319,7 +319,7 @@
 <h3>Pre-Order Traversal</h3>
 <div class="highlight"><pre><span class="c1">// C++ code</span>
 <span class="kt">void</span> <span class="n">BinaryTree</span><span class="o">::</span><span class="n">Preorder</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">){</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">current</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">current</span><span class="p">)</span> <span class="p">{</span>                          <span class="c1">// if current != NULL</span>
         <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">str</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span><span class="p">;</span>   <span class="c1">// V</span>
         <span class="n">Preorder</span><span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">);</span>       <span class="c1">// L</span>
         <span class="n">Preorder</span><span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="p">);</span>      <span class="c1">// R</span>
@@ -341,7 +341,7 @@
 <h3>In-Order Traversal</h3>
 <div class="highlight"><pre><span class="c1">// C++ code</span>
 <span class="kt">void</span> <span class="n">BinaryTree</span><span class="o">::</span><span class="n">Inorder</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">){</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">current</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">current</span><span class="p">)</span> <span class="p">{</span>                          <span class="c1">// if current != NULL</span>
         <span class="n">Inorder</span><span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">);</span>        <span class="c1">// L</span>
         <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">str</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span><span class="p">;</span>   <span class="c1">// V</span>
         <span class="n">Inorder</span><span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="p">);</span>       <span class="c1">// R</span>
@@ -363,7 +363,7 @@
 <h3>Post-Order Traversal</h3>
 <div class="highlight"><pre><span class="c1">// C++ code</span>
 <span class="kt">void</span> <span class="n">BinaryTree</span><span class="o">::</span><span class="n">Postorder</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">){</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">current</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">current</span><span class="p">)</span> <span class="p">{</span>                         <span class="c1">// if current != NULL</span>
         <span class="n">Postorder</span><span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">);</span>     <span class="c1">// L</span>
         <span class="n">Postorder</span><span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="p">);</span>    <span class="c1">// R</span>
         <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">str</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span><span class="p">;</span>  <span class="c1">// V</span>
@@ -381,12 +381,13 @@
 <img alt="ex_post" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/f20.png?raw=true" /></p>
 <p><strong>圖四(d)：。</strong><br />
 </center></p>
-<p><a name="level"></a></p>
+<p></br>  <br />
+<a name="level"></a></p>
 <h3>Level-Order Traversal</h3>
-<p>先前介紹了pre-order、in-order、post-order的traversal，而level-order則是照著level由小到大的順序，由上而下，並在同一個level由左至右地依序Visiting每個node。
-以下提供迭代(iteration)配合<a href="https://en.wikipedia.org/wiki/Queue_%28abstract_data_type%29">queue(佇列)</a>實現level-order traversal之程式碼，其邏輯也非常直觀：</p>
+<p>Level-order是照著「level由小到大」的順序，由上而下，並在同一個level「由左至右」依序Visiting每個node。</p>
+<p>以下提供以迴圈配合<strong>Queue(佇列)</strong>實現level-order traversal之程式碼，其邏輯也非常直觀：</p>
 <ul>
-<li>以圖四(e)為例，當CurrentNode站在A時，先對A作Visiting，接著檢查是否有left child與right child，若不為NULL，則依序push(推)進queue中，又根據queue「先進先出」(first-in-first-out)的特性，先將B(left child)推入queue，再推入C(right child)，便能確保在下一層level時，是由左至右，先Visiting到B，才Visiting到C。</li>
+<li>以圖四(e)為例，當CurrentNode站在A時，先對A作Visiting，接著檢查是否有left child與right child，若不為NULL，則「依序」將child pointer 推(push)進queue中，又根據queue「先進先出」(first-in-first-out)的特性，先將B(left child)推入queue，再推入C(right child)，便能確保在下一層level時，是由左至右，先Visiting到B，才Visiting到C。</li>
 </ul>
 <p><center>
 <img alt="ex_level" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/f21.png?raw=true" /></p>
@@ -394,9 +395,11 @@
 </center></p>
 <div class="highlight"><pre><span class="c1">// C++ code</span>
 <span class="kt">void</span> <span class="n">BinaryTree</span><span class="o">::</span><span class="n">Levelorder</span><span class="p">(){</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">queue</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">*&gt;</span> <span class="n">q</span><span class="p">;</span>
+
+    <span class="n">std</span><span class="o">::</span><span class="n">queue</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">*&gt;</span> <span class="n">q</span><span class="p">;</span>              <span class="c1">// using queue</span>
     <span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span> <span class="o">=</span> <span class="n">root</span><span class="p">;</span>
-    <span class="k">while</span> <span class="p">(</span><span class="n">current</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="k">while</span> <span class="p">(</span><span class="n">current</span><span class="p">)</span> <span class="p">{</span>                     <span class="c1">// if current != NULL</span>
         <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">str</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span><span class="p">;</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">)</span>
             <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">);</span>
