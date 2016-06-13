@@ -12,13 +12,13 @@ Summary: 介紹資料結構中Tree(樹)的概念。
  
 
 <center>
-![linkedlist][linked_list]
+![linkedlist][f1]
 
 **圖一：A、B、C、D稱為node(節點)，用以代表資料(data)、狀態(state)。  
 連結各個node之間的連結(link)稱為edge，可能是單方向，或者雙向。**  
 </center>   
 
-[linked_list]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/Tree_fig/linked_list_size.png?raw=true
+
 
 關於Linked list，請參考：
 
@@ -52,16 +52,15 @@ Summary: 介紹資料結構中Tree(樹)的概念。
 **Tree(樹)**是用以描述具有**階層結構**(hierarchical structure)的問題的首選，階層結構意味著明確的先後次序，例如，若要印出ABC三個字母的所有排列組合(permutation)，直覺反射的圖像會是：  
 
 <center>  
-![fig1.a][abc_permu-a]
+![fig1.a][f2]
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-![fig1.b][abc_permu-b]  
+![fig1.b][f3]  
 
 **圖二：ABC字母排列組合。  
 視R為樹根(root)，每一個選擇狀態視為node，此即為樹的結構。**
 </center>
 </br>
-[abc_permu-a]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/Tree_fig/abc_permu_size.png?raw=true
-[abc_permu-b]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/Tree_fig/abc_permu_vertical_size.png?raw=true
+
 
 圖二的邏輯為：從起點(R)開始，先決定第一個字母，再依序決定第二、第三個字母，並且，在每一次選擇字母時，可能有不止一個可供選擇的字母。最後一共走出六條路徑，得到六種排列組合，而且這六種排列方式只能經由一種唯一的選擇方式(唯一的路徑)產生。若將起點(R)視為樹根(root)，每一個字母選擇的狀態(例如：A、C、BC、CAB)都視為一個node，這樣的結構便能夠視為一棵樹。  
 
@@ -81,13 +80,13 @@ Summary: 介紹資料結構中Tree(樹)的概念。
 1. **在樹中若要從root尋找特定node，一定只存在一條路徑(path)。**  
 2. **每個node只會有一個parent。**
 
-</br> 
+</br>    
 <center>
-![cycle][cycle]  
+![cycle][f4]  
 
 **圖三：包龍星若是宋世傑的parent(父)，又同時為其child(子)，即形成cycle。**
 </center>
-[cycle]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/Tree_fig/cycle_size.png?raw=true
+
 
 </br> 
 
@@ -98,28 +97,26 @@ Summary: 介紹資料結構中Tree(樹)的概念。
 (若不是樹，皆稱為圖(graph)。)
 
 下列四種結構中，a、b可以視為樹，而c、d則否：
-</br>
-<center>![fig2.a][example-a]  
+
+<center>
+![fig2.a][f5]  
 
 **圖三.a：若樹的node只有指向left subtree(左子樹)與right subtree(右子樹)時，又稱為Binary Tree(二元樹)。**  
 </br> 
-![fig2.b][example-b]  
+![fig2.b][f6]  
 
 **圖三.b：若樹退化成Linked list(連結串列)，仍滿足樹的定義。**    
 </br>
-![fig2.c][example-c]  
+![fig2.c][f7]  
 
 **圖三.c：在F出現cycle；以及，D有兩個parent node。**  
 </br>
-![fig2.d][example-d]  
+![fig2.d][f8]  
 
 **圖三.d：一棵樹只能有一個root(樹根)。此圖像又稱為Forest(樹林)。**
 </center>
-</br>
-[example-a]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/Tree_fig/is_Tree_a_size.png?raw=true
-[example-b]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/Tree_fig/is_Tree_b_size.png?raw=true
-[example-c]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/Tree_fig/is_Not_Tree_c_size.png?raw=true
-[example-d]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/Tree_fig/is_Not_Tree_d_size.png?raw=true
+
+
 
 
 </br>
@@ -129,11 +126,11 @@ Summary: 介紹資料結構中Tree(樹)的概念。
 ##用以描述一棵樹的元素
  
 <center>
-![fig3][generalTree]   
+![fig3][f9]   
 
 **圖四：這是一棵普通的樹。**  
 </center>  
-[generalTree]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/Tree_fig/general_Tree.png?raw=true  
+ 
 
 配合圖四，以下將介紹在樹中常見的元素，可以用來計算時間複雜度(time complexity)、與同好交流感情，好處不勝枚舉。   
 
@@ -179,12 +176,12 @@ B. **Tree(樹)**是由一個或多個nodes/vertices以及edge所組成，而且�
 * 由$n\geq 0$棵彼此互斥(disjoint)的Tree(樹)所形成的集合(Set)，即稱為Forest(樹林)。
 
 <center>
-![forest][forest]  
+![forest][f10]  
 
 **圖五：Forest(樹林)由多個Tree(樹)所組成，可以用來表示互斥集合(disjoint set)。**
 </center>
 
-[forest]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/Tree_fig/forest_.png?raw=true
+
 
 </br>
 
@@ -221,13 +218,13 @@ class Tree{
 本篇介紹的Tree(樹)位居承先啟後的戰略位置，圖六是與Tree(樹)有關的資料結構的集合關係圖：
 
 <center>
-![fig4][set]  
+![fig4][f11]  
 
 **圖六：與Tree(樹)相關的資料結構之集合關係。**
 </center>
 
 
-[set]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/Tree_fig/Set_Graph_Tree_size.png?raw=true
+
 
 本篇介紹的Tree(樹)並沒有限制child/ subtree的個數，理論上可以有多到超過記憶體空間的child node。  
 然而在實務上，較常使用每個node至多只有兩個child的樹，稱為[**Binary Tree**(二元樹)](http://alrightchiu.github.io/SecondRound/binary-tree-introjian-jie.html)。  
@@ -236,6 +233,20 @@ class Tree{
 另一個方向，若打破「不能存在cycle」的限制，則從樹推廣至[**圖(Graph)**](http://alrightchiu.github.io/SecondRound/graph-introjian-jie.html)。  
 
 在接下來的文章將先以縮小集合的方向依序介紹：Binary Tree、BST、RBT，再進入Graph(圖)這個更複雜的主題。
+
+[f1]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/Tree_fig/linked_list_size.png?raw=true
+[f2]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/Tree_fig/abc_permu_size.png?raw=true
+[f3]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/Tree_fig/abc_permu_vertical_size.png?raw=true
+[f4]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/Tree_fig/cycle_size.png?raw=true
+[f5]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/Tree_fig/is_Tree_a_size.png?raw=true
+[f6]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/Tree_fig/is_Tree_b_size.png?raw=true
+[f7]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/Tree_fig/is_Not_Tree_c_size.png?raw=true
+[f8]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/Tree_fig/is_Not_Tree_d_size.png?raw=true
+[f9]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/Tree_fig/general_Tree.png?raw=true 
+[f10]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/Tree_fig/forest_.png?raw=true
+[f11]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/Tree_fig/Set_Graph_Tree_size.png?raw=true
+
+
 
 </br>
 
