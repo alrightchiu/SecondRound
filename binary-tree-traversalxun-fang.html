@@ -272,19 +272,19 @@
 <span class="c1">// definition of BinaryTree::Levelorder()</span>
 <span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="c1">// TreeNode instantiation</span>
-    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">A</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">(</span><span class="s">&quot;A&quot;</span><span class="p">);</span> <span class="n">TreeNode</span> <span class="o">*</span><span class="n">B</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">(</span><span class="s">&quot;B&quot;</span><span class="p">);</span> 
-    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">C</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">(</span><span class="s">&quot;C&quot;</span><span class="p">);</span> <span class="n">TreeNode</span> <span class="o">*</span><span class="n">D</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">(</span><span class="s">&quot;D&quot;</span><span class="p">);</span> 
-    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">E</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">(</span><span class="s">&quot;E&quot;</span><span class="p">);</span> <span class="n">TreeNode</span> <span class="o">*</span><span class="n">F</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">(</span><span class="s">&quot;F&quot;</span><span class="p">);</span> 
-    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">G</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">(</span><span class="s">&quot;G&quot;</span><span class="p">);</span> <span class="n">TreeNode</span> <span class="o">*</span><span class="n">H</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">(</span><span class="s">&quot;H&quot;</span><span class="p">);</span> 
-    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">I</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">(</span><span class="s">&quot;I&quot;</span><span class="p">);</span>
+    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">nodeA</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">(</span><span class="s">&quot;A&quot;</span><span class="p">);</span> <span class="n">TreeNode</span> <span class="o">*</span><span class="n">nodeB</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">(</span><span class="s">&quot;B&quot;</span><span class="p">);</span> 
+    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">nodeC</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">(</span><span class="s">&quot;C&quot;</span><span class="p">);</span> <span class="n">TreeNode</span> <span class="o">*</span><span class="n">nodeD</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">(</span><span class="s">&quot;D&quot;</span><span class="p">);</span> 
+    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">nodeE</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">(</span><span class="s">&quot;E&quot;</span><span class="p">);</span> <span class="n">TreeNode</span> <span class="o">*</span><span class="n">nodeF</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">(</span><span class="s">&quot;F&quot;</span><span class="p">);</span> 
+    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">nodeG</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">(</span><span class="s">&quot;G&quot;</span><span class="p">);</span> <span class="n">TreeNode</span> <span class="o">*</span><span class="n">nodeH</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">(</span><span class="s">&quot;H&quot;</span><span class="p">);</span> 
+    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">nodeI</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">(</span><span class="s">&quot;I&quot;</span><span class="p">);</span>
 
     <span class="c1">// construct the Binary Tree</span>
-    <span class="n">A</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">=</span> <span class="n">B</span><span class="p">;</span> <span class="n">A</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">=</span> <span class="n">C</span><span class="p">;</span> 
-    <span class="n">B</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">=</span> <span class="n">D</span><span class="p">;</span> <span class="n">B</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">=</span> <span class="n">E</span><span class="p">;</span> 
-    <span class="n">E</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">=</span> <span class="n">G</span><span class="p">;</span> <span class="n">E</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">=</span> <span class="n">H</span><span class="p">;</span> 
-    <span class="n">C</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">=</span> <span class="n">F</span><span class="p">;</span> <span class="n">F</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">=</span> <span class="n">I</span><span class="p">;</span>
+    <span class="n">nodeA</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">=</span> <span class="n">nodeB</span><span class="p">;</span> <span class="n">nodeA</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">=</span> <span class="n">nodeC</span><span class="p">;</span> 
+    <span class="n">nodeB</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">=</span> <span class="n">nodeD</span><span class="p">;</span> <span class="n">nodeB</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">=</span> <span class="n">nodeE</span><span class="p">;</span> 
+    <span class="n">nodeE</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">=</span> <span class="n">nodeG</span><span class="p">;</span> <span class="n">nodeE</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">=</span> <span class="n">nodeH</span><span class="p">;</span> 
+    <span class="n">nodeC</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">=</span> <span class="n">nodeF</span><span class="p">;</span> <span class="n">nodeF</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">=</span> <span class="n">nodeI</span><span class="p">;</span>
 
-    <span class="n">BinaryTree</span> <span class="n">T</span><span class="p">(</span><span class="n">A</span><span class="p">);</span>
+    <span class="n">BinaryTree</span> <span class="n">T</span><span class="p">(</span><span class="n">nodeA</span><span class="p">);</span>
 
     <span class="n">T</span><span class="p">.</span><span class="n">Preorder</span><span class="p">(</span><span class="n">T</span><span class="p">.</span><span class="n">root</span><span class="p">);</span>
     <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
@@ -302,13 +302,20 @@
 
 <p>上面的程式碼包含了幾個部分：</p>
 <ul>
-<li>class TreeNode的定義；</li>
-<li>class BinaryTree的定義，其中有四個member function分別為四種traversal；</li>
-<li>main()中建立如圖四(a)的樹，並在<strong>line54 - line61</strong>執行四種traversal。</li>
+<li><code>class TreeNode</code>的定義；<ul>
+<li>這裡把所有的data與pointer全部設成「public」裸露在外其實不太好，不過為了要能在<code>main()</code>裡土法煉鋼建立出一棵如圖四(a)的Binary Tree，只好將就。</li>
+<li>下一篇文章會用比較文明的方式建立Binary Tree，請參考：<a href="http://alrightchiu.github.io/SecondRound/binary-tree-jian-li-yi-ke-binary-tree.html">Binary Tree: 建立一棵Binary Tree</a>。</li>
 </ul>
-<p>尚缺的四個函式的定義(definition)請接著看下去。<br />
-其中，pre-order、in-order、post-order traversal的邏輯就只是「V」、「L」、「R」誰先誰後的差別，以下程式碼是以較直覺的遞迴(recursion)形式完成，不過，換成迭代(iteration)配合<strong>Stack(堆疊)</strong>在概念上完全相同，實作上即是考慮「V」、「L」、「R」誰先push(推)進stack。  </p>
-<p><a name="pre"></a></p>
+</li>
+<li><code>class BinaryTree</code>的定義，其中有四個member function分別為四種traversal；<ul>
+<li>四個函式的定義請繼續看下去。</li>
+</ul>
+</li>
+<li>main()中建立如圖四(a)的樹，並依序執行四種traversal。</li>
+</ul>
+<p>其中，pre-order、in-order、post-order traversal的邏輯就只是「V」、「L」、「R」誰先誰後的差別，以下程式碼是以較直覺的遞迴(recursion)形式完成，不過，換成迭代(iteration)配合<strong>Stack(堆疊)</strong>在概念上完全相同，實作上即是考慮「V」、「L」、「R」誰先push(推)進stack。  </p>
+<p></br><br />
+<a name="pre"></a></p>
 <h3>Pre-Order Traversal</h3>
 <div class="highlight"><pre><span class="c1">// C++ code</span>
 <span class="kt">void</span> <span class="n">BinaryTree</span><span class="o">::</span><span class="n">Preorder</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">){</span>
