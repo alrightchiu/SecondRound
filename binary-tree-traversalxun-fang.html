@@ -431,7 +431,7 @@
 <li>字尾Successor/ Predecessor，即是「下一個」與「前一個」。</li>
 </ul>
 <p>因此，<code>InorderSuccessor()</code>與<code>InorderPredecessor()</code>便是用來尋找「<strong>以inorder順序</strong>」進行traversal之下一個與前一個node。  </p>
-<p>以圖四(c)為例，若CurrentNode站在H(<code>CurrentNode = H</code>)，則</p>
+<p>以圖四(c)為例，若CurrentNode站在H(<code>CurrentNode = nodeH</code>)，則：</p>
 <ul>
 <li><code>CurrentNode = InorderSuccessor(CurrentNode)</code>會將CurrentNode移動至A；</li>
 <li><code>CurrentNode = InorderPredecessor(CurrentNode)</code>則會將CurrentNode移動至E。</li>
@@ -440,27 +440,30 @@
 <img alt="ex_in" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Traversal/f19.png?raw=true" /></p>
 <p><strong>圖四(c)：。</strong><br />
 </center></p>
-<p>特別介紹inorder，一大原因是為了Binary Search Tree(BST)鋪路，在BST中，照著inorder順序印出node，就會得到「排好序」的資料(詳見：<a href="http://alrightchiu.github.io/SecondRound/binary-search-tree-sortpai-xu-deleteshan-chu-zi-liao.html#binary-search-tree-sortpai-xu-deleteshan-chu-zi-liao">Binary Search Tree: Sort(排序)、Delete(刪除資料)</a>)。  </p>
-<p>另外，若觀察前面提過的遞迴(recursion)形式之inorder traversal，Visiting被包含在遞迴函式內，這表示若要進行多種不同的Visiting，例如print(顯示資料)、assign(賦值、更新資料)，都需要重新寫一個專門功能的遞迴函式。顯然，把Visiting和Traversal獨立開來會更有效率。</p>
+<p>特別介紹inorder，一大原因是為了Binary Search Tree(BST)鋪路，在BST中，照著inorder順序印出node，就會得到「排好序」的資料。</p>
+<ul>
+<li>詳見：<a href="http://alrightchiu.github.io/SecondRound/binary-search-tree-sortpai-xu-deleteshan-chu-zi-liao.html#binary-search-tree-sortpai-xu-deleteshan-chu-zi-liao">Binary Search Tree: Sort(排序)、Delete(刪除資料)</a>。</li>
+</ul>
+<p>另外，若觀察前面提過的遞迴(recursion)形式之inorder traversal，Visiting被包含在遞迴函式內，這表示若要進行多種不同的Visiting，例如print(顯示資料)、assign(賦值、更新資料)，都需要重新寫一個專門功能的遞迴函式。<br />
+顯然，把Visiting和Traversal獨立開來會更有效率。</p>
 <p>在看兩個實用的函式之前，有幾件前置作業：  </p>
 <ul>
-<li>在main()裡建立圖四之Binary Tree的部分，連結node與其parent node之pointer：</li>
+<li>在<code>class BinaryTree</code>的定義中加入六個member function(成員函式)：</li>
+<li>在main()中，把如圖四之Binary Tree的parent pointer建立起來。</li>
 </ul>
 <div class="highlight"><pre><span class="c1">// C++ code</span>
 <span class="c1">// inside main()</span>
-    <span class="n">A</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">=</span> <span class="n">B</span><span class="p">;</span> <span class="n">A</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">=</span> <span class="n">C</span><span class="p">;</span> <span class="n">B</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">=</span> <span class="n">A</span><span class="p">;</span> <span class="n">C</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">=</span> <span class="n">A</span><span class="p">;</span>
-    <span class="n">B</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">=</span> <span class="n">D</span><span class="p">;</span> <span class="n">B</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">=</span> <span class="n">E</span><span class="p">;</span> <span class="n">D</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">=</span> <span class="n">B</span><span class="p">;</span> <span class="n">E</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">=</span> <span class="n">B</span><span class="p">;</span>
-    <span class="n">E</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">=</span> <span class="n">G</span><span class="p">;</span> <span class="n">E</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">=</span> <span class="n">H</span><span class="p">;</span> <span class="n">G</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">=</span> <span class="n">E</span><span class="p">;</span> <span class="n">H</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">=</span> <span class="n">E</span><span class="p">;</span>
-    <span class="n">C</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">=</span> <span class="n">F</span><span class="p">;</span> <span class="n">F</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">=</span> <span class="n">C</span><span class="p">;</span>
-    <span class="n">F</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">=</span> <span class="n">I</span><span class="p">;</span> <span class="n">I</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">=</span> <span class="n">F</span><span class="p">;</span>
-</pre></div>
+
+    <span class="c1">// link parent pointer</span>
+    <span class="n">nodeB</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">=</span> <span class="n">nodeA</span><span class="p">;</span> <span class="n">nodeC</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">=</span> <span class="n">nodeA</span><span class="p">;</span>
+    <span class="n">nodeD</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">=</span> <span class="n">nodeB</span><span class="p">;</span> <span class="n">nodeE</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">=</span> <span class="n">nodeB</span><span class="p">;</span>
+    <span class="n">nodeG</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">=</span> <span class="n">nodeE</span><span class="p">;</span> <span class="n">nodeH</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">=</span> <span class="n">nodeE</span><span class="p">;</span>
+    <span class="n">nodeF</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">=</span> <span class="n">nodeC</span><span class="p">;</span> 
+    <span class="n">nodeI</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">=</span> <span class="n">nodeF</span><span class="p">;</span>
 
 
-<ul>
-<li>並在<code>class BinaryTree</code>的定義中加入六個member function(成員函式)：</li>
-</ul>
-<div class="highlight"><pre><span class="c1">// C++ code</span>
 <span class="c1">// inside definition of class BinaryTree</span>
+
     <span class="n">TreeNode</span><span class="o">*</span> <span class="nf">leftmost</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">);</span>
     <span class="n">TreeNode</span><span class="o">*</span> <span class="nf">rightmost</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">);</span>
 
@@ -472,8 +475,14 @@
 </pre></div>
 
 
-<p>其中，除了<code>InorderSuccessor()</code>與<code>InorderPredecessor()</code>之函式主體外，還有<code>leftmost()</code>和<code>rightmost()</code>即是找到Binary Tree中最左與最右的node，可有可無，不過學會了很酷；以及<code>Inorder_by_parent()</code>與<code>Inorder_Reverse()</code>為用以呼叫<code>InorderSuccessor()</code>與<code>InorderPredecessor()</code>的迴圈主體。</p>
-<p>看下去。</p>
+<p>其中包含：</p>
+<ul>
+<li><code>InorderSuccessor()</code>與<code>InorderPredecessor()</code>為找到「下一個」與「上一個」的函式主體；</li>
+<li><code>leftmost()</code>和<code>rightmost()</code>即是找到Binary Tree整棵樹中「最左」與「最右」的node；</li>
+<li><code>Inorder_by_parent()</code>與<code>Inorder_Reverse()</code>將利用<code>InorderSuccessor()</code>與<code>InorderPredecessor()</code>進行一次In-Order Tarversal。</li>
+</ul>
+<p>看下去。<br />
+</br></p>
 <p><a name="successor"></a></p>
 <h3>Successor、leftmost</h3>
 <p>函式<code>TreeNode* leftmost(TreeNode *current)</code>的功能為：尋找以<code>current</code>為root之subtree中，最左邊的node，最左邊的意思是從<code>current</code>開始一路往left child做類似<a href="http://alrightchiu.github.io/SecondRound/linked-list-traversal.html">Linked list之單向traversal</a>的「一路向左」，而以inorder的順序來說，會找到該subtree中第一個進行Visiting的node。</p>
@@ -614,8 +623,10 @@
 <ul>
 <li><a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844">Introduction to Algorithms, Ch12</a> </li>
 <li><a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376">Fundamentals of Data Structures in C++, Ch5</a></li>
-<li><a href="https://en.wikipedia.org/wiki/Stack_%28abstract_data_type%29">Wikipedia：Stack(abstract data type)</a></li>
-<li><a href="https://en.wikipedia.org/wiki/Queue_%28abstract_data_type%29">Wikipedia：Queue(abstract data type)</a></li>
+<li><a href="http://alrightchiu.github.io/SecondRound/linked-list-xin-zeng-zi-liao-shan-chu-zi-liao-fan-zhuan.html#print">Linked List: 新增資料、刪除資料、反轉</a></li>
+<li><a href="http://alrightchiu.github.io/SecondRound/stack-introjian-jie.html">Stack: Intro(簡介)</a></li>
+<li><a href="http://alrightchiu.github.io/SecondRound/queue-introjian-jie-bing-yi-linked-listshi-zuo.html">Queue: Intro(簡介)，並以Linked list實作</a></li>
+<li><a href="http://alrightchiu.github.io/SecondRound/binary-search-tree-sortpai-xu-deleteshan-chu-zi-liao.html#binary-search-tree-sortpai-xu-deleteshan-chu-zi-liao">Binary Search Tree: Sort(排序)、Delete(刪除資料)</a></li>
 </ul>
 <p></br></p>
 <p><a name="tree_series"></a></p>
