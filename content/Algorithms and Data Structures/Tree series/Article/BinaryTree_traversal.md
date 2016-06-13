@@ -15,7 +15,7 @@ Summary: 介紹Binary Tree(二元樹)中的Traversal(尋訪)。
 
 本篇文章將介紹在Binary Tree中的四種traversal方法。  
 
-程式實作的部分，除了**遞迴(recursion)**，還有可能會使用上stack(堆疊)與queue(佇列)，如果不太熟悉，請參考：
+程式實作的部分，除了**遞迴(recursion)**，還有可能會使用上Stack(堆疊)與Queue(佇列)，如果不太熟悉，請參考：
 
 * [Stack: Intro(簡介)](http://alrightchiu.github.io/SecondRound/stack-introjian-jie.html)
 * [Queue: Intro(簡介)，並以Linked list實作](http://alrightchiu.github.io/SecondRound/queue-introjian-jie-bing-yi-linked-listshi-zuo.html)
@@ -212,23 +212,15 @@ public:
     TreeNode *parent;
     std::string str;
     
-    TreeNode(){
-        leftchild = 0;
-        rightchild = 0;
-        parent = 0;
-    };
-    TreeNode(std::string s):str(s){
-        leftchild = 0;
-        rightchild = 0;
-        parent = 0;
-    };
+    TreeNode():leftchild(0),rightchild(0),parent(0){};
+    TreeNode(std::string s):str(s),leftchild(0),rightchild(0),parent(0){};
     
     friend class BinaryTree;
 };
 class BinaryTree{
 public:
     TreeNode *root;			// 以root作為存取整棵樹的起點
-    BinaryTree(){ root = 0;};
+    BinaryTree():root(0){};
     BinaryTree(TreeNode *node):root(node){};
     
     void Preorder(TreeNode *current);
@@ -242,7 +234,11 @@ public:
 // definition of BinaryTree::Levelorder()
 int main() {
     // TreeNode instantiation
-    TreeNode *A = new TreeNode("A"); TreeNode *B = new TreeNode("B"); TreeNode *C = new TreeNode("C"); TreeNode *D = new TreeNode("D"); TreeNode *E = new TreeNode("E"); TreeNode *F = new TreeNode("F"); TreeNode *G = new TreeNode("G"); TreeNode *H = new TreeNode("H"); TreeNode *I = new TreeNode("I");
+    TreeNode *A = new TreeNode("A"); TreeNode *B = new TreeNode("B"); 
+    TreeNode *C = new TreeNode("C"); TreeNode *D = new TreeNode("D"); 
+    TreeNode *E = new TreeNode("E"); TreeNode *F = new TreeNode("F"); 
+    TreeNode *G = new TreeNode("G"); TreeNode *H = new TreeNode("H"); 
+    TreeNode *I = new TreeNode("I");
     
     // construct the Binary Tree
     A->leftchild = B; A->rightchild = C; 
@@ -271,7 +267,7 @@ int main() {
 * main()中建立如圖四(a)的樹，並在**line54 - line61**執行四種traversal。
 
 尚缺的四個函式的定義(definition)請接著看下去。  
-其中，pre-order、in-order、post-order traversal的邏輯就只是「V」、「L」、「R」誰先誰後的差別，以下程式碼是以較直覺的遞迴(recursion)形式完成，不過，換成迭代(iteration)配合[stack(堆疊)](https://en.wikipedia.org/wiki/Stack_%28abstract_data_type%29)在概念上完全相同，實作上即是考慮「V」、「L」、「R」誰先push(推)進stack。  
+其中，pre-order、in-order、post-order traversal的邏輯就只是「V」、「L」、「R」誰先誰後的差別，以下程式碼是以較直覺的遞迴(recursion)形式完成，不過，換成迭代(iteration)配合**Stack(堆疊)**在概念上完全相同，實作上即是考慮「V」、「L」、「R」誰先push(推)進stack。  
 
 
 
