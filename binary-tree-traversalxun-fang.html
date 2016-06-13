@@ -230,6 +230,7 @@
 <p></br></p>
 <p><a name="ex_code"></a></p>
 <h2>Example with Code</h2>
+<p>(完整範例程式碼在這裡：<a href="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/ExampleCode/BT_Traversal.cpp">BT_Traversal.cpp</a>)</p>
 <p>接下來，再以一棵稍微複雜的Binary Tree作為範例，展示pre-order、in-order、post-order及level-order之traversal。</p>
 <p>現有一棵樹如圖四(a)：</p>
 <p><center>
@@ -396,22 +397,22 @@
 <div class="highlight"><pre><span class="c1">// C++ code</span>
 <span class="kt">void</span> <span class="n">BinaryTree</span><span class="o">::</span><span class="n">Levelorder</span><span class="p">(){</span>
 
-    <span class="n">std</span><span class="o">::</span><span class="n">queue</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">*&gt;</span> <span class="n">q</span><span class="p">;</span>              <span class="c1">// using queue</span>
-    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span> <span class="o">=</span> <span class="n">root</span><span class="p">;</span>             <span class="c1">// 以root當作traversal起點</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">queue</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">*&gt;</span> <span class="n">q</span><span class="p">;</span>
+    <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">root</span><span class="p">);</span>                     <span class="c1">// 把root作為level-order traversal之起點</span>
+                                            <span class="c1">// 推進queue中</span>
+    <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">q</span><span class="p">.</span><span class="n">empty</span><span class="p">()){</span>                     <span class="c1">// 若queue不是空的, 表示還有node沒有visiting</span>
 
-    <span class="k">while</span> <span class="p">(</span><span class="n">current</span><span class="p">)</span> <span class="p">{</span>                     <span class="c1">// if current != NULL</span>
-        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">str</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span><span class="p">;</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">)</span>
+        <span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">front</span><span class="p">();</span>      <span class="c1">// 取出先進入queue的node</span>
+        <span class="n">q</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>                          
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">str</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span><span class="p">;</span>   <span class="c1">// 進行visiting</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">){</span>    <span class="c1">// 若leftchild有資料, 將其推進queue</span>
             <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">);</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="p">)</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">){</span>   <span class="c1">// 若rightchild有資料, 將其推進queue</span>
             <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="p">);</span>
-
-        <span class="k">if</span> <span class="p">(</span><span class="n">q</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span>
-            <span class="k">break</span><span class="p">;</span>
-
-        <span class="n">current</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">front</span><span class="p">();</span>
-        <span class="n">q</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
-    <span class="p">}</span>  
+        <span class="p">}</span>
+    <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -587,7 +588,8 @@
 </pre></div>
 
 
-<p><a name="predecessor"></a></p>
+<p></br><br />
+<a name="predecessor"></a></p>
 <h3>Predecessor、rightmost</h3>
 <p>只要把<code>InorderSuccessor()</code>與<code>leftmost()</code>中，所有的left與right互換，就得到<code>InorderPredecessor()</code>與<code>rightmost()</code>，而概念上也確實是如此：</p>
 <p><strong>rightmost</strong>：從「以CurrentNode為subtree」的root一路向右做Linked list的單向traversal。</p>
