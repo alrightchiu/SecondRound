@@ -9,7 +9,7 @@ Summary: 介紹Binary Tree(二元樹)的基本概念。
 </br>
 ###先備知識與注意事項
 
-接續上一篇談到的[Tree(樹)](http://alrightchiu.github.io/SecondRound/treeshu.html)，這篇文章將介紹樹這個大集合裡的其中一支大宗：**Binary Tree**。
+接續上一篇談到的[Tree(樹)](http://alrightchiu.github.io/SecondRound/treeshu.html)，這篇文章將介紹Tree的其中一支大宗：**Binary Tree**。
 
 
 ***
@@ -57,8 +57,9 @@ Summary: 介紹Binary Tree(二元樹)的基本概念。
 
 另外，在class TreeNode有個`TreeNode *parent`，顧名思義，即是指向該node之parent的pointer，以圖二為例，B的parent pointer即指向A。  
 
-* Binary Tree的node未必需要parent pointer(或稱為parent field)，不過加入parent後，對樹的資料處理如inorder traversal(中序尋訪)、node deletion(刪除node)、以及任何需要back-tracing(回溯路徑)的操作時，會更加有效率。
-
+* Binary Tree的node未必需要parent pointer(或稱為parent field)，不過加入parent後，對樹的資料處理如inorder traversal(中序尋訪)、node deletion(刪除node)、以及任何需要back-tracing(回溯路徑)的操作時，會更加有效率。  
+</br>  
+  
 
 ```cpp
 // 以C++為例
