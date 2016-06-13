@@ -274,7 +274,6 @@ int main() {
 其中，pre-order、in-order、post-order traversal的邏輯就只是「V」、「L」、「R」誰先誰後的差別，以下程式碼是以較直覺的遞迴(recursion)形式完成，不過，換成迭代(iteration)配合**Stack(堆疊)**在概念上完全相同，實作上即是考慮「V」、「L」、「R」誰先push(推)進stack。  
 
 
-</br>  
 <a name="pre"></a>
 
 ###Pre-Order Traversal
@@ -354,7 +353,7 @@ D G H E B I F C A
 **圖四(d)：。**  
 </center>
 
-</br>    
+   
 <a name="level"></a>
 
 ###Level-Order Traversal
@@ -582,7 +581,9 @@ void BinaryTree::Inorder_by_parent(TreeNode *root){
 
 ```cpp
 int main(){
+
 	...
+	
 	T.Inorder_by_parent(T.root);
 	
 	return 0;
@@ -672,7 +673,9 @@ void BinaryTree::Inorder_Reverse(TreeNode *root){
 
 ```cpp
 int main(){
+
 	...
+	
 	T.Inorder_Reverse(T.root);
 	
 	return 0;
