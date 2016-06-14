@@ -15,8 +15,8 @@ public:
     TreeNode *parent;
     std::string str;
     
-    TreeNode():leftchild(0),rightchild(0),parent(0){};
-    TreeNode(std::string s):str(s),leftchild(0),rightchild(0),parent(0){};
+    TreeNode():leftchild(0),rightchild(0),parent(0),str(""){};
+    TreeNode(std::string s):leftchild(0),rightchild(0),parent(0),str(s){};
     
     // friend class BinaryTree; 
     // 因為這裡將data member都設成public, 所以class BunaryTree可以直接存取

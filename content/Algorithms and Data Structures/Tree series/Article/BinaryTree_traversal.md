@@ -186,7 +186,7 @@ D已經進行過Visiting，便標上數字「$1$」，表示D為post-order trave
 
 ##Example with Code
 
-(完整範例程式碼在這裡：[BT_Traversal.cpp](https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/ExampleCode/BT_Traversal.cpp))
+(完整範例程式碼也可以看這裡：[BT_Traversal.cpp](https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/ExampleCode/BT_Traversal.cpp))
 
 接下來，再以一棵稍微複雜的Binary Tree作為範例，展示pre-order、in-order、post-order及level-order之traversal。
 
@@ -214,8 +214,8 @@ public:
     TreeNode *parent;
     std::string str;
     
-    TreeNode():leftchild(0),rightchild(0),parent(0){};
-    TreeNode(std::string s):str(s),leftchild(0),rightchild(0),parent(0){};
+    TreeNode():leftchild(0),rightchild(0),parent(0),str(""){};
+    TreeNode(std::string s):leftchild(0),rightchild(0),parent(0),str(s){};
     
     friend class BinaryTree;
 };
@@ -432,7 +432,7 @@ A B C D E F G H I
 * 詳見：[Binary Search Tree: Sort(排序)、Delete(刪除資料)](http://alrightchiu.github.io/SecondRound/binary-search-tree-sortpai-xu-deleteshan-chu-zi-liao.html#binary-search-tree-sortpai-xu-deleteshan-chu-zi-liao)。
 
 另外，若觀察前面提過的遞迴(recursion)形式之inorder traversal，Visiting被包含在遞迴函式內，這表示若要進行多種不同的Visiting，例如print(顯示資料)、assign(賦值、更新資料)，都需要重新寫一個專門功能的遞迴函式。  
-顯然，把Visiting和Traversal獨立開來會更有效率。
+顯然，把Visiting和Traversal獨立開來會更方便。
 
 
 

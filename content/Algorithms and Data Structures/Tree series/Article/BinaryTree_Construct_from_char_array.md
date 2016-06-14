@@ -8,12 +8,11 @@ Summary: 介紹如何以字元陣列(char array)獲得資料(data)後，建立�
 </br>
 ###先備知識與注意事項
 
-在[Binary Tree：Traversal](http://alrightchiu.github.io/SecondRound/binary-tree-traversal.html#ex_code)中，非常沒誠意地用暴力方式建了一棵Binary Tree，在這裡至上深深歉意，因此，在本篇文章將提供一種方法，由一個字元陣列(char array)輸入字母，並按照[Complete Binary Tree](http://alrightchiu.github.io/SecondRound/binary-tree-intro.html#fullcomplete)之順序重新建立*那顆樹*。
+在[Binary Tree：Traversal](http://alrightchiu.github.io/SecondRound/binary-tree-traversal.html#ex_code)中，非常沒誠意地用暴力方式建了一棵Binary Tree，在本篇文章將提供一種文明的方法，由一個字元陣列(char array)輸入字母，並按照[Complete Binary Tree](http://alrightchiu.github.io/SecondRound/binary-tree-intro.html#fullcomplete)之順序重新建立*那顆樹*。
 
-其中，問題情境之原始資料是一個字元陣列(char array)，為了方便處理，選擇使用C++語言中的神器：[stringstream](http://www3.ntu.edu.sg/home/ehchua/programming/cpp/cp10_io.html)，這裡礙於篇幅與主題(與筆者自己也還在摸索)，就不多談避免誤導，[點進連結中]((http://www3.ntu.edu.sg/home/ehchua/programming/cpp/cp10_io.html))有非常詳細的說明，關於`istringstream`、`ostringstream`、`stringstream`等等template class之繼承關係(inheritance)。  
+其中，問題情境之輸入資料是一個字元陣列(char array)，為了方便處理，將會使用C++語言中的神器：[stringstream](http://www3.ntu.edu.sg/home/ehchua/programming/cpp/cp10_io.html)，這裡礙於篇幅(與筆者自己也還在摸索)，就不多談避免誤導，[點進連結中]((http://www3.ntu.edu.sg/home/ehchua/programming/cpp/cp10_io.html))有非常詳細的說明，關於`istringstream`、`ostringstream`、`stringstream`等等template class之繼承關係(inheritance)。  
 
-
-以及，以下提供的Binary Tree之建立方法，基本上是在[Binary Tree：Traversal介紹過的level-order traversal](http://alrightchiu.github.io/SecondRound/binary-tree-traversal.html#ex_code)上加工，因此[queue(佇列)](https://en.wikipedia.org/wiki/Queue_%28abstract_data_type%29)的概念會再次出現。
+以下提供的Binary Tree之建立方法，基本上是在[Binary Tree：Traversal介紹過的level-order traversal](http://alrightchiu.github.io/SecondRound/binary-tree-traversalxun-fang.html#level)上加工，因此[Queue(佇列)](http://alrightchiu.github.io/SecondRound/queue-introjian-jie-bing-yi-linked-listshi-zuo.html)的概念會再次出現。
 
 ***  
   
@@ -39,9 +38,10 @@ Summary: 介紹如何以字元陣列(char array)獲得資料(data)後，建立�
 * 給定一個字元陣列，欲按照Complete Binary Tree之位置規則建立一棵Binary Tree，若陣列元素之資料為大寫字母(ASCII：65~90)，則將其建立成Tree的node，若陣列元素為 ' x ' 則表示該位置沒有node。
 
 以[Binary Tree：Traversal](http://alrightchiu.github.io/SecondRound/binary-tree-traversal.html#ex_code)中所提到的Binary Tree為例，如圖一：
-</br>  
+
+  
 <center>
-![binary tree][bt_0]
+![binary tree][f1]
 
 **圖一：。**  
 </center>   
@@ -50,7 +50,7 @@ Summary: 介紹如何以字元陣列(char array)獲得資料(data)後，建立�
 其所對應的字元陣列即為：`A B C D E F x x x G H x I`，如圖二所示：
   
 <center>
-![binary tree of char array][bt_char]
+![binary tree of char array][f2]
 
 **圖二：。**  
 </center> 
@@ -58,14 +58,15 @@ Summary: 介紹如何以字元陣列(char array)獲得資料(data)後，建立�
 
 以下程式範例的目的就是要以如此文明的方式建立出如圖一的Binary Tree。
 
-[bt_0]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/ex.png?raw=true
-[bt_char]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/ex_char.png?raw=true
+
 
 </br>
 
 <a name="code"></a>
 
 ##程式碼
+
+(完整範例程式碼也可以看這裡：[BT_Construct_from_char_array.cpp]())
 
 先看看`main()`中，上半部分別為：
 
@@ -75,17 +76,18 @@ Summary: 介紹如何以字元陣列(char array)獲得資料(data)後，建立�
 
 下半部則是示範以`queue`實現level-order traversal之小應用：以Complete Binary Tree之位置規則在樹中新增node。  
 
-溫馨小提醒：純粹以inorder traversal之結果並無法驗證樹之結構正如圖一(舉例來說：以inorder traversal對某一Linked list也可能得出相同結果)，因此，建議還是使用IDE的debug功能把pointer全部攤開。
+溫馨小提醒：純粹以inorder traversal之結果並無法驗證樹之結構正如圖一(舉例來說：以inorder traversal對某一Linked list也可能得出相同結果)，因此，建議還是使用任何可取得的debugger把pointer全部攤開。
 
 ```cpp
 // C++ code
 #include <iostream>
 #include <sstream>
 #include <queue>
+
 int main() {
     const char *a = "A B C D E F x x x G H x I";
-    BinaryTree T(a);
-    T.Inorder_by_parent();
+    BinaryTree T(a);					// 以level-order規則建立Binary Tree
+    T.Inorder_by_parent();      // 以inorder-traversal印出Binary Tree
     std::cout << std::endl;
     
     T.insertLevelorder('K');
@@ -104,6 +106,10 @@ int main() {
 D B G E H A F I C   
 L D M B G E H A N F I C K    
 ```
+
+// 放圖, 
+
+
 </br> 
 
 <a name="def"></a>
@@ -186,7 +192,7 @@ BinaryTree::BinaryTree(const char* str){
 * 首先，在Binary Tree的constructor中，先配置`root`的記憶體位置，並透過第一次`ss >> root->data`將第一個字母放進`root`中，如圖三(a)。
  
 <center>
-![construct_0][construct_0]
+![construct_0][f3]
 
 **圖三(a)：從ss取出第一個字母'A'放進`root`。**  
 </center> 
@@ -200,7 +206,7 @@ BinaryTree::BinaryTree(const char* str){
 
   
 <center> 
-![construct_1][construct_1]
+![construct_1][f4]
 
 **圖三(b)：。**  
 </center> 
@@ -214,7 +220,7 @@ BinaryTree::BinaryTree(const char* str){
 此時，`queue`裡有兩個node，分別為B與C，要注意的是，排隊時，先進入隊伍的人會代表隊伍的前方，因此B為`queue`的**Front**，C為`queue`的**Back**。
   
 <center>
-![construct_2][construct_2]  
+![construct_2][f5]  
 
 **圖三(c)：。**  
 </center> 
@@ -226,9 +232,9 @@ BinaryTree::BinaryTree(const char* str){
 * 將`CurrentNode`移動至B後，便把B從`queue`移除：`q.pop()`，如圖三(d)。
 
 如此便能保證，`CurrentNode`的移動會依照level-order「由上至下、由左至右」之順序。
-</br>  
+  
 <center>
-![construct_3][construct_3]  
+![construct_3][f6]  
 
 **圖三(d)：。**  
 </center> 
@@ -240,30 +246,30 @@ BinaryTree::BinaryTree(const char* str){
 * 並且，將成功建立之node放進`queue`隊伍中，用作之後`CurrentNode`移動之用。
 
 仔細觀察圖三(e)至圖三(h)之`ss`與`CurrentNode`之移動，與`queue`的變化：
-</br>  
+  
 <center>
-![construct_4][construct_4]  
+![construct_4][f7]  
 
 **圖三(e)：。**  
 </center> 
 
   
 <center>
-![construct_5][construct_5]  
+![construct_5][f8]  
 
 **圖三(f)：。**  
 </center> 
 
   
 <center>
-![construct_6][construct_6]  
+![construct_6][f9]  
 
 **圖三(g)：。**  
 </center> 
 
  
 <center>
-![construct_7][construct_7]  
+![construct_7][f10]  
 
 **圖三(h)：。**  
 </center>
@@ -273,7 +279,7 @@ BinaryTree::BinaryTree(const char* str){
 
  
 <center>
-![construct_8][construct_8]  
+![construct_8][f11]  
 
 **圖三(i)：。**  
 </center> 
@@ -283,7 +289,7 @@ BinaryTree::BinaryTree(const char* str){
 
 
 <center>
-![construct_9][construct_9]  
+![construct_9][f12]  
 
 **圖三(j)：。**  
 </center>
@@ -293,7 +299,7 @@ BinaryTree::BinaryTree(const char* str){
 
 
 <center>
-![construct_10][construct_10]
+![construct_10][f13]
 
 **圖三(k)：。**  
 </center> 
@@ -306,7 +312,7 @@ BinaryTree::BinaryTree(const char* str){
 
   
 <center>
-![construct_11][construct_11]  
+![construct_11][f14]  
 
 **圖三(l)：。**  
 </center> 
@@ -316,24 +322,12 @@ BinaryTree::BinaryTree(const char* str){
 
   
 <center>
-![construct_12][construct_12]  
+![construct_12][f15]  
 
 **圖三(m)：。**  
 </center> 
 
-[construct_0]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/construct0.png?raw=true
-[construct_1]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/construct1.png?raw=true
-[construct_2]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/construct2.png?raw=true
-[construct_3]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/construct3.png?raw=true
-[construct_4]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/construct4.png?raw=true
-[construct_5]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/construct5.png?raw=true
-[construct_6]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/construct6.png?raw=true
-[construct_7]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/construct7.png?raw=true
-[construct_8]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/construct8.png?raw=true
-[construct_9]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/construct9.png?raw=true
-[construct_10]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/construct10.png?raw=true
-[construct_11]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/construct11.png?raw=true
-[construct_12]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/construct12.png?raw=true
+
 </br>  
 
 ```cpp
@@ -372,7 +366,7 @@ void BinaryTree::LevelorderConstruct(std::stringstream &ss){
 函式`insertLevelorder()`的功能是，能夠按照Complete Binary Tree的位置順序放置新增的node，例如，若要在圖三之樹上新增帶有字母**'K'**的node，則`T.insertLevelorder('K')`便會將**'K'**建成C的right child，如圖四(a)：
 
 <center>
-![insertK][insertK]  
+![insertK][f16]  
 
 **圖四(a)：。**  
 </center> 
@@ -386,13 +380,12 @@ void BinaryTree::LevelorderConstruct(std::stringstream &ss){
 即會得到如圖四(b)的樹：
 
 <center>
-![insertLMN][insertLMN]  
+![insertLMN][f17]  
 
 **圖四(b)：。**  
 </center> 
 
-[insertK]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/insertK.png?raw=true
-[insertLMN]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/insertLMN.png?raw=true
+
 
 程式碼之邏輯與`LevelorderConstruct`大同小異，最主要的部分就是利用`queue`來記錄`CurrentNode`移動的順序：
 
@@ -435,6 +428,25 @@ void BinaryTree::insertLevelorder(char data){
 </br>  
 以上便是利用`queue`執行level-order方式建立Binary Tree之範例。  
 另外，[有些方法是利用遞迴的方式，外帶一個迴圈來進行level-order traversal](http://www.geeksforgeeks.org/level-order-tree-traversal/)，也能夠完成相同的功能。
+
+
+[f1]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/ex.png?raw=true
+[f2]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/ex_char.png?raw=true
+[f3]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/construct0.png?raw=true
+[f4]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/construct1.png?raw=true
+[f5]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/construct2.png?raw=true
+[f6]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/construct3.png?raw=true
+[f7]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/construct4.png?raw=true
+[f8]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/construct5.png?raw=true
+[f9]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/construct6.png?raw=true
+[f10]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/construct7.png?raw=true
+[f11]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/construct8.png?raw=true
+[f12]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/construct9.png?raw=true
+[f13]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/construct10.png?raw=true
+[f14]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/construct11.png?raw=true
+[f15]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/construct12.png?raw=true
+[f16]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/insertK.png?raw=true
+[f17]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/insertLMN.png?raw=true
 
 
 </br>
