@@ -243,8 +243,9 @@
 <p><strong>圖八：。</strong><br />
 </center></p>
 <p></br></p>
-<p>以上便是BST與BST中的基本操作之介紹。</p>
-<p>所有操作都是以BST之特徵：Key(L)&lt;Key(Current)&lt;Key(R)為基礎，尤其是新增node與刪除node，務必要滿足BST之規則。</p>
+<p>根據以上的簡介，可以看出，新增資料(insert)、刪除資料(delete)本身都必須先執行一次搜尋(search)，而搜尋(search)的時間複雜度取決於BST的<strong>height(樹高)</strong>，因此，上面這三項操作的時間複雜度皆為<span class="math">\(O(height)\)</span>。</p>
+<p>特別注意，這裡的<strong>height</strong>什麼也無法保證，有可能運氣很好，BST很平衡(平衡的意思可以想成是Complete Binary Tree)，那麼<strong>height</strong>為<span class="math">\(\log{N}\)</span>，如果運氣不好，BST退化成Linked list，那麼<strong>height</strong>為<span class="math">\(N\)</span>。</p>
+<p>運算成本當然是越低越好，所以才需要平衡的BST，例如<a href="http://alrightchiu.github.io/SecondRound/red-black-tree-introjian-jie.html">Red Black Tree(紅黑樹)</a>。後面的文章會再提到。</p>
 <p>接下來，將以兩篇文章的篇幅，說明上述四種資料處理操作的演算法。</p>
 <p></br></p>
 <hr />
@@ -253,8 +254,6 @@
 <ul>
 <li><a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844">Introduction to Algorithms, Ch12</a> </li>
 <li><a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376">Fundamentals of Data Structures in C++, Ch5</a></li>
-<li><a href="https://zh.wikipedia.org/wiki/%E4%B8%83%E9%BE%99%E7%8F%A0#.E5.8A.87.E5.A0.B4.E7.89.88">Wikipedia：七龍珠</a></li>
-<li><a href="http://www.imdb.com/title/tt1178663/">IMDB：Whatever Works</a></li>
 </ul>
 <p></br></p>
 <p><a name="tree_series"></a></p>
