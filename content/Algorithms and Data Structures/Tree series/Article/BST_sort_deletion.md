@@ -278,7 +278,7 @@ int main() {
     T.Levelorder();
     cout << endl << endl;
     
-    T.DeleteBST(8);         // 刪除龜仙人, 確認比克(513)會成為新的root
+    T.DeleteBST(8);         // 刪除龜仙人(8), 確認比克(513)會成為新的root
     
     cout << "Level-order Traversal:\n";
     T.Levelorder();
