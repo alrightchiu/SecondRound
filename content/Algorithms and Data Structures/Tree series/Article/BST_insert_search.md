@@ -14,6 +14,12 @@ Summary: 介紹Binary Search Tree(二元搜尋樹)的基本操作：Search(搜�
 // C++ code
 #include <iostream>
 #include <string>
+#include <queue>
+
+using std::string;
+using std::cout;
+using std::endl;
+
 class BST;
 class TreeNode{
 private:
@@ -21,58 +27,41 @@ private:
     TreeNode *rightchild;
     TreeNode *parent;
     int key;
-    std::string element;
+    string element;
 public:
-    // constructor
-    TreeNode():key(0), element(""){
-        leftchild = 0; rightchild = 0; parent = 0;
-    }
-    TreeNode(int a, std::string b):key(a), element(b){
-        leftchild = 0; rightchild = 0; parent = 0;
-    }
-    // default copy constructor
-    // default destructor
+    TreeNode():leftchild(0),rightchild(0),parent(0),key(0),element(""){};
+    TreeNode(int a, string b):leftchild(0),rightchild(0),parent(0),key(a),element(b){};
+
+    int GetKey(){return key;}              // 為了在main()要能夠檢視node是否正確
+    string GetElement(){return element;}   // 才需要這兩個function讀取private data
     
-    int GetKey() const{ return key;};
-    std::string GetElement() const{ return element;};
-    
-    void SetKey(int k){ key = k;};
-    void SetElement(std::string e){ element = e;};   
-    
+    // 否則在class BST的member function中不需要這麼麻煩
+    // 因為class BST是class TreeNode的friend class
+
     friend class BST;   // 放在 private 或 public 都可以 
 };
 
-// class BST
 class BST{
 private:
     TreeNode *root;
     TreeNode* Rightmost(TreeNode *current);
+    TreeNode* Predecessor(TreeNode *current);
     TreeNode* Leftmost(TreeNode *current);
-    TreeNode* Copy(const TreeNode *origNode);    // preorder traversal, 用在 copy constructor和 operator=
-    void PostorderDelete(TreeNode *current);
+    TreeNode* Successor(TreeNode *current);
 public:
-    BST(){ root = 0; };		// default constructor
-    BST(const BST &p);		// copy constructor
-    BST& operator = (const BST &p);
-    ~BST();  // destructor
-    
+    BST():root(0){};		
     TreeNode* Search(int key);
     void InsertBST(TreeNode &new_node);
-    
-    TreeNode* Successor(TreeNode *current);
-    TreeNode* Predecessor(TreeNode *current);
-    void InorderPrint();
     void DeleteBST(int KEY);
-    
+    void InorderPrint();        // 可以用來確認BST是否建立成功
+    void Levelorder();          // 可以確認BST是否建立成功
     bool IsEmpty() const{return (root==NULL);};    // 確認BST是否存有資料
 };
 
 ```
 
 文章內容將著重於BST這個資料結構，並提供此資料結構中可行的演算法，因此，有關C++的實作方法並不唯一，筆者相信有更優秀的寫法(有效利用記憶體、避免memory leak(記憶體洩漏)等議題)，建議讀者可以多多參考例如[Stack Exchange:Code Review](http://codereview.stackexchange.com/)等等眾多優秀的網站，看網友的程式碼的寫法以及由該份程式碼所開啟的討論串，應該會對實際寫作技巧有些幫助。  
-(筆者也還在學啊啊啊啊)
 
-另外，用以測試的`main()`將在BST系列的演算法都介紹完後登場。
 
 ***
   
@@ -90,7 +79,7 @@ public:
 
 ##BST::Search(搜尋)
 
-BST的`Search()`操作，便是根據BST的特徵：$Key(L)<Key(Current)<Key(R)$，判斷`Current`node應該往left subtree走，還是往right subtree走。
+BST的`Search()`操作，便是根據BST的特徵：Key(L)<Key(Current)<Key(R)，判斷`Current`node應該往left subtree走，還是往right subtree走。
 
 現有一棵BST如圖一(a)所示：
 
@@ -105,7 +94,7 @@ BST的`Search()`操作，便是根據BST的特徵：$Key(L)<Key(Current)<Key(R)$
 
 ###搜尋成功
 
-* 若現在要從BST中搜尋基紐隊長，便以基紐隊長的KEY(627)進入BST。  
+* 若現在要從BST中搜尋基紐隊長，便以基紐隊長的KEY($627$)進入BST。  
 進入BST後，便把用來移動的`Current`node指向`root`，如圖一(b)。  
 
 <center>
@@ -114,7 +103,7 @@ BST的`Search()`操作，便是根據BST的特徵：$Key(L)<Key(Current)<Key(R)$
 **圖一(b)：。**  
 </center> 
 
-* 此時，便將KEY(627)和比克(`root`)的戰鬥力(513)比較，結果是基紐隊長戰勝，因此，基紐隊長如果在BST裡面，應該會長在比克的right subtree，於是便將`Current`往比克的right child(達爾)移動，如圖一(c)。
+* 此時，便將KEY($627$)和比克(`root`)的戰鬥力($513$)比較，結果是基紐隊長戰勝，因此，基紐隊長如果在BST裡面，應該會長在比克的right subtree，於是便將`Current`往比克的right child(達爾)移動，如圖一(c)。
 
 <center>
 ![bst][f3]
@@ -122,7 +111,7 @@ BST的`Search()`操作，便是根據BST的特徵：$Key(L)<Key(Current)<Key(R)$
 **圖一(c)：。**  
 </center> 
 
-* 將`Current`移動到達爾之後，再將KEY(627)與達爾的戰鬥力(524)比較，結果仍然是基紐隊長大勝，因此步驟同上，繼續將`Current`往達爾的right child(弗力札)移動，如圖一(d)。
+* 將`Current`移動到達爾之後，再將KEY($627$)與達爾的戰鬥力($524$)比較，結果仍然是基紐隊長大勝，因此步驟同上，繼續將`Current`往達爾的right child(弗力札)移動，如圖一(d)。
 
 <center>
 ![bst][f4]
@@ -130,7 +119,7 @@ BST的`Search()`操作，便是根據BST的特徵：$Key(L)<Key(Current)<Key(R)$
 **圖一(d)：。**  
 </center> 
 
-* 將`Current`移動到弗力札之後，再將KEY(627)與弗力札的戰鬥力(709)比較，結果是弗力札略勝，於是便往弗力札的left child尋找基紐隊長，如圖一(e)。
+* 將`Current`移動到弗力札之後，再將KEY($627$)與弗力札的戰鬥力($709$)比較，結果是弗力札略勝，於是便往弗力札的left child尋找基紐隊長，如圖一(e)。
 
 <center>
 ![bst][f5]
@@ -138,13 +127,13 @@ BST的`Search()`操作，便是根據BST的特徵：$Key(L)<Key(Current)<Key(R)$
 **圖一(e)：。**  
 </center>
 
-* 此時，`Current`的Key(627)與傳送進`Search()`的KEY(627)相同，便確認`Current`即為基紐隊長，於是跳出`while`迴圈，並傳回`Current`。  
+* 此時，`Current`的Key($627$)與傳送進`Search()`的KEY($627$)相同，便確認`Current`即為基紐隊長，於是跳出`while`迴圈，並傳回`Current`。  
 即搜尋成功。
 
 
 ###搜尋失敗
 
-* 若現在要從BST中尋找克林，便以克林的戰鬥力(2)為KEY(2)，進入`Search()`。  
+* 若現在要從BST中尋找克林，便以克林的戰鬥力($2$)作為KEY($2$)，進入`Search()`。  
 進入BST後，同樣把用來移動的`Current`node指向`root`，如圖一(b)。
 
 <center>
@@ -153,7 +142,7 @@ BST的`Search()`操作，便是根據BST的特徵：$Key(L)<Key(Current)<Key(R)$
 **圖一(b)：。**  
 </center> 
 
-* 接著便將KEY(2)和比克的戰鬥力(513)比較，結果是比克勝出，於是將`Currnet`往比克的left child(龜仙人)移動，如圖一(f)。
+* 接著便將KEY($2$)和比克的戰鬥力($513$)比較，結果是比克勝出，於是將`Currnet`往比克的left child(龜仙人)移動，如圖一(f)。
 
 <center>
 ![bst][f6]
@@ -161,7 +150,7 @@ BST的`Search()`操作，便是根據BST的特徵：$Key(L)<Key(Current)<Key(R)$
 **圖一(f)：。**  
 </center> 
 
-* 將`Current`移動至龜仙人後，將KEY(2)和龜仙人的戰鬥力(8)比較，便判斷出，要將`Current`往龜仙人的left child移動，如圖一(f)。  
+* 將`Current`移動至龜仙人後，將KEY($2$)和龜仙人的戰鬥力($8$)比較，便判斷出，要將`Current`往龜仙人的left child移動，如圖一(f)。  
 然而，由於龜仙人沒有left child，於是`Current`指向`NULL`，便跳出迴圈，並回傳`NULL`，即表示搜尋失敗，克林不在BST中。
 
 以下是`BST::Search()`的範例程式碼，其中，有兩種情況會跳出`while`迴圈：
@@ -172,13 +161,17 @@ BST的`Search()`操作，便是根據BST的特徵：$Key(L)<Key(Current)<Key(R)$
 ```cpp
 // C++ code
 TreeNode* BST::Search(int KEY){
-    TreeNode *current = new TreeNode;
-    current = root;
-    while (current != NULL && KEY != current->GetKey()) {
-        if (KEY < current->GetKey())
+
+    TreeNode *current = root;               // 將curent指向root作為traversal起點
+         
+    while (current != NULL && KEY != current->key) {  // 兩種情況跳出迴圈：
+    	                                              // 1.沒找到 2.有找到
+        if (KEY < current->key){                      
             current = current->leftchild;   // 向左走
-        else
+        }
+        else {
             current = current->rightchild;  // 向右走
+        }
     }
     return current;
 }
@@ -265,6 +258,7 @@ void BST::InsertBST(TreeNode &new_node){
 * 在定義函式`InsertBST()`時，函式的參數(argument)可能會視情境而有所改變，這裡是以一個`TreeNode`的物件(object)之**reference**作為參數，傳進函式`InsertBST()`。
 * 在`InsertBST()`特別標示出BST是為了與之後會介紹的Red Black Tree(紅黑樹)之`InsertRBT()`做區別。
 
+
 [f1]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f1.png?raw=true
 [f2]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f2.png?raw=true
 [f3]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f3.png?raw=true
@@ -280,7 +274,7 @@ void BST::InsertBST(TreeNode &new_node){
 
 <a name="main"></a>
 
-##main()
+##main
 
 有了`BST::InsertBST()`後，就可以用土法煉鋼的方式建立一棵如圖二(d)的BST:
 
