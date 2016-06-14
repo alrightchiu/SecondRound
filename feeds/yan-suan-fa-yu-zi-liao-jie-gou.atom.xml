@@ -14922,7 +14922,7 @@ $$&lt;/div&gt;
 }
 &lt;/script&gt;</summary><category term="C++"></category><category term="Binary Search Tree"></category></entry><entry><title>Binary Search Tree: Search(搜尋資料)、Insert(新增資料)</title><link href="http://alrightchiu.github.io/SecondRound/binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao.html" rel="alternate"></link><updated>2016-01-03T20:17:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-01-03:SecondRound/binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h3&gt;先備知識與注意事項&lt;/h3&gt;
-&lt;p&gt;(完整範例程式碼也可以看這裡：&lt;a href="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/ExampleCode/BST_Search_Insert.cpp"&gt;BST.cpp&lt;/a&gt;)&lt;/p&gt;
+&lt;p&gt;(完整範例程式碼也可以看這裡：&lt;a href="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/ExampleCode/BST_Search_Insert.cpp"&gt;BST_Search_Insert.cpp&lt;/a&gt;)&lt;/p&gt;
 &lt;p&gt;在開始介紹search(搜尋資料)與insert(新增資料)之前，先定義好&lt;code&gt;class TreeNode&lt;/code&gt;與&lt;code&gt;class BST&lt;/code&gt;，順便對未來將介紹的其他member function(成員函式)留下美好的第一印象：&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// C++ code&lt;/span&gt;
 &lt;span class="cp"&gt;#include &amp;lt;iostream&amp;gt;&lt;/span&gt;
