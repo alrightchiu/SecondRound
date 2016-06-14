@@ -47,18 +47,15 @@ public:
 class BST{
 private:
     TreeNode *root;
-    TreeNode* Rightmost(TreeNode *current);
-    TreeNode* Predecessor(TreeNode *current);
     TreeNode* Leftmost(TreeNode *current);
     TreeNode* Successor(TreeNode *current);
 public:
-    BST():root(0){};		
+    BST():root(0){};	
+    
     TreeNode* Search(int key);
-    void InsertBST(TreeNode &new_node);
-    void DeleteBST(int KEY);
+    void InsertBST(int key, string element);
     void InorderPrint();        // 可以用來確認BST是否建立成功
     void Levelorder();          // 可以確認BST是否建立成功
-    // bool IsEmpty() const{return (root==NULL);};    // 確認BST是否存有資料
 };
 
 ```
@@ -72,7 +69,6 @@ public:
 
 * [BST::Search(搜尋)](#search)
 * [BST::InsertBST(新增資料)](#insert)
-* [main()](#main)
 * [參考資料](#ref)
 * [BST系列文章](#tree_series)
 
@@ -162,9 +158,9 @@ BST的`Search()`操作，便是根據BST的特徵：Key(L)<Key(Current)<Key(R)�
 以下是`BST::Search()`的範例程式碼，其中，有兩種情況會跳出`while`迴圈：
 
 1. `Current`移動到`NULL`，表示搜尋失敗。
-2. KEY與`Current`node的key相同，表示搜尋成功；
+2. KEY與`Current`的key相同，表示搜尋成功；
 
-這兩種情況的先後順序很重要，因為如果`Current`是`NULL`，便不能對其`key`做存取，會產生諸如**BAD_ACCESS**的錯誤(error)。
+這兩種情況作為條件式(condition)的先後順序很重要，因為如果`Current`是`NULL`，便不能對其`key`做存取，會產生諸如**BAD_ACCESS**的錯誤(error)。
 
 ```cpp
 // C++ code
@@ -192,16 +188,15 @@ TreeNode* BST::Search(int KEY){
 
 ##BST::InsertBST(新增資料)
 
-函式`InsertBST()`的演算法概念，可以視為`Search()`的延伸：
+函式`InsertBST()`的概念，可以視為`Search()`的延伸：
 
-1. 根據BST對Key之規則，先找到「將要新增之node」適合的位置；
+1. 根據BST對Key之規則，先找到將要新增之node「適合的位置」；
 2. 再將欲新增的node接上BST。
 
-要尋找「對新增node而言的適當位置」，需要召喚一位「哨兵」先行探路，而「將會成為新增node的**parent node**(準新手爸媽)」則跟著「哨兵」的腳步，往前推進。 
+要尋找「對新增node而言的適當位置」，需要召喚一位「哨兵」先行探路，而「將會成為新增node的**parent node**(準新手爸媽)」的那個node，則跟著「哨兵」的腳步，往前推進。 
  
-定義「哨兵」為**x**，「準新手爸媽」為**y**，現欲新增「比克，戰鬥力(513)」進入如圖二(a)之BST。  
-(這裡的「哨兵**x**」具有`BST::Search()`中`Current`node的功能。)
-
+定義「哨兵」為**x**，「準新手爸媽」為**y**，現欲新增「比克(513)」進入圖二(a)的BST。  
+(這裡的「哨兵**x**」具有`BST::Search()`中`Current`的功能。)
 
 <center>
 ![bst][f7]
@@ -209,8 +204,11 @@ TreeNode* BST::Search(int KEY){
 **圖二(a)：。**  
 </center> 
 
-* 如圖二(a)，剛進入BST時，「哨兵**x**」進到`root`，而「準新手爸媽**y**」即為`root`的parent，即為`NULL`。  
-* 接著，將欲新增node之Key(比克(513))與「哨兵**x**」之Key(龜仙人(8))相比，比克的戰鬥力比龜仙人高，所以比克應該要長在龜仙人的right subtree，因此把「哨兵**x**」往龜仙人的right child(悟空)移動，並且更新「準新手爸媽**y**」為龜仙人，如圖二(b)。
+如圖二(a)，剛進入BST時，「哨兵**x**」進到`root`，而「準新手爸媽**y**」設為`root`的parent，即為`NULL`。  
+
+接著，將欲新增node之Key(比克($513$))與「哨兵**x**」之Key(龜仙人($8$))相比，比克的戰鬥力比龜仙人高，所以比克應該要長在龜仙人的right subtree，因此把「哨兵**x**」往龜仙人的right child(悟空)移動，並且更新「準新手爸媽**y**」為龜仙人，如圖二(b)。
+
+* 若這棵BST裡沒有悟空($1000$)長在龜仙人的right child位置，那麼比克($513$)就會變成龜仙人的right child，所以稱龜仙人是「準新手爸媽」。
 
 <center>
 ![bst][f8]
@@ -218,9 +216,11 @@ TreeNode* BST::Search(int KEY){
 **圖二(b)：。**  
 </center> 
 
-* 接著，繼續比較欲新增node之Key(比克(513))與「哨兵**x**」之Key(悟空(1000))，結果是悟空的戰鬥力較高，比克應該要長在悟空的left subtree，因此，將「哨兵**x**」往悟空的left child(`NULL`)移動，同時更新「準新手爸媽**y**」為悟空，如圖二(c)。
-* 更新後，「準新手爸媽**y**」成為悟空，「哨兵**x**」指向`NULL`壯烈犧牲，即達到跳出迴圈之條件。此時，便找到了「新增node」之適當位置。  
-那個「適當位置」在哪裡呢？就是「準新手爸媽**y**」的child pointer。
+接著，繼續比較欲新增node之Key(比克($513$))與「哨兵**x**」之Key(悟空($1000$))，結果是悟空的戰鬥力較高，比克應該要長在悟空的left subtree，因此，將「哨兵**x**」往悟空的left child(`NULL`)移動，同時更新「準新手爸媽**y**」為悟空，如圖二(c)。
+
+更新後，「準新手爸媽**y**」成為悟空，「哨兵**x**」指向`NULL`壯烈犧牲，即達到跳出迴圈之條件。此時，便找到了「新增node」之適當位置。  
+
+那個「適當位置」在哪裡呢？就是「準新手爸媽**y**」的child pointer。表示比克($513$)一定會是悟空($1000$)的child。
 
 <center>
 ![bst][f9]
@@ -228,7 +228,10 @@ TreeNode* BST::Search(int KEY){
 **圖二(c)：。**  
 </center> 
 
-* 下一步，便是比較欲新增node之Key(比克(513))與「準新手爸媽**y**」之Key(悟空(1000))，發現悟空戰鬥力較高，因此，比克(513)便成為「準新手爸媽**y**」的left child，如圖二(d)，便成功把比克(513)接到BST上。
+下一步，便是比較欲新增node之Key(比克(513))與「準新手爸媽**y**」之Key(悟空(1000))來判斷要接在left child還是right child的位置。  
+比較發現悟空戰鬥力較高，因此，比克(513)便成為「準新手爸媽**y**」的left child，如圖二(d)，便成功把比克(513)接到BST上。
+
+如此便完成了於BST中新增資料。
 
 <center>
 ![bst][f10]
@@ -236,30 +239,32 @@ TreeNode* BST::Search(int KEY){
 **圖二(d)：。**  
 </center> 
 
-以下是`BST::InsertBST()`的範例程式碼，關鍵便是「哨兵**x**」與「準新手爸媽**y**」的冒險之旅：
+以下是`InsertBST()`的範例程式碼，關鍵便是「哨兵**x**」與「準新手爸媽**y**」的冒險之旅：
+
 
 ```cpp
 // C++ code
-void BST::InsertBST(TreeNode &new_node){
+void BST::InsertBST(int key, string element){
+
     TreeNode *y = 0;        // 準新手爸媽
     TreeNode *x = 0;        // 哨兵
     // call default copy constructor of TreeNode
-    TreeNode *insert_node = new TreeNode(new_node); 
+    TreeNode *insert_node = new TreeNode(key, element);   // insert_node為將要新增的node
 
     x = root;
-    while (x != NULL) {                // 在while中, 以如同Search()的方式尋找適當的位置       
-        y = x;                                
-        if (insert_node->key < x->key){
+    while (x != NULL) {                 // 在while中, 以如同Search()的方式尋找適當的位置       
+        y = x;                          // y先更新到原來x的位置
+        if (insert_node->key < x->key){ // 判斷x是要往left- 還是right- 前進
             x = x->leftchild;
         }
         else{
             x = x->rightchild;
         }
-    }                                  // 跳出迴圈後, x即為NULL
-                                       // y即為insert_node的parent
-    insert_node->parent = y;           // 將insert_node的parent pointer指向y
+    }                                   // 跳出迴圈後, x即為NULL
+                                        // y即為insert_node的parent
+    insert_node->parent = y;            // 將insert_node的parent pointer指向y
 
-    if (y == NULL){                    // 下面一組if-else, 把insert_node接上BST
+    if (y == NULL){                     // 下面一組if-else, 把insert_node接上BST
         this->root = insert_node;
     }
     else if (insert_node->key < y->key){
@@ -270,10 +275,65 @@ void BST::InsertBST(TreeNode &new_node){
     }
 }
 ```
-備註：  
 
-* 在定義函式`InsertBST()`時，函式的參數(argument)可能會視情境而有所改變，這裡是以一個`TreeNode`的物件(object)之**reference**作為參數，傳進函式`InsertBST()`。
-* 在`InsertBST()`特別標示出BST是為了與之後會介紹的Red Black Tree(紅黑樹)之`InsertRBT()`做區別。
+
+
+有了`BST::InsertBST()`後，就可以用土法煉鋼的方式建立一棵如圖二(d)的BST，再以[]()介紹過的Inorder Traversal與Level-Order Traversal檢驗，順便測試BST中是否有Key($1000$)與Key($73$)這兩筆資料：
+
+```cpp
+// C++ code
+int main() {
+    
+    BST T;
+    
+    T.InsertBST(8,"龜仙人");
+    T.InsertBST(1000,"悟空");
+    T.InsertBST(2,"克林");
+    T.InsertBST(513,"比克");
+
+
+    cout << "Inorder Traversal:\n";
+    T.InorderPrint();
+    cout << endl;
+    cout << "Level-order Traversal:\n";
+    T.Levelorder();
+    cout << endl << endl;
+    
+    TreeNode *node = T.Search(1000);
+    if(node != NULL){
+    	cout << "There is " << node->GetElement() << "(" << node->GetKey() << ")" << endl;
+    }
+    else {
+    	cout << "no element with Key(1000)" << endl;
+    }
+    
+    node = T.Search(73);
+    if(node != NULL){
+    	cout << "There is " << node->GetElement() << "(" << node->GetKey() << ")" << endl;
+    }
+    else {
+    	cout << "no element with Key(73)" << endl;
+    }
+
+    return 0;
+}
+```
+
+output: 
+
+```cpp
+Inorder Traversal:
+克林(2) 龜仙人(8) 比克(513) 悟空(1000)
+Level-order Traversal:
+龜仙人(8) 克林(2) 悟空(1000) 比克(513)
+
+There is 悟空(1000)
+no element with Key(73)
+```
+
+
+以上便是BST中`Search()`與`InsertBST()`之介紹，只要掌握BST的性質$Key(L)<Key(Current)<Key(R)$與樹中的Traversal(pointer的移動)即可輕鬆上路。 
+
 
 
 [f1]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f1.png?raw=true
@@ -287,32 +347,6 @@ void BST::InsertBST(TreeNode &new_node){
 [f9]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f9.png?raw=true
 [f10]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f10.png?raw=true
 
-</br>
-
-<a name="main"></a>
-
-##main
-
-有了`BST::InsertBST()`後，就可以用土法煉鋼的方式建立一棵如圖二(d)的BST:
-
-```cpp
-// C++ code
-int main() {
-    BST b1;
-    TreeNode n1(8,"龜仙人");
-    TreeNode n2(1000,"悟空");
-    TreeNode n3(2,"克林");
-    TreeNode n4(513,"比克");
-    b1.InsertBST(n1);
-    b1.InsertBST(n2);
-    b1.InsertBST(n3);
-    b1.InsertBST(n4);
-    return 0;
-}
-```
-
-
-以上便是BST中`Search()`與`InsertBST()`之介紹，只要掌握BST的性質$Key(L)<Key(Current)<Key(R)$與樹中的Traversal(pointer的移動)即可輕鬆上路。 
 
 </br>
 
