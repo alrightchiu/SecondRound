@@ -230,7 +230,7 @@
 <p></br></p>
 <p><a name="ex_code"></a></p>
 <h2>Example with Code</h2>
-<p>(完整範例程式碼在這裡：<a href="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/ExampleCode/BT_Traversal.cpp">BT_Traversal.cpp</a>)</p>
+<p>(完整範例程式碼也可以看這裡：<a href="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/ExampleCode/BT_Traversal.cpp">BT_Traversal.cpp</a>)</p>
 <p>接下來，再以一棵稍微複雜的Binary Tree作為範例，展示pre-order、in-order、post-order及level-order之traversal。</p>
 <p>現有一棵樹如圖四(a)：</p>
 <p><center>
@@ -251,8 +251,8 @@
     <span class="n">TreeNode</span> <span class="o">*</span><span class="n">parent</span><span class="p">;</span>
     <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">str</span><span class="p">;</span>
 
-    <span class="n">TreeNode</span><span class="p">()</span><span class="o">:</span><span class="n">leftchild</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="n">rightchild</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="n">parent</span><span class="p">(</span><span class="mi">0</span><span class="p">){};</span>
-    <span class="n">TreeNode</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">s</span><span class="p">)</span><span class="o">:</span><span class="n">str</span><span class="p">(</span><span class="n">s</span><span class="p">),</span><span class="n">leftchild</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="n">rightchild</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="n">parent</span><span class="p">(</span><span class="mi">0</span><span class="p">){};</span>
+    <span class="n">TreeNode</span><span class="p">()</span><span class="o">:</span><span class="n">leftchild</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="n">rightchild</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="n">parent</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="n">str</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">){};</span>
+    <span class="n">TreeNode</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">s</span><span class="p">)</span><span class="o">:</span><span class="n">leftchild</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="n">rightchild</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="n">parent</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="n">str</span><span class="p">(</span><span class="n">s</span><span class="p">){};</span>
 
     <span class="k">friend</span> <span class="k">class</span> <span class="nc">BinaryTree</span><span class="p">;</span>
 <span class="p">};</span>
@@ -444,7 +444,7 @@
 <li>詳見：<a href="http://alrightchiu.github.io/SecondRound/binary-search-tree-sortpai-xu-deleteshan-chu-zi-liao.html#binary-search-tree-sortpai-xu-deleteshan-chu-zi-liao">Binary Search Tree: Sort(排序)、Delete(刪除資料)</a>。</li>
 </ul>
 <p>另外，若觀察前面提過的遞迴(recursion)形式之inorder traversal，Visiting被包含在遞迴函式內，這表示若要進行多種不同的Visiting，例如print(顯示資料)、assign(賦值、更新資料)，都需要重新寫一個專門功能的遞迴函式。<br />
-顯然，把Visiting和Traversal獨立開來會更有效率。</p>
+顯然，把Visiting和Traversal獨立開來會更方便。</p>
 <p>在看兩個實用的函式之前，有幾件前置作業：  </p>
 <ul>
 <li>在<code>class BinaryTree</code>的定義中加入六個member function(成員函式)：</li>
