@@ -71,12 +71,25 @@ Summary: 介紹如何以字元陣列(char array)獲得資料(data)後，建立�
 先看看`main()`中，上半部分別為：
 
 * 原始資料：字元陣列；
-* 以該字元陣列實體化(instantiate)一棵Binary Tree，本篇重點在此；
+* 以字元陣列建立一棵如圖二的Binary Tree，本篇重點在此；
 * 以inorder traversal印出樹的資料。
 
-下半部則是示範以`queue`實現level-order traversal之小應用：以Complete Binary Tree之位置規則在樹中新增node。  
+<center>
+![binary tree of char array][f2]
 
-溫馨小提醒：純粹以inorder traversal之結果並無法驗證樹之結構正如圖一(舉例來說：以inorder traversal對某一Linked list也可能得出相同結果)，因此，建議還是使用任何可取得的debugger把pointer全部攤開。
+**圖二：。**  
+</center> 
+
+下半部則是示範以`queue`實現level-order traversal之小應用：以Complete Binary Tree之位置規則在樹中新增node，最後會把圖二之Binary Tree裡的「洞」給補起來，如圖四(b)。  
+
+<center>
+![insertLMN][f17]  
+
+**圖四(b)：。**  
+</center> 
+
+
+溫馨小提醒：純粹以inorder traversal之結果並無法驗證樹之結構正如圖一(舉例來說：以inorder traversal對某個Linked list也可能得出相同結果)，因此，建議還是使用任何可取得的debugger把pointer全部攤開。
 
 ```cpp
 // C++ code
@@ -86,7 +99,7 @@ Summary: 介紹如何以字元陣列(char array)獲得資料(data)後，建立�
 
 int main() {
     const char *a = "A B C D E F x x x G H x I";
-    BinaryTree T(a);					// 以level-order規則建立Binary Tree
+    BinaryTree T(a);	            // 以level-order規則建立Binary Tree
     T.Inorder_by_parent();      // 以inorder-traversal印出Binary Tree
     std::cout << std::endl;
     
@@ -107,7 +120,10 @@ D B G E H A F I C
 L D M B G E H A N F I C K    
 ```
 
-// 放圖, 
+
+
+
+
 
 
 </br> 
@@ -131,7 +147,7 @@ private:
     TreeNode *parent;
     char data;
 public:
-    TreeNode():leftchild(0),rightchild(0),parent(0),data(''){};
+    TreeNode():leftchild(0),rightchild(0),parent(0),data('x'){};
     TreeNode(char s):leftchild(0),rightchild(0),parent(0),data(s){};
 
     friend class BinaryTree;
@@ -146,12 +162,12 @@ public:
 
     void LevelorderConstruct(std::stringstream &ss);
     void InsertLevelorder(char data);
-    
-    // print data by in-order traversal
+
     TreeNode* leftmost(TreeNode *current);
     TreeNode* InorderSuccessor(TreeNode *current);
     void Inorder_by_parent();
 };
+
 ```
 
 </br>  
@@ -380,9 +396,9 @@ void BinaryTree::LevelorderConstruct(std::stringstream &ss){
 </br>
 <a name="func2"></a>
 
-###Function：insertLevelorder
+###Function：InsertLevelorder
 
-函式`insertLevelorder()`的功能是，能夠按照Complete Binary Tree的位置順序放置新增的node，例如，若要在圖三之樹上新增帶有字母**'K'**的node，則`T.insertLevelorder('K')`便會將**'K'**建成C的right child，如圖四(a)：
+函式`InsertLevelorder()`的功能是，能夠按照Complete Binary Tree的位置順序放置新增的node，例如，若要在圖三之樹上新增帶有字母**'K'**的node，則`T.insertLevelorder('K')`便會將**'K'**建成C的right child，如圖四(a)：
 
 <center>
 ![insertK][f16]  
@@ -392,9 +408,9 @@ void BinaryTree::LevelorderConstruct(std::stringstream &ss){
 
 再依序新增L、M、N：
 
-* ```T.insertLevelorder('L')```  
-* ```T.insertLevelorder('M')```  
-* ```T.insertLevelorder('N')```
+* ```T.InsertLevelorder('L');```  
+* ```T.InsertLevelorder('M');```  
+* ```T.InsertLevelorder('N');```
 
 即會得到如圖四(b)的樹：
 
@@ -405,12 +421,11 @@ void BinaryTree::LevelorderConstruct(std::stringstream &ss){
 </center> 
 
 
-
-程式碼之邏輯與`LevelorderConstruct`大同小異，最主要的部分就是利用`queue`來記錄`CurrentNode`移動的順序：
+程式碼之邏輯與`LevelorderConstruct()`大同小異，最主要的部分就是利用`queue`來記錄`CurrentNode`移動的順序：
 
 * 首先，將`current`設成`root`，若樹存在，則進入`while`迴圈。
-* 接著判斷，若`current`之left child已經有node，則將之放入`queue`中，在下次迴圈將以此node作為`current`，若left child還沒有node，便產生帶有`data`之新node，並將其建立成`current`之left child。  
-pointer連接完成後，結束迴圈。
+* 接著要開始「找空位」，若`current`之left child已經有node，則將之放入`queue`中，在下次迴圈將以此node作為`current`，若left child還沒有node，便產生帶有`data`之新node，並將其建立成`current`之left child。  
+當「parent指向child」與「child指向parent」的pointer連接完成後，便結束迴圈。
 * 對`current`之right child進行相同之步驟。
 
 如此便能有效控制Binary Tree之樹高(height)，使pointer所配置之記憶體空間有效利用，亦能夠減少traversal(以及其他操作)所需的時間。
@@ -418,24 +433,27 @@ pointer連接完成後，結束迴圈。
 
 ```cpp
 // C++ code
-void BinaryTree::insertLevelorder(char data){    
+void BinaryTree::InsertLevelorder(char data){    
+
     std::queue<TreeNode*> q;
     TreeNode *current = root;
     
     while (current) {
-        if (current->leftchild != NULL)
-            q.push(current->leftchild);
-        else{
-            TreeNode *new_node = new TreeNode(data);
+        if (current->leftchild != NULL){               // current的leftchild沒有空位
+            q.push(current->leftchild);                // 將其推進queue中
+        }
+        else{                                          // current的leftchild有空位
+            TreeNode *new_node = new TreeNode(data);   // 建立新的node, 將字母放在這裡
             new_node->parent = current;
             current->leftchild = new_node;
-            break;
+            break;                         
         }
-        if (current->rightchild != NULL)
-            q.push(current->rightchild);
-        else{
-            TreeNode *new_node = new TreeNode(data);
-            new_node->parent = current;
+        if (current->rightchild != NULL) {             // current的rightchild沒有空位
+            q.push(current->rightchild);               // 將其推進queue中
+        }
+        else{                                          // current的rightchild有空位
+            TreeNode *new_node = new TreeNode(data);   // 建立新的node, 將字母放在這裡
+            new_node->parent = current;                
             current->rightchild = new_node;
             break;
         }
@@ -444,9 +462,10 @@ void BinaryTree::insertLevelorder(char data){
     }
 }
 ```
+
 </br>  
 以上便是利用`queue`執行level-order方式建立Binary Tree之範例。  
-另外，[有些方法是利用遞迴的方式，外帶一個迴圈來進行level-order traversal](http://www.geeksforgeeks.org/level-order-tree-traversal/)，也能夠完成相同的功能。
+另外，[利用遞迴的方式，外帶一個迴圈來進行level-order traversal](http://www.geeksforgeeks.org/level-order-tree-traversal/)，也能夠完成相同的功能。
 
 
 [f1]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/ex.png?raw=true
