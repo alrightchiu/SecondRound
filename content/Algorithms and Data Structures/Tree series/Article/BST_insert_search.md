@@ -332,8 +332,17 @@ There is 悟空(1000)
 no element with Key(73)
 ```
 
+結果看起來與圖二(d)一致：
 
-以上便是BST中`Search()`與`InsertBST()`之介紹，只要掌握BST的性質Key(L)<Key(Current)<Key(R)與樹中的Traversal(pointer的移動)即可輕鬆上路。 
+<center>
+![bst][f10]
+
+**圖二(d)：。**  
+</center> 
+
+以上便是BST中`Search()`與`InsertBST()`之介紹。  
+
+只要掌握BST的性質Key(L)<Key(Current)<Key(R)與樹中的Traversal(pointer的移動)即可輕鬆上路。 
 
 
 
