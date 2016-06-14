@@ -66,7 +66,7 @@ Summary: 介紹如何以字元陣列(char array)獲得資料(data)後，建立�
 
 ##程式碼
 
-(完整範例程式碼也可以看這裡：[BT_Construct_from_char_array.cpp]())
+(完整範例程式碼也可以看這裡：[BT_Construct_from_char_array.cpp](https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/ExampleCode/BT_Construct_from_char_array.cpp))
 
 先看看`main()`中，上半部分別為：
 
@@ -121,11 +121,6 @@ L D M B G E H A N F I C K
 ```
 
 
-
-
-
-
-
 </br> 
 
 <a name="def"></a>
@@ -136,6 +131,7 @@ L D M B G E H A N F I C K
 
 在`class BinaryTree`除了上一篇介紹過的inorder traversal外，多了兩個新朋友`LevelorderConstruct()`與`InsertLevelorder()`，前者即是本篇主角，吃進`stringstream`後，把樹建出來；後者純粹是好玩，其功能為「以Complete Binary Tree之位置規則，在理應出現node的位置，新增node」，能夠儘量減少在新增node時增加樹高(height)。
 
+關於Inorder-traversal的三個函式`leftmost()`、`InorderSuccessor()`以及`Inorder_by_parent()`請參考上一篇：[Binary Tree:Traversal(尋訪)/In-Order Traversal by Parent Field](http://alrightchiu.github.io/SecondRound/binary-tree-traversalxun-fang.html#in_parent)。
 
 ```cpp
 // C++ code
