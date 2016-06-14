@@ -150,7 +150,7 @@
 <p></br></p>
 <p><a name="code"></a></p>
 <h2>程式碼</h2>
-<p>(完整範例程式碼也可以看這裡：<a href="">BT_Construct_from_char_array.cpp</a>)</p>
+<p>(完整範例程式碼也可以看這裡：<a href="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/ExampleCode/BT_Construct_from_char_array.cpp">BT_Construct_from_char_array.cpp</a>)</p>
 <p>先看看<code>main()</code>中，上半部分別為：</p>
 <ul>
 <li>原始資料：字元陣列；</li>
@@ -201,6 +201,7 @@
 <h3>定義class TreeNode、class BinaryTree</h3>
 <p>這裡對<code>class TreeNode</code>與<code>class BinaryTree</code>之定義，與<a href="http://alrightchiu.github.io/SecondRound/binary-tree-traversalxun-fang.html#ex_code">上一篇文章</a>之最大不同在於資料的隱蔽性，因為在此不需要在<code>main()</code>中存取任何pointer(<code>root</code>、<code>leftchild</code>、<code>rightchild</code>)，因此將之放進<strong>private</strong>區塊。</p>
 <p>在<code>class BinaryTree</code>除了上一篇介紹過的inorder traversal外，多了兩個新朋友<code>LevelorderConstruct()</code>與<code>InsertLevelorder()</code>，前者即是本篇主角，吃進<code>stringstream</code>後，把樹建出來；後者純粹是好玩，其功能為「以Complete Binary Tree之位置規則，在理應出現node的位置，新增node」，能夠儘量減少在新增node時增加樹高(height)。</p>
+<p>關於Inorder-traversal的三個函式<code>leftmost()</code>、<code>InorderSuccessor()</code>以及<code>Inorder_by_parent()</code>請參考上一篇：<a href="http://alrightchiu.github.io/SecondRound/binary-tree-traversalxun-fang.html#in_parent">Binary Tree:Traversal(尋訪)/In-Order Traversal by Parent Field</a>。</p>
 <div class="highlight"><pre><span class="c1">// C++ code</span>
 <span class="k">class</span> <span class="nc">BinaryTree</span><span class="p">;</span>
 <span class="k">class</span> <span class="nc">TreeNode</span><span class="p">{</span>
