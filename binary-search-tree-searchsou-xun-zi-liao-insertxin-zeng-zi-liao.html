@@ -111,7 +111,7 @@
     <article>
         <p></br></p>
 <h3>先備知識與注意事項</h3>
-<p>(完整範例程式碼也可以看這裡：<a href="">BST.cpp</a>)</p>
+<p>(完整範例程式碼也可以看這裡：<a href="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/ExampleCode/BST_Search_Insert.cpp">BST.cpp</a>)</p>
 <p>在開始介紹search(搜尋資料)與insert(新增資料)之前，先定義好<code>class TreeNode</code>與<code>class BST</code>，順便對未來將介紹的其他member function(成員函式)留下美好的第一印象：</p>
 <div class="highlight"><pre><span class="c1">// C++ code</span>
 <span class="cp">#include &lt;iostream&gt;</span>
@@ -146,18 +146,15 @@
 <span class="k">class</span> <span class="nc">BST</span><span class="p">{</span>
 <span class="k">private</span><span class="o">:</span>
     <span class="n">TreeNode</span> <span class="o">*</span><span class="n">root</span><span class="p">;</span>
-    <span class="n">TreeNode</span><span class="o">*</span> <span class="nf">Rightmost</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">);</span>
-    <span class="n">TreeNode</span><span class="o">*</span> <span class="nf">Predecessor</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">);</span>
     <span class="n">TreeNode</span><span class="o">*</span> <span class="nf">Leftmost</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">);</span>
     <span class="n">TreeNode</span><span class="o">*</span> <span class="nf">Successor</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">);</span>
 <span class="k">public</span><span class="o">:</span>
-    <span class="n">BST</span><span class="p">()</span><span class="o">:</span><span class="n">root</span><span class="p">(</span><span class="mi">0</span><span class="p">){};</span>        
+    <span class="n">BST</span><span class="p">()</span><span class="o">:</span><span class="n">root</span><span class="p">(</span><span class="mi">0</span><span class="p">){};</span>    
+
     <span class="n">TreeNode</span><span class="o">*</span> <span class="nf">Search</span><span class="p">(</span><span class="kt">int</span> <span class="n">key</span><span class="p">);</span>
-    <span class="kt">void</span> <span class="nf">InsertBST</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">&amp;</span><span class="n">new_node</span><span class="p">);</span>
-    <span class="kt">void</span> <span class="nf">DeleteBST</span><span class="p">(</span><span class="kt">int</span> <span class="n">KEY</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="nf">InsertBST</span><span class="p">(</span><span class="kt">int</span> <span class="n">key</span><span class="p">,</span> <span class="n">string</span> <span class="n">element</span><span class="p">);</span>
     <span class="kt">void</span> <span class="nf">InorderPrint</span><span class="p">();</span>        <span class="c1">// 可以用來確認BST是否建立成功</span>
     <span class="kt">void</span> <span class="nf">Levelorder</span><span class="p">();</span>          <span class="c1">// 可以確認BST是否建立成功</span>
-    <span class="c1">// bool IsEmpty() const{return (root==NULL);};    // 確認BST是否存有資料</span>
 <span class="p">};</span>
 </pre></div>
 
@@ -168,7 +165,6 @@
 <ul>
 <li><a href="#search">BST::Search(搜尋)</a></li>
 <li><a href="#insert">BST::InsertBST(新增資料)</a></li>
-<li><a href="#main">main()</a></li>
 <li><a href="#ref">參考資料</a></li>
 <li><a href="#tree_series">BST系列文章</a></li>
 </ul>
@@ -223,9 +219,9 @@
 <p>以下是<code>BST::Search()</code>的範例程式碼，其中，有兩種情況會跳出<code>while</code>迴圈：</p>
 <ol>
 <li><code>Current</code>移動到<code>NULL</code>，表示搜尋失敗。</li>
-<li>KEY與<code>Current</code>node的key相同，表示搜尋成功；</li>
+<li>KEY與<code>Current</code>的key相同，表示搜尋成功；</li>
 </ol>
-<p>這兩種情況的先後順序很重要，因為如果<code>Current</code>是<code>NULL</code>，便不能對其<code>key</code>做存取，會產生諸如<strong>BAD_ACCESS</strong>的錯誤(error)。</p>
+<p>這兩種情況作為條件式(condition)的先後順序很重要，因為如果<code>Current</code>是<code>NULL</code>，便不能對其<code>key</code>做存取，會產生諸如<strong>BAD_ACCESS</strong>的錯誤(error)。</p>
 <div class="highlight"><pre><span class="c1">// C++ code</span>
 <span class="n">TreeNode</span><span class="o">*</span> <span class="n">BST</span><span class="o">::</span><span class="n">Search</span><span class="p">(</span><span class="kt">int</span> <span class="n">KEY</span><span class="p">){</span>
 
@@ -248,64 +244,64 @@
 <p></br> </p>
 <p><a name="insert"></a></p>
 <h2>BST::InsertBST(新增資料)</h2>
-<p>函式<code>InsertBST()</code>的演算法概念，可以視為<code>Search()</code>的延伸：</p>
+<p>函式<code>InsertBST()</code>的概念，可以視為<code>Search()</code>的延伸：</p>
 <ol>
-<li>根據BST對Key之規則，先找到「將要新增之node」適合的位置；</li>
+<li>根據BST對Key之規則，先找到將要新增之node「適合的位置」；</li>
 <li>再將欲新增的node接上BST。</li>
 </ol>
-<p>要尋找「對新增node而言的適當位置」，需要召喚一位「哨兵」先行探路，而「將會成為新增node的<strong>parent node</strong>(準新手爸媽)」則跟著「哨兵」的腳步，往前推進。 </p>
-<p>定義「哨兵」為<strong>x</strong>，「準新手爸媽」為<strong>y</strong>，現欲新增「比克，戰鬥力(513)」進入如圖二(a)之BST。<br />
-(這裡的「哨兵<strong>x</strong>」具有<code>BST::Search()</code>中<code>Current</code>node的功能。)</p>
+<p>要尋找「對新增node而言的適當位置」，需要召喚一位「哨兵」先行探路，而「將會成為新增node的<strong>parent node</strong>(準新手爸媽)」的那個node，則跟著「哨兵」的腳步，往前推進。 </p>
+<p>定義「哨兵」為<strong>x</strong>，「準新手爸媽」為<strong>y</strong>，現欲新增「比克(513)」進入圖二(a)的BST。<br />
+(這裡的「哨兵<strong>x</strong>」具有<code>BST::Search()</code>中<code>Current</code>的功能。)</p>
 <p><center>
 <img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f7.png?raw=true" /></p>
 <p><strong>圖二(a)：。</strong><br />
 </center> </p>
+<p>如圖二(a)，剛進入BST時，「哨兵<strong>x</strong>」進到<code>root</code>，而「準新手爸媽<strong>y</strong>」設為<code>root</code>的parent，即為<code>NULL</code>。  </p>
+<p>接著，將欲新增node之Key(比克(<span class="math">\(513\)</span>))與「哨兵<strong>x</strong>」之Key(龜仙人(<span class="math">\(8\)</span>))相比，比克的戰鬥力比龜仙人高，所以比克應該要長在龜仙人的right subtree，因此把「哨兵<strong>x</strong>」往龜仙人的right child(悟空)移動，並且更新「準新手爸媽<strong>y</strong>」為龜仙人，如圖二(b)。</p>
 <ul>
-<li>如圖二(a)，剛進入BST時，「哨兵<strong>x</strong>」進到<code>root</code>，而「準新手爸媽<strong>y</strong>」即為<code>root</code>的parent，即為<code>NULL</code>。  </li>
-<li>接著，將欲新增node之Key(比克(513))與「哨兵<strong>x</strong>」之Key(龜仙人(8))相比，比克的戰鬥力比龜仙人高，所以比克應該要長在龜仙人的right subtree，因此把「哨兵<strong>x</strong>」往龜仙人的right child(悟空)移動，並且更新「準新手爸媽<strong>y</strong>」為龜仙人，如圖二(b)。</li>
+<li>若這棵BST裡沒有悟空(<span class="math">\(1000\)</span>)長在龜仙人的right child位置，那麼比克(<span class="math">\(513\)</span>)就會變成龜仙人的right child，所以稱龜仙人是「準新手爸媽」。</li>
 </ul>
 <p><center>
 <img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f8.png?raw=true" /></p>
 <p><strong>圖二(b)：。</strong><br />
 </center> </p>
-<ul>
-<li>接著，繼續比較欲新增node之Key(比克(513))與「哨兵<strong>x</strong>」之Key(悟空(1000))，結果是悟空的戰鬥力較高，比克應該要長在悟空的left subtree，因此，將「哨兵<strong>x</strong>」往悟空的left child(<code>NULL</code>)移動，同時更新「準新手爸媽<strong>y</strong>」為悟空，如圖二(c)。</li>
-<li>更新後，「準新手爸媽<strong>y</strong>」成為悟空，「哨兵<strong>x</strong>」指向<code>NULL</code>壯烈犧牲，即達到跳出迴圈之條件。此時，便找到了「新增node」之適當位置。<br />
-那個「適當位置」在哪裡呢？就是「準新手爸媽<strong>y</strong>」的child pointer。</li>
-</ul>
+<p>接著，繼續比較欲新增node之Key(比克(<span class="math">\(513\)</span>))與「哨兵<strong>x</strong>」之Key(悟空(<span class="math">\(1000\)</span>))，結果是悟空的戰鬥力較高，比克應該要長在悟空的left subtree，因此，將「哨兵<strong>x</strong>」往悟空的left child(<code>NULL</code>)移動，同時更新「準新手爸媽<strong>y</strong>」為悟空，如圖二(c)。</p>
+<p>更新後，「準新手爸媽<strong>y</strong>」成為悟空，「哨兵<strong>x</strong>」指向<code>NULL</code>壯烈犧牲，即達到跳出迴圈之條件。此時，便找到了「新增node」之適當位置。  </p>
+<p>那個「適當位置」在哪裡呢？就是「準新手爸媽<strong>y</strong>」的child pointer。表示比克(<span class="math">\(513\)</span>)一定會是悟空(<span class="math">\(1000\)</span>)的child。</p>
 <p><center>
 <img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f9.png?raw=true" /></p>
 <p><strong>圖二(c)：。</strong><br />
 </center> </p>
-<ul>
-<li>下一步，便是比較欲新增node之Key(比克(513))與「準新手爸媽<strong>y</strong>」之Key(悟空(1000))，發現悟空戰鬥力較高，因此，比克(513)便成為「準新手爸媽<strong>y</strong>」的left child，如圖二(d)，便成功把比克(513)接到BST上。</li>
-</ul>
+<p>下一步，便是比較欲新增node之Key(比克(513))與「準新手爸媽<strong>y</strong>」之Key(悟空(1000))來判斷要接在left child還是right child的位置。<br />
+比較發現悟空戰鬥力較高，因此，比克(513)便成為「準新手爸媽<strong>y</strong>」的left child，如圖二(d)，便成功把比克(513)接到BST上。</p>
+<p>如此便完成了於BST中新增資料。</p>
 <p><center>
 <img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f10.png?raw=true" /></p>
 <p><strong>圖二(d)：。</strong><br />
 </center> </p>
-<p>以下是<code>BST::InsertBST()</code>的範例程式碼，關鍵便是「哨兵<strong>x</strong>」與「準新手爸媽<strong>y</strong>」的冒險之旅：</p>
+<p>以下是<code>InsertBST()</code>的範例程式碼，關鍵便是「哨兵<strong>x</strong>」與「準新手爸媽<strong>y</strong>」的冒險之旅：</p>
 <div class="highlight"><pre><span class="c1">// C++ code</span>
-<span class="kt">void</span> <span class="n">BST</span><span class="o">::</span><span class="n">InsertBST</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">&amp;</span><span class="n">new_node</span><span class="p">){</span>
+<span class="kt">void</span> <span class="n">BST</span><span class="o">::</span><span class="n">InsertBST</span><span class="p">(</span><span class="kt">int</span> <span class="n">key</span><span class="p">,</span> <span class="n">string</span> <span class="n">element</span><span class="p">){</span>
+
     <span class="n">TreeNode</span> <span class="o">*</span><span class="n">y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>        <span class="c1">// 準新手爸媽</span>
     <span class="n">TreeNode</span> <span class="o">*</span><span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>        <span class="c1">// 哨兵</span>
     <span class="c1">// call default copy constructor of TreeNode</span>
-    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">insert_node</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">(</span><span class="n">new_node</span><span class="p">);</span> 
+    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">insert_node</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">element</span><span class="p">);</span>   <span class="c1">// insert_node為將要新增的node</span>
 
     <span class="n">x</span> <span class="o">=</span> <span class="n">root</span><span class="p">;</span>
-    <span class="k">while</span> <span class="p">(</span><span class="n">x</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>                <span class="c1">// 在while中, 以如同Search()的方式尋找適當的位置       </span>
-        <span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>                                
-        <span class="k">if</span> <span class="p">(</span><span class="n">insert_node</span><span class="o">-&gt;</span><span class="n">key</span> <span class="o">&lt;</span> <span class="n">x</span><span class="o">-&gt;</span><span class="n">key</span><span class="p">){</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">x</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>                 <span class="c1">// 在while中, 以如同Search()的方式尋找適當的位置       </span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>                          <span class="c1">// y先更新到原來x的位置</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">insert_node</span><span class="o">-&gt;</span><span class="n">key</span> <span class="o">&lt;</span> <span class="n">x</span><span class="o">-&gt;</span><span class="n">key</span><span class="p">){</span> <span class="c1">// 判斷x是要往left- 還是right- 前進</span>
             <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">;</span>
         <span class="p">}</span>
         <span class="k">else</span><span class="p">{</span>
             <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="p">;</span>
         <span class="p">}</span>
-    <span class="p">}</span>                                  <span class="c1">// 跳出迴圈後, x即為NULL</span>
-                                       <span class="c1">// y即為insert_node的parent</span>
-    <span class="n">insert_node</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">=</span> <span class="n">y</span><span class="p">;</span>           <span class="c1">// 將insert_node的parent pointer指向y</span>
+    <span class="p">}</span>                                   <span class="c1">// 跳出迴圈後, x即為NULL</span>
+                                        <span class="c1">// y即為insert_node的parent</span>
+    <span class="n">insert_node</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">=</span> <span class="n">y</span><span class="p">;</span>            <span class="c1">// 將insert_node的parent pointer指向y</span>
 
-    <span class="k">if</span> <span class="p">(</span><span class="n">y</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">){</span>                    <span class="c1">// 下面一組if-else, 把insert_node接上BST</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">y</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">){</span>                     <span class="c1">// 下面一組if-else, 把insert_node接上BST</span>
         <span class="k">this</span><span class="o">-&gt;</span><span class="n">root</span> <span class="o">=</span> <span class="n">insert_node</span><span class="p">;</span>
     <span class="p">}</span>
     <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">insert_node</span><span class="o">-&gt;</span><span class="n">key</span> <span class="o">&lt;</span> <span class="n">y</span><span class="o">-&gt;</span><span class="n">key</span><span class="p">){</span>
@@ -318,32 +314,58 @@
 </pre></div>
 
 
-<p>備註：  </p>
-<ul>
-<li>在定義函式<code>InsertBST()</code>時，函式的參數(argument)可能會視情境而有所改變，這裡是以一個<code>TreeNode</code>的物件(object)之<strong>reference</strong>作為參數，傳進函式<code>InsertBST()</code>。</li>
-<li>在<code>InsertBST()</code>特別標示出BST是為了與之後會介紹的Red Black Tree(紅黑樹)之<code>InsertRBT()</code>做區別。</li>
-</ul>
-<p></br></p>
-<p><a name="main"></a></p>
-<h2>main</h2>
-<p>有了<code>BST::InsertBST()</code>後，就可以用土法煉鋼的方式建立一棵如圖二(d)的BST:</p>
+<p>有了<code>BST::InsertBST()</code>後，就可以用土法煉鋼的方式建立一棵如圖二(d)的BST，再以<a href=""></a>介紹過的Inorder Traversal與Level-Order Traversal檢驗，順便測試BST中是否有Key(<span class="math">\(1000\)</span>)與Key(<span class="math">\(73\)</span>)這兩筆資料：</p>
 <div class="highlight"><pre><span class="c1">// C++ code</span>
 <span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="n">BST</span> <span class="n">b1</span><span class="p">;</span>
-    <span class="n">TreeNode</span> <span class="n">n1</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="s">&quot;龜仙人&quot;</span><span class="p">);</span>
-    <span class="n">TreeNode</span> <span class="n">n2</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span><span class="s">&quot;悟空&quot;</span><span class="p">);</span>
-    <span class="n">TreeNode</span> <span class="n">n3</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="s">&quot;克林&quot;</span><span class="p">);</span>
-    <span class="n">TreeNode</span> <span class="n">n4</span><span class="p">(</span><span class="mi">513</span><span class="p">,</span><span class="s">&quot;比克&quot;</span><span class="p">);</span>
-    <span class="n">b1</span><span class="p">.</span><span class="n">InsertBST</span><span class="p">(</span><span class="n">n1</span><span class="p">);</span>
-    <span class="n">b1</span><span class="p">.</span><span class="n">InsertBST</span><span class="p">(</span><span class="n">n2</span><span class="p">);</span>
-    <span class="n">b1</span><span class="p">.</span><span class="n">InsertBST</span><span class="p">(</span><span class="n">n3</span><span class="p">);</span>
-    <span class="n">b1</span><span class="p">.</span><span class="n">InsertBST</span><span class="p">(</span><span class="n">n4</span><span class="p">);</span>
+
+    <span class="n">BST</span> <span class="n">T</span><span class="p">;</span>
+
+    <span class="n">T</span><span class="p">.</span><span class="n">InsertBST</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="s">&quot;龜仙人&quot;</span><span class="p">);</span>
+    <span class="n">T</span><span class="p">.</span><span class="n">InsertBST</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span><span class="s">&quot;悟空&quot;</span><span class="p">);</span>
+    <span class="n">T</span><span class="p">.</span><span class="n">InsertBST</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="s">&quot;克林&quot;</span><span class="p">);</span>
+    <span class="n">T</span><span class="p">.</span><span class="n">InsertBST</span><span class="p">(</span><span class="mi">513</span><span class="p">,</span><span class="s">&quot;比克&quot;</span><span class="p">);</span>
+
+
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Inorder Traversal:</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">T</span><span class="p">.</span><span class="n">InorderPrint</span><span class="p">();</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Level-order Traversal:</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">T</span><span class="p">.</span><span class="n">Levelorder</span><span class="p">();</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+
+    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">node</span> <span class="o">=</span> <span class="n">T</span><span class="p">.</span><span class="n">Search</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">node</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">){</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;There is &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">node</span><span class="o">-&gt;</span><span class="n">GetElement</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;(&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">node</span><span class="o">-&gt;</span><span class="n">GetKey</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;)&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="p">{</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;no element with Key(1000)&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">node</span> <span class="o">=</span> <span class="n">T</span><span class="p">.</span><span class="n">Search</span><span class="p">(</span><span class="mi">73</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">node</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">){</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;There is &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">node</span><span class="o">-&gt;</span><span class="n">GetElement</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;(&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">node</span><span class="o">-&gt;</span><span class="n">GetKey</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;)&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="p">{</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;no element with Key(73)&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="p">}</span>
+
     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
 
 
-<p>以上便是BST中<code>Search()</code>與<code>InsertBST()</code>之介紹，只要掌握BST的性質<span class="math">\(Key(L)&lt;Key(Current)&lt;Key(R)\)</span>與樹中的Traversal(pointer的移動)即可輕鬆上路。 </p>
+<p>output: </p>
+<div class="highlight"><pre><span class="n">Inorder</span> <span class="nl">Traversal</span><span class="p">:</span>
+<span class="err">克林</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="err">龜仙人</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span> <span class="err">比克</span><span class="p">(</span><span class="mi">513</span><span class="p">)</span> <span class="err">悟空</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+<span class="n">Level</span><span class="o">-</span><span class="n">order</span> <span class="nl">Traversal</span><span class="p">:</span>
+<span class="err">龜仙人</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span> <span class="err">克林</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="err">悟空</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span> <span class="err">比克</span><span class="p">(</span><span class="mi">513</span><span class="p">)</span>
+
+<span class="n">There</span> <span class="n">is</span> <span class="err">悟空</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+<span class="n">no</span> <span class="n">element</span> <span class="n">with</span> <span class="n">Key</span><span class="p">(</span><span class="mi">73</span><span class="p">)</span>
+</pre></div>
+
+
+<p>以上便是BST中<code>Search()</code>與<code>InsertBST()</code>之介紹，只要掌握BST的性質Key(L)&lt;Key(Current)&lt;Key(R)與樹中的Traversal(pointer的移動)即可輕鬆上路。 </p>
 <p></br></p>
 <hr />
 <p><a name="ref"></a></p>

@@ -14922,7 +14922,7 @@ $$&lt;/div&gt;
 }
 &lt;/script&gt;</summary><category term="C++"></category><category term="Binary Search Tree"></category></entry><entry><title>Binary Search Tree: Search(搜尋資料)、Insert(新增資料)</title><link href="http://alrightchiu.github.io/SecondRound/binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao.html" rel="alternate"></link><updated>2016-01-03T20:17:00+08:00</updated><author><name>Chiu CC</name></author><id>tag:alrightchiu.github.io,2016-01-03:SecondRound/binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao.html</id><summary type="html">&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h3&gt;先備知識與注意事項&lt;/h3&gt;
-&lt;p&gt;(完整範例程式碼也可以看這裡：&lt;a href=""&gt;BST.cpp&lt;/a&gt;)&lt;/p&gt;
+&lt;p&gt;(完整範例程式碼也可以看這裡：&lt;a href="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/ExampleCode/BST_Search_Insert.cpp"&gt;BST.cpp&lt;/a&gt;)&lt;/p&gt;
 &lt;p&gt;在開始介紹search(搜尋資料)與insert(新增資料)之前，先定義好&lt;code&gt;class TreeNode&lt;/code&gt;與&lt;code&gt;class BST&lt;/code&gt;，順便對未來將介紹的其他member function(成員函式)留下美好的第一印象：&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// C++ code&lt;/span&gt;
 &lt;span class="cp"&gt;#include &amp;lt;iostream&amp;gt;&lt;/span&gt;
@@ -14957,18 +14957,15 @@ $$&lt;/div&gt;
 &lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;BST&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
 &lt;span class="k"&gt;private&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
     &lt;span class="n"&gt;TreeNode&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;root&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-    &lt;span class="n"&gt;TreeNode&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="nf"&gt;Rightmost&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;TreeNode&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;current&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-    &lt;span class="n"&gt;TreeNode&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="nf"&gt;Predecessor&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;TreeNode&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;current&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
     &lt;span class="n"&gt;TreeNode&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="nf"&gt;Leftmost&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;TreeNode&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;current&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
     &lt;span class="n"&gt;TreeNode&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="nf"&gt;Successor&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;TreeNode&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;current&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;span class="k"&gt;public&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
-    &lt;span class="n"&gt;BST&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;root&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;){};&lt;/span&gt;        
+    &lt;span class="n"&gt;BST&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;root&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;){};&lt;/span&gt;    
+
     &lt;span class="n"&gt;TreeNode&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="nf"&gt;Search&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-    &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;InsertBST&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;TreeNode&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;new_node&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-    &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;DeleteBST&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;KEY&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;InsertBST&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;string&lt;/span&gt; &lt;span class="n"&gt;element&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
     &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;InorderPrint&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;        &lt;span class="c1"&gt;// 可以用來確認BST是否建立成功&lt;/span&gt;
     &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;Levelorder&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;          &lt;span class="c1"&gt;// 可以確認BST是否建立成功&lt;/span&gt;
-    &lt;span class="c1"&gt;// bool IsEmpty() const{return (root==NULL);};    // 確認BST是否存有資料&lt;/span&gt;
 &lt;span class="p"&gt;};&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
@@ -14979,7 +14976,6 @@ $$&lt;/div&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="#search"&gt;BST::Search(搜尋)&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="#insert"&gt;BST::InsertBST(新增資料)&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="#main"&gt;main()&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="#ref"&gt;參考資料&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="#tree_series"&gt;BST系列文章&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
@@ -15034,9 +15030,9 @@ $$&lt;/div&gt;
 &lt;p&gt;以下是&lt;code&gt;BST::Search()&lt;/code&gt;的範例程式碼，其中，有兩種情況會跳出&lt;code&gt;while&lt;/code&gt;迴圈：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;code&gt;Current&lt;/code&gt;移動到&lt;code&gt;NULL&lt;/code&gt;，表示搜尋失敗。&lt;/li&gt;
-&lt;li&gt;KEY與&lt;code&gt;Current&lt;/code&gt;node的key相同，表示搜尋成功；&lt;/li&gt;
+&lt;li&gt;KEY與&lt;code&gt;Current&lt;/code&gt;的key相同，表示搜尋成功；&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;這兩種情況的先後順序很重要，因為如果&lt;code&gt;Current&lt;/code&gt;是&lt;code&gt;NULL&lt;/code&gt;，便不能對其&lt;code&gt;key&lt;/code&gt;做存取，會產生諸如&lt;strong&gt;BAD_ACCESS&lt;/strong&gt;的錯誤(error)。&lt;/p&gt;
+&lt;p&gt;這兩種情況作為條件式(condition)的先後順序很重要，因為如果&lt;code&gt;Current&lt;/code&gt;是&lt;code&gt;NULL&lt;/code&gt;，便不能對其&lt;code&gt;key&lt;/code&gt;做存取，會產生諸如&lt;strong&gt;BAD_ACCESS&lt;/strong&gt;的錯誤(error)。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// C++ code&lt;/span&gt;
 &lt;span class="n"&gt;TreeNode&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;BST&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;Search&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;KEY&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
 
@@ -15059,64 +15055,64 @@ $$&lt;/div&gt;
 &lt;p&gt;&lt;/br&gt; &lt;/p&gt;
 &lt;p&gt;&lt;a name="insert"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;BST::InsertBST(新增資料)&lt;/h2&gt;
-&lt;p&gt;函式&lt;code&gt;InsertBST()&lt;/code&gt;的演算法概念，可以視為&lt;code&gt;Search()&lt;/code&gt;的延伸：&lt;/p&gt;
+&lt;p&gt;函式&lt;code&gt;InsertBST()&lt;/code&gt;的概念，可以視為&lt;code&gt;Search()&lt;/code&gt;的延伸：&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;根據BST對Key之規則，先找到「將要新增之node」適合的位置；&lt;/li&gt;
+&lt;li&gt;根據BST對Key之規則，先找到將要新增之node「適合的位置」；&lt;/li&gt;
 &lt;li&gt;再將欲新增的node接上BST。&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;要尋找「對新增node而言的適當位置」，需要召喚一位「哨兵」先行探路，而「將會成為新增node的&lt;strong&gt;parent node&lt;/strong&gt;(準新手爸媽)」則跟著「哨兵」的腳步，往前推進。 &lt;/p&gt;
-&lt;p&gt;定義「哨兵」為&lt;strong&gt;x&lt;/strong&gt;，「準新手爸媽」為&lt;strong&gt;y&lt;/strong&gt;，現欲新增「比克，戰鬥力(513)」進入如圖二(a)之BST。&lt;br /&gt;
-(這裡的「哨兵&lt;strong&gt;x&lt;/strong&gt;」具有&lt;code&gt;BST::Search()&lt;/code&gt;中&lt;code&gt;Current&lt;/code&gt;node的功能。)&lt;/p&gt;
+&lt;p&gt;要尋找「對新增node而言的適當位置」，需要召喚一位「哨兵」先行探路，而「將會成為新增node的&lt;strong&gt;parent node&lt;/strong&gt;(準新手爸媽)」的那個node，則跟著「哨兵」的腳步，往前推進。 &lt;/p&gt;
+&lt;p&gt;定義「哨兵」為&lt;strong&gt;x&lt;/strong&gt;，「準新手爸媽」為&lt;strong&gt;y&lt;/strong&gt;，現欲新增「比克(513)」進入圖二(a)的BST。&lt;br /&gt;
+(這裡的「哨兵&lt;strong&gt;x&lt;/strong&gt;」具有&lt;code&gt;BST::Search()&lt;/code&gt;中&lt;code&gt;Current&lt;/code&gt;的功能。)&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f7.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖二(a)：。&lt;/strong&gt;&lt;br /&gt;
 &lt;/center&gt; &lt;/p&gt;
+&lt;p&gt;如圖二(a)，剛進入BST時，「哨兵&lt;strong&gt;x&lt;/strong&gt;」進到&lt;code&gt;root&lt;/code&gt;，而「準新手爸媽&lt;strong&gt;y&lt;/strong&gt;」設為&lt;code&gt;root&lt;/code&gt;的parent，即為&lt;code&gt;NULL&lt;/code&gt;。  &lt;/p&gt;
+&lt;p&gt;接著，將欲新增node之Key(比克(&lt;span class="math"&gt;\(513\)&lt;/span&gt;))與「哨兵&lt;strong&gt;x&lt;/strong&gt;」之Key(龜仙人(&lt;span class="math"&gt;\(8\)&lt;/span&gt;))相比，比克的戰鬥力比龜仙人高，所以比克應該要長在龜仙人的right subtree，因此把「哨兵&lt;strong&gt;x&lt;/strong&gt;」往龜仙人的right child(悟空)移動，並且更新「準新手爸媽&lt;strong&gt;y&lt;/strong&gt;」為龜仙人，如圖二(b)。&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;如圖二(a)，剛進入BST時，「哨兵&lt;strong&gt;x&lt;/strong&gt;」進到&lt;code&gt;root&lt;/code&gt;，而「準新手爸媽&lt;strong&gt;y&lt;/strong&gt;」即為&lt;code&gt;root&lt;/code&gt;的parent，即為&lt;code&gt;NULL&lt;/code&gt;。  &lt;/li&gt;
-&lt;li&gt;接著，將欲新增node之Key(比克(513))與「哨兵&lt;strong&gt;x&lt;/strong&gt;」之Key(龜仙人(8))相比，比克的戰鬥力比龜仙人高，所以比克應該要長在龜仙人的right subtree，因此把「哨兵&lt;strong&gt;x&lt;/strong&gt;」往龜仙人的right child(悟空)移動，並且更新「準新手爸媽&lt;strong&gt;y&lt;/strong&gt;」為龜仙人，如圖二(b)。&lt;/li&gt;
+&lt;li&gt;若這棵BST裡沒有悟空(&lt;span class="math"&gt;\(1000\)&lt;/span&gt;)長在龜仙人的right child位置，那麼比克(&lt;span class="math"&gt;\(513\)&lt;/span&gt;)就會變成龜仙人的right child，所以稱龜仙人是「準新手爸媽」。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f8.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖二(b)：。&lt;/strong&gt;&lt;br /&gt;
 &lt;/center&gt; &lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;接著，繼續比較欲新增node之Key(比克(513))與「哨兵&lt;strong&gt;x&lt;/strong&gt;」之Key(悟空(1000))，結果是悟空的戰鬥力較高，比克應該要長在悟空的left subtree，因此，將「哨兵&lt;strong&gt;x&lt;/strong&gt;」往悟空的left child(&lt;code&gt;NULL&lt;/code&gt;)移動，同時更新「準新手爸媽&lt;strong&gt;y&lt;/strong&gt;」為悟空，如圖二(c)。&lt;/li&gt;
-&lt;li&gt;更新後，「準新手爸媽&lt;strong&gt;y&lt;/strong&gt;」成為悟空，「哨兵&lt;strong&gt;x&lt;/strong&gt;」指向&lt;code&gt;NULL&lt;/code&gt;壯烈犧牲，即達到跳出迴圈之條件。此時，便找到了「新增node」之適當位置。&lt;br /&gt;
-那個「適當位置」在哪裡呢？就是「準新手爸媽&lt;strong&gt;y&lt;/strong&gt;」的child pointer。&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;接著，繼續比較欲新增node之Key(比克(&lt;span class="math"&gt;\(513\)&lt;/span&gt;))與「哨兵&lt;strong&gt;x&lt;/strong&gt;」之Key(悟空(&lt;span class="math"&gt;\(1000\)&lt;/span&gt;))，結果是悟空的戰鬥力較高，比克應該要長在悟空的left subtree，因此，將「哨兵&lt;strong&gt;x&lt;/strong&gt;」往悟空的left child(&lt;code&gt;NULL&lt;/code&gt;)移動，同時更新「準新手爸媽&lt;strong&gt;y&lt;/strong&gt;」為悟空，如圖二(c)。&lt;/p&gt;
+&lt;p&gt;更新後，「準新手爸媽&lt;strong&gt;y&lt;/strong&gt;」成為悟空，「哨兵&lt;strong&gt;x&lt;/strong&gt;」指向&lt;code&gt;NULL&lt;/code&gt;壯烈犧牲，即達到跳出迴圈之條件。此時，便找到了「新增node」之適當位置。  &lt;/p&gt;
+&lt;p&gt;那個「適當位置」在哪裡呢？就是「準新手爸媽&lt;strong&gt;y&lt;/strong&gt;」的child pointer。表示比克(&lt;span class="math"&gt;\(513\)&lt;/span&gt;)一定會是悟空(&lt;span class="math"&gt;\(1000\)&lt;/span&gt;)的child。&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f9.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖二(c)：。&lt;/strong&gt;&lt;br /&gt;
 &lt;/center&gt; &lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;下一步，便是比較欲新增node之Key(比克(513))與「準新手爸媽&lt;strong&gt;y&lt;/strong&gt;」之Key(悟空(1000))，發現悟空戰鬥力較高，因此，比克(513)便成為「準新手爸媽&lt;strong&gt;y&lt;/strong&gt;」的left child，如圖二(d)，便成功把比克(513)接到BST上。&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;下一步，便是比較欲新增node之Key(比克(513))與「準新手爸媽&lt;strong&gt;y&lt;/strong&gt;」之Key(悟空(1000))來判斷要接在left child還是right child的位置。&lt;br /&gt;
+比較發現悟空戰鬥力較高，因此，比克(513)便成為「準新手爸媽&lt;strong&gt;y&lt;/strong&gt;」的left child，如圖二(d)，便成功把比克(513)接到BST上。&lt;/p&gt;
+&lt;p&gt;如此便完成了於BST中新增資料。&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f10.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖二(d)：。&lt;/strong&gt;&lt;br /&gt;
 &lt;/center&gt; &lt;/p&gt;
-&lt;p&gt;以下是&lt;code&gt;BST::InsertBST()&lt;/code&gt;的範例程式碼，關鍵便是「哨兵&lt;strong&gt;x&lt;/strong&gt;」與「準新手爸媽&lt;strong&gt;y&lt;/strong&gt;」的冒險之旅：&lt;/p&gt;
+&lt;p&gt;以下是&lt;code&gt;InsertBST()&lt;/code&gt;的範例程式碼，關鍵便是「哨兵&lt;strong&gt;x&lt;/strong&gt;」與「準新手爸媽&lt;strong&gt;y&lt;/strong&gt;」的冒險之旅：&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// C++ code&lt;/span&gt;
-&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;BST&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;InsertBST&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;TreeNode&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;new_node&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
+&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;BST&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;InsertBST&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;string&lt;/span&gt; &lt;span class="n"&gt;element&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
+
     &lt;span class="n"&gt;TreeNode&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;        &lt;span class="c1"&gt;// 準新手爸媽&lt;/span&gt;
     &lt;span class="n"&gt;TreeNode&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;        &lt;span class="c1"&gt;// 哨兵&lt;/span&gt;
     &lt;span class="c1"&gt;// call default copy constructor of TreeNode&lt;/span&gt;
-    &lt;span class="n"&gt;TreeNode&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;insert_node&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;TreeNode&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;new_node&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt; 
+    &lt;span class="n"&gt;TreeNode&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;insert_node&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;TreeNode&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;element&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;   &lt;span class="c1"&gt;// insert_node為將要新增的node&lt;/span&gt;
 
     &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;root&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-    &lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;!=&lt;/span&gt; &lt;span class="nb"&gt;NULL&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;                &lt;span class="c1"&gt;// 在while中, 以如同Search()的方式尋找適當的位置       &lt;/span&gt;
-        &lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;                                
-        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;insert_node&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;key&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
+    &lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;!=&lt;/span&gt; &lt;span class="nb"&gt;NULL&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;                 &lt;span class="c1"&gt;// 在while中, 以如同Search()的方式尋找適當的位置       &lt;/span&gt;
+        &lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;                          &lt;span class="c1"&gt;// y先更新到原來x的位置&lt;/span&gt;
+        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;insert_node&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;key&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt; &lt;span class="c1"&gt;// 判斷x是要往left- 還是right- 前進&lt;/span&gt;
             &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;leftchild&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
         &lt;span class="p"&gt;}&lt;/span&gt;
         &lt;span class="k"&gt;else&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
             &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;rightchild&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
         &lt;span class="p"&gt;}&lt;/span&gt;
-    &lt;span class="p"&gt;}&lt;/span&gt;                                  &lt;span class="c1"&gt;// 跳出迴圈後, x即為NULL&lt;/span&gt;
-                                       &lt;span class="c1"&gt;// y即為insert_node的parent&lt;/span&gt;
-    &lt;span class="n"&gt;insert_node&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;           &lt;span class="c1"&gt;// 將insert_node的parent pointer指向y&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;                                   &lt;span class="c1"&gt;// 跳出迴圈後, x即為NULL&lt;/span&gt;
+                                        &lt;span class="c1"&gt;// y即為insert_node的parent&lt;/span&gt;
+    &lt;span class="n"&gt;insert_node&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;            &lt;span class="c1"&gt;// 將insert_node的parent pointer指向y&lt;/span&gt;
 
-    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="nb"&gt;NULL&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;                    &lt;span class="c1"&gt;// 下面一組if-else, 把insert_node接上BST&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="nb"&gt;NULL&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;                     &lt;span class="c1"&gt;// 下面一組if-else, 把insert_node接上BST&lt;/span&gt;
         &lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;root&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;insert_node&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
     &lt;span class="p"&gt;}&lt;/span&gt;
     &lt;span class="k"&gt;else&lt;/span&gt; &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;insert_node&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;key&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
@@ -15129,32 +15125,58 @@ $$&lt;/div&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;備註：  &lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;在定義函式&lt;code&gt;InsertBST()&lt;/code&gt;時，函式的參數(argument)可能會視情境而有所改變，這裡是以一個&lt;code&gt;TreeNode&lt;/code&gt;的物件(object)之&lt;strong&gt;reference&lt;/strong&gt;作為參數，傳進函式&lt;code&gt;InsertBST()&lt;/code&gt;。&lt;/li&gt;
-&lt;li&gt;在&lt;code&gt;InsertBST()&lt;/code&gt;特別標示出BST是為了與之後會介紹的Red Black Tree(紅黑樹)之&lt;code&gt;InsertRBT()&lt;/code&gt;做區別。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a name="main"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;main&lt;/h2&gt;
-&lt;p&gt;有了&lt;code&gt;BST::InsertBST()&lt;/code&gt;後，就可以用土法煉鋼的方式建立一棵如圖二(d)的BST:&lt;/p&gt;
+&lt;p&gt;有了&lt;code&gt;BST::InsertBST()&lt;/code&gt;後，就可以用土法煉鋼的方式建立一棵如圖二(d)的BST，再以&lt;a href=""&gt;&lt;/a&gt;介紹過的Inorder Traversal與Level-Order Traversal檢驗，順便測試BST中是否有Key(&lt;span class="math"&gt;\(1000\)&lt;/span&gt;)與Key(&lt;span class="math"&gt;\(73\)&lt;/span&gt;)這兩筆資料：&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// C++ code&lt;/span&gt;
 &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="n"&gt;BST&lt;/span&gt; &lt;span class="n"&gt;b1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-    &lt;span class="n"&gt;TreeNode&lt;/span&gt; &lt;span class="n"&gt;n1&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;8&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;龜仙人&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-    &lt;span class="n"&gt;TreeNode&lt;/span&gt; &lt;span class="n"&gt;n2&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1000&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;悟空&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-    &lt;span class="n"&gt;TreeNode&lt;/span&gt; &lt;span class="n"&gt;n3&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;克林&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-    &lt;span class="n"&gt;TreeNode&lt;/span&gt; &lt;span class="n"&gt;n4&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;513&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;比克&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-    &lt;span class="n"&gt;b1&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;InsertBST&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;n1&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-    &lt;span class="n"&gt;b1&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;InsertBST&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;n2&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-    &lt;span class="n"&gt;b1&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;InsertBST&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;n3&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-    &lt;span class="n"&gt;b1&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;InsertBST&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;n4&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+    &lt;span class="n"&gt;BST&lt;/span&gt; &lt;span class="n"&gt;T&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+    &lt;span class="n"&gt;T&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;InsertBST&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;8&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;龜仙人&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="n"&gt;T&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;InsertBST&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1000&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;悟空&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="n"&gt;T&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;InsertBST&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;克林&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="n"&gt;T&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;InsertBST&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;513&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;比克&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+
+    &lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;Inorder Traversal:&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;T&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;InorderPrint&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+    &lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;endl&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;Level-order Traversal:&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;T&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Levelorder&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+    &lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;endl&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;endl&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+    &lt;span class="n"&gt;TreeNode&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;node&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;T&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Search&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1000&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;node&lt;/span&gt; &lt;span class="o"&gt;!=&lt;/span&gt; &lt;span class="nb"&gt;NULL&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
+        &lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;There is &amp;quot;&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;node&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;GetElement&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;(&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;node&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;GetKey&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;)&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;endl&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="k"&gt;else&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;no element with Key(1000)&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;endl&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+
+    &lt;span class="n"&gt;node&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;T&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Search&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;73&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;node&lt;/span&gt; &lt;span class="o"&gt;!=&lt;/span&gt; &lt;span class="nb"&gt;NULL&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
+        &lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;There is &amp;quot;&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;node&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;GetElement&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;(&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;node&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;GetKey&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;)&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;endl&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="k"&gt;else&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;no element with Key(73)&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;endl&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;以上便是BST中&lt;code&gt;Search()&lt;/code&gt;與&lt;code&gt;InsertBST()&lt;/code&gt;之介紹，只要掌握BST的性質&lt;span class="math"&gt;\(Key(L)&amp;lt;Key(Current)&amp;lt;Key(R)\)&lt;/span&gt;與樹中的Traversal(pointer的移動)即可輕鬆上路。 &lt;/p&gt;
+&lt;p&gt;output: &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;Inorder&lt;/span&gt; &lt;span class="nl"&gt;Traversal&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+&lt;span class="err"&gt;克林&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="err"&gt;龜仙人&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;8&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="err"&gt;比克&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;513&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="err"&gt;悟空&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1000&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;Level&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;order&lt;/span&gt; &lt;span class="nl"&gt;Traversal&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+&lt;span class="err"&gt;龜仙人&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;8&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="err"&gt;克林&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="err"&gt;悟空&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1000&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="err"&gt;比克&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;513&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="n"&gt;There&lt;/span&gt; &lt;span class="n"&gt;is&lt;/span&gt; &lt;span class="err"&gt;悟空&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1000&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;no&lt;/span&gt; &lt;span class="n"&gt;element&lt;/span&gt; &lt;span class="n"&gt;with&lt;/span&gt; &lt;span class="n"&gt;Key&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;73&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;以上便是BST中&lt;code&gt;Search()&lt;/code&gt;與&lt;code&gt;InsertBST()&lt;/code&gt;之介紹，只要掌握BST的性質Key(L)&amp;lt;Key(Current)&amp;lt;Key(R)與樹中的Traversal(pointer的移動)即可輕鬆上路。 &lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;hr /&gt;
 &lt;p&gt;&lt;a name="ref"&gt;&lt;/a&gt;&lt;/p&gt;
