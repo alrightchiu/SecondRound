@@ -1,7 +1,7 @@
 Title: Binary Tree: 建立一棵Binary Tree  
 Date: 2015-12-27 16:53  
 Category: 演算法與資料結構  
-Tags: C++, Binary Tree   
+Tags: C++, Binary Tree, Queue   
 Summary: 介紹如何以字元陣列(char array)獲得資料(data)後，建立一棵Binary Tree(二元樹)。
  
  
@@ -12,7 +12,7 @@ Summary: 介紹如何以字元陣列(char array)獲得資料(data)後，建立�
 
 其中，問題情境之輸入資料是一個字元陣列(char array)，為了方便處理，將會使用C++語言中的神器：[stringstream](http://www3.ntu.edu.sg/home/ehchua/programming/cpp/cp10_io.html)，這裡礙於篇幅(與筆者自己也還在摸索)，就不多談避免誤導，[點進連結中](http://www3.ntu.edu.sg/home/ehchua/programming/cpp/cp10_io.html)有非常詳細的說明，關於`istringstream`、`ostringstream`、`stringstream`等等template class之繼承關係(inheritance)。  
 
-以下提供的Binary Tree之建立方法，基本上是在[Binary Tree：Traversal介紹過的level-order traversal](http://alrightchiu.github.io/SecondRound/binary-tree-traversalxun-fang.html#level)上加工，因此[Queue(佇列)](http://alrightchiu.github.io/SecondRound/queue-introjian-jie-bing-yi-linked-listshi-zuo.html)的概念會再次出現。
+因為要按照Complete Binary Tree的規則建樹，可以想像的是，以下提供的Binary Tree之建立方法，基本上是在[Binary Tree：Traversal介紹過的level-order traversal](http://alrightchiu.github.io/SecondRound/binary-tree-traversalxun-fang.html#level)上加工，因此[Queue(佇列)](http://alrightchiu.github.io/SecondRound/queue-introjian-jie-bing-yi-linked-listshi-zuo.html)的概念會再次出現。
 
 ***  
   
@@ -35,7 +35,7 @@ Summary: 介紹如何以字元陣列(char array)獲得資料(data)後，建立�
 
 問題描述如下：
 
-* 給定一個字元陣列，欲按照Complete Binary Tree之位置規則建立一棵Binary Tree，若陣列元素之資料為大寫字母(ASCII：65~90)，則將其建立成Tree的node，若陣列元素為 ' x ' 則表示該位置沒有node。
+* 給定一個字元陣列，欲按照Complete Binary Tree之位置規則建立一棵Binary Tree，若陣列元素之資料為大寫字母(ASCII：$65$~$90$)，則將其建立成Tree的node，若陣列元素為 ' x ' 則表示該位置沒有node。
 
 以[Binary Tree：Traversal](http://alrightchiu.github.io/SecondRound/binary-tree-traversal.html#ex_code)中所提到的Binary Tree為例，如圖一：
 
@@ -116,11 +116,9 @@ L D M B G E H A N F I C K
 
 ###定義class TreeNode、class BinaryTree
 
-幾點說明：
+這裡對`class TreeNode`與`class BinaryTree`之定義，與[上一篇文章](http://alrightchiu.github.io/SecondRound/binary-tree-traversalxun-fang.html#ex_code)之最大不同在於資料的隱蔽性，因為在此不需要在`main()`中存取任何pointer(`root`、`leftchild`、`rightchild`)，因此將之放進**private**區塊。
 
-* 這裡對`class TreeNode`與`class BinaryTree`之定義，與[上一篇文章](http://alrightchiu.github.io/SecondRound/binary-tree-traversalxun-fang.html#ex_code)之最大不同在於資料的隱蔽性，因為在此不需要於`main()`中存取任何pointer(`root`、`leftchild`、`rightchild`)，因此將之放進**private**區塊。
-* 在`class BinaryTree`除了上一篇介紹過的inorder traversal外，多了兩個新朋友`LevelorderConstruct()`與`InsertLevelorder()`，前者即是本篇主角，吃進`stringstream`後，把樹建出來；後者純粹是好玩，其功能為「以Complete Binary Tree之位置規則，在理應出現node的位置，新增node」，能夠儘量減少在新增node時增加樹高(height)。
-
+在`class BinaryTree`除了上一篇介紹過的inorder traversal外，多了兩個新朋友`LevelorderConstruct()`與`InsertLevelorder()`，前者即是本篇主角，吃進`stringstream`後，把樹建出來；後者純粹是好玩，其功能為「以Complete Binary Tree之位置規則，在理應出現node的位置，新增node」，能夠儘量減少在新增node時增加樹高(height)。
 
 
 ```cpp
@@ -148,7 +146,8 @@ public:
 
     void LevelorderConstruct(std::stringstream &ss);
     void InsertLevelorder(char data);
-
+    
+    // print data by in-order traversal
     TreeNode* leftmost(TreeNode *current);
     TreeNode* InorderSuccessor(TreeNode *current);
     void Inorder_by_parent();
@@ -161,7 +160,10 @@ public:
 
 ###Constructor of BinaryTree
 
-`class BinaryTree`的constructor很直觀，拿到一個字元陣列，先送進`stringstream`後，再由`stringstream`放進樹中，先對樹的`root`進行記憶體配置以及賦值，接著以level-order的方式建立Binary Tree。
+`class BinaryTree`的constructor很直觀，拿到一個字元陣列，先送進`stringstream`後，再由`stringstream`放進樹中。
+
+此處先對樹的`root`進行記憶體配置以及賦值，剩下的字母將利用`LevelorderConstruct()`以level-order的方式建立出Binary Tree。
+
 
 ```cpp
 // C++ code
@@ -169,12 +171,13 @@ BinaryTree::BinaryTree(const char* str){
     std::stringstream  ss;
     ss << str;                     // magic!
     
-    root = new TreeNode;
-    ss >> root->data;				
+    root = new TreeNode;           // allocate memory for root
+    ss >> root->data;              // assign character to root
     
     LevelorderConstruct(ss);
 }
 ```
+
 </br>
 
 <a name="func1"></a>
@@ -185,9 +188,9 @@ BinaryTree::BinaryTree(const char* str){
 
 整份程式碼的關鍵在於神器`stringstream &ss`，只要不斷地透過`ss >> data`，`ss`便會自動尋找下一筆資料(字母)餵進`data`。
 
-`while`的條件式表示，若`ss >> data`失敗，也就是再也無法從`ss`拿到字母放進`char data`，意味者所有字母已經全數檢查/輸入完畢，即結束迴圈。
+`while`的條件式表示，若`ss >> data`失敗，也就是再也無法從`ss`拿到字母放進`data`，意味者所有字母已經全數檢查/輸入完畢，即結束迴圈。
 
-在`while`內，新增條件用來判斷從`stringstream`中輸出的字母是「大寫字母」(ASCII：65~90)還是「x」，前者要放入樹中建成node，後者則忽略不計。  
+在`while`內，新增條件用來判斷從`stringstream`中輸出的字母是「大寫字母」(ASCII：$65$~$90$)還是「x」，前者要放入樹中建成node，後者則忽略不計。  
 
 在每一次迴圈中，會利用`ss >> data`輸入兩個字母，分別為`current`的`leftchild`與`rightchild`，因此，如果原本字元陣列是奇數筆資料，就會在`while`迴圈的中間輸入完畢，即跳出迴圈。
 
@@ -197,12 +200,12 @@ BinaryTree::BinaryTree(const char* str){
 // C++ code
 void BinaryTree::LevelorderConstruct(std::stringstream &ss){
     
-    std::queue<TreeNode*> q;
-    TreeNode *current = root;
-    char data = 'x';
+    std::queue<TreeNode*> q;         // create a queue to handle level-roder rule
+    TreeNode *current = root;        // point *current to root
+    char data = 'x';                 // initializa data as 'x'
     
     while (ss >> data) {
-        if (data >= 65 && data <= 90){                // 新增current的leftchild
+        if (data >= 65 && data <= 90){                // 處理current的leftchild
             TreeNode *new_node = new TreeNode(data);  // call constructor TreeNode(char s)
             new_node->parent = current;
             current->leftchild = new_node;
@@ -211,7 +214,7 @@ void BinaryTree::LevelorderConstruct(std::stringstream &ss){
         if (!(ss >> data)){                           // 有可能char array含有奇數筆資料
             break;                                    // 所以在這裡結束迴圈
         }
-        if (data >= 65 && data <= 90){                // 新增current的rightchild
+        if (data >= 65 && data <= 90){                // 處理current的rightchild
             TreeNode *new_node = new TreeNode;        // call constructor TreeNode()
             new_node->parent = current;
             current->rightchild = new_node;
@@ -239,7 +242,8 @@ void BinaryTree::LevelorderConstruct(std::stringstream &ss){
 接著進入`while`迴圈。  
 
 * 條件式：`ss >> data`若為真，表示成功從`ss`中取出字母，傳進`data`。  
-* 進入迴圈後，先判斷取出的字母若為大寫字母(在此為**'B'**)，即生成一個新的`new_node`，將B放進`new_node`中，並將`CurrentNode`(在此為A)的left child指向`new_node`，如圖三(b)。  
+* 進入迴圈後，先判斷取出的字母若為大寫字母(在此為**'B'**)，即生成一個新的`new_node`。
+* 接著將B放進`new_node`中(這裡是透過`class TreeNode`的constructor完成)，並將`CurrentNode`(在此為A)的left child指向`new_node`，如圖三(b)。  
 * 在`queue`	的部分，若成功建立出新的node(此為B)，便把B放進`queue`的隊伍中，表示之後將要把`CurrentNode`移到B，繼續往下建立新的node。
 
   
@@ -255,6 +259,7 @@ void BinaryTree::LevelorderConstruct(std::stringstream &ss){
 * 條件式：`if( !(ss >> data) )`若為真，表示`ss`中的字母已經讀取完畢，即跳出迴圈(`break`)。若否，則繼續從`ss`中讀取字母。
 * 判斷字母是否為大寫字母(此為**'C'**)，便如同生成left child之方法，建立新的`new_node`、配置記憶體、將字母**'C'**放進`new_node`中，並將`CurrentNode`之right child指向`new_node`，如圖三(c)。
 * 已成功建立新的node(C)，便把C放進`queue`的隊伍中，表示之後將要把`CurrentNode`移到B，繼續往下建立新的node。
+
 此時，`queue`裡有兩個node，分別為B與C，要注意的是，排隊時，先進入隊伍的人會代表隊伍的前方，因此B為`queue`的**Front**，C為`queue`的**Back**。
   
 <center>
@@ -264,13 +269,16 @@ void BinaryTree::LevelorderConstruct(std::stringstream &ss){
 </center> 
 
 在建立完`CurrentNode`的left child與right child後，接著要移動`CurrentNode`，作為下一個`while`迴圈的起點。  
+
 `queue`的功能便是提供`CurrentNode`移動的依據：
 
-* 一律將`queue`隊伍的第一個node視作新的`CurrentNode`：`CurrentNode = q.front()`。
-* 將`CurrentNode`移動至B後，便把B從`queue`移除：`q.pop()`，如圖三(d)。
+* 一律將`queue`隊伍的第一個node視作新的`CurrentNode`：
+    * `CurrentNode = q.front();`。
+* 將`CurrentNode`移動至B後，便把B從`queue`移除(`q.pop();`)，如圖三(d)。
 
 如此便能保證，`CurrentNode`的移動會依照level-order「由上至下、由左至右」之順序。
-  
+
+
 <center>
 ![construct_3][f6]  
 
@@ -345,7 +353,7 @@ void BinaryTree::LevelorderConstruct(std::stringstream &ss){
 接著，重複步驟：
 
 * 移動`CurrentNode`至`queue`的第一個元素所指示的node。
-* 從`ss`讀取字母，判斷其為大寫字母，生成新的node接在`CurrentNode`的child pointer上。
+* 從`ss`讀取字母，判斷其若為大寫字母，便配置記憶體、產生新的node接在`CurrentNode`的child pointer上。
 * 若有生成新的node，則將該node推入`queue`的隊伍。
 
   
