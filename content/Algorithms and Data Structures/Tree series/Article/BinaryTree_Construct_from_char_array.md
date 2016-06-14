@@ -90,10 +90,10 @@ int main() {
     T.Inorder_by_parent();      // 以inorder-traversal印出Binary Tree
     std::cout << std::endl;
     
-    T.insertLevelorder('K');
-    T.insertLevelorder('L');
-    T.insertLevelorder('M');
-    T.insertLevelorder('N');
+    T.InsertLevelorder('K');
+    T.InsertLevelorder('L');
+    T.InsertLevelorder('M');
+    T.InsertLevelorder('N');
     T.Inorder_by_parent();
     std::cout << std::endl;
 
@@ -118,12 +118,10 @@ L D M B G E H A N F I C K
 
 幾點說明：
 
-* 這裡對`class TreeNode`與`class BinaryTree`之定義，與[上一篇文章](http://alrightchiu.github.io/SecondRound/binary-tree-traversal.html#ex_code)之最大不同在於資料的隱蔽性，因為在此不需要於`main()`中存取任何pointer(`root`、`leftchild`、`rightchild`)，因此將之放進**private**區塊。
-* 在許多traversal中，時常以pointer不為`NULL`作為`while`的判斷式，因此在constructor中，多做一步，將pointer指向`NULL`(eg：`leftchild = 0`)避免埋地雷在日後炸自己。
-* 在`class BinaryTree`除了上一篇介紹過的inorder traversal外，多了兩個新朋友`LevelorderConstruct()`與`insertLevelorder()`，前者即是本篇主角，吃進`stringstream`後，把樹建出來；後者純粹是好玩，其功能為「以Complete Binary Tree之位置規則，在理應出現node的位置，新增node」，能夠儘量減少在新增node時增加樹高(height)。
+* 這裡對`class TreeNode`與`class BinaryTree`之定義，與[上一篇文章](http://alrightchiu.github.io/SecondRound/binary-tree-traversalxun-fang.html#ex_code)之最大不同在於資料的隱蔽性，因為在此不需要於`main()`中存取任何pointer(`root`、`leftchild`、`rightchild`)，因此將之放進**private**區塊。
+* 在`class BinaryTree`除了上一篇介紹過的inorder traversal外，多了兩個新朋友`LevelorderConstruct()`與`InsertLevelorder()`，前者即是本篇主角，吃進`stringstream`後，把樹建出來；後者純粹是好玩，其功能為「以Complete Binary Tree之位置規則，在理應出現node的位置，新增node」，能夠儘量減少在新增node時增加樹高(height)。
 
 
-看下去。
 
 ```cpp
 // C++ code
@@ -135,9 +133,9 @@ private:
     TreeNode *parent;
     char data;
 public:
-    TreeNode(){ leftchild = 0; rightchild = 0; parent = 0; };
-    TreeNode(char s):data(s){leftchild = 0; rightchild = 0; parent = 0; };
-    
+    TreeNode():leftchild(0),rightchild(0),parent(0),data(''){};
+    TreeNode(char s):leftchild(0),rightchild(0),parent(0),data(s){};
+
     friend class BinaryTree;
 };
 
@@ -145,17 +143,18 @@ class BinaryTree{
 private:
     TreeNode *root;
 public:
-    BinaryTree(){ root = 0;};
+    BinaryTree():root(0){};
     BinaryTree(const char* str);
-    
+
     void LevelorderConstruct(std::stringstream &ss);
-    void insertLevelorder(char data);
-    
+    void InsertLevelorder(char data);
+
     TreeNode* leftmost(TreeNode *current);
     TreeNode* InorderSuccessor(TreeNode *current);
     void Inorder_by_parent();
 };
 ```
+
 </br>  
 
 <a name="constructor"></a>
@@ -168,10 +167,10 @@ public:
 // C++ code
 BinaryTree::BinaryTree(const char* str){
     std::stringstream  ss;
-    ss << str;
+    ss << str;                     // magic!
     
     root = new TreeNode;
-    ss >> root->data;
+    ss >> root->data;				
     
     LevelorderConstruct(ss);
 }
@@ -182,12 +181,51 @@ BinaryTree::BinaryTree(const char* str){
 
 ###Function：LevelorderConstruct
 
-* 在看`LevelorderConstruct()`的函式主體之前，再看一眼[level-order traversal](http://alrightchiu.github.io/SecondRound/binary-tree-traversal.html#level)，概念上即是藉著`queue`的「先排隊就先購票」的特性，在同一個level中，只要確保由左至右將node放進`queue`中，便能確保在進入下一個level後，以先前放入node之順序進行visiting。  
-* 在`while`內，新增條件用來判斷從`stringstream`中輸出的字母是「大寫字母」(ASCII：65~90)還是「x」，前者要放入樹中建成node，後者則忽略不計。  
-* 整份程式碼的關鍵在於神器`stringstream &ss`，只要不斷地透過`ss >> data`，`ss`便會自動尋找下一筆資料餵進`data`。
-* 最後，當`stringstream`不再更新`data`時，也就是字元陣列已全數讀取完畢，即跳出`while`迴圈。
+在看`LevelorderConstruct()`的函式主體之前，再看一眼[level-order traversal](http://alrightchiu.github.io/SecondRound/binary-tree-traversalxun-fang.html#level)，概念上即是藉著`queue`的「先排隊就先購票」特性，在同一個level中，只要確保由左至右將node放進`queue`中，便能確保在進入下一個level後，以先前放入node之順序進行visiting。  
 
-步驟如下：
+整份程式碼的關鍵在於神器`stringstream &ss`，只要不斷地透過`ss >> data`，`ss`便會自動尋找下一筆資料(字母)餵進`data`。
+
+`while`的條件式表示，若`ss >> data`失敗，也就是再也無法從`ss`拿到字母放進`char data`，意味者所有字母已經全數檢查/輸入完畢，即結束迴圈。
+
+在`while`內，新增條件用來判斷從`stringstream`中輸出的字母是「大寫字母」(ASCII：65~90)還是「x」，前者要放入樹中建成node，後者則忽略不計。  
+
+在每一次迴圈中，會利用`ss >> data`輸入兩個字母，分別為`current`的`leftchild`與`rightchild`，因此，如果原本字元陣列是奇數筆資料，就會在`while`迴圈的中間輸入完畢，即跳出迴圈。
+
+`LevelorderConstruct()`程式定義如下：
+
+```cpp
+// C++ code
+void BinaryTree::LevelorderConstruct(std::stringstream &ss){
+    
+    std::queue<TreeNode*> q;
+    TreeNode *current = root;
+    char data = 'x';
+    
+    while (ss >> data) {
+        if (data >= 65 && data <= 90){                // 新增current的leftchild
+            TreeNode *new_node = new TreeNode(data);  // call constructor TreeNode(char s)
+            new_node->parent = current;
+            current->leftchild = new_node;
+            q.push(new_node);
+        }
+        if (!(ss >> data)){                           // 有可能char array含有奇數筆資料
+            break;                                    // 所以在這裡結束迴圈
+        }
+        if (data >= 65 && data <= 90){                // 新增current的rightchild
+            TreeNode *new_node = new TreeNode;        // call constructor TreeNode()
+            new_node->parent = current;
+            current->rightchild = new_node;
+            new_node->data = data;                    // assign data to new_node
+            q.push(new_node);
+        }
+        current = q.front();                          // 從queue中更新current
+        q.pop();                                      // 更新queue
+    }
+}
+```
+
+
+詳細步驟如下：
 
 * 首先，在Binary Tree的constructor中，先配置`root`的記憶體位置，並透過第一次`ss >> root->data`將第一個字母放進`root`中，如圖三(a)。
  
@@ -330,34 +368,7 @@ BinaryTree::BinaryTree(const char* str){
 
 </br>  
 
-```cpp
-// C++ code
-void BinaryTree::LevelorderConstruct(std::stringstream &ss){
-    std::queue<TreeNode*> q;
-    TreeNode *current = root;
-    char data = 'x';
-    while (ss >> data) {
-        if (data >= 65 && data <= 90){
-            TreeNode *new_node = new TreeNode(data);  // call constructor TreeNode(char s)
-            new_node->parent = current;
-            current->leftchild = new_node;
-            q.push(new_node);
-        }
-        if (!(ss >> data))
-            break;
-            
-        if (data >= 65 && data <= 90){
-            TreeNode *new_node = new TreeNode;        // call constructor TreeNode()
-            new_node->parent = current;
-            current->rightchild = new_node;
-            new_node->data = data;                    // assign data to new_node
-            q.push(new_node);
-        }
-        current = q.front();
-        q.pop();
-    }
-}
-```
+
 </br>
 <a name="func2"></a>
 
