@@ -115,6 +115,12 @@
 <div class="highlight"><pre><span class="c1">// C++ code</span>
 <span class="cp">#include &lt;iostream&gt;</span>
 <span class="cp">#include &lt;string&gt;</span>
+<span class="cp">#include &lt;queue&gt;</span>
+
+<span class="k">using</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">;</span>
+<span class="k">using</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="p">;</span>
+<span class="k">using</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
 <span class="k">class</span> <span class="nc">BST</span><span class="p">;</span>
 <span class="k">class</span> <span class="nc">TreeNode</span><span class="p">{</span>
 <span class="k">private</span><span class="o">:</span>
@@ -122,57 +128,40 @@
     <span class="n">TreeNode</span> <span class="o">*</span><span class="n">rightchild</span><span class="p">;</span>
     <span class="n">TreeNode</span> <span class="o">*</span><span class="n">parent</span><span class="p">;</span>
     <span class="kt">int</span> <span class="n">key</span><span class="p">;</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">element</span><span class="p">;</span>
+    <span class="n">string</span> <span class="n">element</span><span class="p">;</span>
 <span class="k">public</span><span class="o">:</span>
-    <span class="c1">// constructor</span>
-    <span class="n">TreeNode</span><span class="p">()</span><span class="o">:</span><span class="n">key</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">element</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">){</span>
-        <span class="n">leftchild</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">rightchild</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">parent</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="n">TreeNode</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">b</span><span class="p">)</span><span class="o">:</span><span class="n">key</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="n">element</span><span class="p">(</span><span class="n">b</span><span class="p">){</span>
-        <span class="n">leftchild</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">rightchild</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">parent</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="c1">// default copy constructor</span>
-    <span class="c1">// default destructor</span>
+    <span class="n">TreeNode</span><span class="p">()</span><span class="o">:</span><span class="n">leftchild</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="n">rightchild</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="n">parent</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="n">key</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="n">element</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">){};</span>
+    <span class="n">TreeNode</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="n">string</span> <span class="n">b</span><span class="p">)</span><span class="o">:</span><span class="n">leftchild</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="n">rightchild</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="n">parent</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="n">key</span><span class="p">(</span><span class="n">a</span><span class="p">),</span><span class="n">element</span><span class="p">(</span><span class="n">b</span><span class="p">){};</span>
 
-    <span class="kt">int</span> <span class="n">GetKey</span><span class="p">()</span> <span class="k">const</span><span class="p">{</span> <span class="k">return</span> <span class="n">key</span><span class="p">;};</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">GetElement</span><span class="p">()</span> <span class="k">const</span><span class="p">{</span> <span class="k">return</span> <span class="n">element</span><span class="p">;};</span>
+    <span class="kt">int</span> <span class="nf">GetKey</span><span class="p">(){</span><span class="k">return</span> <span class="n">key</span><span class="p">;}</span>              <span class="c1">// 為了在main()要能夠檢視node是否正確</span>
+    <span class="n">string</span> <span class="nf">GetElement</span><span class="p">(){</span><span class="k">return</span> <span class="n">element</span><span class="p">;}</span>   <span class="c1">// 才需要這兩個function讀取private data</span>
 
-    <span class="kt">void</span> <span class="nf">SetKey</span><span class="p">(</span><span class="kt">int</span> <span class="n">k</span><span class="p">){</span> <span class="n">key</span> <span class="o">=</span> <span class="n">k</span><span class="p">;};</span>
-    <span class="kt">void</span> <span class="nf">SetElement</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">e</span><span class="p">){</span> <span class="n">element</span> <span class="o">=</span> <span class="n">e</span><span class="p">;};</span>   
+    <span class="c1">// 否則在class BST的member function中不需要這麼麻煩</span>
+    <span class="c1">// 因為class BST是class TreeNode的friend class</span>
 
     <span class="k">friend</span> <span class="k">class</span> <span class="nc">BST</span><span class="p">;</span>   <span class="c1">// 放在 private 或 public 都可以 </span>
 <span class="p">};</span>
 
-<span class="c1">// class BST</span>
 <span class="k">class</span> <span class="nc">BST</span><span class="p">{</span>
 <span class="k">private</span><span class="o">:</span>
     <span class="n">TreeNode</span> <span class="o">*</span><span class="n">root</span><span class="p">;</span>
     <span class="n">TreeNode</span><span class="o">*</span> <span class="nf">Rightmost</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">);</span>
+    <span class="n">TreeNode</span><span class="o">*</span> <span class="nf">Predecessor</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">);</span>
     <span class="n">TreeNode</span><span class="o">*</span> <span class="nf">Leftmost</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">);</span>
-    <span class="n">TreeNode</span><span class="o">*</span> <span class="nf">Copy</span><span class="p">(</span><span class="k">const</span> <span class="n">TreeNode</span> <span class="o">*</span><span class="n">origNode</span><span class="p">);</span>    <span class="c1">// preorder traversal, 用在 copy constructor和 operator=</span>
-    <span class="kt">void</span> <span class="nf">PostorderDelete</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">);</span>
+    <span class="n">TreeNode</span><span class="o">*</span> <span class="nf">Successor</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">);</span>
 <span class="k">public</span><span class="o">:</span>
-    <span class="n">BST</span><span class="p">(){</span> <span class="n">root</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="p">};</span>     <span class="c1">// default constructor</span>
-    <span class="n">BST</span><span class="p">(</span><span class="k">const</span> <span class="n">BST</span> <span class="o">&amp;</span><span class="n">p</span><span class="p">);</span>      <span class="c1">// copy constructor</span>
-    <span class="n">BST</span><span class="o">&amp;</span> <span class="k">operator</span> <span class="o">=</span> <span class="p">(</span><span class="k">const</span> <span class="n">BST</span> <span class="o">&amp;</span><span class="n">p</span><span class="p">);</span>
-    <span class="o">~</span><span class="n">BST</span><span class="p">();</span>  <span class="c1">// destructor</span>
-
+    <span class="n">BST</span><span class="p">()</span><span class="o">:</span><span class="n">root</span><span class="p">(</span><span class="mi">0</span><span class="p">){};</span>        
     <span class="n">TreeNode</span><span class="o">*</span> <span class="nf">Search</span><span class="p">(</span><span class="kt">int</span> <span class="n">key</span><span class="p">);</span>
     <span class="kt">void</span> <span class="nf">InsertBST</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">&amp;</span><span class="n">new_node</span><span class="p">);</span>
-
-    <span class="n">TreeNode</span><span class="o">*</span> <span class="nf">Successor</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">);</span>
-    <span class="n">TreeNode</span><span class="o">*</span> <span class="nf">Predecessor</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">);</span>
-    <span class="kt">void</span> <span class="nf">InorderPrint</span><span class="p">();</span>
     <span class="kt">void</span> <span class="nf">DeleteBST</span><span class="p">(</span><span class="kt">int</span> <span class="n">KEY</span><span class="p">);</span>
-
+    <span class="kt">void</span> <span class="nf">InorderPrint</span><span class="p">();</span>        <span class="c1">// 可以用來確認BST是否建立成功</span>
+    <span class="kt">void</span> <span class="nf">Levelorder</span><span class="p">();</span>          <span class="c1">// 可以確認BST是否建立成功</span>
     <span class="kt">bool</span> <span class="nf">IsEmpty</span><span class="p">()</span> <span class="k">const</span><span class="p">{</span><span class="k">return</span> <span class="p">(</span><span class="n">root</span><span class="o">==</span><span class="nb">NULL</span><span class="p">);};</span>    <span class="c1">// 確認BST是否存有資料</span>
 <span class="p">};</span>
 </pre></div>
 
 
-<p>文章內容將著重於BST這個資料結構，並提供此資料結構中可行的演算法，因此，有關C++的實作方法並不唯一，筆者相信有更優秀的寫法(有效利用記憶體、避免memory leak(記憶體洩漏)等議題)，建議讀者可以多多參考例如<a href="http://codereview.stackexchange.com/">Stack Exchange:Code Review</a>等等眾多優秀的網站，看網友的程式碼的寫法以及由該份程式碼所開啟的討論串，應該會對實際寫作技巧有些幫助。<br />
-(筆者也還在學啊啊啊啊)</p>
-<p>另外，用以測試的<code>main()</code>將在BST系列的演算法都介紹完後登場。</p>
+<p>文章內容將著重於BST這個資料結構，並提供此資料結構中可行的演算法，因此，有關C++的實作方法並不唯一，筆者相信有更優秀的寫法(有效利用記憶體、避免memory leak(記憶體洩漏)等議題)，建議讀者可以多多參考例如<a href="http://codereview.stackexchange.com/">Stack Exchange:Code Review</a>等等眾多優秀的網站，看網友的程式碼的寫法以及由該份程式碼所開啟的討論串，應該會對實際寫作技巧有些幫助。  </p>
 <hr />
 <h2>目錄</h2>
 <ul>
@@ -185,65 +174,65 @@
 <p></br></p>
 <p><a name="search"></a></p>
 <h2>BST::Search(搜尋)</h2>
-<p>BST的<code>Search()</code>操作，便是根據BST的特徵：<span class="math">\(Key(L)&lt;Key(Current)&lt;Key(R)\)</span>，判斷<code>Current</code>node應該往left subtree走，還是往right subtree走。</p>
+<p>BST的<code>Search()</code>操作，便是根據BST的特徵：Key(L)&lt;Key(Current)&lt;Key(R)，判斷<code>Current</code>node應該往left subtree走，還是往right subtree走。</p>
 <p>現有一棵BST如圖一(a)所示：</p>
 <p><center>
-<img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f18.png?raw=true" /></p>
+<img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f1.png?raw=true" /></p>
 <p><strong>圖一(a)：。</strong><br />
 </center>   </p>
 <p>搜尋結果可能成功，可能失敗，以下便分別以兩個KEY值作說明。</p>
 <h3>搜尋成功</h3>
 <ul>
-<li>若現在要從BST中搜尋基紐隊長，便以基紐隊長的KEY(627)進入BST。<br />
+<li>若現在要從BST中搜尋基紐隊長，便以基紐隊長的KEY(<span class="math">\(627\)</span>)進入BST。<br />
 進入BST後，便把用來移動的<code>Current</code>node指向<code>root</code>，如圖一(b)。  </li>
 </ul>
 <p><center>
-<img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f19.png?raw=true" /></p>
+<img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f2.png?raw=true" /></p>
 <p><strong>圖一(b)：。</strong><br />
 </center> </p>
 <ul>
-<li>此時，便將KEY(627)和比克(<code>root</code>)的戰鬥力(513)比較，結果是基紐隊長戰勝，因此，基紐隊長如果在BST裡面，應該會長在比克的right subtree，於是便將<code>Current</code>往比克的right child(達爾)移動，如圖一(c)。</li>
+<li>此時，便將KEY(<span class="math">\(627\)</span>)和比克(<code>root</code>)的戰鬥力(<span class="math">\(513\)</span>)比較，結果是基紐隊長戰勝，因此，基紐隊長如果在BST裡面，應該會長在比克的right subtree，於是便將<code>Current</code>往比克的right child(達爾)移動，如圖一(c)。</li>
 </ul>
 <p><center>
-<img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f20.png?raw=true" /></p>
+<img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f3.png?raw=true" /></p>
 <p><strong>圖一(c)：。</strong><br />
 </center> </p>
 <ul>
-<li>將<code>Current</code>移動到達爾之後，再將KEY(627)與達爾的戰鬥力(524)比較，結果仍然是基紐隊長大勝，因此步驟同上，繼續將<code>Current</code>往達爾的right child(弗力札)移動，如圖一(d)。</li>
+<li>將<code>Current</code>移動到達爾之後，再將KEY(<span class="math">\(627\)</span>)與達爾的戰鬥力(<span class="math">\(524\)</span>)比較，結果仍然是基紐隊長大勝，因此步驟同上，繼續將<code>Current</code>往達爾的right child(弗力札)移動，如圖一(d)。</li>
 </ul>
 <p><center>
-<img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f21.png?raw=true" /></p>
+<img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f4.png?raw=true" /></p>
 <p><strong>圖一(d)：。</strong><br />
 </center> </p>
 <ul>
-<li>將<code>Current</code>移動到弗力札之後，再將KEY(627)與弗力札的戰鬥力(709)比較，結果是弗力札略勝，於是便往弗力札的left child尋找基紐隊長，如圖一(e)。</li>
+<li>將<code>Current</code>移動到弗力札之後，再將KEY(<span class="math">\(627\)</span>)與弗力札的戰鬥力(<span class="math">\(709\)</span>)比較，結果是弗力札略勝，於是便往弗力札的left child尋找基紐隊長，如圖一(e)。</li>
 </ul>
 <p><center>
-<img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f22.png?raw=true" /></p>
+<img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f5.png?raw=true" /></p>
 <p><strong>圖一(e)：。</strong><br />
 </center></p>
 <ul>
-<li>此時，<code>Current</code>的Key(627)與傳送進<code>Search()</code>的KEY(627)相同，便確認<code>Current</code>即為基紐隊長，於是跳出<code>while</code>迴圈，並傳回<code>Current</code>。<br />
+<li>此時，<code>Current</code>的Key(<span class="math">\(627\)</span>)與傳送進<code>Search()</code>的KEY(<span class="math">\(627\)</span>)相同，便確認<code>Current</code>即為基紐隊長，於是跳出<code>while</code>迴圈，並傳回<code>Current</code>。<br />
 即搜尋成功。</li>
 </ul>
 <h3>搜尋失敗</h3>
 <ul>
-<li>若現在要從BST中尋找克林，便以克林的戰鬥力(2)為KEY(2)，進入<code>Search()</code>。<br />
+<li>若現在要從BST中尋找克林，便以克林的戰鬥力(<span class="math">\(2\)</span>)作為KEY(<span class="math">\(2\)</span>)，進入<code>Search()</code>。<br />
 進入BST後，同樣把用來移動的<code>Current</code>node指向<code>root</code>，如圖一(b)。</li>
 </ul>
 <p><center>
-<img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f19.png?raw=true" /></p>
+<img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f2.png?raw=true" /></p>
 <p><strong>圖一(b)：。</strong><br />
 </center> </p>
 <ul>
-<li>接著便將KEY(2)和比克的戰鬥力(513)比較，結果是比克勝出，於是將<code>Currnet</code>往比克的left child(龜仙人)移動，如圖一(f)。</li>
+<li>接著便將KEY(<span class="math">\(2\)</span>)和比克的戰鬥力(<span class="math">\(513\)</span>)比較，結果是比克勝出，於是將<code>Currnet</code>往比克的left child(龜仙人)移動，如圖一(f)。</li>
 </ul>
 <p><center>
-<img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f23.png?raw=true" /></p>
+<img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f6.png?raw=true" /></p>
 <p><strong>圖一(f)：。</strong><br />
 </center> </p>
 <ul>
-<li>將<code>Current</code>移動至龜仙人後，將KEY(2)和龜仙人的戰鬥力(8)比較，便判斷出，要將<code>Current</code>往龜仙人的left child移動，如圖一(f)。<br />
+<li>將<code>Current</code>移動至龜仙人後，將KEY(<span class="math">\(2\)</span>)和龜仙人的戰鬥力(<span class="math">\(8\)</span>)比較，便判斷出，要將<code>Current</code>往龜仙人的left child移動，如圖一(f)。<br />
 然而，由於龜仙人沒有left child，於是<code>Current</code>指向<code>NULL</code>，便跳出迴圈，並回傳<code>NULL</code>，即表示搜尋失敗，克林不在BST中。</li>
 </ul>
 <p>以下是<code>BST::Search()</code>的範例程式碼，其中，有兩種情況會跳出<code>while</code>迴圈：</p>
@@ -253,13 +242,17 @@
 </ol>
 <div class="highlight"><pre><span class="c1">// C++ code</span>
 <span class="n">TreeNode</span><span class="o">*</span> <span class="n">BST</span><span class="o">::</span><span class="n">Search</span><span class="p">(</span><span class="kt">int</span> <span class="n">KEY</span><span class="p">){</span>
-    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">;</span>
-    <span class="n">current</span> <span class="o">=</span> <span class="n">root</span><span class="p">;</span>
-    <span class="k">while</span> <span class="p">(</span><span class="n">current</span> <span class="o">!=</span> <span class="nb">NULL</span> <span class="o">&amp;&amp;</span> <span class="n">KEY</span> <span class="o">!=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">GetKey</span><span class="p">())</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">KEY</span> <span class="o">&lt;</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">GetKey</span><span class="p">())</span>
+
+    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span> <span class="o">=</span> <span class="n">root</span><span class="p">;</span>               <span class="c1">// 將curent指向root作為traversal起點</span>
+
+    <span class="k">while</span> <span class="p">(</span><span class="n">current</span> <span class="o">!=</span> <span class="nb">NULL</span> <span class="o">&amp;&amp;</span> <span class="n">KEY</span> <span class="o">!=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">key</span><span class="p">)</span> <span class="p">{</span>  <span class="c1">// 兩種情況跳出迴圈：</span>
+                                                      <span class="c1">// 1.沒找到 2.有找到</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">KEY</span> <span class="o">&lt;</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">key</span><span class="p">){</span>                      
             <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">;</span>   <span class="c1">// 向左走</span>
-        <span class="k">else</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="p">{</span>
             <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="p">;</span>  <span class="c1">// 向右走</span>
+        <span class="p">}</span>
     <span class="p">}</span>
     <span class="k">return</span> <span class="n">current</span><span class="p">;</span>
 <span class="p">}</span>
@@ -278,7 +271,7 @@
 <p>定義「哨兵」為<strong>x</strong>，「準新手爸媽」為<strong>y</strong>，現欲新增「比克，戰鬥力(513)」進入如圖二(a)之BST。<br />
 (這裡的「哨兵<strong>x</strong>」具有<code>BST::Search()</code>中<code>Current</code>node的功能。)</p>
 <p><center>
-<img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f24.png?raw=true" /></p>
+<img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f7.png?raw=true" /></p>
 <p><strong>圖二(a)：。</strong><br />
 </center> </p>
 <ul>
@@ -286,7 +279,7 @@
 <li>接著，將欲新增node之Key(比克(513))與「哨兵<strong>x</strong>」之Key(龜仙人(8))相比，比克的戰鬥力比龜仙人高，所以比克應該要長在龜仙人的right subtree，因此把「哨兵<strong>x</strong>」往龜仙人的right child(悟空)移動，並且更新「準新手爸媽<strong>y</strong>」為龜仙人，如圖二(b)。</li>
 </ul>
 <p><center>
-<img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f25.png?raw=true" /></p>
+<img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f8.png?raw=true" /></p>
 <p><strong>圖二(b)：。</strong><br />
 </center> </p>
 <ul>
@@ -295,14 +288,14 @@
 那個「適當位置」在哪裡呢？就是「準新手爸媽<strong>y</strong>」的child pointer。</li>
 </ul>
 <p><center>
-<img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f26.png?raw=true" /></p>
+<img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f9.png?raw=true" /></p>
 <p><strong>圖二(c)：。</strong><br />
 </center> </p>
 <ul>
 <li>下一步，便是比較欲新增node之Key(比克(513))與「準新手爸媽<strong>y</strong>」之Key(悟空(1000))，發現悟空戰鬥力較高，因此，比克(513)便成為「準新手爸媽<strong>y</strong>」的left child，如圖二(d)，便成功把比克(513)接到BST上。</li>
 </ul>
 <p><center>
-<img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f27.png?raw=true" /></p>
+<img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f10.png?raw=true" /></p>
 <p><strong>圖二(d)：。</strong><br />
 </center> </p>
 <p>以下是<code>BST::InsertBST()</code>的範例程式碼，關鍵便是「哨兵<strong>x</strong>」與「準新手爸媽<strong>y</strong>」的冒險之旅：</p>
@@ -338,7 +331,7 @@
 </ul>
 <p></br></p>
 <p><a name="main"></a></p>
-<h2>main()</h2>
+<h2>main</h2>
 <p>有了<code>BST::InsertBST()</code>後，就可以用土法煉鋼的方式建立一棵如圖二(d)的BST:</p>
 <div class="highlight"><pre><span class="c1">// C++ code</span>
 <span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
