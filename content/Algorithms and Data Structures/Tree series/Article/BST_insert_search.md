@@ -8,7 +8,7 @@ Summary: 介紹Binary Search Tree(二元搜尋樹)的基本操作：Search(搜�
 </br>
 ###先備知識與注意事項
 
-(完整範例程式碼也可以看這裡：[BST.cpp](https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/ExampleCode/BST_Search_Insert.cpp))
+(完整範例程式碼也可以看這裡：[BST_Search_Insert.cpp](https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/ExampleCode/BST_Search_Insert.cpp))
 
 
 在開始介紹search(搜尋資料)與insert(新增資料)之前，先定義好`class TreeNode`與`class BST`，順便對未來將介紹的其他member function(成員函式)留下美好的第一印象：
