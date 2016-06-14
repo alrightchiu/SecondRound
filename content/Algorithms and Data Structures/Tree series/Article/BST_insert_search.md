@@ -8,6 +8,9 @@ Summary: 介紹Binary Search Tree(二元搜尋樹)的基本操作：Search(搜�
 </br>
 ###先備知識與注意事項
 
+(完整範例程式碼也可以看這裡：[BST.cpp]())
+
+
 在開始介紹search(搜尋資料)與insert(新增資料)之前，先定義好`class TreeNode`與`class BST`，順便對未來將介紹的其他member function(成員函式)留下美好的第一印象：
 
 ```cpp
@@ -33,10 +36,10 @@ public:
     TreeNode(int a, string b):leftchild(0),rightchild(0),parent(0),key(a),element(b){};
 
     int GetKey(){return key;}              // 為了在main()要能夠檢視node是否正確
-    string GetElement(){return element;}   // 才需要這兩個function讀取private data
+    string GetElement(){return element;}   // 才需要這兩個member function讀取private data
     
-    // 否則在class BST的member function中不需要這麼麻煩
-    // 因為class BST是class TreeNode的friend class
+    // 其餘情況, 因為class BST是class TreeNode的friend class
+    // 在class BST的member function中, 可以直接存取class TreeNode的private data
 
     friend class BST;   // 放在 private 或 public 都可以 
 };
@@ -55,12 +58,12 @@ public:
     void DeleteBST(int KEY);
     void InorderPrint();        // 可以用來確認BST是否建立成功
     void Levelorder();          // 可以確認BST是否建立成功
-    bool IsEmpty() const{return (root==NULL);};    // 確認BST是否存有資料
+    // bool IsEmpty() const{return (root==NULL);};    // 確認BST是否存有資料
 };
 
 ```
 
-文章內容將著重於BST這個資料結構，並提供此資料結構中可行的演算法，因此，有關C++的實作方法並不唯一，筆者相信有更優秀的寫法(有效利用記憶體、避免memory leak(記憶體洩漏)等議題)，建議讀者可以多多參考例如[Stack Exchange:Code Review](http://codereview.stackexchange.com/)等等眾多優秀的網站，看網友的程式碼的寫法以及由該份程式碼所開啟的討論串，應該會對實際寫作技巧有些幫助。  
+小小備註：範例程式碼只是其中一種可行的方法，實作方法並不唯一，筆者相信有更優秀的寫法(有效利用記憶體、避免memory leak等議題)，建議讀者可以多多參考例如[Stack Exchange:Code Review](http://codereview.stackexchange.com/)等等眾多優秀的網站，看網友的程式碼的寫法以及由該份程式碼所開啟的討論串，應該會對實際寫作技巧有些幫助。  
 
 
 ***
@@ -79,11 +82,10 @@ public:
 
 ##BST::Search(搜尋)
 
-BST的`Search()`操作，便是根據BST的特徵：Key(L)<Key(Current)<Key(R)，判斷`Current`node應該往left subtree走，還是往right subtree走。
+BST的`Search()`操作，便是根據BST的特徵：Key(L)<Key(Current)<Key(R)，判斷`Current`應該往left subtree走，還是往right subtree走。
 
 現有一棵BST如圖一(a)所示：
 
-  
 <center>
 ![bst][f1]
 
@@ -94,8 +96,9 @@ BST的`Search()`操作，便是根據BST的特徵：Key(L)<Key(Current)<Key(R)�
 
 ###搜尋成功
 
-* 若現在要從BST中搜尋基紐隊長，便以基紐隊長的KEY($627$)進入BST。  
-進入BST後，便把用來移動的`Current`node指向`root`，如圖一(b)。  
+若現在要從BST中搜尋基紐隊長，便以基紐隊長的KEY($627$)進入BST。  
+
+進入BST後，便把用來移動的`Current`指向`root`，如圖一(b)。  
 
 <center>
 ![bst][f2]
@@ -103,7 +106,7 @@ BST的`Search()`操作，便是根據BST的特徵：Key(L)<Key(Current)<Key(R)�
 **圖一(b)：。**  
 </center> 
 
-* 此時，便將KEY($627$)和比克(`root`)的戰鬥力($513$)比較，結果是基紐隊長戰勝，因此，基紐隊長如果在BST裡面，應該會長在比克的right subtree，於是便將`Current`往比克的right child(達爾)移動，如圖一(c)。
+接著將KEY($627$)和比克(`root`)的戰鬥力($513$)比較，結果是基紐隊長戰勝，因此，基紐隊長如果在BST裡面，應該會長在比克的right subtree裡面，於是便將`Current`往比克的right child(達爾)移動，如圖一(c)。
 
 <center>
 ![bst][f3]
@@ -111,7 +114,7 @@ BST的`Search()`操作，便是根據BST的特徵：Key(L)<Key(Current)<Key(R)�
 **圖一(c)：。**  
 </center> 
 
-* 將`Current`移動到達爾之後，再將KEY($627$)與達爾的戰鬥力($524$)比較，結果仍然是基紐隊長大勝，因此步驟同上，繼續將`Current`往達爾的right child(弗力札)移動，如圖一(d)。
+將`Current`移動到達爾之後，再將KEY($627$)與達爾的戰鬥力($524$)比較，結果仍然是基紐隊長大勝，因此步驟同上，繼續將`Current`往達爾的right child(弗力札)移動，如圖一(d)。
 
 <center>
 ![bst][f4]
@@ -119,7 +122,7 @@ BST的`Search()`操作，便是根據BST的特徵：Key(L)<Key(Current)<Key(R)�
 **圖一(d)：。**  
 </center> 
 
-* 將`Current`移動到弗力札之後，再將KEY($627$)與弗力札的戰鬥力($709$)比較，結果是弗力札略勝，於是便往弗力札的left child尋找基紐隊長，如圖一(e)。
+將`Current`移動到弗力札之後，再將KEY($627$)與弗力札的戰鬥力($709$)比較，結果是弗力札略勝，於是便往弗力札的left child尋找基紐隊長，如圖一(e)。
 
 <center>
 ![bst][f5]
@@ -127,14 +130,16 @@ BST的`Search()`操作，便是根據BST的特徵：Key(L)<Key(Current)<Key(R)�
 **圖一(e)：。**  
 </center>
 
-* 此時，`Current`的Key($627$)與傳送進`Search()`的KEY($627$)相同，便確認`Current`即為基紐隊長，於是跳出`while`迴圈，並傳回`Current`。  
-即搜尋成功。
+此時，`Current`的Key($627$)與傳送進`Search()`的KEY($627$)相同，便確認`Current`即為基紐隊長，於是跳出`while`迴圈，並傳回`Current`。  
+
+宣告搜尋成功。
 
 
 ###搜尋失敗
 
-* 若現在要從BST中尋找克林，便以克林的戰鬥力($2$)作為KEY($2$)，進入`Search()`。  
-進入BST後，同樣把用來移動的`Current`node指向`root`，如圖一(b)。
+若現在要從BST中尋找克林，便以克林的戰鬥力($2$)作為KEY($2$)，進入`Search()`。  
+
+進入BST後，同樣把用來移動的`Current`指向`root`，如圖一(b)。
 
 <center>
 ![bst][f2]
@@ -142,7 +147,7 @@ BST的`Search()`操作，便是根據BST的特徵：Key(L)<Key(Current)<Key(R)�
 **圖一(b)：。**  
 </center> 
 
-* 接著便將KEY($2$)和比克的戰鬥力($513$)比較，結果是比克勝出，於是將`Currnet`往比克的left child(龜仙人)移動，如圖一(f)。
+接著便將KEY($2$)和比克的戰鬥力($513$)比較，結果是比克勝出，如果克林($2$)在這棵BST中，應該會長在比克的left subtree上，於是將`Currnet`往比克的left child(龜仙人)移動，如圖一(f)。
 
 <center>
 ![bst][f6]
@@ -150,13 +155,16 @@ BST的`Search()`操作，便是根據BST的特徵：Key(L)<Key(Current)<Key(R)�
 **圖一(f)：。**  
 </center> 
 
-* 將`Current`移動至龜仙人後，將KEY($2$)和龜仙人的戰鬥力($8$)比較，便判斷出，要將`Current`往龜仙人的left child移動，如圖一(f)。  
+將`Current`移動至龜仙人後，將KEY($2$)和龜仙人的戰鬥力($8$)比較，便判斷出，要將`Current`往龜仙人的left child移動，如圖一(f)。  
+
 然而，由於龜仙人沒有left child，於是`Current`指向`NULL`，便跳出迴圈，並回傳`NULL`，即表示搜尋失敗，克林不在BST中。
 
 以下是`BST::Search()`的範例程式碼，其中，有兩種情況會跳出`while`迴圈：
 
-1. KEY與`Current`node的key相同，表示搜尋成功；
-2. `Current`移動到`NULL`，表示搜尋失敗。
+1. `Current`移動到`NULL`，表示搜尋失敗。
+2. KEY與`Current`node的key相同，表示搜尋成功；
+
+這兩種情況的先後順序很重要，因為如果`Current`是`NULL`，便不能對其`key`做存取，會產生諸如**BAD_ACCESS**的錯誤(error)。
 
 ```cpp
 // C++ code
@@ -176,6 +184,7 @@ TreeNode* BST::Search(int KEY){
     return current;
 }
 ```
+
 
 </br> 
 
@@ -232,25 +241,33 @@ TreeNode* BST::Search(int KEY){
 ```cpp
 // C++ code
 void BST::InsertBST(TreeNode &new_node){
-    TreeNode *y = new TreeNode; y = 0;        // 準新手爸媽
-    TreeNode *x = new TreeNode; x = 0;        // 哨兵
-    TreeNode *insert_node = new TreeNode(new_node); // call default copy constructor of TreeNode
-    
+    TreeNode *y = 0;        // 準新手爸媽
+    TreeNode *x = 0;        // 哨兵
+    // call default copy constructor of TreeNode
+    TreeNode *insert_node = new TreeNode(new_node); 
+
     x = root;
     while (x != NULL) {                // 在while中, 以如同Search()的方式尋找適當的位置       
         y = x;                                
-        if (insert_node->GetKey() < x->GetKey())
+        if (insert_node->key < x->key){
             x = x->leftchild;
-        else
+        }
+        else{
             x = x->rightchild;
+        }
     }                                  // 跳出迴圈後, x即為NULL
-    insert_node->parent = y;           // y即為insert_node的parent
-    if (y == NULL)                     // 下面一組if-else, 把insert_node接上BST
+                                       // y即為insert_node的parent
+    insert_node->parent = y;           // 將insert_node的parent pointer指向y
+
+    if (y == NULL){                    // 下面一組if-else, 把insert_node接上BST
         this->root = insert_node;
-    else if (insert_node->GetKey() < y->GetKey())
+    }
+    else if (insert_node->key < y->key){
         y->leftchild = insert_node;
-    else
+    }
+    else{
         y->rightchild = insert_node;
+    }
 }
 ```
 備註：  
