@@ -15177,7 +15177,13 @@ $$&lt;/div&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;以上便是BST中&lt;code&gt;Search()&lt;/code&gt;與&lt;code&gt;InsertBST()&lt;/code&gt;之介紹，只要掌握BST的性質Key(L)&amp;lt;Key(Current)&amp;lt;Key(R)與樹中的Traversal(pointer的移動)即可輕鬆上路。 &lt;/p&gt;
+&lt;p&gt;結果看起來與圖二(d)一致：&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f10.png?raw=true" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;圖二(d)：。&lt;/strong&gt;&lt;br /&gt;
+&lt;/center&gt; &lt;/p&gt;
+&lt;p&gt;以上便是BST中&lt;code&gt;Search()&lt;/code&gt;與&lt;code&gt;InsertBST()&lt;/code&gt;之介紹。  &lt;/p&gt;
+&lt;p&gt;只要掌握BST的性質Key(L)&amp;lt;Key(Current)&amp;lt;Key(R)與樹中的Traversal(pointer的移動)即可輕鬆上路。 &lt;/p&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;hr /&gt;
 &lt;p&gt;&lt;a name="ref"&gt;&lt;/a&gt;&lt;/p&gt;
