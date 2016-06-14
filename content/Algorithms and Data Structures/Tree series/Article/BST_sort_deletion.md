@@ -79,7 +79,7 @@ public:
 
 讀者可能會發現，在`class BST`的定義中，根本就沒有類似`SortBST()`的函式，沒錯，因為在BST中，每一個subtree都有Key(L)<Key(Current)<Key(R)的性質，這正好與Inorder(LVR)之順序相同，因此，對整棵樹進行Inorder Traversal，就能夠對資料由小到大(依照Key)進行Visiting。
 
-以上一篇[Binary Search Tree: Search()、Insert()](http://alrightchiu.github.io/SecondRound/binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao.html#binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao)的`main()`所建立的BST為例，如圖一，要將此樹中的資料按照Key之順序由小到大印出，只需要對整棵樹做一次Inorder Traversal即可。
+以[上一篇](http://alrightchiu.github.io/SecondRound/binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao.html#binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao)的`main()`所建立的BST為例，如圖一，要將此樹中的資料按照Key之順序由小到大印出，只需要對整棵樹做一次Inorder Traversal即可。
 
 <center>
 ![bst][f1]
@@ -152,9 +152,9 @@ output:
 
 * **Case3**：由於西魯有兩個child，若直接刪除西魯的資料，並釋放其記憶體位置，要牽動的node較多。變通的祕訣就是「找替身」，原本要刪西魯，但是實際上是釋放西魯的「Successor(達爾)」的記憶體位置(或是「Predecessor(16號)」的記憶體位置)，最後再把「Successor(達爾)」(或是「Predecessor(16號)」)的資料放回到西魯的記憶體位置上，又因為BST的特徵，所有「具有兩個child」的node的Successor或是Predecessor一定是leaf node或是只有一個child，如此，便回到如同撒旦與弗力札「至多只有一個child」的情境。 
  
-稍微驗證一下「具有兩個child的node的Successor或是Predecessor一定是leaf node或是只有一個child」：
+稍微驗證一下「具有兩個child的node的Successor或是Predecessor一定是leaf node或是只有一個child」，若某個node有兩個child：
 
-* 若某個node有兩個child，則Successor找的是「right subtree中Key最小的node」；
+* Successor找的是「right subtree中Key最小的node」；
 * Predecessor找的是「left subtree中Key最大的node」；
 
 因此Successor和Predecessor必定不會同時也有兩個child。以圖二(d)為例：
@@ -170,7 +170,7 @@ output:
 </center>
 
 * 回到**Case3**，現欲刪除西魯，就去找西魯的Successor(達爾)當做替身，因為達爾沒有child，其刪除方法便如同上述刪除撒旦的方法，如圖二(e)。
-    * 要刪除西魯的Predecessor(16號)也可以。不過範例程式碼要記得修改。
+    * 要刪除西魯的Predecessor(16號)也可以。範例程式碼要記得修改。
 
 <center>
 ![bst][f6]
@@ -214,17 +214,17 @@ void BST::DeleteBST(int KEY){               // 要刪除具有KEY的node
         y = delete_node;
     }
     else{
-        y = Successor(delete_node);        // 將y設成delete_node的Successor                          
+        y = Successor(delete_node);        // 將y設成delete_node的Successor
     }                                      // 經過這組if-else, y調整成至多只有一個child
                                            // 全部調整成case1或case2來處理
-    if (y->leftchild != NULL){              
+    if (y->leftchild != NULL){
         x = y->leftchild;                  // 將x設成y的child, 可能是有效記憶體,
     }                                      // 也有可能是NULL
     else{
         x = y->rightchild;
     }
     
-    if (x != NULL){                        // 在y被刪除之前, 這個步驟把x接回BST 
+    if (x != NULL){                        // 在y被刪除之前, 這個步驟把x接回BST
         x->parent = y->parent;             // 此即為圖二(c)中, 把基紐接回龜仙人的步驟
     }
                                            // 接著再把要被釋放記憶體的node之"parent"指向新的child
@@ -249,7 +249,7 @@ void BST::DeleteBST(int KEY){               // 要刪除具有KEY的node
 ```
 
 
-延續上一篇文章[Binary Search Tree: Search()、Insert()](http://alrightchiu.github.io/SecondRound/binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao.html#binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao)的`main()`，加入`BST::DeleteBST`，把龜仙人(8)刪除，應該會得到如圖三的BST，比克(513)成為新的`root`：
+延續[上一篇文章](http://alrightchiu.github.io/SecondRound/binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao.html#binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao)的`main()`，加入`BST::DeleteBST`，把龜仙人(8)刪除，應該會得到如圖三的BST，比克(513)成為新的`root`：
 
 
 <center>
