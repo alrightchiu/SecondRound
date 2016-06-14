@@ -10,7 +10,7 @@ Summary: 介紹如何以字元陣列(char array)獲得資料(data)後，建立�
 
 在[Binary Tree：Traversal](http://alrightchiu.github.io/SecondRound/binary-tree-traversal.html#ex_code)中，非常沒誠意地用暴力方式建了一棵Binary Tree，在本篇文章將提供一種文明的方法，由一個字元陣列(char array)輸入字母，並按照[Complete Binary Tree](http://alrightchiu.github.io/SecondRound/binary-tree-intro.html#fullcomplete)之順序重新建立*那顆樹*。
 
-其中，問題情境之輸入資料是一個字元陣列(char array)，為了方便處理，將會使用C++語言中的神器：[stringstream](http://www3.ntu.edu.sg/home/ehchua/programming/cpp/cp10_io.html)，這裡礙於篇幅(與筆者自己也還在摸索)，就不多談避免誤導，[點進連結中](http://www3.ntu.edu.sg/home/ehchua/programming/cpp/cp10_io.html)有非常詳細的說明，關於`istringstream`、`ostringstream`、`stringstream`等等template class之繼承關係(inheritance)。  
+其中，問題情境之輸入資料是一個字元陣列(char array)，為了方便處理，將會使用C++語言中的神器：`stringstream`，這裡礙於篇幅(與筆者自己也還在摸索)，就不多談避免誤導，[點進連結中](http://www3.ntu.edu.sg/home/ehchua/programming/cpp/cp10_io.html)有非常詳細的說明，關於`istringstream`、`ostringstream`、`stringstream`等等template class之繼承關係(inheritance)。  
 
 因為要按照Complete Binary Tree的規則建樹，可以想像的是，以下提供的Binary Tree之建立方法，基本上是在[Binary Tree：Traversal介紹過的level-order traversal](http://alrightchiu.github.io/SecondRound/binary-tree-traversalxun-fang.html#level)上加工，因此[Queue(佇列)](http://alrightchiu.github.io/SecondRound/queue-introjian-jie-bing-yi-linked-listshi-zuo.html)的概念會再次出現。
 
@@ -23,7 +23,7 @@ Summary: 介紹如何以字元陣列(char array)獲得資料(data)後，建立�
     * [定義class TreeNode、class BinaryTree](#def) 
     * [Constructor of BinaryTree](#constructor) 
     * [Function：LevelorderConstruct](#func1)
-    * [Function：insertLevelorder](#func2)
+    * [Function：InsertLevelorder](#func2)
 * [參考資料](#ref)
 * [Binary Tree系列文章](#tree_series)
 
@@ -394,7 +394,7 @@ void BinaryTree::LevelorderConstruct(std::stringstream &ss){
 
 ###Function：InsertLevelorder
 
-函式`InsertLevelorder()`的功能是，能夠按照Complete Binary Tree的位置順序放置新增的node，例如，若要在圖三之樹上新增帶有字母**'K'**的node，則`T.insertLevelorder('K')`便會將**'K'**建成C的right child，如圖四(a)：
+函式`InsertLevelorder()`的功能是，能夠按照Complete Binary Tree的位置順序放置新增的node，例如，若要在圖三之樹上新增帶有字母**'K'**的node，則`T.InsertLevelorder('K')`便會將**'K'**建成C的right child，如圖四(a)：
 
 <center>
 ![insertK][f16]  
