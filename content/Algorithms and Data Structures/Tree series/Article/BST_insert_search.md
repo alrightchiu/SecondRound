@@ -96,7 +96,7 @@ BST的`Search()`操作，便是根據BST的特徵：$Key(L)<Key(Current)<Key(R)$
 
   
 <center>
-![bst][search0]
+![bst][f1]
 
 **圖一(a)：。**  
 </center>   
@@ -109,7 +109,7 @@ BST的`Search()`操作，便是根據BST的特徵：$Key(L)<Key(Current)<Key(R)$
 進入BST後，便把用來移動的`Current`node指向`root`，如圖一(b)。  
 
 <center>
-![bst][search1]
+![bst][f2]
 
 **圖一(b)：。**  
 </center> 
@@ -117,7 +117,7 @@ BST的`Search()`操作，便是根據BST的特徵：$Key(L)<Key(Current)<Key(R)$
 * 此時，便將KEY(627)和比克(`root`)的戰鬥力(513)比較，結果是基紐隊長戰勝，因此，基紐隊長如果在BST裡面，應該會長在比克的right subtree，於是便將`Current`往比克的right child(達爾)移動，如圖一(c)。
 
 <center>
-![bst][search2]
+![bst][f3]
 
 **圖一(c)：。**  
 </center> 
@@ -125,7 +125,7 @@ BST的`Search()`操作，便是根據BST的特徵：$Key(L)<Key(Current)<Key(R)$
 * 將`Current`移動到達爾之後，再將KEY(627)與達爾的戰鬥力(524)比較，結果仍然是基紐隊長大勝，因此步驟同上，繼續將`Current`往達爾的right child(弗力札)移動，如圖一(d)。
 
 <center>
-![bst][search3]
+![bst][f4]
 
 **圖一(d)：。**  
 </center> 
@@ -133,7 +133,7 @@ BST的`Search()`操作，便是根據BST的特徵：$Key(L)<Key(Current)<Key(R)$
 * 將`Current`移動到弗力札之後，再將KEY(627)與弗力札的戰鬥力(709)比較，結果是弗力札略勝，於是便往弗力札的left child尋找基紐隊長，如圖一(e)。
 
 <center>
-![bst][search4]
+![bst][f5]
 
 **圖一(e)：。**  
 </center>
@@ -148,7 +148,7 @@ BST的`Search()`操作，便是根據BST的特徵：$Key(L)<Key(Current)<Key(R)$
 進入BST後，同樣把用來移動的`Current`node指向`root`，如圖一(b)。
 
 <center>
-![bst][search1]
+![bst][f2]
 
 **圖一(b)：。**  
 </center> 
@@ -156,7 +156,7 @@ BST的`Search()`操作，便是根據BST的特徵：$Key(L)<Key(Current)<Key(R)$
 * 接著便將KEY(2)和比克的戰鬥力(513)比較，結果是比克勝出，於是將`Currnet`往比克的left child(龜仙人)移動，如圖一(f)。
 
 <center>
-![bst][search5]
+![bst][f6]
 
 **圖一(f)：。**  
 </center> 
@@ -202,7 +202,7 @@ TreeNode* BST::Search(int KEY){
 
 
 <center>
-![bst][insert1]
+![bst][f7]
 
 **圖二(a)：。**  
 </center> 
@@ -211,7 +211,7 @@ TreeNode* BST::Search(int KEY){
 * 接著，將欲新增node之Key(比克(513))與「哨兵**x**」之Key(龜仙人(8))相比，比克的戰鬥力比龜仙人高，所以比克應該要長在龜仙人的right subtree，因此把「哨兵**x**」往龜仙人的right child(悟空)移動，並且更新「準新手爸媽**y**」為龜仙人，如圖二(b)。
 
 <center>
-![bst][insert2]
+![bst][f8]
 
 **圖二(b)：。**  
 </center> 
@@ -221,7 +221,7 @@ TreeNode* BST::Search(int KEY){
 那個「適當位置」在哪裡呢？就是「準新手爸媽**y**」的child pointer。
 
 <center>
-![bst][insert3]
+![bst][f9]
 
 **圖二(c)：。**  
 </center> 
@@ -229,7 +229,7 @@ TreeNode* BST::Search(int KEY){
 * 下一步，便是比較欲新增node之Key(比克(513))與「準新手爸媽**y**」之Key(悟空(1000))，發現悟空戰鬥力較高，因此，比克(513)便成為「準新手爸媽**y**」的left child，如圖二(d)，便成功把比克(513)接到BST上。
 
 <center>
-![bst][insert4]
+![bst][f10]
 
 **圖二(d)：。**  
 </center> 
@@ -265,16 +265,16 @@ void BST::InsertBST(TreeNode &new_node){
 * 在定義函式`InsertBST()`時，函式的參數(argument)可能會視情境而有所改變，這裡是以一個`TreeNode`的物件(object)之**reference**作為參數，傳進函式`InsertBST()`。
 * 在`InsertBST()`特別標示出BST是為了與之後會介紹的Red Black Tree(紅黑樹)之`InsertRBT()`做區別。
 
-[search0]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f18.png?raw=true
-[search1]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f19.png?raw=true
-[search2]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f20.png?raw=true
-[search3]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f21.png?raw=true
-[search4]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f22.png?raw=true
-[search5]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f23.png?raw=true
-[insert1]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f24.png?raw=true
-[insert2]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f25.png?raw=true
-[insert3]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f26.png?raw=true
-[insert4]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f27.png?raw=true
+[f1]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f1.png?raw=true
+[f2]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f2.png?raw=true
+[f3]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f3.png?raw=true
+[f4]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f4.png?raw=true
+[f5]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f5.png?raw=true
+[f6]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f6.png?raw=true
+[f7]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f7.png?raw=true
+[f8]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f8.png?raw=true
+[f9]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f9.png?raw=true
+[f10]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f10.png?raw=true
 
 </br>
 
