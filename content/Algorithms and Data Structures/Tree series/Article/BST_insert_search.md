@@ -220,7 +220,8 @@ TreeNode* BST::Search(int KEY){
 
 更新後，「準新手爸媽**y**」成為悟空，「哨兵**x**」指向`NULL`壯烈犧牲，即達到跳出迴圈之條件。此時，便找到了「新增node」之適當位置。  
 
-那個「適當位置」在哪裡呢？就是「準新手爸媽**y**」的child pointer。表示比克($513$)一定會是悟空($1000$)的child。
+那個「適當位置」在哪裡呢？就是「準新手爸媽**y**」的child pointer。  
+表示比克($513$)一定會是悟空($1000$)的child。
 
 <center>
 ![bst][f9]
@@ -278,7 +279,7 @@ void BST::InsertBST(int key, string element){
 
 
 
-有了`BST::InsertBST()`後，就可以用土法煉鋼的方式建立一棵如圖二(d)的BST，再以[]()介紹過的Inorder Traversal與Level-Order Traversal檢驗，順便測試BST中是否有Key($1000$)與Key($73$)這兩筆資料：
+有了`BST::InsertBST()`後，就可以用土法煉鋼的方式建立一棵如圖二(d)的BST，再以[Binary Tree: Traversal(尋訪)](http://alrightchiu.github.io/SecondRound/binary-tree-traversalxun-fang.html)介紹過的Inorder Traversal與Level-Order Traversal檢驗，順便測試BST中是否有Key($1000$)與Key($73$)這兩筆資料：
 
 ```cpp
 // C++ code
