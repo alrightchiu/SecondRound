@@ -89,9 +89,9 @@ private:
 
 ##Binary Search Tree的特徵
 
-有了加裝Dictionary後的`TreeNode`，便能夠說明BST的特徵：
+有了加裝Dictionary後的`TreeNode`，便能夠說明BST的特徵。
 
-* 任何CurrnetNode之Key若與其left child、right child之Key有以下關係(若pointer指向`NULL`則忽略)：Key(L)<Key(Current)<Key(R)，則可稱這棵樹為Binary Search Tree(BST)。
+* 任何CurrnetNode之Key若與其left child、right child之Key有以下關係(若pointer指向`NULL`則忽略)：**Key(L)<Key(Current)<Key(R)**，則可稱這棵樹為Binary Search Tree(BST)。
 
 以圖三為例，樹中有三個node，悟空的戰鬥力為$1000$，龜仙人的戰鬥力為$8$，克林的戰鬥力為$2$，若將龜仙人設為`root`，則克林的戰鬥力較小，因此成為龜仙人的left child，悟空的戰鬥力較大，便成為龜仙人的right child，如此便滿足Key(L)<Key(Current)<Key(R)，即可稱圖三為一棵BST。
 
@@ -125,7 +125,11 @@ private:
 ###insert(新增資料)
 
 隨著故事劇情推進，角色也會跟著增加，因此，要在BST中**新增node(新增資料)**。  
-在此，比克大魔王現身地球危害人間，其戰鬥力為$513$，欲將其放進BST，根據BST的規則判斷出，比克的戰鬥力比龜仙人高，因此要將比克放在龜仙人的right subtree(右子樹)；接著，再和悟空比較，比克的戰鬥力比悟空低，因此將比克建立在悟空的left child上，如圖五(a)所示：
+
+「頭條！比克大魔王現身地球危害人間」，其戰鬥力為$513$，若要將其放進BST，根據BST的規則判斷出：
+
+* 比克的戰鬥力比龜仙人高，因此要將比克放在龜仙人的right subtree(右子樹)；
+* 接著再和悟空比較，比克的戰鬥力比悟空低，因此將比克建立在悟空的left child上，如圖五(a)所示：
 
 <center>
 ![insert][f5]
@@ -134,7 +138,10 @@ private:
 </center>
 
 接著，賽亞人王子達爾登場，其戰鬥力為$524$，根據BST的規則，判斷出其應在「龜仙人的right subtree」、「悟空的left subtree」與比克的「right child」，如圖五(b)所示。  
-在下一篇文章將會看到，實際上的演算法正是以這種方式實現：移動`CurrentNode`，並將`CurrentNode`之Key與「欲新增之node的Key」比較，找到符合BST規則的位置後，置入新的node。
+
+到目前為止，應該可以看出來，新增node需要先在BST中進行traversal，而且traversal的時間複雜度與**height(樹高)**成正比。
+
+
 
 <center>
 ![insert][f6]
@@ -142,14 +149,16 @@ private:
 **圖五(b)：。**  
 </center>
 
-
+</br>  
 <a name="search"></a>
 
 ###search(搜尋資料)
 
 在處理資料時，時常需要尋找某特定資料，是否存在資料結構中。以BST處理資料，最簡單的方式便是用Key尋找。  
-以圖六為例，故事推進到納美克星弗力札大王篇，若想要確認基紐隊長的資料是否已經建立完成，只要記住隊長的戰鬥力為「$627$」，進入BST中，便能夠找到隊長，必且回傳(return)隊長的node。  
-有時會出現欲搜尋的資料尚未被建立進BST中、或者已經從BST中移除的情況，例如，若要在悟空變成超級賽亞人之前找克林，以克林的戰鬥力「$2$」來搜尋，但是發現找不到，便回傳`NULL`。
+
+以圖六為例，故事推進到納美克星弗力札大王篇，若想要確認基紐隊長的資料是否已經建立完成，只要記住隊長的戰鬥力為「$627$」，進入BST中，便能夠找到隊長，必且回傳(return)隊長的node之資料、記憶體位置等等。  
+
+有時會出現欲搜尋的資料尚未被建立進BST中、或者已經從BST中移除的情況，例如，若要在悟空變成超級賽亞人之後找克林，以克林的戰鬥力「$2$」來搜尋，但是發現找不到，便回傳`NULL`。
 
 因為克林被弗力札大王給殺死了啊啊阿啊(變身超級賽亞人)。
 
@@ -161,6 +170,7 @@ private:
 
 （界王神的聲音：為什麼`root`從龜仙人變成比克？不會違反BST規則嗎？詳見[Red Black Tree系列之Rotation(旋轉)](http://alrightchiu.github.io/SecondRound/red-black-tree-rotationxuan-zhuan.html)。）
 
+</br>  
 <a name="sort"></a>
 
 ###sort(排序)
@@ -173,14 +183,14 @@ private:
 **圖七：藍色數字為戰鬥力(key)，紅色數字表示「戰鬥力由小到大」之順序。**  
 </center>
 
-
+</br>  
 <a name="delete"></a>
 
 ###delete(刪除資料)
 
 最後，當角色死掉去領便當，就需要從BST刪除資料，而根據欲刪除資料之「**child個數**」可以分成三種情況：
 
-1. 刪除撒旦：撒旦**沒有child**，因此，直接把撒旦的parent(普烏)之left child指向`NULL`即可。
+1. 刪除撒旦：撒旦在這棵BST中**沒有child**，因此，直接把撒旦的parent(普烏)之left child指向`NULL`即可。 
 2. 刪除弗力札：弗力札有**一個child**(left child)，因此刪除弗力札之前，需要先把弗力札的left child(基紐)接到弗力札的parent(龜仙人)上，又因為弗力札原本是龜仙人的right child，因此基紐將遞補弗力札，成為龜仙人的right child。
 3. 刪除西魯：西魯有**兩個child**，稍微麻煩一點，需要「多一個步驟」，將留待之後的文章做詳細說明。
 
@@ -205,7 +215,9 @@ private:
 
 
 
-以上便是BST與BST中的基本操作之介紹，所有操作都是以BST之特徵：Key(L)<Key(Current)<Key(R)為出發點，尤其是新增node與刪除node，務必要滿足BST之規則。
+以上便是BST與BST中的基本操作之介紹。
+
+所有操作都是以BST之特徵：Key(L)<Key(Current)<Key(R)為基礎，尤其是新增node與刪除node，務必要滿足BST之規則。
 
 接下來，將以兩篇文章的篇幅，說明上述四種資料處理操作的演算法。
 
