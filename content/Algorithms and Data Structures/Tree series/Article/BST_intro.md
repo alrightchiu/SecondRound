@@ -214,10 +214,11 @@ private:
 </br>
 
 
+根據以上的簡介，可以看出，新增資料(insert)、刪除資料(delete)本身都必須先執行一次搜尋(search)，而搜尋(search)的時間複雜度取決於BST的**height(樹高)**，因此，上面這三項操作的時間複雜度皆為$O(height)$。
 
-以上便是BST與BST中的基本操作之介紹。
+特別注意，這裡的**height**什麼也無法保證，有可能運氣很好，BST很平衡(平衡的意思可以想成是Complete Binary Tree)，那麼**height**為$\log{N}$，如果運氣不好，BST退化成Linked list，那麼**height**為$N$。
 
-所有操作都是以BST之特徵：Key(L)<Key(Current)<Key(R)為基礎，尤其是新增node與刪除node，務必要滿足BST之規則。
+運算成本當然是越低越好，所以才需要平衡的BST，例如[Red Black Tree(紅黑樹)](http://alrightchiu.github.io/SecondRound/red-black-tree-introjian-jie.html)。後面的文章會再提到。
 
 接下來，將以兩篇文章的篇幅，說明上述四種資料處理操作的演算法。
 
@@ -231,8 +232,8 @@ private:
 
 * [Introduction to Algorithms, Ch12](http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844) 
 * [Fundamentals of Data Structures in C++, Ch5](http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376)
-* [Wikipedia：七龍珠](https://zh.wikipedia.org/wiki/%E4%B8%83%E9%BE%99%E7%8F%A0#.E5.8A.87.E5.A0.B4.E7.89.88)
-* [IMDB：Whatever Works](http://www.imdb.com/title/tt1178663/)
+
+
 
 
 </br>
