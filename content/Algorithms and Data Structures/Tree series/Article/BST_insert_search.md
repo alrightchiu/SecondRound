@@ -335,7 +335,7 @@ no element with Key(73)
 結果看起來與圖二(d)一致：
 
 <center>
-![bst][f10]
+![bst][f11]
 
 **圖二(d)：。**  
 </center> 
@@ -356,7 +356,7 @@ no element with Key(73)
 [f8]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f8.png?raw=true
 [f9]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f9.png?raw=true
 [f10]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f10.png?raw=true
-
+[f11]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f11.png?raw=true
 
 </br>
 
