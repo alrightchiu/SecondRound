@@ -47,7 +47,7 @@ Summary: 謹以Binary Search Tree(二元搜尋樹)向拯救90後的童年的鉅�
 
  
 <center>
-![dictionary1][dictionary1]
+![dictionary1][f1]
 
 **圖一：。**  
 </center> 
@@ -56,7 +56,7 @@ Summary: 謹以Binary Search Tree(二元搜尋樹)向拯救90後的童年的鉅�
 
 
 <center>
-![dictionary2][dictionary2]
+![dictionary2][f2]
 
 **圖二：。**  
 </center>
@@ -91,12 +91,12 @@ private:
 
 有了加裝Dictionary後的`TreeNode`，便能夠說明BST的特徵：
 
-* 任何CurrnetNode之Key若與其left child、right child之Key有以下關係(若pointer指向`NULL`則忽略)：$Key(L)<Key(Current)<Key(R)$，則可稱這棵樹為Binary Search Tree(BST)。
+* 任何CurrnetNode之Key若與其left child、right child之Key有以下關係(若pointer指向`NULL`則忽略)：Key(L)<Key(Current)<Key(R)，則可稱這棵樹為Binary Search Tree(BST)。
 
-以圖三為例，樹中有三個node，悟空的戰鬥力為1000，龜仙人的戰鬥力為8，克林的戰鬥力為2，若將龜仙人設為`root`，則克林的戰鬥力較小，因此成為龜仙人的left child，悟空的戰鬥力較大，便成為龜仙人的right child，如此便滿足$Key(L)<Key(Current)<Key(R)$，即可稱圖三為一棵BST。
+以圖三為例，樹中有三個node，悟空的戰鬥力為$1000$，龜仙人的戰鬥力為$8$，克林的戰鬥力為$2$，若將龜仙人設為`root`，則克林的戰鬥力較小，因此成為龜仙人的left child，悟空的戰鬥力較大，便成為龜仙人的right child，如此便滿足Key(L)<Key(Current)<Key(R)，即可稱圖三為一棵BST。
 
 <center>
-![bst][bst]
+![bst][f3]
 
 **圖三：。**  
 </center>
@@ -109,34 +109,35 @@ private:
 
 ##在Binary Search Tree中管理資料
 
-故事一開始的主要角色有悟空(1000)、龜仙人(8)和克林(2)，以龜仙人為`root`能夠建立出一棵BST如圖四：
+故事一開始的主要角色有悟空($1000$)、龜仙人($8$)和克林($2$)，以龜仙人為`root`能夠建立出一棵BST如圖四：
 
 <center>
-![bst1][bst1]
+![bst1][f4]
 
 **圖四：。**  
 </center>
-</br>
 
+
+</br>
 
 <a name="insert"></a>
 
 ###insert(新增資料)
 
 隨著故事劇情推進，角色也會跟著增加，因此，要在BST中**新增node(新增資料)**。  
-在此，比克大魔王現身地球危害人間，其戰鬥力為513，欲將其放進BST，根據BST的規則判斷出，比克的戰鬥力比龜仙人高，因此要將比克放在龜仙人的right subtree(右子樹)；接著，再和悟空比較，比克的戰鬥力比悟空低，因此將比克建立在悟空的left child上，如圖五(a)所示：
+在此，比克大魔王現身地球危害人間，其戰鬥力為$513$，欲將其放進BST，根據BST的規則判斷出，比克的戰鬥力比龜仙人高，因此要將比克放在龜仙人的right subtree(右子樹)；接著，再和悟空比較，比克的戰鬥力比悟空低，因此將比克建立在悟空的left child上，如圖五(a)所示：
 
 <center>
-![insert][insert1]
+![insert][f5]
 
 **圖五(a)：。**  
 </center>
 
-接著，賽亞人王子達爾登場，其戰鬥力為524，根據BST的規則，判斷出其應在「龜仙人的right subtree」、「悟空的left subtree」與比克的「right child」，如圖五(b)所示。  
+接著，賽亞人王子達爾登場，其戰鬥力為$524$，根據BST的規則，判斷出其應在「龜仙人的right subtree」、「悟空的left subtree」與比克的「right child」，如圖五(b)所示。  
 在下一篇文章將會看到，實際上的演算法正是以這種方式實現：移動`CurrentNode`，並將`CurrentNode`之Key與「欲新增之node的Key」比較，找到符合BST規則的位置後，置入新的node。
 
 <center>
-![insert][insert2]
+![insert][f6]
 
 **圖五(b)：。**  
 </center>
@@ -147,13 +148,13 @@ private:
 ###search(搜尋資料)
 
 在處理資料時，時常需要尋找某特定資料，是否存在資料結構中。以BST處理資料，最簡單的方式便是用Key尋找。  
-以圖六為例，故事推進到納美克星弗力札大王篇，若想要確認基紐隊長的資料是否已經建立完成，只要記住隊長的戰鬥力為「627」，進入BST中，便能夠找到隊長，必且回傳(return)隊長的node。  
-有時會出現欲搜尋的資料尚未被建立進BST中、或者已經從BST中移除的情況，例如，若要在悟空變成超級賽亞人之前找克林，以克林的戰鬥力「2」來搜尋，但是發現找不到，便回傳`NULL`。
+以圖六為例，故事推進到納美克星弗力札大王篇，若想要確認基紐隊長的資料是否已經建立完成，只要記住隊長的戰鬥力為「$627$」，進入BST中，便能夠找到隊長，必且回傳(return)隊長的node。  
+有時會出現欲搜尋的資料尚未被建立進BST中、或者已經從BST中移除的情況，例如，若要在悟空變成超級賽亞人之前找克林，以克林的戰鬥力「$2$」來搜尋，但是發現找不到，便回傳`NULL`。
 
 因為克林被弗力札大王給殺死了啊啊阿啊(變身超級賽亞人)。
 
 <center>
-![search][search]
+![search][f7]
 
 **圖六：。**  
 </center>
@@ -167,7 +168,7 @@ private:
 故事來到了魔人普烏篇，因為角色有點多，有點混亂，此時，若想要知道各角色戰鬥力的大小排序，只要按照**Inorder Traversal**即可按照戰鬥力(Key)高低列出所有資料：
 
 <center>
-![sort][sort]
+![sort][f8]
 
 **圖七：藍色數字為戰鬥力(key)，紅色數字表示「戰鬥力由小到大」之順序。**  
 </center>
@@ -185,26 +186,26 @@ private:
 
 
 <center>
-![delete][delete]
+![delete][f9]
 
 **圖八：。**  
 </center>
 
-[dictionary1]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/Intro/f1.png?raw=true
-[dictionary2]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/Intro/f2.png?raw=true
-[bst]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/Intro/f3.png?raw=true
-[bst1]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/Intro/f14.png?raw=true 
-[insert1]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/Intro/f4.png?raw=true
-[insert2]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/Intro/f5.png?raw=true
-[search]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/Intro/f16.png?raw=true
-[sort]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/Intro/f17.png?raw=true
-[delete]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/Intro/f15.png?raw=true
+[f1]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/Intro/f1.png?raw=true
+[f2]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/Intro/f2.png?raw=true
+[f3]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/Intro/f3.png?raw=true
+[f4]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/Intro/f4.png?raw=true 
+[f5]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/Intro/f5.png?raw=true
+[f6]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/Intro/f6.png?raw=true
+[f7]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/Intro/f7.png?raw=true
+[f8]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/Intro/f8.png?raw=true
+[f9]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/Intro/f9.png?raw=true
 
 </br>
 
 
 
-以上便是BST與BST中的基本操作之介紹，所有操作都是以BST之特徵：$Key(L)<Key(Current)<Key(R)$為出發點，尤其是新增node與刪除node，務必要滿足BST之規則。
+以上便是BST與BST中的基本操作之介紹，所有操作都是以BST之特徵：Key(L)<Key(Current)<Key(R)為出發點，尤其是新增node與刪除node，務必要滿足BST之規則。
 
 接下來，將以兩篇文章的篇幅，說明上述四種資料處理操作的演算法。
 
