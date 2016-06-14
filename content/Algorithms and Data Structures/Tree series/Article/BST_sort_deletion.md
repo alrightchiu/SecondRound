@@ -9,7 +9,7 @@ Summary: 介紹Binary Search Tree(二元搜尋樹)的基本操作：Sort(排序)
 </br>
 ###先備知識與注意事項
 
-(完整範例程式碼也可以看這裡：[BST_Delete.cpp]())
+(完整範例程式碼也可以看這裡：[BST_Delete.cpp](https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/ExampleCode/BST_Delete.cpp))
 
 由於Sort與Delete會用到先前在[Binary Tree：Traversal介紹過的Leftmost()、Rightmost()、Successor()與Predecessor()](http://alrightchiu.github.io/SecondRound/binary-tree-traversalxun-fang.html#in_parent)，因此建議在開始閱讀本篇文章之前，先復習上述四個函式操作。  
 
