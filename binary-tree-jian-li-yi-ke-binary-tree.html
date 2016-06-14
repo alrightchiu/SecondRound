@@ -154,11 +154,19 @@
 <p>先看看<code>main()</code>中，上半部分別為：</p>
 <ul>
 <li>原始資料：字元陣列；</li>
-<li>以該字元陣列實體化(instantiate)一棵Binary Tree，本篇重點在此；</li>
+<li>以字元陣列建立一棵如圖二的Binary Tree，本篇重點在此；</li>
 <li>以inorder traversal印出樹的資料。</li>
 </ul>
-<p>下半部則是示範以<code>queue</code>實現level-order traversal之小應用：以Complete Binary Tree之位置規則在樹中新增node。  </p>
-<p>溫馨小提醒：純粹以inorder traversal之結果並無法驗證樹之結構正如圖一(舉例來說：以inorder traversal對某一Linked list也可能得出相同結果)，因此，建議還是使用任何可取得的debugger把pointer全部攤開。</p>
+<p><center>
+<img alt="binary tree of char array" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/ex_char.png?raw=true" /></p>
+<p><strong>圖二：。</strong><br />
+</center> </p>
+<p>下半部則是示範以<code>queue</code>實現level-order traversal之小應用：以Complete Binary Tree之位置規則在樹中新增node，最後會把圖二之Binary Tree裡的「洞」給補起來，如圖四(b)。  </p>
+<p><center>
+<img alt="insertLMN" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/insertLMN.png?raw=true" />  </p>
+<p><strong>圖四(b)：。</strong><br />
+</center> </p>
+<p>溫馨小提醒：純粹以inorder traversal之結果並無法驗證樹之結構正如圖一(舉例來說：以inorder traversal對某個Linked list也可能得出相同結果)，因此，建議還是使用任何可取得的debugger把pointer全部攤開。</p>
 <div class="highlight"><pre><span class="c1">// C++ code</span>
 <span class="cp">#include &lt;iostream&gt;</span>
 <span class="cp">#include &lt;sstream&gt;</span>
@@ -166,7 +174,7 @@
 
 <span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">a</span> <span class="o">=</span> <span class="s">&quot;A B C D E F x x x G H x I&quot;</span><span class="p">;</span>
-    <span class="n">BinaryTree</span> <span class="n">T</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>                    <span class="c1">// 以level-order規則建立Binary Tree</span>
+    <span class="n">BinaryTree</span> <span class="n">T</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>                <span class="c1">// 以level-order規則建立Binary Tree</span>
     <span class="n">T</span><span class="p">.</span><span class="n">Inorder_by_parent</span><span class="p">();</span>      <span class="c1">// 以inorder-traversal印出Binary Tree</span>
     <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 
@@ -188,7 +196,6 @@
 </pre></div>
 
 
-<p>// 放圖, </p>
 <p></br> </p>
 <p><a name="def"></a></p>
 <h3>定義class TreeNode、class BinaryTree</h3>
@@ -203,7 +210,7 @@
     <span class="n">TreeNode</span> <span class="o">*</span><span class="n">parent</span><span class="p">;</span>
     <span class="kt">char</span> <span class="n">data</span><span class="p">;</span>
 <span class="k">public</span><span class="o">:</span>
-    <span class="n">TreeNode</span><span class="p">()</span><span class="o">:</span><span class="n">leftchild</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="n">rightchild</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="n">parent</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="n">data</span><span class="p">(</span><span class="err">&#39;&#39;</span><span class="p">){};</span>
+    <span class="n">TreeNode</span><span class="p">()</span><span class="o">:</span><span class="n">leftchild</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="n">rightchild</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="n">parent</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="n">data</span><span class="p">(</span><span class="sc">&#39;x&#39;</span><span class="p">){};</span>
     <span class="n">TreeNode</span><span class="p">(</span><span class="kt">char</span> <span class="n">s</span><span class="p">)</span><span class="o">:</span><span class="n">leftchild</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="n">rightchild</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="n">parent</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="n">data</span><span class="p">(</span><span class="n">s</span><span class="p">){};</span>
 
     <span class="k">friend</span> <span class="k">class</span> <span class="nc">BinaryTree</span><span class="p">;</span>
@@ -219,7 +226,6 @@
     <span class="kt">void</span> <span class="nf">LevelorderConstruct</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">stringstream</span> <span class="o">&amp;</span><span class="n">ss</span><span class="p">);</span>
     <span class="kt">void</span> <span class="nf">InsertLevelorder</span><span class="p">(</span><span class="kt">char</span> <span class="n">data</span><span class="p">);</span>
 
-    <span class="c1">// print data by in-order traversal</span>
     <span class="n">TreeNode</span><span class="o">*</span> <span class="nf">leftmost</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">);</span>
     <span class="n">TreeNode</span><span class="o">*</span> <span class="nf">InorderSuccessor</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">);</span>
     <span class="kt">void</span> <span class="nf">Inorder_by_parent</span><span class="p">();</span>
@@ -396,50 +402,53 @@
 <p></br>  </p>
 <p></br>
 <a name="func2"></a></p>
-<h3>Function：insertLevelorder</h3>
-<p>函式<code>insertLevelorder()</code>的功能是，能夠按照Complete Binary Tree的位置順序放置新增的node，例如，若要在圖三之樹上新增帶有字母<strong>'K'</strong>的node，則<code>T.insertLevelorder('K')</code>便會將<strong>'K'</strong>建成C的right child，如圖四(a)：</p>
+<h3>Function：InsertLevelorder</h3>
+<p>函式<code>InsertLevelorder()</code>的功能是，能夠按照Complete Binary Tree的位置順序放置新增的node，例如，若要在圖三之樹上新增帶有字母<strong>'K'</strong>的node，則<code>T.insertLevelorder('K')</code>便會將<strong>'K'</strong>建成C的right child，如圖四(a)：</p>
 <p><center>
 <img alt="insertK" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/insertK.png?raw=true" />  </p>
 <p><strong>圖四(a)：。</strong><br />
 </center> </p>
 <p>再依序新增L、M、N：</p>
 <ul>
-<li><code>T.insertLevelorder('L')</code>  </li>
-<li><code>T.insertLevelorder('M')</code>  </li>
-<li><code>T.insertLevelorder('N')</code></li>
+<li><code>T.InsertLevelorder('L');</code>  </li>
+<li><code>T.InsertLevelorder('M');</code>  </li>
+<li><code>T.InsertLevelorder('N');</code></li>
 </ul>
 <p>即會得到如圖四(b)的樹：</p>
 <p><center>
 <img alt="insertLMN" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/insertLMN.png?raw=true" />  </p>
 <p><strong>圖四(b)：。</strong><br />
 </center> </p>
-<p>程式碼之邏輯與<code>LevelorderConstruct</code>大同小異，最主要的部分就是利用<code>queue</code>來記錄<code>CurrentNode</code>移動的順序：</p>
+<p>程式碼之邏輯與<code>LevelorderConstruct()</code>大同小異，最主要的部分就是利用<code>queue</code>來記錄<code>CurrentNode</code>移動的順序：</p>
 <ul>
 <li>首先，將<code>current</code>設成<code>root</code>，若樹存在，則進入<code>while</code>迴圈。</li>
-<li>接著判斷，若<code>current</code>之left child已經有node，則將之放入<code>queue</code>中，在下次迴圈將以此node作為<code>current</code>，若left child還沒有node，便產生帶有<code>data</code>之新node，並將其建立成<code>current</code>之left child。<br />
-pointer連接完成後，結束迴圈。</li>
+<li>接著要開始「找空位」，若<code>current</code>之left child已經有node，則將之放入<code>queue</code>中，在下次迴圈將以此node作為<code>current</code>，若left child還沒有node，便產生帶有<code>data</code>之新node，並將其建立成<code>current</code>之left child。<br />
+當「parent指向child」與「child指向parent」的pointer連接完成後，便結束迴圈。</li>
 <li>對<code>current</code>之right child進行相同之步驟。</li>
 </ul>
 <p>如此便能有效控制Binary Tree之樹高(height)，使pointer所配置之記憶體空間有效利用，亦能夠減少traversal(以及其他操作)所需的時間。</p>
 <div class="highlight"><pre><span class="c1">// C++ code</span>
-<span class="kt">void</span> <span class="n">BinaryTree</span><span class="o">::</span><span class="n">insertLevelorder</span><span class="p">(</span><span class="kt">char</span> <span class="n">data</span><span class="p">){</span>    
+<span class="kt">void</span> <span class="n">BinaryTree</span><span class="o">::</span><span class="n">InsertLevelorder</span><span class="p">(</span><span class="kt">char</span> <span class="n">data</span><span class="p">){</span>    
+
     <span class="n">std</span><span class="o">::</span><span class="n">queue</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">*&gt;</span> <span class="n">q</span><span class="p">;</span>
     <span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span> <span class="o">=</span> <span class="n">root</span><span class="p">;</span>
 
     <span class="k">while</span> <span class="p">(</span><span class="n">current</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span>
-            <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">);</span>
-        <span class="k">else</span><span class="p">{</span>
-            <span class="n">TreeNode</span> <span class="o">*</span><span class="n">new_node</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">){</span>               <span class="c1">// current的leftchild沒有空位</span>
+            <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">);</span>                <span class="c1">// 將其推進queue中</span>
+        <span class="p">}</span>
+        <span class="k">else</span><span class="p">{</span>                                          <span class="c1">// current的leftchild有空位</span>
+            <span class="n">TreeNode</span> <span class="o">*</span><span class="n">new_node</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>   <span class="c1">// 建立新的node, 將字母放在這裡</span>
             <span class="n">new_node</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">=</span> <span class="n">current</span><span class="p">;</span>
             <span class="n">current</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">=</span> <span class="n">new_node</span><span class="p">;</span>
-            <span class="k">break</span><span class="p">;</span>
+            <span class="k">break</span><span class="p">;</span>                         
         <span class="p">}</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span>
-            <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="p">);</span>
-        <span class="k">else</span><span class="p">{</span>
-            <span class="n">TreeNode</span> <span class="o">*</span><span class="n">new_node</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
-            <span class="n">new_node</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">=</span> <span class="n">current</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>             <span class="c1">// current的rightchild沒有空位</span>
+            <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="p">);</span>               <span class="c1">// 將其推進queue中</span>
+        <span class="p">}</span>
+        <span class="k">else</span><span class="p">{</span>                                          <span class="c1">// current的rightchild有空位</span>
+            <span class="n">TreeNode</span> <span class="o">*</span><span class="n">new_node</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>   <span class="c1">// 建立新的node, 將字母放在這裡</span>
+            <span class="n">new_node</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">=</span> <span class="n">current</span><span class="p">;</span>                
             <span class="n">current</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">=</span> <span class="n">new_node</span><span class="p">;</span>
             <span class="k">break</span><span class="p">;</span>
         <span class="p">}</span>
@@ -452,7 +461,7 @@ pointer連接完成後，結束迴圈。</li>
 
 <p></br><br />
 以上便是利用<code>queue</code>執行level-order方式建立Binary Tree之範例。<br />
-另外，<a href="http://www.geeksforgeeks.org/level-order-tree-traversal/">有些方法是利用遞迴的方式，外帶一個迴圈來進行level-order traversal</a>，也能夠完成相同的功能。</p>
+另外，<a href="http://www.geeksforgeeks.org/level-order-tree-traversal/">利用遞迴的方式，外帶一個迴圈來進行level-order traversal</a>，也能夠完成相同的功能。</p>
 <p></br></p>
 <hr />
 <p><a name="ref"></a></p>
