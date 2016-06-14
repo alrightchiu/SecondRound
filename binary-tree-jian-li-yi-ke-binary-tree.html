@@ -169,10 +169,10 @@
     <span class="n">T</span><span class="p">.</span><span class="n">Inorder_by_parent</span><span class="p">();</span>      <span class="c1">// 以inorder-traversal印出Binary Tree</span>
     <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 
-    <span class="n">T</span><span class="p">.</span><span class="n">insertLevelorder</span><span class="p">(</span><span class="sc">&#39;K&#39;</span><span class="p">);</span>
-    <span class="n">T</span><span class="p">.</span><span class="n">insertLevelorder</span><span class="p">(</span><span class="sc">&#39;L&#39;</span><span class="p">);</span>
-    <span class="n">T</span><span class="p">.</span><span class="n">insertLevelorder</span><span class="p">(</span><span class="sc">&#39;M&#39;</span><span class="p">);</span>
-    <span class="n">T</span><span class="p">.</span><span class="n">insertLevelorder</span><span class="p">(</span><span class="sc">&#39;N&#39;</span><span class="p">);</span>
+    <span class="n">T</span><span class="p">.</span><span class="n">InsertLevelorder</span><span class="p">(</span><span class="sc">&#39;K&#39;</span><span class="p">);</span>
+    <span class="n">T</span><span class="p">.</span><span class="n">InsertLevelorder</span><span class="p">(</span><span class="sc">&#39;L&#39;</span><span class="p">);</span>
+    <span class="n">T</span><span class="p">.</span><span class="n">InsertLevelorder</span><span class="p">(</span><span class="sc">&#39;M&#39;</span><span class="p">);</span>
+    <span class="n">T</span><span class="p">.</span><span class="n">InsertLevelorder</span><span class="p">(</span><span class="sc">&#39;N&#39;</span><span class="p">);</span>
     <span class="n">T</span><span class="p">.</span><span class="n">Inorder_by_parent</span><span class="p">();</span>
     <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 
@@ -193,11 +193,9 @@
 <h3>定義class TreeNode、class BinaryTree</h3>
 <p>幾點說明：</p>
 <ul>
-<li>這裡對<code>class TreeNode</code>與<code>class BinaryTree</code>之定義，與<a href="http://alrightchiu.github.io/SecondRound/binary-tree-traversal.html#ex_code">上一篇文章</a>之最大不同在於資料的隱蔽性，因為在此不需要於<code>main()</code>中存取任何pointer(<code>root</code>、<code>leftchild</code>、<code>rightchild</code>)，因此將之放進<strong>private</strong>區塊。</li>
-<li>在許多traversal中，時常以pointer不為<code>NULL</code>作為<code>while</code>的判斷式，因此在constructor中，多做一步，將pointer指向<code>NULL</code>(eg：<code>leftchild = 0</code>)避免埋地雷在日後炸自己。</li>
-<li>在<code>class BinaryTree</code>除了上一篇介紹過的inorder traversal外，多了兩個新朋友<code>LevelorderConstruct()</code>與<code>insertLevelorder()</code>，前者即是本篇主角，吃進<code>stringstream</code>後，把樹建出來；後者純粹是好玩，其功能為「以Complete Binary Tree之位置規則，在理應出現node的位置，新增node」，能夠儘量減少在新增node時增加樹高(height)。</li>
+<li>這裡對<code>class TreeNode</code>與<code>class BinaryTree</code>之定義，與<a href="http://alrightchiu.github.io/SecondRound/binary-tree-traversalxun-fang.html#ex_code">上一篇文章</a>之最大不同在於資料的隱蔽性，因為在此不需要於<code>main()</code>中存取任何pointer(<code>root</code>、<code>leftchild</code>、<code>rightchild</code>)，因此將之放進<strong>private</strong>區塊。</li>
+<li>在<code>class BinaryTree</code>除了上一篇介紹過的inorder traversal外，多了兩個新朋友<code>LevelorderConstruct()</code>與<code>InsertLevelorder()</code>，前者即是本篇主角，吃進<code>stringstream</code>後，把樹建出來；後者純粹是好玩，其功能為「以Complete Binary Tree之位置規則，在理應出現node的位置，新增node」，能夠儘量減少在新增node時增加樹高(height)。</li>
 </ul>
-<p>看下去。</p>
 <div class="highlight"><pre><span class="c1">// C++ code</span>
 <span class="k">class</span> <span class="nc">BinaryTree</span><span class="p">;</span>
 <span class="k">class</span> <span class="nc">TreeNode</span><span class="p">{</span>
@@ -207,8 +205,8 @@
     <span class="n">TreeNode</span> <span class="o">*</span><span class="n">parent</span><span class="p">;</span>
     <span class="kt">char</span> <span class="n">data</span><span class="p">;</span>
 <span class="k">public</span><span class="o">:</span>
-    <span class="n">TreeNode</span><span class="p">(){</span> <span class="n">leftchild</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">rightchild</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">parent</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="p">};</span>
-    <span class="n">TreeNode</span><span class="p">(</span><span class="kt">char</span> <span class="n">s</span><span class="p">)</span><span class="o">:</span><span class="n">data</span><span class="p">(</span><span class="n">s</span><span class="p">){</span><span class="n">leftchild</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">rightchild</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">parent</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="p">};</span>
+    <span class="n">TreeNode</span><span class="p">()</span><span class="o">:</span><span class="n">leftchild</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="n">rightchild</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="n">parent</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="n">data</span><span class="p">(</span><span class="err">&#39;&#39;</span><span class="p">){};</span>
+    <span class="n">TreeNode</span><span class="p">(</span><span class="kt">char</span> <span class="n">s</span><span class="p">)</span><span class="o">:</span><span class="n">leftchild</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="n">rightchild</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="n">parent</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="n">data</span><span class="p">(</span><span class="n">s</span><span class="p">){};</span>
 
     <span class="k">friend</span> <span class="k">class</span> <span class="nc">BinaryTree</span><span class="p">;</span>
 <span class="p">};</span>
@@ -217,11 +215,11 @@
 <span class="k">private</span><span class="o">:</span>
     <span class="n">TreeNode</span> <span class="o">*</span><span class="n">root</span><span class="p">;</span>
 <span class="k">public</span><span class="o">:</span>
-    <span class="n">BinaryTree</span><span class="p">(){</span> <span class="n">root</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;};</span>
+    <span class="n">BinaryTree</span><span class="p">()</span><span class="o">:</span><span class="n">root</span><span class="p">(</span><span class="mi">0</span><span class="p">){};</span>
     <span class="n">BinaryTree</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">str</span><span class="p">);</span>
 
     <span class="kt">void</span> <span class="nf">LevelorderConstruct</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">stringstream</span> <span class="o">&amp;</span><span class="n">ss</span><span class="p">);</span>
-    <span class="kt">void</span> <span class="nf">insertLevelorder</span><span class="p">(</span><span class="kt">char</span> <span class="n">data</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="nf">InsertLevelorder</span><span class="p">(</span><span class="kt">char</span> <span class="n">data</span><span class="p">);</span>
 
     <span class="n">TreeNode</span><span class="o">*</span> <span class="nf">leftmost</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">);</span>
     <span class="n">TreeNode</span><span class="o">*</span> <span class="nf">InorderSuccessor</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">);</span>
@@ -237,10 +235,10 @@
 <div class="highlight"><pre><span class="c1">// C++ code</span>
 <span class="n">BinaryTree</span><span class="o">::</span><span class="n">BinaryTree</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">str</span><span class="p">){</span>
     <span class="n">std</span><span class="o">::</span><span class="n">stringstream</span>  <span class="n">ss</span><span class="p">;</span>
-    <span class="n">ss</span> <span class="o">&lt;&lt;</span> <span class="n">str</span><span class="p">;</span>
+    <span class="n">ss</span> <span class="o">&lt;&lt;</span> <span class="n">str</span><span class="p">;</span>                     <span class="c1">// magic!</span>
 
     <span class="n">root</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">;</span>
-    <span class="n">ss</span> <span class="o">&gt;&gt;</span> <span class="n">root</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">;</span>
+    <span class="n">ss</span> <span class="o">&gt;&gt;</span> <span class="n">root</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">;</span>               
 
     <span class="n">LevelorderConstruct</span><span class="p">(</span><span class="n">ss</span><span class="p">);</span>
 <span class="p">}</span>
@@ -250,13 +248,44 @@
 <p></br></p>
 <p><a name="func1"></a></p>
 <h3>Function：LevelorderConstruct</h3>
-<ul>
-<li>在看<code>LevelorderConstruct()</code>的函式主體之前，再看一眼<a href="http://alrightchiu.github.io/SecondRound/binary-tree-traversal.html#level">level-order traversal</a>，概念上即是藉著<code>queue</code>的「先排隊就先購票」的特性，在同一個level中，只要確保由左至右將node放進<code>queue</code>中，便能確保在進入下一個level後，以先前放入node之順序進行visiting。  </li>
-<li>在<code>while</code>內，新增條件用來判斷從<code>stringstream</code>中輸出的字母是「大寫字母」(ASCII：65~90)還是「x」，前者要放入樹中建成node，後者則忽略不計。  </li>
-<li>整份程式碼的關鍵在於神器<code>stringstream &amp;ss</code>，只要不斷地透過<code>ss &gt;&gt; data</code>，<code>ss</code>便會自動尋找下一筆資料餵進<code>data</code>。</li>
-<li>最後，當<code>stringstream</code>不再更新<code>data</code>時，也就是字元陣列已全數讀取完畢，即跳出<code>while</code>迴圈。</li>
-</ul>
-<p>步驟如下：</p>
+<p>在看<code>LevelorderConstruct()</code>的函式主體之前，再看一眼<a href="http://alrightchiu.github.io/SecondRound/binary-tree-traversalxun-fang.html#level">level-order traversal</a>，概念上即是藉著<code>queue</code>的「先排隊就先購票」特性，在同一個level中，只要確保由左至右將node放進<code>queue</code>中，便能確保在進入下一個level後，以先前放入node之順序進行visiting。  </p>
+<p>整份程式碼的關鍵在於神器<code>stringstream &amp;ss</code>，只要不斷地透過<code>ss &gt;&gt; data</code>，<code>ss</code>便會自動尋找下一筆資料(字母)餵進<code>data</code>。</p>
+<p><code>while</code>的條件式表示，若<code>ss &gt;&gt; data</code>失敗，也就是再也無法從<code>ss</code>拿到字母放進<code>char data</code>，意味者所有字母已經全數檢查/輸入完畢，即結束迴圈。</p>
+<p>在<code>while</code>內，新增條件用來判斷從<code>stringstream</code>中輸出的字母是「大寫字母」(ASCII：65~90)還是「x」，前者要放入樹中建成node，後者則忽略不計。  </p>
+<p>在每一次迴圈中，會利用<code>ss &gt;&gt; data</code>輸入兩個字母，分別為<code>current</code>的<code>leftchild</code>與<code>rightchild</code>，因此，如果原本字元陣列是奇數筆資料，就會在<code>while</code>迴圈的中間輸入完畢，即跳出迴圈。</p>
+<p><code>LevelorderConstruct()</code>程式定義如下：</p>
+<div class="highlight"><pre><span class="c1">// C++ code</span>
+<span class="kt">void</span> <span class="n">BinaryTree</span><span class="o">::</span><span class="n">LevelorderConstruct</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">stringstream</span> <span class="o">&amp;</span><span class="n">ss</span><span class="p">){</span>
+
+    <span class="n">std</span><span class="o">::</span><span class="n">queue</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">*&gt;</span> <span class="n">q</span><span class="p">;</span>
+    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span> <span class="o">=</span> <span class="n">root</span><span class="p">;</span>
+    <span class="kt">char</span> <span class="n">data</span> <span class="o">=</span> <span class="sc">&#39;x&#39;</span><span class="p">;</span>
+
+    <span class="k">while</span> <span class="p">(</span><span class="n">ss</span> <span class="o">&gt;&gt;</span> <span class="n">data</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">data</span> <span class="o">&gt;=</span> <span class="mi">65</span> <span class="o">&amp;&amp;</span> <span class="n">data</span> <span class="o">&lt;=</span> <span class="mi">90</span><span class="p">){</span>                <span class="c1">// 新增current的leftchild</span>
+            <span class="n">TreeNode</span> <span class="o">*</span><span class="n">new_node</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>  <span class="c1">// call constructor TreeNode(char s)</span>
+            <span class="n">new_node</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">=</span> <span class="n">current</span><span class="p">;</span>
+            <span class="n">current</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">=</span> <span class="n">new_node</span><span class="p">;</span>
+            <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">new_node</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="n">ss</span> <span class="o">&gt;&gt;</span> <span class="n">data</span><span class="p">)){</span>                           <span class="c1">// 有可能char array含有奇數筆資料</span>
+            <span class="k">break</span><span class="p">;</span>                                    <span class="c1">// 所以在這裡結束迴圈</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">data</span> <span class="o">&gt;=</span> <span class="mi">65</span> <span class="o">&amp;&amp;</span> <span class="n">data</span> <span class="o">&lt;=</span> <span class="mi">90</span><span class="p">){</span>                <span class="c1">// 新增current的rightchild</span>
+            <span class="n">TreeNode</span> <span class="o">*</span><span class="n">new_node</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">;</span>        <span class="c1">// call constructor TreeNode()</span>
+            <span class="n">new_node</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">=</span> <span class="n">current</span><span class="p">;</span>
+            <span class="n">current</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">=</span> <span class="n">new_node</span><span class="p">;</span>
+            <span class="n">new_node</span><span class="o">-&gt;</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">;</span>                    <span class="c1">// assign data to new_node</span>
+            <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">new_node</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="n">current</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">front</span><span class="p">();</span>                          <span class="c1">// 從queue中更新current</span>
+        <span class="n">q</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>                                      <span class="c1">// 更新queue</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>詳細步驟如下：</p>
 <ul>
 <li>首先，在Binary Tree的constructor中，先配置<code>root</code>的記憶體位置，並透過第一次<code>ss &gt;&gt; root-&gt;data</code>將第一個字母放進<code>root</code>中，如圖三(a)。</li>
 </ul>
@@ -361,35 +390,6 @@
 <p><strong>圖三(m)：。</strong><br />
 </center> </p>
 <p></br>  </p>
-<div class="highlight"><pre><span class="c1">// C++ code</span>
-<span class="kt">void</span> <span class="n">BinaryTree</span><span class="o">::</span><span class="n">LevelorderConstruct</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">stringstream</span> <span class="o">&amp;</span><span class="n">ss</span><span class="p">){</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">queue</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">*&gt;</span> <span class="n">q</span><span class="p">;</span>
-    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span> <span class="o">=</span> <span class="n">root</span><span class="p">;</span>
-    <span class="kt">char</span> <span class="n">data</span> <span class="o">=</span> <span class="sc">&#39;x&#39;</span><span class="p">;</span>
-    <span class="k">while</span> <span class="p">(</span><span class="n">ss</span> <span class="o">&gt;&gt;</span> <span class="n">data</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">data</span> <span class="o">&gt;=</span> <span class="mi">65</span> <span class="o">&amp;&amp;</span> <span class="n">data</span> <span class="o">&lt;=</span> <span class="mi">90</span><span class="p">){</span>
-            <span class="n">TreeNode</span> <span class="o">*</span><span class="n">new_node</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>  <span class="c1">// call constructor TreeNode(char s)</span>
-            <span class="n">new_node</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">=</span> <span class="n">current</span><span class="p">;</span>
-            <span class="n">current</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">=</span> <span class="n">new_node</span><span class="p">;</span>
-            <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">new_node</span><span class="p">);</span>
-        <span class="p">}</span>
-        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="n">ss</span> <span class="o">&gt;&gt;</span> <span class="n">data</span><span class="p">))</span>
-            <span class="k">break</span><span class="p">;</span>
-
-        <span class="k">if</span> <span class="p">(</span><span class="n">data</span> <span class="o">&gt;=</span> <span class="mi">65</span> <span class="o">&amp;&amp;</span> <span class="n">data</span> <span class="o">&lt;=</span> <span class="mi">90</span><span class="p">){</span>
-            <span class="n">TreeNode</span> <span class="o">*</span><span class="n">new_node</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">;</span>        <span class="c1">// call constructor TreeNode()</span>
-            <span class="n">new_node</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">=</span> <span class="n">current</span><span class="p">;</span>
-            <span class="n">current</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">=</span> <span class="n">new_node</span><span class="p">;</span>
-            <span class="n">new_node</span><span class="o">-&gt;</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">;</span>                    <span class="c1">// assign data to new_node</span>
-            <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">new_node</span><span class="p">);</span>
-        <span class="p">}</span>
-        <span class="n">current</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">front</span><span class="p">();</span>
-        <span class="n">q</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</pre></div>
-
-
 <p></br>
 <a name="func2"></a></p>
 <h3>Function：insertLevelorder</h3>
