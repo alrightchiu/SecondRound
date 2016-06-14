@@ -15078,7 +15078,8 @@ $$&lt;/div&gt;
 &lt;/center&gt; &lt;/p&gt;
 &lt;p&gt;接著，繼續比較欲新增node之Key(比克(&lt;span class="math"&gt;\(513\)&lt;/span&gt;))與「哨兵&lt;strong&gt;x&lt;/strong&gt;」之Key(悟空(&lt;span class="math"&gt;\(1000\)&lt;/span&gt;))，結果是悟空的戰鬥力較高，比克應該要長在悟空的left subtree，因此，將「哨兵&lt;strong&gt;x&lt;/strong&gt;」往悟空的left child(&lt;code&gt;NULL&lt;/code&gt;)移動，同時更新「準新手爸媽&lt;strong&gt;y&lt;/strong&gt;」為悟空，如圖二(c)。&lt;/p&gt;
 &lt;p&gt;更新後，「準新手爸媽&lt;strong&gt;y&lt;/strong&gt;」成為悟空，「哨兵&lt;strong&gt;x&lt;/strong&gt;」指向&lt;code&gt;NULL&lt;/code&gt;壯烈犧牲，即達到跳出迴圈之條件。此時，便找到了「新增node」之適當位置。  &lt;/p&gt;
-&lt;p&gt;那個「適當位置」在哪裡呢？就是「準新手爸媽&lt;strong&gt;y&lt;/strong&gt;」的child pointer。表示比克(&lt;span class="math"&gt;\(513\)&lt;/span&gt;)一定會是悟空(&lt;span class="math"&gt;\(1000\)&lt;/span&gt;)的child。&lt;/p&gt;
+&lt;p&gt;那個「適當位置」在哪裡呢？就是「準新手爸媽&lt;strong&gt;y&lt;/strong&gt;」的child pointer。&lt;br /&gt;
+表示比克(&lt;span class="math"&gt;\(513\)&lt;/span&gt;)一定會是悟空(&lt;span class="math"&gt;\(1000\)&lt;/span&gt;)的child。&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
 &lt;img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f9.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖二(c)：。&lt;/strong&gt;&lt;br /&gt;
@@ -15125,7 +15126,7 @@ $$&lt;/div&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;有了&lt;code&gt;BST::InsertBST()&lt;/code&gt;後，就可以用土法煉鋼的方式建立一棵如圖二(d)的BST，再以&lt;a href=""&gt;&lt;/a&gt;介紹過的Inorder Traversal與Level-Order Traversal檢驗，順便測試BST中是否有Key(&lt;span class="math"&gt;\(1000\)&lt;/span&gt;)與Key(&lt;span class="math"&gt;\(73\)&lt;/span&gt;)這兩筆資料：&lt;/p&gt;
+&lt;p&gt;有了&lt;code&gt;BST::InsertBST()&lt;/code&gt;後，就可以用土法煉鋼的方式建立一棵如圖二(d)的BST，再以&lt;a href="http://alrightchiu.github.io/SecondRound/binary-tree-traversalxun-fang.html"&gt;Binary Tree: Traversal(尋訪)&lt;/a&gt;介紹過的Inorder Traversal與Level-Order Traversal檢驗，順便測試BST中是否有Key(&lt;span class="math"&gt;\(1000\)&lt;/span&gt;)與Key(&lt;span class="math"&gt;\(73\)&lt;/span&gt;)這兩筆資料：&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// C++ code&lt;/span&gt;
 &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
 

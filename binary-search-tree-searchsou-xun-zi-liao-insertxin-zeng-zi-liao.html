@@ -267,7 +267,8 @@
 </center> </p>
 <p>接著，繼續比較欲新增node之Key(比克(<span class="math">\(513\)</span>))與「哨兵<strong>x</strong>」之Key(悟空(<span class="math">\(1000\)</span>))，結果是悟空的戰鬥力較高，比克應該要長在悟空的left subtree，因此，將「哨兵<strong>x</strong>」往悟空的left child(<code>NULL</code>)移動，同時更新「準新手爸媽<strong>y</strong>」為悟空，如圖二(c)。</p>
 <p>更新後，「準新手爸媽<strong>y</strong>」成為悟空，「哨兵<strong>x</strong>」指向<code>NULL</code>壯烈犧牲，即達到跳出迴圈之條件。此時，便找到了「新增node」之適當位置。  </p>
-<p>那個「適當位置」在哪裡呢？就是「準新手爸媽<strong>y</strong>」的child pointer。表示比克(<span class="math">\(513\)</span>)一定會是悟空(<span class="math">\(1000\)</span>)的child。</p>
+<p>那個「適當位置」在哪裡呢？就是「準新手爸媽<strong>y</strong>」的child pointer。<br />
+表示比克(<span class="math">\(513\)</span>)一定會是悟空(<span class="math">\(1000\)</span>)的child。</p>
 <p><center>
 <img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f9.png?raw=true" /></p>
 <p><strong>圖二(c)：。</strong><br />
@@ -314,7 +315,7 @@
 </pre></div>
 
 
-<p>有了<code>BST::InsertBST()</code>後，就可以用土法煉鋼的方式建立一棵如圖二(d)的BST，再以<a href=""></a>介紹過的Inorder Traversal與Level-Order Traversal檢驗，順便測試BST中是否有Key(<span class="math">\(1000\)</span>)與Key(<span class="math">\(73\)</span>)這兩筆資料：</p>
+<p>有了<code>BST::InsertBST()</code>後，就可以用土法煉鋼的方式建立一棵如圖二(d)的BST，再以<a href="http://alrightchiu.github.io/SecondRound/binary-tree-traversalxun-fang.html">Binary Tree: Traversal(尋訪)</a>介紹過的Inorder Traversal與Level-Order Traversal檢驗，順便測試BST中是否有Key(<span class="math">\(1000\)</span>)與Key(<span class="math">\(73\)</span>)這兩筆資料：</p>
 <div class="highlight"><pre><span class="c1">// C++ code</span>
 <span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
 
