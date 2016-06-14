@@ -138,12 +138,12 @@
 </ul>
 <p>以<a href="http://alrightchiu.github.io/SecondRound/binary-tree-traversal.html#ex_code">Binary Tree：Traversal</a>中所提到的Binary Tree為例，如圖一：</p>
 <p><center>
-<img alt="binary tree" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/ex.png?raw=true" /></p>
+<img alt="binary tree" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/f1.png?raw=true" /></p>
 <p><strong>圖一：。</strong><br />
 </center>   </p>
 <p>其所對應的字元陣列即為：<code>A B C D E F x x x G H x I</code>，如圖二所示：</p>
 <p><center>
-<img alt="binary tree of char array" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/ex_char.png?raw=true" /></p>
+<img alt="binary tree of char array" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/f2.png?raw=true" /></p>
 <p><strong>圖二：。</strong><br />
 </center> </p>
 <p>以下程式範例的目的就是要以如此文明的方式建立出如圖一的Binary Tree。</p>
@@ -158,12 +158,12 @@
 <li>以inorder traversal印出樹的資料。</li>
 </ul>
 <p><center>
-<img alt="binary tree of char array" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/ex_char.png?raw=true" /></p>
+<img alt="binary tree of char array" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/f2.png?raw=true" /></p>
 <p><strong>圖二：。</strong><br />
 </center> </p>
 <p>下半部則是示範以<code>queue</code>實現level-order traversal之小應用：以Complete Binary Tree之位置規則在樹中新增node，最後會把圖二之Binary Tree裡的「洞」給補起來，如圖四(b)。  </p>
 <p><center>
-<img alt="insertLMN" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/insertLMN.png?raw=true" />  </p>
+<img alt="insertLMN" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/f17.png?raw=true" />  </p>
 <p><strong>圖四(b)：。</strong><br />
 </center> </p>
 <p>溫馨小提醒：純粹以inorder traversal之結果並無法驗證樹之結構正如圖一(舉例來說：以inorder traversal對某個Linked list也可能得出相同結果)，因此，建議還是使用任何可取得的debugger把pointer全部攤開。</p>
@@ -297,7 +297,7 @@
 <li>首先，在Binary Tree的constructor中，先配置<code>root</code>的記憶體位置，並透過第一次<code>ss &gt;&gt; root-&gt;data</code>將第一個字母放進<code>root</code>中，如圖三(a)。</li>
 </ul>
 <p><center>
-<img alt="construct_0" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/construct0.png?raw=true" /></p>
+<img alt="construct_0" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/f3.png?raw=true" /></p>
 <p><strong>圖三(a)：從ss取出第一個字母'A'放進<code>root</code>。</strong><br />
 </center> </p>
 <p>接著進入<code>while</code>迴圈。  </p>
@@ -308,7 +308,7 @@
 <li>在<code>queue</code>  的部分，若成功建立出新的node(此為B)，便把B放進<code>queue</code>的隊伍中，表示之後將要把<code>CurrentNode</code>移到B，繼續往下建立新的node。</li>
 </ul>
 <p><center> 
-<img alt="construct_1" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/construct1.png?raw=true" /></p>
+<img alt="construct_1" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/f4.png?raw=true" /></p>
 <p><strong>圖三(b)：。</strong><br />
 </center> </p>
 <p>在同一個迴圈裡，建立完<code>CurrentNode</code>的left child後，接著嘗試建立right child。  </p>
@@ -319,7 +319,7 @@
 </ul>
 <p>此時，<code>queue</code>裡有兩個node，分別為B與C，要注意的是，排隊時，先進入隊伍的人會代表隊伍的前方，因此B為<code>queue</code>的<strong>Front</strong>，C為<code>queue</code>的<strong>Back</strong>。</p>
 <p><center>
-<img alt="construct_2" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/construct2.png?raw=true" />  </p>
+<img alt="construct_2" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/f5.png?raw=true" />  </p>
 <p><strong>圖三(c)：。</strong><br />
 </center> </p>
 <p>在建立完<code>CurrentNode</code>的left child與right child後，接著要移動<code>CurrentNode</code>，作為下一個<code>while</code>迴圈的起點。  </p>
@@ -333,7 +333,7 @@
 </ul>
 <p>如此便能保證，<code>CurrentNode</code>的移動會依照level-order「由上至下、由左至右」之順序。</p>
 <p><center>
-<img alt="construct_3" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/construct3.png?raw=true" />  </p>
+<img alt="construct_3" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/f6.png?raw=true" />  </p>
 <p><strong>圖三(d)：。</strong><br />
 </center> </p>
 <p>進入第二次<code>while</code>迴圈後，重複以上之步驟：</p>
@@ -344,26 +344,26 @@
 </ul>
 <p>仔細觀察圖三(e)至圖三(h)之<code>ss</code>與<code>CurrentNode</code>之移動，與<code>queue</code>的變化：</p>
 <p><center>
-<img alt="construct_4" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/construct4.png?raw=true" />  </p>
+<img alt="construct_4" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/f7.png?raw=true" />  </p>
 <p><strong>圖三(e)：。</strong><br />
 </center> </p>
 <p><center>
-<img alt="construct_5" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/construct5.png?raw=true" />  </p>
+<img alt="construct_5" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/f8.png?raw=true" />  </p>
 <p><strong>圖三(f)：。</strong><br />
 </center> </p>
 <p><center>
-<img alt="construct_6" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/construct6.png?raw=true" />  </p>
+<img alt="construct_6" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/f9.png?raw=true" />  </p>
 <p><strong>圖三(g)：。</strong><br />
 </center> </p>
 <p><center>
-<img alt="construct_7" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/construct7.png?raw=true" />  </p>
+<img alt="construct_7" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/f10.png?raw=true" />  </p>
 <p><strong>圖三(h)：。</strong><br />
 </center></p>
 <ul>
 <li>在建立完C的left child後，從<code>ss</code>讀取到字母<strong>'x'</strong>，因為其並非大寫字母，表示C沒有right child，因此跳過生成新的node之步驟，如圖三(i)。  </li>
 </ul>
 <p><center>
-<img alt="construct_8" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/construct8.png?raw=true" />  </p>
+<img alt="construct_8" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/f11.png?raw=true" />  </p>
 <p><strong>圖三(i)：。</strong><br />
 </center> </p>
 <ul>
@@ -371,7 +371,7 @@
 <li>接著要繼續將<code>CurrentNode</code>移動到<code>queue</code>的第一個元素，也就是D，並把D從<code>queue</code>中移除，如圖三(j)。</li>
 </ul>
 <p><center>
-<img alt="construct_9" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/construct9.png?raw=true" />  </p>
+<img alt="construct_9" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/f12.png?raw=true" />  </p>
 <p><strong>圖三(j)：。</strong><br />
 </center></p>
 <ul>
@@ -379,7 +379,7 @@
 <li>由於沒有新的node產生，<code>queue</code>的隊伍便沒有更新，如圖三(k)。</li>
 </ul>
 <p><center>
-<img alt="construct_10" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/construct10.png?raw=true" /></p>
+<img alt="construct_10" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/f13.png?raw=true" /></p>
 <p><strong>圖三(k)：。</strong><br />
 </center> </p>
 <p>接著，重複步驟：</p>
@@ -389,7 +389,7 @@
 <li>若有生成新的node，則將該node推入<code>queue</code>的隊伍。</li>
 </ul>
 <p><center>
-<img alt="construct_11" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/construct11.png?raw=true" />  </p>
+<img alt="construct_11" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/f14.png?raw=true" />  </p>
 <p><strong>圖三(l)：。</strong><br />
 </center> </p>
 <ul>
@@ -397,7 +397,7 @@
 <li>由於，<code>ss</code>已全數讀取完畢，敘述句：<code>ss &gt;&gt; data</code>不成立，因此結束迴圈。</li>
 </ul>
 <p><center>
-<img alt="construct_12" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/construct12.png?raw=true" />  </p>
+<img alt="construct_12" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/f15.png?raw=true" />  </p>
 <p><strong>圖三(m)：。</strong><br />
 </center> </p>
 <p></br>  </p>
@@ -406,7 +406,7 @@
 <h3>Function：InsertLevelorder</h3>
 <p>函式<code>InsertLevelorder()</code>的功能是，能夠按照Complete Binary Tree的位置順序放置新增的node，例如，若要在圖三之樹上新增帶有字母<strong>'K'</strong>的node，則<code>T.InsertLevelorder('K')</code>便會將<strong>'K'</strong>建成C的right child，如圖四(a)：</p>
 <p><center>
-<img alt="insertK" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/insertK.png?raw=true" />  </p>
+<img alt="insertK" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/f16.png?raw=true" />  </p>
 <p><strong>圖四(a)：。</strong><br />
 </center> </p>
 <p>再依序新增L、M、N：</p>
@@ -417,7 +417,7 @@
 </ul>
 <p>即會得到如圖四(b)的樹：</p>
 <p><center>
-<img alt="insertLMN" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/insertLMN.png?raw=true" />  </p>
+<img alt="insertLMN" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/f17.png?raw=true" />  </p>
 <p><strong>圖四(b)：。</strong><br />
 </center> </p>
 <p>程式碼之邏輯與<code>LevelorderConstruct()</code>大同小異，最主要的部分就是利用<code>queue</code>來記錄<code>CurrentNode</code>移動的順序：</p>
