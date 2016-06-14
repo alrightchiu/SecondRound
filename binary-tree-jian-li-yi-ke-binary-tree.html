@@ -113,7 +113,7 @@
         <p></br></p>
 <h3>先備知識與注意事項</h3>
 <p>在<a href="http://alrightchiu.github.io/SecondRound/binary-tree-traversal.html#ex_code">Binary Tree：Traversal</a>中，非常沒誠意地用暴力方式建了一棵Binary Tree，在本篇文章將提供一種文明的方法，由一個字元陣列(char array)輸入字母，並按照<a href="http://alrightchiu.github.io/SecondRound/binary-tree-intro.html#fullcomplete">Complete Binary Tree</a>之順序重新建立<em>那顆樹</em>。</p>
-<p>其中，問題情境之輸入資料是一個字元陣列(char array)，為了方便處理，將會使用C++語言中的神器：<a href="http://www3.ntu.edu.sg/home/ehchua/programming/cpp/cp10_io.html">stringstream</a>，這裡礙於篇幅(與筆者自己也還在摸索)，就不多談避免誤導，<a href="http://www3.ntu.edu.sg/home/ehchua/programming/cpp/cp10_io.html">點進連結中</a>有非常詳細的說明，關於<code>istringstream</code>、<code>ostringstream</code>、<code>stringstream</code>等等template class之繼承關係(inheritance)。  </p>
+<p>其中，問題情境之輸入資料是一個字元陣列(char array)，為了方便處理，將會使用C++語言中的神器：<code>stringstream</code>，這裡礙於篇幅(與筆者自己也還在摸索)，就不多談避免誤導，<a href="http://www3.ntu.edu.sg/home/ehchua/programming/cpp/cp10_io.html">點進連結中</a>有非常詳細的說明，關於<code>istringstream</code>、<code>ostringstream</code>、<code>stringstream</code>等等template class之繼承關係(inheritance)。  </p>
 <p>因為要按照Complete Binary Tree的規則建樹，可以想像的是，以下提供的Binary Tree之建立方法，基本上是在<a href="http://alrightchiu.github.io/SecondRound/binary-tree-traversalxun-fang.html#level">Binary Tree：Traversal介紹過的level-order traversal</a>上加工，因此<a href="http://alrightchiu.github.io/SecondRound/queue-introjian-jie-bing-yi-linked-listshi-zuo.html">Queue(佇列)</a>的概念會再次出現。</p>
 <hr />
 <h2>目錄</h2>
@@ -123,7 +123,7 @@
 <li><a href="#def">定義class TreeNode、class BinaryTree</a> </li>
 <li><a href="#constructor">Constructor of BinaryTree</a> </li>
 <li><a href="#func1">Function：LevelorderConstruct</a></li>
-<li><a href="#func2">Function：insertLevelorder</a></li>
+<li><a href="#func2">Function：InsertLevelorder</a></li>
 </ul>
 </li>
 <li><a href="#ref">參考資料</a></li>
@@ -404,7 +404,7 @@
 <p></br>
 <a name="func2"></a></p>
 <h3>Function：InsertLevelorder</h3>
-<p>函式<code>InsertLevelorder()</code>的功能是，能夠按照Complete Binary Tree的位置順序放置新增的node，例如，若要在圖三之樹上新增帶有字母<strong>'K'</strong>的node，則<code>T.insertLevelorder('K')</code>便會將<strong>'K'</strong>建成C的right child，如圖四(a)：</p>
+<p>函式<code>InsertLevelorder()</code>的功能是，能夠按照Complete Binary Tree的位置順序放置新增的node，例如，若要在圖三之樹上新增帶有字母<strong>'K'</strong>的node，則<code>T.InsertLevelorder('K')</code>便會將<strong>'K'</strong>建成C的right child，如圖四(a)：</p>
 <p><center>
 <img alt="insertK" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BinaryTree_fig/Construct_from_char_array/insertK.png?raw=true" />  </p>
 <p><strong>圖四(a)：。</strong><br />
