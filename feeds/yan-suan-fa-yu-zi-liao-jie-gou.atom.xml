@@ -15179,7 +15179,7 @@ $$&lt;/div&gt;
 
 &lt;p&gt;結果看起來與圖二(d)一致：&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
-&lt;img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f10.png?raw=true" /&gt;&lt;/p&gt;
+&lt;img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/BST_fig/search_insert/f11.png?raw=true" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;圖二(d)：。&lt;/strong&gt;&lt;br /&gt;
 &lt;/center&gt; &lt;/p&gt;
 &lt;p&gt;以上便是BST中&lt;code&gt;Search()&lt;/code&gt;與&lt;code&gt;InsertBST()&lt;/code&gt;之介紹。  &lt;/p&gt;
@@ -15191,6 +15191,7 @@ $$&lt;/div&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844"&gt;Introduction to Algorithms, Ch12&lt;/a&gt; &lt;/li&gt;
 &lt;li&gt;&lt;a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376"&gt;Fundamentals of Data Structures in C++, Ch5&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://alrightchiu.github.io/SecondRound/binary-tree-traversalxun-fang.html"&gt;Binary Tree: Traversal(尋訪)&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a name="tree_series"&gt;&lt;/a&gt;&lt;/p&gt;
