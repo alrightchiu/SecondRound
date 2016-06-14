@@ -10,7 +10,8 @@ Summary: 謹以Binary Search Tree(二元搜尋樹)向拯救90後的童年的鉅�
 先前的文章介紹過廣義的Tree(樹)、Binary Tree(二元樹)，這篇文章將繼續增加限制條件，使Binary Tree晉升成Binary Search Tree(BST，二元搜尋樹)。  
 
 這裡要處理的資料是日本漫畫的曠世鉅作《七龍珠》中各角色的戰鬥力。  
-七龍珠的劇情(正篇有七龍珠、七龍珠Z、七龍珠改、七龍珠GT、七龍珠超，劇場版還有[七龍珠劇場版(太多了請參閱維基百科)](https://zh.wikipedia.org/wiki/%E4%B8%83%E9%BE%99%E7%8F%A0#.E5.8A.87.E5.A0.B4.E7.89.88))時而前後連貫，時而交錯，為了維持每個系列之間的角色設定，就需要對角色的戰鬥力進行管理，避免劇情不合邏輯變成鬧劇，在此，筆者推薦鳥山明老師可以使用先進如BST的資料結構來整理角色的資料(當然，也是可以用excel或是國小生字簿，[Whatever Works](http://www.imdb.com/title/tt1178663/))。  
+
+七龍珠的劇情(正篇有七龍珠、七龍珠Z、七龍珠改、七龍珠GT、七龍珠超，劇場版還有[七龍珠劇場版(太多了請參閱維基百科)](https://zh.wikipedia.org/wiki/%E4%B8%83%E9%BE%99%E7%8F%A0#.E5.8A.87.E5.A0.B4.E7.89.88))時而前後連貫，時而交錯，為了維持每個系列之間的角色設定，就需要對角色設定進行管理，避免劇情不合邏輯，在此，筆者推薦鳥山明老師可以使用先進如BST的資料結構來整理角色的資料(當然，也是可以用excel或是國小生字簿，[Whatever Works](http://www.imdb.com/title/tt1178663/))。  
 
 熱血沸騰了。  
 
@@ -34,13 +35,13 @@ Summary: 謹以Binary Search Tree(二元搜尋樹)向拯救90後的童年的鉅�
 
 ##引入Dictionary
 
-搜尋與排序都需要「比大小」，欲執行「比大小」，就要使用「能夠比大小」的資料形態(亦即：兩個比較之物只能唯一滿足於「大於」、「小於」或「等於」之關係)，最直觀的便是使用整數(integer)。  
+搜尋與排序都需要「比大小」，欲執行「比大小」，就要使用「能夠比大小」的資料形態，亦即，兩個比較之物只能唯一滿足於「大於」、「小於」或「等於」之關係，最直觀的便是使用整數(integer)。  
 
-在先前的文章中，`class TreeNode`包含了指向child的pointer、指向parent的pointer，以及一個`char data`來儲存字母。  
+在先前的文章中，`class TreeNode`包含了指向child的pointer、指向parent的pointer，以及一個`char data`來儲存字母。那麼要使用`char data`進行「比大小」就必須而外自行定義規則，例如：「照字母順序排序，字母越前面值越大；若第一個字相同，則依序往下比較；若姓名中所有字母之順序皆相同則...」等等，已經有點麻煩，更別說是node所攜帶的資料項目比`char data`更複雜的情況，也許是一個姓名、一組帳戶資料、一本照片集、一組科學數據等等。
 
-而更多時候，node所攜帶的資料項目(在此為`char data`)可能更複雜，也許是一個姓名、一組帳戶資料、一本照片集、一組科學資料等等，然而，要使用這些資料進行「比大小」必須而外自行定義規則，例如：「姓氏照字母順序排序，字母越前面值越大；若第一個字相同，則依序往下比較；若姓名中所有字母之順序皆相同則...」，非常不實際，因此，不用再則了，變通的方法便是直接在資料上加上「編號」(也可以想成，把資料對應(mapping)到特定編號)，以編號做排序，並且能夠以特定編號搜尋其所對應之資料項目，即可避開上述麻煩。  
+有鑒於制定規則的不方便，因此變通的方法就是直接在資料上加上「編號」，也可以想成，把資料對應(mapping)到特定編號或者賦予權重(weighting)，以編號/權重做為資料處理的依據，如排序、比大小、搜尋。  
 
-如此概念便是**Dictionary**，稱上述的「編號」為「Key(鍵值)」，稱「資料項目」為「Element(元素)」，則稱一組「Key-Element pairs」的集合為**Dictionary**。  
+這樣的概念便是**Dictionary**，稱上述的「編號」為「Key(鍵值)」，稱「資料項目」為「Element(元素)」，並視一組「Key-Element pairs」的集合為**Dictionary**。  
 
 如圖一所示，若將先前的字母視為「Element」並加上「Key」，則(Key, Element)可以表示成(編號, A)，若處理學生資料，將編號視為學號，資料視為姓名，則能夠將(Key, Element)可以表示成(學號, 姓名)。
 
@@ -51,7 +52,7 @@ Summary: 謹以Binary Search Tree(二元搜尋樹)向拯救90後的童年的鉅�
 **圖一：。**  
 </center> 
 
-在接下來的篇幅裡，將使用七龍珠的角色(悟空)作為Element，角色的戰鬥力視為Key：
+在接下來的篇幅，將使用七龍珠的角色姓名(悟空)作為Element，角色的戰鬥力視為Key：
 
 
 <center>
@@ -78,9 +79,9 @@ private:
  
 備註： 
 
-1. Dictionary的概念也出現在[Hash Table](http://alrightchiu.github.io/SecondRound/hash-tableintrojian-jie.html)、C/C++標準函式庫(Standard Library)中的**container**:`map`等等，有非常多應用。
+1. Dictionary的概念也出現在[Hash Table](http://alrightchiu.github.io/SecondRound/hash-tableintrojian-jie.html)、C/C++標準函式庫(Standard Library)中的**container**：`map`等等，有非常多應用。
 2. 以下角色戰鬥力的絕對值是捏造的，不過相對值盡力維持正確(除了撒旦)，若有疑問，歡迎龍珠粉來信討論。 
-3. 由於故事的角色眾多，以下將挑選具代表性之角色用來說明BST。
+3. 由於故事的角色眾多，以下將挑選較具有代表性的角色用來說明BST。
 
 </br>
 
