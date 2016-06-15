@@ -111,8 +111,8 @@
     <article>
         <p></br></p>
 <h3>先備知識與注意事項</h3>
-<p>如同<a href="http://alrightchiu.github.io/SecondRound/red-black-tree-insertxin-zeng-zi-liao-yu-fixupxiu-zheng.html">Red Black Tree: Insert(新增資料)與Fixup(修正)</a>，RBT之Delete(刪除資料)方法同樣是先沿用<code>DeleteBST()</code>，再對顏色利用<code>Rotation</code>進行修正。<br />
-建議讀者在閱讀本篇文章之前，先復習<a href="http://alrightchiu.github.io/SecondRound/binary-search-tree-sortpai-xu-deleteshan-chu-zi-liao.html#delete">BST::DeleteBST(刪除資料)</a>與<a href="http://alrightchiu.github.io/SecondRound/red-black-tree-rotationxuan-zhuan.html">Red Black Tree: Rotation(旋轉)</a>，會比較容易上手。</p>
+<p>如同<a href="http://alrightchiu.github.io/SecondRound/red-black-tree-insertxin-zeng-zi-liao-yu-fixupxiu-zheng.html">Red Black Tree: Insert(新增資料)與Fixup(修正)</a>，RBT之Delete(刪除資料)方法同樣是先沿用<code>DeleteBST()</code>，再對顏色利用<code>Rotation</code>進行修正。  </p>
+<p>建議讀者在閱讀本篇文章之前，先復習<a href="http://alrightchiu.github.io/SecondRound/binary-search-tree-sortpai-xu-deleteshan-chu-zi-liao.html#delete">BST::DeleteBST(刪除資料)</a>與<a href="http://alrightchiu.github.io/SecondRound/red-black-tree-rotationxuan-zhuan.html">Red Black Tree: Rotation(旋轉)</a>，會比較容易上手。</p>
 <hr />
 <h2>目錄</h2>
 <ul>
@@ -137,9 +137,11 @@
 <ol>
 <li>圖一(a)：若要刪除的node恰好為<code>root</code>，而刪除後恰好是紅色的node遞補成為新的<code>root</code>，此時便違反RBT之第二點特徵：<code>root</code>一定要是黑色；</li>
 <li>圖一(b)：若刪除node後，出現紅色與紅色node相連之情形，則違反RBT之第四點特徵：紅色node之<code>child</code>一定要是黑色；</li>
-<li>圖一(b)：若刪除之node是黑色，則所有包含被刪除node的path上之黑色node數必定會減少，若恰好被刪除之node不是<code>root</code>，將會違反RBT之第五點特徵：站在任何一個node上，所有從該node走到其任意descendant的path上之黑色node數必定相同。<br />
-圖一(b)左：從<code>root</code>node(B)出發至任意leaves的path上都有三個黑色node(包含<code>NIL</code>)；<br />
-圖一(b)右：刪除node(D)後，path(node(B)-node(E)-node(C))上之黑色node數剩下<span class="math">\(2\)</span>個(包含<code>NIL</code>)。</li>
+<li>圖一(b)：若刪除之node是黑色，而且恰好不是<code>root</code>，那麼所有包含被刪除node的path上之黑色node數必定會減少，將會違反RBT之第五點特徵：「站在任何一個node上，所有從該node走到其任意descendant leaf的path上之黑色node數必定相同」。<ul>
+<li>圖一(b)左：從<code>root</code>:node(B)出發至任意leaf的path上都有三個黑色node(包含<code>NIL</code>)；</li>
+<li>圖一(b)右：刪除node(D)後，path:node(B)-node(E)-node(C)上之黑色node數剩下<span class="math">\(2\)</span>個(包含<code>NIL</code>)。</li>
+</ul>
+</li>
 </ol>
 <p>因此，需要對顏色進行修正，以滿足RBT特徵。</p>
 <p><center>
@@ -153,54 +155,63 @@
 <h2>如同於BST中Delete(刪除資料)</h2>
 <p><code>RBT::DeleteRBT()</code>之範例程式碼分成兩個部分：</p>
 <ol>
-<li>第一部分，如同<code>DeleteBST()</code>，依照欲刪除之node的<code>child</code>個數分成三種情形處理：<ol>
+<li>第一部分，如同<code>DeleteBST()</code>，依照欲刪除之node的child個數分成三種情形處理：<ol>
 <li>先確認BST中有沒有要刪除的node；</li>
-<li>把要刪除的node調整成「至多只有一個<code>child</code>」；</li>
-<li>把要刪除的node的<code>child</code>指向新的<code>parent</code>；</li>
-<li>把要刪除的node的<code>parent</code>指向新的<code>child</code>；</li>
+<li>把要刪除的node調整成「至多只有一個child」；</li>
+<li>把要刪除的node的child指向新的<code>parent</code>；</li>
+<li>把要刪除的node的<code>parent</code>指向新的child；</li>
 <li>若實際上刪除的是「替身」，再把替身的資料放回BST中；</li>
 </ol>
 </li>
-<li>第二部分，若刪除的node是黑色，需要進行修正(Fix-Up)，引進函式：<code>DeleteFixedUpRBT()</code>。 <br />
-</br></li>
+<li>第二部分，若刪除的node是黑色，需要進行修正(Fix-Up)，引進函式：<code>DeleteFixedUpRBT()</code>。   </li>
 </ol>
+<p></br>  </p>
 <div class="highlight"><pre><span class="c1">// C++ code</span>
 <span class="kt">void</span> <span class="n">RBT</span><span class="o">::</span><span class="n">DeleteRBT</span><span class="p">(</span><span class="kt">int</span> <span class="n">KEY</span><span class="p">){</span>              <span class="c1">// 要刪除具有KEY的node</span>
 
-    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">delete_node</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">;</span>
-    <span class="n">delete_node</span> <span class="o">=</span> <span class="n">Search</span><span class="p">(</span><span class="n">KEY</span><span class="p">);</span>             <span class="c1">// 先確認BST中是否有具有KEY的node</span>
+    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">delete_node</span> <span class="o">=</span> <span class="n">Search</span><span class="p">(</span><span class="n">KEY</span><span class="p">);</span>   <span class="c1">// 先確認RBT中是否存在具有KEY的node</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">delete_node</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;data not found.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
         <span class="k">return</span><span class="p">;</span>
     <span class="p">}</span>
 
-    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">y</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">;</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>     <span class="c1">// 真正要被刪除並釋放記憶體的node</span>
-    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">x</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">;</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>     <span class="c1">// 要被刪除的node的child</span>
+    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>     <span class="c1">// 真正要被刪除並釋放記憶體的node</span>
+    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>     <span class="c1">// 要被刪除的node的&quot;child&quot;</span>
 
-    <span class="k">if</span> <span class="p">(</span><span class="n">delete_node</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">==</span> <span class="n">neel</span> <span class="o">||</span> <span class="n">delete_node</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">==</span> <span class="n">neel</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">delete_node</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">==</span> <span class="n">neel</span> <span class="o">||</span> <span class="n">delete_node</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">==</span> <span class="n">neel</span><span class="p">){</span>
         <span class="n">y</span> <span class="o">=</span> <span class="n">delete_node</span><span class="p">;</span>
-    <span class="k">else</span>
-        <span class="n">y</span> <span class="o">=</span> <span class="n">Successor</span><span class="p">(</span><span class="n">delete_node</span><span class="p">);</span>
-                                           <span class="c1">// 經過以上的if-else, y至多只有一個child</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">y</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">!=</span> <span class="n">neel</span><span class="p">)</span>              <span class="c1">// 將x設成y的child, 可能是實際資料, 也有可能是NIL</span>
+    <span class="p">}</span>
+    <span class="k">else</span><span class="p">{</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">Successor</span><span class="p">(</span><span class="n">delete_node</span><span class="p">);</span>         <span class="c1">// 將y設成delete_node的Successor</span>
+    <span class="p">}</span>                                       <span class="c1">// 經過這組if-else, y調整成至多只有一個child</span>
+
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">y</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">!=</span> <span class="n">neel</span><span class="p">){</span>              <span class="c1">// 將x設成y的child, 可能有實際資料, 也有可能是NIL</span>
         <span class="n">x</span> <span class="o">=</span> <span class="n">y</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">;</span>
-    <span class="k">else</span>
+    <span class="p">}</span>
+    <span class="k">else</span><span class="p">{</span>
         <span class="n">x</span> <span class="o">=</span> <span class="n">y</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="p">;</span>
+    <span class="p">}</span>
 
     <span class="n">x</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">=</span> <span class="n">y</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">;</span>                 <span class="c1">// 即使x是NIL也要把x的parent指向有效的記憶體位置</span>
                                            <span class="c1">// 因為在FixUp時需要藉由x-&gt;parent判斷x為leftchild或是rightchild</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">y</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">==</span> <span class="n">neel</span><span class="p">)</span>                 <span class="c1">// 再將要被刪除的node之parent指向新的child</span>
-        <span class="k">this</span><span class="o">-&gt;</span><span class="n">root</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>                    
-    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">y</span> <span class="o">==</span> <span class="n">y</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">)</span>
-        <span class="n">y</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>
-    <span class="k">else</span>
-        <span class="n">y</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>
 
-    <span class="k">if</span> <span class="p">(</span><span class="n">y</span> <span class="o">!=</span> <span class="n">delete_node</span><span class="p">)</span> <span class="p">{</span>                <span class="c1">// 若實際上是「替身」被刪除, 要把「替身」的資料放回RBT中</span>
-        <span class="n">delete_node</span><span class="o">-&gt;</span><span class="n">SetKey</span><span class="p">(</span><span class="n">y</span><span class="o">-&gt;</span><span class="n">GetKey</span><span class="p">());</span>
-        <span class="n">delete_node</span><span class="o">-&gt;</span><span class="n">SetElement</span><span class="p">(</span><span class="n">y</span><span class="o">-&gt;</span><span class="n">GetElement</span><span class="p">());</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">y</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">==</span> <span class="n">neel</span><span class="p">){</span>                <span class="c1">// 接著再把要被釋放記憶體的node之&quot;parent&quot;指向新的child</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">root</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>                    <span class="c1">// 若刪除的是原先的root, 就把x當成新的root </span>
     <span class="p">}</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">y</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>                   <span class="c1">// 若刪除的node是黑色, 則要從x進行修正</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">y</span> <span class="o">==</span> <span class="n">y</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">){</span>   <span class="c1">// 若y原本是其parent之left child</span>
+        <span class="n">y</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">leftchild</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>          <span class="c1">// 便把x皆在y的parent的left child, 取代y</span>
+    <span class="p">}</span>
+    <span class="k">else</span><span class="p">{</span>                                  <span class="c1">// 若y原本是其parent之right child</span>
+        <span class="n">y</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">rightchild</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>         <span class="c1">// 便把x皆在y的parent的right child, 取代y</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">y</span> <span class="o">!=</span> <span class="n">delete_node</span><span class="p">)</span> <span class="p">{</span>                <span class="c1">// 針對case3</span>
+        <span class="n">delete_node</span><span class="o">-&gt;</span><span class="n">key</span> <span class="o">=</span> <span class="n">y</span><span class="o">-&gt;</span><span class="n">key</span><span class="p">;</span>         <span class="c1">// 若y是delete_node的替身, 最後要再將y的資料</span>
+        <span class="n">delete_node</span><span class="o">-&gt;</span><span class="n">element</span> <span class="o">=</span> <span class="n">y</span><span class="o">-&gt;</span><span class="n">element</span><span class="p">;</span> <span class="c1">// 放回delete_node的記憶體位置, 並將y的記憶體位置釋放</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">y</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>                   <span class="c1">// 若刪除的node是黑色, 要從x進行修正, 以符合RBT的顏色規則</span>
         <span class="n">DeleteFixedUpRBT</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
     <span class="p">}</span>
 <span class="p">}</span>
@@ -220,7 +231,7 @@
 <ul>
 <li>Case1：<code>sibling</code>為紅色；</li>
 <li>Case2：<code>sibling</code>為黑色，而且<code>sibling</code>的兩個<code>child</code>都是黑色；</li>
-<li>Case3：<code>sibling</code>為黑色，而且<code>sibling</code>的<code>rightchild</code>是黑色；</li>
+<li>Case3：<code>sibling</code>為黑色，而且<code>sibling</code>的<code>rightchild</code>是黑色，<code>leftchild</code>是紅色；</li>
 <li>Case4：<code>sibling</code>為黑色，而且<code>sibling</code>的<code>rightchild</code>是紅色。</li>
 </ul>
 <p><center>
@@ -247,17 +258,17 @@
 <li>將<code>sibling</code>塗成黑色：node(E)塗成黑色；</li>
 <li>將<code>current</code>之<code>parent</code>塗成紅色：node(C)塗成紅色；</li>
 <li>對<code>current</code>之<code>parent</code>做Left Rotation：對node(C)做Left Rotation；</li>
-<li>將<code>sibling</code>移動到<code>current-&gt;parent</code>的<code>rightchild</code>：將<code>sibling</code>移動至node(D)。</li>
+<li>將<code>sibling</code>移動到<code>current-&gt;parent</code>的<code>rightchild</code>：將<code>sibling</code>指向node(D)。</li>
 </ul>
 <p><center>
 <img alt="case1" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Delete/delete6.png?raw=true" /></p>
 <p><strong>圖五(a)：。</strong>
 </center></p>
 <p>在上述步驟中，並沒有更改<code>current</code>之記憶體位置和顏色，<code>current</code>仍為黑色。不過其<code>sibling</code>必定會變成黑色，因此將進入Case2、Case3或Case4。</p>
-<p>為什麼Case1經過以上修正還沒有結束？原因要回到刪除node之前的RBT。<br />
-圖五(b)左，展示了刪除node之前，以node(C)為<code>root</code>的RBT(或是更大的RBT之subtree)的其中一種可能情況。<br />
-從node(C)往任何一個descendant leaf的path上之黑色node數為<span class="math">\(3\)</span>，刪除node(B)後，使得其中一條path的黑色node數減少，經過上述方法之調整，仍然無法使得所有path之黑色node數相同，如圖五(b)右。<br />
-不過Case1所提出的修正方法能夠將情況調整成Case2、Case3或Case4，並且修正至滿足RBT之特徵。</p>
+<p>為什麼Case1經過以上修正還沒有結束？原因要回到刪除node之前的RBT。  </p>
+<p>圖五(b)左，展示了刪除node之前，以node(C)為<code>root</code>的RBT(或是更大的RBT之subtree)的其中一種可能情況。<br />
+從node(C)往任何一個descendant leaf的path上之黑色node數為<span class="math">\(3\)</span>，刪除node(B)後，使得其中一條path的黑色node數減少，經過上述方法之調整，仍然無法使得所有path之黑色node數相同，如圖五(b)右。  </p>
+<p>不過Case1所提出的修正方法能夠將情況調整成Case2、Case3或Case4，並且修正至滿足RBT之特徵。</p>
 <p><center>
 <img alt="case1" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Delete/delete7.png?raw=true" /></p>
 <p><strong>圖五(b)：圖中的「Original」僅代表其中一種可能的情形。</strong>
@@ -267,13 +278,13 @@
 <p>若<code>sibling</code>為黑色，並且<code>sibling</code>之兩個<code>child</code>皆為黑色，修正的方法如下，見圖五(c)：</p>
 <ul>
 <li>將<code>sibling</code>塗成紅色：node(E)塗成紅色；</li>
-<li>將<code>current</code>移至<code>currnet</code>的<code>parent</code>：<code>current</code>移至node(c)。</li>
+<li>將<code>current</code>移至<code>currnet</code>的<code>parent</code>：<code>current</code>移至node(C)。</li>
 </ul>
 <p><center>
 <img alt="case2" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Delete/delete8.png?raw=true" /></p>
 <p><strong>圖五(c)：。</strong>
 </center></p>
-<p>經過上述步驟，根據新的<code>current</code>node(C)之顏色，可以分成兩種情形：</p>
+<p>經過上述步驟，根據新的<code>current</code>:8node(C)之顏色，可以分成兩種情形：</p>
 <ul>
 <li>若node(C)為紅色，則跳出迴圈，把node(C)塗黑，即可滿足RBT之特徵，如圖五(d)，其邏輯便是：將從node(C)出發往<code>leftchild</code>與<code>rightchild</code>path的黑色數目調整成與刪除之前(Original)相同；</li>
 <li>若node(C)為黑色，且node(C)不是<code>root</code>，則繼續下一輪迴圈，重新判斷其屬於四種情況之何者並修正，如圖五(e)，從node(G)出發至任意descendant leaf之path上的黑色node數並不完全相同。</li>
