@@ -48,7 +48,7 @@ void RBT::InsertRBT(int key, string str){
     // 前半部與 InsertBST()之邏輯完全相同, 僅僅需要修改 NULL <-> NIL
     TreeNode *y = neel;
     TreeNode *x = root;
-    TreeNode *insert_node = new TreeNode(key, str); // default copy constructor
+    TreeNode *insert_node = new TreeNode(key, str);
 
     while (x != neel) {     // 把root初始化成neel, 這裡就可以用neel來做判斷
         y = x;
@@ -94,9 +94,9 @@ void RBT::InsertRBT(int key, string str){
 
 * node(X)為其`parent`，顏色為紅色；
 * node(Y)為其`uncle`，其顏色**可能為紅色或黑色**。
-* node(Z)為其grandparent(`parent->parent`)，顏色必定為黑色；
+* node(Z)為其grandparent，顏色必定為黑色(因為node(X)是紅色)；
 * node(W)的顏色**可能是紅色或黑色**。
-* 所有灰色node(如node(a)、node(b)、node(c)、node(d))表示：只要不影響RBT之特徵，是否實際攜帶資料或為`NIL`並不影響結果。
+* 所有灰色node(如node(a)、node(b)、node(c)、node(d))表示：只要不影響RBT之特徵，其顏色、是否實際攜帶資料或是否為`NIL`並不影響結果。
 
 <center>
 ![bst][f1]
@@ -115,7 +115,7 @@ void RBT::InsertRBT(int key, string str){
 
 ###Case1
 
-圖一(b)左，此時`current`指向新增的node(A)，而node(A)成為node(X)的`rightchild`，其`uncle`node(Y)是紅色的。  
+圖一(b)左，此時`current`指向新增的node(A)，而node(A)成為node(X)的`rightchild`，其`uncle`:node(Y)是紅色的。  
 修正的方法就是「把債還給上一代的上一代」：
 
 * 將`parent`塗成黑色：node(X)塗成黑色；
@@ -125,16 +125,16 @@ void RBT::InsertRBT(int key, string str){
 
 此時，如圖一(b)右，從node(Z)出發往其descendant leaves的任一path上之黑色node數皆相同，這個subtree便滿足了RBT的特徵。  
 
-接著必需根據node(W)的顏色採取不同行動：
-
-* 若node(W)為黑色，就不需要再做調整；
-* 若node(W)為紅色，則node(Z)與node(W)再次形成紅色node與紅色node相連，必須重複同樣的判斷流程。
-
 <center>
 ![bst][f2]
 
 **圖一(b)：。**  
 </center>
+
+接著必需根據node(W)的顏色採取不同行動：
+
+* 若node(W)為黑色，就不需要再做調整；
+* 若node(W)為紅色，則node(Z)與node(W)再次形成紅色node與紅色node相連，必須重複同樣的判斷流程。
 
 
 若node(A)成為node(X)的`leftchild`，如圖一(c)，修正的方法同上。
@@ -151,7 +151,7 @@ void RBT::InsertRBT(int key, string str){
 
 ###Case3
 
-圖一(d)，新增的node(A)成為node(X)的`leftchild`，其`uncle`node(Y)是黑色。 
+圖一(d)，新增的node(A)成為node(X)的`leftchild`，其`uncle`:node(Y)是黑色。 
 
 <center>
 ![bst][f4]
@@ -159,7 +159,7 @@ void RBT::InsertRBT(int key, string str){
 **圖一(d)：。**  
 </center>
 
-事實上，若`current`指向之node(此為node(A))是新增的node，則根據RBT之第五點特徵，其`uncle`node(Y)必定是`NIL`，如圖一(e)左。
+事實上，若`current`指向之node(此為node(A))是新增的node，則根據RBT之第五點特徵，其`uncle`:node(Y)必定是`NIL`，如圖一(e)左。
 
 不過，在稍後的範例中將會看到，`current`不一定是「剛剛新增的node」，也有可能是「修正到一半，出現紅色與紅色相連的node」，但因為是「修正到一半」，尚未調整node(Z)的顏色，因此所有從node(Z)往其descendant leaves的任意path上之黑色node數必定不變，此時，若node(Y)不為`NIL`，則node(X)以及node(A)必定還有黑色的`child pointer`，如圖一(e)右所示，node(a)、node(b)與node(c)皆為黑色。
 
@@ -174,7 +174,7 @@ void RBT::InsertRBT(int key, string str){
 
 * 將`parent`塗成黑色：node(X)塗成黑色；
 * 將`parent->parent`塗成紅色：node(Z)塗成紅色；
-* 對`parent->parent`node(Z)進行**Right Rotation(向右旋轉)**
+* 對`parent->parent`node(Z)進行**Right Rotation(向右旋轉)**。
 
 
 <center>
@@ -201,7 +201,7 @@ void RBT::InsertRBT(int key, string str){
 
 ###Case2
 
-圖一(h)，新增的node(A)成為node(X)的`rightchild`，其`uncle`node(Y)是黑色。
+圖一(h)，新增的node(A)成為node(X)的`rightchild`，其`uncle`:node(Y)是黑色。
 
 <center>
 ![bst][f8]
@@ -209,7 +209,7 @@ void RBT::InsertRBT(int key, string str){
 **圖一(h)：。**  
 </center>
 
-如同Case3，圖一(h)的`uncle`node(Y)同樣有兩種可能：攜帶實際資料的黑色node，或者`NIL`，如圖一(i)：
+如同Case3，圖一(h)的`uncle`:node(Y)同樣有兩種可能：攜帶實際資料的黑色node，或者`NIL`，如圖一(i)：
 
 <center>
 ![bst][f9]
@@ -249,7 +249,7 @@ void RBT::InsertRBT(int key, string str){
 </center>
 
 若想新增node(75)，由於其將接在node(80)的`leftchild`位置上，而node(80)為紅色，因此需要進行修正。  
-接著觀察，node(75)之`uncle`為node(60)，同樣是紅色，因此可以使用Case1的方法，如圖二(b)：
+接著觀察，node(75)之`uncle`:node(60)，是紅色，因此可以使用Case1的方法修正，如圖二(b)：
 
 * 將`parent`與`uncle`塗黑：node(80)與node(60)塗黑；
 * 將grandparent塗紅：node(70)塗紅；
@@ -269,7 +269,7 @@ void RBT::InsertRBT(int key, string str){
 
 * 將`parent`塗成黑色：node(30)塗成黑色；
 * 將`parent->parent`塗成紅色：node(40)塗成紅色；
-* 對`parent->parent`node(40)進行**Right Rotation(向右旋轉)**
+* 對`parent->parent`:node(40)進行**Right Rotation(向右旋轉)**。
 
 <center>
 ![bst][f13]
@@ -338,8 +338,8 @@ void RBT::InsertRBT(int key, string str){
 
 圖五中：
 
-* 左圖是本篇文章介紹修正(Fix-Up)的出發點：將新增的node接在node(X)上，而node(X)是node(Z)的`leftchild`(`parent`是`parent->parent`的`leftchild`)；
-* 還有另外一半的情況就如圖五之右圖：將新增的node接在node(Y)上，而node(Y)是node(Z)的`rightchild`(`parent`是`parent->parent`的`rightchild`)。
+* 左圖是本篇文章介紹修正(Fix-Up)的出發點：將新增的node接在node(X)上，而node(X)是node(Z)的`leftchild`(亦即，新增的node之`parent`是`parent->parent`的`leftchild`)；
+* 還有另外一半的情況就如圖五之右圖：將新增的node接在node(Y)上，而node(Y)是node(Z)的`rightchild`(亦即，新增的node之`parent`是`parent->parent`的`rightchild`)。
 
 <center>
 ![bst][f21]
@@ -349,7 +349,7 @@ void RBT::InsertRBT(int key, string str){
 
 必須要區分這兩者的原因有二：
 
-* 一是`uncle`：因為`parent`與`uncle`分別為`parent->parent`之`leftchild`與`rightchild`，若`parent`是`left-`，`uncle`就要是`right-`，反之亦然，兩者屬於互斥(exclusive)的、不能同時發生的情境；
+* 一是`uncle`：因為`parent`與`uncle`分別為`parent->parent`之`leftchild`與`rightchild`，若`parent`是`left-`，`uncle`就要是`right-`，反之亦然，兩者屬於互斥(exclusive)事件，不可能同時發生；
 * 二是Rotation(旋轉)：在Case2與Case3中必須使用Left/Right Rotation，因此，延續第一點原因，考慮到`parent`是`leftchild`或是`rightchild`的不同，Left/Right Rotation的方向也會相反。
 
 </br>
@@ -360,10 +360,10 @@ void RBT::InsertRBT(int key, string str){
 
 `InsertFixedUpRBT()`之範例程式碼分成以下幾個部分：
 
-* 定義`color`：0為紅色，1為黑色；
+* 定義`color`：$0$為紅色，$1$為黑色；
 * 如同圖四所示，修正的過程可能歷經不止一個Case，因此利用`while`迴圈實現，條件式便是判斷當前`current`之`parent`是否為紅色；
 * 分別進行Case1(圖一(b)與圖一(c))、Case2(圖一(j))與Case3(圖一(f))之修正；
-* 最後，在**line50**出現一行`root->color=1`，將`root`之顏色塗黑，這是為了Case1所設，由於Case1之修正方法是把「紅色與紅色node相連」之可能性往`root`方向傳遞，有可能`root`恰好是`current`的grandparent而被塗成紅色，如圖六，但因為RBT之第二點特徵要求`root`一定是黑色，因此必須作此預防。
+* 最後，有一行`root->color=1`，確保`root`之顏色是黑色，這是為了Case1所設，由於Case1之修正方法是把「紅色與紅色node相連」之可能性往`root`方向傳遞，有可能`root`恰好是`current`的grandparent而被塗成紅色，如圖六，但因為RBT之第二點特徵要求`root`一定是黑色，因此必須作此預防。
 
 <center>
 ![bst][f22]
