@@ -402,8 +402,8 @@
 <p><img alt="example" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Delete/delete20.png?raw=true" /></p>
 <p><strong>圖六(g)：。</strong></p>
 <p></center></p>
-<h3>Case2-&gt;Case4</h3>
-<p>若要刪除黑色的node(7)，由於node(7)的child之<code>sibling</code>:node(10)為黑色，且具有兩個黑色的<code>child</code>(都是<code>NIL</code>)，符合Case2的情況，便修正如下，見圖六(h)：</p>
+<h3>Case2</h3>
+<p>若要刪除黑色的node(7)，由於node(7)的child之<code>sibling</code>:node(10)為黑色，且具有兩個黑色的child(都是<code>NIL</code>)，符合Case2的情況，便修正如下，見圖六(h)：</p>
 <ul>
 <li>將<code>sibling</code>塗成紅色：node(10)塗成紅色；</li>
 <li>將<code>current</code>移至<code>currnet</code>的<code>parent</code>：<code>current</code>移至node(9)；</li>
@@ -417,7 +417,7 @@
 <p><strong>圖六(i)：。</strong></p>
 <p></center></p>
 <h3>Case0: current is red or current is root</h3>
-<p>最後，若要刪除黑色的node(3)呢？由於node(3)的<code>child</code>node(1)為紅色，並不需要考慮到Case1(<code>sibling</code>為紅色)，只要將node(1)塗黑即可，如圖六(j)。  </p>
+<p>最後，若要刪除黑色的node(3)呢？由於node(3)的child:node(1)為紅色，並不需要考慮到Case1(<code>sibling</code>為紅色，兩個child為黑色)，只要將node(1)塗黑即可，如圖六(j)。  </p>
 <p><center>
 <img alt="example" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Delete/delete23.png?raw=true" /></p>
 <p><strong>圖六(j)：。</strong>
@@ -428,8 +428,8 @@
 <p><code>RBT::DeleteFixedUpRBT()</code>之範例程式碼分成以下幾個部分：</p>
 <p>如圖四所示，修正的過程可能經歷不止一個Case，因此利用<code>while</code>來實現，條件式為：<code>current</code>不是<code>root</code>，而且<code>current</code>為黑色；</p>
 <p>若<code>current</code>是其<code>parent</code>之<code>leftchild</code>，其<code>sibling</code>就必須是<code>rightchild</code>，反之亦然，而兩種情形之<code>Rotation</code>修正之方向正好相反，因此，如同<code>InsertFixedUpRBT()</code>，必須區分出「<code>current</code>是其<code>parent</code>之<code>leftchild</code>」與「<code>current</code>是其<code>parent</code>之<code>rightchild</code>」兩種情況，彼此結構對稱。</p>
-<p>分別進行Case1、Case2、Case3與Case4之修正。</p>
-<p>最後，當跳出迴圈後，<code>current-&gt;color = 1</code>將<code>current</code>之顏色塗黑，有可能在Case2用上，見圖五(d)與圖六(h)。</p>
+<p>中間利用數個<code>if-else</code>條件式進行Case1、Case2、Case3與Case4之修正。</p>
+<p>當滿足「<code>current</code>為<code>root</code>」或者「<code>current</code>顏色為黑色」時便跳出迴圈，最後為確保RBT滿足<code>root</code>為黑色，將<code>current</code>之顏色塗黑，有可能在Case2用上，見圖五(d)與圖六(h)。</p>
 <div class="highlight"><pre><span class="c1">// C++ code</span>
 <span class="kt">void</span> <span class="n">RBT</span><span class="o">::</span><span class="n">DeleteFixedUpRBT</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">){</span>
     <span class="c1">// Case0:(i)  current是紅色的, 直接把它塗黑</span>
