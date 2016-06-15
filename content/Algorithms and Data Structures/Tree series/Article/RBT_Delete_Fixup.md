@@ -152,7 +152,6 @@ void RBT::DeleteRBT(int KEY){              // 要刪除具有KEY的node
 * Case2：`sibling`為黑色，而且`sibling`的兩個`child`都是黑色；
 * Case3：`sibling`為黑色，而且`sibling`的`rightchild`是黑色，`leftchild`是紅色；
 * Case4：`sibling`為黑色，而且`sibling`的`rightchild`是紅色。
-    * 雖然不太有人討論Case4中，`sibling`的`leftchild`顏色是否一定是黑色，不過根據code回推的話，應該是。不過不是很重要。
 
 
 <center>
@@ -297,9 +296,14 @@ void RBT::DeleteRBT(int KEY){              // 要刪除具有KEY的node
 </center>
 
 
-<a name="example"></a>
+
+
 
 ***
+
+
+
+<a name="example"></a>
 
 ###範例
 
@@ -315,7 +319,7 @@ void RBT::DeleteRBT(int KEY){              // 要刪除具有KEY的node
 ###Case3->Case4
 
 若考慮刪除node(19)，由於node(19)是黑色，需要修正。  
-接著判斷，node(19)的`child`(為黑色的`NIL`)之`sibling`為黑色，且`sibling`之`rightchild`為黑色，符合Case3的描述，因此利用Case3之修正方法，見圖六(b)：
+接著判斷，node(19)的child(為黑色的`NIL`)之`sibling`:node(27)為黑色，且`sibling`之`rightchild`為黑色，符合Case3的描述，因此利用Case3之修正方法，見圖六(b)：
 
 * 將`sibling`之`leftchild`塗成黑色：node(24)塗成黑色；
 * 將`sibling`塗成紅色：node(27)塗成紅色；
@@ -347,12 +351,12 @@ void RBT::DeleteRBT(int KEY){              // 要刪除具有KEY的node
 
 ###Case4
 
-再考慮刪除黑色的node(45)，判斷：node(45)之`child`(為黑色的`NIL`)之`sibling`為黑色，且`sibling`之`rightchild`為紅色，符合Case4的描述，並利用Case4方法修正，見圖六(d)：
+再考慮刪除黑色的node(45)，判斷：node(45)的child(為黑色的`NIL`)之`sibling`:node(52)為黑色，且`sibling`之`rightchild`:node(55)為紅色，符合Case4的描述，並利用Case4方法修正，見圖六(d)：
 
-* 將`sibling`塗成`current`之`parent`的顏色：node(22)是黑色，則將node(24)塗成黑色；
-* 將`parent`塗成黑色：node(22)塗成黑色；
-* 將`sibling`之`rightchild`塗成黑色：node(27)塗成黑色；
-* 對`parent`進行Left Rotation：對node(22)做Left Rotation；
+* 將`sibling`塗成`current`之`parent`的顏色：node(48)是紅色，則將node(52)塗成紅色；
+* 將`parent`塗成黑色：node(48)塗成黑色；
+* 將`sibling`之`rightchild`塗成黑色：node(55)塗成黑色；
+* 對`parent`進行Left Rotation：對node(48)做Left Rotation；
 * 將`current`移至`root`，把`root`塗黑。
 
 <center>
@@ -371,7 +375,7 @@ void RBT::DeleteRBT(int KEY){              // 要刪除具有KEY的node
 
 ###Case1->Case4
 
-接著考慮刪除黑色的node(39)，判斷：node(45)之`child`(為黑色的`NIL`)之`sibling`為紅色，符合Case1之描述，便利用Case1之方法，調整成Case4，見圖六(f)：
+接著考慮刪除黑色的node(39)，判斷：node(39)的child(為黑色的`NIL`)之`sibling`:node(52)為紅色，符合Case1之描述，便利用Case1之方法，調整成Case4，見圖六(f)：
 
 Case1調整：
 
@@ -396,11 +400,11 @@ Case1調整：
 
 ###Case2->Case4
 
-若要刪除黑色的node(7)，由於其`child`之`sibling`為黑色，且具有兩個黑色的`child`(都是`NIL`)，符合Case2的情況，便修正如下，見圖六(h)：
+若要刪除黑色的node(7)，由於node(7)的child之`sibling`:node(10)為黑色，且具有兩個黑色的`child`(都是`NIL`)，符合Case2的情況，便修正如下，見圖六(h)：
 
 * 將`sibling`塗成紅色：node(10)塗成紅色；
 * 將`current`移至`currnet`的`parent`：`current`移至node(9)；
-* 若新的`current`node(9)為紅色，即跳出迴圈，並將`current`塗黑。
+* 若新的`current`:node(9)為紅色，即跳出迴圈，並將`current`塗黑。
 
 經修正後，便符合RBT之特徵，見圖六(i)。
 
