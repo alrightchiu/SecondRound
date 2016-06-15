@@ -143,7 +143,7 @@
     <span class="c1">// 前半部與 InsertBST()之邏輯完全相同, 僅僅需要修改 NULL &lt;-&gt; NIL</span>
     <span class="n">TreeNode</span> <span class="o">*</span><span class="n">y</span> <span class="o">=</span> <span class="n">neel</span><span class="p">;</span>
     <span class="n">TreeNode</span> <span class="o">*</span><span class="n">x</span> <span class="o">=</span> <span class="n">root</span><span class="p">;</span>
-    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">insert_node</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">str</span><span class="p">);</span> <span class="c1">// default copy constructor</span>
+    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">insert_node</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">str</span><span class="p">);</span>
 
     <span class="k">while</span> <span class="p">(</span><span class="n">x</span> <span class="o">!=</span> <span class="n">neel</span><span class="p">)</span> <span class="p">{</span>     <span class="c1">// 把root初始化成neel, 這裡就可以用neel來做判斷</span>
         <span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>
@@ -186,9 +186,9 @@
 <ul>
 <li>node(X)為其<code>parent</code>，顏色為紅色；</li>
 <li>node(Y)為其<code>uncle</code>，其顏色<strong>可能為紅色或黑色</strong>。</li>
-<li>node(Z)為其grandparent(<code>parent-&gt;parent</code>)，顏色必定為黑色；</li>
+<li>node(Z)為其grandparent，顏色必定為黑色(因為node(X)是紅色)；</li>
 <li>node(W)的顏色<strong>可能是紅色或黑色</strong>。</li>
-<li>所有灰色node(如node(a)、node(b)、node(c)、node(d))表示：只要不影響RBT之特徵，是否實際攜帶資料或為<code>NIL</code>並不影響結果。</li>
+<li>所有灰色node(如node(a)、node(b)、node(c)、node(d))表示：只要不影響RBT之特徵，其顏色、是否實際攜帶資料或是否為<code>NIL</code>並不影響結果。</li>
 </ul>
 <p><center>
 <img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Insert/insert1.png?raw=true" /></p>
@@ -202,7 +202,7 @@
 </ol>
 <p><a name="case1"></a></p>
 <h3>Case1</h3>
-<p>圖一(b)左，此時<code>current</code>指向新增的node(A)，而node(A)成為node(X)的<code>rightchild</code>，其<code>uncle</code>node(Y)是紅色的。<br />
+<p>圖一(b)左，此時<code>current</code>指向新增的node(A)，而node(A)成為node(X)的<code>rightchild</code>，其<code>uncle</code>:node(Y)是紅色的。<br />
 修正的方法就是「把債還給上一代的上一代」：</p>
 <ul>
 <li>將<code>parent</code>塗成黑色：node(X)塗成黑色；</li>
@@ -211,15 +211,15 @@
 <li>將<code>current</code>從node(A)移到node(Z)。</li>
 </ul>
 <p>此時，如圖一(b)右，從node(Z)出發往其descendant leaves的任一path上之黑色node數皆相同，這個subtree便滿足了RBT的特徵。  </p>
+<p><center>
+<img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Insert/insert2.png?raw=true" /></p>
+<p><strong>圖一(b)：。</strong><br />
+</center></p>
 <p>接著必需根據node(W)的顏色採取不同行動：</p>
 <ul>
 <li>若node(W)為黑色，就不需要再做調整；</li>
 <li>若node(W)為紅色，則node(Z)與node(W)再次形成紅色node與紅色node相連，必須重複同樣的判斷流程。</li>
 </ul>
-<p><center>
-<img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Insert/insert2.png?raw=true" /></p>
-<p><strong>圖一(b)：。</strong><br />
-</center></p>
 <p>若node(A)成為node(X)的<code>leftchild</code>，如圖一(c)，修正的方法同上。</p>
 <p><center>
 <img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Insert/insert3.png?raw=true" /></p>
@@ -227,12 +227,12 @@
 </center></p>
 <p><a name="case3"></a></p>
 <h3>Case3</h3>
-<p>圖一(d)，新增的node(A)成為node(X)的<code>leftchild</code>，其<code>uncle</code>node(Y)是黑色。 </p>
+<p>圖一(d)，新增的node(A)成為node(X)的<code>leftchild</code>，其<code>uncle</code>:node(Y)是黑色。 </p>
 <p><center>
 <img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Insert/insert4.png?raw=true" /></p>
 <p><strong>圖一(d)：。</strong><br />
 </center></p>
-<p>事實上，若<code>current</code>指向之node(此為node(A))是新增的node，則根據RBT之第五點特徵，其<code>uncle</code>node(Y)必定是<code>NIL</code>，如圖一(e)左。</p>
+<p>事實上，若<code>current</code>指向之node(此為node(A))是新增的node，則根據RBT之第五點特徵，其<code>uncle</code>:node(Y)必定是<code>NIL</code>，如圖一(e)左。</p>
 <p>不過，在稍後的範例中將會看到，<code>current</code>不一定是「剛剛新增的node」，也有可能是「修正到一半，出現紅色與紅色相連的node」，但因為是「修正到一半」，尚未調整node(Z)的顏色，因此所有從node(Z)往其descendant leaves的任意path上之黑色node數必定不變，此時，若node(Y)不為<code>NIL</code>，則node(X)以及node(A)必定還有黑色的<code>child pointer</code>，如圖一(e)右所示，node(a)、node(b)與node(c)皆為黑色。</p>
 <p><center>
 <img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Insert/insert5.png?raw=true" /></p>
@@ -242,7 +242,7 @@
 <ul>
 <li>將<code>parent</code>塗成黑色：node(X)塗成黑色；</li>
 <li>將<code>parent-&gt;parent</code>塗成紅色：node(Z)塗成紅色；</li>
-<li>對<code>parent-&gt;parent</code>node(Z)進行<strong>Right Rotation(向右旋轉)</strong></li>
+<li>對<code>parent-&gt;parent</code>node(Z)進行<strong>Right Rotation(向右旋轉)</strong>。</li>
 </ul>
 <p><center>
 <img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Insert/insert6.png?raw=true" /></p>
@@ -259,12 +259,12 @@
 </center></p>
 <p><a name="case2"></a></p>
 <h3>Case2</h3>
-<p>圖一(h)，新增的node(A)成為node(X)的<code>rightchild</code>，其<code>uncle</code>node(Y)是黑色。</p>
+<p>圖一(h)，新增的node(A)成為node(X)的<code>rightchild</code>，其<code>uncle</code>:node(Y)是黑色。</p>
 <p><center>
 <img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Insert/insert8.png?raw=true" /></p>
 <p><strong>圖一(h)：。</strong><br />
 </center></p>
-<p>如同Case3，圖一(h)的<code>uncle</code>node(Y)同樣有兩種可能：攜帶實際資料的黑色node，或者<code>NIL</code>，如圖一(i)：</p>
+<p>如同Case3，圖一(h)的<code>uncle</code>:node(Y)同樣有兩種可能：攜帶實際資料的黑色node，或者<code>NIL</code>，如圖一(i)：</p>
 <p><center>
 <img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Insert/insert9.png?raw=true" /></p>
 <p><strong>圖一(i)：。</strong><br />
@@ -290,7 +290,7 @@
 <p><strong>圖二(a)：。</strong><br />
 </center></p>
 <p>若想新增node(75)，由於其將接在node(80)的<code>leftchild</code>位置上，而node(80)為紅色，因此需要進行修正。<br />
-接著觀察，node(75)之<code>uncle</code>為node(60)，同樣是紅色，因此可以使用Case1的方法，如圖二(b)：</p>
+接著觀察，node(75)之<code>uncle</code>:node(60)，是紅色，因此可以使用Case1的方法修正，如圖二(b)：</p>
 <ul>
 <li>將<code>parent</code>與<code>uncle</code>塗黑：node(80)與node(60)塗黑；</li>
 <li>將grandparent塗紅：node(70)塗紅；</li>
@@ -307,7 +307,7 @@
 <ul>
 <li>將<code>parent</code>塗成黑色：node(30)塗成黑色；</li>
 <li>將<code>parent-&gt;parent</code>塗成紅色：node(40)塗成紅色；</li>
-<li>對<code>parent-&gt;parent</code>node(40)進行<strong>Right Rotation(向右旋轉)</strong></li>
+<li>對<code>parent-&gt;parent</code>:node(40)進行<strong>Right Rotation(向右旋轉)</strong>。</li>
 </ul>
 <p><center>
 <img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Insert/insert13.png?raw=true" /></p>
@@ -351,8 +351,8 @@
 <p>最後還有一點需要說明。</p>
 <p>圖五中：</p>
 <ul>
-<li>左圖是本篇文章介紹修正(Fix-Up)的出發點：將新增的node接在node(X)上，而node(X)是node(Z)的<code>leftchild</code>(<code>parent</code>是<code>parent-&gt;parent</code>的<code>leftchild</code>)；</li>
-<li>還有另外一半的情況就如圖五之右圖：將新增的node接在node(Y)上，而node(Y)是node(Z)的<code>rightchild</code>(<code>parent</code>是<code>parent-&gt;parent</code>的<code>rightchild</code>)。</li>
+<li>左圖是本篇文章介紹修正(Fix-Up)的出發點：將新增的node接在node(X)上，而node(X)是node(Z)的<code>leftchild</code>(亦即，新增的node之<code>parent</code>是<code>parent-&gt;parent</code>的<code>leftchild</code>)；</li>
+<li>還有另外一半的情況就如圖五之右圖：將新增的node接在node(Y)上，而node(Y)是node(Z)的<code>rightchild</code>(亦即，新增的node之<code>parent</code>是<code>parent-&gt;parent</code>的<code>rightchild</code>)。</li>
 </ul>
 <p><center>
 <img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Insert/insert21.png?raw=true" /></p>
@@ -360,7 +360,7 @@
 </center></p>
 <p>必須要區分這兩者的原因有二：</p>
 <ul>
-<li>一是<code>uncle</code>：因為<code>parent</code>與<code>uncle</code>分別為<code>parent-&gt;parent</code>之<code>leftchild</code>與<code>rightchild</code>，若<code>parent</code>是<code>left-</code>，<code>uncle</code>就要是<code>right-</code>，反之亦然，兩者屬於互斥(exclusive)的、不能同時發生的情境；</li>
+<li>一是<code>uncle</code>：因為<code>parent</code>與<code>uncle</code>分別為<code>parent-&gt;parent</code>之<code>leftchild</code>與<code>rightchild</code>，若<code>parent</code>是<code>left-</code>，<code>uncle</code>就要是<code>right-</code>，反之亦然，兩者屬於互斥(exclusive)事件，不可能同時發生；</li>
 <li>二是Rotation(旋轉)：在Case2與Case3中必須使用Left/Right Rotation，因此，延續第一點原因，考慮到<code>parent</code>是<code>leftchild</code>或是<code>rightchild</code>的不同，Left/Right Rotation的方向也會相反。</li>
 </ul>
 <p></br></p>
@@ -368,10 +368,10 @@
 <h2>程式碼</h2>
 <p><code>InsertFixedUpRBT()</code>之範例程式碼分成以下幾個部分：</p>
 <ul>
-<li>定義<code>color</code>：0為紅色，1為黑色；</li>
+<li>定義<code>color</code>：<span class="math">\(0\)</span>為紅色，<span class="math">\(1\)</span>為黑色；</li>
 <li>如同圖四所示，修正的過程可能歷經不止一個Case，因此利用<code>while</code>迴圈實現，條件式便是判斷當前<code>current</code>之<code>parent</code>是否為紅色；</li>
 <li>分別進行Case1(圖一(b)與圖一(c))、Case2(圖一(j))與Case3(圖一(f))之修正；</li>
-<li>最後，在<strong>line50</strong>出現一行<code>root-&gt;color=1</code>，將<code>root</code>之顏色塗黑，這是為了Case1所設，由於Case1之修正方法是把「紅色與紅色node相連」之可能性往<code>root</code>方向傳遞，有可能<code>root</code>恰好是<code>current</code>的grandparent而被塗成紅色，如圖六，但因為RBT之第二點特徵要求<code>root</code>一定是黑色，因此必須作此預防。</li>
+<li>最後，有一行<code>root-&gt;color=1</code>，確保<code>root</code>之顏色是黑色，這是為了Case1所設，由於Case1之修正方法是把「紅色與紅色node相連」之可能性往<code>root</code>方向傳遞，有可能<code>root</code>恰好是<code>current</code>的grandparent而被塗成紅色，如圖六，但因為RBT之第二點特徵要求<code>root</code>一定是黑色，因此必須作此預防。</li>
 </ul>
 <p><center>
 <img alt="bst" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Insert/insert22.png?raw=true" /></p>
