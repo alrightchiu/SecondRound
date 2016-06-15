@@ -232,10 +232,7 @@
 <li>Case1：<code>sibling</code>為紅色；</li>
 <li>Case2：<code>sibling</code>為黑色，而且<code>sibling</code>的兩個<code>child</code>都是黑色；</li>
 <li>Case3：<code>sibling</code>為黑色，而且<code>sibling</code>的<code>rightchild</code>是黑色，<code>leftchild</code>是紅色；</li>
-<li>Case4：<code>sibling</code>為黑色，而且<code>sibling</code>的<code>rightchild</code>是紅色。<ul>
-<li>雖然不太有人討論Case4中，<code>sibling</code>的<code>leftchild</code>顏色是否一定是黑色，不過根據code回推的話，應該是。不過不是很重要。</li>
-</ul>
-</li>
+<li>Case4：<code>sibling</code>為黑色，而且<code>sibling</code>的<code>rightchild</code>是紅色。</li>
 </ul>
 <p><center>
 <img alt="4cases" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Delete/delete4.png?raw=true" /></p>
@@ -337,8 +334,8 @@
 <img alt="case4" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Delete/delete13.png?raw=true" /></p>
 <p><strong>圖五(h)：圖中的「Original」僅代表其中一種可能的情形。</strong>
 </center></p>
-<p><a name="example"></a></p>
 <hr />
+<p><a name="example"></a></p>
 <h3>範例</h3>
 <p>接著以一個簡單的範例(圖六(a)之RBT)操作上述四種Case的修正方法。</p>
 <p><center>
@@ -347,7 +344,7 @@
 </center></p>
 <h3>Case3-&gt;Case4</h3>
 <p>若考慮刪除node(19)，由於node(19)是黑色，需要修正。<br />
-接著判斷，node(19)的<code>child</code>(為黑色的<code>NIL</code>)之<code>sibling</code>為黑色，且<code>sibling</code>之<code>rightchild</code>為黑色，符合Case3的描述，因此利用Case3之修正方法，見圖六(b)：</p>
+接著判斷，node(19)的child(為黑色的<code>NIL</code>)之<code>sibling</code>:node(27)為黑色，且<code>sibling</code>之<code>rightchild</code>為黑色，符合Case3的描述，因此利用Case3之修正方法，見圖六(b)：</p>
 <ul>
 <li>將<code>sibling</code>之<code>leftchild</code>塗成黑色：node(24)塗成黑色；</li>
 <li>將<code>sibling</code>塗成紅色：node(27)塗成紅色；</li>
@@ -372,12 +369,12 @@
 <p><strong>圖六(c)：。</strong>
 </center></p>
 <h3>Case4</h3>
-<p>再考慮刪除黑色的node(45)，判斷：node(45)之<code>child</code>(為黑色的<code>NIL</code>)之<code>sibling</code>為黑色，且<code>sibling</code>之<code>rightchild</code>為紅色，符合Case4的描述，並利用Case4方法修正，見圖六(d)：</p>
+<p>再考慮刪除黑色的node(45)，判斷：node(45)的child(為黑色的<code>NIL</code>)之<code>sibling</code>:node(52)為黑色，且<code>sibling</code>之<code>rightchild</code>:node(55)為紅色，符合Case4的描述，並利用Case4方法修正，見圖六(d)：</p>
 <ul>
-<li>將<code>sibling</code>塗成<code>current</code>之<code>parent</code>的顏色：node(22)是黑色，則將node(24)塗成黑色；</li>
-<li>將<code>parent</code>塗成黑色：node(22)塗成黑色；</li>
-<li>將<code>sibling</code>之<code>rightchild</code>塗成黑色：node(27)塗成黑色；</li>
-<li>對<code>parent</code>進行Left Rotation：對node(22)做Left Rotation；</li>
+<li>將<code>sibling</code>塗成<code>current</code>之<code>parent</code>的顏色：node(48)是紅色，則將node(52)塗成紅色；</li>
+<li>將<code>parent</code>塗成黑色：node(48)塗成黑色；</li>
+<li>將<code>sibling</code>之<code>rightchild</code>塗成黑色：node(55)塗成黑色；</li>
+<li>對<code>parent</code>進行Left Rotation：對node(48)做Left Rotation；</li>
 <li>將<code>current</code>移至<code>root</code>，把<code>root</code>塗黑。</li>
 </ul>
 <p><center>
@@ -390,7 +387,7 @@
 <p><strong>圖六(e)：。</strong>
 </center></p>
 <h3>Case1-&gt;Case4</h3>
-<p>接著考慮刪除黑色的node(39)，判斷：node(45)之<code>child</code>(為黑色的<code>NIL</code>)之<code>sibling</code>為紅色，符合Case1之描述，便利用Case1之方法，調整成Case4，見圖六(f)：</p>
+<p>接著考慮刪除黑色的node(39)，判斷：node(39)的child(為黑色的<code>NIL</code>)之<code>sibling</code>:node(52)為紅色，符合Case1之描述，便利用Case1之方法，調整成Case4，見圖六(f)：</p>
 <p>Case1調整：</p>
 <ul>
 <li>將<code>sibling</code>塗成黑色：node(52)塗成黑色；</li>
@@ -406,11 +403,11 @@
 <p><strong>圖六(g)：。</strong></p>
 <p></center></p>
 <h3>Case2-&gt;Case4</h3>
-<p>若要刪除黑色的node(7)，由於其<code>child</code>之<code>sibling</code>為黑色，且具有兩個黑色的<code>child</code>(都是<code>NIL</code>)，符合Case2的情況，便修正如下，見圖六(h)：</p>
+<p>若要刪除黑色的node(7)，由於node(7)的child之<code>sibling</code>:node(10)為黑色，且具有兩個黑色的<code>child</code>(都是<code>NIL</code>)，符合Case2的情況，便修正如下，見圖六(h)：</p>
 <ul>
 <li>將<code>sibling</code>塗成紅色：node(10)塗成紅色；</li>
 <li>將<code>current</code>移至<code>currnet</code>的<code>parent</code>：<code>current</code>移至node(9)；</li>
-<li>若新的<code>current</code>node(9)為紅色，即跳出迴圈，並將<code>current</code>塗黑。</li>
+<li>若新的<code>current</code>:node(9)為紅色，即跳出迴圈，並將<code>current</code>塗黑。</li>
 </ul>
 <p>經修正後，便符合RBT之特徵，見圖六(i)。</p>
 <p><center>
@@ -435,8 +432,8 @@
 <p>最後，當跳出迴圈後，<code>current-&gt;color = 1</code>將<code>current</code>之顏色塗黑，有可能在Case2用上，見圖五(d)與圖六(h)。</p>
 <div class="highlight"><pre><span class="c1">// C++ code</span>
 <span class="kt">void</span> <span class="n">RBT</span><span class="o">::</span><span class="n">DeleteFixedUpRBT</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">current</span><span class="p">){</span>
-    <span class="c1">// Case0:(i)  current是紅色的, 不影響黑色在path上的數量</span>
-    <span class="c1">//       (ii) current是root,</span>
+    <span class="c1">// Case0:(i)  current是紅色的, 直接把它塗黑</span>
+    <span class="c1">//       (ii) current是root, 直接把它塗黑</span>
     <span class="k">while</span> <span class="p">(</span><span class="n">current</span> <span class="o">!=</span> <span class="n">root</span> <span class="o">&amp;&amp;</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
         <span class="c1">// current是leftchild</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">current</span> <span class="o">==</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">)</span> <span class="p">{</span>    
@@ -522,6 +519,7 @@
 <li><a href="http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844">Introduction to Algorithms, Ch13</a> </li>
 <li><a href="http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376">Fundamentals of Data Structures in C++, Ch10</a></li>
 <li><a href="http://code.geeksforgeeks.org/NtLnIk">GeeksforGeeks：Red Black Tree</a></li>
+<li><a href="http://alrightchiu.github.io/SecondRound/binary-search-tree-sortpai-xu-deleteshan-chu-zi-liao.html#delete">BST::DeleteBST(刪除資料)</a></li>
 </ul>
 <p></br></p>
 <p><a name="tree_series"></a></p>
