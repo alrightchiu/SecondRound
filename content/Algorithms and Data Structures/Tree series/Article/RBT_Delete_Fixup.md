@@ -398,7 +398,7 @@ Case1調整：
 
 </center>
 
-###Case2->Case4
+###Case2
 
 若要刪除黑色的node(7)，由於node(7)的child之`sibling`:node(10)為黑色，且具有兩個黑色的`child`(都是`NIL`)，符合Case2的情況，便修正如下，見圖六(h)：
 
