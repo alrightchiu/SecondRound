@@ -11,7 +11,7 @@ Summary: 介紹Red Black Tree(紅黑樹)的基本性質。
  
 在閱讀過BST系列文章後可以發現，在BST中的操作，不論是Insert(新增資料)或是Delete(刪除資料)，皆需要先做Search(搜尋)，而Search(搜尋)的效率，取決於BST的height(樹高)，如果一棵樹越矮、越平衡(balanced)，則在此BST中搜尋資料的速度較快，理想狀況為Complete Binary Tree(時間複雜度：$O(\log N)$)。反之，若由於輸入資料的順序使得BST沒長好、偏一邊，則在此BST中搜尋資料的最壞情況將有可能如同在Linked List做搜尋(時間複雜度：$O(N)$)。  
 
-本篇文章將介紹BST的進階版Red Black Tree(RBT，紅黑樹)之基本性質，會說是進階版，原因在於RBT其實也是BST(滿足$Key(L)<Key(Current)<Key(R)$)，不過RBT的node比BST多加了「顏色」(紅色或黑色)，而正因為多了「顏色」，便能修正BST有可能退化成Linked list(連結串列)的潛在缺陷。 
+本篇文章將介紹BST的進階版Red Black Tree(RBT，紅黑樹)之基本性質，會說是進階版，原因在於RBT其實也是BST(滿足Key(L)<Key(Current)<Key(R))，不過RBT的node比BST多加了「顏色」(紅色或黑色)，而正因為多了「顏色」，便能修正BST有可能退化成Linked list的潛在缺陷。 
 
 <center>
 ![anarchy][f1]
@@ -19,7 +19,7 @@ Summary: 介紹Red Black Tree(紅黑樹)的基本性質。
 **圖一：不平衡的BST。**  
 </center>
 
-另外，本篇文章將不進行「RBT之時間複雜度如何能視同Complete Binary Tree」之論證(筆者火侯不夠，請見諒)，建議讀者可以參考[Introduction to Algorithms，第13章](http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844)，不過結論就是，RBT可以被視為如同Complete Binary Tree的BST，所有與Search(搜尋)有關的操作(Leftmost、Successor、Insert、Delete等等)，都能夠在$O(\log N)$內完成。
+另外，本篇文章不具備「RBT之時間複雜度如何能視同Complete Binary Tree」之論證(筆者火侯不夠，請見諒)，建議讀者可以參考[Introduction to Algorithms，第13章](http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844)，不過結論就是，RBT可以被視為如同Complete Binary Tree的BST，所有與Search(搜尋)有關的操作(Leftmost、Successor、Insert、Delete等等)，都能夠在$O(\log N)$內完成。
 
 
 ***
@@ -39,7 +39,7 @@ Summary: 介紹Red Black Tree(紅黑樹)的基本性質。
 
 ##為什麼需要Red Black Tree？
 
-若考慮最壞情況，在建立BST時，輸入資料的Key恰好被排序過(例如：1、2、3、4...)，那麼這顆BST便會退化成Linked List(接續前例，所有leftchild pointer都指向`NULL`，只有rightchild child被使用)：
+若考慮最壞情況，在建立BST時，輸入資料的Key恰好被排序過(例如：$1$、$2$、$3$、$4$...)，那麼這顆BST便會退化成Linked List(例如，所有leftchild pointer都指向`NULL`，只有rightchild child被使用)：
 
 ```cpp
 // C++ code
@@ -51,7 +51,7 @@ int main{
     ...
 }
 ```
-圖二中，右側的藍色數字表示「搜尋該node需要比較(`if KEY == current->key`)的次數」，也就是迴圈的次數。考慮一串Linked List共有N個node，若要尋找第K個node，則最壞情況即是一路找到最後一個node，需要N次。
+圖二中，右側的藍色數字表示「搜尋該node需要比較(`if (KEY == current->key)`)的次數」，也就是迴圈的次數。考慮一串Linked List共有N個node，若要尋找第K個node，最壞情況就是一路找到最後一個node，需要N次。
 
 <center>
 ![linked list][f2]
@@ -63,7 +63,7 @@ int main{
 位置順序與迴圈次數有以下關係：
 
 * 在位置$2^3=8$與$2^4=16$之間的node($2^3\leq i<2^4, i=8\sim 15$)，只需要$3+1$次比較(comparison)即可找到。
-* 依此類推，若BST中有N個node，則所有node保證能夠在$\lfloor {\log N} \rfloor +1$次 ($2^k\leq N<2^{k+1}, k\leq\log N$)迴圈以內找到。
+* 依此類推，若BST中有N個node，則所有node保證能夠在$\lfloor {\log N} \rfloor +1$次 ($2^k\leq N<2^{k+1} \iff k\leq\log N$)迴圈以內找到。
 
 
 <center>
@@ -75,6 +75,7 @@ int main{
 以上兩個範例為一棵具有N個node的BST之height(樹高)提供了邊界：$\log N\leq height\leq N$。
 
 因此，BST越平衡，在樹中搜尋資料的時間就越短，連帶地Insert(新增資料)、Delete(刪除資料)也會變得更有效率。  
+
 這就是RBT值得被介紹的原因。
 
 </br>
@@ -83,33 +84,34 @@ int main{
 
 ##Red Black Tree的特徵
 
-Red Black Tree(RBT)是node塗了「顏色」的Binary Search Tree(BST)，藉由控制顏色，能夠保證在RBT中，**最長path(路徑)不會超過最短path的兩倍**(若最短的path是5，最長的path至多只能是10)，如此，RBT便能夠近似地視為平衡，如圖四。
+Red Black Tree(RBT)是node塗了「顏色」的Binary Search Tree(BST)，藉由控制顏色，能夠保證在RBT中，**最長path(路徑)不會超過最短path的兩倍**(若最短的path是$5$，最長的path至多只能是$10$)，如此，RBT便能夠近似地視為平衡，如圖四。
 
 <center>
 ![rbt][f4]
 
-**圖四：最短的path為3(最右path:26-41-47)，其餘path最長只能是6(最左path:26-17-14-10-7-3)。  
+**圖四：最短的path為$3$(最右path:26-41-47)，  
+其餘path最長只能是$6$(最左path:26-17-14-10-7-3)。  
 若蓋住`NIL`與顏色，此即為BST。**  
 </center>
 
-圖四中，所有原本在BST中指向`NULL`的pointer，在RBT中，全部指向了`NIL`。然而什麼是`NIL`？`NIL`是永遠為黑色、並且實際占有記憶體的node，因為有配置記憶體，因此能夠以`Node->color`的方式取得某個node之顏色(若使用`NULL`則無法)，此優勢將在後續介紹如何於RBT中Insert(新增資料)與Delete(刪除資料)時派上用場。
+圖四中，所有原本在BST中指向`NULL`的pointer，在RBT中，全部指向了`NIL`。什麼是`NIL`？`NIL`是永遠為黑色、並且實際占有記憶體的node，因為有配置記憶體，因此能夠以`Node->color`的方式取得某個node之顏色(若使用`NULL`則無法)，這項設計將在後續介紹如何於RBT中Insert(新增資料)與Delete(刪除資料)時派上用場。
 
 接著來看RBT的五項特徵：
 
 1. RBT中的每一個node不是黑色就是紅色。
 2. `root`一定是黑色。
 3. 每一個leaf node(也就是`NIL`)一定是黑色。
-4. 如果某個node是紅色，那麼其兩個child必定是黑色，不能有兩個紅色node相連，如圖四中的node(17)、node(30)。  
-若某個node為黑色，其child之顏色沒有限制，如圖四中的node(38)、node(26)、node(21)。
-5. 站在任何一個node上，所有從該node走到其任意descendant的path上之黑色node數必定相同。  
+4. 如果某個node是紅色，那麼其兩個child必定是黑色，不能有兩個紅色node相連，如圖四中的node(17)、node(30)。
+    * 若某個node為黑色，其child之顏色沒有限制，如圖四中的node(38)、node(26)、node(21)。
+5. 站在任何一個node上，所有從該node走到其任意descendant leaf的path上之黑色node數必定相同。  
 以圖四為例，站在node(14)上，所有從node(14)走向其descendant leaves(也就是`NIL`)的path上之黑色node數必為3： 
-    * path1:14(**b**)-10(r)-7(**b**)-3(r)-NIL(**b**)；
-    * path2:14(**b**)-10(r)-7(**b**)-NIL(**b**)；
-    * path3:14(**b**)-10(r)-12(**b**)-NIL(**b**)；
-    * path4:14(**b**)-16(**b**)-15(r)-NIL(**b**)；
-    * path5:14(**b**)-16(**b**)-NIL(**b**)；   
+    * path1:14(b)-10(r)-7(b)-3(r)-NIL(b)；
+    * path2:14(b)-10(r)-7(b)-NIL(b)；
+    * path3:14(b)-10(r)-12(b)-NIL(b)；
+    * path4:14(b)-16(b)-15(r)-NIL(b)；
+    * path5:14(b)-16(b)-NIL(b)；   
 
-根據上述特徵的第四點與第五點，RBT中path可能的長度最小值一定是全部node皆為黑色，而path可能的長度最大值並定是紅色-黑色相間(如圖四)，如此便確保RBT擁有**最長path(路徑)不會超過最短path的兩倍**的特性。
+根據上述特徵的第四點與第五點，RBT中path可能的長度最小值一定是全部node皆為黑色(如圖四最右path)，而path可能的長度最大值並定是紅色-黑色相間(如圖四最左path)，如此便確保RBT擁有**最長path(路徑)不會超過最短path的兩倍**的特性。
 
 </br>
 
@@ -139,7 +141,7 @@ private:
     TreeNode *parent;
     std::string element;
     int key;
-    int color;         // 0: Red,  1: Black
+    int color;         // 0: Red, 1: Black; using type:bool is ok
     friend RBT;
     ...
 }
@@ -161,15 +163,15 @@ private:
 </center>
 
 
-[f1]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Intro/biasedtree.png?raw=true
-[f2]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Intro/rbt1.png?raw=true
-[f3]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Intro/rbt2.png?raw=true
-[f4]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Intro/rbt3.png?raw=true
-[f5]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Intro/rbt4.png?raw=true
-[f6]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Intro/rbt5.png?raw=true
+[f1]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Intro/f1.png?raw=true
+[f2]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Intro/f2.png?raw=true
+[f3]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Intro/f3.png?raw=true
+[f4]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Intro/f4.png?raw=true
+[f5]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Intro/f5.png?raw=true
+[f6]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Intro/f6.png?raw=true
   
   
-以上便是RBT之初探，最重要的結論為：就時間複雜度而言，RBT能夠被視為平衡的BST，所有操作皆能在時間複雜度為$O(\log N)$內完成。
+以上便是RBT之初探，最重要的結論：就時間複雜度而言，RBT能夠被視為平衡的BST，所有操作皆能在時間複雜度為$O(\log N)$內完成。
 
 在接下來的三篇文章中，將依序介紹Rotation(旋轉)、Insert(新增資料)與Delete(刪除資料)。
   
