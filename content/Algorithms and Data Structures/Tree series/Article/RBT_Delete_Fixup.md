@@ -10,6 +10,7 @@ Summary: 介紹於Red Black Tree(紅黑樹)中Delete(刪除資料)與Delete後�
 ###先備知識與注意事項
 
 如同[Red Black Tree: Insert(新增資料)與Fixup(修正)](http://alrightchiu.github.io/SecondRound/red-black-tree-insertxin-zeng-zi-liao-yu-fixupxiu-zheng.html)，RBT之Delete(刪除資料)方法同樣是先沿用`DeleteBST()`，再對顏色利用`Rotation`進行修正。  
+
 建議讀者在閱讀本篇文章之前，先復習[BST::DeleteBST(刪除資料)](http://alrightchiu.github.io/SecondRound/binary-search-tree-sortpai-xu-deleteshan-chu-zi-liao.html#delete)與[Red Black Tree: Rotation(旋轉)](http://alrightchiu.github.io/SecondRound/red-black-tree-rotationxuan-zhuan.html)，會比較容易上手。
 
 
@@ -41,9 +42,9 @@ Summary: 介紹於Red Black Tree(紅黑樹)中Delete(刪除資料)與Delete後�
 
 1. 圖一(a)：若要刪除的node恰好為`root`，而刪除後恰好是紅色的node遞補成為新的`root`，此時便違反RBT之第二點特徵：`root`一定要是黑色；
 2. 圖一(b)：若刪除node後，出現紅色與紅色node相連之情形，則違反RBT之第四點特徵：紅色node之`child`一定要是黑色；
-3. 圖一(b)：若刪除之node是黑色，則所有包含被刪除node的path上之黑色node數必定會減少，若恰好被刪除之node不是`root`，將會違反RBT之第五點特徵：站在任何一個node上，所有從該node走到其任意descendant的path上之黑色node數必定相同。  
-圖一(b)左：從`root`node(B)出發至任意leaves的path上都有三個黑色node(包含`NIL`)；  
-圖一(b)右：刪除node(D)後，path(node(B)-node(E)-node(C))上之黑色node數剩下$2$個(包含`NIL`)。
+3. 圖一(b)：若刪除之node是黑色，而且恰好不是`root`，那麼所有包含被刪除node的path上之黑色node數必定會減少，將會違反RBT之第五點特徵：「站在任何一個node上，所有從該node走到其任意descendant leaf的path上之黑色node數必定相同」。
+    * 圖一(b)左：從`root`:node(B)出發至任意leaf的path上都有三個黑色node(包含`NIL`)；
+    * 圖一(b)右：刪除node(D)後，path:node(B)-node(E)-node(C)上之黑色node數剩下$2$個(包含`NIL`)。
 
 因此，需要對顏色進行修正，以滿足RBT特徵。
 
@@ -67,53 +68,64 @@ Summary: 介紹於Red Black Tree(紅黑樹)中Delete(刪除資料)與Delete後�
 
 `RBT::DeleteRBT()`之範例程式碼分成兩個部分：
 
-1. 第一部分，如同`DeleteBST()`，依照欲刪除之node的`child`個數分成三種情形處理：
+1. 第一部分，如同`DeleteBST()`，依照欲刪除之node的child個數分成三種情形處理：
     1. 先確認BST中有沒有要刪除的node；
-    2. 把要刪除的node調整成「至多只有一個`child`」；
-    3. 把要刪除的node的`child`指向新的`parent`；
-    4. 把要刪除的node的`parent`指向新的`child`；
+    2. 把要刪除的node調整成「至多只有一個child」；
+    3. 把要刪除的node的child指向新的`parent`；
+    4. 把要刪除的node的`parent`指向新的child；
     5. 若實際上刪除的是「替身」，再把替身的資料放回BST中；
 2. 第二部分，若刪除的node是黑色，需要進行修正(Fix-Up)，引進函式：`DeleteFixedUpRBT()`。   
-</br>
+
+</br>  
+
 
 ```cpp
 // C++ code
 void RBT::DeleteRBT(int KEY){              // 要刪除具有KEY的node
     
-    TreeNode *delete_node = new TreeNode;
-    delete_node = Search(KEY);             // 先確認BST中是否有具有KEY的node
+    TreeNode *delete_node = Search(KEY);   // 先確認RBT中是否存在具有KEY的node
     if (delete_node == NULL) {
         std::cout << "data not found.\n";
         return;
     }
 
-    TreeNode *y = new TreeNode; y = 0;     // 真正要被刪除並釋放記憶體的node
-    TreeNode *x = new TreeNode; x = 0;     // 要被刪除的node的child
+    TreeNode *y = 0;     // 真正要被刪除並釋放記憶體的node
+    TreeNode *x = 0;     // 要被刪除的node的"child"
 
-    if (delete_node->leftchild == neel || delete_node->rightchild == neel)
+    if (delete_node->leftchild == neel || delete_node->rightchild == neel){
         y = delete_node;
-    else
-        y = Successor(delete_node);
-                                           // 經過以上的if-else, y至多只有一個child
-    if (y->leftchild != neel)              // 將x設成y的child, 可能是實際資料, 也有可能是NIL
+    }
+    else{
+        y = Successor(delete_node);         // 將y設成delete_node的Successor
+    }                                       // 經過這組if-else, y調整成至多只有一個child
+    
+
+    if (y->leftchild != neel){              // 將x設成y的child, 可能有實際資料, 也有可能是NIL
         x = y->leftchild;
-    else
+    }
+    else{
         x = y->rightchild;
+    }
 
     x->parent = y->parent;                 // 即使x是NIL也要把x的parent指向有效的記憶體位置
                                            // 因為在FixUp時需要藉由x->parent判斷x為leftchild或是rightchild
-    if (y->parent == neel)                 // 再將要被刪除的node之parent指向新的child
-        this->root = x;                    
-    else if (y == y->parent->leftchild)
-        y->parent->leftchild = x;
-    else
-        y->parent->rightchild = x;
 
-    if (y != delete_node) {                // 若實際上是「替身」被刪除, 要把「替身」的資料放回RBT中
-        delete_node->SetKey(y->GetKey());
-        delete_node->SetElement(y->GetElement());
+    if (y->parent == neel){                // 接著再把要被釋放記憶體的node之"parent"指向新的child
+        this->root = x;                    // 若刪除的是原先的root, 就把x當成新的root 
     }
-    if (y->color == 1) {                   // 若刪除的node是黑色, 則要從x進行修正
+    else if (y == y->parent->leftchild){   // 若y原本是其parent之left child
+        y->parent->leftchild = x;          // 便把x皆在y的parent的left child, 取代y
+    }
+    else{                                  // 若y原本是其parent之right child
+        y->parent->rightchild = x;         // 便把x皆在y的parent的right child, 取代y
+    }
+
+    if (y != delete_node) {                // 針對case3
+        delete_node->key = y->key;         // 若y是delete_node的替身, 最後要再將y的資料
+        delete_node->element = y->element; // 放回delete_node的記憶體位置, 並將y的記憶體位置釋放
+    }
+
+    if (y->color == 1) {                   // 若刪除的node是黑色, 要從x進行修正, 以符合RBT的顏色規則
         DeleteFixedUpRBT(x);
     }
 }
@@ -138,7 +150,7 @@ void RBT::DeleteRBT(int KEY){              // 要刪除具有KEY的node
 
 * Case1：`sibling`為紅色；
 * Case2：`sibling`為黑色，而且`sibling`的兩個`child`都是黑色；
-* Case3：`sibling`為黑色，而且`sibling`的`rightchild`是黑色；
+* Case3：`sibling`為黑色，而且`sibling`的`rightchild`是黑色，`leftchild`是紅色；
 * Case4：`sibling`為黑色，而且`sibling`的`rightchild`是紅色。
 
 
@@ -175,7 +187,7 @@ void RBT::DeleteRBT(int KEY){              // 要刪除具有KEY的node
 * 將`sibling`塗成黑色：node(E)塗成黑色；
 * 將`current`之`parent`塗成紅色：node(C)塗成紅色；
 * 對`current`之`parent`做Left Rotation：對node(C)做Left Rotation；
-* 將`sibling`移動到`current->parent`的`rightchild`：將`sibling`移動至node(D)。
+* 將`sibling`移動到`current->parent`的`rightchild`：將`sibling`指向node(D)。
 
 <center>
 ![case1][f6]
@@ -186,8 +198,10 @@ void RBT::DeleteRBT(int KEY){              // 要刪除具有KEY的node
 在上述步驟中，並沒有更改`current`之記憶體位置和顏色，`current`仍為黑色。不過其`sibling`必定會變成黑色，因此將進入Case2、Case3或Case4。
 
 為什麼Case1經過以上修正還沒有結束？原因要回到刪除node之前的RBT。  
+
 圖五(b)左，展示了刪除node之前，以node(C)為`root`的RBT(或是更大的RBT之subtree)的其中一種可能情況。  
 從node(C)往任何一個descendant leaf的path上之黑色node數為$3$，刪除node(B)後，使得其中一條path的黑色node數減少，經過上述方法之調整，仍然無法使得所有path之黑色node數相同，如圖五(b)右。  
+
 不過Case1所提出的修正方法能夠將情況調整成Case2、Case3或Case4，並且修正至滿足RBT之特徵。
 
 
@@ -205,7 +219,7 @@ void RBT::DeleteRBT(int KEY){              // 要刪除具有KEY的node
 若`sibling`為黑色，並且`sibling`之兩個`child`皆為黑色，修正的方法如下，見圖五(c)：
 
 * 將`sibling`塗成紅色：node(E)塗成紅色；
-* 將`current`移至`currnet`的`parent`：`current`移至node(c)。
+* 將`current`移至`currnet`的`parent`：`current`移至node(C)。
 
 <center>
 ![case2][f8]
@@ -213,7 +227,7 @@ void RBT::DeleteRBT(int KEY){              // 要刪除具有KEY的node
 **圖五(c)：。**
 </center>
 
-經過上述步驟，根據新的`current`node(C)之顏色，可以分成兩種情形：
+經過上述步驟，根據新的`current`:8node(C)之顏色，可以分成兩種情形：
 
 * 若node(C)為紅色，則跳出迴圈，把node(C)塗黑，即可滿足RBT之特徵，如圖五(d)，其邏輯便是：將從node(C)出發往`leftchild`與`rightchild`path的黑色數目調整成與刪除之前(Original)相同；
 * 若node(C)為黑色，且node(C)不是`root`，則繼續下一輪迴圈，重新判斷其屬於四種情況之何者並修正，如圖五(e)，從node(G)出發至任意descendant leaf之path上的黑色node數並不完全相同。
