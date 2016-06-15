@@ -44,27 +44,33 @@ RBT也是一棵BST，在Insert(新增資料)時，必須滿足：Key(L)<Key(Curr
 
 ```cpp
 // C++ code
-void RBT::InsertRBT(TreeNode &new_node){
+void RBT::InsertRBT(int key, string str){
     // 前半部與 InsertBST()之邏輯完全相同, 僅僅需要修改 NULL <-> NIL
     TreeNode *y = neel;
     TreeNode *x = root;
-    TreeNode *insert_node = new TreeNode(new_node); // default copy constructor
+    TreeNode *insert_node = new TreeNode(key, str); // default copy constructor
 
     while (x != neel) {     // 把root初始化成neel, 這裡就可以用neel來做判斷
         y = x;
-        if (insert_node->GetKey() < x->GetKey())
+        if (insert_node->key < x->key){
             x = x->leftchild;
-        else
+        }
+        else{
             x = x->rightchild;
+        }
     }
 
     insert_node->parent = y;
-    if (y == neel)
+
+    if (y == neel){
         this->root = insert_node;
-    else if (insert_node->GetKey() < y->GetKey())
+    }
+    else if (insert_node->key < y->key){
         y->leftchild = insert_node;
-    else
+    }
+    else{
         y->rightchild = insert_node;
+    }
     
     // 以下是對RBT之node的設定, 將child pointer指向NIL, 顏色設為紅色
     insert_node->leftchild = neel;
@@ -370,54 +376,56 @@ void RBT::InsertRBT(TreeNode &new_node){
 ```cpp
 // C++ code
 void RBT::InsertFixedUpRBT(TreeNode *current){
-    // Case0: parent是黑色, 就不用進迴圈
+
+    // case0: parent是黑色, 就不用進回圈
     while (current->parent->color == 0) {   // 若parent是紅色即進入迴圈
-        // 上半部：parent為grandparent的leftchild之情況，如圖五左
+
+        // 上半部：parent是grandparent的left child
         if (current->parent == current->parent->parent->leftchild) { 
             TreeNode *uncle = current->parent->parent->rightchild;
-            // 若uncle是紅色：Case1
+            // case1: 若uncle是紅色
             if (uncle->color == 0) {
                 current->parent->color = 1;
                 uncle->color = 1;
-                current->parent->parent->color = 0; //grandparent改成紅色
+                current->parent->parent->color = 0;              //grandparent改成紅色
                 current = current->parent->parent;
             }
-            // 若uncle是黑色：Case2 or Case3
-            else {
-                // 若current是rightchild：Case2  
-                if (current == current->parent->rightchild){        
+            // case2 & 3: uncle是黑色
+            else {  
+                if (current == current->parent->rightchild){     // case2
                     current = current->parent;
                     LeftRotation(current);
                 }
-                // 若current是leftchild：Case3
-                current->parent->color = 1;     
-                current->parent->parent->color = 0;     
+                // case3
+                current->parent->color = 1;                      //把parent塗黑
+                current->parent->parent->color = 0;              // grandparent塗紅
                 RightRotation(current->parent->parent);
             }
         }
-        // 下半部：parent為grandparent的rightchild之情況，如圖五右
+        // 下半部：parent是grandparent的right child, 與上半部對稱
         else {  
             TreeNode *uncle = current->parent->parent->leftchild;
-            // 若uncle是紅色：Case1
+            // case1: 若uncle是紅色
             if (uncle->color == 0) {
                 current->parent->color = 1;
                 uncle->color = 1;
-                current->parent->parent->color = 0; //grandparent改成紅色
+                current->parent->parent->color = 0;              //grandparent改成紅色
                 current = current->parent->parent;
             }
-            // 若uncle是黑色：Case2 or Case3
+            // case2 & 3: uncle是黑色
             else {
-                if (current == current->parent->leftchild) {
+                if (current == current->parent->leftchild) {     // case2
                     current = current->parent;
                     RightRotation(current);
                 }
+                // case3
                 current->parent->color = 1;
                 current->parent->parent->color = 0;
                 LeftRotation(current->parent->parent);
             }
         }
     }
-    root->color = 1;    
+    root->color = 1;    // 確保root是黑色
 }
 ```
 
