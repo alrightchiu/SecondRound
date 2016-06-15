@@ -321,6 +321,13 @@ void RBT::DeleteRBT(int KEY){              // 要刪除具有KEY的node
 若考慮刪除node(19)，由於node(19)是黑色，需要修正。  
 接著判斷，node(19)的child(為黑色的`NIL`)之`sibling`:node(27)為黑色，且`sibling`之`rightchild`為黑色，符合Case3的描述，因此利用Case3之修正方法，見圖六(b)：
 
+<center>
+![example][f15]
+
+**圖六(b)：。**
+</center>
+
+
 * 將`sibling`之`leftchild`塗成黑色：node(24)塗成黑色；
 * 將`sibling`塗成紅色：node(27)塗成紅色；
 * 對`sibling`進行Right Rotation：對node(27)進行Right Rotation；
@@ -333,12 +340,6 @@ void RBT::DeleteRBT(int KEY){              // 要刪除具有KEY的node
 * 將`sibling`之`rightchild`塗成黑色：node(27)塗成黑色；
 * 對`parent`進行Left Rotation：對node(22)做Left Rotation；
 * 將`current`移至`root`，把`root`塗黑。
-
-<center>
-![example][f15]
-
-**圖六(b)：。**
-</center>
 
 如此一來便再次滿足RBT之特徵限制，如圖六(c)。
 
@@ -353,17 +354,18 @@ void RBT::DeleteRBT(int KEY){              // 要刪除具有KEY的node
 
 再考慮刪除黑色的node(45)，判斷：node(45)的child(為黑色的`NIL`)之`sibling`:node(52)為黑色，且`sibling`之`rightchild`:node(55)為紅色，符合Case4的描述，並利用Case4方法修正，見圖六(d)：
 
+<center>
+![example][f17]
+
+**圖六(d)：。**
+</center>
+
 * 將`sibling`塗成`current`之`parent`的顏色：node(48)是紅色，則將node(52)塗成紅色；
 * 將`parent`塗成黑色：node(48)塗成黑色；
 * 將`sibling`之`rightchild`塗成黑色：node(55)塗成黑色；
 * 對`parent`進行Left Rotation：對node(48)做Left Rotation；
 * 將`current`移至`root`，把`root`塗黑。
 
-<center>
-![example][f17]
-
-**圖六(d)：。**
-</center>
 
 如此一來便再次滿足RBT之特徵限制，如圖六(e)。
 
@@ -373,9 +375,17 @@ void RBT::DeleteRBT(int KEY){              // 要刪除具有KEY的node
 **圖六(e)：。**
 </center>
 
+
 ###Case1->Case4
 
 接著考慮刪除黑色的node(39)，判斷：node(39)的child(為黑色的`NIL`)之`sibling`:node(52)為紅色，符合Case1之描述，便利用Case1之方法，調整成Case4，見圖六(f)：
+
+<center>
+![example][f19]
+
+**圖六(f)：。**
+</center>
+
 
 Case1調整：
 
@@ -386,21 +396,24 @@ Case1調整：
 
 再利用Case4的方法修正，便能滿足RBT之特徵，見圖六(g)。
 
-
 <center>
-![example][f19]
-
-**圖六(f)：。**
-
 ![example][f20]
 
 **圖六(g)：。**
-
 </center>
+
+
 
 ###Case2
 
 若要刪除黑色的node(7)，由於node(7)的child之`sibling`:node(10)為黑色，且具有兩個黑色的child(都是`NIL`)，符合Case2的情況，便修正如下，見圖六(h)：
+
+<center>
+![example][f21]
+
+**圖六(h)：。**
+</center>
+
 
 * 將`sibling`塗成紅色：node(10)塗成紅色；
 * 將`current`移至`currnet`的`parent`：`current`移至node(9)；
@@ -409,15 +422,12 @@ Case1調整：
 經修正後，便符合RBT之特徵，見圖六(i)。
 
 <center>
-![example][f21]
-
-**圖六(h)：。**
-
 ![example][f22]
 
 **圖六(i)：。**
-
 </center>
+
+
 
 ###Case0: current is red or current is root
 
@@ -428,6 +438,8 @@ Case1調整：
 
 **圖六(j)：。**
 </center>
+
+
 
 </br>
 
