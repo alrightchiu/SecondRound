@@ -169,7 +169,7 @@ TreeNode* BST::Search(int KEY){
     TreeNode *current = root;               // 將curent指向root作為traversal起點
          
     while (current != NULL && KEY != current->key) {  // 兩種情況跳出迴圈：
-    	                                              // 1.沒找到 2.有找到
+                                                      // 1.沒找到 2.有找到
         if (KEY < current->key){                      
             current = current->leftchild;   // 向左走
         }
@@ -249,7 +249,6 @@ void BST::InsertBST(int key, string element){
 
     TreeNode *y = 0;        // 準新手爸媽
     TreeNode *x = 0;        // 哨兵
-    // call default copy constructor of TreeNode
     TreeNode *insert_node = new TreeNode(key, element);   // insert_node為將要新增的node
 
     x = root;

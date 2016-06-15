@@ -70,7 +70,6 @@ void BST::InsertBST(int key, string element){
 
     TreeNode *y = 0;        // 準新手爸媽
     TreeNode *x = 0;        // 哨兵
-    // call default copy constructor of TreeNode
     TreeNode *insert_node = new TreeNode(key, element); 
 
     x = root;

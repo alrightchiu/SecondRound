@@ -201,7 +201,7 @@ void RBT::LeftRotation(TreeNode *x){
     x->parent = y;                       // 圖二(e)右
 }
 ```
-
+</br>  
 <a name="right-rotate"></a>
 
 ###Right Roration(向左旋轉)

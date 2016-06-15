@@ -31,11 +31,12 @@ RBT也是一棵BST，而RBT之Insert(新增資料)方法便是先沿用`InsertBS
 
 ##如同於BST中Insert(新增資料)
 
-RBT也是一棵BST，在Insert(新增資料)時，必須滿足：$Key(L)<Key(Current)<Key(R)$，因此，RBT的`InsertRBT()`前半部演算法與[BST的函式：InsertBST()大同小異](http://alrightchiu.github.io/SecondRound/binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao.html#insert)。  
+RBT也是一棵BST，在Insert(新增資料)時，必須滿足：Key(L)<Key(Current)<Key(R)，因此，RBT的`InsertRBT()`前半部演算法與[BST的函式：InsertBST()大同小異](http://alrightchiu.github.io/SecondRound/binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao.html#insert)。  
+
 需要修改/擴充的部分有三處：
 
-1. `NIL`：所有原先在BST中指向`NULL`的pointer，在RBT中需要修正成指向`NIL`，包括條件式與新增node的`child pointer`。
-2. 顏色：如同在[RBT：Rotation(旋轉)](http://alrightchiu.github.io/SecondRound/red-black-tree-rotationxuan-zhuan.html#fail)所說，一般預設新增node為紅色，因此，若新增node接在黑色node之後，仍能滿足RBT的特徵，但是若新增node接在紅色node之後，則違反了[RBT之第四點特徵](http://alrightchiu.github.io/SecondRound/red-black-tree-introjian-jie.html#rbt)，必須進行修正。
+1. `NIL`：所有原先在BST中指向`NULL`的pointer，在RBT中需要修正成指向`NIL`，包括「條件式」與「新增node的child pointer」。
+2. 顏色：如同在[RBT：Rotation(旋轉)](http://alrightchiu.github.io/SecondRound/red-black-tree-rotationxuan-zhuan.html#fail)所說，一般預設新增node為紅色，因此，若新增node接在黑色node之後，仍能滿足RBT的特徵。但是若新增node接在紅色node之後，則違反了[RBT之第四點特徵](http://alrightchiu.github.io/SecondRound/red-black-tree-introjian-jie.html#rbt)，必須進行修正。
 3. 引進函式：`InsertFixedUpRBT()`進行修正。
 
 
