@@ -345,7 +345,7 @@
 <img alt="example" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Delete/delete14.png?raw=true" /></p>
 <p><strong>圖六(a)：。</strong>
 </center></p>
-<h4>Case3-&gt;Case4</h4>
+<h3>Case3-&gt;Case4</h3>
 <p>若考慮刪除node(19)，由於node(19)是黑色，需要修正。<br />
 接著判斷，node(19)的<code>child</code>(為黑色的<code>NIL</code>)之<code>sibling</code>為黑色，且<code>sibling</code>之<code>rightchild</code>為黑色，符合Case3的描述，因此利用Case3之修正方法，見圖六(b)：</p>
 <ul>
@@ -371,7 +371,7 @@
 <img alt="example" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Delete/delete16.png?raw=true" /></p>
 <p><strong>圖六(c)：。</strong>
 </center></p>
-<h4>Case4</h4>
+<h3>Case4</h3>
 <p>再考慮刪除黑色的node(45)，判斷：node(45)之<code>child</code>(為黑色的<code>NIL</code>)之<code>sibling</code>為黑色，且<code>sibling</code>之<code>rightchild</code>為紅色，符合Case4的描述，並利用Case4方法修正，見圖六(d)：</p>
 <ul>
 <li>將<code>sibling</code>塗成<code>current</code>之<code>parent</code>的顏色：node(22)是黑色，則將node(24)塗成黑色；</li>
@@ -389,7 +389,7 @@
 <img alt="example" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Delete/delete18.png?raw=true" /></p>
 <p><strong>圖六(e)：。</strong>
 </center></p>
-<h4>Case1-&gt;Case4</h4>
+<h3>Case1-&gt;Case4</h3>
 <p>接著考慮刪除黑色的node(39)，判斷：node(45)之<code>child</code>(為黑色的<code>NIL</code>)之<code>sibling</code>為紅色，符合Case1之描述，便利用Case1之方法，調整成Case4，見圖六(f)：</p>
 <p>Case1調整：</p>
 <ul>
@@ -405,7 +405,7 @@
 <p><img alt="example" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Delete/delete20.png?raw=true" /></p>
 <p><strong>圖六(g)：。</strong></p>
 <p></center></p>
-<h4>Case2-&gt;Case4</h4>
+<h3>Case2-&gt;Case4</h3>
 <p>若要刪除黑色的node(7)，由於其<code>child</code>之<code>sibling</code>為黑色，且具有兩個黑色的<code>child</code>(都是<code>NIL</code>)，符合Case2的情況，便修正如下，見圖六(h)：</p>
 <ul>
 <li>將<code>sibling</code>塗成紅色：node(10)塗成紅色；</li>
@@ -419,7 +419,7 @@
 <p><img alt="example" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Delete/delete22.png?raw=true" /></p>
 <p><strong>圖六(i)：。</strong></p>
 <p></center></p>
-<h4>Case0: current is red or current is root</h4>
+<h3>Case0: current is red or current is root</h3>
 <p>最後，若要刪除黑色的node(3)呢？由於node(3)的<code>child</code>node(1)為紅色，並不需要考慮到Case1(<code>sibling</code>為紅色)，只要將node(1)塗黑即可，如圖六(j)。  </p>
 <p><center>
 <img alt="example" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Tree%20series/RBT_fig/Delete/delete23.png?raw=true" /></p>
@@ -452,10 +452,11 @@
             <span class="c1">// Case2: sibling的兩個child都是黑色</span>
             <span class="k">if</span> <span class="p">(</span><span class="n">sibling</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="n">sibling</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
                 <span class="n">sibling</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-                <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">;</span>
+                <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">;</span>           <span class="c1">// 若current更新到root, 即跳出迴圈</span>
             <span class="p">}</span>
-            <span class="c1">// Case3 &amp; 4:</span>
-            <span class="k">else</span> <span class="p">{</span> <span class="c1">// case3: sibling的right child是黑的, 不管left child, 因為馬上會被塗黑</span>
+            <span class="c1">// Case3 &amp; 4: current只有其中一個child是黑色</span>
+            <span class="k">else</span> <span class="p">{</span>
+                <span class="c1">// case3: sibling的right child是黑的, left child是紅色</span>
                 <span class="k">if</span> <span class="p">(</span><span class="n">sibling</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">==</span> <span class="mi">1</span><span class="p">){</span>
                     <span class="n">sibling</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
                     <span class="n">sibling</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
@@ -463,14 +464,13 @@
                     <span class="n">sibling</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="p">;</span>
                 <span class="p">}</span>
                 <span class="c1">// 經過Case3後, 一定會變成Case4</span>
-                <span class="c1">// Case 4: sibling的right child 是紅色的</span>
+                <span class="c1">// Case 4: sibling的right child 是紅色的, left child是黑色</span>
                 <span class="n">sibling</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">color</span><span class="p">;</span>
                 <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
                 <span class="n">sibling</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
                 <span class="n">LeftRotation</span><span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">);</span>
-                <span class="n">current</span> <span class="o">=</span> <span class="n">root</span><span class="p">;</span>     <span class="c1">// 只要進到Case4後, 一定跳出回圈</span>
+                <span class="n">current</span> <span class="o">=</span> <span class="n">root</span><span class="p">;</span>     <span class="c1">// 將current移動到root, 一定跳出迴圈</span>
             <span class="p">}</span>
-
         <span class="p">}</span>
         <span class="c1">// current是rightchild</span>
         <span class="k">else</span> <span class="p">{</span>  
@@ -486,10 +486,11 @@
             <span class="c1">// Case2: sibling的兩個child都是黑色</span>
             <span class="k">if</span> <span class="p">(</span><span class="n">sibling</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="n">sibling</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
                 <span class="n">sibling</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-                <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">;</span>
+                <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">;</span>             <span class="c1">// 若current更新到root, 即跳出迴圈</span>
             <span class="p">}</span>
-            <span class="c1">// Case3 &amp; 4:</span>
-            <span class="k">else</span> <span class="p">{</span> <span class="c1">// case3: sibling的left child是黑的, 不管right child, 因為馬上會被塗黑</span>
+            <span class="c1">// Case3 &amp; 4: current只有其中一個child是黑色</span>
+            <span class="k">else</span> <span class="p">{</span>
+                <span class="c1">// case3: sibling的left child是黑的, right child是紅色</span>
                 <span class="k">if</span> <span class="p">(</span><span class="n">sibling</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">==</span> <span class="mi">1</span><span class="p">){</span>
                     <span class="n">sibling</span><span class="o">-&gt;</span><span class="n">rightchild</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
                     <span class="n">sibling</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
@@ -497,12 +498,12 @@
                     <span class="n">sibling</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="p">;</span>
                 <span class="p">}</span>
                 <span class="c1">// 經過Case3後, 一定會變成Case4</span>
-                <span class="c1">// Case 4: sibling的right child 是紅色的</span>
+                <span class="c1">// Case 4: sibling的left child 是紅色的, rightt child是黑色</span>
                 <span class="n">sibling</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">color</span><span class="p">;</span>
                 <span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
                 <span class="n">sibling</span><span class="o">-&gt;</span><span class="n">leftchild</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
                 <span class="n">RightRotation</span><span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">);</span>
-                <span class="n">current</span> <span class="o">=</span> <span class="n">root</span><span class="p">;</span>     <span class="c1">// 只要進到Case4後, 一定跳出回圈</span>
+                <span class="n">current</span> <span class="o">=</span> <span class="n">root</span><span class="p">;</span>     <span class="c1">// 將current移動到root, 一定跳出迴圈</span>
             <span class="p">}</span>
         <span class="p">}</span>
     <span class="p">}</span>
