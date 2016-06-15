@@ -312,7 +312,7 @@ void RBT::DeleteRBT(int KEY){              // 要刪除具有KEY的node
 </center>
 
 
-####Case3->Case4
+###Case3->Case4
 
 若考慮刪除node(19)，由於node(19)是黑色，需要修正。  
 接著判斷，node(19)的`child`(為黑色的`NIL`)之`sibling`為黑色，且`sibling`之`rightchild`為黑色，符合Case3的描述，因此利用Case3之修正方法，見圖六(b)：
@@ -345,7 +345,7 @@ void RBT::DeleteRBT(int KEY){              // 要刪除具有KEY的node
 </center>
 
 
-####Case4
+###Case4
 
 再考慮刪除黑色的node(45)，判斷：node(45)之`child`(為黑色的`NIL`)之`sibling`為黑色，且`sibling`之`rightchild`為紅色，符合Case4的描述，並利用Case4方法修正，見圖六(d)：
 
@@ -369,7 +369,7 @@ void RBT::DeleteRBT(int KEY){              // 要刪除具有KEY的node
 **圖六(e)：。**
 </center>
 
-####Case1->Case4
+###Case1->Case4
 
 接著考慮刪除黑色的node(39)，判斷：node(45)之`child`(為黑色的`NIL`)之`sibling`為紅色，符合Case1之描述，便利用Case1之方法，調整成Case4，見圖六(f)：
 
@@ -394,7 +394,7 @@ Case1調整：
 
 </center>
 
-####Case2->Case4
+###Case2->Case4
 
 若要刪除黑色的node(7)，由於其`child`之`sibling`為黑色，且具有兩個黑色的`child`(都是`NIL`)，符合Case2的情況，便修正如下，見圖六(h)：
 
@@ -415,7 +415,7 @@ Case1調整：
 
 </center>
 
-####Case0: current is red or current is root
+###Case0: current is red or current is root
 
 最後，若要刪除黑色的node(3)呢？由於node(3)的`child`node(1)為紅色，並不需要考慮到Case1(`sibling`為紅色)，只要將node(1)塗黑即可，如圖六(j)。  
 
@@ -464,10 +464,11 @@ void RBT::DeleteFixedUpRBT(TreeNode *current){
             // Case2: sibling的兩個child都是黑色
             if (sibling->leftchild->color == 1 && sibling->rightchild->color == 1) {
                 sibling->color = 0;
-                current = current->parent;
+                current = current->parent;           // 若current更新到root, 即跳出迴圈
             }
-            // Case3 & 4:
-            else { // case3: sibling的right child是黑的, 不管left child, 因為馬上會被塗黑
+            // Case3 & 4: current只有其中一個child是黑色
+            else {
+            	// case3: sibling的right child是黑的, left child是紅色
                 if (sibling->rightchild->color == 1){
                     sibling->leftchild->color = 1;
                     sibling->color = 0;
@@ -475,14 +476,13 @@ void RBT::DeleteFixedUpRBT(TreeNode *current){
                     sibling = current->parent->rightchild;
                 }
                 // 經過Case3後, 一定會變成Case4
-                // Case 4: sibling的right child 是紅色的
+                // Case 4: sibling的right child 是紅色的, left child是黑色
                 sibling->color = current->parent->color;
                 current->parent->color = 1;
                 sibling->rightchild->color = 1;
                 LeftRotation(current->parent);
-                current = root;     // 只要進到Case4後, 一定跳出回圈
+                current = root;     // 將current移動到root, 一定跳出迴圈
             }
-            
         }
         // current是rightchild
         else {  
@@ -498,10 +498,11 @@ void RBT::DeleteFixedUpRBT(TreeNode *current){
             // Case2: sibling的兩個child都是黑色
             if (sibling->leftchild->color == 1 && sibling->rightchild->color == 1) {
                 sibling->color = 0;
-                current = current->parent;
+                current = current->parent;             // 若current更新到root, 即跳出迴圈
             }
-            // Case3 & 4:
-            else { // case3: sibling的left child是黑的, 不管right child, 因為馬上會被塗黑
+            // Case3 & 4: current只有其中一個child是黑色
+            else {
+            	// case3: sibling的left child是黑的, right child是紅色
                 if (sibling->leftchild->color == 1){
                     sibling->rightchild->color = 1;
                     sibling->color = 0;
@@ -509,12 +510,12 @@ void RBT::DeleteFixedUpRBT(TreeNode *current){
                     sibling = current->parent->leftchild;
                 }
                 // 經過Case3後, 一定會變成Case4
-                // Case 4: sibling的right child 是紅色的
+                // Case 4: sibling的left child 是紅色的, rightt child是黑色
                 sibling->color = current->parent->color;
                 current->parent->color = 1;
                 sibling->leftchild->color = 1;
                 RightRotation(current->parent);
-                current = root;     // 只要進到Case4後, 一定跳出回圈
+                current = root;     // 將current移動到root, 一定跳出迴圈
             }
         }
     }
