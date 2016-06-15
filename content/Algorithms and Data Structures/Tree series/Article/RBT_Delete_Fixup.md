@@ -400,7 +400,7 @@ Case1調整：
 
 ###Case2
 
-若要刪除黑色的node(7)，由於node(7)的child之`sibling`:node(10)為黑色，且具有兩個黑色的`child`(都是`NIL`)，符合Case2的情況，便修正如下，見圖六(h)：
+若要刪除黑色的node(7)，由於node(7)的child之`sibling`:node(10)為黑色，且具有兩個黑色的child(都是`NIL`)，符合Case2的情況，便修正如下，見圖六(h)：
 
 * 將`sibling`塗成紅色：node(10)塗成紅色；
 * 將`current`移至`currnet`的`parent`：`current`移至node(9)；
@@ -421,7 +421,7 @@ Case1調整：
 
 ###Case0: current is red or current is root
 
-最後，若要刪除黑色的node(3)呢？由於node(3)的`child`node(1)為紅色，並不需要考慮到Case1(`sibling`為紅色)，只要將node(1)塗黑即可，如圖六(j)。  
+最後，若要刪除黑色的node(3)呢？由於node(3)的child:node(1)為紅色，並不需要考慮到Case1(`sibling`為紅色，兩個child為黑色)，只要將node(1)塗黑即可，如圖六(j)。  
 
 <center>
 ![example][f23]
@@ -443,9 +443,9 @@ Case1調整：
 
 若`current`是其`parent`之`leftchild`，其`sibling`就必須是`rightchild`，反之亦然，而兩種情形之`Rotation`修正之方向正好相反，因此，如同`InsertFixedUpRBT()`，必須區分出「`current`是其`parent`之`leftchild`」與「`current`是其`parent`之`rightchild`」兩種情況，彼此結構對稱。
 
-分別進行Case1、Case2、Case3與Case4之修正。
+中間利用數個`if-else`條件式進行Case1、Case2、Case3與Case4之修正。
 
-最後，當跳出迴圈後，`current->color = 1`將`current`之顏色塗黑，有可能在Case2用上，見圖五(d)與圖六(h)。
+當滿足「`current`為`root`」或者「`current`顏色為黑色」時便跳出迴圈，最後為確保RBT滿足`root`為黑色，將`current`之顏色塗黑，有可能在Case2用上，見圖五(d)與圖六(h)。
 
 
 ```cpp
