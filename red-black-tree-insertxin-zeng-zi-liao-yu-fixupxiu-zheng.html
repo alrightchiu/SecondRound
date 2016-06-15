@@ -130,11 +130,11 @@
 <p></br></p>
 <p><a name="bst"></a></p>
 <h2>如同於BST中Insert(新增資料)</h2>
-<p>RBT也是一棵BST，在Insert(新增資料)時，必須滿足：<span class="math">\(Key(L)&lt;Key(Current)&lt;Key(R)\)</span>，因此，RBT的<code>InsertRBT()</code>前半部演算法與<a href="http://alrightchiu.github.io/SecondRound/binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao.html#insert">BST的函式：InsertBST()大同小異</a>。<br />
-需要修改/擴充的部分有三處：</p>
+<p>RBT也是一棵BST，在Insert(新增資料)時，必須滿足：Key(L)&lt;Key(Current)&lt;Key(R)，因此，RBT的<code>InsertRBT()</code>前半部演算法與<a href="http://alrightchiu.github.io/SecondRound/binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao.html#insert">BST的函式：InsertBST()大同小異</a>。  </p>
+<p>需要修改/擴充的部分有三處：</p>
 <ol>
-<li><code>NIL</code>：所有原先在BST中指向<code>NULL</code>的pointer，在RBT中需要修正成指向<code>NIL</code>，包括條件式與新增node的<code>child pointer</code>。</li>
-<li>顏色：如同在<a href="http://alrightchiu.github.io/SecondRound/red-black-tree-rotationxuan-zhuan.html#fail">RBT：Rotation(旋轉)</a>所說，一般預設新增node為紅色，因此，若新增node接在黑色node之後，仍能滿足RBT的特徵，但是若新增node接在紅色node之後，則違反了<a href="http://alrightchiu.github.io/SecondRound/red-black-tree-introjian-jie.html#rbt">RBT之第四點特徵</a>，必須進行修正。</li>
+<li><code>NIL</code>：所有原先在BST中指向<code>NULL</code>的pointer，在RBT中需要修正成指向<code>NIL</code>，包括「條件式」與「新增node的child pointer」。</li>
+<li>顏色：如同在<a href="http://alrightchiu.github.io/SecondRound/red-black-tree-rotationxuan-zhuan.html#fail">RBT：Rotation(旋轉)</a>所說，一般預設新增node為紅色，因此，若新增node接在黑色node之後，仍能滿足RBT的特徵。但是若新增node接在紅色node之後，則違反了<a href="http://alrightchiu.github.io/SecondRound/red-black-tree-introjian-jie.html#rbt">RBT之第四點特徵</a>，必須進行修正。</li>
 <li>引進函式：<code>InsertFixedUpRBT()</code>進行修正。</li>
 </ol>
 <p><code>InsertRBT()</code>的程式範例如下：</p>

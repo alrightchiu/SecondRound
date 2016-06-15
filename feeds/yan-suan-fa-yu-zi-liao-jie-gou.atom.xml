@@ -13807,11 +13807,11 @@ $$&lt;/div&gt;
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a name="bst"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;如同於BST中Insert(新增資料)&lt;/h2&gt;
-&lt;p&gt;RBT也是一棵BST，在Insert(新增資料)時，必須滿足：&lt;span class="math"&gt;\(Key(L)&amp;lt;Key(Current)&amp;lt;Key(R)\)&lt;/span&gt;，因此，RBT的&lt;code&gt;InsertRBT()&lt;/code&gt;前半部演算法與&lt;a href="http://alrightchiu.github.io/SecondRound/binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao.html#insert"&gt;BST的函式：InsertBST()大同小異&lt;/a&gt;。&lt;br /&gt;
-需要修改/擴充的部分有三處：&lt;/p&gt;
+&lt;p&gt;RBT也是一棵BST，在Insert(新增資料)時，必須滿足：Key(L)&amp;lt;Key(Current)&amp;lt;Key(R)，因此，RBT的&lt;code&gt;InsertRBT()&lt;/code&gt;前半部演算法與&lt;a href="http://alrightchiu.github.io/SecondRound/binary-search-tree-searchsou-xun-zi-liao-insertxin-zeng-zi-liao.html#insert"&gt;BST的函式：InsertBST()大同小異&lt;/a&gt;。  &lt;/p&gt;
+&lt;p&gt;需要修改/擴充的部分有三處：&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;code&gt;NIL&lt;/code&gt;：所有原先在BST中指向&lt;code&gt;NULL&lt;/code&gt;的pointer，在RBT中需要修正成指向&lt;code&gt;NIL&lt;/code&gt;，包括條件式與新增node的&lt;code&gt;child pointer&lt;/code&gt;。&lt;/li&gt;
-&lt;li&gt;顏色：如同在&lt;a href="http://alrightchiu.github.io/SecondRound/red-black-tree-rotationxuan-zhuan.html#fail"&gt;RBT：Rotation(旋轉)&lt;/a&gt;所說，一般預設新增node為紅色，因此，若新增node接在黑色node之後，仍能滿足RBT的特徵，但是若新增node接在紅色node之後，則違反了&lt;a href="http://alrightchiu.github.io/SecondRound/red-black-tree-introjian-jie.html#rbt"&gt;RBT之第四點特徵&lt;/a&gt;，必須進行修正。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;NIL&lt;/code&gt;：所有原先在BST中指向&lt;code&gt;NULL&lt;/code&gt;的pointer，在RBT中需要修正成指向&lt;code&gt;NIL&lt;/code&gt;，包括「條件式」與「新增node的child pointer」。&lt;/li&gt;
+&lt;li&gt;顏色：如同在&lt;a href="http://alrightchiu.github.io/SecondRound/red-black-tree-rotationxuan-zhuan.html#fail"&gt;RBT：Rotation(旋轉)&lt;/a&gt;所說，一般預設新增node為紅色，因此，若新增node接在黑色node之後，仍能滿足RBT的特徵。但是若新增node接在紅色node之後，則違反了&lt;a href="http://alrightchiu.github.io/SecondRound/red-black-tree-introjian-jie.html#rbt"&gt;RBT之第四點特徵&lt;/a&gt;，必須進行修正。&lt;/li&gt;
 &lt;li&gt;引進函式：&lt;code&gt;InsertFixedUpRBT()&lt;/code&gt;進行修正。&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;&lt;code&gt;InsertRBT()&lt;/code&gt;的程式範例如下：&lt;/p&gt;
@@ -14321,7 +14321,8 @@ $$&lt;/div&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;&lt;a name="right-rotate"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;br /&gt;
+&lt;a name="right-rotate"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h3&gt;Right Roration(向左旋轉)&lt;/h3&gt;
 &lt;p&gt;Right Rotation的邏輯與Left Rotation完全相同，只要確實地把與node(X)、node(Y)、node(A)與node(j)有關的pointer重新指向正確的記憶體位置，就能夠完成Right Rotation。&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;
@@ -14344,10 +14345,10 @@ $$&lt;/div&gt;
         &lt;span class="n"&gt;root&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;          
     &lt;span class="p"&gt;}&lt;/span&gt;              
     &lt;span class="k"&gt;else&lt;/span&gt; &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;leftchild&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;  &lt;span class="c1"&gt;// 若原先y是其parent之leftchild, &lt;/span&gt;
-        &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;leftchild&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;         &lt;span class="c1"&gt;//   x亦成為其新的parent之leftchild&lt;/span&gt;
+        &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;leftchild&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;         &lt;span class="c1"&gt;// x就成為其新的parent之leftchild&lt;/span&gt;
     &lt;span class="p"&gt;}&lt;/span&gt;
     &lt;span class="k"&gt;else&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;                                 &lt;span class="c1"&gt;// 若原先y是其parent之rightchild, &lt;/span&gt;
-        &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;rightchild&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;        &lt;span class="c1"&gt;//   x亦成為其新的parent之rightchild&lt;/span&gt;
+        &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;rightchild&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;        &lt;span class="c1"&gt;// x就成為其新的parent之rightchild&lt;/span&gt;
     &lt;span class="p"&gt;}&lt;/span&gt;
     &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;rightchild&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;                    &lt;span class="c1"&gt;// 將y設為x之rightchild&lt;/span&gt;
     &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;                        &lt;span class="c1"&gt;// 將x設為y之parent&lt;/span&gt;
@@ -15162,7 +15163,6 @@ $$&lt;/div&gt;
 
     &lt;span class="n"&gt;TreeNode&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;        &lt;span class="c1"&gt;// 準新手爸媽&lt;/span&gt;
     &lt;span class="n"&gt;TreeNode&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;        &lt;span class="c1"&gt;// 哨兵&lt;/span&gt;
-    &lt;span class="c1"&gt;// call default copy constructor of TreeNode&lt;/span&gt;
     &lt;span class="n"&gt;TreeNode&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;insert_node&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;TreeNode&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;element&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;   &lt;span class="c1"&gt;// insert_node為將要新增的node&lt;/span&gt;
 
     &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;root&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
