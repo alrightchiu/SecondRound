@@ -447,8 +447,8 @@ Case1調整：
 ```cpp
 // C++ code
 void RBT::DeleteFixedUpRBT(TreeNode *current){
-    // Case0:(i)  current是紅色的, 不影響黑色在path上的數量
-    //       (ii) current是root,
+    // Case0:(i)  current是紅色的, 直接把它塗黑
+    //       (ii) current是root, 直接把它塗黑
     while (current != root && current->color == 1) {
         // current是leftchild
         if (current == current->parent->leftchild) {    
@@ -563,6 +563,7 @@ void RBT::DeleteFixedUpRBT(TreeNode *current){
 * [Introduction to Algorithms, Ch13](http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844) 
 * [Fundamentals of Data Structures in C++, Ch10](http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376)
 * [GeeksforGeeks：Red Black Tree](http://code.geeksforgeeks.org/NtLnIk)
+* [BST::DeleteBST(刪除資料)](http://alrightchiu.github.io/SecondRound/binary-search-tree-sortpai-xu-deleteshan-chu-zi-liao.html#delete)
 
 
 </br>
