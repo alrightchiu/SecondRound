@@ -233,10 +233,10 @@ void RBT::RightRotation(TreeNode *y){
         root = x;          
     }              
     else if (y == y->parent->leftchild){  // 若原先y是其parent之leftchild, 
-        y->parent->leftchild = x;         //   x亦成為其新的parent之leftchild
+        y->parent->leftchild = x;         // x就成為其新的parent之leftchild
     }
     else{                                 // 若原先y是其parent之rightchild, 
-        y->parent->rightchild = x;        //   x亦成為其新的parent之rightchild
+        y->parent->rightchild = x;        // x就成為其新的parent之rightchild
     }
     x->rightchild = y;                    // 將y設為x之rightchild
     y->parent = x;                        // 將x設為y之parent
