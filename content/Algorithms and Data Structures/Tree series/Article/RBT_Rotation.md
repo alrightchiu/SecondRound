@@ -115,7 +115,11 @@ Summary: 介紹Red Black Tree(紅黑樹)的Rotation(旋轉)操作。
 </center>
 
 從圖二(a)中可以看出，要對以node(X)為`root`之subtree進行Left Rotation，必須調整的pointer分別長在node(X)、node(Y)、node(A)與node(j)身上，其中node(j)有可能為`NIL`，不過為求完整，在此將以node(j)不為`NIL`作說明。  
+
 另外，node(i)與node(k)是否為`NIL`皆不影響Left Rotation。
+
+* 由圖二(a)看得出來，node(i)在旋轉前後始終是node(X)的left child；
+* node(k)在旋轉前後始終是node(Y)的right child。
 
 <center>
 ![rotation][f7]
@@ -123,7 +127,7 @@ Summary: 介紹Red Black Tree(紅黑樹)的Rotation(旋轉)操作。
 **圖二(b)：。**  
 </center>
 
-圖二(b)將所有可能需要更動的pointer列出，其中，藍色箭頭表示由`parent pointer`指向`child pointer`，紅色箭頭則為`child pointer`指向`parent pointer`。
+圖二(b)將所有可能需要更動的pointer列出，其中，藍色箭頭表示「由parent指向child」，紅色箭頭則為「child指向parent」。
 
 Left Roration(向左旋轉)之步驟如下：
 
@@ -151,7 +155,7 @@ Left Roration(向左旋轉)之步驟如下：
 </center>
 
 
-*  最後，只要再把node(Y)的`rightchild`指向node(X)，如圖二(e)左，並把node(X)的`parent`接上node(Y)，如圖二(e)右，Left Rotation便完成了。
+*  最後，只要再把node(Y)的`leftchild`指向node(X)，如圖二(e)左，並把node(X)的`parent`接上node(Y)，如圖二(e)右，Left Rotation便完成了。
 
 
 <center>
@@ -173,24 +177,28 @@ Left Rotation之程式範例如下：
 ```cpp
 // C++ code
 void RBT::LeftRotation(TreeNode *x){
-    TreeNode *y = new TreeNode;
-    y = x->rightchild;              // 把y設成x的rightchild
+
+    TreeNode *y = x->rightchild;         // 把y指向x的rightchild, 最後y會變成x的parent
     
-    x->rightchild = y->leftchild;   // 圖二(c)左
+    x->rightchild = y->leftchild;        // 圖二(c)左, 把y的leftchild托在x的rightchild
     
-    if (y->leftchild != neel)       // 圖二(c)右, 若node(j)為NIL則忽略
-        y->leftchild->parent = x;
+    if (y->leftchild != neel){           // 圖二(c)右, 若node(j)為NIL則忽略
+        y->leftchild->parent = x;        // 將原先y的leftchild的parent改成x
+    }
     
-    y->parent = x->parent;          // 圖二(d)左
-    if (x->parent == neel)          // 圖二(d)右
-        root = y;                   
-    else if (x == x->parent->leftchild)
-        x->parent->leftchild = y;
-    else
-        x->parent->rightchild = y;
+    y->parent = x->parent;               // 圖二(d)左, 更新y的parent
     
-    y->leftchild = x;               // 圖二(e)左
-    x->parent = y;                  // 圖二(e)右
+    if (x->parent == neel){              // 圖二(d)右, 若原先x是root, 旋轉後y變成新的root
+        root = y;          
+    }         
+    else if (x == x->parent->leftchild){ // 若原先x是其parent的leftchild
+        x->parent->leftchild = y;        // 更新後y也是其parent的leftchild
+    }
+    else{                                // 若原先x是其parent的rightchild
+        x->parent->rightchild = y;       // 更新後y也是其parent的rightchild
+    }
+    y->leftchild = x;                    // 圖二(e)左, 最後才修改y與x
+    x->parent = y;                       // 圖二(e)右
 }
 ```
 
@@ -213,24 +221,25 @@ Right Rotation之程式範例如下，把所有`LeftRotation()`中的`left-`與`
 // C++ code
 void RBT::RightRotation(TreeNode *y){
     
-    TreeNode *x = new TreeNode;
-    x = y->leftchild;               // 把x設成y的leftchild
+    TreeNode *x = y->leftchild;           // 把x設成y的leftchild
 
-    y->leftchild = x->rightchild;   // 把x的rightchild放到y的leftchild    
-    if (x->rightchild != neel)      // 若x的rightchild不為NIL, 將其parent指向y
+    y->leftchild = x->rightchild;         // 把x的rightchild放到y的leftchild    
+    if (x->rightchild != neel){           // 若x的rightchild不為NIL, 將其parent指向y
         x->rightchild->parent = y;
-    
-    x->parent = y->parent;          // 將x的parent指向原先y的parent
-                                    // 以下一組if-else將修改原先y的parent之child
-    if (y->parent == neel)               // 若y原先是root, x將成為新的root
-        root = x;                        
-    else if (y == y->parent->leftchild)  // 若原先y是其parent之leftchild, 
-        y->parent->leftchild = x;        //   x亦成為其新的parent之leftchild
-    else                                 // 若原先y是其parent之rightchild, 
-        y->parent->rightchild = x;       //   x亦成為其新的parent之rightchild
-    
-    x->rightchild = y;              // 將y設為x之rightchild
-    y->parent = x;                  // 將x設為y之parent
+    }
+    x->parent = y->parent;                // 將x的parent指向原先y的parent
+                                          // 以下一組if-else將修改原先y的parent之child
+    if (y->parent == neel){               // 若y原先是root, x將成為新的root
+        root = x;          
+    }              
+    else if (y == y->parent->leftchild){  // 若原先y是其parent之leftchild, 
+        y->parent->leftchild = x;         //   x亦成為其新的parent之leftchild
+    }
+    else{                                 // 若原先y是其parent之rightchild, 
+        y->parent->rightchild = x;        //   x亦成為其新的parent之rightchild
+    }
+    x->rightchild = y;                    // 將y設為x之rightchild
+    y->parent = x;                        // 將x設為y之parent
 }
 ```
 
