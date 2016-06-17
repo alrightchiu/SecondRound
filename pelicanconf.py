@@ -87,8 +87,8 @@ CC_LICENSE = {
 
 # Social widget
 SOCIAL = (
-	#('facebook', '#'),
     ('github', 'https://github.com/alrightchiu'),
+    ('facebook', 'https://www.facebook.com/profile.php?id=100004915124200'),
 )
 
 DEFAULT_PAGINATION = 10
