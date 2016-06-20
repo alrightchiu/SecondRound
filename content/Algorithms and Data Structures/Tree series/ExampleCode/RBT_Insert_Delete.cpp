@@ -50,7 +50,7 @@ public:
     void InsertRBT(int key, string str);
     void DeleteRBT(int KEY);
 
-    TreeNode* Search(int KEY);   // called by DeleteRBT
+    TreeNode* Search(int KEY);   // called by DeleteRBT()
     
 };
 
