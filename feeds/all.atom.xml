@@ -683,7 +683,7 @@ $$&lt;/div&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;Serach&lt;/strong&gt;：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Search&lt;/strong&gt;：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;先利用Hash Function取得&lt;strong&gt;Table&lt;/strong&gt;的&lt;strong&gt;index&lt;/strong&gt;。&lt;/li&gt;
 &lt;li&gt;再利用Linked list的&lt;strong&gt;traversal&lt;/strong&gt;尋找item。&lt;/li&gt;
