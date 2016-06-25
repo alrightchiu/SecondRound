@@ -61,7 +61,7 @@ $$
 * 接著，只要在每一個slot的list之**front**加入item，即可保證在$O(1)$的時間複雜度完成。
     * 參考：[Linked list:push_front()](http://alrightchiu.github.io/SecondRound/linked-list-xin-zeng-zi-liao-shan-chu-zi-liao-fan-zhuan.html#front)
 
-**Serach**：
+**Search**：
 
 * 先利用Hash Function取得**Table**的**index**。
 * 再利用Linked list的**traversal**尋找item。
