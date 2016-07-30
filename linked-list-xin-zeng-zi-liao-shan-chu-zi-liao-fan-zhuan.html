@@ -116,9 +116,13 @@
 <img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/LinkedList/Insert_Delete_Reverse/f0.png?raw=true" /></p>
 <p><strong>Linked list</strong>
 </center></p>
+<p>(完整範例程式碼也可以看這裡：<a href="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/ExampleCode/LinkedList.cpp">Linkedlist.cpp</a>)</p>
 <p><code>class ListNode</code>與<code>class LinkedList</code>的定義如下：</p>
 <div class="highlight"><pre><span class="c1">// C++ code</span>
 <span class="cp">#include &lt;iostream&gt;</span>
+<span class="k">using</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="p">;</span>
+<span class="k">using</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
 <span class="k">class</span> <span class="nc">LinkedList</span><span class="p">;</span>    <span class="c1">// 為了將class LinkedList設成class ListNode的friend,</span>
                      <span class="c1">// 需要先宣告</span>
 <span class="k">class</span> <span class="nc">ListNode</span><span class="p">{</span>
@@ -126,8 +130,9 @@
     <span class="kt">int</span> <span class="n">data</span><span class="p">;</span>
     <span class="n">ListNode</span> <span class="o">*</span><span class="n">next</span><span class="p">;</span>
 <span class="k">public</span><span class="o">:</span>
-    <span class="n">ListNode</span><span class="p">()</span><span class="o">:</span><span class="n">data</span><span class="p">(</span><span class="mi">0</span><span class="p">){</span> <span class="n">next</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;};</span>
-    <span class="n">ListNode</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">)</span><span class="o">:</span><span class="n">data</span><span class="p">(</span><span class="n">a</span><span class="p">){</span> <span class="n">next</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;};</span>
+    <span class="n">ListNode</span><span class="p">()</span><span class="o">:</span><span class="n">data</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="n">next</span><span class="p">(</span><span class="mi">0</span><span class="p">){};</span>
+    <span class="n">ListNode</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">)</span><span class="o">:</span><span class="n">data</span><span class="p">(</span><span class="n">a</span><span class="p">),</span><span class="n">next</span><span class="p">(</span><span class="mi">0</span><span class="p">){};</span>
+
     <span class="k">friend</span> <span class="k">class</span> <span class="nc">LinkedList</span><span class="p">;</span>
 <span class="p">};</span>
 
@@ -136,7 +141,7 @@
     <span class="c1">// int size;                // size是用來記錄Linked list的長度, 非必要</span>
     <span class="n">ListNode</span> <span class="o">*</span><span class="n">first</span><span class="p">;</span>            <span class="c1">// list的第一個node</span>
 <span class="k">public</span><span class="o">:</span>
-    <span class="n">LinkedList</span><span class="p">(){</span><span class="n">first</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;};</span>
+    <span class="n">LinkedList</span><span class="p">()</span><span class="o">:</span><span class="n">first</span><span class="p">(</span><span class="mi">0</span><span class="p">){};</span>
     <span class="kt">void</span> <span class="nf">PrintList</span><span class="p">();</span>           <span class="c1">// 印出list的所有資料</span>
     <span class="kt">void</span> <span class="nf">Push_front</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">);</span>     <span class="c1">// 在list的開頭新增node</span>
     <span class="kt">void</span> <span class="nf">Push_back</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">);</span>      <span class="c1">// 在list的尾巴新增node</span>
@@ -189,16 +194,16 @@
 <span class="kt">void</span> <span class="n">LinkedList</span><span class="o">::</span><span class="n">PrintList</span><span class="p">(){</span>
 
     <span class="k">if</span> <span class="p">(</span><span class="n">first</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>                      <span class="c1">// 如果first node指向NULL, 表示list沒有資料</span>
-        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;List is empty.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;List is empty.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
         <span class="k">return</span><span class="p">;</span>
     <span class="p">}</span>
 
-    <span class="n">ListNode</span> <span class="o">*</span><span class="n">current</span> <span class="o">=</span> <span class="n">first</span><span class="p">;</span>
+    <span class="n">ListNode</span> <span class="o">*</span><span class="n">current</span> <span class="o">=</span> <span class="n">first</span><span class="p">;</span>             <span class="c1">// 用pointer *current在list中移動</span>
     <span class="k">while</span> <span class="p">(</span><span class="n">current</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>                 <span class="c1">// Traversal</span>
-        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">data</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span><span class="p">;</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">data</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span><span class="p">;</span>
         <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
     <span class="p">}</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -210,7 +215,7 @@
 <p>若考慮在Linked list(<span class="math">\(3\)</span>-&gt;<span class="math">\(14\)</span>)的開頭加入<span class="math">\(23\)</span>，方法如下：</p>
 <ul>
 <li>先建立一個新的節點<code>ListNode *newNode</code>，帶有欲新增的資料(<span class="math">\(23\)</span>)，如圖二(a)。</li>
-<li>將<code>newNode</code>中的<strong>pointer</strong>，<code>ListNode *next</code>，指向Linked list的第一個node<code>first</code>，如圖二(b)。</li>
+<li>將<code>newNode</code>中的<strong>pointer</strong>：<code>ListNode *next</code>，指向Linked list的第一個node<code>first</code>，如圖二(b)。</li>
 <li>接著，把<code>first</code>更新成<code>newNode</code>。</li>
 </ul>
 <p>經過以上步驟(時間複雜度為O(<span class="math">\(1\)</span>))便得到新的Linked list：<span class="math">\(23\)</span>-&gt;<span class="math">\(3\)</span>-&gt;<span class="math">\(14\)</span>。</p>
@@ -226,9 +231,9 @@
 <div class="highlight"><pre><span class="c1">// C++ code</span>
 <span class="kt">void</span> <span class="n">LinkedList</span><span class="o">::</span><span class="n">Push_front</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">){</span>
 
-    <span class="n">ListNode</span> <span class="o">*</span><span class="n">newNode</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ListNode</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
-    <span class="n">newNode</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">first</span><span class="p">;</span>        <span class="c1">// 先把first接在newNode後面</span>
-    <span class="n">first</span> <span class="o">=</span> <span class="n">newNode</span><span class="p">;</span>              <span class="c1">// 再把first指向newNode所指向的記憶體位置</span>
+    <span class="n">ListNode</span> <span class="o">*</span><span class="n">newNode</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ListNode</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>   <span class="c1">// 配置新的記憶體</span>
+    <span class="n">newNode</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">first</span><span class="p">;</span>                 <span class="c1">// 先把first接在newNode後面</span>
+    <span class="n">first</span> <span class="o">=</span> <span class="n">newNode</span><span class="p">;</span>                       <span class="c1">// 再把first指向newNode所指向的記憶體位置</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -260,18 +265,18 @@
 <div class="highlight"><pre><span class="c1">// C++ code</span>
 <span class="kt">void</span> <span class="n">LinkedList</span><span class="o">::</span><span class="n">Push_back</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">){</span>
 
-    <span class="n">ListNode</span> <span class="o">*</span><span class="n">newNode</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ListNode</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
+    <span class="n">ListNode</span> <span class="o">*</span><span class="n">newNode</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ListNode</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>   <span class="c1">// 配置新的記憶體</span>
 
-    <span class="k">if</span> <span class="p">(</span><span class="n">first</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>             <span class="c1">// 若list沒有node, 令newNode為first</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">first</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>                      <span class="c1">// 若list沒有node, 令newNode為first</span>
         <span class="n">first</span> <span class="o">=</span> <span class="n">newNode</span><span class="p">;</span>
         <span class="k">return</span><span class="p">;</span>
     <span class="p">}</span>
 
     <span class="n">ListNode</span> <span class="o">*</span><span class="n">current</span> <span class="o">=</span> <span class="n">first</span><span class="p">;</span>
-    <span class="k">while</span> <span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>  <span class="c1">// Traversal</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>           <span class="c1">// Traversal</span>
         <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
     <span class="p">}</span>
-    <span class="n">current</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">newNode</span><span class="p">;</span>
+    <span class="n">current</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">newNode</span><span class="p">;</span>               <span class="c1">// 將newNode接在list的尾巴</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -279,15 +284,20 @@
 <p></br></p>
 <p><a name="delete"></a></p>
 <h2>函式：Delete</h2>
-<p><code>Delete(int x)</code>的功能是要刪除Linked list中，資料為<code>int x</code>的node。<br />
-會有兩種情形，第一種是Linked list中確實有<code>int x</code>，第二種是沒有。在第一種情況中，要再把<code>int x</code>位於<code>first</code>的情況分開。</p>
+<p><code>Delete(int x)</code>的功能是要刪除Linked list中，資料為<code>int x</code>的node。  </p>
+<p>一共會有兩種情形，第一種是Linked list中確實有<code>int x</code>，第二種是沒有。<br />
+在第一種情況中，需要再特別考慮「<code>int x</code>位於<code>first</code>」的情況。</p>
 <p><strong>case1-1</strong>：要在Linked list(<span class="math">\(7\)</span>-&gt;<span class="math">\(3\)</span>-&gt;<span class="math">\(14\)</span>)中刪除具有<span class="math">\(3\)</span>的node，見圖四(a)：</p>
 <ul>
-<li>利用<strong>Traversal</strong>的概念，以<code>ListNode *current</code>指向node(<span class="math">\(3\)</span>)，同時有<code>ListNode *previous</code>指向node(<span class="math">\(3\)</span>)的「前一個node」，node(<span class="math">\(7\)</span>)。</li>
-<li>接著，把<code>previsou</code>的<code>next pointer</code>指向<code>current</code>的<code>next pointer</code>。</li>
+<li>建立兩個在Linked list中移動的指標：<code>*current</code>以及<code>*previous</code>。</li>
+<li>利用<strong>Traversal</strong>的概念，以<code>ListNode *current</code>指向node(<span class="math">\(3\)</span>)，以<code>ListNode *previous</code>指向node(<span class="math">\(3\)</span>)的「前一個node」，node(<span class="math">\(7\)</span>)。</li>
+<li>接著，把<code>previous</code>的<strong>pointer</strong>指向<code>current</code>的<strong>pointer</strong>。<ul>
+<li>此處，即為以node(<span class="math">\(7\)</span>)記住node(<span class="math">\(14\)</span>)的記憶體位置。</li>
+</ul>
+</li>
 <li>再把<code>current</code>的記憶體釋放(若是使用<code>new</code>進行動態配置，就使用<code>delete</code>釋放)，還給<strong>heap</strong>。</li>
 </ul>
-<p>關鍵就是，在整個<code>Delete()</code>的過程，只有node(<span class="math">\(3\)</span>)知道node(<span class="math">\(14\)</span>)的記憶體位置，所以在把node(<span class="math">\(3\)</span>)刪除之前，必須先透過node(<span class="math">\(3\)</span>)的<strong>pointer</strong>找到node(<span class="math">\(14\)</span>)，把node(<span class="math">\(14\)</span>)接到node(<span class="math">\(7\)</span>)上(也可以說是，換成用node(<span class="math">\(7\)</span>)的<strong>pointer</strong>記住node(<span class="math">\(14\)</span>)的記憶體位置)。</p>
+<p>關鍵就是，在整個<code>Delete()</code>的過程，只有node(<span class="math">\(3\)</span>)知道node(<span class="math">\(14\)</span>)的記憶體位置，所以在把node(<span class="math">\(3\)</span>)刪除之前，必須先透過node(<span class="math">\(3\)</span>)的<strong>pointer</strong>找到node(<span class="math">\(14\)</span>)，把node(<span class="math">\(14\)</span>)接到node(<span class="math">\(7\)</span>)上之後，才可以釋放node(<span class="math">\(3\)</span>)的記憶體位置。</p>
 <p><center>
 <img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/LinkedList/Insert_Delete_Reverse/f6.png?raw=true" /></p>
 <p><strong>圖四(a)。</strong>
@@ -322,20 +332,21 @@
         <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>                  <span class="c1">// 或是current-&gt;data == x</span>
     <span class="p">}</span>                                             <span class="c1">// 即結束while loop</span>
 
-    <span class="k">if</span> <span class="p">(</span><span class="n">current</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>             <span class="c1">// list沒有要刪的node, 或是list為empty</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">current</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>                 <span class="c1">// list沒有要刪的node, 或是list為empty</span>
         <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;There is no &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">x</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; in list.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
         <span class="k">return</span><span class="p">;</span>
     <span class="p">}</span>
-    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">current</span> <span class="o">==</span> <span class="n">first</span><span class="p">)</span> <span class="p">{</span>    <span class="c1">// list只有一個node</span>
-        <span class="k">delete</span> <span class="n">first</span><span class="p">;</span>               
-        <span class="n">first</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>                  <span class="c1">// 當指標被delete後, 將其指向NULL, </span>
-        <span class="n">current</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>                <span class="c1">// 可以避免不必要bug</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">current</span> <span class="o">==</span> <span class="n">first</span><span class="p">)</span> <span class="p">{</span>        <span class="c1">// 要刪除的node剛好在list的開頭</span>
+        <span class="n">first</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>          <span class="c1">// 把first移到下一個node</span>
+        <span class="k">delete</span> <span class="n">current</span><span class="p">;</span>                 <span class="c1">// 如果list只有一個node, 那麼first就會指向NULL</span>
+        <span class="n">current</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>                    <span class="c1">// 當指標被delete後, 將其指向NULL, 可以避免不必要bug</span>
         <span class="k">return</span><span class="p">;</span>                     
     <span class="p">}</span>
-    <span class="k">else</span> <span class="p">{</span>                          <span class="c1">// 其餘情況, previous不為NULL</span>
-        <span class="n">previous</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+    <span class="k">else</span> <span class="p">{</span>                              <span class="c1">// 其餘情況, list中有欲刪除的node, </span>
+        <span class="n">previous</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span> <span class="c1">// 而且node不為first, 此時previous不為NULL</span>
         <span class="k">delete</span> <span class="n">current</span><span class="p">;</span>
         <span class="n">current</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">return</span><span class="p">;</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
@@ -460,10 +471,11 @@
 
     <span class="k">while</span> <span class="p">(</span><span class="n">preceding</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">current</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">previous</span><span class="p">;</span>      <span class="c1">// 把current-&gt;next轉向</span>
-        <span class="n">previous</span> <span class="o">=</span> <span class="n">current</span><span class="p">;</span>            <span class="c1">// previous往前挪</span>
-        <span class="n">current</span> <span class="o">=</span> <span class="n">preceding</span><span class="p">;</span>           <span class="c1">// current往前挪</span>
-        <span class="n">preceding</span> <span class="o">=</span> <span class="n">preceding</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>   <span class="c1">// preceding往前挪</span>
+        <span class="n">previous</span> <span class="o">=</span> <span class="n">current</span><span class="p">;</span>            <span class="c1">// previous往後挪</span>
+        <span class="n">current</span> <span class="o">=</span> <span class="n">preceding</span><span class="p">;</span>           <span class="c1">// current往後挪</span>
+        <span class="n">preceding</span> <span class="o">=</span> <span class="n">preceding</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>   <span class="c1">// preceding往後挪</span>
     <span class="p">}</span>                                  <span class="c1">// preceding更新成NULL即跳出while loop</span>
+
     <span class="n">current</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">previous</span><span class="p">;</span>          <span class="c1">// 此時current位於最後一個node, 將current-&gt;next轉向</span>
     <span class="n">first</span> <span class="o">=</span> <span class="n">current</span><span class="p">;</span>                   <span class="c1">// 更新first為current</span>
 <span class="p">}</span>
@@ -483,13 +495,14 @@
     <span class="n">list</span><span class="p">.</span><span class="n">Push_back</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>   <span class="c1">// list: 5</span>
     <span class="n">list</span><span class="p">.</span><span class="n">Push_back</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>   <span class="c1">// list: 5 3</span>
     <span class="n">list</span><span class="p">.</span><span class="n">Push_front</span><span class="p">(</span><span class="mi">9</span><span class="p">);</span>  <span class="c1">// list: 9 5 3</span>
-    <span class="n">list</span><span class="p">.</span><span class="n">PrintList</span><span class="p">();</span>    <span class="c1">// 印出: 9 5 3</span>
-    <span class="n">list</span><span class="p">.</span><span class="n">Delete</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>      <span class="c1">// list: 9 3</span>
-    <span class="n">list</span><span class="p">.</span><span class="n">Push_back</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>   <span class="c1">// list: 9 3 4</span>
-    <span class="n">list</span><span class="p">.</span><span class="n">Push_front</span><span class="p">(</span><span class="mi">8</span><span class="p">);</span>  <span class="c1">// list: 8 9 3 4</span>
-    <span class="n">list</span><span class="p">.</span><span class="n">PrintList</span><span class="p">();</span>    <span class="c1">// 印出: 8 9 3 4</span>
-    <span class="n">list</span><span class="p">.</span><span class="n">Reverse</span><span class="p">();</span>      <span class="c1">// list: 4 3 9 8</span>
-    <span class="n">list</span><span class="p">.</span><span class="n">PrintList</span><span class="p">();</span>    <span class="c1">// 印出: 4 3 9 8</span>
+    <span class="n">list</span><span class="p">.</span><span class="n">PrintList</span><span class="p">();</span>    <span class="c1">// 印出:  9 5 3</span>
+    <span class="n">list</span><span class="p">.</span><span class="n">Push_back</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>   <span class="c1">// list: 9 5 3 4</span>
+    <span class="n">list</span><span class="p">.</span><span class="n">Delete</span><span class="p">(</span><span class="mi">9</span><span class="p">);</span>      <span class="c1">// list: 5 3 4</span>
+    <span class="n">list</span><span class="p">.</span><span class="n">PrintList</span><span class="p">();</span>    <span class="c1">// 印出:  5 3 4</span>
+    <span class="n">list</span><span class="p">.</span><span class="n">Push_front</span><span class="p">(</span><span class="mi">8</span><span class="p">);</span>  <span class="c1">// list: 8 5 3 4</span>
+    <span class="n">list</span><span class="p">.</span><span class="n">PrintList</span><span class="p">();</span>    <span class="c1">// 印出:  8 5 3 4</span>
+    <span class="n">list</span><span class="p">.</span><span class="n">Reverse</span><span class="p">();</span>      <span class="c1">// list: 4 3 5 8</span>
+    <span class="n">list</span><span class="p">.</span><span class="n">PrintList</span><span class="p">();</span>    <span class="c1">// 印出:  4 3 5 8</span>
     <span class="n">list</span><span class="p">.</span><span class="n">Clear</span><span class="p">();</span>        <span class="c1">// 清空list</span>
     <span class="n">list</span><span class="p">.</span><span class="n">PrintList</span><span class="p">();</span>    <span class="c1">// 印出: List is empty.</span>
 
@@ -501,9 +514,10 @@
 <p>output:</p>
 <div class="highlight"><pre><span class="n">List</span> <span class="n">is</span> <span class="n">empty</span><span class="p">.</span>
 <span class="n">There</span> <span class="n">is</span> <span class="n">no</span> <span class="mi">4</span> <span class="n">in</span> <span class="n">list</span><span class="p">.</span>
-<span class="mi">9</span> <span class="mi">5</span> <span class="mi">3</span> 
-<span class="mi">8</span> <span class="mi">9</span> <span class="mi">3</span> <span class="mi">4</span> 
-<span class="mi">4</span> <span class="mi">3</span> <span class="mi">9</span> <span class="mi">8</span> 
+<span class="mi">9</span> <span class="mi">5</span> <span class="mi">3</span>
+<span class="mi">5</span> <span class="mi">3</span> <span class="mi">4</span>
+<span class="mi">8</span> <span class="mi">5</span> <span class="mi">3</span> <span class="mi">4</span>
+<span class="mi">4</span> <span class="mi">3</span> <span class="mi">5</span> <span class="mi">8</span>
 <span class="n">List</span> <span class="n">is</span> <span class="n">empty</span><span class="p">.</span>
 </pre></div>
 

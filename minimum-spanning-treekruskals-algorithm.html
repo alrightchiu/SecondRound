@@ -138,8 +138,10 @@
 <ul>
 <li><code>edgesetMST[]</code>：用來收集所有MST中的edge，功能與<a href="http://alrightchiu.github.io/SecondRound/minimum-spanning-treeintrojian-jie.html#theorem">Theorem1中的Set A</a>相同。</li>
 <li><code>subset[]</code>：用來記錄<code>edgesetMST[]</code>中的edge之兩端vertex所屬的集合，目的是用來判斷是否形成<strong>cycle</strong>。</li>
-<li><code>increaseWeight[]</code>：把Graph中的edge按照weight由小到大排序，依序放進<code>increaseWeight[]</code>，當演算法在「挑選edge」形成最短路徑時，便是按照「weight由小到大」之順序挑選。<br />
-將圖二(a)的Graph之edge排序，可以得到如圖二(b)的<code>increaseWeight[]</code>。</li>
+<li><code>increaseWeight[]</code>：把Graph中的edge按照weight由小到大排序，依序放進<code>increaseWeight[]</code>，當演算法在「挑選edge」形成最短路徑時，便是按照「weight由小到大」之順序挑選。  <ul>
+<li>將圖二(a)的Graph之edge排序，可以得到如圖二(b)的<code>increaseWeight[]</code>。</li>
+</ul>
+</li>
 </ul>
 <p><center>
 <img alt="cc" src="https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/MST_Kruskal_fig/f5.png?raw=true" /></p>
