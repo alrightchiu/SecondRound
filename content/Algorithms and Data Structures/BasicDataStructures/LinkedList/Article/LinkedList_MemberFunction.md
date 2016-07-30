@@ -253,7 +253,11 @@ void LinkedList::Push_back(int x){
 **case1-2**：若要刪除具有$7$的node，而且node($7$)位於Linked list的第一個位置(也就是`*first`)，見圖四(b)：
 
 * 需要把這個情況獨立出來的原因是，這個情況不會進行**Traversal**，所以`ListNode *previous`始終指向`NULL`，便不能呼叫其private data，若進行`previous->next`將會因為意圖對「無效的」記憶體位置進行存取，而產生像是「EXC_BAD_ACCESS」的錯誤(error)。
-* 移除的方法，只要將`first`向後移動至`first->next`，在釋放`current`的記憶體位置即可。
+
+移除的方法：
+
+* 只要將`first`向後移動至`first->next`。
+* 再釋放`current`的記憶體位置即可。
     * 若Linked list只有一個node，那麼`first=first->next`將會把`first`指向`NULL`。
 
 
