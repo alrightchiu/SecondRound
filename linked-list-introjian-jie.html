@@ -195,8 +195,9 @@
     <span class="kt">int</span> <span class="n">data</span><span class="p">;</span>
     <span class="n">ListNode</span> <span class="o">*</span><span class="n">next</span><span class="p">;</span>
 <span class="k">public</span><span class="o">:</span>
-    <span class="n">ListNode</span><span class="p">()</span><span class="o">:</span><span class="n">data</span><span class="p">(</span><span class="mi">0</span><span class="p">){</span> <span class="n">next</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;};</span>
-    <span class="n">ListNode</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">)</span><span class="o">:</span><span class="n">data</span><span class="p">(</span><span class="n">a</span><span class="p">){</span> <span class="n">next</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;};</span>
+    <span class="n">ListNode</span><span class="p">()</span><span class="o">:</span><span class="n">data</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="n">next</span><span class="p">(</span><span class="mi">0</span><span class="p">){};</span>
+    <span class="n">ListNode</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">)</span><span class="o">:</span><span class="n">data</span><span class="p">(</span><span class="n">a</span><span class="p">),</span><span class="n">next</span><span class="p">(</span><span class="mi">0</span><span class="p">){};</span>
+
     <span class="k">friend</span> <span class="k">class</span> <span class="nc">LinkedList</span><span class="p">;</span>
 <span class="p">};</span>
 
@@ -205,7 +206,7 @@
     <span class="c1">// int size;                // size是用來記錄Linked list的長度, 非必要</span>
     <span class="n">ListNode</span> <span class="o">*</span><span class="n">first</span><span class="p">;</span>            <span class="c1">// list的第一個node</span>
 <span class="k">public</span><span class="o">:</span>
-    <span class="n">LinkedList</span><span class="p">(){</span><span class="n">first</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;};</span>
+    <span class="n">LinkedList</span><span class="p">()</span><span class="o">:</span><span class="n">first</span><span class="p">(</span><span class="mi">0</span><span class="p">){};</span>
     <span class="kt">void</span> <span class="nf">PrintList</span><span class="p">();</span>           <span class="c1">// 印出list的所有資料</span>
     <span class="kt">void</span> <span class="nf">Push_front</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">);</span>     <span class="c1">// 在list的開頭新增node</span>
     <span class="kt">void</span> <span class="nf">Push_back</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">);</span>      <span class="c1">// 在list的尾巴新增node</span>
