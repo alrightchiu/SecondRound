@@ -49,7 +49,7 @@ Summary: 介紹於Graph中，利用Kruskal's Algorithm求得Minimum Spanning Tre
 * `edgesetMST[]`：用來收集所有MST中的edge，功能與[Theorem1中的Set A](http://alrightchiu.github.io/SecondRound/minimum-spanning-treeintrojian-jie.html#theorem)相同。
 * `subset[]`：用來記錄`edgesetMST[]`中的edge之兩端vertex所屬的集合，目的是用來判斷是否形成**cycle**。
 * `increaseWeight[]`：把Graph中的edge按照weight由小到大排序，依序放進`increaseWeight[]`，當演算法在「挑選edge」形成最短路徑時，便是按照「weight由小到大」之順序挑選。  
-將圖二(a)的Graph之edge排序，可以得到如圖二(b)的`increaseWeight[]`。
+    * 將圖二(a)的Graph之edge排序，可以得到如圖二(b)的`increaseWeight[]`。
 
 <center>
 ![cc][f5]

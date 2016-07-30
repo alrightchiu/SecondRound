@@ -17,6 +17,8 @@ Summary: 介紹於Linked list(連結串列)中新增資料、刪除資料，以�
 **Linked list**
 </center>
 
+(完整範例程式碼也可以看這裡：[Linkedlist.cpp]())
+
 
 `class ListNode`與`class LinkedList`的定義如下：
 
@@ -24,6 +26,9 @@ Summary: 介紹於Linked list(連結串列)中新增資料、刪除資料，以�
 ```cpp
 // C++ code
 #include <iostream>
+using std::cout;
+using std::endl;
+
 class LinkedList;    // 為了將class LinkedList設成class ListNode的friend,
                      // 需要先宣告
 class ListNode{
@@ -31,8 +36,9 @@ private:
     int data;
     ListNode *next;
 public:
-    ListNode():data(0){ next = 0 ;};
-    ListNode(int a):data(a){ next = 0;};
+    ListNode():data(0),next(0){};
+    ListNode(int a):data(a),next(0){};
+
     friend class LinkedList;
 };
 
@@ -41,7 +47,7 @@ private:
     // int size;                // size是用來記錄Linked list的長度, 非必要
     ListNode *first;            // list的第一個node
 public:
-    LinkedList(){first = 0;};
+    LinkedList():first(0){};
     void PrintList();           // 印出list的所有資料
     void Push_front(int x);     // 在list的開頭新增node
     void Push_back(int x);      // 在list的尾巴新增node
@@ -102,18 +108,18 @@ public:
 ```cpp
 // C++ code
 void LinkedList::PrintList(){
-    
+
     if (first == 0) {                      // 如果first node指向NULL, 表示list沒有資料
-        std::cout << "List is empty.\n";
+        cout << "List is empty.\n";
         return;
     }
-    
-    ListNode *current = first;
+
+    ListNode *current = first;             // 用pointer *current在list中移動
     while (current != 0) {                 // Traversal
-        std::cout << current->data << " ";
+        cout << current->data << " ";
         current = current->next;
     }
-    std::cout << std::endl;
+    cout << endl;
 }
 ```
 
@@ -129,7 +135,7 @@ void LinkedList::PrintList(){
 若考慮在Linked list($3$->$14$)的開頭加入$23$，方法如下：
 
 * 先建立一個新的節點`ListNode *newNode`，帶有欲新增的資料($23$)，如圖二(a)。
-* 將`newNode`中的**pointer**，`ListNode *next`，指向Linked list的第一個node`first`，如圖二(b)。
+* 將`newNode`中的**pointer**：`ListNode *next`，指向Linked list的第一個node`first`，如圖二(b)。
 * 接著，把`first`更新成`newNode`。
 
 經過以上步驟(時間複雜度為O($1$))便得到新的Linked list：$23$->$3$->$14$。
@@ -151,10 +157,10 @@ void LinkedList::PrintList(){
 ```cpp
 // C++ code
 void LinkedList::Push_front(int x){
-    
-    ListNode *newNode = new ListNode(x);
-    newNode->next = first;        // 先把first接在newNode後面
-    first = newNode;              // 再把first指向newNode所指向的記憶體位置
+
+    ListNode *newNode = new ListNode(x);   // 配置新的記憶體
+    newNode->next = first;                 // 先把first接在newNode後面
+    first = newNode;                       // 再把first指向newNode所指向的記憶體位置
 }
 ```
 
@@ -197,19 +203,19 @@ void LinkedList::Push_front(int x){
 ```cpp
 // C++ code
 void LinkedList::Push_back(int x){
-    
-    ListNode *newNode = new ListNode(x);
-    
-    if (first == 0) {             // 若list沒有node, 令newNode為first
+
+    ListNode *newNode = new ListNode(x);   // 配置新的記憶體
+
+    if (first == 0) {                      // 若list沒有node, 令newNode為first
         first = newNode;
         return;
     }
-    
+
     ListNode *current = first;
-    while (current->next != 0) {  // Traversal
+    while (current->next != 0) {           // Traversal
         current = current->next;
     }
-    current->next = newNode;
+    current->next = newNode;               // 將newNode接在list的尾巴
 }
 ```
 
@@ -223,15 +229,19 @@ void LinkedList::Push_back(int x){
 ##函式：Delete
 
 `Delete(int x)`的功能是要刪除Linked list中，資料為`int x`的node。  
-會有兩種情形，第一種是Linked list中確實有`int x`，第二種是沒有。在第一種情況中，要再把`int x`位於`first`的情況分開。
+
+一共會有兩種情形，第一種是Linked list中確實有`int x`，第二種是沒有。  
+在第一種情況中，需要再特別考慮「`int x`位於`first`」的情況。
 
 **case1-1**：要在Linked list($7$->$3$->$14$)中刪除具有$3$的node，見圖四(a)：
 
-* 利用**Traversal**的概念，以`ListNode *current`指向node($3$)，同時有`ListNode *previous`指向node($3$)的「前一個node」，node($7$)。
-* 接著，把`previsou`的`next pointer`指向`current`的`next pointer`。
+* 建立兩個在Linked list中移動的指標：`*current`以及`*previous`。
+* 利用**Traversal**的概念，以`ListNode *current`指向node($3$)，以`ListNode *previous`指向node($3$)的「前一個node」，node($7$)。
+* 接著，把`previous`的**pointer**指向`current`的**pointer**。
+    * 此處，即為以node($7$)記住node($14$)的記憶體位置。
 * 再把`current`的記憶體釋放(若是使用`new`進行動態配置，就使用`delete`釋放)，還給**heap**。
 
-關鍵就是，在整個`Delete()`的過程，只有node($3$)知道node($14$)的記憶體位置，所以在把node($3$)刪除之前，必須先透過node($3$)的**pointer**找到node($14$)，把node($14$)接到node($7$)上(也可以說是，換成用node($7$)的**pointer**記住node($14$)的記憶體位置)。
+關鍵就是，在整個`Delete()`的過程，只有node($3$)知道node($14$)的記憶體位置，所以在把node($3$)刪除之前，必須先透過node($3$)的**pointer**找到node($14$)，把node($14$)接到node($7$)上之後，才可以釋放node($3$)的記憶體位置。
 
 <center>
 ![cc][f6]
@@ -272,28 +282,29 @@ void LinkedList::Push_back(int x){
 ```cpp
 // C++ code
 void LinkedList::Delete(int x){
-    
+
     ListNode *current = first,      
              *previous = 0;
     while (current != 0 && current->data != x) {  // Traversal
         previous = current;                       // 如果current指向NULL
         current = current->next;                  // 或是current->data == x
     }                                             // 即結束while loop
-    
-    if (current == 0) {             // list沒有要刪的node, 或是list為empty
+
+    if (current == 0) {                 // list沒有要刪的node, 或是list為empty
         std::cout << "There is no " << x << " in list.\n";
         return;
     }
-    else if (current == first) {    // list只有一個node
-        delete first;               
-        first = 0;                  // 當指標被delete後, 將其指向NULL, 
-        current = 0;                // 可以避免不必要bug
+    else if (current == first) {        // 要刪除的node剛好在list的開頭
+        first = current->next;          // 把first移到下一個node
+        delete current;                 // 如果list只有一個node, 那麼first就會指向NULL
+        current = 0;                    // 當指標被delete後, 將其指向NULL, 可以避免不必要bug
         return;                     
     }
-    else {                          // 其餘情況, previous不為NULL
-        previous->next = current->next;
+    else {                              // 其餘情況, list中有欲刪除的node, 
+        previous->next = current->next; // 而且node不為first, 此時previous不為NULL
         delete current;
         current = 0;
+        return;
     }
 }
 ```
@@ -437,22 +448,23 @@ void LinkedList::Clear(){
 ```cpp
 // C++ code
 void LinkedList::Reverse(){
-    
+
     if (first == 0 || first->next == 0) {
         // list is empty or list has only one node
         return;
     }
-    
+
     ListNode *previous = 0,
              *current = first,
              *preceding = first->next;
-    
+
     while (preceding != 0) {
         current->next = previous;      // 把current->next轉向
-        previous = current;            // previous往前挪
-        current = preceding;           // current往前挪
-        preceding = preceding->next;   // preceding往前挪
+        previous = current;            // previous往後挪
+        current = preceding;           // current往後挪
+        preceding = preceding->next;   // preceding往後挪
     }                                  // preceding更新成NULL即跳出while loop
+
     current->next = previous;          // 此時current位於最後一個node, 將current->next轉向
     first = current;                   // 更新first為current
 }
@@ -479,13 +491,14 @@ int main() {
     list.Push_back(5);   // list: 5
     list.Push_back(3);   // list: 5 3
     list.Push_front(9);  // list: 9 5 3
-    list.PrintList();    // 印出: 9 5 3
-    list.Delete(5);      // list: 9 3
-    list.Push_back(4);   // list: 9 3 4
-    list.Push_front(8);  // list: 8 9 3 4
-    list.PrintList();    // 印出: 8 9 3 4
-    list.Reverse();      // list: 4 3 9 8
-    list.PrintList();    // 印出: 4 3 9 8
+    list.PrintList();    // 印出:  9 5 3
+    list.Push_back(4);   // list: 9 5 3 4
+    list.Delete(9);      // list: 5 3 4
+    list.PrintList();    // 印出:  5 3 4
+    list.Push_front(8);  // list: 8 5 3 4
+    list.PrintList();    // 印出:  8 5 3 4
+    list.Reverse();      // list: 4 3 5 8
+    list.PrintList();    // 印出:  4 3 5 8
     list.Clear();        // 清空list
     list.PrintList();    // 印出: List is empty.
 
@@ -497,9 +510,10 @@ output:
 ```cpp
 List is empty.
 There is no 4 in list.
-9 5 3 
-8 9 3 4 
-4 3 9 8 
+9 5 3
+5 3 4
+8 5 3 4
+4 3 5 8
 List is empty.
 ```
 
