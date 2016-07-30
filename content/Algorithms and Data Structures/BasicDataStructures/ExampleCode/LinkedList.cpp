@@ -7,7 +7,6 @@
 using std::cout;
 using std::endl;
 
-
 class LinkedList;    // 為了將class LinkedList設成class ListNode的friend,
                      // 需要先宣告
 class ListNode{
@@ -38,7 +37,7 @@ public:
 
 void LinkedList::PrintList(){
 
-	if (first == 0) {                      // 如果first node指向NULL, 表示list沒有資料
+    if (first == 0) {                      // 如果first node指向NULL, 表示list沒有資料
         cout << "List is empty.\n";
         return;
     }
@@ -54,7 +53,7 @@ void LinkedList::PrintList(){
 
 void LinkedList::Push_front(int x){
 
-	ListNode *newNode = new ListNode(x);   // 配置新的記憶體
+    ListNode *newNode = new ListNode(x);   // 配置新的記憶體
     newNode->next = first;                 // 先把first接在newNode後面
     first = newNode;                       // 再把first指向newNode所指向的記憶體位置
 }

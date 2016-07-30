@@ -17,7 +17,7 @@ Summary: 介紹於Linked list(連結串列)中新增資料、刪除資料，以�
 **Linked list**
 </center>
 
-(完整範例程式碼也可以看這裡：[Linkedlist.cpp]())
+(完整範例程式碼也可以看這裡：[Linkedlist.cpp](https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/ExampleCode/LinkedList.cpp))
 
 
 `class ListNode`與`class LinkedList`的定義如下：
