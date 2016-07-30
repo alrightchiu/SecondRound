@@ -297,19 +297,19 @@ void LinkedList::Delete(int x){
 
     if (current == 0) {                 // list沒有要刪的node, 或是list為empty
         std::cout << "There is no " << x << " in list.\n";
-        return;
+        // return;
     }
     else if (current == first) {        // 要刪除的node剛好在list的開頭
         first = current->next;          // 把first移到下一個node
         delete current;                 // 如果list只有一個node, 那麼first就會指向NULL
         current = 0;                    // 當指標被delete後, 將其指向NULL, 可以避免不必要bug
-        return;                     
+        // return;                     
     }
     else {                              // 其餘情況, list中有欲刪除的node, 
         previous->next = current->next; // 而且node不為first, 此時previous不為NULL
         delete current;
         current = 0;
-        return;
+        // return;
     }
 }
 ```
