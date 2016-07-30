@@ -341,19 +341,19 @@
 
     <span class="k">if</span> <span class="p">(</span><span class="n">current</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>                 <span class="c1">// list沒有要刪的node, 或是list為empty</span>
         <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;There is no &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">x</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; in list.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
-        <span class="k">return</span><span class="p">;</span>
+        <span class="c1">// return;</span>
     <span class="p">}</span>
     <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">current</span> <span class="o">==</span> <span class="n">first</span><span class="p">)</span> <span class="p">{</span>        <span class="c1">// 要刪除的node剛好在list的開頭</span>
         <span class="n">first</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>          <span class="c1">// 把first移到下一個node</span>
         <span class="k">delete</span> <span class="n">current</span><span class="p">;</span>                 <span class="c1">// 如果list只有一個node, 那麼first就會指向NULL</span>
         <span class="n">current</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>                    <span class="c1">// 當指標被delete後, 將其指向NULL, 可以避免不必要bug</span>
-        <span class="k">return</span><span class="p">;</span>                     
+        <span class="c1">// return;                     </span>
     <span class="p">}</span>
     <span class="k">else</span> <span class="p">{</span>                              <span class="c1">// 其餘情況, list中有欲刪除的node, </span>
         <span class="n">previous</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span> <span class="c1">// 而且node不為first, 此時previous不為NULL</span>
         <span class="k">delete</span> <span class="n">current</span><span class="p">;</span>
         <span class="n">current</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="k">return</span><span class="p">;</span>
+        <span class="c1">// return;</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
