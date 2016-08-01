@@ -110,7 +110,7 @@ Graph比Tree更加廣義，其定義僅僅使用了集合(Set)，並且不限制
 <center>
 ![undirected][f3]
 
-**圖三(a)：Tree(樹)也是undirected graph(無向圖)。**
+**圖三(a)：undirected graph(無向圖)。**
 
 ![directed][f4]
 
@@ -275,7 +275,10 @@ Graph比Tree更加廣義，其定義僅僅使用了集合(Set)，並且不限制
 其中可能遇到的問題如：由於水管的孔徑各不相同，若先流過一條半徑只有2公分的水管，則接在其後的水管的半徑即使再大，水流量仍會被半徑2公分的水管所限制，因此整體流量也就受限制。  
 如何分配水流在水管之間的流法，即是Network Flow要處理的問題。
 
-不過在介紹以上三項主題之前，下兩篇文章將先介紹在Graph中最基本的搜尋(Search)方法：Breadth-First Search(BFS，廣度優先搜尋)與Depth-First Search(DFS，深度優先搜尋)。
+不過在介紹以上三項主題之前，下兩篇文章將先介紹在Graph中最基本的搜尋(Search)方法：
+
+* Breadth-First Search(BFS，廣度優先搜尋)，與
+* Depth-First Search(DFS，深度優先搜尋)。
 
 
 [f1]: https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/Graph%20series/Intro_fig/f_1.png?raw=true
