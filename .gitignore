@@ -42,4 +42,4 @@ nosetests.xml
 .project
 .pydevproject
 
-a.out
+.out

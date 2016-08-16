@@ -7,7 +7,6 @@ SITENAME = u'Second Round'
 SITEURL = 'http://alrightchiu.github.io/SecondRound/'
 
 PATH = 'content'
-
 TIMEZONE = 'Asia/Taipei'
 
 #DEFAULT_LANG = u'en'
@@ -35,7 +34,8 @@ THEME = 'theme/pelican-clean-blog'
 PLUGIN_PATHS = ['pelican-plugins']
 
 #顯示數學式
-# PLUGINS = [ 'render_math']
+# PLUGINS = ['better_codeblock_line_numbering', 'render_math']
+PLUGINS = ['render_math']
 
 # Static path
 STATIC_PATHS = ['fig']
@@ -59,13 +59,9 @@ SITESUBTITLE = u'初學者寫給初學者的演算法教學'
 # setting for plig-in: better_codeblock_line_numbering
 # MD_EXTENSIONS = ['fenced_code', 'codehilite(css_class=highlight, linenums=False)', 'extra' ]
 
-# PLUGINS = ['better_codeblock_line_numbering', 'render_math']
-PLUGINS = ['render_math']
+
 
 # TYPOGRIFY = True
-
-
-
 
 MENUITEMS = [	# 別人直接用 /archives.html, why? 總之我要用URL才行
     ('Archives', 'http://alrightchiu.github.io/SecondRound/archives.html'),	

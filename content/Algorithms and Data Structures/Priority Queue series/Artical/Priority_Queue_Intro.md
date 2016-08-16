@@ -33,8 +33,8 @@ Priority Queue(優先權佇列)就像在處理「待辦事項」，能夠在眾�
 **Priority**：對資料項目賦予「權重/優先權」，用以表示資料的重要程度。  
 **Queue**：隊伍、佇列、順序，意味著把資料整理成「某種順序」的資料結構。
 
-* 所謂的「某種順序」，可能是「先進先出(First-In-First-Out)」順序：每次要從此資料結構讀取資料時，必定是拿到「先進入」的資料。  
-    (請參考：[Wikipedia：Queue](https://en.wikipedia.org/wiki/Queue_%28abstract_data_type%29))
+* 所謂的「某種順序」，可能是「先進先出(First-In-First-Out)」順序：每次要從此資料結構讀取資料時，必定是拿到「先進入」該資料結構的資料。  
+    (請參考：[Queue: Intro(簡介)](http://alrightchiu.github.io/SecondRound/queue-introjian-jie-bing-yi-linked-listshi-zuo.html))
 * 也有可能是額外賦予資料的「權重/優先權」順序：每次要從此資料結構讀取資料時，必定會拿到具有「最大值/最小值權重」的資料。
 
 如果每次要從Priority Queue讀取資料時，都拿到「權重最大」的資料，則稱此為**Max-Priority Queue**。  
@@ -96,6 +96,7 @@ Priority Queue(優先權佇列)就像在處理「待辦事項」，能夠在眾�
 * [Ashley Montanaro：Priority queues and Dijkstra’s algorithm](https://www.cs.bris.ac.uk/~montanar/teaching/dsa/dijkstra-handout.pdf)
 * [禪心劍氣相思骨：Priority Queue 解析1 - 從binary heap開始](http://blog.yam.com/rockmanray/article/44952434)
 * [Single-Source Shortest Path：Dijkstra's Algorithm](http://alrightchiu.github.io/SecondRound/single-source-shortest-pathdijkstras-algorithm.html)
+* [Minimum Spanning Tree：Prim's Algorithm](http://alrightchiu.github.io/SecondRound/minimum-spanning-treeprims-algorithm.html)
 * [Wikipedia：Priority Queue](https://en.wikipedia.org/wiki/Priority_queue)
 
 
