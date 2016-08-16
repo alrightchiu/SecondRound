@@ -118,8 +118,8 @@
 <h3>先備知識與注意事項</h3>
 <p>在<a href="http://alrightchiu.github.io/SecondRound/minimum-spanning-treeprims-algorithm.html">Minimum Spanning Tree：Prim's Algorithm</a>中介紹過<strong>Prim's Algorithm</strong>的概念，也提供了範例程式碼。</p>
 <p>本篇文章將補充以稍微優秀一點的資料結構：<strong>Min-Priority Queue</strong>實現<strong>Prim's Algorithm</strong>中的「取最小值(<strong>ExtractMin</strong>)」的方法。</p>
-<p>上一篇文章的<code>MinKeyExtract()</code>需要把整個<code>key[]</code>走過一次，時間複雜度為<span class="math">\(O(|V|)\)</span>，其中<span class="math">\(|V|\)</span>表示vertex的數量。<br />
-而以Binary Heap實現的<strong>Min-Priority Queue</strong>，在「取最小值」的時候只要<span class="math">\(O(\log{|V|})\)</span>，即為以Binary Tree解讀Binary Heap的「樹高」，理論上應該會比較有效率。</p>
+<p>上一篇文章的<code>MinKeyExtract()</code>需要把整個<code>key[]</code>走過一次，時間複雜度為<span class="math">\(O(|V|)\)</span>，其中<span class="math">\(|V|\)</span>表示vertex的數量。 </p>
+<p>而以Binary Heap實現的<strong>Min-Priority Queue</strong>，在「取最小值」的時候只要<span class="math">\(O(\log{|V|})\)</span>，即為以Binary Tree解讀Binary Heap的「樹高」，理論上應該會比較有效率。</p>
 <p>建議讀者可以先閱讀以下文章，：</p>
 <ul>
 <li><a href="http://alrightchiu.github.io/SecondRound/minimum-spanning-treeintrojian-jie.html">Minimum Spanning Tree：Intro(簡介)</a>：MST的基本概念，以及證明用的<strong>Theorem1</strong>與<strong>Corollary2</strong>。</li>
