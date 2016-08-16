@@ -96,7 +96,7 @@ Priority Queue(優先權佇列)就像在處理「待辦事項」，能夠在眾�
 * [Ashley Montanaro：Priority queues and Dijkstra’s algorithm](https://www.cs.bris.ac.uk/~montanar/teaching/dsa/dijkstra-handout.pdf)
 * [禪心劍氣相思骨：Priority Queue 解析1 - 從binary heap開始](http://blog.yam.com/rockmanray/article/44952434)
 * [Single-Source Shortest Path：Dijkstra's Algorithm](http://alrightchiu.github.io/SecondRound/single-source-shortest-pathdijkstras-algorithm.html)
-* [Minimum Spanning Tree：Prim's Algorithm](http://alrightchiu.github.io/SecondRound/minimum-spanning-treeprims-algorithm.html)
+* [Minimum Spanning Tree：Prim's Algorithm using Min-Priority Queue](http://alrightchiu.github.io/SecondRound/minimum-spanning-treeprims-algorithm-using-min-priority-queue.html)
 * [Wikipedia：Priority Queue](https://en.wikipedia.org/wiki/Priority_queue)
 
 
