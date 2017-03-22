@@ -160,6 +160,10 @@ int QueueArraySequential::getCapacity(){
     return capacity;
 }
 
+void printSequentialQueue (QueueArraySequential queue){
+    cout << "front: " << queue.getFront() << "    back: " << queue.getBack() << "\n"
+    << "capacity: " << queue.getCapacity() << "  number of elements: " << queue.getSize() << "\n\n";
+}
 int main(){
 
     QueueArraySequential q;
@@ -167,41 +171,27 @@ int main(){
         cout << "Queue is empty.\n";
     }
     q.Push(24);
-    cout << "\nAfter push 24: \n"
-         << "front: " << q.getFront() << "    back: " << q.getBack() << "\n"
-         << "capacity: " << q.getCapacity()
-         << "  number of elements: " << q.getSize() << "\n";
+    cout << "\nAfter push 24: \n";
+    printSequentialQueue(q);
     q.Push(8);
     q.Push(23);
-    cout << "\nAfter push 8, 23: \n"
-         << "front: " << q.getFront() << "    back: " << q.getBack() << "\n"
-         << "capacity: " << q.getCapacity()
-         << "  number of elements: " << q.getSize() << "\n";
+    cout << "\nAfter push 8, 23: \n";
+    printSequentialQueue(q);
     q.Pop();
-    cout << "\nAfter pop 24: \n"
-         << "front: " << q.getFront() << "    back: " << q.getBack() << "\n"
-         << "capacity: " << q.getCapacity()
-         << "  number of elements: " << q.getSize() << "\n";
+    cout << "\nAfter pop 24: \n";
+    printSequentialQueue(q);
     q.Push(13);
-    cout << "\nAfter push 13: \n"
-         << "front: " << q.getFront() << "    back: " << q.getBack() << "\n"
-         << "capacity: " << q.getCapacity()
-         << "  number of elements: " << q.getSize() << "\n";
+    cout << "\nAfter push 13: \n";
+    printSequentialQueue(q);
     q.Pop();
-    cout << "\nAfter pop 8: \n"
-         << "front: " << q.getFront() << "    back: " << q.getBack() << "\n"
-         << "capacity: " << q.getCapacity()
-         << "  number of elements: " << q.getSize() << "\n";
+    cout << "\nAfter pop 8: \n";
+    printSequentialQueue(q);
     q.Push(35);
-    cout << "\nAfter push 35: \n"
-         << "front: " << q.getFront() << "    back: " << q.getBack() << "\n"
-         << "capacity: " << q.getCapacity()
-         << "  number of elements: " << q.getSize() << "\n";
+    cout << "\nAfter push 35: \n";
+    printSequentialQueue(q);
     q.Push(9);
-    cout << "\nAfter push 9: \n"
-         << "front: " << q.getFront() << "    back: " << q.getBack() << "\n"
-         << "capacity: " << q.getCapacity()
-         << "  number of elements: " << q.getSize() << "\n";
+    cout << "\nAfter push 9: \n";
+    printSequentialQueue(q);
     
     return 0;
 }
@@ -331,13 +321,15 @@ void QueueArrayCircular::DoubleCapacity(){
     
     int *newQueue = new int[capacity*2];
     
-    int j = front;
-    for (int i = 1; i <= getSize(); i++) {
-        newQueue[i] = queue[(j+1)%capacity];
+    int j = front, size = getSize();
+    for (int i = 1; i <= size; i++) {
+        newQueue[i] = queue[++j % capacity];    // j 要先加一, 因為 front 沒有東西
     }
+    
+    back = getSize();   // 要在更改 capacity 之前抓住 back
+    front = 0;          // 改變 front 要在 getSize() 之後
     capacity *= 2;
-    back = getSize();
-    front = 0;
+    
     delete [] queue;
     queue = newQueue;
 }
@@ -401,94 +393,84 @@ int QueueArrayCircular::getCapacity(){
     return capacity;
 }
 
+void printCircularQueue (QueueArrayCircular queue){
+    cout << "front: " << queue.getFront() << "    back: " << queue.getBack() << "\n"
+    << "capacity: " << queue.getCapacity() << "  number of elements: " << queue.getSize() << "\n\n";
+}
+
 int main(){
 
     QueueArrayCircular q;
     if (q.IsEmpty()) {
-        cout << "Queue is empty.\n";
+        cout << "Queue is empty.\n\n";
     }
     q.Push(24);
-    cout << "\nAfter push 24: \n"
-         << "front: " << q.getFront() << "    back: " << q.getBack() << "\n"
-         << "capacity: " << q.getCapacity()
-         << "  number of elements: " << q.getSize() << "\n";
+    cout << "After push 24:\n";
+    printCircularQueue(q);
     q.Push(8);
     q.Push(23);
-    cout << "\nAfter push 8, 23: \n"
-         << "front: " << q.getFront() << "    back: " << q.getBack() << "\n"
-         << "capacity: " << q.getCapacity()
-         << "  number of elements: " << q.getSize() << "\n";
+    cout << "After push 8, 23:\n";
+    printCircularQueue(q);
     q.Pop();
-    cout << "\nAfter pop 24: \n"
-         << "front: " << q.getFront() << "    back: " << q.getBack() << "\n"
-         << "capacity: " << q.getCapacity()
-         << "  number of elements: " << q.getSize() << "\n";
+    cout << "After pop 24:\n";
+    printCircularQueue(q);
     q.Push(13);
-    cout << "\nAfter push 13: \n"
-         << "front: " << q.getFront() << "    back: " << q.getBack() << "\n"
-         << "capacity: " << q.getCapacity()
-         << "  number of elements: " << q.getSize() << "\n";
+    cout << "After push 13:\n";
+    printCircularQueue(q);
     q.Pop();
-    cout << "\nAfter pop 8: \n"
-         << "front: " << q.getFront() << "    back: " << q.getBack() << "\n"
-         << "capacity: " << q.getCapacity()
-         << "  number of elements: " << q.getSize() << "\n";
+    cout << "After pop 8:\n";
+    printCircularQueue(q);
     q.Push(35);
-    cout << "\nAfter push 35: \n"
-         << "front: " << q.getFront() << "    back: " << q.getBack() << "\n"
-         << "capacity: " << q.getCapacity()
-         << "  number of elements: " << q.getSize() << "\n";
+    cout << "After push 35:\n";
+    printCircularQueue(q);
     q.Push(9);
-    cout << "\nAfter push 9: \n"
-         << "front: " << q.getFront() << "    back: " << q.getBack() << "\n"
-         << "capacity: " << q.getCapacity()
-         << "  number of elements: " << q.getSize() << "\n";
+    cout << "After push 9:\n";
+    printCircularQueue(q);
     q.Push(64);
-    cout << "\nAfter push 64: \n"
-         << "front: " << q.getFront() << "    back: " << q.getBack() << "\n"
-         << "capacity: " << q.getCapacity()
-         << "  number of elements: " << q.getSize() << "\n";
+    cout << "After push 64:\n";
+    printCircularQueue(q);
     return 0;
 }
-
 ```
+
 output:
 
 ```cpp
 Queue is empty.
 
-After push 24: 
+After push 24:
 front: 24    back: 24
 capacity: 5  number of elements: 1
 
-After push 8, 23: 
+After push 8, 23:
 front: 24    back: 23
 capacity: 5  number of elements: 3
 
-After pop 24: 
+After pop 24:
 front: 8    back: 23
 capacity: 5  number of elements: 2
 
-After push 13: 
+After push 13:
 front: 8    back: 13
 capacity: 5  number of elements: 3
 
-After pop 8: 
+After pop 8:
 front: 23    back: 13
 capacity: 5  number of elements: 2
 
-After push 35: 
+After push 35:
 front: 23    back: 35
 capacity: 5  number of elements: 3
 
-After push 9: 
+After push 9:
 front: 23    back: 9
 capacity: 5  number of elements: 4
 
-After push 64: 
-front: 8    back: 64
+After push 64:
+front: 23    back: 64
 capacity: 10  number of elements: 5
 ```
+
 
 在`main()`中的測試結果可以看出，**Circular Queue**確實有效地利用了Array的記憶體空間，與**Sequential Queue**比較，在`Push(9)`時，並沒有呼叫`DoubleCapacity()`，因為**Circular Queue**的`Push()`會將資料新增至Array的開頭，如圖六：
 
@@ -536,6 +518,10 @@ capacity: 10  number of elements: 5
 * [Introduction to Algorithms, Ch10](http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844) 
 * [Fundamentals of Data Structures in C++, Ch3](http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376)
 
+
+###致謝
+
+感謝網友[姜典昀](https://www.facebook.com/enrngnhn)來信指認程式碼的邏輯錯誤。
 
 
 
