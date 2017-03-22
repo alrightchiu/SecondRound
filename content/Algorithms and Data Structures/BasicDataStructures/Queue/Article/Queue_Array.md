@@ -522,7 +522,7 @@ capacity: 10  number of elements: 5
 
 ###致謝
 
-感謝網友[姜典昀](https://www.facebook.com/enrngnhn)來信指認程式碼的邏輯錯誤。
+感謝網友[enrngnhn](https://www.facebook.com/enrngnhn)來信指認程式碼的邏輯錯誤。
 
 
 
