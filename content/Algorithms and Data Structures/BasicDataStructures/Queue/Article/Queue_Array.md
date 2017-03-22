@@ -168,29 +168,29 @@ int main(){
 
     QueueArraySequential q;
     if (q.IsEmpty()) {
-        cout << "Queue is empty.\n";
+        cout << "Queue is empty.\n\n";
     }
     q.Push(24);
-    cout << "\nAfter push 24: \n";
+    cout << "After push 24: \n";
     printSequentialQueue(q);
     q.Push(8);
     q.Push(23);
-    cout << "\nAfter push 8, 23: \n";
+    cout << "After push 8, 23: \n";
     printSequentialQueue(q);
     q.Pop();
-    cout << "\nAfter pop 24: \n";
+    cout << "After pop 24: \n";
     printSequentialQueue(q);
     q.Push(13);
-    cout << "\nAfter push 13: \n";
+    cout << "After push 13: \n";
     printSequentialQueue(q);
     q.Pop();
-    cout << "\nAfter pop 8: \n";
+    cout << "After pop 8: \n";
     printSequentialQueue(q);
     q.Push(35);
-    cout << "\nAfter push 35: \n";
+    cout << "After push 35: \n";
     printSequentialQueue(q);
     q.Push(9);
-    cout << "\nAfter push 9: \n";
+    cout << "After push 9: \n";
     printSequentialQueue(q);
     
     return 0;
