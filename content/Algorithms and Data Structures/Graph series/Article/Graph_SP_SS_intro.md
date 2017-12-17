@@ -236,7 +236,7 @@ void Graph_SP::Relax(int from, int to, int weight){
 
 ###Triangle inequality
 
-經過**Relaxation**，並得到最短路徑後，任意兩個在Grpah上之vertex(X)與vertex(Y)，若存在edge(X,Y)從vertex(X)指向vertex(Y)，必定滿足以下關係(假設vertex(S)為起點)：
+經過**Relaxation**，並得到最短路徑後，任意兩個在Graph上之vertex(X)與vertex(Y)，若存在edge(X,Y)從vertex(X)指向vertex(Y)，必定滿足以下關係(假設vertex(S)為起點)：
 
 * $\delta(S,Y)\leq \delta(S,X)+w(X,Y)$。
 
