@@ -88,7 +88,7 @@ Topological Sort:
 
 ##演算法
 
-在[Graph: 利用DFS尋找Strongly Connected Component(SCC)](http://alrightchiu.github.io/SecondRound/grpah-li-yong-dfsxun-zhao-strongly-connected-componentscc.html)曾經提過DAG的性質：
+在[Graph: 利用DFS尋找Strongly Connected Component(SCC)](http://alrightchiu.github.io/SecondRound/graph-li-yong-dfsxun-zhao-strongly-connected-componentscc.html)曾經提過DAG的性質：
 
 * 在DAG上執行一次`DFS()`，若存在一條path從vertex(X)到vertex(Y)，那麼`finish[X]`一定比`finish[Y]`還大。([證明請點這裡](http://www.personal.kent.edu/~rmuhamma/Algorithms/MyAlgorithms/GraphAlgor/topoSort.htm))
 
@@ -106,7 +106,7 @@ Topological Sort:
 
 ##程式碼
 
-是的，只要把[上一篇文章](http://alrightchiu.github.io/SecondRound/grpah-li-yong-dfsxun-zhao-strongly-connected-componentscc.html)介紹過的`PrintSCCs()`的前半部照抄，就能夠找到`finish`由大到小的順序。
+是的，只要把[上一篇文章](http://alrightchiu.github.io/SecondRound/graph-li-yong-dfsxun-zhao-strongly-connected-componentscc.html)介紹過的`PrintSCCs()`的前半部照抄，就能夠找到`finish`由大到小的順序。
 
 
 ```cpp
@@ -257,8 +257,8 @@ Topological Sort:
 [Graph: Breadth-First Search(BFS，廣度優先搜尋)](http://alrightchiu.github.io/SecondRound/graph-breadth-first-searchbfsguang-du-you-xian-sou-xun.html)  
 [Graph: Depth-First Search(DFS，深度優先搜尋)](http://alrightchiu.github.io/SecondRound/graph-depth-first-searchdfsshen-du-you-xian-sou-xun.html)  
 [Graph: 利用DFS和BFS尋找Connected Component](http://alrightchiu.github.io/SecondRound/graph-li-yong-dfshe-bfsxun-zhao-connected-component.html)  
-[Graph: 利用DFS尋找Strongly Connected Component(SCC)](http://alrightchiu.github.io/SecondRound/grpah-li-yong-dfsxun-zhao-strongly-connected-componentscc.html)  
-[Graph: 利用DFS尋找DAG的Topological Sort(拓撲排序)](http://alrightchiu.github.io/SecondRound/grpah-li-yong-dfsxun-zhao-dagde-topological-sorttuo-pu-pai-xu.html)  
+[Graph: 利用DFS尋找Strongly Connected Component(SCC)](http://alrightchiu.github.io/SecondRound/graph-li-yong-dfsxun-zhao-strongly-connected-componentscc.html)  
+[Graph: 利用DFS尋找DAG的Topological Sort(拓撲排序)](http://alrightchiu.github.io/SecondRound/graph-li-yong-dfsxun-zhao-dagde-topological-sorttuo-pu-pai-xu.html)  
 
 
 

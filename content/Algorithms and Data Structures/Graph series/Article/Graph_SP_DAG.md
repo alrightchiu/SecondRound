@@ -57,7 +57,7 @@ Summary: 介紹在DAG(directed acyclic graph)上處理Single-Source Shortest Pat
 ###Topological Sort
 
 若在**DAG**上，存在一條從vertex(X)指向vertex(Y)的edge(X,Y)，那麼在**Topological Sort**中，vertex(X)一定出現在vertex(Y)之前。  
-(關於DAG與Topological Sort的詳細介紹與演算法，請參考[Graph: 利用DFS尋找DAG的Topological Sort(拓撲排序)](http://alrightchiu.github.io/SecondRound/grpah-li-yong-dfsxun-zhao-dagde-topological-sorttuo-pu-pai-xu.html)。)
+(關於DAG與Topological Sort的詳細介紹與演算法，請參考[Graph: 利用DFS尋找DAG的Topological Sort(拓撲排序)](http://alrightchiu.github.io/SecondRound/graph-li-yong-dfsxun-zhao-dagde-topological-sorttuo-pu-pai-xu.html)。)
 
 試尋找圖一(a)之DAG的Topological Sort，如圖二(a)。可以確定的是，Topological Sort可能不唯一。
 
@@ -178,7 +178,7 @@ Summary: 介紹在DAG(directed acyclic graph)上處理Single-Source Shortest Pat
 以及`main()`：建立如圖四(a)之`AdjList`，並進行`DAG_SP()`。
 
 (關於`DFS()`與`DFSVisit()`之概念與程式碼，請參考[Graph: Depth-First Search(DFS，深度優先搜尋)](http://alrightchiu.github.io/SecondRound/graph-depth-first-searchdfsshen-du-you-xian-sou-xun.html)。)  
-(關於**Topological Sort**與`DFS()`的關聯，請參考[Graph: 利用DFS尋找DAG的Topological Sort(拓撲排序)](http://alrightchiu.github.io/SecondRound/grpah-li-yong-dfsxun-zhao-dagde-topological-sorttuo-pu-pai-xu.html)。)  
+(關於**Topological Sort**與`DFS()`的關聯，請參考[Graph: 利用DFS尋找DAG的Topological Sort(拓撲排序)](http://alrightchiu.github.io/SecondRound/graph-li-yong-dfsxun-zhao-dagde-topological-sorttuo-pu-pai-xu.html)。)  
 </br>
 
 ```cpp
@@ -435,7 +435,7 @@ print distance:
 * [Introduction to Algorithms, Ch24](http://www.amazon.com/Introduction-Algorithms-Edition-Thomas-Cormen/dp/0262033844) 
 * [Fundamentals of Data Structures in C++, Ch6](http://www.amazon.com/Fundamentals-Data-Structures-Ellis-Horowitz/dp/0929306376)
 * [Graph: Depth-First Search(DFS，深度優先搜尋)](http://alrightchiu.github.io/SecondRound/graph-depth-first-searchdfsshen-du-you-xian-sou-xun.html)
-* [Graph: 利用DFS尋找DAG的Topological Sort(拓撲排序)](http://alrightchiu.github.io/SecondRound/grpah-li-yong-dfsxun-zhao-dagde-topological-sorttuo-pu-pai-xu.html)
+* [Graph: 利用DFS尋找DAG的Topological Sort(拓撲排序)](http://alrightchiu.github.io/SecondRound/graph-li-yong-dfsxun-zhao-dagde-topological-sorttuo-pu-pai-xu.html)
 
 
 <a name="series"></a>
