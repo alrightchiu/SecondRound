@@ -39,6 +39,9 @@ PLUGINS = ['render_math']
 
 # Static path
 STATIC_PATHS = ['fig']
+EXTRA_PATH_METADATA = {
+    'fig/favicon.ico': {'path': 'favicon.ico'}
+}
 # STATIC_PATHS = ['fig','extra/custom.css']	# 在 content/ 下建立 extra/custom.css
 # EXTRA_PATH_METADATA = {						# 這行我也看不懂, 但是有用
 #     'extra/custom.css': {'path': 'static/custom.css'},
