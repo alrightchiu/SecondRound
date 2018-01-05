@@ -37,6 +37,8 @@ PLUGIN_PATHS = ['pelican-plugins']
 # PLUGINS = ['better_codeblock_line_numbering', 'render_math']
 PLUGINS = ['render_math']
 
+FAVICON = 'favicon.ico'
+
 # Static path
 STATIC_PATHS = ['fig']
 EXTRA_PATH_METADATA = {
