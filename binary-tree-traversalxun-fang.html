@@ -598,7 +598,7 @@
 <p><strong>Predecessor</strong>：某一CurrentNode的「前一個順序的node」之位置有兩種可能：</p>
 <p><strong>第一種</strong>：若CurrentNode的left child不是NULL，則CurrentNode之前一個順序的node即為以「Current-&gt;lefttchild為root」之subtree中，最右的node。  </p>
 <ul>
-<li>如圖五(b)所示，若CurrentNode站在C上，C的前一個node即為「以C的right child(也就是F)」為root之subtree中的最右node，即為I。</li>
+<li>如圖五(b)所示，若CurrentNode站在C上，C的前一個node即為「以C的left child(也就是F)」為root之subtree中的最右node，即為I。</li>
 </ul>
 <p><strong>第二種</strong>：若CurrentNode沒有left child，則CurrentNode之前一個順序的node是「以right child的身份尋找到的ancestor」。  </p>
 <ul>
