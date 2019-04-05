@@ -21,8 +21,8 @@ Summary: 介紹用來分析Complexity(複雜度)的Asymptotic Notation(漸進符
     * [$\Theta-$Notation，Big-Theta](#tight)
     * [$O-$Notation，Big-O](#bo)
     * [$\Omega-$Notation，Big-Omega](#bw)
-    * [$o-$Notation，Littel-o](#so)
-    * [$\omega-$Notation，Littel-omega](#sw)
+    * [$o-$Notation，Little-o](#so)
+    * [$\omega-$Notation，Little-omega](#sw)
 * [參考資料](#ref)
 * [Complexity系列文章](#series)
 
@@ -215,29 +215,29 @@ $$
 
 
 </br>  
-以上介紹的**Big-O($O(·)$)**與**Big-Omega($\Omega(·)$)**是夾得「比較緊的(tight)」上界和下界，接下來還有兩個符號：**Littel-o($o(·)$)**與**Littel-omega($\omega(·)$)**，表示「沒有那麼緊的」上下界。
+以上介紹的**Big-O($O(·)$)**與**Big-Omega($\Omega(·)$)**是夾得「比較緊的(tight)」上界和下界，接下來還有兩個符號：**Little-o($o(·)$)**與**Little-omega($\omega(·)$)**，表示「沒有那麼緊的」上下界。
 
 
 </br>
 
 <a name="so"></a>
 
-###$o-$Notation，Littel-o
+###$o-$Notation，Little-o
 
-**Littel-o($o(·)$)**的定義如下：
+**Little-o($o(·)$)**的定義如下：
 
 $$
 o(g(n))=\{\,f(n)：對於所有正整數\:c,存在正整數\:n_0\,,使得對於所有n\geq n_0,\, 0\leq f(n) \leq cg(n)\:\}
 $$
 
-怎麼說**Littel-o($o(·)$)**比較「不緊」呢？因為定義中是「對於所有正整數$c$」，因此$f(n)=o(g(n))$務必要求$g(n)$的「成長率」遠遠大於$f(n)$，等同於滿足以下極限關係式：
+怎麼說**Little-o($o(·)$)**比較「不緊」呢？因為定義中是「對於所有正整數$c$」，因此$f(n)=o(g(n))$務必要求$g(n)$的「成長率」遠遠大於$f(n)$，等同於滿足以下極限關係式：
 
 $$
 \lim_{n->\infty}\frac{f(n)}{g(n)}=0
 $$
 
 
-比較**Big-O($O(·)$)**與**Littel-o($o(·)$)**：
+比較**Big-O($O(·)$)**與**Little-o($o(·)$)**：
 
 * $2n=o(n^{2})$
 * $2n=O(n)$
@@ -250,9 +250,9 @@ $$
 
 <a name="sw"></a>
 
-###$\omega-$Notation，Littel-omega
+###$\omega-$Notation，Little-omega
 
-**Littel-omega($\omega(·)$)**的定義如下：
+**Little-omega($\omega(·)$)**的定義如下：
 
 $$
 \omega(g(n))=\{\,f(n)：對於所有正整數\:c,存在正整數\:n_0\,,使得對於所有n\geq n_0,\, 0\leq  cg(n) \leq f(n)\:\}
@@ -264,7 +264,7 @@ $$
 \lim_{n->\infty}\frac{f(n)}{g(n)}=\infty
 $$
 
-比較**Big-Omega($\Omega(·)$)**與**Littel-omega($\omega(·)$)**：
+比較**Big-Omega($\Omega(·)$)**與**Little-omega($\omega(·)$)**：
 
 * $4n^{2}=\omega(n)$
 * $4n^{2}=\omega(\log{n})$
