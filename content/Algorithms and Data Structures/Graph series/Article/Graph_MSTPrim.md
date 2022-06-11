@@ -99,7 +99,7 @@ Summary: 介紹於Graph中，利用Prim's Algorithm求得Minimum Spanning Tree(M
 
 * `key[1]=weight(2,1)=10`，`predecessor[1]=2`；
 * `key[3]=weight(2,3)=5`，`predecessor[3]=2`；
-* `key[6]=weight(2,6)=3`，`predecessor[6]=2`。
+* `key[6]=weight(2,6)=8`，`predecessor[6]=2`。
 
 
 
