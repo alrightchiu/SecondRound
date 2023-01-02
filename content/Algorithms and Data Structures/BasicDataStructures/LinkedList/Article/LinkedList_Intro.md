@@ -207,6 +207,7 @@ Array(矩陣)也是常見的用來記錄一連串「具有相同形態的資料�
 * [語言技術：C++ Gossip：new 運算子與 delete 運算子](http://openhome.cc/Gossip/CppGossip/newDelete.html)
 * [Wikipedia：Doubly linked list](https://en.wikipedia.org/wiki/Doubly_linked_list)
 * [Tutorials Point：Data Structure - Circular Linked List](http://www.tutorialspoint.com/data_structures_algorithms/circular_linked_list_algorithm.htm)
+* [Scaler Topics: Data Structures in C++](https://www.scaler.com/topics/data-structures-in-cpp/)
 
 
 
